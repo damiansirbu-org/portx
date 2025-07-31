@@ -138,7 +138,12 @@ C:\App\Git\                    # Can be placed anywhere
    - Industry-leading tools: Rust utilities (ripgrep, bat, delta), Go tools (lazygit, lazydocker), and more
    - But WITHOUT any DLL dependencies - everything runs as Windows-native executables
 
-4. **Tool Integration**: Additional tools in `bin-ext` and `bin-tools` are automatically available in PATH
+4. **Intelligent Tool Discovery**: Advanced PATH management with smart scanning
+   - **Dynamic executable counting**: Real-time counts displayed as `TOOLS(122+45+118)`
+   - **Scoped directory scanning**: Only searches within PORTX structure (prevents Cygwin64 pollution)
+   - **Smart filtering**: Excludes temp, cache, uninstall, and setup-only directories
+   - **Performance caching**: Daily cache regeneration with configurable scan depth
+   - **Minimum executable threshold**: Only adds directories with sufficient tool density
 
 ## 🛠️ Tool Ecosystem
 
@@ -260,7 +265,7 @@ Enhanced versions of Unix utilities:
 ### 1. Environment Status
 On startup, you'll see:
 ```
-✅ PORTX(MSYS2-MINGW64/xterm-256color) ✅ TOOLS ✅ SSH(user@example.com)
+✅ PORTX(MSYS2-MINGW64/xterm-256color) ✅ TOOLS(122+45+118) ✅ SSH(user@example.com)
 /c/Work/Projects [main]
 $
 ```
@@ -276,7 +281,10 @@ Visual status indicators show system health at a glance:
 - **✅** Green checkmark = Component working properly
 - **🛑** Red stop sign = Component has issues
 - **PORTX**: Environment security and compatibility
-- **TOOLS**: PATH loading and tool availability (50+ directories)
+- **TOOLS**: Dynamic PATH loading with real-time executable counts (e.g., `TOOLS(122+45+118)`)
+  - Shows core MinGW tools + bin-ext tools + bin-tools discoveries
+  - Smart directory scanning with configurable depth and filtering
+  - Cached for performance with automatic daily regeneration
 - **SSH**: Agent status and loaded keys
 
 ### 4. SSH Agent Management
