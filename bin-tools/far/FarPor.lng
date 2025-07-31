@@ -1,0 +1,5567 @@
+﻿.Language=Portuguese,Português
+
+// Version: 3.0.6446.0 x86
+
+//[MYes]
+"Sim"
+//[MNo]
+"Não"
+//[MOk]
+"OK"
+
+//[MHYes]
+"&Sim"
+//[MHNo]
+"&Não"
+//[MHOk]
+"&OK"
+
+//[MCancel]
+"Cancelar"
+// need translation:
+//[MReset]
+"&Reset"
+//[MRetry]
+"Repetir"
+//[MSkip]
+"Pular"
+//[MAbort]
+"Apagar"
+// need translation:
+//[MIgnore]
+"Ignore"
+//[MDelete]
+"Dividir"
+
+//[MHCancel]
+"&Cancelar"
+//[MHRetry]
+"&Repetir"
+//[MHSkip]
+"&Pular"
+// need translation:
+//[MHSkipAll]
+"S&kip all"
+//[MHAbort]
+"&Apagar"
+// need translation:
+//[MHIgnore]
+"&Ignore"
+//[MHDelete]
+"&Dividir"
+// need translation:
+//[MHRemove]
+"R&emove"
+// need translation:
+//[MHSplit]
+"Sp&lit"
+
+//[MWarning]
+"Alerta"
+//[MError]
+"Erro"
+
+//[MQuit]
+"Sair"
+//[MAskQuit]
+"Deseja sair do Far?"
+
+// Panels: functional keys
+//[MF1]
+"Ajuda"
+//[MF2]
+"Menu"
+//[MF3]
+"Ver"
+//[MF4]
+"Editar"
+//[MF5]
+"Copiar"
+// need translation:
+//[MF6]
+"RenMov"
+//[MF7]
+"CrDir."
+//[MF8]
+"Apaga"
+//[MF9]
+"Menu"
+//[MF10]
+"Sair"
+// need translation:
+//[MF11]
+"Plugin"
+//[MF12]
+"Tela"
+
+//[MShiftF1]
+"Adic."
+//[MShiftF2]
+"Desc."
+// need translation:
+//[MShiftF3]
+"ArcCmd"
+//[MShiftF4]
+"Editar"
+//[MShiftF5]
+"Copiar"
+//[MShiftF6]
+"Renom."
+//[MShiftF7]
+""
+//[MShiftF8]
+"Apagar"
+//[MShiftF9]
+"Salvar"
+//[MShiftF10]
+"Ultimo"
+//[MShiftF11]
+"Grupo"
+//[MShiftF12]
+"SelAc"
+
+//[MAltF1]
+"Esq."
+//[MAltF2]
+"Dir."
+//[MAltF3]
+"Ver"
+//[MAltF4]
+"Editar"
+//[MAltF5]
+"Impr."
+//[MAltF6]
+"CrLink"
+//[MAltF7]
+"Local."
+//[MAltF8]
+"Histór"
+//[MAltF9]
+"Video"
+//[MAltF10]
+"Árvore"
+//[MAltF11]
+"VerHs"
+//[MAltF12]
+"Diret"
+
+//[MCtrlF1]
+"Esq."
+//[MCtrlF2]
+"Dir."
+//[MCtrlF3]
+"Nome"
+// need translation:
+//[MCtrlF4]
+"Extens"
+//[MCtrlF5]
+"Modif."
+//[MCtrlF6]
+"Tam."
+// need translation:
+//[MCtrlF7]
+"Unsort"
+//[MCtrlF8]
+"Data"
+//[MCtrlF9]
+"Acesso"
+// need translation:
+//[MCtrlF10]
+"Descr"
+//[MCtrlF11]
+"Dono"
+//[MCtrlF12]
+"Class."
+
+// Main AltShift
+//[MAltShiftF1]
+""
+//[MAltShiftF2]
+""
+//[MAltShiftF3]
+""
+//[MAltShiftF4]
+""
+//[MAltShiftF5]
+""
+//[MAltShiftF6]
+""
+//[MAltShiftF7]
+""
+//[MAltShiftF8]
+""
+// need translation:
+//[MAltShiftF9]
+"ConfPl"
+//[MAltShiftF10]
+""
+//[MAltShiftF11]
+""
+//[MAltShiftF12]
+""
+
+// Main CtrlShift
+//[MCtrlShiftF1]
+""
+//[MCtrlShiftF2]
+""
+// need translation:
+//[MCtrlShiftF3]
+"View"
+// need translation:
+//[MCtrlShiftF4]
+"Edit"
+//[MCtrlShiftF5]
+""
+//[MCtrlShiftF6]
+""
+//[MCtrlShiftF7]
+""
+//[MCtrlShiftF8]
+""
+//[MCtrlShiftF9]
+""
+//[MCtrlShiftF10]
+""
+//[MCtrlShiftF11]
+""
+//[MCtrlShiftF12]
+""
+
+// Main CtrlAlt
+//[MCtrlAltF1]
+""
+//[MCtrlAltF2]
+""
+//[MCtrlAltF3]
+""
+//[MCtrlAltF4]
+""
+//[MCtrlAltF5]
+""
+//[MCtrlAltF6]
+""
+//[MCtrlAltF7]
+""
+//[MCtrlAltF8]
+""
+//[MCtrlAltF9]
+""
+//[MCtrlAltF10]
+""
+//[MCtrlAltF11]
+""
+//[MCtrlAltF12]
+""
+
+// Main CtrlAltShift
+//[MCtrlAltShiftF1]
+""
+//[MCtrlAltShiftF2]
+""
+//[MCtrlAltShiftF3]
+""
+//[MCtrlAltShiftF4]
+""
+//[MCtrlAltShiftF5]
+""
+//[MCtrlAltShiftF6]
+""
+//[MCtrlAltShiftF7]
+""
+//[MCtrlAltShiftF8]
+""
+//[MCtrlAltShiftF9]
+""
+//[MCtrlAltShiftF10]
+""
+//[MCtrlAltShiftF11]
+""
+// Panels: end of functional keys
+//[MCtrlAltShiftF12]
+""
+
+//[MHistoryTitle]
+"Histórico"
+// need translation:
+//[MHistoryInfoTitle]
+"Information"
+// need translation:
+//[MHistoryInfoFolder]
+"Folder:"
+//[MFolderHistoryTitle]
+"Histórico de diretórios"
+//[MViewHistoryTitle]
+"Histórico da visual. arquivos"
+// need translation:
+//[MViewHistoryIsCreate]
+"Create the file?"
+//[MHistoryView]
+"Ver"
+//[MHistoryEdit]
+"Editar"
+// need translation:
+//[MHistoryExt]
+"Ext."
+
+// need translation:
+//[MHistoryClear]
+"All records in the history will be deleted. Continue?"
+// need translation:
+//[MClear]
+"&Clear history"
+
+//[MConfigSystemTitle]
+"Configurações do sistema"
+//[MConfigRecycleBin]
+"&Apagar para a lixeira"
+//[MConfigSystemCopy]
+"&Usar rotina de cópia do sistema"
+//[MConfigCopySharing]
+"Copiar arquivos abertos para &gravação"
+// need translation:
+//[MConfigScanJunction]
+"Scan s&ymbolic links"
+// need translation:
+//[MConfigSmartFolderMonitor]
+"&Update panels only when Far is active"
+//[MConfigSaveHistory]
+"Salvar &histórico de comandos"
+//[MConfigSaveFoldersHistory]
+"Salvar histórico de &diretórios"
+//[MConfigSaveViewHistory]
+"Salvar histórico de edição e &visualização"
+//[MConfigRegisteredTypes]
+"Usar tipos &registrados do Windows"
+// need translation:
+//[MConfigUpdateEnvironment]
+"Automatic update of &environment variables"
+// need translation:
+//[MConfigElevation]
+"Request administrator rights:"
+// need translation:
+//[MConfigElevationModify]
+"For &modification"
+// need translation:
+//[MConfigElevationRead]
+"For &reading"
+// need translation:
+//[MConfigElevationUsePrivileges]
+"Use additional &privileges"
+// need translation:
+//[MConfigSortingCollation]
+"Sorti&ng collation:"
+// need translation:
+//[MConfigSortingOrdinal]
+"ordinal"
+// need translation:
+//[MConfigSortingInvariant]
+"invariant"
+// need translation:
+//[MConfigSortingLinguistic]
+"linguistic"
+// need translation:
+//[MConfigSortingDigitsAsNumbers]
+"Treat digits &as numbers"
+// need translation:
+//[MConfigSortingCase]
+"&Case sensitive"
+//[MConfigAutoSave]
+"&Salvar a configuração automaticamente"
+
+// need translation:
+//[MConfigTreeTitle]
+"Tree settings"
+//[MConfigTreeAutoChange]
+"&Alterar automaticamente para o diretório"
+// need translation:
+//[MConfigTreeLabelMinFolder]
+"&Minimum number of folders:"
+// need translation:
+//[MConfigTreeLabel1]
+"Store a file with folder structure for:"
+// need translation:
+//[MConfigTreeLabelLocalDisk]
+"local drives"
+// need translation:
+//[MConfigTreeLabelNetDisk]
+"network drives"
+// need translation:
+//[MConfigTreeLabelNetPath]
+"network paths"
+// need translation:
+//[MConfigTreeLabelRemovableDisk]
+"removable drives"
+// need translation:
+//[MConfigTreeLabelCDDisk]
+"optical drives"
+// need translation:
+//[MConfigTreeLabelExceptPath]
+"Don't create the file for following drives and paths:"
+// need translation:
+//[MConfigTreeLabelSaveLocalPath]
+"Path for local, removale and optical drives:"
+// need translation:
+//[MConfigTreeLabelSaveNetPath]
+"Path for network drives and paths:"
+
+//[MConfigPanelTitle]
+"Configurações do Painel"
+//[MConfigHidden]
+"Mostrar arquivos &ocultos e de sistema"
+//[MConfigHighlight]
+"&Destacar arquivos"
+//[MConfigSelectFolders]
+"Selecionar di&retórios"
+// need translation:
+//[MConfigRightClickSelect]
+"Right clic&k selects files"
+// need translation:
+//[MConfigSortFolderExt]
+"Sort folder names by e&xtension"
+//[MConfigAllowReverseSort]
+"Inverter c&lassificação"
+// need translation:
+//[MConfigAutoUpdateLimit]
+"&Disable automatic panel update"
+// need translation:
+//[MConfigAutoUpdateLimit2]
+"if ob&ject count exceeds"
+// need translation:
+//[MConfigAutoUpdateRemoteDrive]
+"Network drives autor&efresh"
+//[MConfigShowColumns]
+"Mostrar titulos das &colunas"
+//[MConfigShowStatus]
+"Mostrar linha de &status"
+// need translation:
+//[MConfigDetailedJunction]
+"Detect volume mount &points"
+//[MConfigShowTotal]
+"Mostrar &informações totais dos arquivos"
+//[MConfigShowFree]
+"Mostrar espaço li&vre"
+//[MConfigShowScrollbar]
+"Mostrar &barra de rolagem"
+//[MConfigShowScreensNumber]
+"Mostrar &número de telas em segundo plano"
+//[MConfigShowSortMode]
+"Mostrar letra do modo de classi&ficação"
+// need translation:
+//[MConfigShowDotsInRoot]
+"Show \"&..\" in root folders"
+
+//[MConfigInterfaceTitle]
+"Configurações da Interface"
+//[MConfigClock]
+"&Relógio"
+//[MConfigMouse]
+"&Mouse"
+//[MConfigKeyBar]
+"Mostrar barra de &botões"
+//[MConfigMenuBar]
+"&Sempre motrar barra de menu"
+//[MConfigSaver]
+"&Proteção de tela"
+//[MConfigSaverMinutes]
+"minutos"
+//[MConfigCopyTotal]
+"Mostrar &indic. de progresso total da cópia"
+// need translation:
+//[MConfigCopyTimeRule]
+"Show cop&ying time information"
+// need translation:
+//[MConfigDeleteTotal]
+"Show total &delete progress indicator"
+// need translation:
+//[MConfigPgUpChangeDisk]
+"Use Ctrl+Pg&Up to change drive"
+// need translation:
+//[MConfigUseVirtualTerminalForRendering]
+"Use &Virtual Terminal for rendering"
+// need translation:
+//[MConfigFullWidthAwareRendering]
+"Fullwidth-aware rendering"
+// need translation:
+//[MConfigFullWidthAwareRenderingGraphemeClustersDected1]
+"It appears that your terminal supports Unicode grapheme clusters."
+// need translation:
+//[MConfigFullWidthAwareRenderingGraphemeClustersDected2]
+"Unfortunately, Far does not support them yet."
+// need translation:
+//[MConfigFullWidthAwareRenderingGraphemeClustersDected3]
+"For best experience it is recommended to switch to codepoint-based rendering."
+// need translation:
+//[MConfigFullWidthAwareRenderingGraphemeClustersDected4]
+"Consult the documentation of your terminal for advice on how to do this."
+// need translation:
+//[MConfigClearType]
+"Cl&earType-friendly redraw (can be slow)"
+// need translation:
+//[MConfigSetConsoleIcon]
+"Console &icon:"
+// need translation:
+//[MConfigSetAdminConsoleIcon]
+"Alternate for &Administrator"
+// need translation:
+//[MConfigTitleAddons]
+"Far &window title addons:"
+
+// need translation:
+//[MConfigDlgSetsTitle]
+"Dialog settings"
+//[MConfigDialogsEditHistory]
+"&Histórico nos dial. de controle de edição"
+// need translation:
+//[MConfigDialogsEditBlock]
+"&Persistent blocks in edit controls"
+// need translation:
+//[MConfigDialogsDelRemovesBlocks]
+"&Del removes blocks in edit controls"
+// need translation:
+//[MConfigDialogsAutoComplete]
+"&AutoComplete in edit controls"
+// need translation:
+//[MConfigDialogsEULBsClear]
+"&Backspace deletes unchanged text"
+// need translation:
+//[MConfigDialogsMouseButton]
+"Mouse click &outside a dialog closes it"
+
+// need translation:
+//[MConfigVMenuTitle]
+"Menu settings"
+// need translation:
+//[MConfigVMenuLBtnClick]
+"&Left mouse click outside a menu"
+// need translation:
+//[MConfigVMenuRBtnClick]
+"&Right mouse click outside a menu"
+// need translation:
+//[MConfigVMenuMBtnClick]
+"&Middle mouse click outside a menu"
+// need translation:
+//[MConfigVMenuClickCancel]
+"Cancel menu"
+// need translation:
+//[MConfigVMenuClickApply]
+"Execute selected item"
+// need translation:
+//[MConfigVMenuClickIgnore]
+"Do nothing"
+
+// need translation:
+//[MConfigCmdlineTitle]
+"Command line settings"
+// need translation:
+//[MConfigCmdlineEditBlock]
+"&Persistent blocks"
+// need translation:
+//[MConfigCmdlineDelRemovesBlocks]
+"&Del removes blocks"
+// need translation:
+//[MConfigCmdlineAutoComplete]
+"&AutoComplete"
+//[MConfigCmdlineUsePromptFormat]
+"Ajustar o formato do &aviso de comando"
+// need translation:
+//[MConfigCmdlineUseHomeDir]
+"Use &home dir"
+// need translation:
+//[MConfigCmdlinePromptFormatAdmin]
+"Administrator"
+
+// need translation:
+//[MConfigAutoCompleteTitle]
+"AutoComplete settings"
+
+// need translation:
+//[MConfigAutoCompleteShowList]
+"&Show a list"
+
+// need translation:
+//[MConfigAutoCompleteModalList]
+"&Modal mode"
+
+// need translation:
+//[MConfigAutoCompleteAutoAppend]
+"&Append the first matched item"
+
+// need translation:
+//[MConfigInfoPanelTitle]
+"InfoPanel settings"
+// need translation:
+//[MConfigInfoPanelCNTitle]
+"Computer &name format"
+// need translation:
+//[MConfigInfoPanelCNPhysicalNetBIOS]
+"Physical NetBIOS"
+// need translation:
+//[MConfigInfoPanelCNPhysicalDnsHostname]
+"Physical DNS hostname"
+// need translation:
+//[MConfigInfoPanelCNPhysicalDnsDomain]
+"Physical DNS domain"
+// need translation:
+//[MConfigInfoPanelCNPhysicalDnsFullyQualified]
+"Physical DNS fully-qualified (FQDN)"
+//[MConfigInfoPanelCNNetBIOS]
+"NetBIOS"
+// need translation:
+//[MConfigInfoPanelCNDnsHostname]
+"DNS hostname"
+// need translation:
+//[MConfigInfoPanelCNDnsDomain]
+"DNS domain"
+// need translation:
+//[MConfigInfoPanelCNDnsFullyQualified]
+"DNS fully-qualified (FQDN)"
+// need translation:
+//[MConfigInfoPanelUNTitle]
+"&User name format"
+// need translation:
+//[MConfigInfoPanelUNLogon]
+"Logon name"
+// need translation:
+//[MConfigInfoPanelUNFullyQualifiedDN]
+"Fully Qualified Domain Name (FQDN)"
+// need translation:
+//[MConfigInfoPanelUNSamCompatible]
+"Sam Compatible"
+// need translation:
+//[MConfigInfoPanelUNDisplay]
+"Display Name"
+// need translation:
+//[MConfigInfoPanelUNUniqueId]
+"Unique Id"
+// need translation:
+//[MConfigInfoPanelUNCanonical]
+"Canonical Name"
+// need translation:
+//[MConfigInfoPanelUNUserPrincipal]
+"User Principial Name"
+// need translation:
+//[MConfigInfoPanelUNServicePrincipal]
+"Service Principal"
+// need translation:
+//[MConfigInfoPanelUNDnsDomain]
+"DNS domain"
+// need translation:
+//[MConfigInfoPanelUNGivenName]
+"Given name"
+// need translation:
+//[MConfigInfoPanelUNSurname]
+"Surname"
+// need translation:
+//[MConfigInfoPanelShowPowerStatus]
+"Show &power status"
+// need translation:
+//[MConfigInfoPanelShowCDInfo]
+"Show &CD drive parameters"
+
+// need translation:
+//[MMenuInfoShowModeTitle]
+"Show Info"
+// need translation:
+//[MMenuInfoShowModeDisk]
+"&Disk"
+// need translation:
+//[MMenuInfoShowModeMemory]
+"&Memory"
+// need translation:
+//[MMenuInfoShowModeDirDiz]
+"&Description"
+// need translation:
+//[MMenuInfoShowModePluginDiz]
+"Plu&gin panel"
+// need translation:
+//[MMenuInfoShowModePower]
+"&Power status"
+
+//[MViewConfigTitle]
+"Visualizador"
+//[MViewConfigExternalF3]
+"Uso Visualizador Externo para F3 instead of Alt+F3"
+//[MViewConfigExternalCommand]
+"&Comando de visualização:"
+//[MViewConfigInternal]
+"Visualizador Interno"
+//[MViewConfigSavePos]
+"&Salvar posição do arquivo"
+// need translation:
+//[MViewConfigSaveShortPos]
+"Save &bookmarks"
+// need translation:
+//[MViewConfigSaveCodepage]
+"Save file &code page"
+// need translation:
+//[MViewConfigSaveWrapMode]
+"Save w&rap mode"
+// need translation:
+//[MViewConfigSaveViewMode]
+"Save vi&ew mode"
+// need translation:
+//[MViewConfigDetectDumpMode]
+"Detect d&ump view mode"
+//[MViewAutoDetectCodePage]
+"&Auto-detectar code page"
+//[MViewConfigTabSize]
+"&Tamanho da tabulação"
+// need translation:
+//[MViewConfigScrollbar]
+"Show scro&llbar"
+// need translation:
+//[MViewConfigArrows]
+"Show scrolling arro&ws"
+// need translation:
+//[MViewConfigPersistentSelection]
+"&Persistent selection"
+// need translation:
+//[MViewConfigDefaultCodePage]
+"&Default code page:"
+// need translation:
+//[MViewConfigMaxLineSize]
+"&Maximum line width"
+// need translation:
+//[MViewConfigVisible0x00]
+"Visible '\\&0'"
+
+// need translation:
+//[MEditConfigTitle]
+"Editor"
+//[MEditConfigEditorF4]
+"Uso Editor Externo para F4 instead of Alt+F4"
+//[MEditConfigEditorCommand]
+"&Comando do Editor:"
+//[MEditConfigInternal]
+"Editor Interno"
+//[MEditConfigExpandTabsTitle]
+"Expandir &tabulações para espaços"
+
+// need translation:
+//[MEditConfigDoNotExpandTabs]
+"Do not expand tabs"
+//[MEditConfigExpandTabs]
+"Expand newly entered tabs to espaços"
+//[MEditConfigConvertAllTabsToSpaces]
+"Expand all tabs to espaços"
+//[MEditConfigPersistentBlocks]
+"&Blocos persistentes"
+
+//[MEditConfigDelRemovesBlocks]
+"&Del remove blocos"
+//[MEditConfigAutoIndent]
+"Auto &indentação"
+//[MEditConfigSavePos]
+"&Salvar posição do arquivo"
+// need translation:
+//[MEditConfigSaveShortPos]
+"Save &bookmarks"
+//[MEditCursorBeyondEnd]
+"Cursor além do &fim da linha"
+//[MEditAutoDetectCodePage]
+"&Auto-detectar code page"
+// need translation:
+//[MEditShareWrite]
+"Allow editing files ope&ned for writing"
+// need translation:
+//[MEditLockROFileModification]
+"Lock editing of read-only &files"
+// need translation:
+//[MEditWarningBeforeOpenROFile]
+"&Warn when opening read-only files"
+//[MEditConfigTabSize]
+"Ta&manho da tabulação"
+// need translation:
+//[MEditConfigScrollbar]
+"S&how scrollbar"
+// need translation:
+//[MEditShowWhiteSpace]
+"Sh&ow white space"
+// need translation:
+//[MEditConfigSelFound]
+"Se&lect found"
+// need translation:
+//[MEditConfigCursorAtEnd]
+"Cu&rsor at the end"
+// need translation:
+//[MEditConfigDefaultCodePage]
+"Default code pa&ge:"
+// need translation:
+//[MConfigEditor]
+"Configuration editor"
+
+//[MSaveSetupTitle]
+"Salvar configuração"
+//[MSaveSetupAsk1]
+"Deseja salvar"
+//[MSaveSetupAsk2]
+"configuração atual?"
+//[MSaveSetup]
+"Salvar"
+
+//[MCopyDlgTitle]
+"Copiar"
+//[MMoveDlgTitle]
+"Renomear/Mover"
+// need translation:
+//[MLinkDlgTitle]
+"Link"
+//[MCopySecurity]
+"Direitos de &acesso:"
+// need translation:
+//[MCopySecurityDefault]
+"Defau&lt"
+//[MCopySecurityCopy]
+"Copia"
+// need translation:
+//[MCopySecurityInherit]
+"&Inherit"
+// need translation:
+//[MCopyIfFileExist]
+"Already e&xisting files:"
+// need translation:
+//[MCopyAsk]
+"&Ask"
+// need translation:
+//[MCopyAskRO]
+"Also ask on &R/O files"
+// need translation:
+//[MCopyOnlyNewerFiles]
+"Only ne&wer file(s)"
+// need translation:
+//[MLinkType]
+"Link t&ype:"
+// need translation:
+//[MLinkTypeJunction]
+"directory &junction"
+// need translation:
+//[MLinkTypeHardlink]
+"&hard link"
+// need translation:
+//[MLinkTypeSymlink]
+"&symbolic link"
+// need translation:
+//[MLinkTypeSymlinkFile]
+"symbolic link (&file)"
+// need translation:
+//[MLinkTypeSymlinkDirectory]
+"symbolic link (fol&der)"
+// need translation:
+//[MCopyPreserveAllTimestamps]
+"Preserve all timestamps"
+// need translation:
+//[MCopySymLinkContents]
+"Cop&y contents of symbolic links"
+// need translation:
+//[MCopyMultiActions]
+"Process &multiple destinations"
+//[MCopyDlgCopy]
+"&Copia"
+//[MCopyDlgTree]
+"&F10-Arvore"
+//[MCopyDlgCancel]
+"Ca&ncelar"
+//[MCopyDlgRename]
+"&Renomear"
+//[MCopyDlgLink]
+"&Link"
+// need translation:
+//[MCopyDlgTotal]
+"Total"
+// need translation:
+//[MCopyPrepareSecury]
+"Applying access rights…"
+// need translation:
+//[MCopyUseFilter]
+"&Use filter"
+// need translation:
+//[MCopySetFilter]
+"Filt&er"
+
+//[MCopyFile]
+"Copiando {0} {1}:"
+//[MMoveFile]
+"Renomeando ou movendo {0} {1}:"
+//[MLinkFile]
+"Ligando {0} {1}:"
+//[MCopyFiles]
+"Copiando {0} item{1} {2}:"
+//[MMoveFiles]
+"Renomeando ou movendo arquivos {0} item{1} {2}:"
+//[MLinkFiles]
+"Ligando {0} item{1} {2}:"
+// need translation:
+//[MCMLTargetTO]
+"t&o"
+// need translation:
+//[MCMLTargetIN]
+"&in"
+//[MCMLItems0]
+""
+//[MCMLItemsA]
+"s"
+//[MCMLItemsS]
+"s"
+
+// need translation:
+//[MCopyIncorrectTargetList]
+"Incorrect target list"
+
+//[MCopyCopyingTitle]
+"Copiando"
+//[MCopyMovingTitle]
+"Movendo"
+
+//[MCopyCannotFind]
+"Não foi possivel encontrar o arquivo"
+
+//[MCannotCopyFolderToItself1]
+"Não foi possivel copiar o diretório"
+//[MCannotCopyFolderToItself2]
+"nele mesmo"
+
+//[MCopyCannotCreateFolder]
+"Não foi possivel criar o diretório"
+//[MCopyCannotRenameFolder]
+"Não foi possivel rename o diretório"
+// need translation:
+//[MCopyIgnore]
+"&Ignore"
+// need translation:
+//[MCopyIgnoreAll]
+"Ignore &All"
+//[MCopyRetry]
+"&Repetir"
+//[MCopySkip]
+"&Pular"
+//[MCopySkipAll]
+"P&ular todos"
+//[MCopyCancel]
+"&Cancelar"
+// need translation:
+//[MCopyDecrypt]
+"&Decrypt"
+// need translation:
+//[MCopyDecryptAll]
+"Decrypt &all"
+
+// need translation:
+//[MCopyCannotCreateLink]
+"Cannot create the link"
+// need translation:
+//[MCopyFolderNotEmpty]
+"Target folder must be empty"
+// need translation:
+//[MCopyCannotCreateJunctionToFile]
+"Cannot create junction. The file already exists:"
+
+// need translation:
+//[MCopyCannotCreateVolMount]
+"Volume mount points error"
+// need translation:
+//[MCopyMountVolFailed]
+"Attempt to volume mount '{0}'"
+// need translation:
+//[MCopyMountVolFailed2]
+"at '{0}' failed"
+// need translation:
+//[MCopyMountName]
+"Disk_"
+
+//[MCannotCopyFileToItself1]
+"Não foi possivel copiar o arquivo"
+//[MCannotCopyFileToItself2]
+"nele mesmo"
+
+// need translation:
+//[MCopyStream1]
+"The source file contains more than one data stream,"
+// need translation:
+//[MCopyStream2]
+"but you're not using the system copy routine."
+// need translation:
+//[MCopyStream3]
+"but the destination volume does not support this feature."
+// need translation:
+//[MCopyStream4]
+"Some data will not be preserved."
+
+// need translation:
+//[MCopyDirectoryOrFile]
+"Does it specify a folder name or file name?"
+// need translation:
+//[MCopyDirectoryOrFileDirectory]
+"Folder"
+// need translation:
+//[MCopyDirectoryOrFileFile]
+"File"
+
+//[MCopyFileExist]
+"O arquivo já existe"
+//[MCopySource]
+"Origem"
+//[MCopyDest]
+"Destino"
+//[MCopyOverwrite]
+"&Substituir"
+//[MCopyAppend]
+"&Acrescentar"
+// need translation:
+//[MCopyRename]
+"R&ename"
+// need translation:
+//[MCopyRememberChoice]
+"&Remember choice"
+// need translation:
+//[MCopyRenameTitle]
+"Rename"
+// need translation:
+//[MCopyRenameText]
+"&New name:"
+
+//[MCopyFileRO]
+"O arquivo é somente para leitura"
+//[MCopyAskDelete]
+"Deseja apaga-lo?"
+//[MCopyDeleteRO]
+"&Apagar"
+//[MCopyDeleteAllRO]
+"&Todos"
+
+//[MCannotCopy]
+"Não foi possivel copiar"
+//[MCannotMove]
+"Não foi possivel mover"
+//[MCannotLink]
+"Não foi possivel ligar"
+//[MCannotCopyTo]
+"para"
+// need translation:
+//[MCopyEncryptWarn1]
+"The file"
+// need translation:
+//[MCopyEncryptWarn2]
+"cannot be copied or moved without losing its encryption."
+
+//[MCopyReadError]
+"Não foi possivel ler os dados de"
+//[MCopyWriteError]
+"Não foi possivel gravar os dados para"
+// need translation:
+//[MCopyCannotReserveSpace]
+"Error reserving disk space"
+
+//[MCopyFilesTotalInfo]
+"Arquivos:"
+// need translation:
+//[MCopyBytesTotalInfo]
+"Bytes:"
+//[MCopyMoving]
+"Movendo o arquivo"
+//[MCopyCopying]
+"Copiando o arquivo"
+//[MCopyTo]
+"para"
+
+//[MDeleteTitle]
+"Apagar"
+//[MAskDelete]
+"Deseja apagar {0}?"
+//[MAskDeleteRecycle]
+"Deseja apagar o diretório para a lixeira"
+//[MDeleteWipeTitle]
+"Limpar"
+//[MAskWipe]
+"Deseja limpar {0}?"
+//[MAskDeleteFolder]
+"o diretório"
+//[MAskDeleteFile]
+"o arquivo"
+// need translation:
+//[MAskDeleteObjects]
+"the objects"
+// need translation:
+//[MAskDeleteLink]
+"a link to"
+// need translation:
+//[MAskDeleteAndMore]
+"…and {0} more"
+
+//[MDeleteFolderTitle]
+"Apagar diretório"
+//[MWipeFolderTitle]
+"Limpar diretório"
+//[MDeleteFilesTitle]
+"Apagar arquivos"
+//[MWipeFilesTitle]
+"Limpar arquivos"
+//[MDeleteFolderConfirm]
+"O seguinte diretório será apagado:"
+// need translation:
+//[MWipeFolderConfirm]
+"The following folder will be wiped:"
+// need translation:
+//[MRecycleFolderConfirm]
+"The following folder will be moved to the Recycle Bin:"
+// need translation:
+//[MRecycleFolderConfirmDeleteLink1]
+"Folder contains symbolic links."
+// need translation:
+//[MRecycleFolderConfirmDeleteLink2]
+"To prevent the loss of their content when clearing Recyle Bin"
+// need translation:
+//[MRecycleFolderConfirmDeleteLink3]
+"those links will be broken now."
+// need translation:
+//[MRecycleFolderConfirmDeleteLink4]
+"It would be impossible to restore them later."
+//[MDeleteWipe]
+"Limpar"
+// need translation:
+//[MDeleteRecycle]
+"Move"
+//[MDeleteFileDelete]
+"&Apagar"
+//[MDeleteFileWipe]
+"&Limpar"
+//[MDeleteFileAll]
+"&Todos"
+//[MDeleteFileSkip]
+"&Pular"
+//[MDeleteFileSkipAll]
+"P&ular todos"
+//[MDeleteFileCancel]
+"&Cancelar"
+
+//[MDeletingTitle]
+"Apagando"
+
+//[MDeleting]
+"Apagando o arquivo ou diretório"
+// need translation:
+//[MDeletingWiping]
+"Wiping the file or folder"
+
+//[MDeleteRO]
+"O arquivo é somente para leitura"
+//[MAskDeleteRO]
+"Deseja apaga-lo?"
+// need translation:
+//[MAskWipeRO]
+"Do you wish to wipe it?"
+
+// need translation:
+//[MDeleteHardLink1]
+"Several hard links link to this file."
+// need translation:
+//[MDeleteHardLink2]
+"Wiping this file will void all files linking to it."
+// need translation:
+//[MDeleteHardLink3]
+"Do you wish to wipe this file?"
+
+//[MCannotDeleteFile]
+"Não foi possível apagar o arquivo"
+//[MCannotDeleteFolder]
+"Não foi possível apagar o diretório"
+// need translation:
+//[MDeleteRetry]
+"&Retry"
+//[MDeleteSkip]
+"&Pular"
+//[MDeleteSkipAll]
+"P&ular todos"
+//[MDeleteCancel]
+"&Cancelar"
+// need translation:
+//[MCannotRecycleFile]
+"Cannot move file to the Recycle Bin"
+// need translation:
+//[MCannotRecycleFolder]
+"Cannot move folder to the Recycle Bin"
+// need translation:
+//[MTryToDeletePermanently]
+"Try to delete it permanently?"
+
+//[MCannotGetSecurity]
+"Não foi possivel obter os direitos de acesso do arquivo para"
+//[MCannotSetSecurity]
+"Não foi possivel definir direitos de acesso do arquivo para"
+
+//[MSearchReplaceSearchTitle]
+"Procurar"
+
+//[MSearchReplaceReplaceTitle]
+"Substituir"
+//[MSearchReplaceText]
+"&Texto"
+//[MSearchReplaceHex]
+"&Hex"
+// need translation:
+//[MSearchReplacePickWord]
+"W&ord"
+// need translation:
+//[MSearchReplacePickSelection]
+"Se&lection"
+//[MSearchReplaceSearchFor]
+"&Procurar por"
+//[MSearchReplaceReplaceWith]
+"Substituir &por"
+//[MSearchReplaceCase]
+"&Distinguir maiúsc./minúsc."
+// need translation:
+//[MSearchReplaceWholeWords]
+"&Whole words"
+// need translation:
+//[MSearchReplaceFuzzy]
+"Fu&zzy search"
+// need translation:
+//[MSearchReplaceRegexp]
+"R&egular expressions"
+// need translation:
+//[MSearchReplacePreserveStyle]
+"&Preserve style"
+//[MSearchReplaceFind]
+"Procura"
+//[MSearchReplaceFindNext]
+"Procura proxima"
+//[MSearchReplaceFindPrev]
+"Procura &inversa"
+//[MSearchReplaceReplace]
+"Substituir"
+//[MSearchReplaceReplaceNext]
+"Substituir next"
+//[MSearchReplaceReplacePrev]
+"Substituir pre&vious"
+//[MSearchReplaceAll]
+"&Todos"
+//[MSearchReplaceCancel]
+"Cancelar"
+
+// need translation:
+//[MEditTitle]
+"Editor"
+//[MAskReload]
+"já carregado. Carregar novamente?"
+//[MCurrent]
+"Mostrar o &atual"
+//[MReload]
+"&Recarregar"
+// need translation:
+//[MNewOpen]
+"&New instance"
+//[MEditCannotOpen]
+"Não foi possivel abrir o arquivo"
+//[MEditReading]
+"Lendo o arquivo {0}"
+//[MEditAskSave]
+"O arquivo foi modificado. Salvar?"
+//[MEditAskSaveExt]
+"The file was changed by an external program. Salvar?"
+// need translation:
+//[MEditBtnSaveAs]
+"Save &as…"
+
+//[MEditRO]
+"arquivo somente para leitura"
+//[MEditExists]
+"já existe"
+//[MEditOvr]
+"Deseja substitui-lo?"
+//[MEditSaving]
+"Salvando o arquivo {0}"
+// Up to 3 characters
+//[MEditStatusLine]
+"Linha"
+// Up to 3 characters
+//[MEditStatusCol]
+"Col"
+// Up to 2 characters
+// need translation:
+//[MEditStatusChar]
+"Ch"
+
+// need translation:
+//[MEditRSH]
+"is a read-only file"
+// need translation:
+//[MEditFileGetSizeError]
+"File size could not be determined."
+// need translation:
+//[MEditFileLong]
+"has the size of {0},"
+// need translation:
+//[MEditFileLong2]
+"which exceeds the configured maximum size of {0}."
+// need translation:
+//[MEditROOpen]
+"Do you wish to edit it?"
+
+// need translation:
+//[MEditCanNotEditDirectory]
+"It is impossible to edit the folder"
+
+//[MEditSearchingFor]
+"Procurando por {0}"
+// need translation:
+//[MEditSearchStatistics]
+"Occurrences: {0}, lines: {1}"
+//[MEditNotFound]
+"Não foi possivel encontrar a string"
+
+//[MEditAskReplace]
+"Substituir"
+//[MEditAskReplaceWith]
+"por"
+//[MEditReplace]
+"&Substituir"
+//[MEditReplaceAll]
+"&Todos"
+//[MEditSkip]
+"&Pular"
+// need translation:
+//[MEditCancel]
+"&Cancel"
+// need translation:
+//[MEditOpenCreateLabel]
+"&Open/create file:"
+// need translation:
+//[MEditOpenAutoDetect]
+"Automatic detection"
+// need translation:
+//[MDefaultCP]
+"Default"
+
+//[MGoTo]
+"Ir para"
+// need translation:
+//[MGoToHex]
+"&Hex value"
+
+//[MFolderShortcutsTitle]
+"Atalhos do Diretório"
+//[MShortcutNone]
+"<nenhum>"
+// need translation:
+//[MShortcutPlugin]
+"<plugin>"
+// need translation:
+//[MFSShortcutName]
+"Title:"
+// need translation:
+//[MFSShortcutPath]
+"Path:"
+// need translation:
+//[MFSShortcutPluginFile]
+"File:"
+// need translation:
+//[MFSShortcutPluginData]
+"Data:"
+// need translation:
+//[MNeedNearPath]
+"Jump to the nearest existing folder?"
+// need translation:
+//[MSaveThisShortcut]
+"Save this shortcut?"
+
+// Editor: functional keys
+//[MEditF1]
+"Ajuda"
+//[MEditF2]
+"Salvar"
+//[MEditF3]
+""
+// need translation:
+//[MEditF4]
+"Quit"
+//[MEditF5]
+""
+//[MEditF6]
+"Ver"
+//[MEditF7]
+"Local."
+// need translation:
+//[MEditF8]
+"ANSI"
+//[MEditF9]
+""
+//[MEditF10]
+"Sair"
+// need translation:
+//[MEditF11]
+"Plugin"
+//[MEditF12]
+"Tela"
+
+// Editor: Shift
+//[MEditShiftF1]
+""
+//[MEditShiftF2]
+"SalvC"
+//[MEditShiftF3]
+""
+// need translation:
+//[MEditShiftF4]
+"Edit…"
+//[MEditShiftF5]
+""
+//[MEditShiftF6]
+""
+//[MEditShiftF7]
+"Próx."
+// need translation:
+//[MEditShiftF8]
+"CodePg"
+//[MEditShiftF9]
+""
+//[MEditShiftF10]
+"SalvS"
+//[MEditShiftF11]
+""
+//[MEditShiftF12]
+""
+
+// Editor: Alt
+//[MEditAltF1]
+""
+//[MEditAltF2]
+""
+//[MEditAltF3]
+""
+//[MEditAltF4]
+""
+//[MEditAltF5]
+""
+//[MEditAltF6]
+""
+// need translation:
+//[MEditAltF7]
+"Prev"
+// need translation:
+//[MEditAltF8]
+"Goto"
+//[MEditAltF9]
+"Video"
+//[MEditAltF10]
+""
+// need translation:
+//[MEditAltF11]
+"ViewHs"
+//[MEditAltF12]
+""
+
+// Editor: Ctrl
+//[MEditCtrlF1]
+""
+//[MEditCtrlF2]
+""
+//[MEditCtrlF3]
+""
+//[MEditCtrlF4]
+""
+//[MEditCtrlF5]
+""
+//[MEditCtrlF6]
+""
+//[MEditCtrlF7]
+"Subst."
+//[MEditCtrlF8]
+""
+//[MEditCtrlF9]
+""
+// need translation:
+//[MEditCtrlF10]
+"GoFile"
+//[MEditCtrlF11]
+""
+//[MEditCtrlF12]
+""
+
+// Editor: AltShift
+//[MEditAltShiftF1]
+""
+//[MEditAltShiftF2]
+""
+//[MEditAltShiftF3]
+""
+//[MEditAltShiftF4]
+""
+//[MEditAltShiftF5]
+""
+//[MEditAltShiftF6]
+""
+//[MEditAltShiftF7]
+""
+//[MEditAltShiftF8]
+""
+// need translation:
+//[MEditAltShiftF9]
+"Config"
+//[MEditAltShiftF10]
+""
+//[MEditAltShiftF11]
+""
+//[MEditAltShiftF12]
+""
+
+// Editor: CtrlShift
+//[MEditCtrlShiftF1]
+""
+//[MEditCtrlShiftF2]
+""
+//[MEditCtrlShiftF3]
+""
+//[MEditCtrlShiftF4]
+""
+//[MEditCtrlShiftF5]
+""
+//[MEditCtrlShiftF6]
+""
+//[MEditCtrlShiftF7]
+""
+//[MEditCtrlShiftF8]
+""
+//[MEditCtrlShiftF9]
+""
+//[MEditCtrlShiftF10]
+""
+//[MEditCtrlShiftF11]
+""
+//[MEditCtrlShiftF12]
+""
+
+// Editor: CtrlAlt
+//[MEditCtrlAltF1]
+""
+//[MEditCtrlAltF2]
+""
+//[MEditCtrlAltF3]
+""
+//[MEditCtrlAltF4]
+""
+//[MEditCtrlAltF5]
+""
+//[MEditCtrlAltF6]
+""
+//[MEditCtrlAltF7]
+""
+//[MEditCtrlAltF8]
+""
+//[MEditCtrlAltF9]
+""
+//[MEditCtrlAltF10]
+""
+//[MEditCtrlAltF11]
+""
+//[MEditCtrlAltF12]
+""
+
+// Editor: CtrlAltShift
+//[MEditCtrlAltShiftF1]
+""
+//[MEditCtrlAltShiftF2]
+""
+//[MEditCtrlAltShiftF3]
+""
+//[MEditCtrlAltShiftF4]
+""
+//[MEditCtrlAltShiftF5]
+""
+//[MEditCtrlAltShiftF6]
+""
+//[MEditCtrlAltShiftF7]
+""
+//[MEditCtrlAltShiftF8]
+""
+//[MEditCtrlAltShiftF9]
+""
+//[MEditCtrlAltShiftF10]
+""
+//[MEditCtrlAltShiftF11]
+""
+//[MEditCtrlAltShiftF12]
+""
+// Editor: end of functional keys
+// This is another text for F8
+//[MEditF8DOS]
+"OEM"
+
+//[MEditSaveAs]
+"Salvar arquivo como"
+// need translation:
+//[MEditCodePage]
+"&Code page:"
+// need translation:
+//[MEditAddSignature]
+"Add &signature (BOM)"
+// need translation:
+//[MEditSaveAsFormatTitle]
+"Change line breaks to:"
+// need translation:
+//[MEditSaveOriginal]
+"Do n&ot change"
+// need translation:
+//[MEditSaveDOS]
+"&Dos/Windows format (CR LF)"
+// need translation:
+//[MEditSaveUnix]
+"&Unix format (LF)"
+// need translation:
+//[MEditSaveMac]
+"&Mac format (CR)"
+//[MEditCannotSave]
+"Não foi possivel salvar o arquivo"
+// need translation:
+//[MEditSavedChangedNonFile]
+"The file is changed but the file or the folder containing"
+// need translation:
+//[MEditSavedChangedNonFile1]
+"The file or the folder containing"
+// need translation:
+//[MEditSavedChangedNonFile2]
+"this file was moved or deleted. Save?"
+// need translation:
+//[MEditNewPath1]
+"The path to the edited file does not exist,"
+// need translation:
+//[MEditNewPath2]
+"but will be created when the file is saved."
+// need translation:
+//[MEditNewPath3]
+"Continue?"
+// need translation:
+//[MEditNewPlugin1]
+"The name of the file to edit cannot be empty"
+// need translation:
+//[MEditorLoadCPWarn1]
+"The file contains characters that cannot be"
+// need translation:
+//[MEditorLoadCPWarn2]
+"correctly read using the selected code page."
+// need translation:
+//[MEditorReloadCPWarnLost1]
+"The file has to be reloaded to change the code page."
+// need translation:
+//[MEditorReloadCPWarnLost2]
+"All unsaved changes will be lost."
+// need translation:
+//[MEditorSwitchCPConfirm]
+"Continue?"
+// need translation:
+//[MEditDataLostWarn]
+"During the file editing some data was lost."
+// need translation:
+//[MEditorSaveNotRecommended]
+"It is not recommended to save this file."
+// need translation:
+//[MEditorSave]
+"Save"
+// need translation:
+//[MEditorSaveCPWarnShow]
+"Show"
+// need translation:
+//[MEditorCPNotSupported]
+"Code page {0} is not supported in your system"
+
+//[MColumnName]
+"Nome"
+//[MColumnExtension]
+"Tamanho"
+//[MColumnSize]
+"Compactado"
+// need translation:
+//[MColumnAlocatedSize]
+"Allocated"
+//[MColumnDate]
+"Data"
+//[MColumnTime]
+"Hora"
+//[MColumnWrited]
+"Modificado"
+//[MColumnCreated]
+"Criado"
+//[MColumnAccessed]
+"Acessado"
+// need translation:
+//[MColumnChanged]
+"Change"
+//[MColumnAttr]
+"Attributo"
+//[MColumnDescription]
+"Descrição"
+//[MColumnOwner]
+"Dono"
+// need translation:
+//[MColumnMumLinks]
+"NmL"
+// need translation:
+//[MColumnNumStreams]
+"NmS"
+// need translation:
+//[MColumnStreamsSize]
+"StrmSz"
+//[MColumnUnknown]
+"???"
+
+//[MListUp]
+"Acima"
+//[MListFolder]
+"Diret"
+// need translation:
+//[MListSymlink]
+"Symlink"
+// need translation:
+//[MListJunction]
+"Junction"
+// need translation:
+//[MListVolMount]
+"Volume"
+// need translation:
+//[MListUnknownReparsePoint]
+"?Symlink?"
+//[MListBrackets]
+"<>"
+//[MListBytes]
+"B"
+//[MListKb]
+"K"
+//[MListMb]
+"M"
+//[MListGb]
+"G"
+//[MListTb]
+"T"
+//[MListPb]
+"P"
+//[MListEb]
+"E"
+// {3} replacement field can receive a sum of files & folders
+// need translation:
+//[MListFileSize]
+"Bytes: {0}, files: {1}, folders: {2}"
+//[MListFileSizeStatus]
+"{0} ({1}/{2}) {3} {4}"
+//[MListFreeSize]
+"{0} bytes livre"
+
+//[MDirInfoViewTitle]
+"Ver"
+//[MFileToEdit]
+"Editar o arquivo:"
+
+//[MUnselectTitle]
+"Desmarcar"
+//[MSelectTitle]
+"Selecionar"
+// need translation:
+//[MSelectFilter]
+"&Filter"
+
+//[MCompareTitle]
+"Comparar"
+//[MCompareFilePanelsRequired1]
+"Dois paneis de arquivos são necessários para fazer"
+//[MCompareFilePanelsRequired2]
+"o comando de comparação de diretórios"
+//[MCompareSameFolders1]
+"O conteúdo dos diretórios são"
+//[MCompareSameFolders2]
+"idêndicos"
+
+//[MSelectAssocTitle]
+"Selecionar associação"
+
+//[MAssocTitle]
+"Associações do arquivo"
+//[MAskDelAssoc]
+"Deseja apagar associações de"
+
+//[MFileAssocTitle]
+"Editar associações do arquivo"
+//[MFileAssocMasks]
+"&Máscara de arquivos ou várias máscaras separados por vírgula:"
+//[MFileAssocDescr]
+"&Descrição da associação:"
+//[MFileAssocExec]
+"E&xecutar comando (usado por Enter):"
+//[MFileAssocAltExec]
+"Executar comando (usado por Ctrl+PgDn):"
+//[MFileAssocView]
+"Comando de &visualização (usado por F3):"
+//[MFileAssocAltView]
+"Comando de &visualização (usado por Alt+F3):"
+//[MFileAssocEdit]
+"Comando de &edição (usado por F4):"
+//[MFileAssocAltEdit]
+"Comando de &edição (usado por Alt+F4):"
+
+// Viewer: functional keys
+//[MViewF1]
+"Ajuda"
+//[MViewF2]
+"Inv."
+//[MViewF3]
+"Sair"
+//[MViewF4]
+"Hex"
+//[MViewF5]
+""
+//[MViewF6]
+"Editar"
+//[MViewF7]
+"Local."
+//[MViewF8]
+"ANSI"
+//[MViewF9]
+""
+//[MViewF10]
+"Sair"
+//[MViewF11]
+"Plugin"
+//[MViewF12]
+"Tela"
+
+// Viewer: Shift
+//[MViewShiftF1]
+""
+// need translation:
+//[MViewShiftF2]
+"WWrap"
+//[MViewShiftF3]
+""
+// need translation:
+//[MViewShiftF4]
+"Mode"
+//[MViewShiftF5]
+""
+//[MViewShiftF6]
+""
+//[MViewShiftF7]
+"Próx."
+// need translation:
+//[MViewShiftF8]
+"CodePg"
+//[MViewShiftF9]
+""
+//[MViewShiftF10]
+""
+//[MViewShiftF11]
+""
+//[MViewShiftF12]
+""
+
+// Viewer: Alt
+//[MViewAltF1]
+""
+//[MViewAltF2]
+""
+//[MViewAltF3]
+""
+//[MViewAltF4]
+""
+//[MViewAltF5]
+""
+//[MViewAltF6]
+""
+// need translation:
+//[MViewAltF7]
+"Prev"
+// need translation:
+//[MViewAltF8]
+"Goto"
+//[MViewAltF9]
+"Video"
+//[MViewAltF10]
+""
+// need translation:
+//[MViewAltF11]
+"ViewHs"
+//[MViewAltF12]
+""
+
+// Viewer: Ctrl
+//[MViewCtrlF1]
+""
+//[MViewCtrlF2]
+""
+//[MViewCtrlF3]
+""
+//[MViewCtrlF4]
+""
+//[MViewCtrlF5]
+""
+//[MViewCtrlF6]
+""
+//[MViewCtrlF7]
+""
+//[MViewCtrlF8]
+""
+//[MViewCtrlF9]
+""
+// need translation:
+//[MViewCtrlF10]
+"GoFile"
+//[MViewCtrlF11]
+""
+//[MViewCtrlF12]
+""
+
+// Viewer: AltShift
+//[MViewAltShiftF1]
+""
+//[MViewAltShiftF2]
+""
+//[MViewAltShiftF3]
+""
+//[MViewAltShiftF4]
+""
+//[MViewAltShiftF5]
+""
+//[MViewAltShiftF6]
+""
+//[MViewAltShiftF7]
+""
+//[MViewAltShiftF8]
+""
+// need translation:
+//[MViewAltShiftF9]
+"Config"
+//[MViewAltShiftF10]
+""
+//[MViewAltShiftF11]
+""
+//[MViewAltShiftF12]
+""
+
+// Viewer: CtrlShift
+//[MViewCtrlShiftF1]
+""
+//[MViewCtrlShiftF2]
+""
+//[MViewCtrlShiftF3]
+""
+//[MViewCtrlShiftF4]
+""
+//[MViewCtrlShiftF5]
+""
+//[MViewCtrlShiftF6]
+""
+//[MViewCtrlShiftF7]
+""
+//[MViewCtrlShiftF8]
+""
+//[MViewCtrlShiftF9]
+""
+//[MViewCtrlShiftF10]
+""
+//[MViewCtrlShiftF11]
+""
+//[MViewCtrlShiftF12]
+""
+
+// Viewer: CtrlAlt
+//[MViewCtrlAltF1]
+""
+//[MViewCtrlAltF2]
+""
+//[MViewCtrlAltF3]
+""
+//[MViewCtrlAltF4]
+""
+//[MViewCtrlAltF5]
+""
+//[MViewCtrlAltF6]
+""
+//[MViewCtrlAltF7]
+""
+//[MViewCtrlAltF8]
+""
+//[MViewCtrlAltF9]
+""
+//[MViewCtrlAltF10]
+""
+//[MViewCtrlAltF11]
+""
+//[MViewCtrlAltF12]
+""
+
+// Viewer: CtrlAltShift
+//[MViewCtrlAltShiftF1]
+""
+//[MViewCtrlAltShiftF2]
+""
+//[MViewCtrlAltShiftF3]
+""
+//[MViewCtrlAltShiftF4]
+""
+//[MViewCtrlAltShiftF5]
+""
+//[MViewCtrlAltShiftF6]
+""
+//[MViewCtrlAltShiftF7]
+""
+//[MViewCtrlAltShiftF8]
+""
+//[MViewCtrlAltShiftF9]
+""
+//[MViewCtrlAltShiftF10]
+""
+//[MViewCtrlAltShiftF11]
+""
+//[MViewCtrlAltShiftF12]
+""
+//[MViewF2Unwrap]
+"DesInv"
+// this is another text for F4
+//[MViewF4Text]
+"Texto"
+// this is another text for F4
+// need translation:
+//[MViewF4Dump]
+"Dump"
+// Viewer: end of functional keys
+// This is another text for F8
+//[MViewF8DOS]
+"OEM"
+// need translation:
+//[MViewMode]
+"View mode"
+//[MInViewer]
+"ver"
+//[MInEditor]
+"editar"
+
+//[MFilterTitle]
+"Filtro"
+//[MPanelFileType]
+"Painel de tipos de arquivo"
+// need translation:
+//[MFolderFileType]
+"Folders"
+//[MCanEditCustomFilterOnly]
+"Somente filtros personalizados podem ser editados"
+//[MAskDeleteFilter]
+"Deseja apagar o filtro"
+//[MCanDeleteCustomFilterOnly]
+"Somente filtros personalizados podem ser apagados"
+
+//[MFindFileTitle]
+"Localizar arquivo"
+//[MFindFileMasks]
+"&Máscara de arquivo ou várias máscaras separadas por vírgula:"
+//[MFindFileContaining]
+"Contendo o"
+//[MFindFileText]
+"T&exto"
+//[MFindFileHex]
+"&Hex"
+// need translation:
+//[MFindFileCodePage]
+"Using code pa&ge:"
+// need translation:
+//[MFindFileAllCodePages]
+"All standard code pages"
+// need translation:
+//[MFindFileSelectedCodePages]
+"Selected code pages"
+//[MFindFileCase]
+"&Distinguir maiúsc./minúsc."
+// need translation:
+//[MFindFileWholeWords]
+"&Whole words"
+// need translation:
+//[MFindFileFuzzy]
+"Fu&zzy search"
+// need translation:
+//[MFindFileNotContaining]
+"&Not containing"
+//[MFindFileArchives]
+"Procurar em ar&quivos"
+// need translation:
+//[MFindFileFolders]
+"Search for f&olders"
+// need translation:
+//[MFindFileSymLinks]
+"Search in symbolic lin&ks"
+// need translation:
+//[MFindFileAlternateStreams]
+"Search in a&lternate streams"
+// need translation:
+//[MFindFileSearchArea]
+"Select search &area:"
+//[MFindFileSearchAllDisks]
+"Procurar em &todos os discos não-removiveis"
+// need translation:
+//[MFindFileSearchAllButNetwork]
+"In all &local drives"
+// need translation:
+//[MFindFileSearchInPATH]
+"In &PATH folders"
+// need translation:
+//[MFindFileSearchFromRootOfDrive]
+"From the &root of"
+//[MFindFileSearchFromRootFolder]
+"Procurar no diretório &raíz"
+//[MFindFileSearchFromCurrent]
+"Procurar no diretório &atual"
+//[MFindFileSearchInCurrent]
+"Procurar somente no d&iretório atual"
+//[MFindFileSearchInSelected]
+"Procurar nas pastas &selecionadas"
+// need translation:
+//[MFindFileUseFilter]
+"&Use filter"
+// need translation:
+//[MFindFileUsingFilter]
+"using filter"
+//[MFindFileFind]
+"Pr&ocurar"
+// need translation:
+//[MFindFileDrive]
+"Dri&ve"
+// need translation:
+//[MFindFileSetFilter]
+"Filt&er"
+// need translation:
+//[MFindFileAdvanced]
+"Advance&d"
+//[MFindFileSearchingIn]
+"Procurando {0} em"
+//[MFindFileNewSearch]
+"&Nova Procura"
+//[MFindFileGoTo]
+"Ir &para"
+//[MFindFileView]
+"&Ver"
+//[MFindFilePanel]
+"&Painel"
+//[MFindFileStop]
+"Pa&rar"
+
+//[MFindFileDone]
+"Localização concluida. Encontrados arquivos: {0}, diretórios: {1}"
+//[MFindFileCancel]
+"&Cancelar"
+
+// need translation:
+//[MFindFileFound]
+"Files: {0}, folders: {1}"
+
+// need translation:
+//[MFindFileAdvancedTitle]
+"Find file advanced options"
+// need translation:
+//[MFindFileSearchFirst]
+"Search only in the &first:"
+// need translation:
+//[MFindFileSearchOutputFormat]
+"&Output format:"
+// need translation:
+//[MFindAlternateModeTypes]
+"Column &types"
+// need translation:
+//[MFindAlternateModeWidths]
+"Column &widths"
+
+//[MFoldTreeSearch]
+"Procurar:"
+
+// need translation:
+//[MGetCodePageTitle]
+"Code pages"
+// need translation:
+//[MGetCodePageSystem]
+"System"
+//[MGetCodePageUnicode]
+"Unicode"
+// need translation:
+//[MGetCodePageFavorites]
+"Favorites"
+// need translation:
+//[MGetCodePageOther]
+"Other"
+// need translation:
+//[MGetCodePageEditCodePageName]
+"Rename the code page"
+// need translation:
+//[MGetCodePageResetCodePageName]
+"&Reset"
+
+//[MHighlightTitle]
+"Destacar arquivos"
+// need translation:
+//[MHighlightUpperSortGroup]
+"Upper sort group"
+// need translation:
+//[MHighlightLowerSortGroup]
+"Lower sort group"
+// need translation:
+//[MHighlightLastGroup]
+"Lowest priority highlighting group"
+//[MHighlightAskDel]
+"Deseja apagar o destaque de"
+// need translation:
+//[MHighlightWarning]
+"You will lose all changes"
+// need translation:
+//[MHighlightAskRestore]
+"Do you wish to restore default highlighting?"
+
+//[MHighlightEditTitle]
+"Editar arquivos destacados"
+// need translation:
+//[MHighlightMark]
+"Markin&g,"
+// need translation:
+//[MHighlightInheritMark]
+"In&herit"
+//[MHighlightColors]
+"Cores dos arquivos (preto em preto - cor padrão)"
+//[MHighlightFileName1]
+"&1. Normal"
+//[MHighlightFileName2]
+"&3. Selec."
+//[MHighlightFileName3]
+"&5. Sob o cursor"
+//[MHighlightFileName4]
+"&7. Selec. sobre o cursor"
+// need translation:
+//[MHighlightMarking1]
+"&2. Marking"
+// need translation:
+//[MHighlightMarking2]
+"&4. Marking"
+// need translation:
+//[MHighlightMarking3]
+"&6. Marking"
+// need translation:
+//[MHighlightMarking4]
+"&8. Marking"
+// need translation:
+//[MHighlightExample]
+"filename.ext"
+// need translation:
+//[MHighlightContinueProcessing]
+"C&ontinue processing"
+
+//[MInfoTitle]
+"Informações"
+//[MInfoCompName]
+"Nome do Computador"
+// need translation:
+//[MInfoCompDescription]
+"Computer description"
+//[MInfoUserName]
+"Nome do Usuário"
+// need translation:
+//[MInfoUserDescription]
+"User description"
+// need translation:
+//[MInfoUserAccessLevel]
+"Access level"
+// need translation:
+//[MInfoUserAccessLevelGuest]
+"Guest"
+// need translation:
+//[MInfoUserAccessLevelUser]
+"User"
+// need translation:
+//[MInfoUserAccessLevelAdministrator]
+"Administrator"
+// need translation:
+//[MInfoUserAccessLevelUnknown]
+"Unknown"
+// need translation:
+//[MInfoUserAccessElevated]
+"Elevated"
+// need translation:
+//[MInfoUserAccessElevationTypeFull]
+"Full"
+// need translation:
+//[MInfoUserAccessElevationTypeLimited]
+"Limited"
+// need translation:
+//[MInfoDiskTitle]
+"Disk"
+//[MInfoRemovable]
+"Removivel"
+//[MInfoFixed]
+"Fixo"
+//[MInfoNetwork]
+"Rede"
+//[MInfoCDROM]
+"CD-ROM"
+//[MInfoCDR]
+"CD-R"
+//[MInfoCDRW]
+"CD-RW"
+//[MInfoCDRWDVD]
+"CD-RW/DVD"
+//[MInfoDVDROM]
+"DVD-ROM"
+//[MInfoDVDR]
+"DVD-R"
+//[MInfoDVDRW]
+"DVD-RW"
+//[MInfoDVDRAM]
+"DVD-RAM"
+//[MInfoBDROM]
+"BD-ROM"
+//[MInfoBDR]
+"BD-R"
+//[MInfoBDRE]
+"BD-RE"
+//[MInfoHDDVDROM]
+"HDDVD-ROM"
+//[MInfoHDDVDR]
+"HDDVD-R"
+//[MInfoHDDVDRW]
+"HDDVD-RW"
+//[MInfoHDDVDRAM]
+"HDDVD-RAM"
+//[MInfoRAM]
+"RAM"
+//[MInfoSUBST]
+"Subst"
+// need translation:
+//[MInfoVirtual]
+"Virtual"
+// need translation:
+//[MInfoUnknown]
+"Unknown"
+//[MInfoMetricTotal]
+"totais"
+//[MInfoMetricAvailable]
+"livre"
+//[MInfoDisk]
+"disco"
+// need translation:
+//[MInfoDiskSpace]
+"Space"
+//[MInfoDiskLabel]
+"Nome de Volume"
+//[MInfoDiskNumber]
+"Número serial"
+//[MInfoMemory]
+"Memória"
+// need translation:
+//[MInfoMemoryCommittable]
+"Committable"
+// need translation:
+//[MInfoMemoryAddressable]
+"Addressable"
+// need translation:
+//[MInfoMemoryPhysical]
+"Physical"
+// need translation:
+//[MInfoMetricMemoryInstalled]
+"installed"
+// need translation:
+//[MInfoDescription]
+"Description"
+//[MInfoDizAbsent]
+"Faltando o diretório de descrição do arquivo"
+// need translation:
+//[MInfoPlugin]
+"Plugin"
+// need translation:
+//[MInfoPowerStatus]
+"Power Status"
+// need translation:
+//[MInfoPowerStatusAC]
+"AC power status"
+// need translation:
+//[MInfoPowerStatusACOffline]
+"Offline"
+// need translation:
+//[MInfoPowerStatusACOnline]
+"Online"
+// need translation:
+//[MInfoPowerStatusACBackUp]
+"Backup power"
+// need translation:
+//[MInfoPowerStatusACUnknown]
+"Unknown"
+// need translation:
+//[MInfoPowerStatusBCLifePercentUnknown]
+"unknown"
+// need translation:
+//[MInfoPowerStatusBC]
+"Battery charge status"
+// need translation:
+//[MInfoPowerStatusBCHigh]
+"High"
+// need translation:
+//[MInfoPowerStatusBCMedium]
+"Medium"
+// need translation:
+//[MInfoPowerStatusBCLow]
+"Low"
+// need translation:
+//[MInfoPowerStatusBCCritical]
+"Critical"
+// need translation:
+//[MInfoPowerStatusBCCharging]
+"charging"
+// need translation:
+//[MInfoPowerStatusBCNoSysBat]
+"No system battery"
+// need translation:
+//[MInfoPowerStatusBCUnknown]
+"Unknown"
+// need translation:
+//[MInfoPowerStatusBCTimeRem]
+"Battery life time"
+// need translation:
+//[MInfoPowerStatusBCFullTimeRem]
+"Battery full time"
+// need translation:
+//[MInfoPowerStatusUnknown]
+"Unknown"
+//[MAccessDenied]
+"Acesso negado"
+
+//[MCannotExecute]
+"Não foi possivel executar"
+// need translation:
+//[MCannotInvokeComspec]
+"Cannot invoke command interpreter"
+// need translation:
+//[MCheckComspecVar]
+"Check COMSPEC environment variable"
+//[MScanningFolder]
+"Lendo o diretório"
+
+//[MMakeFolderTitle]
+"Criar diretório"
+//[MCreateFolder]
+"Criar o diretório"
+// need translation:
+//[MMakeFolderLinkType]
+"&Link type:"
+// need translation:
+//[MMakeFolderLinkNone]
+"&none"
+// need translation:
+//[MMakeFolderLinkJunction]
+"directory &junction"
+// need translation:
+//[MMakeFolderLinkSymlink]
+"symbolic &link"
+// need translation:
+//[MMakeFolderLinkTarget]
+"&Target:"
+// need translation:
+//[MMultiMakeDir]
+"Process &multiple names"
+// need translation:
+//[MIncorrectDirList]
+"Incorrect folders list"
+//[MCannotCreateFolder]
+"Não foi possivel criar o diretório"
+
+//[MMenuBriefView]
+"&Simples"
+//[MMenuMediumView]
+"&Média"
+//[MMenuFullView]
+"&Completa"
+//[MMenuWideView]
+"L&onga"
+//[MMenuDetailedView]
+"Deta&lhada"
+//[MMenuDizView]
+"&Descrições"
+//[MMenuLongDizView]
+"Descrições lon&gas"
+//[MMenuOwnersView]
+"Do&nos dos arquivos"
+//[MMenuLinksView]
+"Lin&ks do Arquivo"
+//[MMenuAlternativeView]
+"Completa &Alternativo"
+
+//[MMenuInfoPanel]
+"Painel de &Inform."
+//[MMenuTreePanel]
+"&Painel de árvore"
+//[MMenuQuickView]
+"&Visualiz. rápida"
+//[MMenuSortModes]
+"Modos de Cla&ssif."
+//[MMenuLongNames]
+"&Nomes completos"
+//[MMenuTogglePanel]
+"Painel &On/Off"
+//[MMenuReread]
+"&Re-ler"
+//[MMenuChangeDrive]
+"A&lterar unidade"
+
+//[MMenuView]
+"&Ver"
+//[MMenuEdit]
+"&Editar"
+//[MMenuCopy]
+"&Copiar"
+//[MMenuMove]
+"&Renomear ou mover"
+// need translation:
+//[MMenuLink]
+"Lin&k"
+//[MMenuCreateFolder]
+"Criar D&iretório"
+//[MMenuDelete]
+"&Apagar"
+// need translation:
+//[MMenuWipe]
+"&Wipe"
+//[MMenuAdd]
+"Adic. ao ar&quivo"
+//[MMenuExtract]
+"&Descomp. Arquivos"
+//[MMenuArchiveCommands]
+"C&omandos do Arq."
+//[MMenuAttributes]
+"A&tributos do Arq."
+//[MMenuApplyCommand]
+"Ap&licar comando"
+//[MMenuDescribe]
+"De&screver arquivos"
+//[MMenuSelectGroup]
+"Selecio&nar arq."
+//[MMenuUnselectGroup]
+"Des&marcar arq."
+//[MMenuInvertSelection]
+"Inver&ter seleção"
+//[MMenuRestoreSelection]
+"Resta&urar seleção"
+
+//[MMenuFindFile]
+"&Procurar arquivo"
+//[MMenuHistory]
+"&Histórico"
+//[MMenuVideoMode]
+"&Modo de video"
+//[MMenuFindFolder]
+"P&rocurar diretório"
+//[MMenuViewHistory]
+"H&ist. visual. arq."
+//[MMenuFoldersHistory]
+"Histórico de &diret."
+//[MMenuSwapPanels]
+"&Trocar paineis"
+//[MMenuTogglePanels]
+"&Liga/Desl. paineis"
+//[MMenuCompareFolders]
+"&Comparar diretórios"
+//[MMenuUserMenu]
+"&Editar menu do usuário"
+//[MMenuFileAssociations]
+"A&ssoc. do arquivo"
+//[MMenuFolderShortcuts]
+"Atal&hos do diretório"
+//[MMenuFilter]
+"&Filtros do arquivo"
+//[MMenuPluginCommands]
+"Comandos de Pl&ugin"
+//[MMenuWindowsList]
+"Lista de telas"
+//[MMenuProcessList]
+"Lista de tarefas"
+// need translation:
+//[MMenuHotPlugList]
+"Ho&tplug devices list"
+
+//[MMenuSystemSettings]
+"Configurações do &sistema"
+//[MMenuPanelSettings]
+"Configurações do &painel"
+// need translation:
+//[MMenuTreeSettings]
+"&Tree settings"
+//[MMenuInterface]
+"Configurações da &interface"
+//[MMenuLanguages]
+"I&diomas"
+//[MMenuPluginsConfig]
+"Configuração de Pl&ugins"
+// need translation:
+//[MMenuPluginsManagerSettings]
+"Plugins manage&r settings"
+// need translation:
+//[MMenuDialogSettings]
+"Di&alog settings"
+// need translation:
+//[MMenuVMenuSettings]
+"Menu settings"
+// need translation:
+//[MMenuCmdlineSettings]
+"&Command line settings"
+// need translation:
+//[MMenuAutoCompleteSettings]
+"Au&toComplete settings"
+// need translation:
+//[MMenuInfoPanelSettings]
+"Inf&oPanel settings"
+// need translation:
+//[MMenuMaskGroups]
+"Groups of file mas&ks"
+//[MMenuConfirmation]
+"Co&nfirmação"
+//[MMenuFilePanelModes]
+"&Modos do painel de arquivos"
+//[MMenuFileDescriptions]
+"D&escrições do arquivo"
+//[MMenuFolderInfoFiles]
+"Arquivos de descrição da pa&sta"
+//[MMenuViewer]
+"Configurações de &Visualização"
+//[MMenuEditor]
+"Configurações do edi&tor"
+// need translation:
+//[MMenuCodePages]
+"Code pages"
+//[MMenuColors]
+"C&ores"
+//[MMenuFilesHighlighting]
+"Destaca&r e classificar &grupos"
+//[MMenuSaveSetup]
+"Salvar con&figuração"
+//[MMenuTogglePanelRight]
+"&Liga/Desl. painel"
+//[MMenuChangeDriveRight]
+"&Muda unidade"
+
+//[MMenuLeftTitle]
+"&Esquerda"
+//[MMenuFilesTitle]
+"&Arquivos"
+//[MMenuCommandsTitle]
+"&Comandos"
+//[MMenuOptionsTitle]
+"&Opções"
+//[MMenuRightTitle]
+"&Direita"
+
+//[MMenuSortTitle]
+"Classificar por"
+//[MMenuSortByName]
+"&Nome"
+//[MMenuSortByExt]
+"E&xtensão"
+//[MMenuSortByWrite]
+"Hora de &modificação"
+//[MMenuSortBySize]
+"&Tamanho"
+//[MMenuUnsorted]
+"&sem classificação"
+//[MMenuSortByCreation]
+"Hora da &criação"
+//[MMenuSortByAccess]
+"Hora de &acesso"
+// need translation:
+//[MMenuSortByChange]
+"Chan&ge time"
+//[MMenuSortByDiz]
+"&Descrições"
+//[MMenuSortByOwner]
+"D&ono"
+//[MMenuSortByAllocatedSize]
+"Tamanho com&pactado"
+//[MMenuSortByNumLinks]
+"Número de &hard links"
+// need translation:
+//[MMenuSortByNumStreams]
+"Number of st&reams"
+// need translation:
+//[MMenuSortByStreamsSize]
+"Si&ze of streams"
+// need translation:
+//[MMenuSortByNameOnly]
+"Name only"
+//[MMenuSortUseGroups]
+"Usar &grupos classif."
+//[MMenuSortSelectedFirst]
+"Ver selec. prime&iro"
+// need translation:
+//[MMenuSortDirectoriesFirst]
+"Show directories &first"
+// need translation:
+//[MMaskGroupTitle]
+"Groups of file masks"
+// need translation:
+//[MMaskGroupName]
+"&Name:"
+// need translation:
+//[MMaskGroupMasks]
+"A file &mask or several file masks:"
+// need translation:
+//[MMaskGroupAskDelete]
+"Do you wish to delete"
+// need translation:
+//[MMaskGroupRestore]
+"Do you wish to restore default mask sets?"
+// need translation:
+//[MMaskGroupFindMask]
+"&Mask:"
+// need translation:
+//[MMaskGroupTotal]
+"Total: {0}"
+
+//[MChangeDriveTitle]
+"Unidade"
+//[MChangeDriveRemovable]
+"removivel"
+//[MChangeDriveFixed]
+"fixo"
+//[MChangeDriveNetwork]
+"rede"
+// need translation:
+//[MChangeDriveDisconnectedNetwork]
+"disconnected"
+//[MChangeDriveCDROM]
+"CD-ROM"
+//[MChangeDriveCDR]
+"CD-R"
+//[MChangeDriveCDRW]
+"CD-RW"
+//[MChangeDriveCDRWDVD]
+"CD-RW/DVD"
+//[MChangeDriveDVDROM]
+"DVD-ROM"
+//[MChangeDriveDVDR]
+"DVD-R"
+//[MChangeDriveDVDRW]
+"DVD-RW"
+//[MChangeDriveDVDRAM]
+"DVD-RAM"
+//[MChangeDriveBDROM]
+"BD-ROM"
+//[MChangeDriveBDR]
+"BD-R"
+//[MChangeDriveBDRE]
+"BD-RE"
+//[MChangeDriveHDDVDROM]
+"HDDVD-ROM"
+//[MChangeDriveHDDVDR]
+"HDDVD-R"
+//[MChangeDriveHDDVDRW]
+"HDDVD-RW"
+//[MChangeDriveHDDVDRAM]
+"HDDVD-RAM"
+//[MChangeDriveRAM]
+"disco RAM"
+// need translation:
+//[MChangeDriveSUBST]
+"subst"
+// need translation:
+//[MChangeDriveVirtual]
+"virtual"
+//[MChangeDriveLabelAbsent]
+"não disponível"
+//[MChangeDriveCannotReadDisk]
+"Não foi possivel ler o disco na unidade %c:"
+//[MChangeDriveCannotDisconnect]
+"Não foi possivel se desconectar de %s"
+// need translation:
+//[MChangeDriveCannotDelSubst]
+"Cannot delete a substituted disk {0}"
+// need translation:
+//[MChangeDriveCannotDetach]
+"Cannot detach a virtual disk {0}"
+//[MChangeDriveOpenFiles]
+"Se não fechar os arquivos abertos, os dados poderão ser perdidos"
+
+// need translation:
+//[MChangeSUBSTDisconnectDriveTitle]
+"Substituted disk deletion"
+// need translation:
+//[MChangeSUBSTDisconnectDriveQuestion]
+"Delete SUBST-disk {0}?"
+// need translation:
+//[MChangeVHDDisconnectDriveTitle]
+"Virtual disk detaching"
+// need translation:
+//[MChangeVHDDisconnectDriveQuestion]
+"Detach virtual disk {0}?"
+
+// need translation:
+//[MChangeHotPlugDisconnectDriveTitle]
+"Device Removal"
+// need translation:
+//[MChangeHotPlugDisconnectDriveQuestion]
+"Do you want to remove the device"
+// need translation:
+//[MHotPlugDisks]
+"(disk(s): {0})"
+// need translation:
+//[MChangeCouldNotEjectHotPlugMedia]
+"Cannot remove a device for drive {0}"
+// need translation:
+//[MChangeCouldNotEjectHotPlugMedia2]
+"Cannot remove a device:"
+// need translation:
+//[MChangeHotPlugNotify1]
+"The device"
+// need translation:
+//[MChangeHotPlugNotify2]
+"can now be safely removed"
+// need translation:
+//[MHotPlugListTitle]
+"Hotplug devices list"
+
+// need translation:
+//[MChangeDriveDisconnectTitle]
+"Disconnect network drive"
+// need translation:
+//[MChangeDriveDisconnectQuestion]
+"Do you want to disconnect from the drive {0}?"
+// need translation:
+//[MChangeDriveDisconnectMapped]
+"The drive is mapped to:"
+// need translation:
+//[MChangeDriveDisconnectReconnect]
+"&Reconnect at logon"
+
+//[MChangeDriveAskDisconnect]
+"Deseja desconectar o dispositivo assim mesmo?"
+// need translation:
+//[MChangeWaitingLoadDisk]
+"Waiting for the disk to mount…"
+// need translation:
+//[MChangeCouldNotEjectMedia]
+"Could not eject media from drive"
+// need translation:
+//[MChangeDriveConfigure]
+"Change Drive Menu Options"
+// need translation:
+//[MChangeDriveShowDiskType]
+"Show disk &type"
+// need translation:
+//[MChangeDriveShowPath]
+"Show &network name / SUBST path / VHD name"
+// need translation:
+//[MChangeDriveShowLabel]
+"Show disk &label"
+// need translation:
+//[MChangeDriveShowLabelUseShell]
+"Use shell na&me"
+// need translation:
+//[MChangeDriveShowFileSystem]
+"Show &file system type"
+// need translation:
+//[MChangeDriveShowSize]
+"Show &size"
+// need translation:
+//[MChangeDriveShowSizeFloat]
+"Show si&ze as a decimal fraction"
+// need translation:
+//[MChangeDriveShowRemovableDrive]
+"Show &removable drive parameters"
+// need translation:
+//[MChangeDriveShowPlugins]
+"Show &plugins"
+// need translation:
+//[MChangeDriveSortPluginsByHotkey]
+"Sort plugins by &hotkey"
+// need translation:
+//[MChangeDriveShowCD]
+"Show &CD drive parameters"
+// need translation:
+//[MChangeDriveShowNetworkDrive]
+"Show n&etwork drive parameters"
+// need translation:
+//[MChangeDriveShowVirtualDisk]
+"Detect virtual disks"
+
+//[MSearchFileTitle]
+"Procura"
+//[MCannotCreateListTemp]
+"Não foi possivel criar o arquivo de listas"
+
+//[MDragFiles]
+"{0} arquivos"
+//[MDragMove]
+"Mover {0}"
+//[MDragCopy]
+"Copiar {0}"
+
+//[MProcessListTitle]
+"Lista de tarefas"
+//[MKillProcessTitle]
+"Lista de destruição"
+//[MAskKillProcess]
+"Deseja destruir as tarefas selecionadas?"
+//[MKillProcessWarning]
+"Você perderá qualquer informação não salva neste programa"
+//[MKillProcessKill]
+"Destruir"
+//[MCannotKillProcess]
+"Não foi possivel destruir a aplicação especificada"
+// need translation:
+//[MCannotKillProcessPerm]
+"You have no permission to kill this process."
+
+//[MQuickViewTitle]
+"Visualização rápida"
+// need translation:
+//[MQuickViewReparsePoint]
+"&Reparse point"
+// need translation:
+//[MQuickViewUnknownReparsePoint]
+"Unknown reparse point"
+//[MQuickViewFolders]
+"Diretórios:"
+//[MQuickViewFiles]
+"Arquivos:"
+//[MQuickViewBytes]
+"Tam. Arquivos:"
+//[MQuickViewAllocated]
+"Tam. compactado:"
+// need translation:
+//[MQuickViewCluster]
+"Cluster size:"
+// need translation:
+//[MQuickViewSlack]
+"Files slack:"
+// need translation:
+//[MQuickViewMFTOverhead]
+"MFT overhead:"
+
+//[MSetAttrTitle]
+"Atributos"
+//[MSetAttrFor]
+"Alterar atributos do arquivo para"
+// need translation:
+//[MSetAttrSelectedObjects]
+"selected objects"
+// need translation:
+//[MSetAttrHardLinks]
+"hard links"
+// need translation:
+//[MSetAttrJunction]
+"&Junction:"
+// need translation:
+//[MSetAttrSymlink]
+"S&ymlink{}:"
+// need translation:
+//[MSetAttrVolMount]
+"&Volume:"
+// need translation:
+//[MSetAttrDfsTargets]
+"DFS Targets:"
+// need translation:
+//[MSetAttrAppExecLink]
+"App Alias:"
+// need translation:
+//[MSetAttrUnknownReparsePoint]
+"Unknown reparse point"
+// need translation:
+//[MSetAttrDiskDevice]
+"Device:"
+//[MSetAttrReadOnly]
+"Somente leitu&ra"
+//[MSetAttrArchive]
+"&Arquivo"
+//[MSetAttrHidden]
+"&Oculto"
+//[MSetAttrSystem]
+"&Sistema"
+//[MSetAttrCompressed]
+"&Compactado"
+// need translation:
+//[MSetAttrEncrypted]
+"&Encrypted"
+// need translation:
+//[MSetAttrNotIndexed]
+"Not &indexed"
+// need translation:
+//[MSetAttrSparse]
+"&Sparse"
+// need translation:
+//[MSetAttrTemporary]
+"&Temporary"
+// need translation:
+//[MSetAttrOffline]
+"&Offline"
+// need translation:
+//[MSetAttrReparsePoint]
+"&Reparse point"
+// need translation:
+//[MSetAttrVirtual]
+"&Virtual"
+// need translation:
+//[MSetAttrIntegrityStream]
+"&Integrity stream"
+// need translation:
+//[MSetAttrNoScrubData]
+"&No scrub data"
+// need translation:
+//[MSetAttrPinned]
+"&Pinned"
+// need translation:
+//[MSetAttrUnpinned]
+"&Unpinned"
+//[MSetAttrRecallOnOpen]
+"R&ecall on open"
+//[MSetAttrRecallOnDataAccess]
+"Rec&all on data access"
+//[MSetAttrStrictlySequential]
+"Strictly se&quential"
+// need translation:
+//[MSetAttrDevice]
+"Device"
+// need translation:
+//[MSetAttrMore]
+"&More"
+//[MSetAttrSubfolders]
+"Processar sub-&diretórios"
+// need translation:
+//[MSetAttrOwner]
+"Owner&:"
+//[MSetAttrDate]
+"Data/hora:"
+//[MSetAttrWrite]
+"&modificação:"
+//[MSetAttrCreation]
+"cr&iação:"
+//[MSetAttrAccess]
+"ú&ltimo acesso"
+// need translation:
+//[MSetAttrChange]
+"chan&ge:"
+//[MSetAttrOriginal]
+"A&tual"
+// need translation:
+//[MSetAttrCurrent]
+"Curre&nt"
+//[MSetAttrBlank]
+"&Limpar"
+//[MSetAttrSet]
+"Ajuste"
+
+// need translation:
+//[MSetAttrDateTitleMDY]
+"MM{0}DD{0}YYYYY"
+// need translation:
+//[MSetAttrDateTitleDMY]
+"DD{0}MM{0}YYYYY"
+// need translation:
+//[MSetAttrDateTitleYMD]
+"YYYYY{0}MM{0}DD"
+// need translation:
+//[MSetAttrTimeTitle]
+"hh{0}mm{0}ss"
+// need translation:
+//[MSetAttrSystemDialog]
+"System &properties"
+
+//[MSetAttrSetting]
+"Ajustando atributos dos arquivos para"
+//[MSetAttrCannotFor]
+"Não foi possivel especificar atributos para"
+//[MSetAttrCompressedCannotFor]
+"Não foi possivel ajustar atributos COMPACTADO para"
+// need translation:
+//[MSetAttrEncryptedCannotFor]
+"Cannot set attribute ENCRYPTED for"
+// need translation:
+//[MSetAttrSparseCannotFor]
+"Cannot set attribute SPARSE for"
+//[MSetAttrTimeCannotFor]
+"Não foi possivel ajustar a hora do arquivo para"
+// need translation:
+//[MSetAttrOwnerCannotFor]
+"Cannot set owner for"
+// need translation:
+//[MSetAttrReparsePointCannotFor]
+"Cannot remove reparse point for"
+
+//[MSetColorPanel]
+"&Painel"
+//[MSetColorDialog]
+"&Dialogo"
+//[MSetColorWarning]
+"Me&nsagem de alerta"
+// need translation:
+//[MSetColorMenu]
+"&Menu"
+//[MSetColorHMenu]
+"Menu hori&zontal"
+//[MSetColorKeyBar]
+"&Barra de botões"
+//[MSetColorCommandLine]
+"Linha de &comando"
+//[MSetColorClock]
+"Re&lógio"
+//[MSetColorViewer]
+"&Visualizador"
+// need translation:
+//[MSetColorEditor]
+"&Editor"
+//[MSetColorHelp]
+"&Ajuda"
+//[MColorThemes]
+"Temas"
+//[MDefaultTheme]
+"Padrão"
+//[MDefaultThemeRGB]
+"Padrão (RGB)"
+
+//[MSetColorPanelNormal]
+"Texto normal"
+//[MSetColorPanelSelected]
+"Texto selecionado"
+//[MSetColorPanelHighlightedText]
+"Texto destacado"
+//[MSetColorPanelHighlightedInfo]
+"Info destacado"
+// need translation:
+//[MSetColorPanelDragging]
+"Dragging text"
+//[MSetColorPanelBox]
+"Borda"
+//[MSetColorPanelNormalCursor]
+"Cursor normal"
+//[MSetColorPanelSelectedCursor]
+"Cursor selecionado"
+//[MSetColorPanelNormalTitle]
+"Titulo normal"
+//[MSetColorPanelSelectedTitle]
+"Titulo selecionado"
+//[MSetColorPanelColumnTitle]
+"Titulo da coluna"
+//[MSetColorPanelTotalInfo]
+"Informações totais"
+//[MSetColorPanelSelectedInfo]
+"Informações selecionadas"
+//[MSetColorPanelScrollbar]
+"Barra de Rolagem"
+//[MSetColorPanelScreensNumber]
+"Núm. telas em segundo plano"
+
+//[MSetColorDialogNormal]
+"Texto normal"
+//[MSetColorDialogHighlighted]
+"Texto destacado"
+// need translation:
+//[MSetColorDialogDisabled]
+"Disabled text"
+//[MSetColorDialogBox]
+"Borda"
+//[MSetColorDialogBoxTitle]
+"Titulo"
+//[MSetColorDialogHighlightedBoxTitle]
+"Titulo destacado"
+//[MSetColorDialogTextInput]
+"Entrada de texto"
+//[MSetColorDialogUnchangedTextInput]
+"Entrada de texto não selecionada"
+//[MSetColorDialogSelectedTextInput]
+"Entrada de texto selecionada"
+// need translation:
+//[MSetColorDialogEditDisabled]
+"Disabled input line"
+//[MSetColorDialogButtons]
+"Botões"
+//[MSetColorDialogSelectedButtons]
+"Botões selecionados"
+//[MSetColorDialogHighlightedButtons]
+"Botões destacados"
+//[MSetColorDialogSelectedHighlightedButtons]
+"Botões destacados selecionados"
+// need translation:
+//[MSetColorDialogDefaultButton]
+"Default button"
+// need translation:
+//[MSetColorDialogSelectedDefaultButton]
+"Selected default button"
+// need translation:
+//[MSetColorDialogHighlightedDefaultButton]
+"Highlighted default button"
+// need translation:
+//[MSetColorDialogSelectedHighlightedDefaultButton]
+"Selected highlighted default button"
+//[MSetColorDialogListBoxControl]
+"Texto de lista"
+//[MSetColorDialogComboBoxControl]
+"Texto de lista selecionado"
+
+//[MSetColorDialogListText]
+"Texto normal"
+//[MSetColorDialogListSelectedText]
+"Texto selecionado"
+//[MSetColorDialogListHighLight]
+"Texto destacado"
+//[MSetColorDialogListSelectedHighLight]
+"Texto destacado selecionado"
+// need translation:
+//[MSetColorDialogListDisabled]
+"Disabled item"
+//[MSetColorDialogListBox]
+"Borda"
+//[MSetColorDialogListTitle]
+"Titulo"
+// need translation:
+//[MSetColorDialogListGrayed]
+"Grayed list text"
+// need translation:
+//[MSetColorDialogSelectedListGrayed]
+"Selected grayed list text"
+//[MSetColorDialogListScrollBar]
+"Barra de rolagem"
+// need translation:
+//[MSetColorDialogListArrows]
+"Long string indicators"
+// need translation:
+//[MSetColorDialogListArrowsSelected]
+"Selected long string indicators"
+// need translation:
+//[MSetColorDialogListArrowsDisabled]
+"Disabled long string indicators"
+
+//[MSetColorMenuNormal]
+"Texto normal"
+//[MSetColorMenuSelected]
+"Texto selecionado"
+//[MSetColorMenuHighlighted]
+"Texto destacado"
+//[MSetColorMenuSelectedHighlighted]
+"Texto destacado selecionado"
+// need translation:
+//[MSetColorMenuDisabled]
+"Disabled text"
+// need translation:
+//[MSetColorMenuGrayed]
+"Grayed text"
+// need translation:
+//[MSetColorMenuSelectedGrayed]
+"Selected grayed text"
+//[MSetColorMenuBox]
+"Borda"
+//[MSetColorMenuTitle]
+"Titulo"
+//[MSetColorMenuScrollBar]
+"Barra de rolagem"
+// need translation:
+//[MSetColorMenuArrows]
+"Long string indicators"
+// need translation:
+//[MSetColorMenuArrowsSelected]
+"Selected long string indicators"
+// need translation:
+//[MSetColorMenuArrowsDisabled]
+"Disabled long string indicators"
+
+//[MSetColorHMenuNormal]
+"Texto normal"
+//[MSetColorHMenuSelected]
+"Texto selecionado"
+//[MSetColorHMenuHighlighted]
+"Texto destacado"
+//[MSetColorHMenuSelectedHighlighted]
+"Texto destacado selecionado"
+
+//[MSetColorKeyBarNumbers]
+"Número das teclas"
+//[MSetColorKeyBarNames]
+"Nomes das teclas"
+//[MSetColorKeyBarBackground]
+"Segundo plano"
+
+//[MSetColorCommandLineNormal]
+"Texto normal"
+//[MSetColorCommandLineSelected]
+"Entrada de texto selecionada"
+// need translation:
+//[MSetColorCommandLinePrefix]
+"Prefix text"
+// need translation:
+//[MSetColorCommandLineUserScreen]
+"User screen"
+
+//[MSetColorClockNormal]
+"Texto normal (Panel)"
+//[MSetColorClockNormalEditor]
+"Texto normal (Editor)"
+//[MSetColorClockNormalViewer]
+"Texto normal (Viewer)"
+
+//[MSetColorViewerNormal]
+"Texto normal"
+//[MSetColorViewerSelected]
+"Texto selecionado"
+//[MSetColorViewerStatus]
+"Linha de status"
+//[MSetColorViewerArrows]
+"Setas da barra de rolagem"
+//[MSetColorViewerScrollbar]
+"Barra de rolagem"
+
+//[MSetColorEditorNormal]
+"Texto normal"
+//[MSetColorEditorSelected]
+"Texto selecionado"
+//[MSetColorEditorStatus]
+"Linha de status"
+//[MSetColorEditorScrollbar]
+"Barra de rolagem"
+
+//[MSetColorHelpNormal]
+"Texto normal"
+//[MSetColorHelpHighlighted]
+"Texto destacado"
+//[MSetColorHelpReference]
+"Referência"
+//[MSetColorHelpSelectedReference]
+"Referência selecionada"
+//[MSetColorHelpBox]
+"Borda"
+//[MSetColorHelpBoxTitle]
+"Titulo"
+//[MSetColorHelpScrollbar]
+"Barra de rolagem"
+
+//[MSetColorGroupsTitle]
+"Grupos de cores"
+//[MSetColorItemsTitle]
+"Itens do grupo"
+
+//[MSetColorTitle]
+"Cor"
+//[MSetColorForeground]
+"&Primeiro Plano"
+//[MSetColorBackground]
+"&Segundo Plano"
+// need translation:
+//[MSetColorForegroundDefault]
+"Default"
+// need translation:
+//[MSetColorBackgroundDefault]
+"Default"
+
+// 8 characters max
+//[MSetColorForeIndex]
+"AA    ##"
+
+// 8 characters max
+//[MSetColorForeAARRGGBB]
+"AARRGGBB"
+
+// 8 characters max
+//[MSetColorForeDefault]
+"AA"
+
+// 3 characters max
+//[MSetColorFore256]
+"&256…"
+
+// 3 characters max
+//[MSetColorForeRGB]
+"&RGB…"
+
+// 8 characters max
+//[MSetColorBackIndex]
+"AA    ##"
+
+// 8 characters max
+//[MSetColorBackAARRGGBB]
+"AARRGGBB"
+
+// 8 characters max
+//[MSetColorBackDefault]
+"AA"
+
+// 3 characters max
+//[MSetColorBack256]
+"2&56…"
+
+// 3 characters max
+//[MSetColorBackRGB]
+"R&GB…"
+// need translation:
+//[MSetColorStyle]
+"Style:"
+// need translation:
+//[MSetColorStyleInherit]
+"&Inherit"
+// need translation:
+//[MSetColorStyleBold]
+"B&old"
+// need translation:
+//[MSetColorStyleItalic]
+"I&talic"
+// need translation:
+//[MSetColorStyleOverline]
+"O&verline"
+// need translation:
+//[MSetColorStyleStrikeout]
+"&Strikeout"
+// need translation:
+//[MSetColorStyleFaint]
+"F&aint"
+// need translation:
+//[MSetColorStyleBlink]
+"B&link"
+// need translation:
+//[MSetColorStyleInverse]
+"Inverse"
+// need translation:
+//[MSetColorStyleInvisible]
+"Invisible"
+// need translation:
+//[MSetColorStyleUnderline]
+"&Underline:"
+// need translation:
+//[MSetColorStyleUnderlineNone]
+"No"
+// need translation:
+//[MSetColorStyleUnderlineSingle]
+"Single"
+// need translation:
+//[MSetColorStyleUnderlineDouble]
+"Double"
+// need translation:
+//[MSetColorStyleUnderlineCurly]
+"Curly"
+// need translation:
+//[MSetColorStyleUnderlineDotted]
+"Dotted"
+// need translation:
+//[MSetColorStyleUnderlineDashed]
+"Dashed"
+//[MSetColorSample]
+"Texto Texto Texto Texto Texto Texto"
+// need translation:
+//[MSetColorVTHintInfo]
+"Extended colors and styles require VT rendering."
+// need translation:
+//[MSetColorVTHintSupported]
+"Press \"Enable VT\" below to turn it on."
+// need translation:
+//[MSetColorVTHintNotSupported]
+"Your system does not support it."
+// need translation:
+//[MSetColorSystemDialog]
+"System"
+// need translation:
+//[MSetColorSet]
+"Set"
+// need translation:
+//[MSetColorEnableVT]
+"Enable VT"
+// need translation:
+//[MSetColorCancel]
+"Cancel"
+// need translation:
+//[MColorsPalette]
+"Palette"
+// need translation:
+//[MColorsClassicPalette]
+"Classic palette"
+
+//[MSetConfirmTitle]
+"Confirmações"
+//[MSetConfirmCopy]
+"&Copiar"
+//[MSetConfirmMove]
+"&Mover"
+// need translation:
+//[MSetConfirmRO]
+"&Overwrite and delete R/O files"
+//[MSetConfirmDrag]
+"&Arrastar e Soltar"
+//[MSetConfirmDelete]
+"A&pagar"
+//[MSetConfirmDeleteFolders]
+"Deletar &diretórios não vazios"
+// need translation:
+//[MSetConfirmEsc]
+"&Interrupt operation"
+// need translation:
+//[MSetConfirmRemoveConnection]
+"Disconnect &network drive"
+// need translation:
+//[MSetConfirmRemoveSUBST]
+"Delete &SUBST-disk"
+// need translation:
+//[MSetConfirmDetachVHD]
+"Detach &virtual disk"
+// need translation:
+//[MSetConfirmRemoveHotPlug]
+"Hot&Plug-device removal"
+// need translation:
+//[MSetConfirmAllowReedit]
+"&Reload edited file"
+// need translation:
+//[MSetConfirmHistoryClear]
+"Clear &history list"
+//[MSetConfirmExit]
+"&Sair"
+
+// need translation:
+//[MPluginsManagerSettingsTitle]
+"Plugins manager settings"
+// need translation:
+//[MPluginsManagerOEMPluginsSupport]
+"&OEM plugins support"
+// need translation:
+//[MPluginsManagerScanSymlinks]
+"Scan s&ymbolic links"
+// need translation:
+//[MPluginsManagerOFP]
+"&File processing"
+// need translation:
+//[MPluginsManagerStdAssoc]
+"Show standard &association item"
+// need translation:
+//[MPluginsManagerEvenOne]
+"&Even if only one plugin found"
+// need translation:
+//[MPluginsManagerSFL]
+"Search &results (SetFindList)"
+// need translation:
+//[MPluginsManagerPF]
+"&Prefix processing"
+// need translation:
+//[MPluginConfirmationTitle]
+"Plugin selection"
+// need translation:
+//[MMenuPluginStdAssociation]
+"Standard association"
+
+//[MFindFolderTitle]
+"Procurar Diretório"
+
+// Find folder Tree KeyBar
+// need translation:
+//[MFolderTreeF1]
+"Help"
+// need translation:
+//[MFolderTreeF2]
+"Rescan"
+//[MFolderTreeF3]
+""
+//[MFolderTreeF4]
+""
+// need translation:
+//[MFolderTreeF5]
+"Zoom"
+//[MFolderTreeF6]
+""
+//[MFolderTreeF7]
+""
+//[MFolderTreeF8]
+""
+//[MFolderTreeF9]
+""
+// need translation:
+//[MFolderTreeF10]
+"Quit"
+//[MFolderTreeF11]
+""
+//[MFolderTreeF12]
+""
+//[MFolderTreeShiftF1]
+""
+//[MFolderTreeShiftF2]
+""
+//[MFolderTreeShiftF3]
+""
+//[MFolderTreeShiftF4]
+""
+//[MFolderTreeShiftF5]
+""
+//[MFolderTreeShiftF6]
+""
+//[MFolderTreeShiftF7]
+""
+//[MFolderTreeShiftF8]
+""
+//[MFolderTreeShiftF9]
+""
+//[MFolderTreeShiftF10]
+""
+//[MFolderTreeShiftF11]
+""
+//[MFolderTreeShiftF12]
+""
+//[MFolderTreeAltF1]
+""
+//[MFolderTreeAltF2]
+""
+//[MFolderTreeAltF3]
+""
+//[MFolderTreeAltF4]
+""
+//[MFolderTreeAltF5]
+""
+//[MFolderTreeAltF6]
+""
+//[MFolderTreeAltF7]
+""
+//[MFolderTreeAltF8]
+""
+//[MFolderTreeAltF9]
+"Video"
+//[MFolderTreeAltF10]
+""
+//[MFolderTreeAltF11]
+""
+//[MFolderTreeAltF12]
+""
+//[MFolderTreeCtrlF1]
+""
+//[MFolderTreeCtrlF2]
+""
+//[MFolderTreeCtrlF3]
+""
+//[MFolderTreeCtrlF4]
+""
+//[MFolderTreeCtrlF5]
+""
+//[MFolderTreeCtrlF6]
+""
+//[MFolderTreeCtrlF7]
+""
+//[MFolderTreeCtrlF8]
+""
+//[MFolderTreeCtrlF9]
+""
+//[MFolderTreeCtrlF10]
+""
+//[MFolderTreeCtrlF11]
+""
+//[MFolderTreeCtrlF12]
+""
+//[MFolderTreeCtrlShiftF1]
+""
+//[MFolderTreeCtrlShiftF2]
+""
+//[MFolderTreeCtrlShiftF3]
+""
+//[MFolderTreeCtrlShiftF4]
+""
+//[MFolderTreeCtrlShiftF5]
+""
+//[MFolderTreeCtrlShiftF6]
+""
+//[MFolderTreeCtrlShiftF7]
+""
+//[MFolderTreeCtrlShiftF8]
+""
+//[MFolderTreeCtrlShiftF9]
+""
+//[MFolderTreeCtrlShiftF10]
+""
+//[MFolderTreeCtrlShiftF11]
+""
+//[MFolderTreeCtrlShiftF12]
+""
+//[MFolderTreeCtrlAltF1]
+""
+//[MFolderTreeCtrlAltF2]
+""
+//[MFolderTreeCtrlAltF3]
+""
+//[MFolderTreeCtrlAltF4]
+""
+//[MFolderTreeCtrlAltF5]
+""
+//[MFolderTreeCtrlAltF6]
+""
+//[MFolderTreeCtrlAltF7]
+""
+//[MFolderTreeCtrlAltF8]
+""
+//[MFolderTreeCtrlAltF9]
+""
+//[MFolderTreeCtrlAltF10]
+""
+//[MFolderTreeCtrlAltF11]
+""
+//[MFolderTreeCtrlAltF12]
+""
+//[MFolderTreeAltShiftF1]
+""
+//[MFolderTreeAltShiftF2]
+""
+//[MFolderTreeAltShiftF3]
+""
+//[MFolderTreeAltShiftF4]
+""
+//[MFolderTreeAltShiftF5]
+""
+//[MFolderTreeAltShiftF6]
+""
+//[MFolderTreeAltShiftF7]
+""
+//[MFolderTreeAltShiftF8]
+""
+//[MFolderTreeAltShiftF9]
+""
+//[MFolderTreeAltShiftF10]
+""
+//[MFolderTreeAltShiftF11]
+""
+//[MFolderTreeAltShiftF12]
+""
+//[MFolderTreeCtrlAltShiftF1]
+""
+//[MFolderTreeCtrlAltShiftF2]
+""
+//[MFolderTreeCtrlAltShiftF3]
+""
+//[MFolderTreeCtrlAltShiftF4]
+""
+//[MFolderTreeCtrlAltShiftF5]
+""
+//[MFolderTreeCtrlAltShiftF6]
+""
+//[MFolderTreeCtrlAltShiftF7]
+""
+//[MFolderTreeCtrlAltShiftF8]
+""
+//[MFolderTreeCtrlAltShiftF9]
+""
+//[MFolderTreeCtrlAltShiftF10]
+""
+//[MFolderTreeCtrlAltShiftF11]
+""
+//[MFolderTreeCtrlAltShiftF12]
+""
+//[MTreeTitle]
+"Árvore"
+//[MCannotSaveTree]
+"Não foi possivel salvar a árvore de diretórios no arquivo"
+//[MReadingTree]
+"Lento a árvore de diretórios"
+
+//[MUserMenuTitle]
+"Menu do usuário"
+//[MChooseMenuType]
+"Escolha o tipo de menu do usuário para editar"
+//[MChooseMenuMain]
+"Principal"
+//[MChooseMenuLocal]
+"Local"
+//[MMainMenuTitle]
+"Menu principal"
+
+// <...menu (User)>
+//[MMainMenuUser]
+"Usuário"
+// need translation:
+//[MMainMenuGlobal]
+"Global"
+//[MLocalMenuTitle]
+"Menu local"
+//[MAskDeleteMenuItem]
+"Deseja apagar o item de menu"
+// need translation:
+//[MAskDeleteSubMenuItem]
+"Do you wish to delete the submenu"
+// need translation:
+//[MUserMenuInvalidInputLabel]
+"Invalid format for UserMenu Label"
+// need translation:
+//[MUserMenuInvalidInputHotKey]
+"Invalid format for Hot Key"
+
+//[MEditMenuTitle]
+"Editar menu do usuário"
+//[MEditMenuHotKey]
+"&Tecla de atalho:"
+//[MEditMenuLabel]
+"&Volume:"
+//[MEditMenuCommands]
+"&Comandos:"
+
+//[MAskInsertMenuOrCommand]
+"Deseja adicionar um novo comando ou novo menu?"
+//[MMenuInsertCommand]
+"Inserir comando"
+//[MMenuInsertMenu]
+"Inserir menu"
+
+//[MEditSubmenuTitle]
+"Editar volume de submenu"
+//[MEditSubmenuHotKey]
+"&Tecla de Atalho:"
+//[MEditSubmenuLabel]
+"&Volume:"
+// need translation:
+//[MEditMenuConfirmation]
+"Save changes?"
+// need translation:
+//[MEditMenuError]
+"Cannot update menu"
+
+//[MViewerTitle]
+"Visualizador"
+//[MViewerCannotOpenFile]
+"Não foi possivel abrir o arquivo"
+// Up to 3 characters
+// need translation:
+//[MViewerStatusCol]
+"Col"
+
+//[MViewSearchingFor]
+"Procurar por"
+//[MViewSearchingHex]
+"&Procurar por bytes"
+//[MViewSearchCannotFind]
+"Não foi possivel localizar a string"
+// need translation:
+//[MViewSearchCannotFindHex]
+"Could not find the bytes"
+// need translation:
+//[MViewSearchEod]
+"End of the document reached"
+// need translation:
+//[MViewSearchFromBegin]
+"Continue from the beginning of the document?"
+// need translation:
+//[MViewSearchBod]
+"Begin of the document reached"
+// need translation:
+//[MViewSearchFromEnd]
+"Continue from the end of the document?"
+// need translation:
+//[MViewSearchCycle]
+"The whole document scanned"
+//[MViewSearchRepeat]
+"Repeat the search in the document?"
+
+//[MPrintTitle]
+"Imprimir"
+//[MPrintTo]
+"Imprimir {0} em"
+//[MPrintFilesTo]
+"Imprimir arquivos {0} em"
+//[MPrintingFile]
+"Imprimir {0}"
+// need translation:
+//[MCannotEnumeratePrinters]
+"Cannot enumerate available printers list"
+//[MCannotOpenPrinter]
+"Não foi possivel abrir a impressora"
+//[MCannotPrint]
+"Não foi possivel imprimir"
+
+//[MDescribeFiles]
+"Descreve o arquivo"
+//[MEnterDescription]
+"Entre com a descrição de %s"
+
+//[MReadingDiz]
+"Lendo descrições do arquivo"
+//[MCannotUpdateDiz]
+"Não foi possivel atualizar descrições do arquivo"
+
+//[MCfgDizTitle]
+"Descrições do arquivo"
+//[MCfgDizListNames]
+"Nomes da &lista de descrições separados por vírgulas:"
+//[MCfgDizSetHidden]
+"Ajustar o atributo \"&Oculto\" na a nova lista de descrições"
+// need translation:
+//[MCfgDizROUpdate]
+"Update &read only description file"
+//[MCfgDizStartPos]
+"&Posição das novas descrições na string"
+//[MCfgDizNotUpdate]
+"&Não atualizar descrições"
+//[MCfgDizUpdateIfDisplayed]
+"&Atualizar se mostrado"
+//[MCfgDizAlwaysUpdate]
+"&Sempre atualizar"
+// need translation:
+//[MCfgDizAnsiByDefault]
+"Use ANS&I code page by default"
+// need translation:
+//[MCfgDizSaveInUTF]
+"Save in UTF-&8"
+
+// need translation:
+//[MReadingTitleFiles]
+"Update of panels"
+//[MReadingFiles]
+"Lendo: {0} arquivos"
+//[MOperationNotCompleted]
+"Operação não completada"
+
+//[MEditPanelModes]
+"Editar modos do painel"
+
+// need translation:
+//[MEditPanelModeName]
+"&Name"
+//[MEditPanelModeTypes]
+"&Tipos das colunas"
+//[MEditPanelModeWidths]
+"&Largura das colunas"
+//[MEditPanelModeStatusTypes]
+"Tipos de linha de &status das colunas"
+//[MEditPanelModeStatusWidths]
+"Largura da l&inha de status das colunas"
+//[MEditPanelModeFullscreen]
+"Visualização em tela &cheia"
+//[MEditPanelModeAlignExtensions]
+"Alinhar &extensões do arquivo"
+//[MEditPanelModeAlignFolderExtensions]
+"Alinhar &extensões do diretório"
+//[MEditPanelModeFoldersUpperCase]
+"Mostrar diretórios em &maiúculas"
+//[MEditPanelModeFilesLowerCase]
+"Mostrar arquivos em mi&núsculas"
+//[MEditPanelModeUpperToLowerCase]
+"M&ostrar nomes de arquivos maiúsculos em minúsculos"
+
+//[MSetFolderInfoTitle]
+"Arquivos de descrição dos diretórios"
+//[MSetFolderInfoNames]
+"Entre com os arquivos separados por vírgulas (curingas permitidos)"
+
+//[MScreensTitle]
+"Telas"
+//[MScreensPanels]
+"Paineis"
+//[MScreensView]
+"Visualizar"
+//[MScreensEdit]
+"Editar"
+
+//[MAskApplyCommandTitle]
+"Aplicar comando"
+//[MAskApplyCommand]
+"Entre com o comando para processar os arquivos selecionados"
+
+//[MPluginConfigTitle]
+"Configuração dos Plugins"
+//[MPluginCommandsMenuTitle]
+"Comandos do Plugin"
+
+//[MPreparingList]
+"Preparando lista de arquivos"
+
+//[MLangTitle]
+"Idioma principal"
+//[MHelpLangTitle]
+"Idioma da ajuda"
+
+//[MDefineMacroTitle]
+"Definir macro"
+//[MDefineMacro]
+"Pressiona a tecla designada"
+// need translation:
+//[MMacroReDefinedKey]
+"Macro key '{0}' already defined."
+// need translation:
+//[MMacroDeleteKey]
+"Macro key '{0}' will be removed."
+// need translation:
+//[MMacroCommonReDefinedKey]
+"Common macro key '{0}' already defined."
+// need translation:
+//[MMacroCommonDeleteKey]
+"Common macro key '{0}' will be removed."
+// need translation:
+//[MMacroSequence]
+"Sequence:"
+// need translation:
+//[MMacroReDefinedKey2]
+"Redefine?"
+// need translation:
+//[MMacroDeleteKey2]
+"Delete?"
+// need translation:
+//[MMacroEditKey]
+"Chan&ge"
+
+//[MMacroSettingsTitle]
+"Configurações de macro para {0}"
+// need translation:
+//[MMacroSettingsSequence]
+"Se&quence:"
+// need translation:
+//[MMacroSettingsDescription]
+"&Description:"
+//[MMacroSettingsEnableOutput]
+"&Desativar tela de saida durante a execução da macro"
+//[MMacroSettingsRunAfterStart]
+"&Executar após iniciar o Far"
+// need translation:
+//[MMacroSettingsActivePanel]
+"&Active panel"
+// need translation:
+//[MMacroSettingsPassivePanel]
+"&Passive panel"
+// need translation:
+//[MMacroSettingsPluginPanel]
+"P&lugin panel"
+// need translation:
+//[MMacroSettingsFolders]
+"Execute for &folders"
+// need translation:
+//[MMacroSettingsSelectionPresent]
+"Se&lection present"
+//[MMacroSettingsCommandLine]
+"Linha de comando estiver vazia"
+// need translation:
+//[MMacroSettingsSelectionBlockPresent]
+"Selection &block present"
+// need translation:
+//[MMacroPluginLuamacroNotLoaded]
+"Plugin LuaMacro is not loaded"
+// need translation:
+//[MMacroRecordingIsDisabled]
+"Macro recording is disabled"
+
+//[MCannotSaveFile]
+"Não foi possivel salvar o arquivo"
+//[MTextSavedToTemp]
+"O texto editado esta armazenado em"
+
+//[MPluginHotKeyTitle]
+"Escolher a tecla de atalho do Plugin"
+//[MPluginHotKey]
+"Tecla de atalho (letra ou número)"
+// need translation:
+//[MPluginInformation]
+"Plugin information"
+// need translation:
+//[MPluginModuleTitle]
+"&Title:"
+// need translation:
+//[MPluginDescription]
+"&Description:"
+// need translation:
+//[MPluginAuthor]
+"&Author:"
+// need translation:
+//[MPluginVersion]
+"&Version:"
+// need translation:
+//[MPluginModulePath]
+"&Module path:"
+// need translation:
+//[MPluginUUID]
+"Plugin &UUID:"
+// need translation:
+//[MPluginItemUUID]
+"Plugin &item UUID:"
+// need translation:
+//[MPluginPrefix]
+"Plugin &prefix:"
+// need translation:
+//[MExceptionDialogTitle]
+"Oops"
+// need translation:
+//[MExceptionDialogMessage1]
+"Something went wrong."
+// need translation:
+//[MExceptionDialogMessage2]
+"Please send the bug report to the developers:"
+// need translation:
+//[MExceptionDialogClipboard]
+"Clipboard"
+// need translation:
+//[MExcTerminate]
+"&Terminate Far"
+// need translation:
+//[MExcUnload]
+"&Unload plugin"
+// need translation:
+//[MExcContinue]
+"Continue"
+// need translation:
+//[MExcFullDump]
+"Full dump"
+
+// need translation:
+//[MNetUserName]
+"User name"
+// need translation:
+//[MNetUserPassword]
+"User password"
+
+//[MReadFolderError]
+"Não foi possivel ler o conteúdo do diretório"
+
+// need translation:
+//[MPlgBadVers]
+"This plugin requires more recent version of Far"
+// need translation:
+//[MPlgRequired]
+"Required Far version is {0},"
+// need translation:
+//[MPlgRequired2]
+"current Far version is {0}."
+// need translation:
+//[MPlgLoadPluginError]
+"Error loading plugin"
+
+//[MHelpTitle]
+"Ajuda"
+// need translation:
+//[MHelpActivatorURL]
+"This reference starts an external application"
+// need translation:
+//[MHelpActivatorFormat]
+"with parameter:"
+// need translation:
+//[MHelpActivatorQ]
+"Do you wish to start it?"
+//[MCannotOpenHelp]
+"Não foi possivel abrir o arquivo"
+//[MHelpTopicNotFound]
+"Tópico de ajuda requisitado não encontrado"
+
+// need translation:
+//[MPluginsHelpTitle]
+"Plugins help"
+// need translation:
+//[MDocumentsHelpTitle]
+"Documents help"
+// need translation:
+//[MHelpSearchCannotFind]
+"Could not find the string"
+
+// Help KeyBar F1-12
+// need translation:
+//[MHelpF1]
+"Help"
+//[MHelpF2]
+""
+//[MHelpF3]
+""
+//[MHelpF4]
+""
+// need translation:
+//[MHelpF5]
+"Zoom"
+//[MHelpF6]
+""
+// need translation:
+//[MHelpF7]
+"Search"
+//[MHelpF8]
+""
+//[MHelpF9]
+""
+// need translation:
+//[MHelpF10]
+"Quit"
+//[MHelpF11]
+""
+//[MHelpF12]
+""
+
+// Help KeyBar Shift+F1-12
+// need translation:
+//[MHelpShiftF1]
+"Index"
+// need translation:
+//[MHelpShiftF2]
+"Plugin"
+//[MHelpShiftF3]
+""
+//[MHelpShiftF4]
+""
+//[MHelpShiftF5]
+""
+//[MHelpShiftF6]
+""
+//[MHelpShiftF7]
+""
+//[MHelpShiftF8]
+""
+//[MHelpShiftF9]
+""
+//[MHelpShiftF10]
+""
+//[MHelpShiftF11]
+""
+//[MHelpShiftF12]
+""
+
+// Help KeyBar Alt+F1-12
+// need translation:
+//[MHelpAltF1]
+"Prev"
+//[MHelpAltF2]
+""
+//[MHelpAltF3]
+""
+//[MHelpAltF4]
+""
+//[MHelpAltF5]
+""
+//[MHelpAltF6]
+""
+//[MHelpAltF7]
+""
+//[MHelpAltF8]
+""
+//[MHelpAltF9]
+"Video"
+//[MHelpAltF10]
+""
+//[MHelpAltF11]
+""
+//[MHelpAltF12]
+""
+
+// Help KeyBar Ctrl+F1-12
+//[MHelpCtrlF1]
+""
+//[MHelpCtrlF2]
+""
+//[MHelpCtrlF3]
+""
+//[MHelpCtrlF4]
+""
+//[MHelpCtrlF5]
+""
+//[MHelpCtrlF6]
+""
+//[MHelpCtrlF7]
+""
+//[MHelpCtrlF8]
+""
+//[MHelpCtrlF9]
+""
+//[MHelpCtrlF10]
+""
+//[MHelpCtrlF11]
+""
+//[MHelpCtrlF12]
+""
+
+// Help KeyBar AltShiftF1-12
+//[MHelpAltShiftF1]
+""
+//[MHelpAltShiftF2]
+""
+//[MHelpAltShiftF3]
+""
+//[MHelpAltShiftF4]
+""
+//[MHelpAltShiftF5]
+""
+//[MHelpAltShiftF6]
+""
+//[MHelpAltShiftF7]
+""
+//[MHelpAltShiftF8]
+""
+//[MHelpAltShiftF9]
+""
+//[MHelpAltShiftF10]
+""
+//[MHelpAltShiftF11]
+""
+//[MHelpAltShiftF12]
+""
+
+// Help KeyBar CtrlShiftF1-12
+//[MHelpCtrlShiftF1]
+""
+//[MHelpCtrlShiftF2]
+""
+//[MHelpCtrlShiftF3]
+""
+//[MHelpCtrlShiftF4]
+""
+//[MHelpCtrlShiftF5]
+""
+//[MHelpCtrlShiftF6]
+""
+//[MHelpCtrlShiftF7]
+""
+//[MHelpCtrlShiftF8]
+""
+//[MHelpCtrlShiftF9]
+""
+//[MHelpCtrlShiftF10]
+""
+//[MHelpCtrlShiftF11]
+""
+//[MHelpCtrlShiftF12]
+""
+
+// Help KeyBar CtrlAltF1-12
+//[MHelpCtrlAltF1]
+""
+//[MHelpCtrlAltF2]
+""
+//[MHelpCtrlAltF3]
+""
+//[MHelpCtrlAltF4]
+""
+//[MHelpCtrlAltF5]
+""
+//[MHelpCtrlAltF6]
+""
+//[MHelpCtrlAltF7]
+""
+//[MHelpCtrlAltF8]
+""
+//[MHelpCtrlAltF9]
+""
+//[MHelpCtrlAltF10]
+""
+//[MHelpCtrlAltF11]
+""
+//[MHelpCtrlAltF12]
+""
+
+// Help KeyBar CtrlAltShiftF1-12
+//[MHelpCtrlAltShiftF1]
+""
+//[MHelpCtrlAltShiftF2]
+""
+//[MHelpCtrlAltShiftF3]
+""
+//[MHelpCtrlAltShiftF4]
+""
+//[MHelpCtrlAltShiftF5]
+""
+//[MHelpCtrlAltShiftF6]
+""
+//[MHelpCtrlAltShiftF7]
+""
+//[MHelpCtrlAltShiftF8]
+""
+//[MHelpCtrlAltShiftF9]
+""
+//[MHelpCtrlAltShiftF10]
+""
+//[MHelpCtrlAltShiftF11]
+""
+//[MHelpCtrlAltShiftF12]
+""
+
+// InfoPanel KeyBar F1-F12
+// need translation:
+//[MInfoF1]
+"Help"
+// need translation:
+//[MInfoF2]
+"Wrap"
+// need translation:
+//[MInfoF3]
+"VieDiz"
+// need translation:
+//[MInfoF4]
+"EdtDiz"
+//[MInfoF5]
+""
+//[MInfoF6]
+""
+// need translation:
+//[MInfoF7]
+"Search"
+//[MInfoF8]
+"ANSI"
+// need translation:
+//[MInfoF9]
+"ConfMn"
+// need translation:
+//[MInfoF10]
+"Quit"
+// need translation:
+//[MInfoF11]
+"Plugin"
+// need translation:
+//[MInfoF12]
+"Screen"
+
+// InfoPanel KeyBar Shift+F1-F12
+//[MInfoShiftF1]
+""
+// need translation:
+//[MInfoShiftF2]
+"WWrap"
+//[MInfoShiftF3]
+""
+//[MInfoShiftF4]
+""
+//[MInfoShiftF5]
+""
+//[MInfoShiftF6]
+""
+// need translation:
+//[MInfoShiftF7]
+"Next"
+// need translation:
+//[MInfoShiftF8]
+"CodePg"
+// need translation:
+//[MInfoShiftF9]
+"Save"
+// need translation:
+//[MInfoShiftF10]
+"Last"
+//[MInfoShiftF11]
+""
+//[MInfoShiftF12]
+""
+
+// InfoPanel KeyBar Alt+F1-F12
+// need translation:
+//[MInfoAltF1]
+"Left"
+// need translation:
+//[MInfoAltF2]
+"Right"
+//[MInfoAltF3]
+""
+//[MInfoAltF4]
+""
+//[MInfoAltF5]
+""
+//[MInfoAltF6]
+""
+// need translation:
+//[MInfoAltF7]
+"Find"
+// need translation:
+//[MInfoAltF8]
+"Goto"
+//[MInfoAltF9]
+"Video"
+// need translation:
+//[MInfoAltF10]
+"Tree"
+// need translation:
+//[MInfoAltF11]
+"ViewHs"
+// need translation:
+//[MInfoAltF12]
+"FoldHs"
+
+// InfoPanel KeyBar Ctrl+F1-F12
+// need translation:
+//[MInfoCtrlF1]
+"Left"
+// need translation:
+//[MInfoCtrlF2]
+"Right"
+//[MInfoCtrlF3]
+""
+//[MInfoCtrlF4]
+""
+//[MInfoCtrlF5]
+""
+//[MInfoCtrlF6]
+""
+//[MInfoCtrlF7]
+""
+//[MInfoCtrlF8]
+""
+//[MInfoCtrlF9]
+""
+//[MInfoCtrlF10]
+""
+//[MInfoCtrlF11]
+""
+// need translation:
+//[MInfoCtrlF12]
+"Mode"
+
+// InfoPanel KeyBar AltShiftF1-12
+//[MInfoAltShiftF1]
+""
+//[MInfoAltShiftF2]
+""
+//[MInfoAltShiftF3]
+""
+//[MInfoAltShiftF4]
+""
+//[MInfoAltShiftF5]
+""
+//[MInfoAltShiftF6]
+""
+//[MInfoAltShiftF7]
+""
+//[MInfoAltShiftF8]
+""
+//[MInfoAltShiftF9]
+""
+//[MInfoAltShiftF10]
+""
+//[MInfoAltShiftF11]
+""
+//[MInfoAltShiftF12]
+""
+
+// InfoPanel KeyBar CtrlShiftF1-12
+//[MInfoCtrlShiftF1]
+""
+//[MInfoCtrlShiftF2]
+""
+//[MInfoCtrlShiftF3]
+""
+//[MInfoCtrlShiftF4]
+""
+//[MInfoCtrlShiftF5]
+""
+//[MInfoCtrlShiftF6]
+""
+//[MInfoCtrlShiftF7]
+""
+//[MInfoCtrlShiftF8]
+""
+//[MInfoCtrlShiftF9]
+""
+//[MInfoCtrlShiftF10]
+""
+//[MInfoCtrlShiftF11]
+""
+//[MInfoCtrlShiftF12]
+""
+
+// InfoPanel KeyBar CtrlAltF1-12
+//[MInfoCtrlAltF1]
+""
+//[MInfoCtrlAltF2]
+""
+//[MInfoCtrlAltF3]
+""
+//[MInfoCtrlAltF4]
+""
+//[MInfoCtrlAltF5]
+""
+//[MInfoCtrlAltF6]
+""
+//[MInfoCtrlAltF7]
+""
+//[MInfoCtrlAltF8]
+""
+//[MInfoCtrlAltF9]
+""
+//[MInfoCtrlAltF10]
+""
+//[MInfoCtrlAltF11]
+""
+//[MInfoCtrlAltF12]
+""
+
+// InfoPanel KeyBar CtrlAltShiftF1-12
+//[MInfoCtrlAltShiftF1]
+""
+//[MInfoCtrlAltShiftF2]
+""
+//[MInfoCtrlAltShiftF3]
+""
+//[MInfoCtrlAltShiftF4]
+""
+//[MInfoCtrlAltShiftF5]
+""
+//[MInfoCtrlAltShiftF6]
+""
+//[MInfoCtrlAltShiftF7]
+""
+//[MInfoCtrlAltShiftF8]
+""
+//[MInfoCtrlAltShiftF9]
+""
+//[MInfoCtrlAltShiftF10]
+""
+//[MInfoCtrlAltShiftF11]
+""
+//[MInfoCtrlAltShiftF12]
+""
+
+// QView KeyBar F1-F12
+// need translation:
+//[MQViewF1]
+"Help"
+// need translation:
+//[MQViewF2]
+"Wrap"
+// need translation:
+//[MQViewF3]
+"View"
+// need translation:
+//[MQViewF4]
+"Hex"
+//[MQViewF5]
+""
+//[MQViewF6]
+""
+// need translation:
+//[MQViewF7]
+"Search"
+//[MQViewF8]
+"ANSI"
+// need translation:
+//[MQViewF9]
+"ConfMn"
+// need translation:
+//[MQViewF10]
+"Quit"
+// need translation:
+//[MQViewF11]
+"Plugin"
+// need translation:
+//[MQViewF12]
+"Screen"
+
+// QView KeyBar Shift+F1-F12
+//[MQViewShiftF1]
+""
+// need translation:
+//[MQViewShiftF2]
+"WWrap"
+//[MQViewShiftF3]
+""
+//[MQViewShiftF4]
+""
+//[MQViewShiftF5]
+""
+//[MQViewShiftF6]
+""
+// need translation:
+//[MQViewShiftF7]
+"Next"
+// need translation:
+//[MQViewShiftF8]
+"CodePg"
+// need translation:
+//[MQViewShiftF9]
+"Save"
+// need translation:
+//[MQViewShiftF10]
+"Last"
+//[MQViewShiftF11]
+""
+//[MQViewShiftF12]
+""
+
+// QView KeyBar Alt+F1-F12
+// need translation:
+//[MQViewAltF1]
+"Left"
+// need translation:
+//[MQViewAltF2]
+"Right"
+//[MQViewAltF3]
+""
+//[MQViewAltF4]
+""
+//[MQViewAltF5]
+""
+//[MQViewAltF6]
+""
+// need translation:
+//[MQViewAltF7]
+"Find"
+// need translation:
+//[MQViewAltF8]
+"Goto"
+//[MQViewAltF9]
+"Video"
+// need translation:
+//[MQViewAltF10]
+"Tree"
+// need translation:
+//[MQViewAltF11]
+"ViewHs"
+// need translation:
+//[MQViewAltF12]
+"FoldHs"
+
+// QView KeyBar Ctrl+F1-F12
+// need translation:
+//[MQViewCtrlF1]
+"Left"
+// need translation:
+//[MQViewCtrlF2]
+"Right"
+//[MQViewCtrlF3]
+""
+//[MQViewCtrlF4]
+""
+//[MQViewCtrlF5]
+""
+//[MQViewCtrlF6]
+""
+//[MQViewCtrlF7]
+""
+//[MQViewCtrlF8]
+""
+//[MQViewCtrlF9]
+""
+//[MQViewCtrlF10]
+""
+//[MQViewCtrlF11]
+""
+//[MQViewCtrlF12]
+""
+
+// QView KeyBar AltShiftF1-12
+//[MQViewAltShiftF1]
+""
+//[MQViewAltShiftF2]
+""
+//[MQViewAltShiftF3]
+""
+//[MQViewAltShiftF4]
+""
+//[MQViewAltShiftF5]
+""
+//[MQViewAltShiftF6]
+""
+//[MQViewAltShiftF7]
+""
+//[MQViewAltShiftF8]
+""
+//[MQViewAltShiftF9]
+""
+//[MQViewAltShiftF10]
+""
+//[MQViewAltShiftF11]
+""
+//[MQViewAltShiftF12]
+""
+
+// QView KeyBar CtrlShiftF1-12
+//[MQViewCtrlShiftF1]
+""
+//[MQViewCtrlShiftF2]
+""
+//[MQViewCtrlShiftF3]
+""
+//[MQViewCtrlShiftF4]
+""
+//[MQViewCtrlShiftF5]
+""
+//[MQViewCtrlShiftF6]
+""
+//[MQViewCtrlShiftF7]
+""
+//[MQViewCtrlShiftF8]
+""
+//[MQViewCtrlShiftF9]
+""
+//[MQViewCtrlShiftF10]
+""
+//[MQViewCtrlShiftF11]
+""
+//[MQViewCtrlShiftF12]
+""
+
+// QView KeyBar CtrlAltF1-12
+//[MQViewCtrlAltF1]
+""
+//[MQViewCtrlAltF2]
+""
+//[MQViewCtrlAltF3]
+""
+//[MQViewCtrlAltF4]
+""
+//[MQViewCtrlAltF5]
+""
+//[MQViewCtrlAltF6]
+""
+//[MQViewCtrlAltF7]
+""
+//[MQViewCtrlAltF8]
+""
+//[MQViewCtrlAltF9]
+""
+//[MQViewCtrlAltF10]
+""
+//[MQViewCtrlAltF11]
+""
+//[MQViewCtrlAltF12]
+""
+
+// QView KeyBar CtrlAltShiftF1-12
+//[MQViewCtrlAltShiftF1]
+""
+//[MQViewCtrlAltShiftF2]
+""
+//[MQViewCtrlAltShiftF3]
+""
+//[MQViewCtrlAltShiftF4]
+""
+//[MQViewCtrlAltShiftF5]
+""
+//[MQViewCtrlAltShiftF6]
+""
+//[MQViewCtrlAltShiftF7]
+""
+//[MQViewCtrlAltShiftF8]
+""
+//[MQViewCtrlAltShiftF9]
+""
+//[MQViewCtrlAltShiftF10]
+""
+//[MQViewCtrlAltShiftF11]
+""
+//[MQViewCtrlAltShiftF12]
+""
+
+// Tree KeyBar F1-F12
+// need translation:
+//[MKBTreeF1]
+"Help"
+// need translation:
+//[MKBTreeF2]
+"UserMn"
+//[MKBTreeF3]
+""
+// need translation:
+//[MKBTreeF4]
+"Attr"
+// need translation:
+//[MKBTreeF5]
+"Copy"
+// need translation:
+//[MKBTreeF6]
+"RenMov"
+// need translation:
+//[MKBTreeF7]
+"MkFold"
+// need translation:
+//[MKBTreeF8]
+"Delete"
+// need translation:
+//[MKBTreeF9]
+"ConfMn"
+// need translation:
+//[MKBTreeF10]
+"Quit"
+// need translation:
+//[MKBTreeF11]
+"Plugin"
+// need translation:
+//[MKBTreeF12]
+"Screen"
+
+// Tree KeyBar Shift+F1-F12
+//[MKBTreeShiftF1]
+""
+//[MKBTreeShiftF2]
+""
+//[MKBTreeShiftF3]
+""
+//[MKBTreeShiftF4]
+""
+// need translation:
+//[MKBTreeShiftF5]
+"Copy"
+// need translation:
+//[MKBTreeShiftF6]
+"Rename"
+//[MKBTreeShiftF7]
+""
+//[MKBTreeShiftF8]
+""
+// need translation:
+//[MKBTreeShiftF9]
+"Save"
+// need translation:
+//[MKBTreeShiftF10]
+"Last"
+// need translation:
+//[MKBTreeShiftF11]
+"Group"
+// need translation:
+//[MKBTreeShiftF12]
+"SelUp"
+
+// Tree KeyBar Alt+F1-F12
+// need translation:
+//[MKBTreeAltF1]
+"Left"
+// need translation:
+//[MKBTreeAltF2]
+"Right"
+//[MKBTreeAltF3]
+""
+//[MKBTreeAltF4]
+""
+//[MKBTreeAltF5]
+""
+//[MKBTreeAltF6]
+""
+// need translation:
+//[MKBTreeAltF7]
+"Find"
+// need translation:
+//[MKBTreeAltF8]
+"Histry"
+//[MKBTreeAltF9]
+"Video"
+// need translation:
+//[MKBTreeAltF10]
+"Tree"
+// need translation:
+//[MKBTreeAltF11]
+"ViewHs"
+// need translation:
+//[MKBTreeAltF12]
+"FoldHs"
+
+// Tree KeyBar Ctrl+F1-F12
+// need translation:
+//[MKBTreeCtrlF1]
+"Left"
+// need translation:
+//[MKBTreeCtrlF2]
+"Right"
+//[MKBTreeCtrlF3]
+""
+//[MKBTreeCtrlF4]
+""
+//[MKBTreeCtrlF5]
+""
+//[MKBTreeCtrlF6]
+""
+//[MKBTreeCtrlF7]
+""
+//[MKBTreeCtrlF8]
+""
+//[MKBTreeCtrlF9]
+""
+//[MKBTreeCtrlF10]
+""
+//[MKBTreeCtrlF11]
+""
+//[MKBTreeCtrlF12]
+""
+
+// Tree KeyBar AltShiftF1-12
+//[MKBTreeAltShiftF1]
+""
+//[MKBTreeAltShiftF2]
+""
+//[MKBTreeAltShiftF3]
+""
+//[MKBTreeAltShiftF4]
+""
+//[MKBTreeAltShiftF5]
+""
+//[MKBTreeAltShiftF6]
+""
+//[MKBTreeAltShiftF7]
+""
+//[MKBTreeAltShiftF8]
+""
+//[MKBTreeAltShiftF9]
+""
+//[MKBTreeAltShiftF10]
+""
+//[MKBTreeAltShiftF11]
+""
+//[MKBTreeAltShiftF12]
+""
+
+// Tree KeyBar CtrlShiftF1-12
+//[MKBTreeCtrlShiftF1]
+""
+//[MKBTreeCtrlShiftF2]
+""
+//[MKBTreeCtrlShiftF3]
+""
+//[MKBTreeCtrlShiftF4]
+""
+//[MKBTreeCtrlShiftF5]
+""
+//[MKBTreeCtrlShiftF6]
+""
+//[MKBTreeCtrlShiftF7]
+""
+//[MKBTreeCtrlShiftF8]
+""
+//[MKBTreeCtrlShiftF9]
+""
+//[MKBTreeCtrlShiftF10]
+""
+//[MKBTreeCtrlShiftF11]
+""
+//[MKBTreeCtrlShiftF12]
+""
+
+// Tree KeyBar CtrlAltF1-12
+//[MKBTreeCtrlAltF1]
+""
+//[MKBTreeCtrlAltF2]
+""
+//[MKBTreeCtrlAltF3]
+""
+//[MKBTreeCtrlAltF4]
+""
+//[MKBTreeCtrlAltF5]
+""
+//[MKBTreeCtrlAltF6]
+""
+//[MKBTreeCtrlAltF7]
+""
+//[MKBTreeCtrlAltF8]
+""
+//[MKBTreeCtrlAltF9]
+""
+//[MKBTreeCtrlAltF10]
+""
+//[MKBTreeCtrlAltF11]
+""
+//[MKBTreeCtrlAltF12]
+""
+
+// Tree KeyBar CtrlAltShiftF1-12
+//[MKBTreeCtrlAltShiftF1]
+""
+//[MKBTreeCtrlAltShiftF2]
+""
+//[MKBTreeCtrlAltShiftF3]
+""
+//[MKBTreeCtrlAltShiftF4]
+""
+//[MKBTreeCtrlAltShiftF5]
+""
+//[MKBTreeCtrlAltShiftF6]
+""
+//[MKBTreeCtrlAltShiftF7]
+""
+//[MKBTreeCtrlAltShiftF8]
+""
+//[MKBTreeCtrlAltShiftF9]
+""
+//[MKBTreeCtrlAltShiftF10]
+""
+//[MKBTreeCtrlAltShiftF11]
+""
+//[MKBTreeCtrlAltShiftF12]
+""
+
+// need translation:
+//[MCopyTimeInfoElapsed]
+"Time:"
+// need translation:
+//[MCopyTimeInfoRemaining]
+"Remaining:"
+// Bytes per second
+// need translation:
+//[MCopyTimeInfoSpeed]
+"B/s"
+
+// need translation:
+//[MKeyESCWasPressed]
+"Operation has been interrupted"
+// need translation:
+//[MDoYouWantToCancel]
+"Do you really want to cancel it?"
+// need translation:
+//[MDoYouWantToContinue]
+"Continue work?"
+
+// need translation:
+//[MCheckingFileInPlugin]
+"The file is being checked by the plugin"
+
+// need translation:
+//[MDialogType]
+"Dialog"
+// need translation:
+//[MHelpType]
+"Help"
+// need translation:
+//[MFolderTreeType]
+"FolderTree"
+// need translation:
+//[MVMenuType]
+"Menu"
+
+// need translation:
+//[MIncorrectMask]
+"File-mask string contains errors"
+
+//[MPanelBracketsForLongName]
+"{}"
+
+// need translation:
+//[MComspecNotFound]
+"Environment variable %COMSPEC% not defined"
+
+// need translation:
+//[MFileFilterTitle]
+"Filter"
+// need translation:
+//[MFileHilightTitle]
+"Files highlighting"
+// need translation:
+//[MFileFilterName]
+"&Name:"
+// need translation:
+//[MFileFilterMatchMask]
+"&Mask:"
+// need translation:
+//[MFileFilterSize]
+"Si&ze:"
+// up to 4 characters
+//[MFileFilterSizeFromSign]
+">&="
+// up to 4 characters
+//[MFileFilterSizeToSign]
+"&<="
+// need translation:
+//[MFileHardLinksCount]
+"Has more than one hardlin&k"
+// need translation:
+//[MFileFilterDate]
+"Date&/Time:"
+// need translation:
+//[MFileFilterWrite]
+"&write"
+// need translation:
+//[MFileFilterCreation]
+"&creation"
+// need translation:
+//[MFileFilterAccess]
+"&access"
+// need translation:
+//[MFileFilterChange]
+"c&hange"
+// need translation:
+//[MFileFilterDateRelative]
+"Relat&ive"
+// up to 4 characters
+//[MFileFilterDateAfterSign]
+">="
+// up to 4 characters
+//[MFileFilterDateBeforeSign]
+"<="
+// need translation:
+//[MFileFilterCurrent]
+"C&urrent"
+// need translation:
+//[MFileFilterBlank]
+"B&lank"
+// need translation:
+//[MFileFilterAttr]
+"Attri&butes"
+//[MFileFilterAttrChoose]
+"&..."
+// need translation:
+//[MFileFilterAttrReadOnly]
+"&Read only"
+// need translation:
+//[MFileFilterAttrArcive]
+"&Archive"
+// need translation:
+//[MFileFilterAttrHidden]
+"&Hidden"
+// need translation:
+//[MFileFilterAttrSystem]
+"&System"
+// need translation:
+//[MFileFilterAttrCompressed]
+"&Compressed"
+// need translation:
+//[MFileFilterAttrEncrypted]
+"&Encrypted"
+// need translation:
+//[MFileFilterAttrDirectory]
+"&Directory"
+// need translation:
+//[MFileFilterAttrNotIndexed]
+"Not &indexed"
+// need translation:
+//[MFileFilterAttrSparse]
+"S&parse"
+// need translation:
+//[MFileFilterAttrTemporary]
+"Temporar&y"
+// need translation:
+//[MFileFilterAttrReparse]
+"Reparse poin&t"
+// need translation:
+//[MFileFilterAttrOffline]
+"O&ffline"
+// need translation:
+//[MFileFilterAttrVirtual]
+"&Virtual"
+// need translation:
+//[MFileFilterAttrIntegrityStream]
+"Inte&grity stream"
+// need translation:
+//[MFileFilterAttrNoScrubData]
+"No scru&b data"
+// need translation:
+//[MFileFilterAttrPinned]
+"Pi&nned"
+// need translation:
+//[MFileFilterAttrUnpinned]
+"&Unpinned"
+//[MFileFilterAttrRecallOnOpen]
+"Recal&l on open"
+//[MFileFilterAttrRecallOnDataAccess]
+"Recall &on data access"
+//[MFileFilterAttrStrictlySequential]
+"Strictly se&quential"
+// need translation:
+//[MFileFilterAttrDevice]
+"Device"
+// need translation:
+//[MFileFilterReset]
+"&Reset"
+// need translation:
+//[MFileFilterMakeTransparent]
+"Make &transparent"
+// need translation:
+//[MFileFilterCancel]
+"Cancel"
+// need translation:
+//[MBadFileSizeFormat]
+"File size field is incorrectly filled"
+
+// need translation:
+//[MFarTitleAddonsAdmin]
+"Administrator"
+// need translation:
+//[MElevationRequired]
+"You need to provide administrator permission"
+// need translation:
+//[MElevationRequiredPrivileges]
+"Additional privileges required"
+// need translation:
+//[MElevationRequiredProcess]
+"to process this object:"
+// need translation:
+//[MElevationRequiredDelete]
+"to delete this object:"
+// need translation:
+//[MElevationRequiredCopy]
+"to copy this object:"
+// need translation:
+//[MElevationRequiredMove]
+"to move this object:"
+// need translation:
+//[MElevationRequiredReplace]
+"to replace this object:"
+// need translation:
+//[MElevationRequiredGetAttributes]
+"to get attributes of this object:"
+// need translation:
+//[MElevationRequiredSetAttributes]
+"to set attributes of this object:"
+// need translation:
+//[MElevationRequiredHardLink]
+"to create this hard link:"
+// need translation:
+//[MElevationRequiredSymLink]
+"to create this symbolic link:"
+// need translation:
+//[MElevationRequiredRecycle]
+"to move this object to recycle bin:"
+// need translation:
+//[MElevationRequiredList]
+"to list this object:"
+// need translation:
+//[MElevationRequiredSetOwner]
+"to set owner of this object:"
+// need translation:
+//[MElevationRequiredOpen]
+"to open this object:"
+// need translation:
+//[MElevationRequiredEncryptFile]
+"to encrypt this object:"
+// need translation:
+//[MElevationRequiredDecryptFile]
+"to decrypt this object:"
+// need translation:
+//[MElevationDoForAll]
+"Do this for &all current objects"
+// need translation:
+//[MElevationDoNotAskAgainInTheCurrentSession]
+"Do not ask again in the current session"
+// need translation:
+//[MCompletionHistoryTitle]
+"History"
+// need translation:
+//[MCompletionEnvironmentTitle]
+"Environment"
+// need translation:
+//[MCompletionFilesTitle]
+"Files"
+// need translation:
+//[MObjectLockedReason]
+"Object is being {0} in:"
+// need translation:
+//[MObjectLockedReasonPlayed]
+"played"
+// need translation:
+//[MObjectLockedReasonEdited]
+"edited"
+// need translation:
+//[MObjectLockedReasonOpened]
+"opened"
+// need translation:
+//[MObjectLockedAndMore]
+"and {0} more processes."
+// need translation:
+//[MObjectLockedSwitchTo]
+"Switch to"
+// need translation:
+//[MObjectLockedClose]
+"Close file"
+// need translation:
+//[MObjectLockedReasonSessionMismatch]
+"One or more processes are running in another Terminal Services session."
+// need translation:
+//[MObjectLockedReasonCriticalProcess]
+"One or more processes are critical processes."
+// need translation:
+//[MObjectLockedReasonCriticalService]
+"One or more services are critical services."
+// need translation:
+//[MObjectLockedReasonDetectedSelf]
+"The file is opened by the current process."
+// need translation:
+//[MProblemDb]
+"Problem configuration DB"
+// need translation:
+//[MShowConfigFolders]
+"Show configuration folders"
+// need translation:
+//[MBadLanguageFile]
+"Incorrect language file"
+// need translation:
+//[MLanguageStringNotFound]
+"String {0} not found"
+// need translation:
+//[MCharacterIsNotSupportedByTheCodepage]
+"The character "{0}" ({1}) is not supported by the selected code page"
+// keys
+//[MKeyLaunchMediaSelect]
+""
+//[MKeyBrowserFavorites]
+""
+//[MKeyMediaPrevTrack]
+""
+//[MKeyMediaPlayPause]
+""
+//[MKeyMediaNextTrack]
+""
+//[MKeyBrowserRefresh]
+""
+//[MKeyBrowserForward]
+""
+//[MKeyBrowserSearch]
+""
+//[MKeyMswheelRight]
+""
+//[MKeyMswheelDown]
+""
+//[MKeyMswheelLeft]
+""
+//[MKeyBrowserStop]
+""
+//[MKeyBrowserHome]
+""
+//[MKeyBrowserBack]
+""
+//[MKeyVolumeMute]
+""
+//[MKeyVolumeDown]
+""
+//[MKeyScrolllock]
+""
+//[MKeyLaunchMail]
+""
+//[MKeyLaunchApp2]
+""
+//[MKeyLaunchApp1]
+""
+//[MKeyMswheelUp]
+""
+//[MKeyMediaStop]
+""
+//[MKeyBackslash]
+""
+//[MKeyMsm1click]
+""
+//[MKeyMsm2click]
+""
+//[MKeyMsm3click]
+""
+//[MKeyMslclick]
+""
+//[MKeyMsrclick]
+""
+//[MKeyVolumeUp]
+""
+// need translation:
+//[MKeySubtract]
+"Gray -"
+//[MKeyNumenter]
+""
+// need translation:
+//[MKeyMultiply]
+"Gray *"
+//[MKeyCapslock]
+""
+//[MKeyPrntscrn]
+""
+//[MKeyNumlock]
+""
+//[MKeyDecimal]
+""
+//[MKeyStandby]
+""
+//[MKeyDivide]
+""
+//[MKeyNumdel]
+""
+//[MKeySpace]
+""
+//[MKeyRight]
+""
+//[MKeyPause]
+""
+//[MKeyEnter]
+""
+//[MKeyClear]
+""
+//[MKeyBreak]
+""
+//[MKeyPgup]
+""
+//[MKeyPgdn]
+""
+//[MKeyLeft]
+""
+//[MKeyHome]
+""
+//[MKeyDown]
+""
+//[MKeyApps]
+""
+//[MKeyRwin]
+""
+//[MKeyNumpad9]
+""
+//[MKeyNumpad8]
+""
+//[MKeyNumpad7]
+""
+//[MKeyNumpad6]
+""
+//[MKeyNumpad5]
+""
+//[MKeyNumpad4]
+""
+//[MKeyNumpad3]
+""
+//[MKeyNumpad2]
+""
+//[MKeyNumpad1]
+""
+//[MKeyNumpad0]
+""
+//[MKeyLwin]
+""
+//[MKeyTab]
+""
+//[MKeyIns]
+""
+//[MKeyF10]
+""
+//[MKeyF11]
+""
+//[MKeyF12]
+""
+//[MKeyF13]
+""
+//[MKeyF14]
+""
+//[MKeyF15]
+""
+//[MKeyF16]
+""
+//[MKeyF17]
+""
+//[MKeyF18]
+""
+//[MKeyF19]
+""
+//[MKeyF20]
+""
+//[MKeyF21]
+""
+//[MKeyF22]
+""
+//[MKeyF23]
+""
+//[MKeyF24]
+""
+//[MKeyEsc]
+""
+//[MKeyEnd]
+""
+//[MKeyDel]
+""
+// need translation:
+//[MKeyAdd]
+"Gray +"
+//[MKeyUp]
+""
+//[MKeyF9]
+""
+//[MKeyF8]
+""
+//[MKeyF7]
+""
+//[MKeyF6]
+""
+//[MKeyF5]
+""
+//[MKeyF4]
+""
+//[MKeyF3]
+""
+//[MKeyF2]
+""
+//[MKeyF1]
+""
+//[MKeyBs]
+""
+//[MKeyBackbracket]
+""
+//[MKeyQuote]
+""
+//[MKeyBracket]
+""
+//[MKeyColon]
+""
+//[MKeySemicolon]
+""
+//[MKeySlash]
+""
+//[MKeyDot]
+""
+//[MKeyComma]
+""
+//[MKeyRCtrl]
+""
+//[MKeyShift]
+""
+//[MKeyCtrl]
+""
+//[MKeyRAlt]
+""
+// keys end
+//[MKeyAlt]
+""
+
+// need translation:
+//[MNewFileName]
+"New_File_{0:04}-{1:02}-{2:02}_{3:02}.{4:02}.{5:02}.{6:03}.txt"

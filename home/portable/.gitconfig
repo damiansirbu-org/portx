@@ -1,0 +1,67 @@
+[filter "lfs"]
+    clean = git-lfs clean -- %f
+    smudge = git-lfs smudge -- %f
+    process = git-lfs filter-process
+    required = true
+[user]
+    name = damian.sirbu.ext
+    email = damian.sirbu.ext@siemens-energy.com
+[diff]
+    tool = smerge
+    algorithm = histogram
+[difftool "smerge"]
+    cmd = 'C:/App/SublimeMerge/sublime_merge.exe' mergetool \"$BASE\" \"$LOCAL\" \"$REMOTE\" -o \"$MERGED\"
+
+[merge]
+    tool = smerge
+[mergetool "smerge"]
+    cmd = 'C:/App/SublimeMerge/sublime_merge.exe' mergetool \"$BASE\" \"$LOCAL\" \"$REMOTE\" -o \"$MERGED\"
+    trustExitCode = true
+    
+[alias]
+    lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%C(bold blue)<%an>%Creset' --abbrev-commit
+    s = status -s
+    ll = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --numstat
+    lds = log --pretty=format:"%C(yellow)%h\\ %ad%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=short
+    le = log --oneline --decorate
+    st = status
+    ch = checkout
+    d = difftool
+    ba = "! for branch in `git branch -r | grep -v HEAD`;do echo $branch -- `git show --format=\"%ar by <%an>\" $branch | head -n 1` ; done | sort -r"
+    co = checkout
+    br = branch
+    cm = commit
+    last = log -1 HEAD
+    unstage = reset HEAD --
+    visual = !gitk
+    amod = !git add -u && git commit -m \"Quick update\" && git push
+[pull]
+    rebase = true
+[fetch]
+    prune = true
+[push]
+    autosetupremote = true
+[init]
+    defaultBranch = main
+[branch]
+    sort = -committerdate
+[transfer]
+    fsckobjects = true
+[fetch]
+    fsckobjects = true
+[receive]
+    fsckObjects = true
+[url "git@github.com:"]
+    insteadOf = https://github.com/
+[safe]
+    directory = '*'
+[core]
+    longpaths = true
+    autocrlf = input
+    eol = lf
+    filemode = false
+    symlinks = false
+    ignorecase = true
+[http]
+    postBuffer = 524288000
+    maxRequestBuffer = 524288000

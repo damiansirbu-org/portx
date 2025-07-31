@@ -1,0 +1,29 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(echo:*)",
+      "Bash(find:*)",
+      "Bash(ls:*)",
+      "Bash(mkdir:*)",
+      "Bash(grep:*)",
+      "Bash(ssh-add:*)",
+      "Bash(mv:*)",
+      "Bash(shopt)",
+      "Bash(shopt:*)",
+      "Bash(complete -p)",
+      "Bash(compgen -f ./)",
+      "Bash(cat:*)",
+      "Bash(source ~/.bashrc)",
+      "Bash(cp:*)",
+      "Bash(source /mingw64/share/git/completion/git-completion.bash)",
+      "Bash(export PATHEXT=\"$PATHEXT;.SH\")",
+      "Bash(set -x)",
+      "Bash(compgen:*)",
+      "Bash(set +x)",
+      "Bash(bind:*)",
+      "Bash(od:*)",
+      "Bash(rm:*)"
+    ],
+    "deny": []
+  }
+}
