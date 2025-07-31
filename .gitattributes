@@ -1,1 +1,16 @@
+bin-tools/git/difft.exe filter=lfs diff=lfs merge=lfs -text
+bin-tools/monitoring/promtool.exe filter=lfs diff=lfs merge=lfs -text
+bin-tools/usql/usql.exe filter=lfs diff=lfs merge=lfs -text
+bin-tools/k9s/k9s.exe filter=lfs diff=lfs merge=lfs -text
+bin-tools/monitoring/telegraf.exe filter=lfs diff=lfs merge=lfs -text
+bin-tools/docker-compose/docker-compose.exe filter=lfs diff=lfs merge=lfs -text
+bin-tools/git/gh.exe filter=lfs diff=lfs merge=lfs -text
+bin-tools/k6/k6.exe filter=lfs diff=lfs merge=lfs -text
+bin-tools/k8/kubectl.exe filter=lfs diff=lfs merge=lfs -text
+bin-tools/minikube/minikube.exe filter=lfs diff=lfs merge=lfs -text
+bin-tools/openshift/oc.exe filter=lfs diff=lfs merge=lfs -text
+bin-tools/rclone/rclone.exe filter=lfs diff=lfs merge=lfs -text
+bin-tools/helmfile/helmfile.exe filter=lfs diff=lfs merge=lfs -text
+bin-tools/nuclei/nuclei.exe filter=lfs diff=lfs merge=lfs -text
+bin-tools/terraform/terraform.exe filter=lfs diff=lfs merge=lfs -text
 *.exe filter=lfs diff=lfs merge=lfs -text
