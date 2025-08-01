@@ -67,7 +67,7 @@ jobs:
         retention-days: 30
     
     - name: Create/Update GitHub Release
-      uses: softprops/action-gh-release@v1
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: v${{ steps.version.outputs.VERSION }}
         name: PORTX v${{ steps.version.outputs.VERSION }}
@@ -81,12 +81,15 @@ jobs:
           
           🔄 **Built from commit:** ${{ github.sha }}
           
-          📅 **Build date:** ${{ github.event.head_commit.timestamp }}
+          📅 **Build date:** ${{ github.run_started_at }}
           
           ---
           
           This release is automatically updated on every push to main branch.
+        draft: false
         prerelease: false
         make_latest: true
+        generate_release_notes: false
+        fail_on_unmatched_files: false
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
