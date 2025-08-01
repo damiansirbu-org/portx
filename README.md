@@ -45,7 +45,7 @@ All tools are Windows-native executables with no external dependencies or DLL re
 1. Extract PORTX to any directory
 2. Run `portx.bat` to launch the environment
 3. Access tools via standard Unix commands or Windows paths
-4. Use `portx wiki` for comprehensive tool documentation
+4. Use `portx man` for tool documentation
 
 ## Technical Specifications
 

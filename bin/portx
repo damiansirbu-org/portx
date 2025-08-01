@@ -1,369 +1,106 @@
 #!/bin/bash
-# PORTX Interactive Manual System
+# PORTX Manual System
 # By Damian Sirbu
-# Usage: portx [command] [args...]
 
-PORTX_ROOT="/c/App/PORTX"
-DOC_DIR="$PORTX_ROOT/doc-portx"
-MANUAL_FILE="$DOC_DIR/MANUAL.md"
-MANUAL_DIR="$DOC_DIR/manual"
-TUI_INDEX="$MANUAL_DIR/index.md"
-
-# Check for TUI tools (prefer glow if available, fallback to less/more)
-get_viewer() {
-    if command -v glow >/dev/null 2>&1; then
-        echo "glow"
-    elif command -v less >/dev/null 2>&1; then
-        echo "less -R"
-    elif command -v more >/dev/null 2>&1; then
-        echo "more"
-    else
-        echo "cat"
-    fi
-}
-
-# Display content with best available viewer
-view_content() {
-    local file="$1"
-    local viewer=$(get_viewer)
-    
-    if [[ ! -f "$file" ]]; then
-        echo "Error: File not found: $file"
-        return 1
-    fi
-    
-    case "$viewer" in
-        "glow")
-            glow -p -s ascii -w 100 "$file"
-            ;;
-        "less -R")
-            less -R "$file"
-            ;;
-        "more")
-            more "$file"
-            ;;
-        *)
-            cat "$file"
-            ;;
-    esac
-}
-
-# Show TUI manual index (interactive wiki)
-show_tui_manual() {
-    if [[ -d "$MANUAL_DIR" ]] && command -v glow >/dev/null 2>&1; then
-        echo "🚀 PORTX Interactive Wiki Browser - By Damian Sirbu"
-        echo "===================================================="
-        echo "Navigate with arrow keys, press Enter to open files, q to quit"
-        echo ""
-        # Start Glow in directory browser mode for true wiki experience
-        glow -p -s ascii -w 100 "$MANUAL_DIR"
-    elif [[ -f "$TUI_INDEX" ]]; then
-        echo "🚀 PORTX Interactive Manual - By Damian Sirbu"
-        echo "================================================"
-        view_content "$TUI_INDEX"
-    else
-        echo "Manual not available, showing classic manual..."
-        view_content "$MANUAL_FILE"
-    fi
-}
-
-# Show category-specific content
-show_category() {
-    local category="$1"
-    
-    # Map category aliases to actual file names
-    case "$category" in
-        "filesystem"|"files"|"file"|"core") category="filesystem" ;;
-        "network"|"net") category="network" ;;
-        "security"|"sec") category="security" ;;
-        "development"|"dev") category="development" ;;
-        "cloud"|"infrastructure") category="cloud" ;;
-        "monitoring"|"system"|"monitor") category="monitoring" ;;
-        "database"|"db") category="database" ;;
-        "mobile"|"android") category="mobile" ;;
-        "text"|"processing") category="text" ;;
-        "testing"|"test"|"quality") category="testing" ;;
-    esac
-    
-    local category_file="$MANUAL_DIR/categories/${category}.md"
-    
-    if [[ -f "$category_file" ]]; then
-        echo "📂 Category: $(echo "$category" | tr '-' ' ' | sed 's/\b\w/\U&/g')"
-        echo "File: categories/${category}.md"
-        echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-        echo ""
-        view_content "$category_file"
-    else
-        # Fallback to parsing main manual
-        echo "⚠️  Category file not found, showing section from main manual..."
-        show_section_fallback "$category"
-    fi
-}
-
-# Fallback section parsing for main manual
-show_section_fallback() {
-    local section="$1"
-    case "$section" in
-        "modern"|"unix")
-            sed -n '/^## Modern Unix Tools/,/^## GNU\/Linux Tools/p' "$MANUAL_FILE" | head -n -1 | view_content /dev/stdin
-            ;;
-        "gnu"|"linux")  
-            sed -n '/^## GNU\/Linux Tools/,/^## Cloud & Infrastructure/p' "$MANUAL_FILE" | head -n -1 | view_content /dev/stdin
-            ;;
-        "cloud"|"infrastructure")
-            sed -n '/^## Cloud & Infrastructure/,/^## Security & Analysis/p' "$MANUAL_FILE" | head -n -1 | view_content /dev/stdin
-            ;;
-        "security"|"analysis")
-            sed -n '/^## Security & Analysis/,/^## Development Tools/p' "$MANUAL_FILE" | head -n -1 | view_content /dev/stdin
-            ;;
-        "development"|"dev")
-            sed -n '/^## Development Tools/,/^## System Monitoring/p' "$MANUAL_FILE" | head -n -1 | view_content /dev/stdin
-            ;;
-        "monitoring"|"system")
-            sed -n '/^## System Monitoring/,/^## Database Management/p' "$MANUAL_FILE" | head -n -1 | view_content /dev/stdin
-            ;;
-        "database"|"db")
-            sed -n '/^## Database Management/,/^## Mobile Development/p' "$MANUAL_FILE" | head -n -1 | view_content /dev/stdin
-            ;;
-        "mobile"|"android")
-            sed -n '/^## Mobile Development/,/^## File Management/p' "$MANUAL_FILE" | head -n -1 | view_content /dev/stdin
-            ;;
-        "files"|"file")
-            sed -n '/^## File Management/,/^## Testing & API/p' "$MANUAL_FILE" | head -n -1 | view_content /dev/stdin
-            ;;
-        "testing"|"api")
-            sed -n '/^## Testing & API/,/^## Shell Integration/p' "$MANUAL_FILE" | head -n -1 | view_content /dev/stdin
-            ;;
-        *)
-            echo "Unknown section: $section"
-            echo "Use 'portx help' for available sections"
-            return 1
-            ;;
-    esac
-}
-
-# Enhanced search functionality
-search_manual() {
-    local query="$1"
-    if [[ -z "$query" ]]; then
-        echo "Usage: portx search <query>"
-        echo ""
-        echo "Examples:"
-        echo "  portx search docker          # Find Docker-related tools"
-        echo "  portx search security        # Find security tools"
-        echo "  portx search \"json process\"   # Find JSON processing tools"
-        return 1
-    fi
-    
-    echo "🔍 PORTX Search Results for: '$query'"
-    echo "================================================="
-    echo ""
-    
-    local found_count=0
-    
-    # Search in category files
-    if [[ -d "$MANUAL_DIR/categories" ]]; then
-        echo "📚 Searching Categories..."
-        echo "========================="
-        for category_file in "$MANUAL_DIR/categories"/*.md; do
-            if [[ -f "$category_file" ]] && grep -q -i "$query" "$category_file"; then
-                local category_name=$(basename "$category_file" .md)
-                echo ""
-                echo "📂 Category: $(echo "$category_name" | tr '-' ' ' | sed 's/\b\w/\U&/g')"
-                echo "   File: categories/$(basename "$category_file")"
-                echo "   Access: portx $category_name"
-                
-                # Show matching lines with context
-                grep -n -i -C 1 "$query" "$category_file" | head -6 | while IFS=: read -r line_num content; do
-                    if [[ "$content" != "--" ]]; then
-                        echo "   → Line $line_num: $(echo "$content" | sed 's/^[[:space:]]*//')"
-                    fi
-                done
-                ((found_count++))
-            fi
-        done
-    fi
-    
-    # Search in tool files if they exist
-    if [[ -d "$MANUAL_DIR/tools" ]]; then
-        echo ""
-        echo "🔧 Searching Tool Documentation..."
-        echo "=================================="
-        for tool_file in "$MANUAL_DIR/tools"/*.md; do
-            if [[ -f "$tool_file" ]] && grep -q -i "$query" "$tool_file"; then
-                local tool_name=$(basename "$tool_file" .md)
-                echo ""
-                echo "🛠️  Tool: $tool_name"
-                echo "   File: tools/$(basename "$tool_file")"
-                echo "   Access: portx tool $tool_name"
-                
-                # Show matching lines
-                grep -n -i -C 1 "$query" "$tool_file" | head -4 | while IFS=: read -r line_num content; do
-                    if [[ "$content" != "--" ]]; then
-                        echo "   → Line $line_num: $(echo "$content" | sed 's/^[[:space:]]*//')"
-                    fi
-                done
-                ((found_count++))
-            fi
-        done
-    fi
-    
-    # Search in main manual
-    echo ""
-    echo "📖 Searching Main Manual..."
-    echo "==========================="
-    if grep -q -i "$query" "$MANUAL_FILE"; then
-        echo ""
-        echo "📋 Found in: MANUAL.md"
-        echo "   Access: portx man"
-        
-        # Show matching sections with better context
-        grep -n -i -B 2 -A 3 "$query" "$MANUAL_FILE" | head -15 | while IFS=: read -r line_num content; do
-            if [[ "$content" != "--" ]]; then
-                # Highlight section headers
-                if [[ "$content" =~ ^[[:space:]]*#{1,3}[[:space:]] ]]; then
-                    echo "   → Section: $(echo "$content" | sed 's/^[[:space:]]*#{1,3}[[:space:]]*//')"
-                else
-                    echo "   → Line $line_num: $(echo "$content" | sed 's/^[[:space:]]*//')"
-                fi
-            fi
-        done
-        ((found_count++))
-    fi
-    
-    # Search summary
-    echo ""
-    echo "📊 Search Summary"
-    echo "================="
-    echo "Query: '$query'"
-    echo "Results found in: $found_count location(s)"
-    echo ""
-    echo "💡 Pro Tips:"
-    echo "• Use 'portx tool <name>' for specific tool documentation"
-    echo "• Use 'portx <category>' to browse entire categories"
-    echo "• Try different keywords if no results found"
-    echo "• Use quotes for multi-word searches: 'portx search \"json processing\"'"
-}
-
-# Show specific tool documentation  
-show_tool() {
-    local tool="$1"
-    local tool_file="$MANUAL_DIR/tools/${tool}.md"
-    
-    if [[ -f "$tool_file" ]]; then
-        view_content "$tool_file"
-    else
-        echo "🔍 Searching for tool: $tool"
-        search_manual "$tool"
-    fi
-}
-
-# Show classical manual (full MANUAL.md)
-show_classical_manual() {
-    echo "📖 PORTX Classical Manual - By Damian Sirbu"
-    echo "============================================="
-    view_content "$MANUAL_FILE"
-}
-
-# Enhanced help system
-show_help() {
+# Show manual page
+show_man() {
     cat << 'EOF'
-🚀 PORTX Interactive Wiki System - By Damian Sirbu
-================================================
+PORTX(1)                          User Commands                         PORTX(1)
 
-**Your Complete Windows POSIX Toolkit - 493 Professional Tools**
+NAME
+       portx - Portable POSIX Environment for Windows
 
-USAGE:
-  portx                    🏠 Launch interactive TUI wiki browser
-  portx wiki               🏠 Launch TUI wiki browser (same as portx)
-  portx man                📖 Show classical manual (full MANUAL.md)
-  portx [category]         📂 Browse specific category
-  portx tool <name>        🛠️  View specific tool documentation
-  portx search <query>     🔍 Search across all documentation
-  portx help               ❓ Show this help
+SYNOPSIS
+       portx [COMMAND]
 
-📚 CATEGORIES (Browse with portx <category>):
-  🗂️  filesystem          Core Unix utilities (58 tools) - ls, cp, mv, find, tar
-  🌐 network              Network tools (25 tools) - curl, wget, ssh, ping, nc
-  🛡️  security            Security & crypto (22 tools) - nuclei, GPG, YARA, osquery
-  💻 development          Development tools (45 tools) - gcc, git, helix, make
-  ☁️  cloud               Cloud & infrastructure (28 tools) - AWS, K8s, Docker, Terraform
-  📊 monitoring           System monitoring (18 tools) - htop, ps, btop, osquery
-  🗄️  database            Database tools (8 tools) - usql, mysql, psql, sqlite3
-  📱 mobile               Mobile development (12 tools) - adb, scrcpy, fastboot
-  🔍 text                 Text processing (35 tools) - ripgrep, jq, awk, sed, grep
-  🧪 testing              Testing & quality (15 tools) - newman, k6, shellcheck
+DESCRIPTION
+       PORTX provides a complete POSIX toolkit built on Git Bash with 494 
+       Windows-native command-line tools. Zero installation, zero dependencies.
 
-🔍 SEARCH EXAMPLES:
-  portx search docker           # Find Docker-related tools
-  portx search security         # Find security tools
-  portx search "json process"   # Multi-word search (use quotes)
-  portx search kubernetes       # Find K8s tools
+ARCHITECTURE
+       Foundation Layer    Git Bash (MinGW64) - 272 Unix utilities
+       Enhancement Layer   Modern CLI tools - 44 productivity tools  
+       Professional Layer  Enterprise tools - 127 cloud/security/dev tools
+       Integration Layer   Development tools - 48 compilers/libraries
 
-🛠️  TOOL EXAMPLES:
-  portx tool aws               # AWS CLI comprehensive guide
-  portx tool ripgrep           # Ultra-fast text search
-  portx tool kubectl          # Kubernetes management
-  portx tool nuclei            # Vulnerability scanner
+TOOL CATEGORIES
+       Development         Git, GCC, text editors, build tools, runtimes
+       DevOps             AWS CLI, Azure CLI, Terraform, Kubernetes, Docker
+       Security           ClamAV, YARA, osquery, hash utilities, nuclei
+       Text Processing    grep/sed/awk, ripgrep/bat, JSON/YAML processors
+       System Admin       Process monitoring, file management, network utils
 
-⌨️  NAVIGATION (in TUI):
-  ↑/↓ or j/k              Scroll content up/down
-  g                       Go to top
-  G                       Go to bottom
-  /                       Search within current page
-  q                       Quit current view
-  h                       Show viewer help
-  Enter                   Follow links (in directory mode)
+KEY ADVANTAGES
+       Enterprise Compatible  No installation, no registry, no admin rights
+       Performance           Native Windows executables, no emulation
+       Portability          Self-contained, runs from any directory
+       Completeness         Full POSIX shell plus modern tooling
+       Integration          Seamless tool interoperability
 
-🎯 QUICK START:
-  1. portx                     # Start with interactive wiki
-  2. portx search <term>       # Find what you need
-  3. portx tool <name>         # Get detailed tool docs
-  4. portx <category>          # Browse by category
+TECHNICAL SPECIFICATIONS
+       Shell Environment     Bash 4.4+ with POSIX compatibility
+       Home Directory        Portable user environment with SSH/Git config
+       PATH Management       Hierarchical tool discovery across bin dirs
+       File System          Unix-style paths with Windows compatibility
+       Process Management   Native Windows processes with Unix signals
 
-📊 STATISTICS:
-  • Total Tools: 493 executables across 8 categories
-  • Success Rate: 99.8% (492/493 tools working)
-  • Directories: 53 organized tool directories
-  • TUI Engine: Glow v2.1.1 with enhanced markdown rendering
-  • Documentation: 500+ pages of comprehensive guides
+ENVIRONMENT VARIABLES
+       PORTX_ROOT           Root directory of PORTX installation
+       PATH                 Enhanced with all tool directories
+       HOME                 Portable home directory for user config
 
-💡 PRO TIPS:
-  • Start with 'portx' for the full interactive experience
-  • Use search to quickly find tools by keyword
-  • Bookmark useful categories with shell aliases
-  • Combine tools: rg pattern | jq '.field' | bat
+FILES
+       bin/                 Core system executables
+       bin-ext/             Enhanced Unix tools (ripgrep, bat, fzf, jq)
+       bin-tools/           Professional tools (AWS, Docker, security)
+       mingw64/             MinGW64 development environment
+       usr/                 Unix utilities and libraries
+       home/portable/       User configuration and SSH setup
+
+EXAMPLES
+       Basic usage:
+         ls -la                List files with details
+         grep pattern file     Search for pattern in file
+         rg pattern            Fast recursive search with ripgrep
+
+       Professional workflows:
+         aws s3 ls             List S3 buckets
+         kubectl get pods      List Kubernetes pods
+         nuclei -t templates/  Run vulnerability scan
+
+       Tool combinations:
+         rg "error" logs/ | jq '.level' | sort | uniq -c
+
+AUTHOR
+       Written by Damian Sirbu.
+
+COPYRIGHT
+       PORTX delivers enterprise-grade Unix functionality on Windows without
+       the complexity or security concerns of traditional emulation approaches.
 
 EOF
 }
 
+# Show version
+show_version() {
+    if [[ -f "$PORTX_ROOT/VERSION" ]]; then
+        echo "PORTX version $(cat "$PORTX_ROOT/VERSION")"
+    else
+        echo "PORTX version unknown"
+    fi
+}
+
 # Main command dispatcher
-case "${1:-}" in
-    ""|"wiki")
-        show_tui_manual
+case "${1:-man}" in
+    "man"|"manual"|""|"--help"|"-h")
+        show_man
         ;;
-    "man"|"manual")
-        if [[ "$1" == "man" ]]; then
-            show_classical_manual
-        else
-            show_tui_manual
-        fi
-        ;;
-    "search")
-        search_manual "$2"
-        ;;
-    "tool")
-        show_tool "$2"
-        ;;
-    "help"|"--help"|"-h")
-        show_help
-        ;;
-    "filesystem"|"files"|"file"|"core"|"network"|"net"|"security"|"sec"|"development"|"dev"|"cloud"|"infrastructure"|"monitoring"|"system"|"monitor"|"database"|"db"|"mobile"|"android"|"text"|"processing"|"testing"|"test"|"quality")
-        show_category "$1"
+    "version"|"--version"|"-v")
+        show_version
         ;;
     *)
-        echo "Unknown command: $1"
-        echo "Use 'portx help' for usage information"
+        echo "portx: unknown command '$1'"
+        echo "Try 'portx man' for documentation."
         exit 1
         ;;
 esac
