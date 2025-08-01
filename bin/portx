@@ -27,7 +27,7 @@ TOOL CATEGORIES
        Development         Git, GCC, text editors, build tools, runtimes
        DevOps             AWS CLI, Azure CLI, Terraform, Kubernetes, Docker
        Security           ClamAV, YARA, osquery, hash utilities, nuclei
-       Text Processing    grep/sed/awk, ripgrep/bat, JSON/YAML processors
+       Text Processing    grep/sed/awk, ripgrep/bat, fd/sd, JSON/YAML processors
        System Admin       Process monitoring, file management, network utils
 
 KEY ADVANTAGES
@@ -53,6 +53,8 @@ FILES
        bin/                 Core system executables
        bin-ext/             Enhanced Unix tools (ripgrep, bat, fzf, jq)
        bin-tools/           Professional tools (AWS, Docker, security)
+       bin-tools/sysinternals/ Microsoft SysInternals command-line tools
+       bin-tools/nircmd/    NirCmd - Windows automation and system control
        mingw64/             MinGW64 development environment
        usr/                 Unix utilities and libraries
        home/portable/       User configuration and SSH setup
@@ -62,14 +64,30 @@ EXAMPLES
          ls -la                List files with details
          grep pattern file     Search for pattern in file
          rg pattern            Fast recursive search with ripgrep
+         fd pattern            Fast find alternative with intuitive syntax
+         sd 'find' 'replace'   Intuitive find & replace with modern regex
 
        Professional workflows:
          aws s3 ls             List S3 buckets
          kubectl get pods      List Kubernetes pods
          nuclei -t templates/  Run vulnerability scan
 
+       System analysis with SysInternals:
+         psinfo64 -accepteula  System information and specs
+         handle64 -accepteula  Show open files and handles
+         pslist64 -accepteula  List running processes with details
+         accesschk64 -accepteula -u user -w folder  Check folder permissions
+
+       Windows automation with NirCmd:
+         nircmd clipboard set "text"     Set clipboard content
+         nircmd speak text "message"     Text-to-speech
+         nircmd setsysvolume 50000       Set system volume
+         nircmd monitor off              Turn off monitor
+         
        Tool combinations:
          rg "error" logs/ | jq '.level' | sort | uniq -c
+         fd -e js | sd 'console\.log' 'logger.info'  # Modern find/replace
+         pslist64 -accepteula | rg "chrome|firefox"  # Find browser processes
 
 AUTHOR
        Written by Damian Sirbu.

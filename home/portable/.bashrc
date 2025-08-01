@@ -109,16 +109,12 @@ if [[ $- == *i* ]]; then
     complete -o bashdefault -o default -o filenames vi
     complete -o bashdefault -o default -o filenames vim
     
-    # Completion for common commands (if available)
-    if command -v kubectl >/dev/null 2>&1; then
-        source <(kubectl completion bash 2>/dev/null)
-        complete -o default -F __start_kubectl k
-    fi
+    # Basic file completion only - tool-specific completions removed for performance
 fi
 
 # FIXED: Advanced PORTX Tools Loader - ONLY scans within PORTX directory structure
 load_portx_tools() {
-    local cache_file="$HOME/.bashrc_tools"
+    local cache_file="$HOME/.portx_tools_path_cache"
     local scan_depth="${PORTX_SCAN_DEPTH:-4}"  # Configurable depth (default: 4)
     local min_exe_count="${PORTX_MIN_EXECUTABLES:-1}"  # Minimum executables to add directory
     
@@ -130,7 +126,7 @@ load_portx_tools() {
     
     # Cache doesn't exist or is old - generate it with advanced scanning
     {
-        echo "# PORTX Tools PATH - Auto-generated Deep Scan Cache"
+        echo "# PORTX Tools PATH Cache - Auto-generated Deep Scan"
         echo "# Generated: $(date)"
         echo "# Scan Depth: $scan_depth levels"
         echo "# Min Executables: $min_exe_count per directory"
@@ -264,7 +260,7 @@ load_portx_tools() {
         echo "    echo \"  Last scan: \$(date -d \"\$TOOLS_LAST_SCAN\" 2>/dev/null || echo 'Unknown')\""
         echo "    echo \"  Scan depth: $scan_depth levels\""
         echo "    echo \"  Min executables: $min_exe_count per directory\""
-        echo "    echo \"  Cache file: $cache_file\""
+        echo "    echo \"  Cache file: .portx_tools_path_cache\""
         echo "}"
         echo ""
         echo "regenerate_tools_cache() {"
