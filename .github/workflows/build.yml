@@ -1,0 +1,70 @@
+name: Build PORTX Release
+
+on:
+  push:
+    branches: [ main ]
+    tags: [ 'v*' ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:  # Allow manual triggering
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        # Fetch all history so we can access all files
+        fetch-depth: 0
+    
+    - name: Read version
+      id: version
+      run: |
+        VERSION=$(cat VERSION | tr -d '\n\r')
+        echo "VERSION=$VERSION" >> $GITHUB_OUTPUT
+        echo "ARCHIVE_NAME=portx-$VERSION" >> $GITHUB_OUTPUT
+        echo "Building PORTX version: $VERSION"
+    
+    - name: Create PORTX distribution
+      run: |
+        # Create a clean copy without git and CI files
+        mkdir -p dist
+        
+        # Copy all files except excluded ones
+        rsync -av \
+          --exclude='.git' \
+          --exclude='.github' \
+          --exclude='.claude' \
+          --exclude='*.zip' \
+          --exclude='Makefile' \
+          --exclude='build.ps1' \
+          --exclude='build.bat' \
+          --exclude='dist' \
+          . dist/
+        
+        # Create the zip archive
+        cd dist
+        zip -r "../${{ steps.version.outputs.ARCHIVE_NAME }}.zip" .
+        cd ..
+        
+        # Show archive info
+        ls -lh "${{ steps.version.outputs.ARCHIVE_NAME }}.zip"
+        echo "Archive created: ${{ steps.version.outputs.ARCHIVE_NAME }}.zip"
+    
+    - name: Upload PORTX artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: ${{ steps.version.outputs.ARCHIVE_NAME }}
+        path: ${{ steps.version.outputs.ARCHIVE_NAME }}.zip
+        retention-days: 30
+    
+    - name: Upload to release (if tagged)
+      if: startsWith(github.ref, 'refs/tags/v')
+      uses: softprops/action-gh-release@v1
+      with:
+        files: ${{ steps.version.outputs.ARCHIVE_NAME }}.zip
+        generate_release_notes: true
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
