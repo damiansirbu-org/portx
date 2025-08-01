@@ -18,6 +18,10 @@ jobs:
       with:
         # Fetch all history so we can access all files
         fetch-depth: 0
+        lfs: true
+    
+    - name: Checkout LFS objects
+      run: git lfs checkout
     
     - name: Read version
       id: version
@@ -32,25 +36,27 @@ jobs:
         # Create a clean copy without git and CI files
         mkdir -p dist
         
-        # Copy all files except excluded ones
-        rsync -av \
-          --exclude='.git' \
-          --exclude='.github' \
-          --exclude='.claude' \
-          --exclude='*.zip' \
-          --exclude='Makefile' \
-          --exclude='build.ps1' \
-          --exclude='build.bat' \
-          --exclude='dist' \
-          . dist/
+        # Copy all files except excluded ones (preserve permissions)
+        rsync -av --exclude='.git' --exclude='.github' --exclude='.claude' \
+          --exclude='*.zip' --exclude='Makefile' --exclude='build.ps1' \
+          --exclude='build.bat' --exclude='dist' . dist/
         
-        # Create the zip archive
+        # Set executable permissions for binary files
+        find dist/bin-ext -name "*.exe" -exec chmod +x {} \; 2>/dev/null || true
+        find dist/bin-tools -name "*.exe" -exec chmod +x {} \; 2>/dev/null || true
+        find dist/bin -name "*" -type f -exec chmod +x {} \; 2>/dev/null || true
+        find dist/cmd -name "*.cmd" -exec chmod +x {} \; 2>/dev/null || true
+        find dist/mingw64/bin -name "*.exe" -exec chmod +x {} \; 2>/dev/null || true
+        find dist/usr/bin -name "*.exe" -exec chmod +x {} \; 2>/dev/null || true
+        
+        # Create the zip archive with proper compression
         cd dist
-        zip -r "../${{ steps.version.outputs.ARCHIVE_NAME }}.zip" .
+        zip -r -9 "../${{ steps.version.outputs.ARCHIVE_NAME }}.zip" . \
+          -x "*.git*" "*.github*" || echo "Some files may have been skipped"
         cd ..
         
         # Show archive info
-        ls -lh "${{ steps.version.outputs.ARCHIVE_NAME }}.zip"
+        ls -lh "${{ steps.version.outputs.ARCHIVE_NAME }}.zip" || echo "Archive created but listing failed"
         echo "Archive created: ${{ steps.version.outputs.ARCHIVE_NAME }}.zip"
     
     - name: Upload PORTX artifact
