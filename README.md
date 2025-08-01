@@ -1,4 +1,5 @@
 # PORTX - Portable POSIX for Windows
+**By Damian Sirbu**
 
 **Your complete POSIX toolkit that corporate security actually likes.**
 
@@ -16,9 +17,9 @@ Zero installation. Zero dependencies. Zero problems. Just pure Unix power on Win
 
 ## 🎯 What is PORTX?
 
-PORTX transforms Git for Windows into a complete, portable POSIX environment. It combines Git Bash as the trusted foundation with an architecture inspired by Cygwin and MSYS2, plus over 100+ carefully selected Windows-native command-line tools, all pre-configured to work together seamlessly. 
+PORTX transforms Git for Windows into a complete, portable POSIX environment. It combines Git Bash as the trusted foundation with an architecture inspired by Cygwin and MSYS2, plus 494 carefully selected Windows-native command-line tools, all pre-configured to work together seamlessly. 
 
-**PORTX = Portable + POSIX + Git Bash + 100+ Tools + Zero Hassle**
+**PORTX = Portable + POSIX + Git Bash + 494 Tools + Zero Hassle**
 
 ### 🔧 100% Windows Native
 - **No DLL dependencies** - No cygwin1.dll, no msys-2.0.dll
@@ -35,11 +36,15 @@ PORTX transforms Git for Windows into a complete, portable POSIX environment. It
 
 ### 📦 What's Included:
 - Full Git Bash (MinGW64) environment with all Unix commands
-- **100+ additional tools** from the best open source projects
+- **493 total executables** across all categories:
+  - **272 Core Unix tools** (usr/bin) - ls, grep, awk, sed, tar, curl, ssh, etc.
+  - **48 MinGW64 tools** (mingw64/bin) - gcc, git core, development libraries  
+  - **44 Enhanced Unix tools** (bin-ext) - ripgrep, bat, fzf, jq, micro, 7za
+  - **127 Professional tools** (bin-tools) - AWS, Azure, Kubernetes, security, Glow TUI
+  - **2 System tools** (bin) - core shell executables
 - **Industry-standard DevOps**: AWS CLI, Azure CLI, Terraform, Kubernetes, Docker tools
-- **Modern CLI tools**: Rust-based utilities (ripgrep, bat, fd), Go tools (fzf, lazygit)
-- **Security & networking**: nmap, nuclei, age encryption, SSH suite
-- Best utilities cherry-picked from Cygwin, MSYS2, and GitHub releases
+- **Security & malware detection**: ClamAV, YARA, osquery, hashdeep, ssdeep, nuclei
+- **Modern CLI tools**: Rust-based utilities (ripgrep, bat), Go tools (lazygit, k9s)
 - Complete POSIX/Unix environment: proper home directory, .bashrc, .bash_profile, etc.
 - Pre-configured portable home with SSH, Git config, custom prompt
 - **Zero external dependencies** - every tool is a standalone Windows-native executable
@@ -138,126 +143,64 @@ C:\App\Git\                    # Can be placed anywhere
    - Industry-leading tools: Rust utilities (ripgrep, bat, delta), Go tools (lazygit, lazydocker), and more
    - But WITHOUT any DLL dependencies - everything runs as Windows-native executables
 
-4. **Intelligent Tool Discovery**: Advanced PATH management with smart scanning
-   - **Dynamic executable counting**: Real-time counts displayed as `TOOLS(122+45+118)`
-   - **Scoped directory scanning**: Only searches within PORTX structure (prevents Cygwin64 pollution)
-   - **Smart filtering**: Excludes temp, cache, uninstall, and setup-only directories
-   - **Performance caching**: Daily cache regeneration with configurable scan depth
-   - **Minimum executable threshold**: Only adds directories with sufficient tool density
+4. **Tool Integration**: Additional tools in `bin-ext` and `bin-tools` are automatically available in PATH
 
 ## 🛠️ Tool Ecosystem
 
-### Core System Tools (bin/)
-All standard POSIX/Unix tools from MinGW64:
-- **File Operations**: `ls`, `rm`, `cp`, `mv`, `mkdir`, `rmdir`, `find`, `locate`
-- **Text Processing**: `cat`, `grep`, `sed`, `awk`, `sort`, `uniq`, `wc`, `cut`, `tr`
-- **File Viewing**: `less`, `more`, `head`, `tail`, `nano`, `vim`
-- **System**: `ps`, `kill`, `top`, `df`, `du`, `chmod`, `chown`, `which`, `whereis`
-- **Network**: `curl`, `wget`, `ssh`, `scp`, `rsync`, `ping`, `netstat`
-- **Archives**: `tar`, `gzip`, `gunzip`, `zip`, `unzip`
-- **Development**: `git`, `gcc`, `make`, `diff`, `patch`
-- Plus hundreds more standard Unix utilities
+**493 Total Tools** organized in 8 categories. Use `portx` command for interactive TUI manual with Glow.
 
-### Extended Unix Tools (bin-ext/)
-Enhanced versions of Unix utilities:
+### Modern Unix Tools (44 tools - bin-ext/)
+Enhanced replacements for standard Unix utilities:
+- **Search**: `rg` (ripgrep v13.0.0), `ag` (Silver Searcher v2.2.0), `fzf` (fuzzy finder v0.30.0)
+- **Data**: `jq` (JSON v1.6), `yq` (YAML v4.31.2), `fx` (interactive JSON v22.0.0)
+- **Text**: Enhanced GNU textutils v2.1 - `cat`, `grep`, `sed`, `head`, `tail`, `cut`, `sort`, `wc`
+- **Files**: `7za` (7-Zip v25.00), `less` (pager v381), `micro` (editor v2.0.10)
+- **Dev**: `make` (GNU v3.80), `gawk` (v3.1.3), `gitstatusd` (v1.5.1), `navi` (cheatsheets v2.19.0)
 
-**Text Processing & Search**
-- `ag` - The Silver Searcher (faster code search)
-- `rg` - Ripgrep (fastest grep replacement)
-- `jq` - JSON processor and query tool
-- `yq` - YAML processor and query tool
-- `fx` - Interactive JSON viewer and processor
-- Enhanced versions of `sed`, `grep`, `head`, `tail`
+### GNU/Linux Tools (320 tools - usr/bin + mingw64/bin)
+Complete POSIX environment with all standard Unix utilities:
+- **File Operations**: `ls`, `cp`, `mv`, `rm`, `mkdir`, `chmod`, `find`, `locate`
+- **Text Processing**: `grep`, `sed`, `awk`, `sort`, `uniq`, `cut`, `tr`, `diff`
+- **System Management**: `ps`, `top`, `kill`, `df`, `du`, `mount`, `crontab`
+- **Network Tools**: `curl`, `wget`, `ssh`, `scp`, `rsync`, `ping`, `netstat`
+- **Development**: `gcc`, `git`, `make`, `gdb`, `ar`, `nm`, `objdump`
+- **Archives**: `tar`, `gzip`, `zip`, `bzip2` and compression utilities
 
-**File Management & Navigation**
-- `fzf` - Fuzzy file finder with interactive interface
-- `peco` - Interactive filtering for any list
-- `navi` - Interactive cheatsheet and command runner
-- `less`, `cat` - Enhanced file viewers
-- `7za` - 7-Zip archive manager
+### Professional Tools (127 tools - bin-tools/)
+Enterprise-grade development and infrastructure tools including Glow TUI:
 
-**Development Tools**
-- `make` - Enhanced build automation
-- `micro` - Modern, user-friendly terminal editor
-- `gitstatusd` - Ultra-fast git status for prompts
-- `zsh` - Z shell (alternative to bash)
+**Cloud & Infrastructure (24 tools)**: `aws` (v2.7.13), `az` (Azure v2.61.0), `kubectl` (v1.33.0), `helm` (v3.11.2), `k9s` (v0.50.3), `terraform` (v1.7.5), `docker-compose` (v2.24.6), `minikube`, `oc` (OpenShift)
 
-**System Utilities**
-- Enhanced checksum tools: `md5sum`, `sha1sum`
-- Text processing: `cut`, `sort`, `uniq`, `wc`, `tr`, `comm`, `join`
-- File formatting: `fmt`, `fold`, `expand`, `unexpand`, `nl`, `pr`
+**Security & Analysis (18 tools)**: `nuclei` (v3.2.0), `yara32` (v4.5.4), `osquery` (v5.18.1), `hashdeep` (v4.4), `gpg`, `age`, `rustscan`, `subfinder`, `ssdeep`
 
-### Professional Development Tools (bin-tools/)
+**Development (12 tools)**: `helix` (v25.07.1), `lazygit` (v0.44.1), `micro` (v2.0.10), `bat`, enhanced Git tools
 
-**Cloud & Infrastructure**
-- `aws` - AWS CLI v2 (complete AWS management)
-- `azure-cli` - Microsoft Azure CLI (full Azure integration)
-- `terraform` - Infrastructure as Code automation
-- `helm` - Kubernetes package manager
-- `helmfile` - Declarative Helm deployment management
-- `kubectl` - Kubernetes cluster management CLI
-- `kustomize` - Kubernetes configuration customization
-- `k9s` - Interactive Kubernetes cluster management TUI
-- `minikube` - Local Kubernetes development clusters
-- `oc` - Red Hat OpenShift CLI
-- `skopeo` - Container image operations and registry management
+**System Monitoring (8 tools)**: `btop` (v1.0.4), `bottom`, `bandwhich`, `gping`, `httpx`, `promtool`, `telegraf`
 
-**Container & Orchestration**
-- `docker-compose` - Multi-container Docker application management
-- `lazydocker` - Interactive Docker management TUI
-- Container image tools integrated with Kubernetes ecosystem
+**Database (3 tools)**: `usql` (v0.19.25), `lazysql`, `liquibase`
 
-**Database Management**
-- `usql` - Universal SQL CLI (supports PostgreSQL, MySQL, SQLite, etc.)
-- `lazysql` - Interactive SQL database management TUI
-- `liquibase` - Database schema migration and versioning
+**Mobile Development (8 tools)**: `adb`, `fastboot`, `scrcpy`, `sqlite3`, Android filesystem tools
 
-**System Monitoring & Analysis**
-- `btop` - Advanced system resource monitor (Windows native port)
-- `bottom` (`btm`) - Cross-platform system monitor with graphs
-- `bandwhich` - Real-time network utilization by process
-- `gping` - Ping with interactive graphs and statistics
-- `httpx` - Advanced HTTP toolkit for testing and analysis
-- `promtool` - Prometheus metrics validation and querying tools
-- `telegraf` - Metrics collection agent for monitoring systems
+**File Management (3 tools)**: `far`, `rclone` (40+ cloud providers)
 
-**Security & Threat Detection**
-- `age` - Modern file encryption (successor to GPG for files)
-- `gpg` - GNU Privacy Guard (PGP encryption and signing)
-- `nuclei` - Fast vulnerability scanner with community templates
-- `subfinder` - Subdomain discovery for reconnaissance
-- `rustscan` - Ultra-fast port scanner (faster than Nmap)
-- `clamav` - Complete open-source antivirus engine with real-time scanning
-- `yara` - Pattern matching engine for malware detection and analysis
-- `osquery` - SQL-based operating system instrumentation and monitoring
-- `hashdeep` - Recursive file hashing and integrity verification
-- `ssdeep` - Fuzzy hashing for malware similarity detection
+**Testing & API (2 tools)**: `newman` (Postman), `k6` (load testing)
 
-**Version Control & Git Enhancement**
-- `lazygit` - Interactive Git operations TUI
-- Enhanced git integration with custom prompt showing branch/status
-- `git/` directory contains additional Git utilities:
-  - `git-bash.exe`, `git-cmd.exe` - Standard Git for Windows launchers (archived)
-  - Additional tools planned: `delta`, `difftastic`, `tig`, `gitui`, `gh`, `git-lfs`
+## 📖 Documentation
 
-**Code Editors & Text Processing**
-- `helix` (`hx`) - Post-modern text editor with built-in LSP support
-- `micro` - User-friendly terminal editor with mouse support
-- `bat` - Enhanced `cat` with syntax highlighting and Git integration
-- `ag` - The Silver Searcher (also in bin-ext for enhanced search)
-- `ripgrep` (`rg`) - Fastest text search tool (also in bin-ext)
+- **`portx`** - Interactive TUI wiki browser with Glow v2.1.1 rendering
+- **`doc-portx/MANUAL.md`** - Complete tool reference with categories and examples  
+- **`doc-portx/TOOL_STATUS.md`** - Full testing results (492/493 tools working - 99.8% success rate)
+- **`doc-portx/manual/`** - Interactive wiki structure with categories and guides
 
-**Mobile & Android Development**
-- `android-tools` - Complete Android SDK tools (ADB, Fastboot, etc.)
-- `scrcpy` - Real-time Android device screen mirroring and control
-
-**File Management & Cloud Storage**
-- `far` - Advanced file manager with dual-pane interface
-- `rclone` - Universal cloud storage sync (supports 40+ cloud providers)
-
-**Testing & Load Generation**
-- `newman` - Postman collection runner for API testing automation
-- `k6` - Modern load testing tool with JavaScript scripting
+Quick access:
+```bash
+portx                    # Interactive wiki browser  
+portx wiki               # Same enhanced browsing
+portx man                # Classical manual view
+portx cloud              # Cloud & infrastructure tools
+portx security           # Security & analysis tools
+portx dev                # Development tools
+```
 
 
 ## ✨ Key Features
@@ -265,7 +208,7 @@ Enhanced versions of Unix utilities:
 ### 1. Environment Status
 On startup, you'll see:
 ```
-✅ PORTX(MSYS2-MINGW64/xterm-256color) ✅ TOOLS(122+45+118) ✅ SSH(user@example.com)
+✅ PORTX(MSYS2-MINGW64/xterm-256color) ✅ TOOLS ✅ SSH(user@example.com)
 /c/Work/Projects [main]
 $
 ```
@@ -281,10 +224,7 @@ Visual status indicators show system health at a glance:
 - **✅** Green checkmark = Component working properly
 - **🛑** Red stop sign = Component has issues
 - **PORTX**: Environment security and compatibility
-- **TOOLS**: Dynamic PATH loading with real-time executable counts (e.g., `TOOLS(122+45+118)`)
-  - Shows core MinGW tools + bin-ext tools + bin-tools discoveries
-  - Smart directory scanning with configurable depth and filtering
-  - Cached for performance with automatic daily regeneration
+- **TOOLS**: PATH loading and tool availability (494 executables)
 - **SSH**: Agent status and loaded keys
 
 ### 4. SSH Agent Management
@@ -297,7 +237,7 @@ Detects and warns about PATH conflicts with other MSYS2/Cygwin installations
 
 1. **Download**: Get PORTX and extract to any location (e.g., `C:\PORTX` or USB drive)
 2. **Launch**: Run `portx.bat`
-3. **Work**: All 100+ tools are immediately available in your PATH
+3. **Work**: All 494 tools are immediately available in your PATH
 4. **Move**: Copy the entire PORTX folder anywhere - it just works
 
 That's it. No installation, no admin rights, no PATH pollution.
