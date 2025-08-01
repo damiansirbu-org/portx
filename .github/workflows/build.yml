@@ -60,11 +60,27 @@ jobs:
         path: ${{ steps.version.outputs.ARCHIVE_NAME }}.zip
         retention-days: 30
     
-    - name: Upload to release (if tagged)
-      if: startsWith(github.ref, 'refs/tags/v')
+    - name: Create/Update GitHub Release
       uses: softprops/action-gh-release@v1
       with:
+        tag_name: v${{ steps.version.outputs.VERSION }}
+        name: PORTX v${{ steps.version.outputs.VERSION }}
         files: ${{ steps.version.outputs.ARCHIVE_NAME }}.zip
-        generate_release_notes: true
+        body: |
+          ## PORTX v${{ steps.version.outputs.VERSION }}
+          
+          **Automated build from latest main branch**
+          
+          📦 **Download:** `${{ steps.version.outputs.ARCHIVE_NAME }}.zip`
+          
+          🔄 **Built from commit:** ${{ github.sha }}
+          
+          📅 **Build date:** ${{ github.event.head_commit.timestamp }}
+          
+          ---
+          
+          This release is automatically updated on every push to main branch.
+        prerelease: false
+        make_latest: true
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
