@@ -1,6 +1,6 @@
 # PORTX - Portable POSIX Environment for Windows
 
-A complete, portable POSIX toolkit built on Git Bash with 494 Windows-native command-line tools. Zero installation, zero dependencies, enterprise-friendly.
+A complete, portable POSIX toolkit built on Git Bash with 527 Windows-native command-line tools. Zero installation, zero dependencies, enterprise-friendly.
 
 ## Architecture
 
@@ -10,7 +10,7 @@ PORTX transforms Git for Windows into a comprehensive POSIX environment using a 
 
 **Enhancement Layer**: 44 modern CLI tools (ripgrep, bat, fzf, jq, micro, 7za) for improved productivity
 
-**Professional Layer**: 127 enterprise tools spanning cloud platforms (AWS CLI, Azure CLI), container orchestration (Kubernetes, Docker), infrastructure (Terraform, monitoring), and security (ClamAV, YARA, osquery, nuclei)
+**Professional Layer**: 158 enterprise tools spanning cloud platforms (AWS CLI, Azure CLI), container orchestration (Kubernetes, Docker), infrastructure (Terraform, monitoring), security (ClamAV, YARA, osquery, nuclei), and system analysis (Microsoft SysInternals suite)
 
 **Integration Layer**: 48 development tools (gcc, git-core, libraries) plus 2 system binaries for seamless interoperability
 
@@ -36,7 +36,11 @@ All tools are Windows-native executables with no external dependencies or DLL re
 
 **Security**: ClamAV antivirus, YARA malware detection, osquery endpoint monitoring, hash utilities (hashdeep, ssdeep), network scanning (nuclei)
 
-**Text Processing**: Traditional Unix tools (grep, sed, awk) plus modern alternatives (ripgrep, bat), JSON/YAML processors (jq, yq)
+**System Analysis**: Microsoft SysInternals command-line tools (psinfo, handle, pslist, accesschk, procdump, strings) for Windows system diagnostics and troubleshooting
+
+**Windows Automation**: NirCmd utility for Windows system control, automation, clipboard management, volume control, window management, and speech synthesis
+
+**Text Processing**: Traditional Unix tools (grep, sed, awk) plus modern alternatives (ripgrep, bat, fd, sd), JSON/YAML processors (jq, yq)
 
 **System Administration**: Process monitoring (btop), file management (7za), network utilities (curl, SSH), remote access tools
 
