@@ -36,7 +36,7 @@
     visual = !gitk
     amod = !git add -u && git commit -m \"Quick update\" && git push
 [pull]
-    rebase = true
+	rebase = true
 [fetch]
     prune = true
 [push]
@@ -62,6 +62,9 @@
     filemode = false
     symlinks = false
     ignorecase = true
+	excludesfile = C:/App/PORTX/home/portable/.gitignore_global
 [http]
     postBuffer = 524288000
     maxRequestBuffer = 524288000
+[rebase]
+	autoStash = true
