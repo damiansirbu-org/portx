@@ -88,12 +88,38 @@ tool_name|category|full_path|detailed_description|usage_examples
 
 This scientific approach ensures PORTX provides enterprise-grade tool discovery with professional documentation standards comparable to commercial development environments.
 
+## Screenshots
+
+<div align="center">
+
+![screenshot.2](doc-portx/pic/screenshot.2.jpg)
+![screenshot.3](doc-portx/pic/screenshot.3.jpg)
+![screenshot.4](doc-portx/pic/screenshot.4.jpg)
+
+![screenshot.5](doc-portx/pic/screenshot.5.jpg)
+![screenshot.6](doc-portx/pic/screenshot.6.jpg)
+![screenshot.7](doc-portx/pic/screenshot.7.jpg)
+
+![screenshot.9](doc-portx/pic/screenshot.9.jpg)
+![screenshot.10](doc-portx/pic/screenshot.10.jpg)
+![screenshot.11](doc-portx/pic/screenshot.11.jpg)
+
+![screenshot.12](doc-portx/pic/screenshot.12.jpg)
+![screenshot.13](doc-portx/pic/screenshot.13.jpg)
+![screenshot.14](doc-portx/pic/screenshot.14.jpg)
+
+![screenshot.15](doc-portx/pic/screenshot.15.jpg)
+![screenshot.16](doc-portx/pic/screenshot.16.jpg)
+![screenshot.17](doc-portx/pic/screenshot.17.jpg)
+
+</div>
+
 ## Quick Start
 
 1. Extract PORTX to any directory
 2. Run `portx.bat` to launch the environment
 3. Access tools via standard Unix commands or Windows paths
-4. Use `portx man` for tool documentation
+4. Use `portx-tools find` for interactive tool discovery
 
 ## Technical Specifications
 
