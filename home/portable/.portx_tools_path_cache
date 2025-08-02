@@ -73,7 +73,7 @@ export CORE_EXE_COUNT=122
 export BINEXT_EXE_COUNT=44
 export BINTOOLS_EXE_COUNT=118
 export TOTAL_EXE_COUNT=284
-export TOOLS_STATUS="\033[1;90mTOOLS\033[0m\033[90m(538, check portx-find-tools)\033[0m"
+export TOOLS_STATUS="\033[1;90mPORTX-TOOLS\033[0m\033[90m(538)\033[0m"
 export TOOLS_LAST_SCAN="2025-08-02 04:00"
 
 # Utility functions for tools management
