@@ -4,17 +4,28 @@ A complete, portable POSIX toolkit built on Git Bash with 538 Windows-native com
 
 ## Architecture
 
-PORTX transforms Git for Windows into a comprehensive POSIX environment using a layered architecture:
+PORTX leverages Git for Windows as a corporate-friendly foundation, extending it into a comprehensive POSIX development environment:
 
-**Foundation Layer**: Git Bash (MinGW64) provides the core POSIX shell environment with 284 Unix utilities (ls, grep, awk, sed, tar, curl, ssh)
+**Corporate-Trusted Foundation**: Built on **Git for Windows** (MinGW-w64 + Git Bash), using Microsoft-signed executables already approved in enterprise environments. This provides the critical corporate acceptance that pure MSYS2 or Cygwin installations often lack.
 
-**Enhancement Layer**: 44 modern CLI tools (ripgrep, bat, fzf, jq, micro, 7za) for improved productivity
+**MinGW-w64 Core**: The underlying MinGW-w64 toolchain provides native Windows POSIX compatibility without emulation layers:
+- **Shell Environment**: Bash 4.4+ with complete POSIX shell scripting
+- **Unix Utilities**: 284 core tools (ls, grep, awk, sed, tar, curl, ssh, openssl)
+- **Native Execution**: Windows PE executables, no cygwin1.dll or compatibility DLLs
+- **Path Integration**: Seamless Windows/Unix path translation
 
-**Professional Layer**: 210 enterprise tools spanning cloud platforms (AWS CLI, Azure CLI), container orchestration (Kubernetes, Docker), infrastructure (Terraform, monitoring), security (ClamAV, YARA, osquery, nuclei), and system analysis (Microsoft SysInternals suite)
+**Tool Enhancement Layers**:
+- **Core Utilities**: 44 modern CLI tools (ripgrep, bat, fzf, jq, micro, 7za) for improved productivity
+- **Professional Suite**: 210 enterprise tools spanning cloud platforms (AWS CLI, Azure CLI), container orchestration (Kubernetes, Docker), infrastructure (Terraform, monitoring), security (ClamAV, YARA, osquery, nuclei), and system analysis (Microsoft SysInternals suite)
+- **Development Stack**: Git integration, build tools, and extensible package management
 
-**Integration Layer**: Development tools (gcc, git-core, libraries) and system utilities for seamless interoperability
+**Corporate Advantages**:
+- **Pre-approved Foundation**: Git for Windows signatures bypass security restrictions
+- **Zero Installation**: Portable execution from any directory
+- **Enterprise Compatibility**: No registry modifications, no administrator privileges required
+- **Proven Stability**: Battle-tested codebase used by millions of developers globally
 
-All tools are Windows-native executables with no external dependencies or DLL requirements.
+This architecture delivers Unix-grade functionality while maintaining corporate IT approval through its Git for Windows heritage.
 
 ## Key Advantages
 
