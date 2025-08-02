@@ -76,8 +76,5 @@ if [[ "$NO_ENV_CHECK" != "1" ]]; then
         printf " %b" "$SSH_STATUS" >&2
     fi
     
-    # Show tool finder suggestion
-    printf " \033[90mtry \033[2;32mportx-find-tools\033[0m" >&2
-    
     printf "\n" >&2
 fi
