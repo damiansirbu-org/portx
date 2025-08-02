@@ -105,9 +105,8 @@ echo.
 echo FILES
 echo       doc-portx/tools.md    Comprehensive tool catalog (501 tools)
 echo       doc-portx/TODO.md     Development roadmap and security enhancements
-echo       bin/                  Core system executables
-echo       bin-ext/              Enhanced Unix tools (ripgrep, bat, fzf, jq)
-echo       bin-tools/            Professional tools (AWS, Docker, security)
+echo       bin/                  Core system utilities (git, grep, sed, make, gawk)
+echo       packages/             Optional tool packages (AWS, Docker, security)
 echo       mingw64/              MinGW64 development environment
 echo       usr/                  Unix utilities and libraries
 echo.
