@@ -1,15 +1,17 @@
 # PORTX Tools Catalog
 
-Complete alphabetical listing of all 501 tools available in PORTX.
+Complete alphabetical listing of all 538 tools available in PORTX.
 
 ## Overview
 
-PORTX provides a comprehensive portable POSIX environment with 501 command-line tools spanning multiple categories:
+PORTX provides a comprehensive portable POSIX environment with 538 command-line tools spanning multiple categories:
 
-- **Core System**: 272 Unix utilities (bash, GNU coreutils, text processing)
+- **Core System**: 284 Unix utilities (bash, GNU coreutils, text processing)
 - **Enhanced Tools**: 44 modern CLI alternatives 
-- **Professional Tools**: 158 enterprise tools (cloud, containers, security)
-- **Development Tools**: 27+ specialized development utilities
+- **Professional Tools**: 210 enterprise tools (cloud, containers, security, infrastructure)
+- **Development Tools**: Specialized development and system utilities
+
+**Tool Discovery**: Use `portx-find-tools` for interactive search and browse interface with real-time filtering, detailed descriptions, and usage examples for all tools.
 
 ## Tool Index
 
@@ -320,6 +322,10 @@ PORTX provides a comprehensive portable POSIX environment with 501 command-line 
 | pdftotext | mingw64/bin/pdftotext.exe | Document | PDF to text converter |
 | peco | bin-ext/peco.exe | Text Processing | Simplistic interactive filtering tool |
 | PendMoves64 | bin-tools/sysinternals/PendMoves64.exe | System | Microsoft SysInternals pending file operations viewer |
+| portx-browse | bin-ext/portx-browse | System | Interactive tool browser with fzf navigation |
+| portx-category | bin-ext/portx-category | System | Browse tools by category with statistics |
+| portx-interactive | bin-ext/portx-interactive | System | Master interactive menu system for PORTX tools |
+| portx-search | bin-ext/portx-search | System | Search PORTX tools by name, category, or description |
 | perl | usr/bin/perl.exe | Development | Perl programming language interpreter |
 | perl5.34.0 | usr/bin/perl5.34.0.exe | Development | Perl version 5.34.0 interpreter |
 | pinentry | usr/bin/pinentry.exe | Security | PIN entry dialog |
