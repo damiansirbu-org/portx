@@ -1,79 +1,20 @@
 # PORTX - Portable POSIX Environment for Windows
 
-A complete, portable POSIX toolkit built on Git Bash with 818 Windows-native command-line tools across 86 packages. Zero installation, zero dependencies, enterprise-friendly.
+A complete, portable POSIX toolkit built on Git Bash with 538+ Windows-native command-line tools. Features built-in package manager for easy installation and updates. Zero installation, zero dependencies, enterprise-friendly.
 
 ## Architecture
 
-PORTX leverages Git for Windows as a corporate-friendly foundation, extending it into a comprehensive POSIX development environment:
+PORTX transforms Git for Windows into a comprehensive POSIX environment using a layered architecture:
 
-**Corporate-Trusted Foundation**: Built on **Git for Windows** (MinGW-w64 + Git Bash), using Microsoft-signed executables already approved in enterprise environments. This provides the critical corporate acceptance that pure MSYS2 or Cygwin installations often lack.
+**Foundation Layer**: Git Bash (MinGW64) provides the core POSIX shell environment with 284 Unix utilities (ls, grep, awk, sed, tar, curl, ssh)
 
-**MinGW-w64 Core**: The underlying MinGW-w64 toolchain provides native Windows POSIX compatibility without emulation layers:
-- **Shell Environment**: Bash 4.4+ with complete POSIX shell scripting
-- **Unix Utilities**: 284 core tools (ls, grep, awk, sed, tar, curl, ssh, openssl)
-- **Native Execution**: Windows PE executables, no cygwin1.dll or compatibility DLLs
-- **Path Integration**: Seamless Windows/Unix path translation
+**Enhancement Layer**: 44 modern CLI tools (ripgrep, bat, fzf, jq, micro, 7za) for improved productivity
 
-**Tool Enhancement Layers**:
-- **Core Utilities**: 41 modern CLI tools (ripgrep, bat, fzf, jq, micro, 7za) for improved productivity  
-- **Professional Suite**: 493 enterprise tools across 84 packages spanning cloud platforms (AWS CLI, Azure CLI), container orchestration (Kubernetes, Docker), infrastructure (Terraform, monitoring), security (ClamAV, YARA, osquery, nuclei), and system analysis (Microsoft SysInternals suite)
-- **Development Stack**: Git integration, build tools, and extensible package management
+**Professional Layer**: 210 enterprise tools spanning cloud platforms (AWS CLI, Azure CLI), container orchestration (Kubernetes, Docker), infrastructure (Terraform, monitoring), security (ClamAV, YARA, osquery, nuclei), and system analysis (Microsoft SysInternals suite)
 
-**Corporate Advantages**:
-- **Pre-approved Foundation**: Git for Windows signatures bypass security restrictions
-- **Zero Installation**: Portable execution from any directory
-- **Enterprise Compatibility**: No registry modifications, no administrator privileges required
-- **Proven Stability**: Battle-tested codebase used by millions of developers globally
+**Integration Layer**: Development tools (gcc, git-core, libraries) and system utilities for seamless interoperability
 
-This architecture delivers Unix-grade functionality while maintaining corporate IT approval through its Git for Windows heritage.
-
-## Why Git for Windows is Superior for PORTX
-
-PORTX leverages Git for Windows as its foundational shell environment for compelling technical and enterprise advantages:
-
-### **Key Advantages**
-
-✅ **Digital Signature Preservation** - Maintains Git for Windows code signing integrity for enterprise security compliance  
-✅ **Native Windows Performance** - 2-9x faster than MSYS2 through MinGW compilation and direct Win32 API usage  
-✅ **Enterprise Security Architecture** - Pre-approved foundation using Microsoft-signed executables with SmartScreen compatibility  
-✅ **Zero Binary Modification** - No executable changes preserves Windows Defender and AppLocker compatibility  
-✅ **Profile-Based Environment Management** - Clean configuration approach eliminates runtime environment variable hacks  
-✅ **Corporate Approval** - Built on trusted Git for Windows infrastructure already deployed in enterprise environments  
-✅ **Windows Security Integration** - Compatible with Device Guard, HVCI, and enterprise PKI infrastructure  
-✅ **AI Development Compatibility** - Reliable execution environment for modern development tools and AI assistants  
-✅ **Memory Efficiency** - Minimal footprint without heavy POSIX emulation layers  
-✅ **Startup Performance** - Optimized shell initialization for development workflows  
-
-### **Core Principle: Pure Windows Architecture**
-
-PORTX maintains strict architectural purity - all tools must be self-contained Windows executables:
-
-- ❌ **No MSYS2/Cygwin Dependencies**: No external runtime libraries
-- ❌ **No System Dependencies**: No external installations or build tools  
-- ✅ **Pure Windows PE**: Native Windows executables only
-- ✅ **True Portability**: Self-contained directory structure, copy-and-run deployment
-
-For detailed technical analysis, performance benchmarks, and architectural deep dive, see: **[Technical Analysis of Git for Windows Architecture](doc/git-for-windows-architecture.md)**
-
-For comprehensive PORTX architecture documentation, security analysis, and implementation details, see: **[PORTX Architecture Documentation](doc/portx-architecture.md)**
-
-### **Authoritative Sources**
-
-**Git for Windows Project**:
-- **Official Website**: [gitforwindows.org](https://gitforwindows.org/)
-- **GitHub Organization**: [github.com/git-for-windows](https://github.com/git-for-windows)
-- **Technical Documentation**: [Git for Windows vs MSYS2 Analysis](https://gitforwindows.org/the-difference-between-mingw-and-msys2.html)
-- **Architecture Details**: Git for Windows SDK and build system documentation
-
-**MinGW-w64 Foundation**:
-- **Official Website**: [mingw-w64.org](https://www.mingw-w64.org/)
-- **Technical Specifications**: Complete development environment for native Windows applications
-- **Performance Analysis**: "Better-conforming and faster math support compared to Visual Studio"
-- **Industry Adoption**: Used by Blender, Boost, FFmpeg, GIMP, LibreOffice, and hundreds of major projects
-
-**Microsoft Official Documentation**:
-- **MinGW-w64 on Microsoft Learn**: [learn.microsoft.com/en-us/vcpkg/users/platforms/mingw](https://learn.microsoft.com/en-us/vcpkg/users/platforms/mingw)
-- **Windows Subsystem Integration**: Official Microsoft guidance on MinGW-w64 usage
+All tools are Windows-native executables with no external dependencies or DLL requirements.
 
 ## Key Advantages
 
@@ -89,32 +30,23 @@ For comprehensive PORTX architecture documentation, security analysis, and imple
 
 ## Tool Categories
 
-### **Core Utilities** (41 tools)
-Modern CLI productivity tools for enhanced development workflows:
-- **Text Processing**: `ripgrep` (ultra-fast search), `bat` (syntax-highlighted cat), `fd` (fast find), `sd` (sed replacement)
-- **Interactive Tools**: `fzf` (fuzzy finder), `peco` (filtering), `micro` (terminal editor), `helix` (modern editor)
-- **Data Processing**: `jq` (JSON processor), `yq` (YAML processor), `7za` (compression), `delta` (Git diff viewer)
+**Development**: Git, GCC compiler suite, text editors (micro, helix), build tools (make), language runtimes
 
-### **Professional Suite** (493 tools across 84 packages)
+**DevOps**: AWS CLI, Azure CLI, Terraform, Kubernetes (kubectl, helm, k9s), Docker Compose, monitoring tools
 
-**☁️ Cloud Platforms**: `aws` (AWS CLI), `az` (Azure CLI), `gcloud` (Google Cloud), `oci` (Oracle Cloud)
+**Security**: ClamAV antivirus, YARA malware detection, osquery endpoint monitoring, hash utilities (hashdeep, ssdeep), network scanning (nuclei)
 
-**🐳 Container Orchestration**: `kubectl` (Kubernetes CLI), `helm` (package manager), `k9s` (cluster management), `docker-compose` (multi-container apps)
+**System Analysis**: Microsoft SysInternals command-line tools (psinfo, handle, pslist, accesschk, procdump, strings) for Windows system diagnostics and troubleshooting
 
-**🏗️ Infrastructure**: `terraform` (IaC), `packer` (image building), `vault` (secrets management), `consul` (service discovery)
+**Windows Automation**: NirCmd utility for Windows system control, automation, clipboard management, volume control, window management, and speech synthesis
 
-**🛡️ Security**: `clamscan` (antivirus), `yara` (malware detection), `osquery` (endpoint monitoring), `nuclei` (vulnerability scanner)
+**Text Processing**: Traditional Unix tools (grep, sed, awk) plus modern alternatives (ripgrep, bat, fd, sd), JSON/YAML processors (jq, yq)
 
-**🔍 System Analysis**: Microsoft SysInternals suite (`pslist`, `handle`, `procdump`, `strings`, `accesschk`, `autoruns`)
-
-### **Development Stack** (284 tools)
-**Version Control**: Git with enhanced diff tools, SSH, GPG signing
-**Build Tools**: `make`, `cmake`, GCC compiler suite, pkg-config
-**Shell Environment**: Bash 4.4+, complete GNU coreutils, POSIX utilities
+**System Administration**: Process monitoring (btop), file management (7za), network utilities (curl, SSH), remote access tools
 
 ## Tool Discovery & Research Methodology
 
-PORTX includes a comprehensive tool discovery system with scientifically curated documentation for all 818 tools:
+PORTX includes a comprehensive tool discovery system with scientifically curated documentation for all 538 tools:
 
 ### Discovery Interface
 
@@ -131,7 +63,7 @@ PORTX includes a comprehensive tool discovery system with scientifically curated
 
 ### Research & Curation Process
 
-**Systematic Tool Analysis**: Each of the 818 tools underwent individual research:
+**Systematic Tool Analysis**: Each of the 538 tools underwent individual research:
 1. **Source Documentation Review**: Official manuals, GitHub repositories, vendor documentation
 2. **Functional Classification**: Categorization based on primary use case and professional domain
 3. **Usage Pattern Analysis**: Real-world command examples and common workflows
@@ -148,21 +80,95 @@ PORTX includes a comprehensive tool discovery system with scientifically curated
 tool_name|category|full_path|detailed_description|usage_examples
 ```
 
-**Extraction Methodology**: Automated deep-scan algorithm traversing 86 packages with 4-level depth analysis:
-- Minimum 1 executable per directory requirement  
-- PATH optimization for 818 total executables (284 MINGW core + 41 PORTX bin + 493 packages)
+**Extraction Methodology**: Automated deep-scan algorithm traversing 53 directories with 4-level depth analysis:
+- Minimum 1 executable per directory requirement
+- PATH optimization for 284 total executables
 - Smart caching system with regeneration triggers
 - Integration with Git Bash environment variables
 
 This scientific approach ensures PORTX provides enterprise-grade tool discovery with professional documentation standards comparable to commercial development environments.
 
+## Screenshots
+
+<div align="center">
+
+![screenshot.2](doc-portx/pic/screenshot.2.jpg)
+![screenshot.3](doc-portx/pic/screenshot.3.jpg)
+![screenshot.4](doc-portx/pic/screenshot.4.jpg)
+
+![screenshot.5](doc-portx/pic/screenshot.5.jpg)
+![screenshot.6](doc-portx/pic/screenshot.6.jpg)
+![screenshot.7](doc-portx/pic/screenshot.7.jpg)
+
+![screenshot.9](doc-portx/pic/screenshot.9.jpg)
+![screenshot.10](doc-portx/pic/screenshot.10.jpg)
+![screenshot.11](doc-portx/pic/screenshot.11.jpg)
+
+![screenshot.12](doc-portx/pic/screenshot.12.jpg)
+![screenshot.13](doc-portx/pic/screenshot.13.jpg)
+![screenshot.14](doc-portx/pic/screenshot.14.jpg)
+
+![screenshot.15](doc-portx/pic/screenshot.15.jpg)
+![screenshot.16](doc-portx/pic/screenshot.16.jpg)
+![screenshot.17](doc-portx/pic/screenshot.17.jpg)
+
+</div>
+
+## Package Manager
+
+PORTX includes a comprehensive package management system for easy installation and updates:
+
+### Local Package Management
+```bash
+# Search for packages (local and remote)
+portx-pkg search kubernetes
+portx-pkg search docker
+
+# Install packages  
+portx-pkg install kubectl
+portx-pkg install terraform
+portx-pkg install helm
+
+# List installed packages
+portx-pkg list
+
+# Get package information
+portx-pkg info kubectl
+
+# Remove packages
+portx-pkg remove kubectl
+```
+
+### Remote Repository Support
+```bash
+# Add GitHub repository
+portx-repo add-repo https://api.github.com/repos/damiansirbu/portx/releases
+
+# Update package index
+portx-repo update
+
+# Search remote packages
+portx-repo search monitoring
+
+# Install from remote
+portx-repo install prometheus
+```
+
+### Automated Installation
+The package manager automatically:
+- Downloads packages from GitHub releases
+- Extracts and installs to the correct location
+- Integrates with PORTX tool discovery
+- Manages installation tracking and removal
 
 ## Quick Start
 
-1. Extract PORTX to any directory
-2. Run `portx.cmd` to launch the environment
-3. Access tools via standard Unix commands or Windows paths
-4. Use `portx-find-tools` for interactive tool discovery
+1. Extract PORTX to any directory (or download from releases)
+2. Run `portx.bat` to launch the environment  
+3. Use the package manager: `portx-pkg search <tool>`
+4. Install tools: `portx-pkg install <package>`
+5. Access tools via standard Unix commands or Windows paths
+6. Use `portx-tools find` for interactive tool discovery
 
 ## Technical Specifications
 
