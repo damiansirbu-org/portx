@@ -149,6 +149,10 @@ fi
 
 # Set portable HOME directory
 # HOME is set dynamically by git-bash based on Windows username
+# PORTX Override: Force portable user environment
+export HOME="/home/portx"
+export USER="portx"
+export USERNAME="portx"
 
 export PATH MANPATH INFOPATH PKG_CONFIG_PATH USER TMP TEMP HOSTNAME PS1 SHELL tmp temp ORIGINAL_TMP ORIGINAL_TEMP ORIGINAL_PATH CONFIG_SITE HOME
 unset PATH_SEPARATOR
