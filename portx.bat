@@ -103,8 +103,8 @@ echo       PATH               Enhanced with all tool directories
 echo       HOME               Portable home directory (/home/portable)
 echo.
 echo FILES
-echo       doc-portx/tools.md    Comprehensive tool catalog (501 tools)
-echo       doc-portx/TODO.md     Development roadmap and security enhancements
+echo       doc/tools.md    Comprehensive tool catalog (501 tools)
+echo       doc/TODO.md     Development roadmap and security enhancements
 echo       bin/                  Core system utilities (git, grep, sed, make, gawk)
 echo       packages/             Optional tool packages (AWS, Docker, security)
 echo       mingw64/              MinGW64 development environment
@@ -120,10 +120,10 @@ echo.
 goto :end
 
 :show_tools
-if exist "%~dp0\doc-portx\tools.md" (
-    type "%~dp0\doc-portx\tools.md"
+if exist "%~dp0\doc\tools.md" (
+    type "%~dp0\doc\tools.md"
 ) else (
-    echo Error: Tool catalog not found at doc-portx/tools.md
+    echo Error: Tool catalog not found at doc/tools.md
     echo Run 'portx man' for general documentation.
 )
 goto :end
