@@ -1,6 +1,6 @@
 # PORTX - Portable POSIX Environment for Windows
 
-A complete, portable POSIX toolkit built on Git Bash with 538 Windows-native command-line tools. Zero installation, zero dependencies, enterprise-friendly.
+A complete, portable POSIX toolkit built on Git Bash with 818 Windows-native command-line tools across 86 packages. Zero installation, zero dependencies, enterprise-friendly.
 
 ## Architecture
 
@@ -15,8 +15,8 @@ PORTX leverages Git for Windows as a corporate-friendly foundation, extending it
 - **Path Integration**: Seamless Windows/Unix path translation
 
 **Tool Enhancement Layers**:
-- **Core Utilities**: 44 modern CLI tools (ripgrep, bat, fzf, jq, micro, 7za) for improved productivity
-- **Professional Suite**: 210 enterprise tools spanning cloud platforms (AWS CLI, Azure CLI), container orchestration (Kubernetes, Docker), infrastructure (Terraform, monitoring), security (ClamAV, YARA, osquery, nuclei), and system analysis (Microsoft SysInternals suite)
+- **Core Utilities**: 41 modern CLI tools (ripgrep, bat, fzf, jq, micro, 7za) for improved productivity  
+- **Professional Suite**: 493 enterprise tools across 84 packages spanning cloud platforms (AWS CLI, Azure CLI), container orchestration (Kubernetes, Docker), infrastructure (Terraform, monitoring), security (ClamAV, YARA, osquery, nuclei), and system analysis (Microsoft SysInternals suite)
 - **Development Stack**: Git integration, build tools, and extensible package management
 
 **Corporate Advantages**:
@@ -105,7 +105,7 @@ For comprehensive PORTX architecture documentation, security analysis, and imple
 
 ## Tool Discovery & Research Methodology
 
-PORTX includes a comprehensive tool discovery system with scientifically curated documentation for all 538 tools:
+PORTX includes a comprehensive tool discovery system with scientifically curated documentation for all 818 tools:
 
 ### Discovery Interface
 
@@ -122,7 +122,7 @@ PORTX includes a comprehensive tool discovery system with scientifically curated
 
 ### Research & Curation Process
 
-**Systematic Tool Analysis**: Each of the 538 tools underwent individual research:
+**Systematic Tool Analysis**: Each of the 818 tools underwent individual research:
 1. **Source Documentation Review**: Official manuals, GitHub repositories, vendor documentation
 2. **Functional Classification**: Categorization based on primary use case and professional domain
 3. **Usage Pattern Analysis**: Real-world command examples and common workflows
@@ -139,9 +139,9 @@ PORTX includes a comprehensive tool discovery system with scientifically curated
 tool_name|category|full_path|detailed_description|usage_examples
 ```
 
-**Extraction Methodology**: Automated deep-scan algorithm traversing 53 directories with 4-level depth analysis:
-- Minimum 1 executable per directory requirement
-- PATH optimization for 284 total executables
+**Extraction Methodology**: Automated deep-scan algorithm traversing 86 packages with 4-level depth analysis:
+- Minimum 1 executable per directory requirement  
+- PATH optimization for 818 total executables (284 MINGW core + 41 PORTX bin + 493 packages)
 - Smart caching system with regeneration triggers
 - Integration with Git Bash environment variables
 

@@ -1,15 +1,14 @@
 # PORTX Tools Catalog
 
-Complete alphabetical listing of all 538 tools available in PORTX.
+Complete alphabetical listing of all 818 tools available in PORTX across 86 packages.
 
 ## Overview
 
-PORTX provides a comprehensive portable POSIX environment with 538 command-line tools spanning multiple categories:
+PORTX provides a comprehensive portable POSIX environment with 818 command-line tools spanning three main categories:
 
-- **Core System**: 284 Unix utilities (bash, GNU coreutils, text processing)
-- **Enhanced Tools**: 44 modern CLI alternatives 
-- **Professional Tools**: 210 enterprise tools (cloud, containers, security, infrastructure)
-- **Development Tools**: Specialized development and system utilities
+- **MINGW Core**: 284 Unix utilities (bash, GNU coreutils, text processing, development tools)
+- **PORTX Bin**: 41 core PORTX utilities and shell executables
+- **Packages**: 493 enterprise tools across 84 packages (cloud, containers, security, infrastructure, development)
 
 **Tool Discovery**: Use `portx-find-tools` for interactive search and browse interface with real-time filtering, detailed descriptions, and usage examples for all tools.
 
