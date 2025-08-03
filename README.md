@@ -89,19 +89,28 @@ For comprehensive PORTX architecture documentation, security analysis, and imple
 
 ## Tool Categories
 
-**Development**: Git, GCC compiler suite, text editors (micro, helix), build tools (make), language runtimes
+### **Core Utilities** (41 tools)
+Modern CLI productivity tools for enhanced development workflows:
+- **Text Processing**: `ripgrep` (ultra-fast search), `bat` (syntax-highlighted cat), `fd` (fast find), `sd` (sed replacement)
+- **Interactive Tools**: `fzf` (fuzzy finder), `peco` (filtering), `micro` (terminal editor), `helix` (modern editor)
+- **Data Processing**: `jq` (JSON processor), `yq` (YAML processor), `7za` (compression), `delta` (Git diff viewer)
 
-**DevOps**: AWS CLI, Azure CLI, Terraform, Kubernetes (kubectl, helm, k9s), Docker Compose, monitoring tools
+### **Professional Suite** (493 tools across 84 packages)
 
-**Security**: ClamAV antivirus, YARA malware detection, osquery endpoint monitoring, hash utilities (hashdeep, ssdeep), network scanning (nuclei)
+**☁️ Cloud Platforms**: `aws` (AWS CLI), `az` (Azure CLI), `gcloud` (Google Cloud), `oci` (Oracle Cloud)
 
-**System Analysis**: Microsoft SysInternals command-line tools (psinfo, handle, pslist, accesschk, procdump, strings) for Windows system diagnostics and troubleshooting
+**🐳 Container Orchestration**: `kubectl` (Kubernetes CLI), `helm` (package manager), `k9s` (cluster management), `docker-compose` (multi-container apps)
 
-**Windows Automation**: NirCmd utility for Windows system control, automation, clipboard management, volume control, window management, and speech synthesis
+**🏗️ Infrastructure**: `terraform` (IaC), `packer` (image building), `vault` (secrets management), `consul` (service discovery)
 
-**Text Processing**: Traditional Unix tools (grep, sed, awk) plus modern alternatives (ripgrep, bat, fd, sd), JSON/YAML processors (jq, yq)
+**🛡️ Security**: `clamscan` (antivirus), `yara` (malware detection), `osquery` (endpoint monitoring), `nuclei` (vulnerability scanner)
 
-**System Administration**: Process monitoring (btop), file management (7za), network utilities (curl, SSH), remote access tools
+**🔍 System Analysis**: Microsoft SysInternals suite (`pslist`, `handle`, `procdump`, `strings`, `accesschk`, `autoruns`)
+
+### **Development Stack** (284 tools)
+**Version Control**: Git with enhanced diff tools, SSH, GPG signing
+**Build Tools**: `make`, `cmake`, GCC compiler suite, pkg-config
+**Shell Environment**: Bash 4.4+, complete GNU coreutils, POSIX utilities
 
 ## Tool Discovery & Research Methodology
 
@@ -147,38 +156,13 @@ tool_name|category|full_path|detailed_description|usage_examples
 
 This scientific approach ensures PORTX provides enterprise-grade tool discovery with professional documentation standards comparable to commercial development environments.
 
-## Screenshots
-
-<div align="center">
-
-![screenshot.2](doc/pic/screenshot.2.jpg)
-![screenshot.3](doc/pic/screenshot.3.jpg)
-![screenshot.4](doc/pic/screenshot.4.jpg)
-
-![screenshot.5](doc/pic/screenshot.5.jpg)
-![screenshot.6](doc/pic/screenshot.6.jpg)
-![screenshot.7](doc/pic/screenshot.7.jpg)
-
-![screenshot.9](doc/pic/screenshot.9.jpg)
-![screenshot.10](doc/pic/screenshot.10.jpg)
-![screenshot.11](doc/pic/screenshot.11.jpg)
-
-![screenshot.12](doc/pic/screenshot.12.jpg)
-![screenshot.13](doc/pic/screenshot.13.jpg)
-![screenshot.14](doc/pic/screenshot.14.jpg)
-
-![screenshot.15](doc/pic/screenshot.15.jpg)
-![screenshot.16](doc/pic/screenshot.16.jpg)
-![screenshot.17](doc/pic/screenshot.17.jpg)
-
-</div>
 
 ## Quick Start
 
 1. Extract PORTX to any directory
-2. Run `portx.bat` to launch the environment
+2. Run `portx.cmd` to launch the environment
 3. Access tools via standard Unix commands or Windows paths
-4. Use `portx-tools find` for interactive tool discovery
+4. Use `portx-find-tools` for interactive tool discovery
 
 ## Technical Specifications
 
