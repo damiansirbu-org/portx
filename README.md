@@ -33,13 +33,13 @@ PORTX leverages Git for Windows as its foundational shell environment for compel
 
 ### **Key Advantages**
 
+✅ **Digital Signature Preservation** - Maintains Git for Windows code signing integrity for enterprise security compliance  
 ✅ **Native Windows Performance** - 2-9x faster than MSYS2 through MinGW compilation and direct Win32 API usage  
-✅ **Enterprise Compatibility** - Pre-approved foundation using Microsoft-signed Git for Windows executables  
-✅ **Zero Dependencies** - No external runtime libraries (msys-2.0.dll, cygwin1.dll) or system modifications  
-✅ **Portable Architecture** - Self-contained execution model with controlled home directory management  
+✅ **Enterprise Security Architecture** - Pre-approved foundation using Microsoft-signed executables with SmartScreen compatibility  
+✅ **Zero Binary Modification** - No executable changes preserves Windows Defender and AppLocker compatibility  
+✅ **Profile-Based Environment Management** - Clean configuration approach eliminates runtime environment variable hacks  
 ✅ **Corporate Approval** - Built on trusted Git for Windows infrastructure already deployed in enterprise environments  
-✅ **Developer Workflow Optimization** - Git-specific patches and performance enhancements for development tasks  
-✅ **Windows Integration** - Native path handling, clipboard access, and process management without emulation overhead  
+✅ **Windows Security Integration** - Compatible with Device Guard, HVCI, and enterprise PKI infrastructure  
 ✅ **AI Development Compatibility** - Reliable execution environment for modern development tools and AI assistants  
 ✅ **Memory Efficiency** - Minimal footprint without heavy POSIX emulation layers  
 ✅ **Startup Performance** - Optimized shell initialization for development workflows  
@@ -54,6 +54,8 @@ PORTX maintains strict architectural purity - all tools must be self-contained W
 - ✅ **True Portability**: Self-contained directory structure, copy-and-run deployment
 
 For detailed technical analysis, performance benchmarks, and architectural deep dive, see: **[Technical Analysis of Git for Windows Architecture](doc/git-for-windows-architecture.md)**
+
+For comprehensive PORTX architecture documentation, security analysis, and implementation details, see: **[PORTX Architecture Documentation](doc/portx-architecture.md)**
 
 ### **Authoritative Sources**
 

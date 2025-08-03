@@ -291,7 +291,7 @@ db_gecos: cygwin desc
 - `windows`: Use Windows `%USERPROFILE%`
 - `cygwin`: Use MSYS2/Cygwin logic
 - `desc`: Use description field from user account
-- `/path`: Hardcoded path (e.g., `/home/portable`)
+- `/path`: Hardcoded path (e.g., `/home/portx`)
 
 ### passwd File Integration
 
@@ -299,7 +299,7 @@ db_gecos: cygwin desc
 ```bash
 # /etc/passwd format
 username:password:uid:gid:comment:home:shell
-portable:*:1000:1000:PORTX User:/home/portable:/usr/bin/bash
+portx:*:1000:1000:PORTX User:/home/portx:/usr/bin/bash
 ```
 
 **Benefits of passwd Approach**:
@@ -708,7 +708,7 @@ Application → POSIX Emulation → Path Translation → Win32 APIs → NTFS →
 **Option A: Environment Variable Approach (PORTX Current)**
 ```cmd
 rem portx.cmd current approach
-set HOME=/home/portable
+set HOME=/home/portx
 set USER=portable
 set USERNAME=portable
 "%~dp0\bin\sh.exe" --login -i
@@ -719,7 +719,7 @@ set USERNAME=portable
 # /etc/nsswitch.conf - hardcoded portable home
 passwd: files db
 group: files db  
-db_home: /home/portable
+db_home: /home/portx
 db_shell: /usr/bin/bash
 db_gecos: desc
 ```
@@ -727,7 +727,7 @@ db_gecos: desc
 **Option C: passwd Database Approach**
 ```bash
 # /etc/passwd - portable user entry
-portable:*:1000:1000:PORTX User:/home/portable:/usr/bin/bash
+portx:*:1000:1000:PORTX User:/home/portx:/usr/bin/bash
 
 # /etc/nsswitch.conf - enable passwd lookup
 passwd: files db
@@ -748,7 +748,7 @@ export MSYS2_PATH_TYPE=inherit
 
 # Skip user account lookups for portable user
 if [[ "$USERNAME" == "portable" ]]; then
-    export HOME="/home/portable"
+    export HOME="/home/portx"
     export USER="portable"
     cd "$HOME" 2>/dev/null || cd /
 fi
