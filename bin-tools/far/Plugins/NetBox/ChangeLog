@@ -1,0 +1,1360 @@
+# for this file format description,
+# see https://github.com/olivierlacan/keep-a-changelog
+
+## [24.12.2.608] - 2024-12-20
+
+### Fixes
+
+Thanks to ssvine https://github.com/ssvine
+* gh-420 Fix regression
+* gh-441 Fix regression
+
+
+## [24.12.1.607] - 2024-12-08
+
+### Changes
+
+ * S3: Session dialog: add "S3" tab
+ * Upgrade WinSCP sources: WinSCP 6.3.6
+ * Upgrade dependencies: zlib-ng 2.2.2
+ * Upgrade dependencies: expat 2.6.4
+
+
+## [24.11.1.605] - 2024-11-25
+
+### Fixes
+
+Thanks to ssvine https://github.com/ssvine
+ * gh-498 Fix RTTI class IDs
+https://github.com/michaellukashov/Far-NetBox/pull/498
+ * gh-496 Fix SCP terminal command execution
+https://github.com/michaellukashov/Far-NetBox/pull/496
+ * gh-495 Remove SSH-1 remainings from the Session dialog
+https://github.com/michaellukashov/Far-NetBox/pull/495
+ * gh-494 Don't treat netbox file as archive when searching in archives
+https://github.com/michaellukashov/Far-NetBox/pull/494
+
+
+## [24.9.0.604] - 2024-09-07
+
+### Changes
+
+ * Upgrade dependencies: OpenSSL 3.3.2
+ * Upgrade dependencies: expat 2.6.3
+ * Upgrade dependencies: tinyxml 10.0.0
+ * Clarify .ppk file prompt: add (.ppk)
+https://forum.farmanager.com/viewtopic.php?p=177884#p177884
+
+### Fixes
+
+ * gh-492 Fix focusing of new and duplicated sessions
+https://github.com/michaellukashov/Far-NetBox/issues/492
+ * gh-491 Add Alt-Shift-F11 hotkey to open Edit history
+https://github.com/michaellukashov/Far-NetBox/issues/491
+ * gh-490 Truncate long file names correctly in several dialogs
+https://github.com/michaellukashov/Far-NetBox/issues/490
+ * gh-488 Add more guids for dialogs
+https://github.com/michaellukashov/Far-NetBox/issues/488
+ * gh-487 Fix user/password labels appearing on wrong tab
+https://github.com/michaellukashov/Far-NetBox/issues/487
+ * gh-485 Can not create a remote folder
+https://github.com/michaellukashov/Far-NetBox/issues/485
+
+
+## [24.6.0.603] - 2024-06-20
+
+### Changes
+
+ * Upgrade dependencies: OpenSSL 3.2.2
+
+### Fixes
+
+Thanks to ssvine https://github.com/ssvine
+ * gh-484 Fix writing code page to database
+ * gh-483 Fix unexpected session closure when clicking Abort
+ * gh-482 Fix FTP codepage support
+
+
+## [24.5.0.602] - 2024-05-05
+
+### Changes
+
+ * gh-467 Update PuTTY to 0.81
+ * gh-461 Tell AppVeyour to keep build artifacts
+
+### Fixes
+
+Thanks to ssvine https://github.com/ssvine
+ * gh-469 Fix log time format
+ * gh-468 Fix MFC termination
+ * gh-466 Fix Charset encoding for filenames
+ * gh-465 Fix dialog message
+ * gh-463 Fix freeze on exit
+ * gh-462 Fix possible crashes on lost connections while modal dialog is shown
+ * gh-459 Fix ssh crash on reconnect
+ * gh-458 Fix broken terminal output
+ * gh-457 Fix properties implementation
+
+
+## [24.4.1.601] - 2024-04-10
+
+### Fixes
+
+Thanks to ssvine https://github.com/ssvine
+ * gh-455 Fix webdav prefix
+ * gh-454 Fix WebDAV preserve time
+ * gh-453 Fix hotkey problems
+ * gh-452 Fix editor not taking transfer settings into account
+ * gh-451 Fix openssl compilation flags to prevent DLL pinning
+
+
+## [24.4.0.600] - 2024-04-03
+
+### Fixes
+
+ - Fix Far Issue #816: Far silently crashes on FTP connection attempt
+https://github.com/FarGroup/FarManager/issues/816
+
+Thanks to ssvine https://github.com/ssvine
+ * gh-449 Fix SFTP crash when resuming copy from local to remote
+ * gh-447 Fix crash when trying to copy parent directory entry
+ * gh-446 Fix Alt-F12 history navigation
+ * gh-445 Relax file naming restrictions
+ * gh-444 Fix regression: closing FTP does not completely clear the session
+ * gh-443 Several crashes
+ * gh-442 Fix several crashes
+ * gh-441 Fix WebDAV and S3 crash under some conditions
+
+
+## [24.3.1.599] - 2024-03-22
+
+### Changes
+
+ - Upgrade WinSCP sources: WinSCP 6.3.3
+ - Upgrade dependencies: expat 2.6.2
+
+### Fixes
+
+Thanks to ssvine https://github.com/ssvine
+ * gh-437 SCP: don't hang if binary data is accidentally written to the terminal
+ * gh-435 Fix several tinylog problems
+ * gh-434 Prevent silent termination under certain conditions
+ * gh-433 Fix FTP crash on certain servers
+
+
+## [24.3.0.598] - 2024-03-09
+
+### Fixes
+
+Thanks to ssvine https://github.com/ssvine
+ * gh-431 Fix importing session files from temporary panel
+ * gh-429 Make recursive sessions to work as expected
+ * gh-428 Send ACTL_SYNCHRO only when plugin panel is open
+ * gh-426 Make a graceful exit from the plugin
+ * gh-424 Do not start debug logger in release build
+
+**Full Changelog**: https://github.com/michaellukashov/Far-NetBox/compare/v24.2.2.597...v24.3.0.598
+
+
+## [24.3.0.597] - 2024-03-05
+
+### Fixes
+
+Thanks to ssvine https://github.com/ssvine
+ * gh-420 Fix and optimize symlink reading
+ * gh-418 Fix: cannot use proxy with FTP connection
+
+### Changes
+
+ - Upgrade dependencies: expat 2.6.1
+
+**Full Changelog**: https://github.com/michaellukashov/Far-NetBox/compare/v24.2.2.596...v24.3.0.597
+
+
+## [24.2.3.596] - 2024-02-26
+
+### Fixes
+
+ * gh-414 FTP: Netbox always crashes while connecting
+
+
+## [24.2.2.595] - 2024-02-25
+
+### Fixes
+
+ * FTP,WebDAV,S3: "Encryption" setting was not saved correctly
+
+### What's Changed
+
+ * <Description>
+ **Full Changelog**: https://github.com/michaellukashov/Far-NetBox/compare/v24.2.2.594...v24.2.2.595
+
+
+## [24.2.2.594] - 2024-02-24
+
+### Fixes
+
+ - gh-411 Fix list sorting
+
+
+## [24.2.2.593] - 2024-02-24
+
+### Changes
+
+ - Upgrade WinSCP sources: WinSCP 6.3.1
+
+### Fixes
+
+ - Correction of: gh-409 Debug log loses messages
+
+
+## [24.2.2.591] - 2024-02-23
+
+### Fixes
+
+Thanks to ssvine https://github.com/ssvine
+- gh-409 Debug log loses messages
+- gh-407 Allow empty netbox prefix to open session list
+- gh-405 Fix ClosePanel problems
+- gh-403 Return to sessions list from the root directory by pressing Ctrl-PgUp
+- gh-401 Assertion on connection when logging is enabled
+- gh-399 Elapsed and Left times in copy dialog are broken
+- gh-397 Unable to connect to WebDAV
+
+
+## [24.2.2.590] - 2024-02-20
+
+### Changes
+
+ - Upgrade WinSCP sources: WinSCP 6.3.0
+ - Upgrade dependencies: expat 2.6.0
+
+### Fixes
+
+Thanks to ssvine https://github.com/ssvine
+ - gh-375 Fix: Many exceptions are not shown
+ - gh-373 Fix russian translation
+ - gh-371 Fix: Apply command runs twice
+ - gh-369 Fix timeout problems
+ - gh-367 Fix regression
+ - gh-365 Fix cmake
+ - gh-363 Fix slow session load
+ - gh-362 scope_guard destructor should be noexcept(false)
+ - gh-353 Fix graying Up/Down buttons linked with kex and cipher list boxes
+ - gh-352 Don't update dialog when selecting elements in open combos
+ - gh-351 Fix crash when using Synchronize command
+ - gh-350 Fix crash when using Open in PuTTY command
+ - gh-349 Fix broken copy to clipboard in "Server and protocol information" dialog
+ - gh-348 Fix PutFilesEx
+ - gh-347 Fix the width of dialogs
+ - gh-346 Fix russian translation
+
+ - gh-377 No Such File or Directory
+ - gh-333 Build script fails to collate the finished files
+ - Create Directory: fix position cursor on newly created dir
+https://forum.farmanager.com/viewtopic.php?p=177192#p177192
+ - Fix opening plugin on opposite panel using macro
+https://forum.farmanager.com/viewtopic.php?p=177178#p177178 p.1
+ - SCP: Crash if file transfer is canceled
+https://forum.farmanager.com/viewtopic.php?p=177178#p177178 p.2
+
+
+## [24.2.1.580] - 2024-02-04
+
+### Changes
+
+ - Upgrade dependencies: zlib-ng 2.1.6
+ - Upgrade dependencies: neon 0.33.0
+ - Upgrade dependencies: openssl 3.2.1
+
+### Fixes
+
+Thanks to ssvine https://github.com/ssvine
+ - gh-344 Fix TStringList::Find to pass tests
+
+
+## [24.2.0.578] - 2024-02-02
+
+### Fixes
+
+Thanks to ssvine https://github.com/ssvine
+ - gh-342 Fix displaying session log file
+ - gh-340 Fix runtime exception "can't increment invalidated vector iterator"
+ - gh-338 Several small fixes
+ - gh-336 Fix memory leak and dangling sessions
+ - gh-334 Fix numerous bugs in view/change file attributes dialog
+
+
+## [24.1.1.577] - 2024-01-28
+
+
+### Fixes
+
+ - FTP,WebDAV,S3: "Encryption" setting was not saved correctly
+https://forum.farmanager.com/viewtopic.php?p=177022#p177022
+
+
+## [24.1.1.575] - 2024-01-23
+
+### Fixes
+
+ - Bugfix: Crash when session option "[x] Cache visited remote directories" is set
+https://forum.farmanager.com/viewtopic.php?p=176996&#p176996
+ - "Copy to Remote" command: Fix error: "No such file or directory"
+ - Fix connect from History
+ - Bugfix: Import session: session data not updated if session already exists
+https://forum.farmanager.com/viewtopic.php?p=176925#p176925 p.3
+
+
+### Changes
+
+ - sync WinSCP core with WinSCP 6.2.3-RC
+
+
+## [24.1.1.570] - 2024-01-07
+
+### Fixes
+
+ - Transfer on background: fix found issues
+ - Bugfix: SCP: crash if remote command fails
+https://forum.farmanager.com/viewtopic.php?p=176900#p176900
+
+### Changes
+
+ - Add ARM64 build
+
+
+## [24.1.0.566-RC7] - 2024-01-02
+
+### Fixes
+
+ - Fix transfer on background issues
+ - Fix issues with unicode file names
+
+
+## [23.12.1.564-RC6] - 2023-12-30
+
+### Fixes
+
+ - S3: Fix Upload/Download large files
+
+
+## [23.12.1.561-RC5] - 2023-12-27
+
+### Fixes
+
+ - Fix connect from History
+https://forum.farmanager.com/viewtopic.php?p=176654#p176654
+ - Fix S3 connection issues
+https://forum.farmanager.com/viewtopic.php?p=176659#p176659
+https://forum.farmanager.com/viewtopic.php?p=176706#p176706
+ - Bugfix: Intermittent crash in Session dialog
+https://forum.farmanager.com/viewtopic.php?p=176706#p176706
+
+
+NetBox 23.12.0.546 07.12.2023
+--------------------
+  * Update WinSCP sources to 6.2.0-dev
+  * Update openssl to 3.2.0
+  * Update expat to 2.5.0
+
+NetBox 2.4.5.531 04.11.2017
+--------------------
+  * Update expat sources to 2.2.5
+  * Update openssl sources to 1.1.0g
+  * Update WinSCP sources to 5.11.2
+  * Bugfix: SFTP: fix send files to remote server
+  * Bugfix: Mantis-3468: SCP: wrong listing
+    (http://bugs.farmanager.com/view.php?id=3468)
+  * use tinylog for logging
+    (https://github.com/oyld/tinylog)
+  * Use fmt 4.0.1 for string formatting
+    (https://github.com/fmtlib/fmt)
+
+NetBox 2.4.4.524 09.08.2017
+--------------------
+  * Issue #244: Fail to change dir on remote server after reconnect
+    (https://github.com/michaellukashov/Far-NetBox/issues/244)
+  * Issue #249: Update expat sources to 2.2.3
+    (https://github.com/michaellukashov/Far-NetBox/issues/249)
+  * Issue #247: bug when session is opened by Ctrl-PgDown
+    (https://github.com/michaellukashov/Far-NetBox/issues/247)
+  * Issue #246: SCP: check unusual listing format 
+    (https://github.com/michaellukashov/Far-NetBox/issues/246)
+  * FTP: use QUIT to disconnect from server
+  * Fix AV after reopen connection
+
+NetBox 2.4.3.512 09.07.2017
+--------------------
+  * Update putty sources to 0.70
+  * Issue #245: AV when file is edited in external editor
+    (https://github.com/michaellukashov/Far-NetBox/issues/245)
+  * Issue #244: Fail to change dir on remote server after reconnect
+    (https://github.com/michaellukashov/Far-NetBox/issues/244)
+  * Issue #243: Show session name and current dir if interface option "Show session name in window title" is set
+    (https://github.com/michaellukashov/Far-NetBox/issues/243)
+  * Bugfix: Fix issues #240, #241, #239, #237
+  * Bugfix: Mantis-3439: Far crash when trying to copy to long path
+    (http://bugs.farmanager.com/view.php?id=3439)
+  * Update openssl sources to 1.1.0f
+  * Bugfix: plugin crashes on FAR startup
+    (http://bugs.farmanager.com/view.php?id=3429)
+    (http://forum.farmanager.com/viewtopic.php?p=143678#p143678)
+    (https://github.com/michaellukashov/Far-NetBox/issues/230)
+  * Issue #229: Remove "netbox:" prefix from Far window title
+    (https://github.com/michaellukashov/Far-NetBox/issues/229)
+  * Update WinSCP sources to 5.9.5
+
+NetBox 2.4.2.475 24.03.2017
+--------------------
+  * Bugfix: Mantis-3412: Access Violation when connection is reopened
+    (http://bugs.farmanager.com/view.php?id=3412)
+  * Bugfix: WebDAV: plugin shows error "Cannot change properties of file" after creating directory on remote server
+    (http://forum.farmanager.com/viewtopic.php?p=142479#p142479)
+  * Bugfix: Can't open remote directory stored in Folders history
+    (http://forum.farmanager.com/viewtopic.php?t=6317&p=142882#p142882)
+    (http://bugs.farmanager.com/view.php?id=3402)
+  * Bugfix: Synchronized browsing is not working
+    (http://forum.farmanager.com/viewtopic.php?t=6317&p=142746#p142746)
+  * Update putty sources to 0.68
+  * Update WinSCP sources to 5.9.4
+  * Update openssl sources to 1.1.0e
+  * Bugfix: can't change directory if option [] Cache directories is set
+  * Update zlib sources to 1.2.11
+  * Bugfix: Issue #218: cannot copy to root folder
+    (https://github.com/michaellukashov/Far-NetBox/issues/218)
+  * Bugfix: SCP: cannot copy file
+    (http://forum.farmanager.com/viewtopic.php?p=141891#p141891)
+
+NetBox 2.4.1.440 07.10.2016
+--------------------
+  * Update neon sources to 0.30.2
+  * Update openssl sources to 1.0.2j
+
+NetBox 2.4.0.438 23.09.2016
+--------------------
+  * Update WinSCP sources to 5.9.2
+
+NetBox 2.3.0.436 26.05.2016
+--------------------
+  * Update WinSCP sources to 5.8.3 RC
+
+NetBox 2.2.2.435 24.05.2016
+--------------------
+  * Update openssl sources to 1.0.2h
+  * Update WinSCP sources to 5.8.2 beta
+
+NetBox 2.2.1.433 05.03.2016
+--------------------
+  * Update openssl sources to 1.0.2g
+  * Bugfix: Issue #193: Crash when trying to enter !^! pattern into local custom command
+    (https://github.com/michaellukashov/Far-NetBox/issues/193)
+  * Bugfix: Issue #194: Apply command does nothing when .. is selected
+    (https://github.com/michaellukashov/Far-NetBox/issues/194)
+  * Bugfix: Bookmarks are not preserved between FAR sessions
+    (https://github.com/michaellukashov/Far-NetBox/issues/174)
+  * SFTP: fix handle leaks
+  * Fix .lng files
+    (https://github.com/michaellukashov/Far-NetBox/issues/191)
+
+NetBox 2.2.0.427 14.02.2016
+--------------------
+  * Update WinSCP sources to 5.8.1 beta
+
+NetBox 2.1.45.426 09.02.2016
+--------------------
+  * Allow environment variables in "Private key file" field
+    (http://forum.farmanager.com/viewtopic.php?p=135588#p135588)
+  * WebDAV: fix AV in Win2k, WinXPSP2
+  * Plugin is functional under Win2k
+  * Fix VS2015 build
+  * Bugfix: WebDAV: fix AV
+    (http://forum.farmanager.com/viewtopic.php?p=135432#p135432)
+  * Update openssl sources to 1.0.2f
+  * Fix Issue #175: Symlinks attributes dialog: show linked file name
+    (https://github.com/michaellukashov/Far-NetBox/issues/175)
+  * Bugfix: Bookmarks are not preserved between FAR sessions
+    (https://github.com/michaellukashov/Far-NetBox/issues/174)
+  * Bugfix: SFTP: remote copy file (Shift-F5) does not work
+    (http://forum.farmanager.com/viewtopic.php?p=133660#p133660)
+  * Update putty sources to 0.66
+  * Bugfix: Cannot copy file from subst disk
+    (http://forum.ru-board.com/topic.cgi?forum=5&topic=31718&start=7880#9)
+
+NetBox 2.1.44.415 04.11.2015
+--------------------
+  * Update WinSCP sources to 5.7.6
+  * SFTP, SCP: Fix connection to remote server using ecdsa-sha2-nistp521 key exchange algorithm, used by default by dropbear_2015.67
+  * Update Russian translation, thanks to DenVdmj
+    (https://github.com/michaellukashov/Far-NetBox/pull/169)
+  * SFTP, SCP: Fix remote command execution
+    (http://forum.ru-board.com:9000/topic.cgi?forum=5&topic=31718&start=7860#7)
+  * FTP: Fix codepage issues
+    (http://forum.farmanager.com/viewtopic.php?p=133226#p133226)
+    (http://bugs.farmanager.com/view.php?id=2516)
+  * Bugfix: Cannot create directory on remote server if file with the same name already exists
+  * Fix long path issues
+  * Bugfix: FTP: AV trying to download file
+    (http://forum.farmanager.com/viewtopic.php?p=132960#p132960)
+  * WebDAV, FTP: Fix Unicode-related issues
+  * Update minimal Far3 version to 3.0.4400
+  * Bugfix: SFTP: cannot create symlink
+    (http://forum.farmanager.com/viewtopic.php?p=132109#p132109)
+  * Update putty sources
+
+NetBox 2.1.43.400 16.08.2015
+--------------------
+  * Bugfix: Remote file was not saved after editing in external editor
+  * Update WinSCP sources to 5.7.5
+  * Bugfix: Interface setting "Add commands to Plugins menu" was not working
+    (http://forum.farmanager.com/viewtopic.php?p=131695#p131695)
+  * Bugfix: SFTP: prevent AV when server unexpectedly closes connection
+  * Bugfix: AV when remote file is edited in external editor
+    (http://bugs.farmanager.com/view.php?id=2943)
+  * Update putty sources to 0.65
+  * Bugfix: Message 2106 not found
+    (http://forum.farmanager.com/viewtopic.php?p=131198#p131198)
+  * Bugfix: AV trying to open SCP session
+    (http://forum.farmanager.com/viewtopic.php?p=131130#p131130)
+  * Bugfix: SCP, SFTP: verified host key is not stored
+    (http://forum.farmanager.com/viewtopic.php?p=131079#p131079)
+  * Bugfix: AV when connecting using tunnel
+    (http://bugs.farmanager.com/view.php?id=3018)
+  * Update openssl sources to 1.0.2d
+
+NetBox 2.1.42.385 17.06.2015
+--------------------
+  * Update WinSCP sources to 5.7.4
+  * Update putty sources to 0.64
+  * Update openssl sources to 1.0.2c
+  * Update apr sources to 1.5.2
+
+NetBox 2.1.41.373 28.03.2015
+--------------------
+  * Bugfix: Issue #149: Plugin closes if root directory contains symlinks
+    (http://bugs.farmanager.com/view.php?id=2884)
+    (https://github.com/michaellukashov/Far-NetBox/issues/149)
+  * Update WinSCP sources to 5.7.1
+  * Update openssl sources to 1.0.1m
+  * Bugfix: plugin prefixes do not work
+    (https://github.com/michaellukashov/Far-NetBox/issues/131)
+
+NetBox 2.1.40.363 23.11.2014
+--------------------
+  * Bugfix: Issue #134: Plugin settings not stored
+    (https://github.com/michaellukashov/Far-NetBox/issues/134)
+  * Update WinSCP sources to 5.6.3
+  * Bugfix: Mantis #0002864: AV trying to connect to WebDAV host
+    (http://bugs.farmanager.com/view.php?id=2864)
+  * Bugfix: Issue #130: Check symlink type
+    (https://github.com/michaellukashov/Far-NetBox/issues/130)
+  * Bugfix: Issue #132: FTP: date/time of remote files are incorrect
+    (https://github.com/michaellukashov/Far-NetBox/issues/132)
+  * Bugfix: Mantis #0002860: Exception occurred: Access violation (GetFilesW)
+    (http://bugs.farmanager.com/view.php?id=2860)
+  * Bugfix Mantis #0002859: percent sign in the filename is urlencoded
+    (http://bugs.farmanager.com/view.php?id=2859)
+  * Bugfix: plugin crash after autodisconnect
+    (http://forum.farmanager.com/viewtopic.php?p=125042#p125042)
+  * Bugfix: cannot save newly created file on remote server
+    (http://forum.farmanager.com/viewtopic.php?p=124914#p124914)
+    (http://bugs.farmanager.com/view.php?id=2852)
+  * Bugfix: SFTP: AV trying to copy files from server
+    (http://forum.farmanager.com/viewtopic.php?p=124692#p124692)
+  * Update openssl sources to 1.0.1j
+
+NetBox 2.1.39.331 11.10.2014
+--------------------
+  * Bugfix: cannot edit remote file if filename has symbols not valid for Windows files
+    (http://forum.farmanager.com/viewtopic.php?p=123869#p123869)
+  * Bugfix: SCP, SFTP: cannot read/copy files if server uses KOI8-R filesystem encoding
+    (https://github.com/michaellukashov/Far-NetBox/issues/124)
+  * Bugfix: WebDAV: do not try to create existing directory on remote server
+    (http://forum.farmanager.com/viewtopic.php?p=122658#p122658)
+  * Bugfix: "NetBox commands" -> "Open in Putty": fix open session using Putty 0.63
+    (http://forum.farmanager.com/viewtopic.php?p=122618#p122618)
+  * Bugfix: Issue with files with same name on different folders/servers with SSH/SCP
+    (http://forum.farmanager.com/viewtopic.php?p=122597#p122597)
+    (https://github.com/michaellukashov/Far-NetBox/issues/67)
+  * Improvement: "Apply command": do not clean previous console output
+    (http://forum.farmanager.com/viewtopic.php?p=121937#p121937)
+  * Bugfix: WebDAV: login/password asked twice
+    http://forum.farmanager.com/viewtopic.php?f=5&t=6317&p=122049#p122049
+  * Bugfix: remote command output is scrolled up if Far.exe is started with /w command line switch (Stretch to console window instead of console buffer)
+    (http://forum.farmanager.com/viewtopic.php?f=5&t=6317&start=1680#p121335)
+  * Update openssl sources to 1.0.1i
+  * Bugfix: "Apply command": patterns substitution not working
+    (http://forum.farmanager.com/viewtopic.php?p=121023#p121023)
+  * Setting "Maximum number of retries" = 0 means unlimited retries
+    (http://forum.farmanager.com/viewtopic.php?p=121309#p121309)
+
+NetBox 2.1.38.317 03.08.2014
+--------------------
+  * Update WinSCP sources to 5.6.1
+  * Bugfix: Filter not working on uploading files on server
+    Copy only new/changed files not working
+    (http://forum.farmanager.com/viewtopic.php?p=120480#p120480)
+  * Bugfix: non-ASCII session name is corrupted
+    (http://forum.farmanager.com/viewtopic.php?p=120841#p120841)
+  * fix issue #111: FTP: High CPU load
+    (https://github.com/michaellukashov/Far-NetBox/issues/111)
+    (http://forum.farmanager.com/viewtopic.php?f=5&t=6317&start=1616#p119451)
+  * fix issue #113: AV copying file using option "Transfer on background (add to queue)"
+    (https://github.com/michaellukashov/Far-NetBox/issues/113)
+
+NetBox 2.1.37.311 13.06.2014
+--------------------
+  * Update WinSCP sources to 5.5.4
+  * Update openssl sources to 1.0.1h
+  * Bugfix: plugin hangs sometimes
+    (http://forum.farmanager.com/viewtopic.php?f=5&t=6317&p=119294#p119294)
+  * Update apr sources to 1.5.1
+  * Bugfix: SFTP: AV after Shutdown -> Sleep
+    (http://forum.farmanager.com/viewtopic.php?f=5&t=6317&p=118095#p118057)
+  * Bugfix: FTPS: Far crashes while attempting to connect using FTPS protocol
+    (http://forum.ru-board.com/topic.cgi?forum=5&topic=31718&start=4960#5)
+  * Bugfix Mantis #0002632: Moving/renaming (F6) any file on FTP (SFTP) doesn't work properly
+    (http://bugs.farmanager.com/view.php?id=2632)
+
+NetBox 2.1.36 23.03.2014
+--------------------
+  * Bugfix: WebDAV: cannot upload files
+    (http://forum.farmanager.com/viewtopic.php?f=5&t=6317&p=117721)
+  * Update WinSCP sources to 5.5.2
+  * fix Mantis #0002625: error while trying to upload file if option "Enable transfer resume/transfer to temporary filename" is set
+    (http://bugs.farmanager.com/view.php?id=2625)
+  * Bugfix: SCP: "Set atttributes" dialog: cannot set owner:group if option "Set attributes recursively" is not set
+    (http://forum.farmanager.com/viewtopic.php?f=5&t=6317&start=1545#p117633)
+  * Bugfix: FTP: timeout while trying to resume upload
+    (http://forum.farmanager.com/viewtopic.php?f=5&t=6317&p=117590#p117575)
+
+NetBox 2.1.35 15.03.2014
+--------------------
+  * fix Mantis #0002478: FTP: plugin hangs up if file is read-protected
+    (http://bugs.farmanager.com/view.php?id=2479)
+  * Bugfix: FTP: plugin hangs up if connection with server is lost while searching on server
+    (http://forum.farmanager.com/viewtopic.php?f=5&t=6317&p=117453#p117453)
+  * fix Mantis #0002478: SCP: cannot login if host uses nonstandard directory listing format
+    (http://bugs.farmanager.com/view.php?id=2478)
+  * improvement: "Connection failed" dialog: make "Reconnect" button default
+    (http://forum.farmanager.com/viewtopic.php?f=5&t=6317&start=1530#p117083)
+  * fix Mantis #0002602: WebDAV: Processing of copy file don't break
+    (http://bugs.farmanager.com/view.php?id=2602)
+  * Bugfix: FTP: resume download did not work
+    (http://bugs.farmanager.com/view.php?id=2576)
+    (http://bugs.farmanager.com/view.php?id=2493)
+  * fix issue #57: "Could not retrieve directory listing" error when attempting to access FTP
+    (https://github.com/michaellukashov/Far-NetBox/issues/57)
+
+NetBox 2.1.34 25.02.2014
+--------------------
+  * fix Mantis #0002426: Crash on Access Violation in NetBox.dll, SetDirectoryW
+    (http://bugs.farmanager.com/view.php?id=2426)
+  * fix issue #102: AV when trying to syncronize remote and local folders
+    (https://github.com/michaellukashov/Far-NetBox/issues/102)
+  * fix Mantis #0002598: SFTP: host key is not cached when SSH tunnel is used
+    (http://bugs.farmanager.com/view.php?id=2598)
+  * fix Mantis #0002599: SFTP: AV when long operation is canceled
+    (http://bugs.farmanager.com/view.php?id=2599)
+  * fix issue #97: FTP: AV if connection is lost
+    (https://github.com/michaellukashov/Far-NetBox/issues/97)
+  * fix lock file after error
+    (https://github.com/michaellukashov/Far-NetBox/pull/92)
+  * fix crash in SetDirectory after 'lost connection'
+    (https://github.com/michaellukashov/Far-NetBox/pull/91)
+  * fix issue #46: numenter
+    (https://github.com/michaellukashov/Far-NetBox/pull/90)
+
+NetBox 2.1.33 02.02.2014
+--------------------
+  * Update WinSCP sources to 5.5.1
+  * Update openssl sources to 1.0.1f
+  * Update apr sources to 1.5.0
+  * Update tinyxml2 sources to 1.0.14
+  * Fix not using LIST -A for UseMlsd=Auto and non-MLSD-supporting servers
+    (https://github.com/michaellukashov/Far-NetBox/pull/88)
+  * Fix incorrect dialog sizes when using Far /w switch
+    (https://github.com/michaellukashov/Far-NetBox/pull/85)
+  * SessionData: Fix parsing URL paths
+    (https://github.com/michaellukashov/Far-NetBox/pull/83)
+  * Bugfix: #79 (Stack Overflow), M0002526 (Crash on login to SSH running on Debian 7.1 x64)
+    (https://github.com/michaellukashov/Far-NetBox/issues/79)
+    (http://bugs.farmanager.com/view.php?id=2526)
+
+NetBox 2.1.32 04.11.2013
+--------------------
+  * Update WinSCP sources to 5.2.5
+  * Bugfix: Whenever I try to move (F6) a file from the local HDD to a SFTP server, the file get copied, but the local copy is not deleted.
+    (http://forum.farmanager.com/viewtopic.php?f=39&t=6638&p=113770#p113770)
+
+NetBox 2.1.31 31.08.2013
+--------------------
+  * Update neon sources to 0.30.0
+  * Update WinSCP sources to 5.2.3
+  * Update apr sources to 1.4.8
+  * Bugfix: Fix FTP proxy settings.
+  * Mantis #2379: 
+      - Ftp: Add options "Dup FF in commands", "UnDup FF from PWD"
+      - Alt-Shift-Ins copies full paths, in format: protocol://username:@host:port/path
+    (http://bugs.farmanager.com/view.php?id=2379)
+  * Bugfix: Fix button caption in "Confirm overwrite" dialog.
+    (http://forum.farmanager.com/viewtopic.php?p=110769#p110769)
+  * Bugfix: Crash on Access Violation in NetBox.dll, SetDirectoryW
+    (http://bugs.farmanager.com/view.php?id=2426)
+  * Bugfix: WebDAV: Downloaded files are locked if session is interrupted.
+    (http://forum.farmanager.com/viewtopic.php?p=110763#p110763)
+  * Bugfix: AV when option "New and updated file(s) only" is set.
+    (http://forum.farmanager.com/viewtopic.php?p=110798#p110798)
+  * Bugfix: "Transfer settings" --> "File mask" not working.
+    (http://forum.farmanager.com/viewtopic.php?p=110620#p110620)
+  * Bugfix: List items have incorrect values.
+    (http://forum.farmanager.com/viewtopic.php?p=110634#p110634)
+
+NetBox 2.1.30 31.05.2013
+--------------------
+  * Bugfix: Reopening remote file in editor wasn't working as expected.
+    (http://forum.farmanager.com/viewtopic.php?p=110599#p110599)
+  * Bugfix: Plugin displays summary size of files incorrectly.
+    (http://forum.farmanager.com/viewtopic.php?p=110385#p110385)
+  * Bugfix: NetBox commands --> Synchronize fails.
+    (http://forum.farmanager.com/viewtopic.php?p=110520#p110520)
+  * Performance improvements.
+  * Bugfix: Password prompt dialog is showing password.
+    (http://forum.farmanager.com/viewtopic.php?p=109881#p109881)
+  * Bugfix: Two instances of plugin share the same panel modes.
+    (http://forum.farmanager.com/viewtopic.php?p=109737#p109737)
+
+NetBox 2.1.29 12.05.2013
+--------------------
+  * Upgrade WinSCP sources to 5.2.1
+  * Bugfix: Issue #58: SCP session to FreeBSD server doesn't work
+    (https://github.com/michaellukashov/Far-NetBox/issues/58)
+  * Improvement: Store directory change if option "Remember last used directory" is set.
+    (http://forum.farmanager.com/viewtopic.php?p=108861#p108861)
+  * Bugfix: WebDAV: Do not remove local file if file moving was canceled.
+    (http://forum.farmanager.com/viewtopic.php?p=109224#p109224)
+  * zlib core upgraded to 1.2.8
+  * Bugfix: SFTP: Folder is created in root directory, not in current directory
+    (http://forum.farmanager.com/viewtopic.php?f=5&t=6317&p=108627#p108585)
+  * Bugfix: AV if transferring file in background mode
+    (http://forum.farmanager.com/viewtopic.php?f=5&t=6317&start=1065#p108302)
+  * Far3: Adapt to Far 3.0 build 3331
+  * M0002146: Use privilege elevation API if possible
+    (http://bugs.farmanager.com/view.php?id=2146)
+
+NetBox 2.1.28 07.04.2013
+--------------------
+  * Bugfix: Issue #56: AV when password query is cancelled
+    (https://github.com/michaellukashov/Far-NetBox/issues/56)
+  * Bugfix: Far3: Certificate fingerprint was not stored
+    (http://forum.farmanager.com/viewtopic.php?f=9&t=7866&p=107299#p107299)
+  * Issue #42 Set empty anonymous password
+    (https://github.com/michaellukashov/Far-NetBox/issues/42)
+  * Bugfix: AV when searching files on server
+    (http://forum.farmanager.com/viewtopic.php?f=5&t=6317&p=107082#p107082)
+  * Bugfix: Store changes if configuration dialog is called from Plugins configuration
+    (http://forum.farmanager.com/viewtopic.php?f=5&t=6317&p=106645#p106645)
+  * Improvement: When editing session, parse username, password and directory, if any
+    (http://forum.farmanager.com/viewtopic.php?f=5&t=6317&start=975#p106004)
+  * Improvement: Do not highlight sessions in sessions list
+    (http://forum.farmanager.com/viewtopic.php?f=5&t=6317&start=990#p106051)
+  * Bugfix: AV when macro is executed on plugin panel
+    (http://forum.farmanager.com/viewtopic.php?f=5&t=6317&start=1005#p106185)
+  * Bugfix: Far3: Cannot rename session if new name contains backslash
+    (http://forum.farmanager.com/viewtopic.php?f=5&t=6317&p=106157#p106097)
+
+NetBox 2.1.27 16.03.2013
+--------------------
+  * Bugfix: x64: Plugin hangs when trying to delete session
+  * Improvement: Fix speed issues
+  * WebDAV: Fix copying large (>4GB) files from/to WebDAV server
+
+NetBox 2.1.26 22.02.2013
+--------------------
+  * Bugfix: WebDAV: Fix connection to Apache/WebDAV server
+    (http://forum.farmanager.com/viewtopic.php?f=5&t=6317&start=960#p104005)
+  * WinSCP core upgraded to 5.1.4
+  * Bugfix: Wrong protocol type when old .netbox session file is imported
+  * Bugfix: Issue #34: Problem with editing 2 files with same name over scp
+    (https://github.com/michaellukashov/Far-NetBox/issues/34)
+  * Fix minor bugs and memory leaks
+  * Upgrade openssl to 1.0.1e
+
+NetBox 2.1.25 10.02.2013
+--------------------
+  * Bugfix: Issue #18: FTP: Check type of symlinks
+    (https://github.com/michaellukashov/Far-NetBox/issues/18#issuecomment-13284640)
+  * Bugfix: Issue #52: AV when calling plugin via shortcut
+    (https://github.com/michaellukashov/Far-NetBox/issues/52)
+  * Upgrade openssl to 1.0.1d
+  * Bugfix: Issue #51: Uploaded directories are not created with WebDAV
+    (https://github.com/michaellukashov/Far-NetBox/issues/51)
+
+NetBox 2.1.24 03.02.2013
+--------------------
+  * Improvement: Added command-line parameters -codepage=<number> -username=<string> -password=<string>
+    Example:
+    netbox:https://farmanager.com:443/svn/trunk/unicode_far -codepage=65001 -username="anonymous" -password="nopass"
+  * Bugfix: Protocol settings were not restored correctly
+  * Far3: Bugfix: List index out of bounds if bookmark is set
+    (http://forum.farmanager.com/viewtopic.php?f=5&t=6317&p=103143#p103143
+
+NetBox 2.1.23 30.01.2013
+--------------------
+  * Bugfix: Issue #48: Cannot connect using SCP protocol
+    (https://github.com/michaellukashov/Far-NetBox/issues/48)
+  * Bugfix: Issue #49: SSH: "[] Lookup user groups" "[] Enable compression" options was not stored
+    (https://github.com/michaellukashov/Far-NetBox/issues/49)
+
+NetBox 2.1.22 27.01.2013
+--------------------
+  * Minor bugfixes
+  * Bug 967: Issuer and Subject swapped on Certificate verification prompt
+    (http://winscp.net/tracker/show_bug.cgi?id=967)
+  * Bug 965: Text mode transfers should not be resumed FTP protocol
+    (http://winscp.net/tracker/show_bug.cgi?id=965)
+  * Create distributive using InnoSetup 5.5.2
+
+NetBox 2.1.21 20.01.2013
+--------------------
+  * FTP: By default, treat symlink as file, not a directory
+    (https://github.com/michaellukashov/Far-NetBox/issues/18#issuecomment-12432092)
+  * WinSCP core upgraded to 5.1.3
+  * Fix some memleaks
+  * Bugfix: Replace filename chars not valid on windows
+    (http://forum.farmanager.com/viewtopic.php?f=5&t=6317&p=101701#p101663)
+  * Bugfix: Cannot use .ppk authentication if path contains non-ASCII characters
+    (http://forum.farmanager.com/viewtopic.php?f=5&t=6317&p=101701#p101568)
+
+NetBox 2.1.20 22.12.2012
+--------------------
+  * Minor bugfixes
+  * Bugfix: Netbox Session import/export doesn't restore default values
+  * WinSCP core upgraded to 5.1.2
+
+NetBox 2.1.19 06.12.2012
+--------------------
+  * Bugfix: SFTP: cannot copy files to remote server
+    (http://forum.farmanager.com/viewtopic.php?f=5&t=6317&p=100597#p100515)
+  * "Edit Session" dialog: Reworked tabs
+
+NetBox 2.1.18 18.11.2012
+--------------------
+  * Fix timestamp issues
+    (http://forum.farmanager.com/viewtopic.php?f=3&t=7491&start=60#p100002)
+  * Far3: Adapt to Far 3.0 build 2927
+  * Improvement: use tweaked VS2008 MFC sources to reduce plugin size
+  * WinSCP core upgraded to 5.1.1
+  * Fix openssl compilation
+
+NetBox 2.1.17 03.11.2012
+--------------------
+  * Far3: Check OpenShortcutInfo.Flags when plugin is opened from Folders History
+    (http://forum.farmanager.com/viewtopic.php?f=5&t=6317&p=99392#p99339)
+  * Fix memory leaks
+  * Bugfix: Syncronize: wrong 'changed' time in Synchronization checklist
+    (http://forum.farmanager.com/viewtopic.php?f=5&t=6317&p=99119#p99119)
+
+NetBox 2.1.16 20.10.2012
+--------------------
+  * Bugfix: Bug 927: Use of MLSD FTP command is configurable
+    (http://winscp.net/tracker/show_bug.cgi?id=927)
+  * Bugfix: Bug 926: Error retrieving file stats using full path with FTP protocol.
+    (http://winscp.net/tracker/show_bug.cgi?id=926)
+  * Bugfix: Bug 923: Treat timestamps in FTP MLSD/MLST results as UTC
+    (http://winscp.net/tracker/show_bug.cgi?id=923)
+  * Bugfix: Bug 922: Failure when FTP server returns "parent" directory is MLSD directory listing
+    (http://winscp.net/tracker/show_bug.cgi?id=922)
+  * Bugfix: Close file handle if error occurs
+    (http://forum.farmanager.com/viewtopic.php?f=5&t=6317&p=99024#p99024)
+  * Bugfix: "Netbox commands" - "Open directory" dialog: fix shortcuts
+  * Bugfix: "Netbox commands" - "Syncronize" was not working
+  * Bugfix: Issue #41: Cannot change directory when option "[x] Cache visited remote directories" is on
+
+NetBox 2.1.15 07.10.2012
+--------------------
+  * Fixed x64 issues
+  * Bugfix: Issue #39: Empty listing for directory instead of permission denied
+  * Bugfix: Issue #40: Access violation trying to change directory
+  * Bugfix: Fix dialogs initialization in x64 version
+
+NetBox 2.1.14 01.10.2012
+--------------------
+  * Bugfix: Properly align text in 'Confirmation' dialog
+    (http://forum.farmanager.com/viewtopic.php?f=5&t=6317&p=98365#p98365)
+  * Minor bugfixes
+  * Far3: Adapt to Far 3.0 build 2852
+  * WinSCP core upgraded to 5.1.0
+
+NetBox 2.1.13 16.09.2012
+--------------------
+  * Bugfix: Issue #10: Check buttons width when calculating dialog size
+    (https://github.com/michaellukashov/Far-NetBox/issues/10)
+  * Bugfix: Issue #27: Server Updated Key dialog box appearance
+    (https://github.com/michaellukashov/Far-NetBox/issues/27)
+  * Bugfix: Issue #37: Fix date format parsing
+    (https://github.com/michaellukashov/Far-NetBox/issues/37)
+  * Minor bugfix in "Edit session" dialog
+
+NetBox 2.1.12 06.09.2012
+--------------------
+  * WinSCP core upgraded to 5.0.9 RC
+  * Bugfix: FTP: Incorrect directory size is shown
+    (http://forum.farmanager.com/viewtopic.php?f=5&t=6317&p=97787#p97787)
+  * Bugfix: issue #34: Problem with editing 2 files with same name over scp
+    (https://github.com/michaellukashov/Far-NetBox/issues/34)
+  * FTP: Add new types of proxy
+  * Bugfix: FTP: Error connecting over SOCKS proxy with FTP protocol
+    (http://forum.farmanager.com/viewtopic.php?f=5&t=6317&p=97755#p97743,
+    http://winscp.net/tracker/show_bug.cgi?id=907)
+
+NetBox 2.1.11 03.09.2012
+--------------------
+  * Minor changes in "Edit session" dialog
+  * WebDAV: try to open session 5 times before throwing exception
+    (http://forum.farmanager.com/viewtopic.php?f=5&t=6317&start=780#p97663)
+  * Bugfix: issue #34: Problem with editing 2 files with same name over scp
+    (https://github.com/michaellukashov/Far-NetBox/issues/34,
+    http://forum.farmanager.com/viewtopic.php?f=39&p=97665#p97665)
+  * FTP: Bugfix: Error retrieving file stats, if FTP server returns full file path in MLST response
+   (http://winscp.net/tracker/show_bug.cgi?id=906)
+  * FTP: Bugfix: Error when listing file with MLST FTP command fails
+    (http://winscp.net/tracker/show_bug.cgi?id=905)
+
+NetBox 2.1.10 27.08.2012
+--------------------
+  * Bugfix: WebDAV: SOCKS5 proxy did not work
+    (http://forum.farmanager.com/viewtopic.php?f=5&t=6317&p=97556#p97556)
+  * SCP, SFTP: add session option "Optimize connection buffer size"
+    (http://forum.farmanager.com/viewtopic.php?f=5&t=6317&p=97556#p97534)
+  * Bugfix: Plugin configuration: remove option "Disks menu hotkey: Autoassign, Manual"
+    (http://forum.farmanager.com/viewtopic.php?f=5&t=6317&p=97556#p97531)
+  * Bugfix: "Copy file" dialog: minimize file name
+    (http://forum.farmanager.com/viewtopic.php?f=5&t=6317&p=97556#p97531)
+  * Bugfix: Issue #33: cursor position not restored
+  * FTP: Trigger password prompt by the 331 FTP response
+    (http://winscp.net/tracker/show_bug.cgi?id=653)
+
+NetBox 2.1.9 20.08.2012
+--------------------
+  * Bugfix: export session did not work
+  * Bugfix: Ctrl-Ins Shift-Ins Ctrl-F work incorrect
+    (http://forum.farmanager.com/viewtopic.php?f=5&t=6317&start=600#p93306,
+    http://forum.farmanager.com/viewtopic.php?f=5&t=6317&p=97522#p97522,
+    http://forum.farmanager.com/viewtopic.php?t=6317&p=97524#p97524)
+  * Far3: use privilege elevation, if available
+  * WebDAV: fix speed issues
+
+NetBox 2.1.8 15.08.2012
+--------------------
+  * Bugfix: WebDAV: do not show password in Password dialog
+    (https://github.com/michaellukashov/Far-NetBox/issues/21#issuecomment-7600548)
+  * Bugfix: WebDAV: cannot redirect from HTTP to HTTPS
+    (http://forum.farmanager.com/viewtopic.php?f=5&t=6317&start=735#p97473)
+  * Bugfix: WebDAV: cannot copy from server to local directory with non-ASCII name
+    (http://forum.farmanager.com/viewtopic.php?f=5&t=6317&start=735#p97463)
+  * Bugfix: Issue #31: [DAV] fails to re-connect if plug-in was closed while visiting a folder with space in its name
+  * Bugfix: Far3: cannot verify server's rsa2 key fingerprint
+    (http://forum.farmanager.com/viewtopic.php?f=5&t=6317&start=720#p97354)
+
+NetBox 2.1.7 04.08.2012
+--------------------
+  * WebDAV: rewrite WebDAV protocol support using neon + expat + apr
+      neon 0.29.6: http://www.webdav.org/neon
+      expat 2.1.0: http://www.libexpat.org
+      apr 1.4.6: http://apr.apache.org
+  * WinSCP core upgraded to 5.0.8 beta
+  * various minor bugfixes
+
+NetBox 2.1.6 18.07.2012
+--------------------
+  * Bugfix: Far3: SCP: cannot store edited file
+    (http://forum.farmanager.com/viewtopic.php?f=5&t=6317&start=705#p96759)
+  * zlib core upgraded to 1.2.7
+
+NetBox 2.1.5 09.07.2012
+---------------------
+  * Bugfix: Far3: error "Synchronization is supported only against regular panel."
+    occurs when option "Synchronize browsing" is on.
+    (http://forum.farmanager.com/viewtopic.php?f=5&t=6317&p=96655#p96441)
+  * Bugfix: Issue #30 (Far crash when "Confirmation: ... already loaded.
+    How to open this file?" and you choose "Current" on ssh)
+    See also http://forum.farmanager.com/viewtopic.php?f=5&t=6317&p=96655#p96654
+  * Bugfix: expand environment variables before executing Pageant or Puttygen
+    (http://forum.farmanager.com/viewtopic.php?f=5&t=6317&p=96655#p96655)
+
+NetBox 2.1.4 20.06.2012
+---------------------
+  * Add new type of proxy: "System settings". Read actual proxy configuration from IE system settings.
+  * Far3: bugfix: plugin now works in WinPE environment (tested Hiren Boot CD, MiniPE, WinPE uVS)
+    (http://forum.farmanager.com/viewtopic.php?f=5&t=6317&start=675#p96040)
+  * Bugfix: information window didn't show up when connecting to remote server
+
+NetBox 2.1.3 11.06.2012
+---------------------
+  * SCP: bugfix: AV when trying to edit file on remote host
+    (http://forum.farmanager.com/viewtopic.php?f=5&t=6317&start=690#p96166)
+  * Far3: bugfix: cannot create session with non-ASCII symbols (Issue #22)
+  * WebDAV: bugfix: plugin hangs when creating new session
+    (http://forum.farmanager.com/viewtopic.php?f=5&t=6317&start=690#p96120)
+
+NetBox 2.1.2 19.05.2012
+---------------------
+  * Far2: bugfix: AV when trying to copy from plugin panel to protected local directory
+  * SFTP: bugfix: error when trying to execute command on remote host
+    (http://forum.farmanager.com/viewtopic.php?f=5&t=6317&p=95922#p95890)
+  * various bugfixes
+
+NetBox 2.1.1 16.05.2012
+---------------------
+  * WebDAV: Bugfix: cannot create directory
+  * Issue #22: Incorrect initialization of sessions with non-ASCII names
+  * SFTP, SCP: Bugfix: do not truncate user password if it's longer than 100 bytes
+    (http://forum.farmanager.com/viewtopic.php?f=5&t=6317&start=660#p95847)
+  * FTP: Use CodePage setting to setup UTF8 mode
+  * SFTP: Bugfix: error when trying to edit remote file
+    (http://forum.farmanager.com/viewtopic.php?f=5&t=6317&start=660#p95836)
+  * WinSCP core upgraded to 5.0.7
+
+NetBox 2.1.0 15.05.2012
+---------------------
+  * WebDAV: bugfix: files not copied when trying to copy directory tree to remote server
+    (http://forum.farmanager.com/viewtopic.php?f=5&t=6317&start=645#p94910)
+  * libssh2 upgraded to 1.4.1
+  * libcurl upgraded to 7.25.0
+  * openssl upgraded to 1.0.1c
+  * WinSCP core upgraded to 5.0.6
+
+NetBox 2.0.19 23.04.2012
+---------------------
+  * WebDAV: bugfixes
+  * Bugfix: Ask for user password if current password is empty or not accepted
+    (http://forum.farmanager.com/viewtopic.php?f=5&t=6317&start=645#p94910)
+
+NetBox 2.0.18 08.04.2012
+---------------------
+  * Bugfix: Cannot edit file on another plugin panel, if two plugin panels opened
+    (http://forum.farmanager.com/viewtopic.php?f=5&t=6317&start=615#p93944)
+  * FTP: Ask for user password only if the server asks
+  * FTP: Use MLSD/MLST to list file in directory with FTP protocol
+    - When copying files from/to server, seconds are preserved
+    - Use MLST to get file properties
+
+NetBox 2.0.17 27.03.2012
+---------------------
+  * FTP(S): Problem with space in file/directory names in FTPS session (Issue #11)
+  * Far3: Restore history in edit dialog items
+  * Far3: Adapt to Far 3.0 build 2574
+
+NetBox 2.0.16 24.03.2012
+---------------------
+  * Improvement: open session by pressing Enter on .netbox file
+  * Far3: Bugfix: NumEnter opens .netbox file instead of opening session
+  * Far3: adapted to Far 3.0 build 2551:
+    - fixed confirmations before delete file or session
+    - fixed open session when plugin is called from Folders history
+  * FTP: Use MLSD/MLST to list file in directory with FTP protocol
+    (http://winscp.net/tracker/show_bug.cgi?id=568)
+
+NetBox 2.0.15 17.03.2012
+---------------------
+  * Far3: Bugfix: Cannot open session when plugin is called from Folders history
+  * Bugfix: Folder shortcuts to plugin sessions did not work
+    (http://forum.farmanager.com/viewtopic.php?f=5&t=6317&p=93033#p93033)
+  * Improvement: Show progress indication on taskbar under Win7 if background transfer is active
+  * Bugfix: Far3: Cannot run command on remote server (Issue #9)
+  * Bugfix: FTPS: Failure on SSL session resuming (http://winscp.net/tracker/show_bug.cgi?id=668).
+    Some FTPS servers, e.g. vsftpd, require reuse of SSL session for FTPS data connections
+    (see require_ssl_reuse option in vsftpd.conf man page).
+    Add new FTPS session option "Session ID re-use".
+
+NetBox 2.0.14 09.03.2012
+---------------------
+  * FTP: Query reopen connection if error occurs in background transfer
+  * SFTP: Add button "Resume" in "Confirm overwrite" dialog
+    (http://forum.farmanager.com/viewtopic.php?f=39&t=6638#p90521)
+  * Rename option "Automatically reconnect session, if it breaks during transfer" --> "Reconnect after [ ] seconds";
+    add option "Maximum number of retries" (F11 --> NetBox commands --> Configure --> NetBox --> Endurance settings --> Maximum number of retries: [ ])
+    (http://forum.farmanager.com/viewtopic.php?f=39&p=92250#p92214)
+  * Bugfix: Session options --> Proxy --> Proxy type --> Telnet causes crash
+    (http://forum.farmanager.com/viewtopic.php?f=5&t=6317&p=92140#p92140)
+  * Various minor bugfixes
+
+NetBox 2.0.13 03.03.2012
+---------------------
+  * SFTP: AV if a connection breaks; AV after reconnect
+    (http://forum.farmanager.com/viewtopic.php?f=39&t=6638&p=91993#p91993)
+  * FTP: Fixed bug causing a "string too long" error
+  * FTPS: Added option "Explicit FTP over TLS" (issue #7)
+  * SCP: Bugfix: Ctrl-G ("Apply command") did not work; fixed scroll terminal screen
+    (http://forum.farmanager.com/viewtopic.php?f=5&t=6317&start=570#p91648)
+
+NetBox 2.0.12 26.02.2012
+---------------------
+  * FTP: Bugfix: cannot set session option "Keepalives: Off"
+  * Far3: Bugfix: Editor/viewer settings: "[x] Allow more than one edited file", "[x] Upload after every save"
+    did not work
+  * Various minor bugfixes
+  * Session properties: It is now possible to select charset encoding for filenames
+    (Session --> Environment --> Charset encoding for filenames)
+    Use local charset as default codepage.
+
+NetBox 2.0.11 21.02.2012
+---------------------
+  * Bugfix: FTPS is not listed in list of protocols
+  * WinSCP core upgraded to 4.3.7
+
+NetBox 2.0.10 17.02.2012
+---------------------
+  * Far3: adapted to Far 3.0.2462
+  * FTP: Session options --> Connection --> Server response timeout: 0 means no timeout
+  * Interface settings: Enable option "Use custom settings for "Detailed" panel mode"
+    (http://forum.farmanager.com/viewtopic.php?f=5&t=6317&start=540#p90652)
+  * Session properies: Enable autocorrect port number
+  * Bugfix: Set default port number when plugin is called from command-line
+    (http://forum.farmanager.com/viewtopic.php?f=5&t=6317&start=525#p90619)
+  * Various minor bugfixes
+  * libssh2 core upgraded to 1.4.0
+  * zlib core upgraded to 1.2.6
+
+NetBox 2.0.9 11.02.2012
+---------------------
+  * FTPS: Allow to configure type of connection: explicit/implicit
+    (Session options --> FTP(S) --> Encryption: Require explicit/implicit FTP)
+  * Bugfix: FTP: Option "Seconds between keepalives" did not change
+    (http://forum.farmanager.com/viewtopic.php?f=5&t=6317&start=525#p90266)
+  * Bugfix: SFTP: resume transfer did not work
+    (http://forum.farmanager.com/viewtopic.php?f=39&t=6638#p90373)
+  * Get rid of error "View from find dialog is not supported" when "Find file" dialog is called.
+    (http://forum.farmanager.com/viewtopic.php?f=5&t=6317&start=510#p90041)
+
+NetBox 2.0.8 06.02.2012
+---------------------
+  * WebDAV: Fixed progress indication
+  * Fixed a number of x64-related issues
+  * Bugfix: Fixed change directory on remote server when option "Cache directory changes" is set
+  * Bugfix: Do not set "C:\" as current directory when plugin panel is closed
+  * Far3: Fixed hotkeys handling
+  * CURL upgraded to version 7.24.0
+  * SCP: Fixed UTF-8 file names encoding/decoding; allow to change option "UTF-8 encoding for filenames"
+  * Bugfix: Dialog "Change file attributes" did not work
+
+NetBox 2.0.7 30.01.2012
+---------------------
+  * FAR3: Fixed incompatibility with Far3bis and future Far3 versions
+    (http://forum.farmanager.com/viewtopic.php?f=5&t=6317&p=89491&sid=b111a60c6c3ab17656fb03eba951cdf9#p89457)
+  * Session properties: UTF-8 encoding for filenames is "On" by default
+  * SSL core upgraded to OpenSSL 1.0.0g
+  * Bugfix: command-line prefix "netbox:" was not handled properly
+  * Update documentation
+  * Bugfix: Queue dialog: crash when "Suspend" is pressed
+    (http://forum.farmanager.com/viewtopic.php?f=5&t=6317&p=89460#p89460)
+  * Sessions list: Do not set custom panel mode; Also disable option "Use custom settings for "Detailed" panel mode"
+  * Bugfix: Sessions list: F3 on session name in subfolder did not work
+  * Bugfix: Remove file attributes check before copying to remote server
+  * Bugfix: FAR3: AV when trying to connect using command line
+    (http://forum.farmanager.com/viewtopic.php?f=5&t=6317&p=89214#p89181)
+  * Bugfix: AV when trying to show background operations list
+    (http://forum.farmanager.com/viewtopic.php?f=5&t=6317&start=450#p89148)
+  * Bugfix: FTPS: certificate info was not verified
+    (http://forum.farmanager.com/viewtopic.php?f=5&t=6317&start=435#p88880)
+
+NetBox 2.0.6 21.01.2012
+---------------------
+  * Bugfix: FTPS: Far crashes when attempting to connect to FTPS server
+  * Session properties: Add new option "Login type: Anonymous/Normal"
+  * Bugfix: AppVerifier reported error: "Critical section is already initialized".
+  * Bugfix: FTP: error while trying to remove directory from root directory
+  * Bugfix: dialog "Reconnect" did not work properly
+  * Bugfix: option "Synchronize browsing" did not work properly
+  * Bugfix: option "Transfer on background" did not work properly
+
+NetBox 2.0.5 14.01.2012
+---------------------
+  * Ported to Far 3.0.2379
+  * Implemented import/export session from/to .xml file
+  * Added command "Import sessions" (F11 --> NetBox Commands --> Import Sessions)
+  * SSL core upgraded to OpenSSL 1.0.0f
+
+NetBox 2.0.4 04.01.2012
+---------------------
+  * SFTP: Add session options "Min packet size", "Max packet size"
+  * FTP: Add session option "Allow empty password"
+    (http://forum.farmanager.com/viewtopic.php?f=5&t=6317&p=87981#p87238)
+    To use this, you need to create FTP session, say "username@server";
+    edit session properties;
+    go to "FTP" tab;
+    check "Allow empty password" option
+  * Fix a number of x64-related issues
+  * Update WinSCP sources to version 4.3.6
+  * Update openssl sources to version 1.0.0e
+  * Update tinyxml sources to version 2.6.2
+
+NetBox 2.0.3 26.12.2011
+---------------------
+  * Bugfix: Ошибка подключения по протоколу SCP, воспроизводилось для 64-битной версии плагина
+  * Bugfix: SFTP: Исправлено отображение имен файлов, содержащих не-ASCII символы
+  * Bugfix: Ошибка подключения по протоколу SFTP, воспроизводилось на некоторых версиях SFTP серверов
+
+NetBox 2.0.2 11.12.2011
+---------------------
+  * Bugfix: Ошибка при создании новой сессии
+  * В диалоге создания сессии секция Protocol поставлена выше секции Session
+    http://forum.farmanager.com/viewtopic.php?f=5&t=6317&start=360#p87030
+
+NetBox 2.0.1 11.12.2011
+---------------------
+  * Bugfix: SFTP: Исправлена ошибка подключения к некоторым версиям SSH серверов
+  * Bugfix: SFTP: Исправлены утечки памяти при копировании на сервер
+  * Bugfix: AV при попытке переименования сессии
+  * Bugfix: Если на панели плагина выделено несколько файлов, удаляется только первый выделенный файл
+  * Bugfix: SFTP: При попытке выполнить команду на удаленном сервере - Access Violation
+  * Список сессий: После создания каталога фокус перемещается на вновь созданный каталог
+  * Bugfix: выделили обе папки, пытаемся удалить, фар падает.
+    http://forum.farmanager.com/viewtopic.php?f=5&t=6317&start=345#p86968
+
+NetBox 2.0.0 01.12.2011
+---------------------
+ * Плагин полностью переписан на основе кода WinSCP
+   WinSCP: SFTP/FTP/SCP client for FAR version 1.6.2 Copyright (c) 2000-2009 Martin Prikryl
+   Based on WinSCP version 4.1.9.0 Copyright (c) 2000-2009 Martin Prikryl
+   SSH and SCP code based on PuTTY 0.61 Copyright (c) 1997-2011 Simon Tatham
+   FTP code based on FileZilla 2.2.32 Copyright (c) 2001-2007 Tim Kosse
+
+NetBox 1.19 12.08.2011
+---------------------
+ * WebDAV: Исправлены найденные ошибки создания/удаления файлов и каталогов
+   Исправлено создание/удаление файлов и каталогов содержащих символ #
+ * Настройки -> Основные настройки: Поле ввода "Каталог сохранённых сессий"
+   может содержать имена переменных окружения, заключённые в %. Переменные будут заменены их значениями.
+ * Fixed: ShiftF6 до сих пор ведёт себя не так, как в файловых панелях -- отображается путь без имени файла, а не само имя.
+   http://forum.farmanager.com/viewtopic.php?t=6317&p=84282#p84282
+
+NetBox 1.18 09.08.2011
+---------------------
+ * Fixed: ShiftF6 ведёт себя немного не так, как в файловых панелях. Делает вид, что хочет скопировать на противоположную панель, а не переименовать.
+ * Fixed: F6 на хостинге себя ведёт как ShiftF6, поэтому сделать F6 с хостинга не получается, приходится делать F5, а потом F8.
+   http://forum.farmanager.com/viewtopic.php?f=5&t=6317&start=285#p83819
+ * При сохранении сессии с хостом вида: ftp://user:pass@host.com/start/dir
+   парсить его и сохранять имя пользователя и пароль в своих полях
+   http://forum.farmanager.com/viewtopic.php?f=5&t=6317&start=285#p83769
+   Если имя сессии не указано, именем сессии становится имя сервера
+   http://forum.farmanager.com/viewtopic.php?f=5&t=6317&sid=fa84db92de59c9e9c268aa5bf54fbfda&start=15#p79275
+ * Пофиксена обработка отмены длительных операций
+ * FTP: Если невозможно определить тип симлинка - не показываем симлинк
+
+NetBox 1.17 29.07.2011
+---------------------
+ * SFTP: Сделано корректное отображение симлинков на каталоги
+ * SFTP: Сделано подробное логирование при уровне логирования Debug 2
+ * Добавлен протокол FTPS
+
+NetBox 1.16 27.07.2011
+---------------------
+ * WebDAV: исправлена обработка ответа сервера 301 Moved Permanently
+ * Сделано подробное логирование работы с WebDAV сервером при уровне логирования Debug 2
+ * В настройках плагина, если зайти в любой раздел (Main, Proxy, Logging), а потом выйти из него, то попадаем к списку плагинов, хотя более ожидаемо попасть снова к списку разделов (как это сделано в плагинах AltHistory, Background copy, EdtFind, MultiArc).
+   http://forum.farmanager.com/viewtopic.php?f=5&t=6317&start=270#p83571
+
+NetBox 1.15 20.07.2011
+---------------------
+ * Сделана настройка прокси для каждой сессии
+ * FTP: исправлено удаление папок с '#' в имени
+
+NetBox 1.14 10.07.2011
+---------------------
+ * Добавлена настройка прокси
+ * Добавлено логирование
+
+NetBox 1.13 03-07-2011
+---------------------
+ * SFTP: Пофиксен баг: невозможно прервать коннекшн по Esc на стадии "establish connection".
+ * x64: В архив плагина добавлены libeay32.dll ssleay32.dll
+
+NetBox 1.12 19-05-2011
+---------------------
+ * Пофиксен баг: Не обрабатывались имя пользователя/пароль при вызове через префиксы
+ * Пофиксен баг: Отвалилась обработка префикса netbox
+ * FTP: Пофиксен баг: Обработка символа # в путях
+
+NetBox 1.11 10-05-2011
+---------------------
+ + FTP/WebDAV: Возможность отменить долговременную операцию установки соединения по Esc
+ * FTP/WebDAV: Пофиксен баг: Операции получения/отправки больших файлов завершались неудачно (таймаут)
+ * WebDAV: Работа с серверами, не поддерживающими запросы всех аттрибутов (alwaysdata.com etc)
+ * Пофиксен баг: Редактирование существующей сессии с одновременным изменением имени приводило к созданию новой ссылки
+ * Пофиксен баг: В настройках плагина путь к папке сессий не удалялся
+ * Пофиксен баг: Неправильное отображение кодовой страницы в настройках соединения
+
+NetBox 1.10 06-05-2011
+---------------------
+ + Хранение сессий в виде файлов
+ + Папки с набором сессий
+ * FTP/WebDAV: Пофиксен баг: Плагин падал при копировании файлов нулевой длины (деление на 0)
+ * FTP: Робкая попытка поддержать ссылки
+ * FTP: Пофиксен баг: Неправильно считался общий размер файлов в директории (учитывался размер каталогов)
+ * FTP: Пофиксен баг: Неправильно указывался год некоторых файлов
+ * Большой багфиксинг 1.9
+
+NetBox 1.9 08-04-2011
+---------------------
+ + Обработка префиксов ftp/sftp/http/https
+ + Возможность указания ключа шифрования для хранимых паролей
+ + Импорт сессий из стандартного плагина FTP
+ * FTP: Пофиксен баг: неправильное определение размера файла (если файл > 2G)
+ * Пофиксен баг: падение плагина при попытке переименования файла
+ * Пофиксен баг: при копировании в буфер обмена имя файла писалось слитно с именем каталога
+
+NetBox 1.8 07-04-2011
+---------------------
+ + Переименование и перемещение файлов/папок внутри сервера
+ + Копирование URL в буфер обмена (Ctrl+Alt+Ins, Shift+Alt+Ins)
+ + SFTP: Возможность указать кодировку при работе с сервером
+ * WebDAV: парсер xml переехал на tinyxml (проблемы с пространствами имён в msxml)
+
+NetBox 1.7 06-04-2011
+---------------------
+ + Возможность указания таймаута ожидания ответа от сервера
+ * Пофиксен баг: Отвалилась обработка командной строки
+ * Пофиксен баг: При закрытии плагина не сбрасывалось соединение
+
+NetBox 1.6 05-04-2011
+---------------------
+ * FTP: Ошибки в парсере
+
+NetBox 1.5 05-04-2011
+---------------------
+ * FTP: Парсер листинга теперь в плагине, а не в libcurl
+ * FTP/WebDAV: Прогресс бар не работал при отправке файлов на сервер.
+ * UI: если имя файла длинное, то в диалоге по F5 надпись вылазила за рамку
+
+NetBox 1.4 04-04-2011
+---------------------
+ * Пофиксен баг: Ключи ssh не загружались
+ * Пофиксен баг: Если URL заканчивается на слеш то при входе в любой подкаталог слеш дублируется и появляются side effects, например еще один trunk в trunk'e и т.д.
+
+NetBox 1.3 04-04-2011
+---------------------
+ * Переход на использование библиотеки libcurl для FTP и WebDAV протоколов
+ * Прогресс бар с возможностью отмены копирования файлов
+ * Небольшие изменения в UI
+
+NetBox 1.2 24-03-2011
+---------------------
+ + FTP: Возможность указать кодировку при работе с сервером
+ * WebDAV: Пофиксен (?) баг: все URL в запросах передаются в utf-8 с %XX
+ * Пофиксен баг: при переименовании сессии имя на панели не менялось
+
+NetBox 1.1 23-03-2011
+---------------------
+ + Обработка префикса командной строки
+ + Возможность запроса пароля непосредственно при подключении
+ + Русская локализация
+ + WebDAV: Добавлена поддержка редиректа (Экспериментально, не проверена - не на чем)
+ * WebDAV: Имена файлов преобразуются в нормальный вид (%XX)
+ * Если имя сесии не указано, оно формируется автоматически из имени хоста
+ * Исправления в UI
+
+NetBox 1.0 22-03-2011
+---------------------
+ * Первая версия

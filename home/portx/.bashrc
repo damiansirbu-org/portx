@@ -114,7 +114,7 @@ fi
 
 # FIXED: Advanced PORTX Tools Loader - ONLY scans within PORTX directory structure
 load_portx_tools() {
-    local cache_file="$HOME/.portx_tools_path_cache"
+    local cache_file="$HOME/.portx_tools"
     local scan_depth="${PORTX_SCAN_DEPTH:-4}"  # Configurable depth (default: 4)
     local min_exe_count="${PORTX_MIN_EXECUTABLES:-1}"  # Minimum executables to add directory
     
@@ -125,130 +125,152 @@ load_portx_tools() {
     fi
     
     # Cache doesn't exist or is old - generate it with advanced scanning
-    {
-        echo "# PORTX Tools PATH Cache - Auto-generated Deep Scan"
-        echo "# Generated: $(date)"
-        echo "# Scan Depth: $scan_depth levels"
-        echo "# Min Executables: $min_exe_count per directory"
-        echo "# Delete this file to regenerate or set PORTX_FORCE_REBUILD=1"
-        echo ""
-        
-        # Detect PORTX base directory dynamically
-        local portx_home=""
+    
+    # Detect PORTX base directory dynamically first
+    local portx_home=""
+    local packages_dir=""
         if [ -d "/c/App/PORTX" ]; then
             portx_home="/c/App/PORTX"
+            packages_dir="/c/App/PORTX/bin-tools"
         elif [ -d "/c/App/Git" ]; then
             portx_home="/c/App/Git"
+            packages_dir="/c/App/Git/bin-tools"
         else
             # Fallback: derive from current HOME
             portx_home="$(dirname "$(dirname "$HOME")")"
+            packages_dir="$portx_home/bin-tools"
         fi
+    
+    # Smart executable directory finder with filtering
+    find_executable_dirs_smart() {
+        local base_dir="$1"
+        local max_depth="${2:-$scan_depth}"
+        local min_count="${3:-$min_exe_count}"
+        
+        # Find directories with executables, count them, and filter
+        find "$base_dir" -maxdepth "$max_depth" -type f -executable 2>/dev/null | \
+            sed 's|/[^/]*$||' | \
+            sort | uniq -c | \
+            awk -v min_count="$min_count" '$1 >= min_count {print $2}' | \
+            while read -r dir; do
+                # Additional verification and filtering
+                if [ -d "$dir" ]; then
+                    local exe_count=$(find "$dir" -maxdepth 1 \( -name "*.exe" -o -name "*.bat" -o -name "*.cmd" \) -type f 2>/dev/null | wc -l)
+                    local dir_name=$(basename "$dir")
+                    
+                    # Skip common directories that shouldn't be in PATH
+                    case "$dir_name" in
+                        "uninstall"|"temp"|"tmp"|"cache"|"log"|"logs"|"backup"|"old"|"test"|"tests"|"doc"|"docs"|"help"|"manual")
+                            continue
+                            ;;
+                    esac
+                    
+                    # Skip directories with only uninstall or setup executables
+                    if [ "$exe_count" -eq 1 ] && (find "$dir" -maxdepth 1 -name "*uninstall*" -o -name "*setup*" -o -name "*install*" | grep -q .); then
+                        continue
+                    fi
+                    
+                    echo "$dir"
+                fi
+            done
+    }
+
+    # First scan to calculate all counts, then generate header
+    local tool_count=0
+    local mingw_count=0
+    local bin_count=0
+    local packages_exe_count=0
+    local packages_count=0
+    
+    echo "Reindexing PORTX tools..."
+    
+    # Do the scanning first to get counts
+    # 1. Count MINGW executables (estimated)
+    mingw_count=284
+    ((tool_count++))  # Count MINGW as 1 directory
+    
+    # 2. Count PORTX/bin executables  
+    if [ -d "$portx_home/bin" ]; then
+        bin_count=$(find "$portx_home/bin" -maxdepth 1 -type f -executable 2>/dev/null | wc -l | tr -d ' \t')
+        ((tool_count++))
+    fi
+    
+    # 3. Count packages executables
+    if [ -d "$packages_dir" ]; then
+        while IFS= read -r exe_dir; do
+            if [ -n "$exe_dir" ]; then
+                local dir_exe_count=$(find "$exe_dir" -maxdepth 1 -type f -executable 2>/dev/null | wc -l)
+                packages_exe_count=$((packages_exe_count + dir_exe_count))
+                ((tool_count++))
+                ((packages_count++))
+            fi
+        done < <(find_executable_dirs_smart "$packages_dir" "$scan_depth" "$min_exe_count")
+    fi
+    
+    # Generate cache file with proper header including counts
+    {
+        echo "#!/bin/bash"
+        echo "# PORTX Tools Cache"
+        echo "# =================="
+        echo "#"
+        echo "# PURPOSE: This file contains PATH exports and counts for all PORTX tools."
+        echo "# It tracks three categories: MINGW core, PORTX bin, and packages."
+        echo "# Each export adds a tool directory to the PATH, making tools globally available."
+        echo "#"
+        echo "# GENERATION INFO:"
+        echo "#   Generated: $(date)"
+        echo "#   Scan Depth: $scan_depth levels"
+        echo "#   Min Executables: $min_exe_count per directory"
+        echo "#   Packages Directory: $packages_dir"
+        echo "#"
+        echo "# TOOL COUNTS:"
+        echo "#   MINGW Core: $mingw_count executables"
+        echo "#   PORTX Bin: $bin_count executables"
+        echo "#   Packages: $packages_count directories, $packages_exe_count executables"
+        echo "#   Total: $((mingw_count + bin_count + packages_exe_count)) executables"
+        echo "#"
+        echo "# USAGE: This file is automatically sourced by .bashrc on shell startup."
+        echo "# To regenerate: rm ~/.portx_tools or run 'regenerate_tools_cache'"
+        echo ""
         
         echo "# PORTX Home: $portx_home"
         echo ""
         
-        # Smart executable directory finder with filtering
-        find_executable_dirs_smart() {
-            local base_dir="$1"
-            local max_depth="${2:-$scan_depth}"
-            local min_count="${3:-$min_exe_count}"
+        # 1. Deep scan packages with smart filtering
+        if [ -d "$packages_dir" ]; then
+            echo "# Smart deep scan of packages directory: $packages_dir"
             
-            # Find directories with executables, count them, and filter
-            find "$base_dir" -maxdepth "$max_depth" -type f \( -name "*.exe" -o -name "*.bat" -o -name "*.cmd" \) 2>/dev/null | \
-                sed 's|/[^/]*$||' | \
-                sort | uniq -c | \
-                awk -v min_count="$min_count" '$1 >= min_count {print $2}' | \
-                while read -r dir; do
-                    # Additional verification and filtering
-                    if [ -d "$dir" ]; then
-                        local exe_count=$(find "$dir" -maxdepth 1 \( -name "*.exe" -o -name "*.bat" -o -name "*.cmd" \) -type f 2>/dev/null | wc -l)
-                        local dir_name=$(basename "$dir")
-                        
-                        # Skip common directories that shouldn't be in PATH
-                        case "$dir_name" in
-                            "uninstall"|"temp"|"tmp"|"cache"|"log"|"logs"|"backup"|"old"|"test"|"tests"|"doc"|"docs"|"help"|"manual")
-                                continue
-                                ;;
-                        esac
-                        
-                        # Skip directories with only uninstall or setup executables
-                        if [ "$exe_count" -eq 1 ] && (find "$dir" -maxdepth 1 -name "*uninstall*" -o -name "*setup*" -o -name "*install*" | grep -q .); then
-                            continue
-                        fi
-                        
-                        echo "$dir"
-                    fi
-                done
-        }
-        
-        # Priority directories (added first, higher precedence)
-        local tool_count=0
-        local core_exe_count=122  # Fixed number of basic MINGW executables
-        local binext_exe_count=0
-        local bintools_exe_count=0
-        
-        # 1. Add bin-ext first (highest priority)
-        if [ -d "$portx_home/bin-ext" ]; then
-            echo "# High-priority enhanced Unix tools"
-            echo "export PATH=\"$portx_home/bin-ext:\$PATH\""
-            binext_exe_count=$(find "$portx_home/bin-ext" -maxdepth 1 \( -name "*.exe" -o -name "*.bat" -o -name "*.cmd" \) -type f 2>/dev/null | wc -l)
-            ((tool_count++))
-            echo ""
-        fi
-        
-        # 2. Deep scan bin-tools with smart filtering
-        if [ -d "$portx_home/bin-tools" ]; then
-            echo "# Smart deep scan of bin-tools directory"
-            
-            local bin_tools_count=0
             while IFS= read -r exe_dir; do
                 if [ -n "$exe_dir" ]; then
                     local dir_exe_count=$(find "$exe_dir" -maxdepth 1 \( -name "*.exe" -o -name "*.bat" -o -name "*.cmd" \) -type f 2>/dev/null | wc -l)
                     echo "export PATH=\"$exe_dir:\$PATH\"  # $dir_exe_count executables"
-                    bintools_exe_count=$((bintools_exe_count + dir_exe_count))
-                    ((tool_count++))
-                    ((bin_tools_count++))
                 fi
-            done < <(find_executable_dirs_smart "$portx_home/bin-tools" "$scan_depth" "$min_exe_count")
+            done < <(find_executable_dirs_smart "$packages_dir" "$scan_depth" "$min_exe_count")
             
-            echo "# bin-tools directories added: $bin_tools_count"
+            echo "# packages directories added: $packages_count"
             echo ""
         fi
         
-        # 3. Scan other PORTX-specific tool directories (ONLY within PORTX)
-        for tool_base in "$portx_home/tools" "$portx_home/bin" "$portx_home/Apps"; do
-            if [ -d "$tool_base" ]; then
-                echo "# Smart scan of $(basename "$tool_base") directory"
-                local section_count=0
-                
-                while IFS= read -r exe_dir; do
-                    if [ -n "$exe_dir" ]; then
-                        echo "export PATH=\"$exe_dir:\$PATH\""
-                        ((tool_count++))
-                        ((section_count++))
-                    fi
-                done < <(find_executable_dirs_smart "$tool_base" 2 "$min_exe_count")
-                
-                if [ "$section_count" -gt 0 ]; then
-                    echo "# $(basename "$tool_base") directories added: $section_count"
-                    echo ""
-                fi
-            fi
-        done
+        # 2. Add core bin directory (PORTX /bin with Git Bash core tools)
+        if [ -d "$portx_home/bin" ]; then
+            echo "# Core PORTX tools directory"
+            echo "export PATH=\"$portx_home/bin:\$PATH\""
+            echo ""
+        fi
         
-        # REMOVED: The problematic /c/App/ scanning that was adding Cygwin64
-        # The original code scanned ALL of /c/App/ which is wrong - we should only scan within PORTX
-        
-        # Calculate total executables
-        local total_exe_count=$((core_exe_count + binext_exe_count + bintools_exe_count))
+        # Calculate total executables and directories
+        local total_exe_count=$((mingw_count + bin_count + packages_exe_count))
+        local total_dirs=$((1 + 1 + packages_count))  # 1 mingw dir + 1 bin dir + package dirs
         
         echo "# Total tool directories added: $tool_count"
-        echo "# Executable counts:"
-        echo "export CORE_EXE_COUNT=$core_exe_count"
-        echo "export BINEXT_EXE_COUNT=$binext_exe_count"
-        echo "export BINTOOLS_EXE_COUNT=$bintools_exe_count"
+        echo "# All executable counts:"
+        echo "export MINGW_COUNT=$mingw_count"
+        echo "export BIN_COUNT=$bin_count"  
+        echo "export PACKAGES_EXE_COUNT=$packages_exe_count"
+        echo "export PACKAGES_COUNT=$packages_count"
         echo "export TOTAL_EXE_COUNT=$total_exe_count"
-        echo "export TOOLS_STATUS=\"\\033[1;90mTOOLS\\033[0m\\033[90m($core_exe_count+$binext_exe_count+$bintools_exe_count)\\033[0m\""
+        echo "export TOTAL_DIRS=$total_dirs"
+        echo "export TOOLS_STATUS=\"\\033[1;90mTOOLS\\033[0m\\033[90m(mingw:1/$mingw_count, bin:1/$bin_count, pkg:$packages_count/$packages_exe_count)\\033[0m\""
         echo "export TOOLS_LAST_SCAN=\"$(date '+%Y-%m-%d %H:%M')\""
         
         # Utility functions
@@ -260,12 +282,12 @@ load_portx_tools() {
         echo "    echo \"  Last scan: \$(date -d \"\$TOOLS_LAST_SCAN\" 2>/dev/null || echo 'Unknown')\""
         echo "    echo \"  Scan depth: $scan_depth levels\""
         echo "    echo \"  Min executables: $min_exe_count per directory\""
-        echo "    echo \"  Cache file: .portx_tools_path_cache\""
+        echo "    echo \"  Cache file: .portx_tools\""
         echo "}"
         echo ""
         echo "regenerate_tools_cache() {"
         echo "    echo \"Removing cache file...\""
-        echo "    rm -f \"$cache_file\""
+        echo "    rm -f \"/home/portx/.portx_tools\""
         echo "    echo \"Regenerating tools cache with deep scan...\""
         echo "    load_portx_tools"
         echo "    show_tools_info"
@@ -284,6 +306,7 @@ load_portx_tools() {
     # Show brief info if interactive
     if [[ $- == *i* ]] && [[ -z "$PORTX_QUIET_LOAD" ]]; then
         echo "Tools cache regenerated: $tool_count directories loaded (depth: $scan_depth)"
+        echo "Total: $total_exe_count executables (mingw:$mingw_count, bin:$bin_count, pkg:$packages_count/$packages_exe_count)"
     fi
 }
 
