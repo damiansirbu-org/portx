@@ -27,6 +27,111 @@ PORTX leverages Git for Windows as a corporate-friendly foundation, extending it
 
 This architecture delivers Unix-grade functionality while maintaining corporate IT approval through its Git for Windows heritage.
 
+## Technical Foundation: Why Git Bash Over MSYS2 and Cygwin
+
+PORTX deliberately chooses **Git Bash** over full MSYS2 and Cygwin for superior performance and enterprise compatibility:
+
+### **Performance Comparison**
+
+**Git Bash (MinGW-w64 Compiled)**:
+- **Native Windows executables** - no emulation layer overhead
+- **Direct Win32 API calls** - compiled at build time for maximum speed
+- **Zero runtime dependencies** - tools run directly on Windows
+
+## Core Principle: Pure Windows Architecture
+
+**CRITICAL**: PORTX maintains strict purity - all tools must be self-contained Windows executables without external dependencies:
+
+- ❌ **No MSYS2/Cygwin Dependencies**: No msys-2.0.dll, cygwin1.dll, or external runtime libraries
+- ❌ **No System Dependencies**: No external MinGW installations or system build tools  
+- ❌ **No Package Dependencies**: Each package must include all required components
+- ✅ **Pure Windows PE**: Native Windows executables with Windows system DLLs only
+- ✅ **Corporate Compatible**: Zero installation, works on locked-down enterprise systems
+- ✅ **True Portability**: Self-contained directory structure, copy-and-run deployment
+
+This architectural principle ensures PORTX remains truly portable and enterprise-friendly. **Any package that cannot operate standalone is removed rather than compromised.**
+
+**MSYS2 (POSIX Emulation)**:
+- **POSIX emulation layer** (`msys-2.0.dll`) introduces significant overhead
+- **"Really, really noticeably slow"** - official Git for Windows documentation
+- **Runtime translation** - system calls converted at execution time
+
+**Cygwin (Full POSIX Emulation)**:
+- **Heavy emulation layer** (`cygwin1.dll`) with substantial performance penalty
+- **Complete POSIX environment** - comprehensive but resource-intensive
+- **Installation complexity** - requires administrator privileges and system integration
+- **Corporate restrictions** - often blocked by enterprise security policies
+
+### **System Integration**
+
+**Git Bash Benefits**:
+- **Lightweight footprint** - minimal Windows system modification
+- **Corporate-friendly** - subset of proven Git for Windows installation
+- **Portable execution** - no deep system integration requirements
+- **Native compatibility** - tools work directly with Windows APIs
+
+**MSYS2 Drawbacks**:
+- **Deep Windows integration** - extensive filesystem and registry modifications
+- **Package management dependency** - requires Pacman for updates
+- **Three subsystem complexity** - msys2, mingw32, mingw64 environments
+- **"Deeper invading Windows"** - more intrusive system presence
+
+**Cygwin Drawbacks**:
+- **Heaviest system footprint** - requires full installation with administrator rights
+- **DLL dependency hell** - applications depend on large `cygwin1.dll` runtime
+- **Path translation issues** - complex Windows/Unix path mapping problems
+- **Enterprise deployment barriers** - installation and maintenance complexity
+
+### **Windows Development Advantages**
+
+Beyond corporate environments, Git Bash provides superior Windows integration:
+
+**Native Windows Compatibility**:
+- **Seamless tool integration** - works perfectly with modern development tools like Claude Code, VS Code, JetBrains IDEs
+- **Process management** - native Windows process handling without emulation overhead
+- **File system performance** - direct NTFS access without translation layers
+- **Memory efficiency** - no runtime DLL overhead or emulation memory pools
+
+**Developer Experience**:
+- **IDE integration** - terminals in VS Code, IntelliJ, and other IDEs work flawlessly
+- **AI assistant compatibility** - tools like Claude Code can execute commands reliably without emulation issues
+- **Debugging support** - native Windows debugging tools work directly with MinGW executables
+- **Plugin ecosystems** - terminal plugins and extensions function without compatibility layers
+
+**System Resource Efficiency**:
+- **Lower memory footprint** - no heavy runtime libraries (cygwin1.dll, msys-2.0.dll)
+- **Faster startup times** - native executables launch immediately
+- **Better CPU utilization** - no translation overhead for system calls
+- **Reduced disk I/O** - direct filesystem access patterns
+
+### **Enterprise Considerations**
+
+For corporate environments, Git Bash provides:
+- **Pre-approved foundation** - Git for Windows already trusted by IT departments
+- **Minimal attack surface** - fewer system modifications reduce security concerns
+- **Consistent performance** - native executables perform identically across environments
+- **Simplified deployment** - no complex subsystem management required
+
+**Technical Verdict**: Git Bash delivers optimal balance of Unix-like functionality with native Windows performance, making it the superior choice for both enterprise deployments and modern Windows development workflows including AI-assisted development tools.
+
+### **Authoritative Sources**
+
+**Git for Windows Project**:
+- **Official Website**: [gitforwindows.org](https://gitforwindows.org/)
+- **GitHub Organization**: [github.com/git-for-windows](https://github.com/git-for-windows)
+- **Technical Documentation**: [Git for Windows vs MSYS2 Analysis](https://gitforwindows.org/the-difference-between-mingw-and-msys2.html)
+- **Architecture Details**: Git for Windows SDK and build system documentation
+
+**MinGW-w64 Foundation**:
+- **Official Website**: [mingw-w64.org](https://www.mingw-w64.org/)
+- **Technical Specifications**: Complete development environment for native Windows applications
+- **Performance Analysis**: "Better-conforming and faster math support compared to Visual Studio"
+- **Industry Adoption**: Used by Blender, Boost, FFmpeg, GIMP, LibreOffice, and hundreds of major projects
+
+**Microsoft Official Documentation**:
+- **MinGW-w64 on Microsoft Learn**: [learn.microsoft.com/en-us/vcpkg/users/platforms/mingw](https://learn.microsoft.com/en-us/vcpkg/users/platforms/mingw)
+- **Windows Subsystem Integration**: Official Microsoft guidance on MinGW-w64 usage
+
 ## Key Advantages
 
 **Enterprise Compatible**: No installation required, no registry entries, no administrative privileges needed. Works on locked-down corporate environments.
@@ -103,25 +208,25 @@ This scientific approach ensures PORTX provides enterprise-grade tool discovery 
 
 <div align="center">
 
-![screenshot.2](doc-portx/pic/screenshot.2.jpg)
-![screenshot.3](doc-portx/pic/screenshot.3.jpg)
-![screenshot.4](doc-portx/pic/screenshot.4.jpg)
+![screenshot.2](doc/pic/screenshot.2.jpg)
+![screenshot.3](doc/pic/screenshot.3.jpg)
+![screenshot.4](doc/pic/screenshot.4.jpg)
 
-![screenshot.5](doc-portx/pic/screenshot.5.jpg)
-![screenshot.6](doc-portx/pic/screenshot.6.jpg)
-![screenshot.7](doc-portx/pic/screenshot.7.jpg)
+![screenshot.5](doc/pic/screenshot.5.jpg)
+![screenshot.6](doc/pic/screenshot.6.jpg)
+![screenshot.7](doc/pic/screenshot.7.jpg)
 
-![screenshot.9](doc-portx/pic/screenshot.9.jpg)
-![screenshot.10](doc-portx/pic/screenshot.10.jpg)
-![screenshot.11](doc-portx/pic/screenshot.11.jpg)
+![screenshot.9](doc/pic/screenshot.9.jpg)
+![screenshot.10](doc/pic/screenshot.10.jpg)
+![screenshot.11](doc/pic/screenshot.11.jpg)
 
-![screenshot.12](doc-portx/pic/screenshot.12.jpg)
-![screenshot.13](doc-portx/pic/screenshot.13.jpg)
-![screenshot.14](doc-portx/pic/screenshot.14.jpg)
+![screenshot.12](doc/pic/screenshot.12.jpg)
+![screenshot.13](doc/pic/screenshot.13.jpg)
+![screenshot.14](doc/pic/screenshot.14.jpg)
 
-![screenshot.15](doc-portx/pic/screenshot.15.jpg)
-![screenshot.16](doc-portx/pic/screenshot.16.jpg)
-![screenshot.17](doc-portx/pic/screenshot.17.jpg)
+![screenshot.15](doc/pic/screenshot.15.jpg)
+![screenshot.16](doc/pic/screenshot.16.jpg)
+![screenshot.17](doc/pic/screenshot.17.jpg)
 
 </div>
 

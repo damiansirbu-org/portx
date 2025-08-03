@@ -23,7 +23,6 @@ Used for app installation, debugging, system analysis, and device management wor
 | mke2fs.exe | EXT filesystem creator | Create EXT2/3/4 filesystems |
 | etc1tool.exe | ETC1 texture compression | Compress textures for Android graphics |
 | hprof-conv.exe | HPROF file converter | Convert heap dumps for analysis |
-| sqlite3.exe | SQLite database tool | Manage SQLite databases on Android |
 
 ## Common Usage Examples
 
@@ -109,19 +108,6 @@ fastboot reboot
 fastboot oem unlock
 ```
 
-### Database Operations
-```bash
-# Access app database
-adb shell
-cd /data/data/com.example.app/databases/
-sqlite3 database.db
-
-# Query database
-sqlite3 database.db "SELECT * FROM table_name;"
-
-# Export database
-adb pull /data/data/com.example.app/databases/database.db
-```
 
 ### Performance Analysis
 ```bash
