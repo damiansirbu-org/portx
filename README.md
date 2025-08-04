@@ -44,6 +44,55 @@ All tools are Windows-native executables with no external dependencies or DLL re
 
 **System Administration**: Process monitoring (btop), file management (7za), network utilities (curl, SSH), remote access tools
 
+## Package Manager
+
+PORTX includes a built-in package management system for easy installation and updates:
+
+### Distribution Model
+
+**PORTX Core**: Clean distribution with empty packages directory (~400MB compressed)
+- Complete POSIX environment (mingw64, usr, bin, etc.)
+- Package management scripts
+- Ready for individual package downloads
+
+**Individual Packages**: 55 packages available as versioned ZIP archives (734MB total)
+- Each package includes executables, documentation, and version info
+- Compressed with maximum efficiency using 7-Zip
+- Git LFS storage for efficient repository management
+
+### Package Management Commands
+
+**Client Commands (End Users):**
+```bash
+# List all available packages with versions
+./package-manager/portx-list.sh
+
+# Install a specific package
+./package-manager/portx-install.sh terraform
+
+# Install to specific directory
+./package-manager/portx-install.sh kubectl /c/App/k8/
+
+# Advanced package management
+./package-manager/portx-pkg search terraform
+./package-manager/portx-repo update
+```
+
+**Build Commands (Developers/Maintainers):**
+```bash
+# Create package ZIP archives from source directories
+./dist/build/build-create-zips.sh
+
+# Create clean PORTX distribution artifact
+./dist/build/build-create-artifact.sh
+```
+
+### Available Packages
+
+Core packages include: 7zip, aws, azure-cli, terraform, kubectl, helm, docker-compose, git-extras, jq, yq, ripgrep, bat, fzf, micro, and 40+ more professional tools.
+
+Each package maintains version information and can be downloaded independently based on user needs.
+
 ## Tool Discovery & Research Methodology
 
 PORTX includes a comprehensive tool discovery system with scientifically curated documentation for all 538 tools:
@@ -114,59 +163,13 @@ This scientific approach ensures PORTX provides enterprise-grade tool discovery 
 
 </div>
 
-## Package Manager
-
-PORTX includes a comprehensive package management system for easy installation and updates:
-
-### Local Package Management
-```bash
-# Search for packages (local and remote)
-portx-pkg search kubernetes
-portx-pkg search docker
-
-# Install packages  
-portx-pkg install kubectl
-portx-pkg install terraform
-portx-pkg install helm
-
-# List installed packages
-portx-pkg list
-
-# Get package information
-portx-pkg info kubectl
-
-# Remove packages
-portx-pkg remove kubectl
-```
-
-### Remote Repository Support
-```bash
-# Add GitHub repository
-portx-repo add-repo https://api.github.com/repos/damiansirbu/portx/releases
-
-# Update package index
-portx-repo update
-
-# Search remote packages
-portx-repo search monitoring
-
-# Install from remote
-portx-repo install prometheus
-```
-
-### Automated Installation
-The package manager automatically:
-- Downloads packages from GitHub releases
-- Extracts and installs to the correct location
-- Integrates with PORTX tool discovery
-- Manages installation tracking and removal
 
 ## Quick Start
 
-1. Extract PORTX to any directory (or download from releases)
-2. Run `portx.bat` to launch the environment  
-3. Use the package manager: `portx-pkg search <tool>`
-4. Install tools: `portx-pkg install <package>`
+1. Download and extract PORTX Core distribution (~267MB compressed)
+2. Run `portx.cmd` to launch the environment  
+3. List available packages: `./package-manager/portx-list.sh`
+4. Install specific tools: `./package-manager/portx-install.sh terraform`
 5. Access tools via standard Unix commands or Windows paths
 6. Use `portx-tools find` for interactive tool discovery
 
