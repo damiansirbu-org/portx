@@ -1,0 +1,4 @@
+// PORTX Resource File
+// Windows resource script for embedding icon
+
+1 ICON "portx.ico"
