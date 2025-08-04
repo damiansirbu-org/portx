@@ -1,0 +1,13 @@
+# Glow configuration for PORTX
+# By Damian Sirbu
+
+# Use a cleaner style that works better in terminal
+style: "notty"
+
+# Display settings
+width: 120
+mouse: false
+pager: true
+
+# Disable excessive colors that make text unreadable
+glamour_style: "ascii"

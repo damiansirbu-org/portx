@@ -1,0 +1,56 @@
+# Global gitignore for all repositories
+# Created for Damian's development environment
+
+# Claude Code related files
+.claude/
+claude.md
+CLAUDE.md
+.claude.md
+claude-*
+.claude-*
+
+# VSCode settings (optional - uncomment if you want to ignore globally)
+# .vscode/
+
+# Windows thumbnails
+Thumbs.db
+ehthumbs.db
+
+# Windows Folder config file
+Desktop.ini
+
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
+
+# Windows shortcuts
+*.lnk
+
+# macOS (if you use Mac sometimes)
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Linux temp files
+*~
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+*.swp
+*.swo
+
+# IDE files
+*.sublime-project
+*.sublime-workspace
+
+# Log files
+*.log
+
+# Environment files (if not project-specific)
+.env.local
+.env.*.local
+
+# Screenshot temp files
+screenshot*.png
+Screenshot*.png
