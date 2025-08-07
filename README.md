@@ -62,36 +62,38 @@ PORTX includes a built-in package management system for easy installation and up
 
 ### Package Management Commands
 
-**Client Commands (End Users):**
+**Package Manager (portx.sh):**
 ```bash
-# List all available packages with versions
-./package-manager/portx-list.sh
+# List all available packages with installation status
+./portx.sh list
 
 # Install a specific package
-./package-manager/portx-install.sh terraform
+./portx.sh install aws
+./portx.sh install terraform
 
-# Install to specific directory
-./package-manager/portx-install.sh kubectl /c/App/k8/
+# Remove a package
+./portx.sh remove aws
 
-# Advanced package management
-./package-manager/portx-pkg search terraform
-./package-manager/portx-repo update
+# View package manager information
+./portx.sh info
 ```
 
-**Build Commands (Developers/Maintainers):**
-```bash
-# Create package ZIP archives from source directories
-./dist/build/build-create-zips.sh
-
-# Create clean PORTX distribution artifact
-./dist/build/build-create-artifact.sh
-```
+**Features:**
+- **Dynamic Version Discovery**: Automatically finds correct package versions from repository
+- **Smart Installation**: Handles nested directory structures and extracts cleanly
+- **Auto-Discovery Integration**: New tools are automatically available in shell sessions
+- **Package Validation**: Verifies downloads and handles installation errors gracefully
+- **Manual Access**: Package documentation available at installation location
 
 ### Available Packages
 
-Core packages include: 7zip, aws, azure-cli, terraform, kubectl, helm, docker-compose, git-extras, jq, yq, ripgrep, bat, fzf, micro, and 40+ more professional tools.
+Core packages include: 7zip, ag, aws, azure-cli, terraform, kubectl, helm, docker-compose, git-extras, jq, yq, ripgrep, bat, fzf, micro, and 40+ more professional tools.
 
-Each package maintains version information and can be downloaded independently based on user needs.
+**Package Organization:**
+- Each package includes executables, documentation (`package-manual.md`), and version metadata
+- Packages are stored in isolated directories under `packages/`
+- Automatic tool discovery through PORTX environment integration
+- No PATH pollution - tools are discovered on-demand
 
 ## Tool Discovery & Research Methodology
 
@@ -141,37 +143,24 @@ This scientific approach ensures PORTX provides enterprise-grade tool discovery 
 
 <div align="center">
 
-![screenshot.2](doc-portx/pic/screenshot.2.jpg)
-![screenshot.3](doc-portx/pic/screenshot.3.jpg)
-![screenshot.4](doc-portx/pic/screenshot.4.jpg)
+![screenshot.1](doc/pic/screenshot.1.jpg)
+![screenshot.2](doc/pic/screenshot.2.jpg)
 
-![screenshot.5](doc-portx/pic/screenshot.5.jpg)
-![screenshot.6](doc-portx/pic/screenshot.6.jpg)
-![screenshot.7](doc-portx/pic/screenshot.7.jpg)
-
-![screenshot.9](doc-portx/pic/screenshot.9.jpg)
-![screenshot.10](doc-portx/pic/screenshot.10.jpg)
-![screenshot.11](doc-portx/pic/screenshot.11.jpg)
-
-![screenshot.12](doc-portx/pic/screenshot.12.jpg)
-![screenshot.13](doc-portx/pic/screenshot.13.jpg)
-![screenshot.14](doc-portx/pic/screenshot.14.jpg)
-
-![screenshot.15](doc-portx/pic/screenshot.15.jpg)
-![screenshot.16](doc-portx/pic/screenshot.16.jpg)
-![screenshot.17](doc-portx/pic/screenshot.17.jpg)
+![screenshot.3](doc/pic/screenshot.3.jpg)
+![screenshot.4](doc/pic/screenshot.4.jpg)
 
 </div>
 
 
 ## Quick Start
 
-1. Download and extract PORTX Core distribution (~267MB compressed)
-2. Run `portx.cmd` to launch the environment  
-3. List available packages: `./package-manager/portx-list.sh`
-4. Install specific tools: `./package-manager/portx-install.sh terraform`
-5. Access tools via standard Unix commands or Windows paths
+1. Extract PORTX to any directory
+2. Run `portx.bat` or `portx.sh` to launch the environment  
+3. List available packages: `./portx.sh list`
+4. Install specific tools: `./portx.sh install aws`
+5. Tools are automatically discovered in new shell sessions
 6. Use `portx-tools find` for interactive tool discovery
+7. Access package manuals at installation location
 
 ## Technical Specifications
 
