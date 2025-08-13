@@ -110,10 +110,20 @@ ssh_agent_start() {
                 done
             fi
             
-            if [[ -n "$key_users" ]]; then
-                export SSH_STATUS="\033[1;90mSSH\033[0m\033[90m($key_users)\033[0m"
+            # Determine which SSH agent is being used
+            local agent_type=""
+            if [[ -n "$SSH_AGENT_PID" ]]; then
+                agent_type="portx"
+            elif command -v ssh-agent.exe >/dev/null 2>&1 && pgrep -f "ssh-agent" >/dev/null 2>&1; then
+                agent_type="windows"
             else
-                export SSH_STATUS="\033[1;90mSSH\033[0m"
+                agent_type="unknown"
+            fi
+            
+            if [[ -n "$key_users" ]]; then
+                export SSH_STATUS="\033[1;90mSSH\033[0m\033[90m($key_users/$agent_type)\033[0m"
+            else
+                export SSH_STATUS="\033[1;90mSSH\033[0m\033[90m($agent_type)\033[0m"
             fi
         else
             export SSH_STATUS="\033[1;31mSSH\033[0m\033[90m(no keys)\033[0m"
