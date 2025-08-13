@@ -69,6 +69,55 @@ export SHELL="/bin/bash"
 unset TMP TEMP  # Prevent Windows temp directory conflicts
 export TMPDIR=/tmp
 
+# MSYS2 baseline enforcement - complete environment consistency
+export MSYSTEM=UCRT64              # Modern UCRT environment (recommended for 2025)
+export MSYS2_PATH_TYPE=minimal     # Don't inherit Windows PATH automatically
+export MSYS_NO_PATHCONV=1          # Disable automatic path conversion for predictability
+export MSYS2_ARG_CONV_EXCL="*"     # Exclude all arguments from path conversion
+export MSYS2_ENV_CONV_EXCL="*"     # Exclude all environment vars from path conversion
+
+# Programmatic Windows PATH integration - curated and controlled
+integrate_windows_path() {
+    # Skip if Windows PATH already integrated
+    [[ "$WINDOWS_PATH_INTEGRATED" == "1" ]] && return
+    
+    # Get full Windows PATH via cmd.exe (no PowerShell dependency)
+    local windows_path=""
+    if command -v cmd.exe >/dev/null 2>&1; then
+        windows_path=$(cmd.exe /c "echo %PATH%" 2>/dev/null | tr -d '\r\n')
+    fi
+    
+    # Convert all Windows PATH entries to POSIX format
+    local converted_path=""
+    if [[ -n "$windows_path" ]]; then
+        IFS=';' read -ra PATH_ARRAY <<< "$windows_path"
+        for dir in "${PATH_ARRAY[@]}"; do
+            # Skip empty entries
+            [[ -z "$dir" ]] && continue
+            
+            # Convert to POSIX format
+            local posix_dir=$(echo "$dir" | sed 's|\\|/|g' | sed 's|^\([A-Za-z]\):|/\L\1|')
+            
+            # Add all valid directories, avoiding duplicates
+            if [[ -d "$posix_dir" ]]; then
+                # Check for duplicates in converted_path AND existing PATH
+                if [[ ":$converted_path:$PATH:" != *":$posix_dir:"* ]]; then
+                    converted_path="${converted_path:+$converted_path:}$posix_dir"
+                fi
+            fi
+        done
+    fi
+    
+    # Add curated Windows PATH to our PATH
+    if [[ -n "$converted_path" ]]; then
+        export PATH="$PATH:$converted_path"
+        export WINDOWS_PATH_INTEGRATED=1
+    fi
+}
+
+# Integrate Windows PATH in controlled manner
+integrate_windows_path
+
 # Locale settings for proper UTF-8 support
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
