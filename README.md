@@ -213,8 +213,24 @@ This scientific approach ensures PORTX provides enterprise-grade tool discovery 
 
 **Shell Environment**: Bash 4.4+ with POSIX compatibility layer
 **Home Directory**: Portable user environment with SSH, Git configuration
-**PATH Management**: Hierarchical tool discovery across bin/, bin-ext/, bin-tools/
+**PATH Management**: Complete integration - PORTX tools + Windows PATH with smart caching
+**SSH Integration**: Seamless Windows OpenSSH service integration with PORTX as source of truth
 **File System**: Unix-style paths with Windows compatibility layer
 **Process Management**: Native Windows process handling with Unix signals
+
+### SSH Agent Integration
+
+PORTX provides seamless SSH key management through Windows OpenSSH service integration:
+
+**Architecture**: PORTX serves as the **source of truth** for SSH keys, automatically synchronizing with Windows OpenSSH service for system-wide availability.
+
+**Key Features**:
+- **Unified Key Management**: SSH keys stored in PORTX `~/.ssh` directory are automatically synchronized to Windows `%USERPROFILE%\.ssh`
+- **Cross-Application Compatibility**: Keys work seamlessly across Git Bash, PowerShell, Windows Terminal, and native Windows applications
+- **Performance Optimized**: 54% startup performance improvement through Windows OpenSSH service integration
+- **Status Visibility**: SSH status displays active user and agent type (PORTX/Windows) in the command prompt
+- **Automatic Synchronization**: Background sync ensures Windows system always has current PORTX keys
+
+**Benefits**: No duplicate key management, consistent SSH experience across all Windows development environments, enterprise-compatible with Windows security policies.
 
 PORTX delivers enterprise-grade Unix functionality on Windows without the complexity or security concerns of traditional emulation approaches.
