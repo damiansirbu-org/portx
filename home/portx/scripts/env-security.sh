@@ -1,6 +1,11 @@
+#!/bin/bash
 # Environment Security Check - detect PATH conflicts
 # PURPOSE: Warn about external shell installations that conflict with Git Bash
 # FEATURES: Simple PATH scanning, no cache dependencies
+
+# Load theme system for consistent colors - let it crash if not found
+# shellcheck source=/dev/null
+source "$PORTX_HOME/scripts/theme.sh"
 
 check_environment_security() {
     # Only check PATH for external shell conflicts
@@ -24,11 +29,11 @@ check_environment_security() {
     
     # Show warnings if issues found
     if [[ ${#found_issues[@]} -gt 0 ]]; then
-        echo "⚠️  GIT BASH PATH CONFLICTS DETECTED ⚠️" >&2
+        echo "$(icon_warning) GIT BASH PATH CONFLICTS DETECTED $(icon_warning)" >&2
         for issue in "${found_issues[@]}"; do
-            echo "  ❌ PATH contains: '$issue'" >&2
+            echo "  $(icon_error) PATH contains: '$issue'" >&2
         done
-        echo "🔧 FIX: Remove conflicting paths from Windows PATH" >&2
+        echo "$(icon_statistics) FIX: Remove conflicting paths from Windows PATH" >&2
         echo "" >&2
         return 1
     fi
@@ -61,18 +66,29 @@ get_environment_info() {
 
 # Run security check on startup (disable with NO_ENV_CHECK=1)
 if [[ "$NO_ENV_CHECK" != "1" ]]; then
-    env_info=$(get_environment_info)
+    # Set PORTX_ENV_TYPE for formatting functions
+    export PORTX_ENV_TYPE="$(get_environment_info)"
+    
+    # Display system status using formatting functions
     if check_environment_security; then
-        printf "\033[1;90mPORTX\033[0m\033[90m($env_info)\033[0m" >&2
+        format_portx_status >&2
     else
-        printf "\033[1;31mPORTX\033[0m\033[90m($env_info)\033[0m" >&2
+        # For error state, use error color but same format
+        local env_info="${PORTX_ENV_TYPE:-unknown}"
+        printf '%bPortx%b%b[%s]%b' "$(color_error)" "$(color_reset)" "$(color_muted)" "${env_info,,}" "$(color_reset)" >&2
     fi
     
-    # Show TOOLS and SSH status on same line if available
-    if [[ -n "$TOOLS_STATUS" ]]; then
-        printf " %b" "$TOOLS_STATUS" >&2
+    # Show TOOLS status using formatting function
+    if [[ -n "$PORTX_MINGW_EXECUTABLES" || -n "$PORTX_BIN_EXECUTABLES" || -n "$PORTX_PKG_EXECUTABLES" ]]; then
+        printf " " >&2
+        format_tools_status >&2
     fi
-    if [[ -n "$SSH_STATUS" ]]; then
+    
+    # Show SSH status using formatting function or legacy variable
+    if [[ -n "$PORTX_SSH_USER" || -n "$PORTX_SSH_STATUS" ]]; then
+        printf " " >&2
+        format_ssh_status >&2
+    elif [[ -n "$SSH_STATUS" ]]; then
         printf " %b" "$SSH_STATUS" >&2
     fi
     
