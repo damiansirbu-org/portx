@@ -1,475 +1,387 @@
-# Git Bash Configuration with Deep Directory Scanning
-# Static environment variables (set once per shell)
+#!/bin/bash
+# =============================================================================
+# PORTX Git Bash Configuration
+# Professional Shell Environment for Portable Development
+# =============================================================================
+#
+# DESCRIPTION:
+#   Portable Git Bash environment configuration with professional organization
+#   following GNU Bash startup file best practices.
+#
+# STRUCTURE:
+#   1. Environment Detection & Validation
+#   2. Core System Configuration
+#   3. Security & SSH Management
+#   4. Development Environment Setup
+#   5. User Interface & Prompt Configuration
+#   6. Tool Integration & PATH Management
+#
+# COMPATIBILITY: Git Bash (MINGW64), Windows 10/11
+# AUTHOR: PORTX Development Team
+# =============================================================================
 
-# ⚠️ WARNING: DO NOT SET USER OR HOME VARIABLES HERE! ⚠️
-# The /etc/profile sets portable environment:
+# =============================================================================
+# SECTION 1: ENVIRONMENT DETECTION & VALIDATION
+# =============================================================================
+
+# Prevent multiple loading and ensure proper environment
+[[ -n "$PORTX_BASHRC_LOADED" ]] && return
+export PORTX_BASHRC_LOADED=1
+
+# ⚠️  CRITICAL ENVIRONMENT WARNING ⚠️
+# Do NOT override USER/HOME variables set by /etc/profile
+# The portable environment requires these exact values:
 #   HOME=/home/portx
 #   USER=portx
 #   USERNAME=portx
-# 
-# If you add lines like "export USER=$(whoami)" or "export HOME=/home/$USER"
-# they will OVERRIDE the portable settings and break the portable functionality!
-# The whole point of portable mode is to NOT use Windows user-specific paths.
+# Overriding these breaks portability!
+
+# Claude Code Integration
+# Configure path for Claude Code Git Bash integration
+export CLAUDE_CODE_GIT_BASH_PATH="C:\\App\\Git\\bin\\bash.exe"
+
+# =============================================================================
+# Git Bash Root Detection Function
+# =============================================================================
+
+# find_git_bash_root() - Dynamically detect Git Bash installation root
 #
-
-
-# Git Bash specific Claude Code configuration
-# Detect bash.exe path dynamically and convert to Windows path
-BASH_EXE_PATH="$(which bash 2>/dev/null)"
-if [[ -n "$BASH_EXE_PATH" ]]; then
-    # Convert Unix path to Windows path (e.g., /c/App/PORTX/bin/bash.exe -> C:\App\PORTX\bin\bash.exe)
-    WINDOWS_BASH_PATH="$(echo "$BASH_EXE_PATH" | sed 's|^/c/|C:\\|' | sed 's|/|\\|g')"
-    export CLAUDE_CODE_GIT_BASH_PATH="$WINDOWS_BASH_PATH"
-fi
-
-# Auto-discover PORTX_ROOT dynamically
-find_portx_root() {
-    local bash_home="$(dirname "$(which bash)" 2>/dev/null || echo "/bin")"
-    local current_dir="$(dirname "$bash_home")"
-    
-    # First check common PORTX installation locations
-    local common_locations=(
-        "/c/App/PORTX"
-        "/c/PORTX"
-        "/opt/PORTX"
-        "/usr/local/PORTX"
+# DESCRIPTION:
+#   Locates the Git Bash installation root directory with sophisticated validation.
+#   Prioritizes proper Git Bash installations over MSYS2 alternatives.
+#
+# RETURNS:
+#   String: Absolute path to Git Bash root directory
+#   Exit 1: If no valid Git Bash installation found
+#
+# VALIDATION:
+#   - Ensures sh.exe is in a 'bin' directory
+#   - Validates presence of required directories (bin, mingw64, home)
+#   - Prefers non-/usr paths to avoid MSYS2 conflicts
+find_git_bash_root() {
+    # Known Git Bash installation locations (prioritized)
+    local -a sh_candidates=(
+        "/c/App/Git/bin/sh.exe"
+        "/c/git-bash/bin/sh.exe"
+        "/opt/git-bash/bin/sh.exe"
+        "/usr/local/git-bash/bin/sh.exe"
     )
-    
-    for location in "${common_locations[@]}"; do
-        if [[ -d "$location/bin" && -d "$location/home" && -d "$location/mingw64" ]]; then
-            echo "$location"
-            return 0
-        fi
+
+    local sh_path=""
+
+    # Phase 1: Check known installation locations
+    for candidate in "${sh_candidates[@]}"; do
+        [[ -f "$candidate" ]] && {
+            sh_path="$candidate"
+            break
+        }
     done
-    
-    # Search upward from bash directory
-    while [[ "$current_dir" != "/" && "$current_dir" != "" ]]; do
-        # Check if all required directories exist
-        if [[ -d "$current_dir/bin" && -d "$current_dir/home" && -d "$current_dir/mingw64" ]]; then
-            echo "$current_dir"
-            return 0
-        fi
-        
-        # Move up one directory
-        current_dir="$(dirname "$current_dir")"
+
+    # Phase 2: Dynamic discovery with MSYS2 avoidance
+    if [[ -z "$sh_path" ]]; then
+        local -a all_sh_paths
+        mapfile -t all_sh_paths < <(which -a sh.exe 2>/dev/null)
+
+        # Prefer non-/usr paths (avoid MSYS2 sh.exe)
+        for path in "${all_sh_paths[@]}"; do
+            [[ "$path" != /usr/* ]] && {
+                sh_path="$path"
+                break
+            }
+        done
+
+        # Fallback: Use first available if no preferred path found
+        [[ -z "$sh_path" && ${#all_sh_paths[@]} -gt 0 ]] && sh_path="${all_sh_paths[0]}"
+    fi
+
+    # Validation: Ensure sh.exe was found
+    if [[ -z "$sh_path" ]]; then
+        printf "FATAL ERROR: No Git Bash sh.exe found!\nChecked locations:\n" >&2
+        printf "  - %s [NOT FOUND]\n" "${sh_candidates[@]}" >&2
+        printf "PORTX cannot continue without proper Git Bash installation.\n" >&2
+        exit 1
+    fi
+
+    # Validation: Ensure proper directory structure
+    local bin_dir git_root
+    bin_dir="$(dirname "$sh_path")"
+
+    if [[ "$(basename "$bin_dir")" != "bin" ]]; then
+        printf "FATAL ERROR: sh.exe not in 'bin' directory!\n" >&2
+        printf "Found sh.exe at: %s\n" "$sh_path" >&2
+        printf "Expected sh.exe to be in a 'bin' directory, but found in: %s\n" "$bin_dir" >&2
+        printf "PORTX cannot continue with invalid Git Bash structure.\n" >&2
+        exit 1
+    fi
+
+    git_root="$(dirname "$bin_dir")"
+
+    # Validation: Ensure complete Git Bash installation
+    local -a required_dirs=("$git_root/bin" "$git_root/mingw64" "$git_root/home")
+    local missing_dirs=()
+
+    for dir in "${required_dirs[@]}"; do
+        [[ ! -d "$dir" ]] && missing_dirs+=("$dir")
     done
-    
-    # If not found, return a reasonable fallback
-    echo "/c/App/PORTX"
-    return 1
+
+    if [[ ${#missing_dirs[@]} -gt 0 ]]; then
+        printf "FATAL ERROR: Invalid Git Bash structure at %s\n" "$git_root" >&2
+        printf "Missing required directories:\n" >&2
+        printf "  - %s [MISSING]\n" "${missing_dirs[@]}" >&2
+        printf "PORTX cannot continue with incomplete Git Bash installation.\n" >&2
+        exit 1
+    fi
+
+    printf "%s" "$git_root"
+    return 0
 }
 
-export PORTX_ROOT=$(find_portx_root)
+# =============================================================================
+# Environment Variable Initialization
+# =============================================================================
 
-# Terminal and Shell configuration
+# Initialize core PORTX environment variables
+# Fix SC2155: Separate declare and assign to avoid masking return values
+GIT_BASH_ROOT=$(find_git_bash_root)
+readonly GIT_BASH_ROOT
+export GIT_BASH_ROOT
+export USER="portx"
+export PORTX_HOME="$GIT_BASH_ROOT/home/$USER"
+
+# =============================================================================
+# SECTION 2: CORE SYSTEM CONFIGURATION
+# =============================================================================
+
+# =============================================================================
+# Terminal Environment Configuration
+# =============================================================================
+
+# Terminal capabilities and shell behavior
 export TERM=xterm-256color
 export SHELL="/bin/bash"
 
-# Git Bash specific settings
-unset TMP TEMP  # Prevent Windows temp directory conflicts
+# MSYS2 Environment Configuration
+# Modern UCRT runtime environment (recommended for 2025)
+export MSYSTEM=UCRT64
+
+# Windows Integration Settings
+# Prevent Windows temp directory conflicts in portable environment
+unset TMP TEMP
 export TMPDIR=/tmp
 
-# MSYS2 baseline enforcement - complete environment consistency
-export MSYSTEM=UCRT64              # Modern UCRT environment (recommended for 2025)
-export MSYS2_PATH_TYPE=minimal     # Don't inherit Windows PATH automatically
-export MSYS_NO_PATHCONV=1          # Disable automatic path conversion for predictability
-export MSYS2_ARG_CONV_EXCL="*"     # Exclude all arguments from path conversion
-export MSYS2_ENV_CONV_EXCL="*"     # Exclude all environment vars from path conversion
+# =============================================================================
+# Internationalization & Locale Configuration
+# =============================================================================
 
-# Windows PATH integration now handled in cached .portx_path file
-
-# Locale settings for proper UTF-8 support
+# UTF-8 Locale Configuration
+# Ensures proper character encoding for international content
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 
-# Development environment
+# =============================================================================
+# Theme System Integration
+# =============================================================================
+
+# load_theme_system() - Initialize PORTX theme system with basic failsafe
+#
+# DESCRIPTION:
+#   Loads the unified PORTX theme system for consistent UI elements.
+#   Provides super basic ASCII fallback if theme.sh is unavailable.
+load_theme_system() {
+    # Load theme system - let it crash if not found
+    # shellcheck source=/dev/null
+    source "$PORTX_HOME/scripts/theme.sh"
+}
+
+# Initialize theme system
+load_theme_system
+
+# =============================================================================
+# Development Environment Configuration
+# =============================================================================
+
+# Default Development Tools
 export EDITOR=vim
 export PAGER=less
 
-# History configuration (optimized for performance)
-export HISTFILE="$HOME/.bash_history"
-export HISTSIZE=-1
-export HISTFILESIZE=-1
-export HISTTIMEFORMAT="[%F %T] "
-export HISTCONTROL=ignoredups:erasedups
-shopt -s histappend
+# =============================================================================
+# Shell History Configuration
+# =============================================================================
 
-# Write history immediately after each command
+# History Settings (Performance Optimized)
+# Unlimited history with immediate persistence and deduplication
+export HISTFILE="$HOME/.bash_history"
+export HISTSIZE=-1                      # Unlimited in-memory history
+export HISTFILESIZE=-1                  # Unlimited on-disk history
+export HISTTIMEFORMAT="[%F %T] "        # Timestamp format: [YYYY-MM-DD HH:MM:SS]
+export HISTCONTROL=ignoredups:erasedups # Remove duplicates
+
+# Shell Options for History Management
+shopt -s histappend # Append to history file, don't overwrite
+
+# Real-time History Persistence
+# Write history immediately after each command for session sharing
 PROMPT_COMMAND="history -a;$PROMPT_COMMAND"
 
-# Path additions for development tools
-if [[ -d "$HOME/bin" ]]; then
-    export PATH="$HOME/bin:$PATH"
-fi
+# =============================================================================
+# PATH Management & Development Tools
+# =============================================================================
 
-if [[ -d "$HOME/.local/bin" ]]; then
-    export PATH="$HOME/.local/bin:$PATH"
-fi
+# Local Development PATH Extensions
+# Add user-specific binary directories to PATH if they exist
+[[ -d "$HOME/bin" ]] && export PATH="$HOME/bin:$PATH"
+[[ -d "$HOME/.local/bin" ]] && export PATH="$HOME/.local/bin:$PATH"
 
+# =============================================================================
+# SECTION 5: USER INTERFACE & PROMPT CONFIGURATION
+# =============================================================================
 
-# Color definitions for prompts and output
-Color_Off='\[\033[0m\]'
-Red='\[\033[0;31m\]'
-Green='\[\033[0;32m\]'
-Yellow='\[\033[0;33m\]'
-Blue='\[\033[0;34m\]'
-Purple='\[\033[0;35m\]'
-Cyan='\[\033[0;36m\]'
-White='\[\033[0;37m\]'
-BRed='\[\033[1;31m\]'
-BGreen='\[\033[1;32m\]'
-BYellow='\[\033[1;33m\]'
-BBlue='\[\033[1;34m\]'
-BPurple='\[\033[1;35m\]'
-BCyan='\[\033[1;36m\]'
-BWhite='\[\033[1;37m\]'
+# =============================================================================
+# Command Aliases
+# =============================================================================
 
-# Common aliases
+# System Command Enhancements
 alias ls='ls --color=auto'
+
+# Kubernetes Shortcuts
 alias k=kubectl
 alias kk='kubectl config current-context'
 
-# Bash completion configuration (interactive shells only)
-if [[ $- == *i* ]]; then
+# Git Enhancement Aliases
+alias git-log='tig'
+alias git-browse='tig'
+
+# =============================================================================
+# Interactive Shell Configuration
+# =============================================================================
+
+# configure_interactive_shell() - Setup completion and interactive features
+#
+# DESCRIPTION:
+#   Configures bash completion, readline options, and interactive enhancements.
+#   Only executed in interactive shell sessions for performance.
+#
+# FEATURES:
+#   - Programmable completion system
+#   - Git for Windows integration
+#   - Case-insensitive filename completion
+#   - Enhanced readline behavior
+configure_interactive_shell() {
+    # Verify interactive shell
+    [[ $- != *i* ]] && return
+
     # Enable programmable completion
     shopt -s progcomp 2>/dev/null
-    
+
     # Load Git for Windows completion if available
-    if [[ -f /mingw64/share/git/completion/git-completion.bash ]]; then
-        source /mingw64/share/git/completion/git-completion.bash
-    fi
-    
-    # Load system bash completion if available
-    for f in /usr/share/bash-completion/bash_completion /etc/bash_completion; do
-        if [[ -f "$f" ]]; then
-            source "$f"
+    local git_completion="/mingw64/share/git/completion/git-completion.bash"
+    # shellcheck source=/dev/null
+    [[ -f "$git_completion" ]] && source "$git_completion"
+
+    # Load system bash completion (prioritized locations)
+    local -a completion_paths=(
+        "/usr/share/bash-completion/bash_completion"
+        "/etc/bash_completion"
+    )
+
+    for completion_file in "${completion_paths[@]}"; do
+        if [[ -f "$completion_file" ]]; then
+            # shellcheck source=/dev/null
+            source "$completion_file"
             break
         fi
     done
-    
-    # Case-insensitive filename completion (Windows-friendly)
-    bind "set completion-ignore-case on" 2>/dev/null
-    
-    # Show all matches if ambiguous
-    bind "set show-all-if-ambiguous on" 2>/dev/null
-    
-    # Don't require double-tab for completion
-    bind "set show-all-if-unmodified on" 2>/dev/null
-    
-    # Enable filename completion
-    complete -o bashdefault -o default -o filenames ls
-    complete -o bashdefault -o default -o filenames cat
-    complete -o bashdefault -o default -o filenames less
-    complete -o bashdefault -o default -o filenames vi
-    complete -o bashdefault -o default -o filenames vim
-    
-    # Basic file completion only - tool-specific completions removed for performance
-fi
 
-# SAFE: PORTX Complete PATH Loader - PORTX Tools + Windows PATH Integration
+    # Readline Configuration (Windows-friendly)
+    bind "set completion-ignore-case on" 2>/dev/null # Case-insensitive completion
+    bind "set show-all-if-ambiguous on" 2>/dev/null  # Show all matches immediately
+    bind "set show-all-if-unmodified on" 2>/dev/null # No double-tab requirement
+
+    # Basic Command Completion Setup
+    local -a basic_commands=(ls cat less vi vim)
+    for cmd in "${basic_commands[@]}"; do
+        complete -o bashdefault -o default -o filenames "$cmd"
+    done
+}
+
+# Initialize interactive shell configuration
+configure_interactive_shell
+
+# =============================================================================
+# SECTION 6: TOOL INTEGRATION & PATH MANAGEMENT
+# =============================================================================
+
+# =============================================================================
+# PORTX Tool PATH Management System
+# =============================================================================
+
+# load_portx_path() - Intelligent PORTX tool PATH loading with caching
+#
+# DESCRIPTION:
+#   Loads PORTX tool paths using cached results for performance.
+#   Automatically regenerates cache if missing or invalid.
+#
+# CACHE STRATEGY:
+#   - Uses ~/.portx_cache cache file for instant loading
+#   - Falls back to import-packages.sh for cache generation
+#   - Provides manual cache regeneration capability
 load_portx_path() {
-    local cache_file="$HOME/.portx_path"
-    
-    # Check for force rebuild flag
-    if [[ "$PORTX_FORCE_REBUILD" == "1" ]] || [[ ! -f "$cache_file" ]]; then
-        # Force rebuild or cache doesn't exist
-        :
-    else
-        # Use existing cache
+    local cache_file="$HOME/.portx_cache"
+
+    # Load from cache if available
+    if [[ -f "$cache_file" ]]; then
+        # shellcheck source=/dev/null
         source "$cache_file"
-        return
-    fi
-    
-    # Announce scanning with progress messages
-    echo -e "\\033[90mScanning PORTX packages...\\033[0m"
-    
-    # Use PORTX_ROOT environment variable (set in bashrc with auto-discovery)
-    local portx_home="${PORTX_ROOT:-/c/App/PORTX}"
-    
-    local packages_dir="$portx_home/packages"
-    
-    # Initialize counts (like original logic)
-    local tool_count=0
-    local mingw_count=284  # Fixed count from Git Bash/MINGW core
-    local bin_count=0
-    local packages_exe_count=0
-    local packages_count=0
-    
-    # Count MINGW as 1 directory (like original)
-    ((tool_count++))
-    
-    # Count PORTX/bin executables (like original)
-    if [ -d "$portx_home/bin" ]; then
-        bin_count=$(find "$portx_home/bin" -maxdepth 1 -type f -executable 2>/dev/null | wc -l | tr -d ' \t')
-        ((tool_count++))
-    fi
-    
-    # Package validation function
-    is_safe_package_dir() {
-        local dir="$1"
-        [ ! -d "$dir" ] && return 1
-        
-        # Must contain at least one executable
-        local exe_count=$(find "$dir" -maxdepth 1 \( -name "*.exe" -o -name "*.bat" -o -name "*.cmd" \) 2>/dev/null | wc -l)
-        [ "$exe_count" -eq 0 ] && return 1
-        
-        # Reject dangerous directory patterns
-        local dir_name=$(basename "$dir")
-        case "$dir_name" in
-            # System/temp directories
-            *uninstall*|*setup*|*installer*|*temp*|*tmp*|*cache*|*backup*|*old*|*test*|*debug*)
-                return 1 ;;
-            # Script interpreters (except azure-cli/Scripts which is safe)
-            *python*|*node*|*npm*|*pip*|site-packages|__pycache__|Scripts)
-                [[ "$dir" == *"azure-cli/Scripts" ]] && return 0
-                return 1 ;;
-            # Documentation/help
-            *doc*|*help*|*manual*|*man*|*info*)
-                return 1 ;;
-        esac
-        
-        # Count actual tool executables (not installers)
-        local good_exe_count=0
-        while IFS= read -r exe; do
-            local exe_name=$(basename "$exe" | tr '[:upper:]' '[:lower:]')
-            case "$exe_name" in
-                *uninstall*|*setup*|*install*|*update*|*upgrade*) continue ;;
-                *) ((good_exe_count++)) ;;
-            esac
-        done < <(find "$dir" -maxdepth 1 \( -name "*.exe" -o -name "*.bat" -o -name "*.cmd" \) 2>/dev/null)
-        
-        # Must have at least one good executable
-        [ "$good_exe_count" -gt 0 ]
-    }
-    
-    # Discover safe package directories and count them (like original)
-    discover_packages() {
-        local packages_dir="$portx_home/packages"
-        [ ! -d "$packages_dir" ] && return
-        
-        # Find package directories with direct executables
-        find "$packages_dir" -maxdepth 1 -type d 2>/dev/null | while read -r pkg_dir; do
-            [ "$pkg_dir" = "$packages_dir" ] && continue
-            is_safe_package_dir "$pkg_dir" && echo "$pkg_dir"
-        done
-        
-        # Find package subdirectories (bin, Scripts, etc.)
-        find "$packages_dir" -maxdepth 2 -type d \( -name "bin" -o -name "Scripts" \) 2>/dev/null | while read -r sub_dir; do
-            is_safe_package_dir "$sub_dir" && echo "$sub_dir"
-        done
-    }
-    
-    # Count packages executables (like original)
-    if [ -d "$packages_dir" ]; then
-        while IFS= read -r exe_dir; do
-            if [ -n "$exe_dir" ]; then
-                local dir_exe_count=$(find "$exe_dir" -maxdepth 1 -type f -executable 2>/dev/null | wc -l)
-                packages_exe_count=$((packages_exe_count + dir_exe_count))
-                ((tool_count++))
-                ((packages_count++))
-            fi
-        done < <(discover_packages)
-    fi
-    
-    # Get Windows PATH and convert it
-    echo -e "\\033[90mIntegrating Windows PATH...\\033[0m"
-    local windows_path_section=""
-    local windows_count=0
-    if command -v cmd.exe >/dev/null 2>&1; then
-        local windows_path
-        windows_path=$(cmd.exe /c "echo %PATH%" 2>/dev/null | tr -d '\r\n')
-        
-        if [[ -n "$windows_path" ]]; then
-            local converted_paths=()
-            local portx_paths=""
-            
-            # Build list of existing PORTX paths to avoid duplicates
-            if [ -d "$portx_home/bin" ]; then
-                portx_paths=":$portx_home/bin"
-            fi
-            while IFS= read -r exe_dir; do
-                if [ -n "$exe_dir" ]; then
-                    portx_paths="$portx_paths:$exe_dir"
-                fi
-            done < <(discover_packages)
-            
-            IFS=';' read -ra PATH_ARRAY <<< "$windows_path"
-            for dir in "${PATH_ARRAY[@]}"; do
-                [[ -z "$dir" ]] && continue
-                local posix_dir=$(echo "$dir" | sed 's|\\|/|g' | sed 's|^\([A-Za-z]\):|/\L\1|')
-                
-                # Skip if this is a PORTX directory (avoid duplicates)
-                if [[ "$portx_paths" == *":$posix_dir"* ]]; then
-                    continue
-                fi
-                
-                if [[ -d "$posix_dir" ]]; then
-                    converted_paths+=("$posix_dir")
-                    ((windows_count++))
-                fi
-            done
-            
-            # Build Windows PATH section
-            if [[ ${#converted_paths[@]} -gt 0 ]]; then
-                windows_path_section="# Add Windows PATH entries\n"
-                for path in "${converted_paths[@]}"; do
-                    windows_path_section+="COMPLETE_PATH=\"\$COMPLETE_PATH:$path\"\n"
-                done
-            fi
-        fi
+        return 0
     fi
 
-    # Generate cache file with complete PATH integration
-    echo -e "\\033[90mGenerating complete PATH cache...\\033[0m"
-    {
-        echo "#!/bin/bash"
-        echo "# PORTX Complete PATH Cache"
-        echo "# =========================="
-        echo "#"
-        echo "# PURPOSE: Complete PATH integration - PORTX tools + Windows PATH"
-        echo "# This provides fast access to all tools: PORTX executables + Windows system tools"
-        echo "#"
-        echo "# GENERATION INFO:"
-        echo "#   Generated: $(date)"
-        echo "#   PORTX Directory: $portx_home"
-        echo "#   Packages Directory: $packages_dir"
-        echo "#"
-        echo "# TOOL COUNTS:"
-        echo "#   MINGW Core: $mingw_count executables"
-        echo "#   PORTX Bin: $bin_count executables"
-        echo "#   PORTX Packages: $packages_count directories, $packages_exe_count executables"
-        echo "#   Windows PATH: $windows_count directories"
-        echo "#   Total: $((mingw_count + bin_count + packages_exe_count + windows_count)) PATH entries"
-        echo "#"
-        echo "# USAGE: This file is automatically sourced by .bashrc on shell startup."
-        echo "# To regenerate: rm ~/.portx_path or run 'regenerate_path_cache'"
-        echo "#"
-        echo "# CACHE INVALIDATION: Delete this file if any of the following change:"
-        echo "#   - Windows PATH environment variable is modified"
-        echo "#   - PORTX packages are added/removed/updated"
-        echo "#   - PORTX installation is moved or modified"
-        echo "#   - New Windows software installed that adds to PATH"
-        echo ""
-        
-        echo "# PORTX Home: $portx_home"
-        echo ""
-        
-        # Build complete integrated PATH
-        echo "# Build complete integrated PATH (PORTX + Windows)"
-        echo "COMPLETE_PATH=\"\""
-        
-        # Add core bin directory first (highest priority)
-        if [ -d "$portx_home/bin" ]; then
-            echo "COMPLETE_PATH=\"$portx_home/bin\""
-        fi
-        
-        # Add PORTX package directories
-        if [ -d "$packages_dir" ]; then
-            echo "# Add PORTX package directories"
-            
-            while IFS= read -r exe_dir; do
-                if [ -n "$exe_dir" ]; then
-                    local dir_exe_count=$(find "$exe_dir" -maxdepth 1 \( -name "*.exe" -o -name "*.bat" -o -name "*.cmd" \) -type f 2>/dev/null | wc -l)
-                    echo "COMPLETE_PATH=\"\$COMPLETE_PATH:$exe_dir\"  # $dir_exe_count executables"
-                fi
-            done < <(discover_packages)
-            
-            echo "# PORTX packages added: $packages_count directories"
-        fi
-        
-        # Add Windows PATH section
-        if [[ -n "$windows_path_section" ]]; then
-            echo ""
-            echo -e "$windows_path_section"
-            echo "# Windows PATH entries added: $windows_count directories"
-        fi
-        
-        echo ""
-        echo "# Export complete integrated PATH"
-        echo "export PATH=\"\$COMPLETE_PATH\""
-        echo ""
-        
-        # Calculate total counts
-        local total_exe_count=$((mingw_count + bin_count + packages_exe_count))
-        local total_path_dirs=$((1 + 1 + packages_count + windows_count))  # mingw + bin + packages + windows
-        
-        echo "# Complete PATH statistics"
-        echo "export MINGW_COUNT=$mingw_count"
-        echo "export BIN_COUNT=$bin_count"  
-        echo "export PACKAGES_EXE_COUNT=$packages_exe_count"
-        echo "export PACKAGES_COUNT=$packages_count"
-        echo "export WINDOWS_PATH_COUNT=$windows_count"
-        echo "export TOTAL_EXE_COUNT=$total_exe_count"
-        echo "export TOTAL_PATH_DIRS=$total_path_dirs"
-        echo "export TOOLS_STATUS=\"\\033[1;90mTOOLS\\033[0m\\033[90m(mingw:1/$mingw_count, bin:1/$bin_count, pkg:$packages_count/$packages_exe_count)\\033[0m\""
-        echo "export PATH_STATUS=\"\\033[1;90mPATH\\033[0m\\033[90m(portx:$((1 + packages_count))/$((bin_count + packages_exe_count)), windows:$windows_count)\\033[0m\""
-        echo "export PATH_LAST_SCAN=\"$(date '+%Y-%m-%d %H:%M')\""
-        
-    } > "$cache_file"
-    
-    # Source the newly created cache
-    source "$cache_file"
-    
-    # Show brief info if interactive
-    if [[ $- == *i* ]] && [[ -z "$PORTX_QUIET_LOAD" ]]; then
-        echo -e "\\033[90mComplete PATH cache ready: $total_path_dirs directories integrated\\033[0m"
-        echo -e "\\033[90mPORTX: $((bin_count + packages_exe_count)) executables | Windows: $windows_count directories\\033[0m"
-    fi
+    # Cache not found - show warning
+    echo "WARNING: No .portx_cache found, please regenerate using: ./scripts/import-packages.sh" >&2
 }
 
-# Utility functions for complete PATH management
-show_path_info() {
-    echo "Complete PATH Cache Info:"
-    echo "  Cache file: ~/.portx_path"
-    if [[ -f "$HOME/.portx_path" ]]; then
-        echo "  Cache exists: Yes"
-        echo "  Last scan: ${PATH_LAST_SCAN:-Unknown}"
-        echo "  PORTX executables: ${TOTAL_EXE_COUNT:-Unknown}"
-        echo "  Windows directories: ${WINDOWS_PATH_COUNT:-Unknown}"
-        echo "  Total PATH entries: ${TOTAL_PATH_DIRS:-Unknown}"
-    else
-        echo "  Cache exists: No"
-        echo "  Run 'regenerate_path_cache' to create"
-    fi
-}
-
+# regenerate_path_cache() - Force regeneration of PORTX PATH cache
+#
+# DESCRIPTION:
+#   Manually regenerates the PORTX PATH cache and reloads it.
+#   Useful when new tools are installed or paths change.
 regenerate_path_cache() {
-    echo "Removing complete PATH cache file..."
-    rm -f "$HOME/.portx_path"
-    echo "Regenerating complete PATH cache (PORTX + Windows)..."
-    PORTX_FORCE_REBUILD=1 load_portx_path
-    show_path_info
+    printf "Regenerating PORTX PATH cache...\n"
+    local import_script="$HOME/scripts/import-packages.sh"
+    if [[ -f "$import_script" ]]; then
+        "$import_script"
+        load_portx_path
+        printf "PORTX PATH cache regenerated successfully.\n"
+    else
+        printf "ERROR: import-packages.sh not found\n" >&2
+    fi
 }
 
-list_path_directories() {
-    echo "Current complete PATH directories:"
-    echo "$PATH" | tr ':' '\n' | nl
-}
-
-# Legacy compatibility functions
-show_tools_info() { show_path_info; }
-regenerate_tools_cache() { regenerate_path_cache; }
-list_tool_directories() { list_path_directories; }
-
-# Load complete PATH (PORTX + Windows) 
+# Initialize PORTX tool environment
 load_portx_path
 
-# Set up portx alias after tools are loaded
-# Detect PORTX root from bash executable location (same logic as load_portx_tools)
-bash_home="$(dirname "$(which bash)" 2>/dev/null || echo "/bin")"
-portx_home="$(dirname "$bash_home")"
+# =============================================================================
+# PORTX Integration Aliases
+# =============================================================================
 
-# Validate this is actually a PORTX installation
-if [[ ! -d "$portx_home/bin" ]] || [[ ! -d "$portx_home/home" ]] || [[ ! -d "$portx_home/mingw64" ]]; then
-    # Fallback: derive from HOME if validation fails
-    portx_home="$(dirname "$(dirname "$HOME")")"
-fi
+# Main PORTX command alias (assumes portx.sh is in PATH)
+alias portx="portx.sh"
 
-# Look for portx.sh in the detected PORTX directory
-if [ -f "$portx_home/portx.sh" ]; then
-    alias portx="$portx_home/portx.sh"
-fi
+# =============================================================================
+# SECTION 3: SECURITY & SSH MANAGEMENT
+# =============================================================================
 
+# Load SSH agent configuration and key management
+# shellcheck source=/dev/null
 source ~/scripts/ssh-agent.sh
+
+# Load environment security configuration
+# shellcheck source=/dev/null
 source ~/scripts/env-security.sh
+
+# Load custom prompt configuration (PS1 setup)
+# shellcheck source=/dev/null
 source ~/scripts/ps1.sh
+
+# =============================================================================
+# Bashrc Configuration Complete
+# =============================================================================

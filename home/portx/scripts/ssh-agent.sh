@@ -1,5 +1,9 @@
 # SSH Agent Management (Windows OpenSSH integrated)
 #
+# Load theme system for consistent colors
+# shellcheck source=/dev/null
+source "$PORTX_HOME/scripts/theme.sh"
+#
 # INTEGRATION STRATEGY: PORTX is source of truth, syncs to Windows
 # - PORTX keys: /home/portx/.ssh/ (C:\App\PORTX\home\portx\.ssh\) - SOURCE OF TRUTH
 # - Windows keys: %USERPROFILE%\.ssh\ (C:\Users\[user]\.ssh\) - SYNCED FROM PORTX
@@ -8,7 +12,7 @@
 # WINDOWS OPENSSH SERVICE (Recommended for best performance):
 # 1. Run as admin: Set-Service ssh-agent -StartupType Automatic
 # 2. Run as admin: Start-Service ssh-agent  
-# 3. PORTX keys automatically synced and loaded into Windows service
+# 3. PORTX will detect running service and sync keys automatically
 # 4. All applications (VS Code, Git GUI, etc.) use the same SSH agent
 
 # Function to sync PORTX keys to Windows OpenSSH location
@@ -33,73 +37,63 @@ sync_portx_keys_to_windows() {
     done
 }
 
-# Function to start or connect to ssh-agent
+# Simple SSH agent startup
 ssh_agent_start() {
-    local ssh_success=false
+    # Always sync PORTX keys to Windows location first
+    sync_portx_keys_to_windows
     
-    # Method 1: Check if ANY ssh-agent is running (Windows service or Git Bash)
-    if ssh-add -l >/dev/null 2>&1; then
-        # Agent is running with keys - assume PORTX keys are there
-        ssh_success=true
-        
-        # For Windows OpenSSH service: ensure keys are synced and loaded
-        sync_portx_keys_to_windows
-        
-        # Use a marker file to avoid repeated key addition
-        local key_marker="$HOME/.ssh/.portx_keys_added"
-        if [[ ! -f "$key_marker" ]]; then
-            # Load from PORTX location (source of truth)
-            for key in "$HOME/.ssh/id_rsa" "$HOME/.ssh/id_ed25519" "$HOME/.ssh/id_ecdsa"; do
-                if [[ -f "$key" ]]; then
-                    ssh-add "$key" 2>/dev/null && touch "$key_marker"
-                fi
-            done
-        fi
-    else
-        # Method 2: Try to connect to existing Git Bash ssh-agent
-        local ssh_env_file="$HOME/.ssh/agent.env"
-        if [[ -f "$ssh_env_file" ]]; then
-            source "$ssh_env_file" > /dev/null 2>&1
-            if ssh-add -l >/dev/null 2>&1; then
-                ssh_success=true
+    # Load existing agent environment if available
+    local ssh_env_file="$HOME/.ssh/agent.env"
+    if [[ -f "$ssh_env_file" ]]; then
+        source "$ssh_env_file" > /dev/null
+    fi
+    
+    # Check if ssh-agent is already running and accessible
+    if [[ -n "$SSH_AUTH_SOCK" ]] && ssh-add -l >/dev/null 2>&1; then
+        # Agent running - add our keys if needed
+        for key in ~/.ssh/id_rsa ~/.ssh/id_ed25519 ~/.ssh/id_ecdsa; do
+            if [[ -f "$key" ]]; then
+                ssh-add "$key" 2>/dev/null
             fi
-        fi
+        done
+        return 0
     fi
     
-    # Start new ssh-agent if not running or no keys
-    if [[ "$ssh_success" != "true" ]]; then
-        # Ensure PORTX keys are synced to Windows before starting agent
-        sync_portx_keys_to_windows
+    # Only cleanup if we have a broken agent environment
+    if [[ -n "$SSH_AUTH_SOCK" ]]; then
+        echo "PORTX SSH: Cleaning broken agent environment (sock: $SSH_AUTH_SOCK)" >&2
+        unset SSH_AUTH_SOCK SSH_AGENT_PID
+    fi
+    
+    # Start new ssh-agent
+    ssh-agent > "$ssh_env_file" 2>/dev/null
+    if [[ $? -eq 0 ]]; then
+        chmod 600 "$ssh_env_file"
+        source "$ssh_env_file" > /dev/null
         
-        ssh-agent > "$ssh_env_file" 2>/dev/null
-        if [[ $? -eq 0 ]]; then
-            chmod 600 "$ssh_env_file"
-            source "$ssh_env_file" > /dev/null
-            
-            # Add PORTX keys (source of truth)
-            for key in ~/.ssh/id_rsa ~/.ssh/id_ed25519 ~/.ssh/id_ecdsa; do
-                if [[ -f "$key" ]]; then
-                    ssh-add "$key" 2>/dev/null && ssh_success=true
-                fi
-            done
-        fi
+        # Add PORTX keys
+        for key in ~/.ssh/id_rsa ~/.ssh/id_ed25519 ~/.ssh/id_ecdsa; do
+            if [[ -f "$key" ]]; then
+                ssh-add "$key" 2>/dev/null
+            fi
+        done
     fi
-    
-    # Store SSH status for display (optimized - cache user info)
+}
+
+# Set SSH status for display
+set_ssh_status() {
     if [[ $- == *i* ]]; then
-        if [[ "$ssh_success" == "true" ]]; then
-            # Use cached user info if available, otherwise extract once
+        if ssh-add -l >/dev/null 2>&1; then
+            # SSH agent working - get cached user info
             local cached_user_file="$HOME/.ssh/cached_user"
             local key_users=""
             
-            if [[ -f "$cached_user_file" && -n "$(cat "$cached_user_file" 2>/dev/null)" ]]; then
-                # Use cached user info (much faster)
-                key_users=$(cat "$cached_user_file")
+            if [[ -f "$cached_user_file" ]]; then
+                key_users=$(cat "$cached_user_file" 2>/dev/null)
             else
-                # Extract user info only once and cache it
+                # Cache user info from first available key
                 for pub_key in ~/.ssh/id_*.pub; do
                     if [[ -f "$pub_key" ]]; then
-                        # Faster extraction - just get the last word from the key
                         comment=$(tail -1 "$pub_key" 2>/dev/null | awk '{print $NF}')
                         if [[ "$comment" == *"@"* ]]; then
                             key_users="$comment"
@@ -110,34 +104,38 @@ ssh_agent_start() {
                 done
             fi
             
-            # Determine which SSH agent is being used
-            local agent_type=""
-            if [[ -n "$SSH_AGENT_PID" ]]; then
-                agent_type="portx"
-            elif command -v ssh-agent.exe >/dev/null 2>&1 && pgrep -f "ssh-agent" >/dev/null 2>&1; then
-                agent_type="windows"
-            else
-                agent_type="unknown"
-            fi
-            
             if [[ -n "$key_users" ]]; then
-                export SSH_STATUS="\033[1;90mSSH\033[0m\033[90m($key_users/$agent_type)\033[0m"
+                # Export structured data
+                export PORTX_SSH_USER="$key_users"
+                export PORTX_SSH_STATUS="authenticated"
+                # Legacy compatibility
+                export SSH_STATUS="$(color_info)Ssh$(color_reset)$(color_muted)[$key_users]$(color_reset)"
             else
-                export SSH_STATUS="\033[1;90mSSH\033[0m\033[90m($agent_type)\033[0m"
+                # Export structured data  
+                export PORTX_SSH_STATUS="active"
+                # Legacy compatibility
+                export SSH_STATUS="$(color_info)Ssh$(color_reset)$(color_muted)[active]$(color_reset)"
             fi
         else
-            export SSH_STATUS="\033[1;31mSSH\033[0m\033[90m(no keys)\033[0m"
+            # Export structured data
+            export PORTX_SSH_STATUS="no agent"
+            # Legacy compatibility
+            export SSH_STATUS="$(color_error)Ssh$(color_reset)$(color_muted)[no agent]$(color_reset)"
         fi
     fi
 }
 
-# Start ssh-agent if SSH directory exists (always available for git operations)
+# Start ssh-agent if SSH directory exists
 if [[ -d "$HOME/.ssh" ]]; then
     ssh_agent_start
+    set_ssh_status
 else
     # No SSH directory - warn user
     if [[ $- == *i* ]]; then
-        export SSH_STATUS="\033[1;31mSSH\033[0m\033[90m(no ~/.ssh)\033[0m"
+        # Export structured data
+        export PORTX_SSH_STATUS="no ~/.ssh"
+        # Legacy compatibility
+        export SSH_STATUS="$(color_error)Ssh$(color_reset)$(color_muted)[no ~/.ssh]$(color_reset)"
     fi
 fi
 

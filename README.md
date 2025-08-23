@@ -220,17 +220,14 @@ This scientific approach ensures PORTX provides enterprise-grade tool discovery 
 
 ### SSH Agent Integration
 
-PORTX provides seamless SSH key management through Windows OpenSSH service integration:
+**Architecture**: PORTX `~/.ssh` directory serves as source of truth, synchronized with Windows `%USERPROFILE%\.ssh` for system-wide availability.
 
-**Architecture**: PORTX serves as the **source of truth** for SSH keys, automatically synchronizing with Windows OpenSSH service for system-wide availability.
+**Implementation**:
+- Unidirectional key synchronization: PORTX → Windows OpenSSH service
+- 54% startup performance improvement through Windows service integration
+- Status display format: `SSH(user@domain/agent_type)` where agent_type is `git-bash` or `openssh`
+- NTFS permission preservation during synchronization
 
-**Key Features**:
-- **Unified Key Management**: SSH keys stored in PORTX `~/.ssh` directory are automatically synchronized to Windows `%USERPROFILE%\.ssh`
-- **Cross-Application Compatibility**: Keys work seamlessly across Git Bash, PowerShell, Windows Terminal, and native Windows applications
-- **Performance Optimized**: 54% startup performance improvement through Windows OpenSSH service integration
-- **Status Visibility**: SSH status displays active user and agent type (PORTX/Windows) in the command prompt
-- **Automatic Synchronization**: Background sync ensures Windows system always has current PORTX keys
-
-**Benefits**: No duplicate key management, consistent SSH experience across all Windows development environments, enterprise-compatible with Windows security policies.
+**Compatibility**: Works across Git Bash, PowerShell, Windows Terminal, VS Code, and native Windows applications.
 
 PORTX delivers enterprise-grade Unix functionality on Windows without the complexity or security concerns of traditional emulation approaches.
