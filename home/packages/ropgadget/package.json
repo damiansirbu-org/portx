@@ -1,0 +1,55 @@
+{
+  "name": "ropgadget",
+  "version": "7.4.0",
+  "description": "Return Oriented Programming gadget finder and automatic ROP chain generator",
+  "category": "security",
+  "homepage": "https://github.com/JonathanSalwan/ROPgadget",
+  "license": "BSD-3-Clause",
+  "keywords": ["security", "exploit", "rop", "gadget", "reverse-engineering", "binary-analysis"],
+  "author": "Jonathan Salwan",
+  
+  "tools": {
+    "ROPgadget": {
+      "description": "Search ROP gadgets in binary files and generate exploit chains",
+      "usage": "ROPgadget --binary ./binary",
+      "examples": [
+        "ROPgadget --binary ./binary --ropchain",
+        "ROPgadget --binary ./binary --string 'bin/sh'",
+        "ROPgadget --binary ./binary --only 'pop|ret'",
+        "ROPgadget --binary ./binary --badbytes '00|0a|0d'",
+        "ROPgadget --binary ./binary --depth 5"
+      ],
+      "flags": ["--help", "--version"],
+      "common_args": [
+        "--binary",
+        "--ropchain", 
+        "--string",
+        "--only",
+        "--badbytes",
+        "--depth",
+        "--offset",
+        "--memstr",
+        "--console"
+      ]
+    },
+    "ROPgadget.py": {
+      "description": "Python script version of ROPgadget tool",
+      "usage": "python ROPgadget.py --binary ./binary",
+      "examples": [
+        "python ROPgadget.py --binary ./binary --ropchain",
+        "python ROPgadget.py --binary ./binary --string 'system'"
+      ],
+      "flags": ["--help", "--version"],
+      "common_args": [
+        "--binary",
+        "--ropchain",
+        "--string",
+        "--only"
+      ]
+    }
+  },
+
+  "paths": [
+    "scripts/"
+  ]
+}

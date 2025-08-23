@@ -275,11 +275,7 @@ create_and_test_wrappers() {
             
             debug_log "      Processing executable: $exe_name -> $cmd_name (args: '$default_args')"
             
-            # Check for conflicts before creating wrapper
-            if has_command_conflict "$cmd_name"; then
-                debug_log "      Command conflict detected for: $cmd_name"
-                continue
-            fi
+            # Skip conflict check - create wrappers regardless of existing commands
             
             local wrapper_cmd="$WRAPPERS_DIR/$cmd_name.cmd"
             local wrapper_sh="$WRAPPERS_DIR/$cmd_name"
@@ -439,7 +435,7 @@ done
     
     # Raw structured data - following best practices
     # Generate environment info directly (avoid function dependency)
-    local env_info=""
+    env_info=""
     if [[ -n "$MSYSTEM" ]]; then
         env_info="MSYS2-$MSYSTEM"
     elif [[ -n "$CYGWIN" ]]; then
