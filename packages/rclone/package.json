@@ -1,0 +1,16 @@
+{
+  "name": "rclone",
+  "version": "1.0.0",
+  "tools": [
+    {
+      "executable": "rclone.exe",
+      "description": "TODO: Add description",
+      "dependencies": [
+        []
+      ]
+    }
+  ],
+  "paths": [
+    "./"
+  ]
+}

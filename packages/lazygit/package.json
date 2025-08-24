@@ -1,0 +1,17 @@
+{
+  "name": "lazygit",
+  "version": "1.0.0",
+  "tools": [
+    {
+      "executable": "lazygit.exe",
+      "description": "Terminal UI for Git commands with intuitive keyboard shortcuts",
+      "dependencies": [
+        "system-windows"
+      ],
+      "usage": "lazygit # Launch Git TUI\\nSpace - Stage/unstage files, c - Commit\\na - Stage all changes, p - Pull from remote\\nP - Push to remote, m - Merge, r - Rebase"
+    }
+  ],
+  "paths": [
+    "./"
+  ]
+}

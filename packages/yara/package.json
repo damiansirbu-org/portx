@@ -1,0 +1,23 @@
+{
+  "name": "yara",
+  "version": "1.0.0",
+  "tools": [
+    {
+      "executable": "yara32.exe",
+      "description": "TODO: Add description",
+      "dependencies": [
+        []
+      ]
+    },
+    {
+      "executable": "yarac32.exe",
+      "description": "TODO: Add description",
+      "dependencies": [
+        []
+      ]
+    }
+  ],
+  "paths": [
+    "./"
+  ]
+}

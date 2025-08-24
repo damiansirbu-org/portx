@@ -1,0 +1,17 @@
+{
+  "name": "chocolatey",
+  "version": "1.0.0",
+  "tools": [
+    {
+      "executable": "choco.exe",
+      "description": "Chocolatey package manager for Windows with automatic dependency resolution",
+      "usage": "choco install git -y # Install package\\nchoco upgrade all # Update all packages\\nchoco search nodejs # Search packages\\nchoco list --local-only # List installed packages\\nchoco uninstall package-name # Remove package",
+      "dependencies": [
+        "system-windows"
+      ]
+    }
+  ],
+  "paths": [
+    "./"
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "name": "pnpm",
+  "version": "1.0.0",
+  "tools": [
+    {
+      "executable": "pnpm.exe",
+      "description": "TODO: Add description",
+      "dependencies": [
+        []
+      ]
+    }
+  ],
+  "paths": [
+    "./"
+  ]
+}

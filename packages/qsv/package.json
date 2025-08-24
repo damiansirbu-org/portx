@@ -1,0 +1,94 @@
+{
+  "name": "qsv",
+  "version": "1.0.0",
+  "tools": [
+    {
+      "executable": "qsv.exe",
+      "description": "Ultra-fast CSV toolkit with 50+ commands for data processing",
+      "dependencies": [
+        "system-windows"
+      ],
+      "usage": "qsv stats data.csv # Generate statistics\\nqsv select 1,3,5 data.csv # Select columns\\nqsv filter 'age > 30' data.csv # Filter rows\\nqsv join id file1.csv file2.csv # Join files\\nqsv frequency column data.csv # Value frequency count"
+    },
+    {
+      "executable": "qsvdp.exe",
+      "description": "TODO: Add description",
+      "dependencies": [
+        []
+      ]
+    },
+    {
+      "executable": "qsvlite.exe",
+      "description": "TODO: Add description",
+      "dependencies": [
+        []
+      ]
+    },
+    {
+      "executable": "qsvlite_nightly.exe",
+      "description": "TODO: Add description",
+      "dependencies": [
+        []
+      ]
+    },
+    {
+      "executable": "qsvp.exe",
+      "description": "TODO: Add description",
+      "dependencies": [
+        []
+      ]
+    },
+    {
+      "executable": "qsvpdp.exe",
+      "description": "TODO: Add description",
+      "dependencies": [
+        []
+      ]
+    },
+    {
+      "executable": "qsvplite.exe",
+      "description": "TODO: Add description",
+      "dependencies": [
+        []
+      ]
+    },
+    {
+      "executable": "qsvpy310.exe",
+      "description": "TODO: Add description",
+      "dependencies": [
+        "api-ms-win-crt-math-l1-1-0.dll,api-ms-win-crt-string-l1-1-0.dll,api-ms-win-crt-runtime-l1-1-0.dll,api-ms-win-crt-heap-l1-1-0.dll,api-ms-win-crt-convert-l1-1-0.dll,api-ms-win-crt-stdio-l1-1-0.dll,api-ms-win-crt-utility-l1-1-0.dll,api-ms-win-crt-time-l1-1-0.dll,api-ms-win-crt-locale-l1-1-0.dll"
+      ]
+    },
+    {
+      "executable": "qsvpy311.exe",
+      "description": "TODO: Add description",
+      "dependencies": [
+        "api-ms-win-crt-math-l1-1-0.dll,api-ms-win-crt-string-l1-1-0.dll,api-ms-win-crt-runtime-l1-1-0.dll,api-ms-win-crt-heap-l1-1-0.dll,api-ms-win-crt-convert-l1-1-0.dll,api-ms-win-crt-stdio-l1-1-0.dll,api-ms-win-crt-utility-l1-1-0.dll,api-ms-win-crt-time-l1-1-0.dll,api-ms-win-crt-locale-l1-1-0.dll"
+      ]
+    },
+    {
+      "executable": "qsvpy312.exe",
+      "description": "TODO: Add description",
+      "dependencies": [
+        "python312.dll"
+      ]
+    },
+    {
+      "executable": "qsvpy313.exe",
+      "description": "TODO: Add description",
+      "dependencies": [
+        "api-ms-win-crt-math-l1-1-0.dll,api-ms-win-crt-string-l1-1-0.dll,api-ms-win-crt-runtime-l1-1-0.dll,api-ms-win-crt-heap-l1-1-0.dll,api-ms-win-crt-convert-l1-1-0.dll,api-ms-win-crt-stdio-l1-1-0.dll,api-ms-win-crt-utility-l1-1-0.dll,api-ms-win-crt-time-l1-1-0.dll,api-ms-win-crt-locale-l1-1-0.dll"
+      ]
+    },
+    {
+      "executable": "qsv_nightly.exe",
+      "description": "TODO: Add description",
+      "dependencies": [
+        []
+      ]
+    }
+  ],
+  "paths": [
+    "./"
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "name": "cloc",
+  "version": "1.0.0",
+  "tools": [
+    {
+      "executable": "cloc.exe",
+      "description": "Count Lines of Code with language detection and detailed statistics",
+      "dependencies": [
+        "system-windows"
+      ],
+      "usage": "cloc . # Count lines in current directory\\ncloc --exclude-dir=node_modules,dist . # Exclude directories\\ncloc --by-file src/ # Show per-file statistics\\ncloc --diff old_version/ new_version/ # Compare versions"
+    }
+  ],
+  "paths": [
+    "./"
+  ]
+}

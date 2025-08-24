@@ -1,0 +1,17 @@
+{
+  "name": "bandwhich",
+  "version": "1.0.0",
+  "tools": [
+    {
+      "executable": "bandwhich.exe",
+      "description": "Real-time network bandwidth monitor showing per-process network usage",
+      "usage": "bandwhich # Monitor network usage by process\\nbandwhich -i eth0 # Monitor specific interface\\nbandwhich -r 1000 # Refresh every 1000ms\\nbandwhich --addresses # Show remote addresses",
+      "dependencies": [
+        "system-windows"
+      ]
+    }
+  ],
+  "paths": [
+    "./"
+  ]
+}

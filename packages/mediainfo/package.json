@@ -1,0 +1,16 @@
+{
+  "name": "mediainfo",
+  "version": "1.0.0",
+  "tools": [
+    {
+      "executable": "MediaInfo.exe",
+      "description": "TODO: Add description",
+      "dependencies": [
+        []
+      ]
+    }
+  ],
+  "paths": [
+    "./"
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "name": "scrcpy",
+  "version": "1.0.0",
+  "tools": [
+    {
+      "executable": "adb.exe",
+      "description": "TODO: Add description",
+      "dependencies": [
+        []
+      ]
+    },
+    {
+      "executable": "scrcpy.exe",
+      "description": "Display and control Android devices over USB/WiFi with low latency",
+      "dependencies": [
+        "avformat-61.dll,SDL2.dll,avcodec-61.dll,swresample-5.dll,avutil-59.dll,libusb-1.0.dll"
+      ],
+      "usage": "scrcpy # Mirror default device\\nscrcpy -s DEVICE_ID # Specific device\\nscrcpy --max-size 1024 # Limit resolution\\nscrcpy --record file.mp4 # Record session\\nscrcpy --turn-screen-off # Turn off device screen"
+    }
+  ],
+  "paths": [
+    "./"
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "name": "openshift",
+  "version": "1.0.0",
+  "tools": [
+    {
+      "executable": "oc.exe",
+      "description": "TODO: Add description",
+      "dependencies": [
+        []
+      ]
+    }
+  ],
+  "paths": [
+    "./"
+  ]
+}

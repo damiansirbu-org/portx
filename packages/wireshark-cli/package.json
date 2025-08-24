@@ -1,0 +1,52 @@
+{
+  "name": "wireshark-cli",
+  "version": "4.4.8",
+  "description": "Command-line network protocol analysis tools from Wireshark",
+  "category": "networking",
+  "homepage": "https://www.wireshark.org/",
+  "license": "GPL-2.0",
+  "keywords": ["network", "packet", "capture", "analysis", "protocol", "cli"],
+  "author": "Wireshark Foundation",
+  
+  "tools": {
+    "tshark.exe": {
+      "description": "Network protocol analyzer - command line version of Wireshark",
+      "usage": "tshark -i interface -w output.pcap",
+      "examples": [
+        "tshark -i eth0 -c 100 -w capture.pcap",
+        "tshark -r capture.pcap -T fields -e ip.src -e ip.dst",
+        "tshark -i any -f \"tcp port 80\" -V",
+        "tshark -r input.pcap -Y \"http.request\" -T json"
+      ],
+      "flags": ["-h", "--help", "-v", "--version"],
+      "common_args": ["-i", "-r", "-w", "-c", "-f", "-Y", "-T", "-V", "-x"]
+    },
+    "dumpcap.exe": {
+      "description": "Network traffic dump tool for packet capture",
+      "usage": "dumpcap -i interface -w output.pcap",
+      "examples": [
+        "dumpcap -i eth0 -w capture.pcap",
+        "dumpcap -D",
+        "dumpcap -i any -a duration:60 -w timed_capture.pcap",
+        "dumpcap -i eth0 -b filesize:100000 -b files:10 -w rolling.pcap"
+      ],
+      "flags": ["-h", "--help", "-v", "--version"],
+      "common_args": ["-i", "-w", "-D", "-a", "-b", "-f", "-s", "-P"]
+    },
+    "capinfos.exe": {
+      "description": "Print information about capture files",
+      "usage": "capinfos capture.pcap",
+      "examples": [
+        "capinfos capture.pcap",
+        "capinfos -t -c -s *.pcap",
+        "capinfos -T capture.pcap"
+      ],
+      "flags": ["-h", "--help"],
+      "common_args": ["-t", "-c", "-s", "-a", "-e", "-u", "-d", "-T"]
+    }
+  },
+
+  "paths": [
+    "./"
+  ]
+}

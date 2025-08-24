@@ -1,0 +1,17 @@
+{
+  "name": "dust",
+  "version": "1.0.0",
+  "tools": [
+    {
+      "executable": "dust.exe",
+      "description": "Intuitive du replacement with colorized tree view and size sorting",
+      "dependencies": [
+        "system-windows"
+      ],
+      "usage": "dust # Show disk usage tree\\ndust -d 3 # Limit depth to 3 levels\\ndust -r # Reverse sort (smallest first)\\ndust -x # Stay on same filesystem\\ndust -s # Show only summary"
+    }
+  ],
+  "paths": [
+    "./"
+  ]
+}

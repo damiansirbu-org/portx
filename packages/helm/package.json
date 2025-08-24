@@ -1,0 +1,17 @@
+{
+  "name": "helm",
+  "version": "1.0.0",
+  "tools": [
+    {
+      "executable": "helm.exe",
+      "description": "Kubernetes package manager with templating, versioning, and application lifecycle management",
+      "usage": "helm upgrade --install myapp ./chart --wait --timeout=300s # Deploy with rollback safety\\nhelm rollback myapp 1 --wait # Instant rollback to previous version\\nhelm template . --values prod.yaml > rendered.yaml # Dry-run template rendering\\nhelm diff upgrade myapp ./chart --values prod.yaml # Preview changes",
+      "dependencies": [
+        "system-windows"
+      ]
+    }
+  ],
+  "paths": [
+    "./"
+  ]
+}

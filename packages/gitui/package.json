@@ -1,0 +1,17 @@
+{
+  "name": "gitui",
+  "version": "1.0.0",
+  "tools": [
+    {
+      "executable": "gitui.exe",
+      "description": "Blazing fast terminal UI for Git with keyboard-driven workflow",
+      "usage": "gitui # Launch Git TUI\\nTab - Switch between panels\\nc - Commit changes\\nf - Fetch from remote\\np - Push to remote\\nh - Help with keybindings",
+      "dependencies": [
+        "system-windows"
+      ]
+    }
+  ],
+  "paths": [
+    "./"
+  ]
+}

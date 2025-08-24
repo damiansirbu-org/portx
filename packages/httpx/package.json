@@ -1,0 +1,17 @@
+{
+  "name": "httpx",
+  "version": "1.0.0",
+  "tools": [
+    {
+      "executable": "httpx.exe",
+      "description": "Fast HTTP toolkit for web reconnaissance and security testing",
+      "dependencies": [
+        "system-windows"
+      ],
+      "usage": "httpx -l domains.txt # Probe HTTP services\\nhttpx -sc -title -tech-detect -l hosts.txt # Full reconnaissance\\nhttpx -x GET,POST -mc 200,301 -silent # Custom methods and status\\necho 'domain.com' | httpx -probe # Pipeline usage"
+    }
+  ],
+  "paths": [
+    "./"
+  ]
+}

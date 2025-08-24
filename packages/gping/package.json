@@ -1,0 +1,17 @@
+{
+  "name": "gping",
+  "version": "1.0.0",
+  "tools": [
+    {
+      "executable": "gping.exe",
+      "description": "Ping with a graph - visual network latency monitor with real-time charts",
+      "dependencies": [
+        "system-windows"
+      ],
+      "usage": "gping google.com # Ping with graph\\ngping 8.8.8.8 1.1.1.1 # Compare multiple hosts\\ngping --simple-graphics google.com # ASCII-only mode\\ngping -6 google.com # IPv6 ping"
+    }
+  ],
+  "paths": [
+    "./"
+  ]
+}

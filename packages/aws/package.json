@@ -1,0 +1,25 @@
+{
+  "name": "aws",
+  "version": "1.0.0",
+  "tools": [
+    {
+      "executable": "aws.exe",
+      "description": "AWS CLI v2 with improved performance, enhanced security, and new features",
+      "dependencies": [
+        "system-windows"
+      ],
+      "usage": "aws configure # Setup credentials\\naws s3 ls # List S3 buckets\\naws ec2 describe-instances --query 'Reservations[].Instances[].{ID:InstanceId,State:State.Name}' --output table\\naws sts get-caller-identity # Check current identity"
+    },
+    {
+      "executable": "aws_completer.exe",
+      "description": "AWS CLI command completion engine for bash and zsh shells",
+      "dependencies": [
+        "system-windows"
+      ],
+      "usage": "complete -C aws_completer aws # Enable bash completion\\naws s3 <TAB> # Auto-complete S3 commands\\naws ec2 describe-<TAB> # Auto-complete EC2 operations"
+    }
+  ],
+  "paths": [
+    "./"
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "name": "adb",
+  "version": "1.0.0",
+  "tools": [
+    {
+      "executable": "adb.exe",
+      "description": "Android Debug Bridge for device communication, app deployment, and debugging",
+      "usage": "adb devices # List connected devices\\nadb install app.apk # Install APK\\nadb shell # Interactive shell\\nadb logcat # View logs\\nadb pull /sdcard/file.txt . # Copy from device\\nadb push file.txt /sdcard/ # Copy to device",
+      "dependencies": [
+        "system-windows"
+      ]
+    }
+  ],
+  "paths": [
+    "./"
+  ]
+}

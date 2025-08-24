@@ -1,0 +1,25 @@
+{
+  "name": "ctags",
+  "version": "1.0.0",
+  "tools": [
+    {
+      "executable": "ctags.exe",
+      "description": "Universal Ctags - advanced source code indexer supporting 50+ languages",
+      "dependencies": [
+        "system-windows"
+      ],
+      "usage": "ctags -R . # Generate tags for entire project\\nctags --languages=Python,JavaScript src/ # Specific languages\\nctags --extras=+r --fields=+l *.c # Enhanced tags with references\\nctags --list-languages # Show supported languages"
+    },
+    {
+      "executable": "readtags.exe",
+      "description": "Universal Ctags tag file reader with powerful filtering and formatting",
+      "dependencies": [
+        "system-windows"
+      ],
+      "usage": "readtags -t tags function_name # Find specific tag\\nreadtags -l # List all tags\\nreadtags -Q '(eq? $kind \\\"function\\\")' -l # Filter by kind\\nreadtags -S -l # Sort tags"
+    }
+  ],
+  "paths": [
+    "./"
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "name": "csvtk",
+  "version": "1.0.0",
+  "tools": [
+    {
+      "executable": "csvtk.exe",
+      "description": "Swiss Army knife for CSV/TSV processing with 20+ subcommands",
+      "dependencies": [
+        "system-windows"
+      ],
+      "usage": "csvtk stats data.csv # Show statistics\\ncsvtk cut -f 1,3 data.csv # Select columns\\ncsvtk filter -f 'age>30' data.csv # Filter rows\\ncsvtk join -f id file1.csv file2.csv # Join files\\ncsvtk plot hist -f age data.csv # Create histogram"
+    }
+  ],
+  "paths": [
+    "./"
+  ]
+}

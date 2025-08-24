@@ -1,0 +1,17 @@
+{
+  "name": "fd",
+  "version": "1.0.0",
+  "tools": [
+    {
+      "executable": "fd.exe",
+      "description": "Intuitive find replacement with smart defaults, regex support, and parallel execution",
+      "usage": "fd '^test.*\\.rs$' src/ # Regex filename search\\nfd -t f -x wc -l {} # Count lines in all files\\nfd -e py -X black # Format all Python files\\nfd . /var/log -t f -S +1M # Find large log files",
+      "dependencies": [
+        "system-windows"
+      ]
+    }
+  ],
+  "paths": [
+    "./"
+  ]
+}

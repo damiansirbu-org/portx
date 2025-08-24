@@ -1,0 +1,23 @@
+{
+  "name": "nircmd",
+  "version": "1.0.0",
+  "tools": [
+    {
+      "executable": "nircmd.exe",
+      "description": "TODO: Add description",
+      "dependencies": [
+        []
+      ]
+    },
+    {
+      "executable": "nircmdc.exe",
+      "description": "TODO: Add description",
+      "dependencies": [
+        []
+      ]
+    }
+  ],
+  "paths": [
+    "./"
+  ]
+}

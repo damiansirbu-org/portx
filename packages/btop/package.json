@@ -1,0 +1,17 @@
+{
+  "name": "btop",
+  "version": "1.0.0",
+  "tools": [
+    {
+      "executable": "btop.exe",
+      "description": "Resource monitor with mouse support, game-like UI, and detailed process trees",
+      "dependencies": [
+        "system-windows"
+      ],
+      "usage": "btop # Launch full-featured monitor\\nbtop --utf-force # Force UTF-8 characters\\nbtop --preset=0 # Use minimal preset\\nPress 'm' for memory view, 'n' for network, 'p' for processes"
+    }
+  ],
+  "paths": [
+    "./"
+  ]
+}

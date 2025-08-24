@@ -1,0 +1,17 @@
+{
+  "name": "bun",
+  "version": "1.0.0",
+  "tools": [
+    {
+      "executable": "bun.exe",
+      "description": "All-in-one JavaScript toolkit replacing npm/node/webpack with native speed and built-in bundling",
+      "usage": "bun install # Lightning-fast dependency installation\\nbun run --hot server.ts # Hot reload development server\\nbun build --minify --splitting ./src/index.ts # Production bundling\\nbun test --watch # Interactive test runner with file watching",
+      "dependencies": [
+        "system-windows"
+      ]
+    }
+  ],
+  "paths": [
+    "./"
+  ]
+}

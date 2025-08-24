@@ -1,0 +1,100 @@
+{
+  "name": "path-utils",
+  "version": "1.0.0",
+  "tools": [
+    {
+      "executable": "basename.exe",
+      "description": "TODO: Add description",
+      "dependencies": [
+        "msys-2.0.dll,msys-intl-8.dll,msys-iconv-2.dll"
+      ]
+    },
+    {
+      "executable": "convert.exe",
+      "description": "TODO: Add description",
+      "dependencies": [
+        []
+      ]
+    },
+    {
+      "executable": "cygpath.exe",
+      "description": "TODO: Add description",
+      "dependencies": [
+        "msys-2.0.dll"
+      ]
+    },
+    {
+      "executable": "dirname.exe",
+      "description": "TODO: Add description",
+      "dependencies": [
+        "msys-2.0.dll,msys-intl-8.dll,msys-iconv-2.dll"
+      ]
+    },
+    {
+      "executable": "hardlink.exe",
+      "description": "TODO: Add description",
+      "dependencies": [
+        "msys-2.0.dll,msys-intl-8.dll,msys-iconv-2.dll"
+      ]
+    },
+    {
+      "executable": "link.exe",
+      "description": "TODO: Add description",
+      "dependencies": [
+        "msys-2.0.dll,msys-intl-8.dll,msys-iconv-2.dll"
+      ]
+    },
+    {
+      "executable": "ln.exe",
+      "description": "TODO: Add description",
+      "dependencies": [
+        "msys-2.0.dll,msys-intl-8.dll,msys-iconv-2.dll"
+      ]
+    },
+    {
+      "executable": "pathchk.exe",
+      "description": "TODO: Add description",
+      "dependencies": [
+        "msys-2.0.dll,msys-intl-8.dll,msys-iconv-2.dll"
+      ]
+    },
+    {
+      "executable": "readlink.exe",
+      "description": "TODO: Add description",
+      "dependencies": [
+        "msys-2.0.dll,msys-intl-8.dll,msys-iconv-2.dll"
+      ]
+    },
+    {
+      "executable": "realpath.exe",
+      "description": "TODO: Add description",
+      "dependencies": [
+        "msys-2.0.dll,msys-intl-8.dll,msys-iconv-2.dll"
+      ]
+    },
+    {
+      "executable": "unlink.exe",
+      "description": "TODO: Add description",
+      "dependencies": [
+        "msys-2.0.dll,msys-intl-8.dll,msys-iconv-2.dll"
+      ]
+    },
+    {
+      "executable": "windmc.exe",
+      "description": "TODO: Add description",
+      "dependencies": [
+        "libintl-8.dll,zlib1.dll,libwinpthread-1.dll,libzstd.dll,libiconv-2.dll"
+      ]
+    },
+    {
+      "executable": "windres.exe",
+      "description": "TODO: Add description",
+      "dependencies": [
+        "libintl-8.dll,libzstd.dll,zlib1.dll,libwinpthread-1.dll,libiconv-2.dll"
+      ]
+    }
+  ],
+  "paths": [
+    "./"
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "name": "usql",
+  "version": "1.0.0",
+  "tools": [
+    {
+      "executable": "usql.exe",
+      "description": "TODO: Add description",
+      "dependencies": [
+        []
+      ]
+    }
+  ],
+  "paths": [
+    "./"
+  ]
+}

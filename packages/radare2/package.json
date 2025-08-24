@@ -1,0 +1,116 @@
+{
+  "name": "radare2",
+  "version": "1.0.0",
+  "tools": [
+    {
+      "executable": "r2agent.exe",
+      "description": "TODO: Add description",
+      "dependencies": [
+        "r_main.dll,r_cons.dll,r_config.dll,r_io.dll,r_util.dll,r_muta.dll,r_flag.dll,r_asm.dll,r_core.dll,r_debug.dll,r_bin.dll,r_anal.dll,r_bp.dll,r_egg.dll,r_reg.dll,r_search.dll,r_arch.dll,r_syscall.dll,r_socket.dll,r_magic.dll,r_fs.dll,r_esil.dll,r_esil.dll,r_lang.dll"
+      ]
+    },
+    {
+      "executable": "r2pm.exe",
+      "description": "TODO: Add description",
+      "dependencies": [
+        "r_main.dll,r_config.dll,r_cons.dll,r_io.dll,r_muta.dll,r_util.dll,r_flag.dll,r_asm.dll,r_arch.dll,r_core.dll,r_debug.dll,r_bin.dll,r_anal.dll,r_egg.dll,r_bp.dll,r_reg.dll,r_search.dll,r_syscall.dll,r_socket.dll,r_magic.dll,r_fs.dll,r_esil.dll,r_esil.dll,r_lang.dll"
+      ]
+    },
+    {
+      "executable": "r2r.exe",
+      "description": "TODO: Add description",
+      "dependencies": [
+        "r_util.dll,r_cons.dll"
+      ]
+    },
+    {
+      "executable": "rabin2.exe",
+      "description": "Binary analysis tool for extracting information from executables",
+      "dependencies": [
+        "r_main.dll,r_util.dll,r_config.dll,r_cons.dll,r_io.dll,r_muta.dll,r_flag.dll,r_arch.dll,r_asm.dll,r_core.dll,r_debug.dll,r_bin.dll,r_anal.dll,r_bp.dll,r_reg.dll,r_egg.dll,r_search.dll,r_syscall.dll,r_socket.dll,r_fs.dll,r_magic.dll,r_esil.dll,r_esil.dll,r_lang.dll"
+      ],
+      "usage": "rabin2 -I binary.exe # Show file info\\nrabin2 -i binary.exe # List imports\\nrabin2 -E binary.exe # Show exports\\nrabin2 -S binary.exe # List sections\\nrabin2 -z binary.exe # Extract strings"
+    },
+    {
+      "executable": "radare2.exe",
+      "description": "Advanced reverse engineering framework with disassembler and debugger",
+      "dependencies": [
+        "r_util.dll,r_main.dll,r_config.dll,r_cons.dll,r_io.dll,r_muta.dll,r_flag.dll,r_arch.dll,r_asm.dll,r_core.dll,r_bin.dll,r_debug.dll,r_bp.dll,r_egg.dll,r_anal.dll,r_reg.dll,r_search.dll,r_syscall.dll,r_socket.dll,r_fs.dll,r_magic.dll,r_esil.dll,r_esil.dll,r_lang.dll"
+      ],
+      "usage": "radare2 binary.exe # Open binary for analysis\\nr2 -A binary.exe # Auto-analyze binary\\nr2 -d program.exe # Debug mode\\nr2 -w binary.exe # Write mode\\nr2 -B 0x1000 mem.dump # Set base address"
+    },
+    {
+      "executable": "radiff2.exe",
+      "description": "TODO: Add description",
+      "dependencies": [
+        "r_main.dll,r_config.dll,r_cons.dll,r_io.dll,r_muta.dll,r_util.dll,r_flag.dll,r_asm.dll,r_core.dll,r_arch.dll,r_debug.dll,r_bin.dll,r_anal.dll,r_bp.dll,r_egg.dll,r_reg.dll,r_syscall.dll,r_search.dll,r_socket.dll,r_fs.dll,r_magic.dll,r_esil.dll,r_esil.dll,r_lang.dll"
+      ]
+    },
+    {
+      "executable": "rafind2.exe",
+      "description": "TODO: Add description",
+      "dependencies": [
+        "r_main.dll,r_config.dll,r_cons.dll,r_io.dll,r_muta.dll,r_util.dll,r_flag.dll,r_arch.dll,r_asm.dll,r_core.dll,r_bin.dll,r_debug.dll,r_anal.dll,r_bp.dll,r_egg.dll,r_reg.dll,r_search.dll,r_syscall.dll,r_socket.dll,r_fs.dll,r_magic.dll,r_esil.dll,r_lang.dll"
+      ]
+    },
+    {
+      "executable": "ragg2.exe",
+      "description": "TODO: Add description",
+      "dependencies": [
+        "r_main.dll,r_config.dll,r_cons.dll,r_io.dll,r_muta.dll,r_util.dll,r_flag.dll,r_asm.dll,r_core.dll,r_debug.dll,r_arch.dll,r_anal.dll,r_bin.dll,r_bp.dll,r_egg.dll,r_reg.dll,r_search.dll,r_socket.dll,r_syscall.dll,r_fs.dll,r_magic.dll,r_esil.dll,r_lang.dll"
+      ]
+    },
+    {
+      "executable": "rahash2.exe",
+      "description": "TODO: Add description",
+      "dependencies": [
+        "r_main.dll,r_cons.dll,r_config.dll,r_io.dll,r_muta.dll,r_util.dll,r_flag.dll,r_arch.dll,r_asm.dll,r_core.dll,r_debug.dll,r_bin.dll,r_anal.dll,r_bp.dll,r_egg.dll,r_search.dll,r_reg.dll,r_syscall.dll,r_socket.dll,r_fs.dll,r_magic.dll,r_esil.dll,r_esil.dll,r_lang.dll"
+      ]
+    },
+    {
+      "executable": "rapatch2.exe",
+      "description": "TODO: Add description",
+      "dependencies": [
+        "r_main.dll,r_config.dll,r_cons.dll,r_io.dll,r_muta.dll,r_util.dll,r_flag.dll,r_arch.dll,r_asm.dll,r_core.dll,r_debug.dll,r_bin.dll,r_anal.dll,r_bp.dll,r_egg.dll,r_reg.dll,r_search.dll,r_syscall.dll,r_socket.dll,r_fs.dll,r_magic.dll,r_esil.dll,r_lang.dll"
+      ]
+    },
+    {
+      "executable": "rarun2.exe",
+      "description": "TODO: Add description",
+      "dependencies": [
+        "r_main.dll,r_util.dll,r_config.dll,r_cons.dll,r_io.dll,r_muta.dll,r_flag.dll,r_asm.dll,r_arch.dll,r_core.dll,r_debug.dll,r_bin.dll,r_anal.dll,r_bp.dll,r_egg.dll,r_search.dll,r_reg.dll,r_syscall.dll,r_socket.dll,r_fs.dll,r_magic.dll,r_esil.dll,r_esil.dll,r_lang.dll"
+      ]
+    },
+    {
+      "executable": "rasign2.exe",
+      "description": "TODO: Add description",
+      "dependencies": [
+        "r_main.dll,r_cons.dll,r_config.dll,r_io.dll,r_muta.dll,r_util.dll,r_flag.dll,r_arch.dll,r_asm.dll,r_core.dll,r_debug.dll,r_bin.dll,r_anal.dll,r_bp.dll,r_reg.dll,r_egg.dll,r_search.dll,r_syscall.dll,r_fs.dll,r_socket.dll,r_magic.dll,r_esil.dll,r_lang.dll"
+      ]
+    },
+    {
+      "executable": "rasm2.exe",
+      "description": "TODO: Add description",
+      "dependencies": [
+        "r_main.dll,r_cons.dll,r_io.dll,r_config.dll,r_muta.dll,r_util.dll,r_flag.dll,r_arch.dll,r_asm.dll,r_core.dll,r_bin.dll,r_debug.dll,r_anal.dll,r_bp.dll,r_egg.dll,r_search.dll,r_reg.dll,r_syscall.dll,r_fs.dll,r_socket.dll,r_magic.dll,r_esil.dll,r_esil.dll,r_lang.dll"
+      ]
+    },
+    {
+      "executable": "ravc2.exe",
+      "description": "TODO: Add description",
+      "dependencies": [
+        "r_main.dll,r_cons.dll,r_config.dll,r_io.dll,r_muta.dll,r_util.dll,r_flag.dll,r_arch.dll,r_asm.dll,r_core.dll,r_debug.dll,r_bin.dll,r_anal.dll,r_bp.dll,r_egg.dll,r_search.dll,r_reg.dll,r_socket.dll,r_syscall.dll,r_fs.dll,r_magic.dll,r_esil.dll,r_esil.dll,r_lang.dll"
+      ]
+    },
+    {
+      "executable": "rax2.exe",
+      "description": "TODO: Add description",
+      "dependencies": [
+        "r_main.dll,r_cons.dll,r_config.dll,r_io.dll,r_muta.dll,r_util.dll,r_flag.dll,r_arch.dll,r_asm.dll,r_core.dll,r_debug.dll,r_bin.dll,r_anal.dll,r_bp.dll,r_egg.dll,r_reg.dll,r_search.dll,r_syscall.dll,r_socket.dll,r_fs.dll,r_magic.dll,r_esil.dll,r_lang.dll"
+      ]
+    }
+  ],
+  "paths": [
+    "./"
+  ]
+}

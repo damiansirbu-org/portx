@@ -1,0 +1,23 @@
+{
+  "name": "osquery",
+  "version": "1.0.0",
+  "tools": [
+    {
+      "executable": "osqueryd.exe",
+      "description": "TODO: Add description",
+      "dependencies": [
+        []
+      ]
+    },
+    {
+      "executable": "osqueryi.exe",
+      "description": "TODO: Add description",
+      "dependencies": [
+        []
+      ]
+    }
+  ],
+  "paths": [
+    "./"
+  ]
+}

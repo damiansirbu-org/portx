@@ -1,0 +1,25 @@
+{
+  "name": "k8",
+  "version": "1.0.0",
+  "tools": [
+    {
+      "executable": "kubectl.exe",
+      "description": "Kubernetes CLI for cluster management and application deployment",
+      "usage": "kubectl get pods -A # List all pods\\nkubectl apply -f deployment.yaml # Apply configuration\\nkubectl logs -f pod-name # Follow logs\\nkubectl exec -it pod-name -- bash # Interactive shell\\nkubectl port-forward service/app 8080:80 # Port forwarding",
+      "dependencies": [
+        "system-windows"
+      ]
+    },
+    {
+      "executable": "kustomize.exe",
+      "description": "Kubernetes configuration management without templates using overlays",
+      "dependencies": [
+        "system-windows"
+      ],
+      "usage": "kustomize build overlays/production # Build production config\\nkustomize build . | kubectl apply -f - # Apply kustomized config\\nkustomize edit set image app=myapp:v2 # Update image version\\nkustomize create --autodetect # Initialize kustomization"
+    }
+  ],
+  "paths": [
+    "./"
+  ]
+}

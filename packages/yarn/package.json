@@ -1,0 +1,41 @@
+{
+  "name": "yarn",
+  "version": "1.22.22",
+  "description": "Fast, reliable, and secure dependency management for JavaScript projects",
+  "category": "package-manager",
+  "homepage": "https://yarnpkg.com/",
+  "license": "BSD-2-Clause",
+  "keywords": ["package-manager", "javascript", "nodejs", "npm", "dependency"],
+  "author": "Yarn Contributors",
+  
+  "tools": {
+    "yarn.cmd": {
+      "description": "JavaScript package manager with improved performance and security",
+      "usage": "yarn add <package>",
+      "examples": [
+        "yarn install",
+        "yarn add express",
+        "yarn add --dev webpack",
+        "yarn remove lodash",
+        "yarn upgrade",
+        "yarn run build",
+        "yarn global add create-react-app"
+      ],
+      "flags": ["--help", "--version"],
+      "common_args": [
+        "install",
+        "add",
+        "remove",
+        "upgrade",
+        "run",
+        "global",
+        "init",
+        "publish"
+      ]
+    }
+  },
+
+  "paths": [
+    "./"
+  ]
+}

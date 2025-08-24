@@ -1,0 +1,53 @@
+{
+  "name": "nmap",
+  "version": "1.0.0",
+  "tools": [
+    {
+      "executable": "ncat.exe",
+      "description": "Nmap's network Swiss Army knife for connectivity and data transfer",
+      "dependencies": [
+        "system-windows"
+      ],
+      "usage": "ncat -l 8080 # Listen on port 8080\\nncat example.com 80 # Connect to HTTP port\\nncat --broker --listen 8080 # Chat server\\nncat --ssl example.com 443 # SSL connection\\necho 'GET / HTTP/1.0' | ncat example.com 80"
+    },
+    {
+      "executable": "nmap.exe",
+      "description": "Network reconnaissance engine with NSE scripts for deep service enumeration and OS fingerprinting",
+      "usage": "nmap -sS -O target.com # Stealth SYN scan with OS detection\\nnmap --script vuln target.com # Vulnerability enumeration\\nnmap -sV --script discovery target.com # Service version detection\\nnmap -p- --min-rate 10000 target.com # Fast full port scan",
+      "dependencies": [
+        "system-windows"
+      ]
+    },
+    {
+      "executable": "npcap-1.83.exe",
+      "description": "TODO: Add description",
+      "dependencies": [
+        []
+      ]
+    },
+    {
+      "executable": "NpcapHelper.exe",
+      "description": "TODO: Add description",
+      "dependencies": [
+        []
+      ]
+    },
+    {
+      "executable": "nping.exe",
+      "description": "TODO: Add description",
+      "dependencies": [
+        []
+      ]
+    },
+    {
+      "executable": "WlanHelper.exe",
+      "description": "TODO: Add description",
+      "dependencies": [
+        []
+      ]
+    }
+  ],
+  "paths": [
+    "./"
+  ]
+}

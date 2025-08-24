@@ -1,0 +1,17 @@
+{
+  "name": "ast-grep",
+  "version": "1.0.0",
+  "tools": [
+    {
+      "executable": "ast-grep.exe",
+      "description": "Structural code search and refactoring tool using AST pattern matching",
+      "dependencies": [
+        "system-windows"
+      ],
+      "usage": "ast-grep --pattern 'console.log($$$)' # Find console.log statements\\nast-grep --pattern 'function $NAME($$$) { $$$ }' --rewrite 'const $NAME = ($$$) => { $$$ }' # Convert to arrow functions\\nast-grep -l typescript --pattern 'interface $NAME { $$$ }' # Find TypeScript interfaces"
+    }
+  ],
+  "paths": [
+    "./"
+  ]
+}

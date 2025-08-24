@@ -1,0 +1,16 @@
+{
+  "name": "oxipng",
+  "version": "1.0.0",
+  "tools": [
+    {
+      "executable": "oxipng.exe",
+      "description": "TODO: Add description",
+      "dependencies": [
+        []
+      ]
+    }
+  ],
+  "paths": [
+    "./"
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "name": "helix",
+  "version": "1.0.0",
+  "tools": [
+    {
+      "executable": "hx.exe",
+      "description": "Helix editor with tree-sitter syntax highlighting and LSP support",
+      "dependencies": [
+        "system-windows"
+      ],
+      "usage": "hx file.rs # Edit Rust file with syntax highlighting\\nhx --health # Check LSP server status\\nhx --tutor # Interactive tutorial\\nSpace+f - File picker, Space+b - Buffer picker, Ctrl+c - Command palette"
+    }
+  ],
+  "paths": [
+    "./"
+  ]
+}
