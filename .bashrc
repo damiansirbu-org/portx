@@ -28,6 +28,13 @@
 [[ -n "$PORTX_BASHRC_LOADED" ]] && return
 export PORTX_BASHRC_LOADED=1
 
+# =============================================================================
+# CRITICAL PATH INHERITANCE FIX
+# =============================================================================
+# Force Git Bash to inherit full Windows PATH instead of minimal default
+# This ensures all Windows PATH entries (including /c/App/Git/bin) are available
+export MSYS2_PATH_TYPE=inherit
+
 # ⚠️  CRITICAL ENVIRONMENT WARNING ⚠️
 # Do NOT override USER/HOME variables set by /etc/profile
 # The portable environment requires these exact values:
@@ -227,14 +234,44 @@ shopt -s histappend # Append to history file, don't overwrite
 PROMPT_COMMAND="history -a;$PROMPT_COMMAND"
 
 # =============================================================================
-# PATH Management & Development Tools
+# UNIFIED PATH MANAGEMENT SYSTEM
 # =============================================================================
 
-# Local Development PATH Extensions
-# Add user-specific binary directories to PATH if they exist
-[[ -d "$HOME/bin" ]] && export PATH="$HOME/bin:$PATH"
-[[ -d "$HOME/.local/bin" ]] && export PATH="$HOME/.local/bin:$PATH"
-[[ -d "$HOME/scripts" ]] && export PATH="$HOME/scripts:$PATH"
+# configure_portx_path() - Centralized PATH configuration
+#
+# DESCRIPTION:
+#   Single location for all PATH modifications in PORTX environment.
+#   Ensures consistent PATH building and avoids scattered modifications.
+#
+# ORDER OF OPERATIONS:
+#   1. Start with inherited Windows PATH (via MSYS2_PATH_TYPE=inherit)
+#   2. Add local development directories
+#   3. Add PORTX package paths
+#   4. Ensure no duplicates
+configure_portx_path() {
+    # Local Development PATH Extensions
+    # Add user-specific binary directories to PATH if they exist
+    [[ -d "$HOME/bin" ]] && export PATH="$HOME/bin:$PATH"
+    [[ -d "$HOME/.local/bin" ]] && export PATH="$HOME/.local/bin:$PATH"
+    [[ -d "$HOME/scripts" ]] && export PATH="$HOME/scripts:$PATH"
+    
+    # PORTX Package Integration
+    # Load PORTX tool paths using cached results for performance
+    local cache_file="$PORTX_HOME/.portx_cache"
+    
+    if [[ -f "$cache_file" ]]; then
+        # shellcheck source=/dev/null
+        source "$cache_file"
+        
+        # Add PACKAGES_PATH to PATH if available
+        if [[ -n "$PACKAGES_PATH" ]]; then
+            export PATH="$PACKAGES_PATH:$PATH"
+        fi
+    else
+        # Cache not found - show warning
+        echo "WARNING: No .portx_cache found, please regenerate using: ./scripts/import-packages.sh" >&2
+    fi
+}
 
 # =============================================================================
 # SECTION 5: USER INTERFACE & PROMPT CONFIGURATION
@@ -315,42 +352,8 @@ configure_interactive_shell
 # SECTION 6: TOOL INTEGRATION & PATH MANAGEMENT
 # =============================================================================
 
-# =============================================================================
-# PORTX Tool PATH Management System
-# =============================================================================
-
-# load_portx_path() - Intelligent PORTX tool PATH loading with caching
-#
-# DESCRIPTION:
-#   Loads PORTX tool paths using cached results for performance.
-#   Automatically regenerates cache if missing or invalid.
-#
-# CACHE STRATEGY:
-#   - Uses ~/.portx_path cache file for instant loading
-#   - Falls back to import-packages.sh for cache generation
-#   - Provides manual cache regeneration capability
-load_portx_path() {
-    local cache_file="$PORTX_HOME/.portx_cache"
-
-    # Load from cache if available
-    if [[ -f "$cache_file" ]]; then
-        # shellcheck source=/dev/null
-        source "$cache_file"
-        
-        # Bashrc controls PATH integration - add PACKAGES_PATH to PATH
-        if [[ -n "$PACKAGES_PATH" ]]; then
-            export PATH="$PACKAGES_PATH:$PATH"
-        fi
-        return 0
-    fi
-
-    # Cache not found - show warning
-    echo "WARNING: No .portx_cache found, please regenerate using: ./scripts/import-packages.sh" >&2
-}
-
-
-# Initialize PORTX tool environment
-load_portx_path
+# Initialize PORTX PATH configuration
+configure_portx_path
 
 # =============================================================================
 # PORTX Integration Aliases
