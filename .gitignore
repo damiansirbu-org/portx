@@ -2,7 +2,7 @@
 # ===========================
 
 # Package binaries (keep only directory structure and metadata)
-packages/*/
+packages/**
 !packages/
 !packages/*/
 !packages/*/package.json
