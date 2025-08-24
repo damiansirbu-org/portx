@@ -1,0 +1,33 @@
+{
+  "name": "android-filesystem-tools",
+  "version": "1.0.0",
+  "tools": [
+    {
+      "executable": "make_f2fs.exe",
+      "description": "Flash-Friendly File System formatter optimized for NAND flash memory",
+      "dependencies": [
+        "system-windows"
+      ],
+      "usage": "make_f2fs /dev/sdX # Format device with F2FS\\nmake_f2fs -l volume_label /dev/sdX # Set volume label\\nmake_f2fs -f /dev/sdX # Force format"
+    },
+    {
+      "executable": "make_f2fs_casefold.exe",
+      "description": "F2FS formatter with case-folding support for case-insensitive filesystems",
+      "dependencies": [
+        "system-windows"
+      ],
+      "usage": "make_f2fs_casefold -O casefold /dev/sdX # Enable case folding\\nmake_f2fs_casefold -c /dev/sdX # Check device before format"
+    },
+    {
+      "executable": "mke2fs.exe",
+      "description": "Ext2/3/4 filesystem creator with advanced formatting options",
+      "dependencies": [
+        "system-windows"
+      ],
+      "usage": "mke2fs -t ext4 /dev/sdX # Create ext4 filesystem\\nmke2fs -j /dev/sdX # Create ext3 with journal\\nmke2fs -T largefile /dev/sdX # Optimize for large files"
+    }
+  ],
+  "paths": [
+    "./"
+  ]
+}

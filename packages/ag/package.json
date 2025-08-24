@@ -1,0 +1,17 @@
+{
+  "name": "ag",
+  "version": "1.0.0",
+  "tools": [
+    {
+      "executable": "ag.exe",
+      "description": "The Silver Searcher - ultra-fast text search with smart defaults and .gitignore support",
+      "usage": "ag 'pattern' # Search in current directory\\nag -i 'case insensitive' # Case insensitive search\\nag -l 'pattern' # Show only filenames\\nag -A 3 -B 3 'pattern' # Show 3 lines before/after\\nag --js 'function' # Search only JavaScript files",
+      "dependencies": [
+        "system-windows"
+      ]
+    }
+  ],
+  "paths": [
+    "./"
+  ]
+}

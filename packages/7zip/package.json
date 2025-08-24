@@ -1,0 +1,17 @@
+{
+  "name": "7zip",
+  "version": "25.00-x86-windows",
+  "tools": [
+    {
+      "executable": "7za.exe",
+      "description": "Standalone archiver achieving maximum compression ratios through advanced LZMA2 algorithms",
+      "usage": "7za a backup.7z * -mx=9 -mhe=on -p # Ultimate compression with encryption\\n7za l -slt archive.7z # Detailed archive analysis\\n7za t *.7z -r # Verify integrity of all archives\\n7za x data.7z -o./extracted/ -y # Extract without prompts",
+      "dependencies": [
+        "system-windows"
+      ]
+    }
+  ],
+  "paths": [
+    "./"
+  ]
+}

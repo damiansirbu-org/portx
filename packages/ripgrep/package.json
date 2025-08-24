@@ -1,0 +1,17 @@
+{
+  "name": "ripgrep",
+  "version": "1.0.0",
+  "tools": [
+    {
+      "executable": "rg.exe",
+      "description": "Rust-powered search that respects .gitignore while delivering grep-impossible speeds",
+      "usage": "rg 'TODO|FIXME|XXX' --type rust # Hunt technical debt\\nrg -C3 'panic!' --type rust # Context around panics\\nrg --files-with-matches 'deprecated' | head -10 # Files needing updates\\nrg -U 'fn\\s+\\w+.*\\{[^}]*panic' # Multiline function search",
+      "dependencies": [
+        "system-windows"
+      ]
+    }
+  ],
+  "paths": [
+    "./"
+  ]
+}

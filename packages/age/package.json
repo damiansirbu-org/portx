@@ -1,0 +1,25 @@
+{
+  "name": "age",
+  "version": "1.0.0",
+  "tools": [
+    {
+      "executable": "age-keygen.exe",
+      "description": "Modern age encryption key generator with secure defaults and SSH key support",
+      "usage": "age-keygen -o key.txt # Generate new keypair\\nage-keygen -y key.txt # Extract public key\\nage-keygen | tee key.txt | age-keygen -y > pub.txt # Generate and split keys",
+      "dependencies": [
+        "system-windows"
+      ]
+    },
+    {
+      "executable": "age.exe",
+      "description": "Simple, modern, and secure file encryption tool with public key cryptography",
+      "usage": "age -r pubkey.txt file.txt > file.txt.age # Encrypt with public key\\nage -d -i key.txt file.txt.age > file.txt # Decrypt with private key\\nage -p file.txt > file.txt.age # Encrypt with passphrase\\necho 'secret' | age -r pubkey.txt -a # Encrypt and armor",
+      "dependencies": [
+        "system-windows"
+      ]
+    }
+  ],
+  "paths": [
+    "./"
+  ]
+}

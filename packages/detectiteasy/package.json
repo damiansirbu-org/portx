@@ -1,0 +1,33 @@
+{
+  "name": "detectiteasy",
+  "version": "1.0.0",
+  "tools": [
+    {
+      "executable": "die.exe",
+      "description": "Detect It Easy - advanced PE/ELF packer and compiler detection tool",
+      "dependencies": [
+        "Qt5ScriptTools.dll,Qt5Gui.dll,Qt5Widgets.dll,Qt5Script.dll,Qt5Network.dll,VCRUNTIME140.dll,Qt5Core.dll,VCRUNTIME140_1.dll,MSVCP140.dll,msvcp140.dll,MSVCP140_1.dll"
+      ],
+      "usage": "die file.exe # Detect packer/compiler\\ndie -d folder/ # Deep scan directory\\ndie -j file.dll # JSON output\\ndie --scan=all binary # Full signature scan"
+    },
+    {
+      "executable": "diec.exe",
+      "description": "Detect It Easy console version for automated malware analysis",
+      "dependencies": [
+        "Qt5Script.dll,VCRUNTIME140_1.dll,VCRUNTIME140.dll,Qt5Core.dll,MSVCP140.dll,MSVCP140_1.dll"
+      ],
+      "usage": "diec sample.exe # Console detection\\ndiec -j malware.bin # JSON output for automation\\ndiec --db # Show signature database info\\ndiec --scan=entropy file.dll # Entropy analysis"
+    },
+    {
+      "executable": "diel.exe",
+      "description": "Detect It Easy lite version optimized for speed and basic detection",
+      "dependencies": [
+        "Qt5Script.dll,Qt5Gui.dll,Qt5Widgets.dll,Qt5Core.dll,VCRUNTIME140.dll,VCRUNTIME140_1.dll,MSVCP140.dll,MSVCP140_1.dll"
+      ],
+      "usage": "diel binary.exe # Fast basic detection\\ndiel *.dll # Batch process multiple files\\ndiel --verbose sample.bin # Detailed output"
+    }
+  ],
+  "paths": [
+    "./"
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "name": "azure-cli",
+  "version": "1.0.0",
+  "tools": [
+    {
+      "executable": "python.exe",
+      "description": "Azure CLI embedded Python interpreter with Azure SDK modules",
+      "dependencies": [
+        "system-windows"
+      ],
+      "usage": "python -c \\\"import azure.cli.core; print('Azure CLI Python')\\\" # Test Azure modules\\npython -m pip list | grep azure # List Azure packages"
+    },
+    {
+      "executable": "pythonw.exe",
+      "description": "Azure CLI Windows Python interpreter without console window",
+      "dependencies": [
+        "system-windows"
+      ],
+      "usage": "pythonw azure_script.py # Run Azure script silently\\npythonw -c \\\"import azure.cli; azure.cli.main()\\\" # Launch Azure CLI GUI mode"
+    }
+  ],
+  "paths": [
+    "./"
+  ]
+}

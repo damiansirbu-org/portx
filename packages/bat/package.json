@@ -1,0 +1,17 @@
+{
+  "name": "bat",
+  "version": "1.0.0",
+  "tools": [
+    {
+      "executable": "bat.exe",
+      "description": "Cat clone with syntax highlighting, Git integration, and automatic paging",
+      "usage": "bat file.js # Syntax highlighted cat\\nbat -A file.txt # Show all characters including spaces\\nbat -d file1.txt file2.txt # Show differences\\nbat --style=numbers,changes file.py # Custom styling",
+      "dependencies": [
+        "system-windows"
+      ]
+    }
+  ],
+  "paths": [
+    "./"
+  ]
+}

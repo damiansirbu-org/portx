@@ -1,0 +1,17 @@
+{
+  "name": "docker-compose",
+  "version": "1.0.0",
+  "tools": [
+    {
+      "executable": "docker-compose.exe",
+      "description": "Multi-container orchestration with environment isolation and service dependency management",
+      "usage": "docker-compose up --build --remove-orphans # Clean rebuild\\ndocker-compose logs -f --tail=50 webapp # Follow specific service logs\\ndocker-compose exec webapp /bin/bash # Service debugging\\ndocker-compose down -v && docker-compose up -d # Reset volumes and restart",
+      "dependencies": [
+        "system-windows"
+      ]
+    }
+  ],
+  "paths": [
+    "./"
+  ]
+}

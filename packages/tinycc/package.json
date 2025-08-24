@@ -1,0 +1,30 @@
+{
+  "name": "tinycc",
+  "version": "1.0.0",
+  "tools": [
+    {
+      "executable": "tcc.exe",
+      "description": "TODO: Add description",
+      "dependencies": [
+        "libtcc.dll"
+      ]
+    },
+    {
+      "executable": "tiny_impdef.exe",
+      "description": "TODO: Add description",
+      "dependencies": [
+        []
+      ]
+    },
+    {
+      "executable": "tiny_libmaker.exe",
+      "description": "TODO: Add description",
+      "dependencies": [
+        []
+      ]
+    }
+  ],
+  "paths": [
+    "./"
+  ]
+}

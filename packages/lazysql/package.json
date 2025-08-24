@@ -1,0 +1,16 @@
+{
+  "name": "lazysql",
+  "version": "1.0.0",
+  "tools": [
+    {
+      "executable": "lazysql.exe",
+      "description": "TODO: Add description",
+      "dependencies": [
+        []
+      ]
+    }
+  ],
+  "paths": [
+    "./"
+  ]
+}

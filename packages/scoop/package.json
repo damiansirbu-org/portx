@@ -1,0 +1,43 @@
+{
+  "name": "scoop",
+  "version": "0.4.1",
+  "description": "Command-line installer for Windows programs",
+  "category": "package-manager",
+  "homepage": "https://scoop.sh/",
+  "license": "MIT",
+  "keywords": ["package-manager", "installer", "windows", "cli", "portable"],
+  "author": "Scoop team",
+  
+  "tools": {
+    "scoop.cmd": {
+      "description": "Windows package manager for command-line programs",
+      "usage": "scoop install <package>",
+      "examples": [
+        "scoop install git",
+        "scoop search python",
+        "scoop list",
+        "scoop update",
+        "scoop uninstall package-name",
+        "scoop bucket add extras",
+        "scoop export > my-apps.json"
+      ],
+      "flags": ["--help", "--version"],
+      "common_args": [
+        "install",
+        "uninstall", 
+        "list",
+        "search",
+        "update",
+        "status",
+        "export",
+        "import",
+        "bucket",
+        "cache"
+      ]
+    }
+  },
+
+  "paths": [
+    "./"
+  ]
+}

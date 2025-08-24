@@ -1,0 +1,25 @@
+{
+  "name": "android-utilities",
+  "version": "1.0.0",
+  "tools": [
+    {
+      "executable": "etc1tool.exe",
+      "description": "Android ETC1 texture compression tool for OpenGL ES optimization",
+      "dependencies": [
+        "system-windows"
+      ],
+      "usage": "etc1tool input.png --encodeNoHeader # Encode to ETC1 format\\netc1tool input.pkm --decode # Decode ETC1 texture\\netc1tool --help # Show compression options"
+    },
+    {
+      "executable": "hprof-conv.exe",
+      "description": "Android HPROF heap dump converter for memory analysis tools",
+      "dependencies": [
+        "system-windows"
+      ],
+      "usage": "hprof-conv input.hprof output.hprof # Convert Android HPROF to standard format\\nadb shell am dumpheap com.app /sdcard/heap.hprof && adb pull /sdcard/heap.hprof . && hprof-conv heap.hprof converted.hprof"
+    }
+  ],
+  "paths": [
+    "./"
+  ]
+}

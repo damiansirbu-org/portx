@@ -1,0 +1,17 @@
+{
+  "name": "bottom",
+  "version": "1.0.0",
+  "tools": [
+    {
+      "executable": "btm.exe",
+      "description": "Bottom - cross-platform system monitor with customizable widgets and themes",
+      "dependencies": [
+        "system-windows"
+      ],
+      "usage": "btm # Launch interactive monitor\\nbtm -b # Basic mode without graphs\\nbtm -S # Sort by memory usage\\nbtm --color=gruvbox # Use gruvbox theme"
+    }
+  ],
+  "paths": [
+    "./"
+  ]
+}

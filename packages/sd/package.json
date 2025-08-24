@@ -1,0 +1,16 @@
+{
+  "name": "sd",
+  "version": "1.0.0",
+  "tools": [
+    {
+      "executable": "sd.exe",
+      "description": "TODO: Add description",
+      "dependencies": [
+        []
+      ]
+    }
+  ],
+  "paths": [
+    "./"
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "name": "k9s",
+  "version": "1.0.0",
+  "tools": [
+    {
+      "executable": "k9s.exe",
+      "description": "Terminal-based Kubernetes UI with real-time cluster monitoring",
+      "dependencies": [
+        "system-windows"
+      ],
+      "usage": "k9s # Launch Kubernetes TUI\\n:pods # Navigate to pods view\\n:services # Navigate to services\\n:logs # View pod logs\\nd - Describe resource, y - View YAML, Ctrl+d - Delete"
+    }
+  ],
+  "paths": [
+    "./"
+  ]
+}

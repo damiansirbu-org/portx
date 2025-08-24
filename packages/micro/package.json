@@ -1,0 +1,16 @@
+{
+  "name": "micro",
+  "version": "1.0.0",
+  "tools": [
+    {
+      "executable": "micro.exe",
+      "description": "TODO: Add description",
+      "dependencies": [
+        []
+      ]
+    }
+  ],
+  "paths": [
+    "./"
+  ]
+}

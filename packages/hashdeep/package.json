@@ -1,0 +1,97 @@
+{
+  "name": "hashdeep",
+  "version": "1.0.0",
+  "tools": [
+    {
+      "executable": "hashdeep.exe",
+      "description": "Recursive file hashing tool for digital forensics and integrity verification",
+      "dependencies": [
+        "system-windows"
+      ],
+      "usage": "hashdeep -r /path/to/investigate # Recursive hashing\\nhashdeep -c baseline.txt # Compare against baseline\\nhashdeep -a -e -s *.exe # Audit mode with estimates\\nhashdeep -m known_hashes.txt suspect_files/ # Match against known hashes"
+    },
+    {
+      "executable": "hashdeep64.exe",
+      "description": "64-bit version of hashdeep for large file operations and improved performance",
+      "dependencies": [
+        "system-windows"
+      ],
+      "usage": "hashdeep64 -r -s /large/dataset # Hash large datasets\\nhashdeep64 -j 8 -r /path # Use 8 threads for parallel processing\\nhashdeep64 -W audit.txt # Whirlpool hashing audit"
+    },
+    {
+      "executable": "md5deep.exe",
+      "description": "Specialized MD5 hash calculator for forensic analysis and file verification",
+      "dependencies": [
+        "system-windows"
+      ],
+      "usage": "md5deep -r /evidence # Recursive MD5 hashing\\nmd5deep -m known_md5.txt *.bin # Match against known MD5s\\nmd5deep -x known_bad.txt /suspect # Exclude known bad hashes"
+    },
+    {
+      "executable": "md5deep64.exe",
+      "description": "TODO: Add description",
+      "dependencies": [
+        []
+      ]
+    },
+    {
+      "executable": "sha1deep.exe",
+      "description": "TODO: Add description",
+      "dependencies": [
+        []
+      ]
+    },
+    {
+      "executable": "sha1deep64.exe",
+      "description": "TODO: Add description",
+      "dependencies": [
+        []
+      ]
+    },
+    {
+      "executable": "sha256deep.exe",
+      "description": "SHA-256 hash calculator for modern cryptographic file verification",
+      "dependencies": [
+        "system-windows"
+      ],
+      "usage": "sha256deep -r /secure/files # Recursive SHA-256 hashing\\nsha256deep -m hashes.sha256 /download # Verify downloads\\nsha256deep -a -e /forensics # Audit with size estimates"
+    },
+    {
+      "executable": "sha256deep64.exe",
+      "description": "TODO: Add description",
+      "dependencies": [
+        []
+      ]
+    },
+    {
+      "executable": "tigerdeep.exe",
+      "description": "TODO: Add description",
+      "dependencies": [
+        []
+      ]
+    },
+    {
+      "executable": "tigerdeep64.exe",
+      "description": "TODO: Add description",
+      "dependencies": [
+        []
+      ]
+    },
+    {
+      "executable": "whirlpooldeep.exe",
+      "description": "TODO: Add description",
+      "dependencies": [
+        []
+      ]
+    },
+    {
+      "executable": "whirlpooldeep64.exe",
+      "description": "TODO: Add description",
+      "dependencies": [
+        []
+      ]
+    }
+  ],
+  "paths": [
+    "./"
+  ]
+}

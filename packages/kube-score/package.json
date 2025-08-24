@@ -1,0 +1,17 @@
+{
+  "name": "kube-score",
+  "version": "1.0.0",
+  "tools": [
+    {
+      "executable": "kube-score.exe",
+      "description": "Kubernetes object analysis for security and reliability best practices",
+      "dependencies": [
+        "system-windows"
+      ],
+      "usage": "kube-score score deployment.yaml # Score single file\\nkube-score score --output-format ci # CI-friendly output\\nkube-score score --ignore-test pod-networkpolicy manifests/ # Ignore specific tests\\nkubectl apply -f - --dry-run=client | kube-score score -"
+    }
+  ],
+  "paths": [
+    "./"
+  ]
+}

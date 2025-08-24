@@ -1,0 +1,25 @@
+{
+  "name": "capture2text",
+  "version": "1.0.0",
+  "tools": [
+    {
+      "executable": "Capture2Text.exe",
+      "description": "OCR tool for capturing and extracting text from screen regions or images",
+      "dependencies": [
+        "tesseract400.dll,pvt.cppan.demo.danbloomberg.leptonica-1.74.4.dll,Qt5Gui.dll,Qt5Widgets.dll,Qt5TextToSpeech.dll,Qt5Network.dll,VCRUNTIME140.dll,Qt5Core.dll,pvt.cppan.demo.png-1.6.30.dll,pvt.cppan.demo.tiff-4.0.8.dll,pvt.cppan.demo.webp-0.6.0.dll,pvt.cppan.demo.jpeg-9.2.0.dll,pvt.cppan.demo.openjpeg.openjp2-2.1.2.dll,pvt.cppan.demo.madler.zlib-1.2.11.dll,MSVCP140.dll,msvcp140.dll,msvcp140.dll,pvt.cppan.demo.xz_utils.lzma-5.2.3.dll"
+      ],
+      "usage": "Capture2Text.exe # Launch GUI OCR tool\\nUse hotkeys to capture screen regions and extract text to clipboard\\nSupports multiple languages and text recognition"
+    },
+    {
+      "executable": "Capture2Text_CLI.exe",
+      "description": "Command-line OCR tool for automated text extraction from images",
+      "dependencies": [
+        "pvt.cppan.demo.danbloomberg.leptonica-1.74.4.dll,tesseract400.dll,Qt5Gui.dll,Qt5Core.dll,VCRUNTIME140.dll,pvt.cppan.demo.png-1.6.30.dll,pvt.cppan.demo.tiff-4.0.8.dll,pvt.cppan.demo.webp-0.6.0.dll,pvt.cppan.demo.jpeg-9.2.0.dll,pvt.cppan.demo.openjpeg.openjp2-2.1.2.dll,pvt.cppan.demo.madler.zlib-1.2.11.dll,MSVCP140.dll,pvt.cppan.demo.xz_utils.lzma-5.2.3.dll"
+      ],
+      "usage": "Capture2Text_CLI.exe -i image.png -o output.txt # Extract text from image\\nCapture2Text_CLI.exe --lang japanese -i scan.jpg # OCR with specific language\\nCapture2Text_CLI.exe --help # Show all options"
+    }
+  ],
+  "paths": [
+    "./"
+  ]
+}

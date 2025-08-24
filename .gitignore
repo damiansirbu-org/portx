@@ -1,0 +1,43 @@
+# PORTX Production Git Ignore
+# ===========================
+
+# Package binaries (keep only directory structure and metadata)
+packages/*/
+!packages/
+!packages/*/
+!packages/*/package.json
+
+# SSH certificates and keys (keep config, ignore sensitive files)
+.ssh/*.pem
+.ssh/*.key  
+.ssh/id_*
+.ssh/known_hosts*
+.ssh/agent.env
+.ssh/.portx_keys_added
+.ssh/cached_user
+
+# Generated cache files
+.portx_cache
+.portx_cache.log
+
+# Git configuration files (user-specific)
+.gitconfig
+.gitignore_global
+
+# Bash history and user files
+.bash_history
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+*.backup
+packages.7z.tmp
+
+# Config directories that may contain sensitive data
+.config/
+
+# Claude files (if any)
+.claude/
+claude.md
+CLAUDE.md

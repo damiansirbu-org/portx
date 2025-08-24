@@ -1,0 +1,27 @@
+{
+  // ==========================================
+  // PORTX Git Usr Bin Extension Package  
+  // ==========================================
+  
+  // CORE PACKAGE METADATA
+  "name": "git-usr-bin-ext", 
+  "version": "2.51.0",
+  "description": "Git for Windows usr/bin extension tools - MSYS2/Unix utilities",
+  "author": "PORTX Team",
+  "license": "Various",
+  
+  // IMPORT BEHAVIOR CONTROL
+  "import": "path",                       // Force PATH mode - add entire directory to PATH
+  
+  // EXECUTABLE DISCOVERY  
+  "paths": [
+    "./"                                  // All executables in root directory
+  ],
+  
+  // TECHNICAL CONFIGURATION
+  "architecture": "x64",
+  "platform": "win32", 
+  "runtime": "msys2",
+  "source": "Git for Windows Full Installation",
+  "categories": ["development", "unix-tools", "utilities"]
+}

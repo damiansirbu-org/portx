@@ -1,0 +1,16 @@
+{
+  "name": "upx",
+  "version": "1.0.0",
+  "tools": [
+    {
+      "executable": "upx.exe",
+      "description": "TODO: Add description",
+      "dependencies": [
+        []
+      ]
+    }
+  ],
+  "paths": [
+    "./"
+  ]
+}

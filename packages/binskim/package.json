@@ -1,0 +1,17 @@
+{
+  "name": "binskim",
+  "version": "1.0.0",
+  "tools": [
+    {
+      "executable": "BinSkim.exe",
+      "description": "Microsoft binary security analyzer for PE files and security compliance",
+      "dependencies": [
+        "system-windows"
+      ],
+      "usage": "BinSkim analyze app.exe # Analyze single binary\\nBinSkim analyze *.dll --output results.xml # Analyze all DLLs\\nBinSkim analyze --recurse C:\\Program Files\\App\\ # Recursive analysis"
+    }
+  ],
+  "paths": [
+    "./"
+  ]
+}

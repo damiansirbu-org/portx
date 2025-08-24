@@ -1,0 +1,23 @@
+{
+  "name": "volatility",
+  "version": "1.0.0",
+  "tools": [
+    {
+      "executable": "vol.exe",
+      "description": "TODO: Add description",
+      "dependencies": [
+        []
+      ]
+    },
+    {
+      "executable": "VolatilityWorkbench.exe",
+      "description": "TODO: Add description",
+      "dependencies": [
+        []
+      ]
+    }
+  ],
+  "paths": [
+    "./"
+  ]
+}

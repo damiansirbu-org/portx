@@ -1,0 +1,16 @@
+{
+  "name": "shellspec",
+  "version": "1.0.0",
+  "tools": [
+    {
+      "executable": "shellspec.exe",
+      "description": "TODO: Add description",
+      "dependencies": [
+        []
+      ]
+    }
+  ],
+  "paths": [
+    "./"
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "name": "sqlite",
+  "version": "1.0.0",
+  "tools": [
+    {
+      "executable": "sqldiff.exe",
+      "description": "TODO: Add description",
+      "dependencies": [
+        []
+      ]
+    },
+    {
+      "executable": "sqlite3.exe",
+      "description": "SQLite command-line shell for database operations and queries",
+      "dependencies": [
+        "system-windows"
+      ],
+      "usage": "sqlite3 database.db # Open database\\nsqlite3 -header -csv database.db 'SELECT * FROM users;' # CSV output\\nsqlite3 database.db < schema.sql # Execute SQL file\\nsqlite3 -bail database.db '.dump' > backup.sql # Create backup\\nsqlite3 ':memory:' # In-memory database"
+    },
+    {
+      "executable": "sqlite3_analyzer.exe",
+      "description": "TODO: Add description",
+      "dependencies": [
+        []
+      ]
+    },
+    {
+      "executable": "sqlite3_rsync.exe",
+      "description": "TODO: Add description",
+      "dependencies": [
+        []
+      ]
+    }
+  ],
+  "paths": [
+    "./"
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "name": "dprint",
+  "version": "1.0.0",
+  "tools": [
+    {
+      "executable": "dprint.exe",
+      "description": "Pluggable code formatter with TypeScript, JSON, Markdown, and TOML support",
+      "dependencies": [
+        "system-windows"
+      ],
+      "usage": "dprint fmt # Format all files\\ndprint check # Check formatting without changes\\ndprint fmt --config dprint.json src/ # Use specific config\\ndprint init # Create configuration file"
+    }
+  ],
+  "paths": [
+    "./"
+  ]
+}

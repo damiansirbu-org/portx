@@ -1,0 +1,23 @@
+{
+  "name": "python-micromamba",
+  "version": "1.0.0",
+  "tools": [
+    {
+      "executable": "conda.exe",
+      "description": "TODO: Add description",
+      "dependencies": [
+        []
+      ]
+    },
+    {
+      "executable": "micromamba.exe",
+      "description": "TODO: Add description",
+      "dependencies": [
+        []
+      ]
+    }
+  ],
+  "paths": [
+    "./"
+  ]
+}
