@@ -1,0 +1,2 @@
+#!/bin/bash
+/home/portx/scripts/portx.sh ai "$@"

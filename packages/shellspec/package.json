@@ -1,12 +1,14 @@
 {
   "name": "shellspec",
   "version": "1.0.0",
+  "description": "BDD-style testing framework for shell scripts with comprehensive reporting",
   "tools": [
     {
       "executable": "shellspec.exe",
-      "description": "TODO: Add description",
+      "description": "Full-featured BDD unit testing framework for POSIX shell scripts",
+      "usage": "shellspec # Run all tests\\nshellspec spec/test_spec.sh # Run specific test file\\nshellspec --format tap # TAP format output\\nshellspec --coverage # Generate coverage report\\nshellspec init # Initialize new test project",
       "dependencies": [
-        []
+        "embedded"
       ]
     }
   ],

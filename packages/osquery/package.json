@@ -1,19 +1,22 @@
 {
   "name": "osquery",
   "version": "1.0.0",
+  "description": "SQL-based operating system instrumentation framework for security monitoring and compliance",
   "tools": [
     {
       "executable": "osqueryd.exe",
-      "description": "TODO: Add description",
+      "description": "Background daemon for continuous system monitoring and log collection using SQL queries",
+      "usage": "osqueryd --config_path=osquery.conf # Run with config file\\nosqueryd --verbose # Enable verbose logging\\nosqueryd --database_path=osquery.db # Custom database location\\nosqueryd --disable_events # Disable event collection",
       "dependencies": [
-        []
+        "embedded"
       ]
     },
     {
       "executable": "osqueryi.exe",
-      "description": "TODO: Add description",
+      "description": "Interactive shell for ad-hoc system queries and investigation using SQL syntax",
+      "usage": "osqueryi # Start interactive shell\\nosqueryi --json 'SELECT * FROM processes;' # JSON output\\nosqueryi --line 'SELECT name FROM processes;' # Line-based output\\nosqueryi --config_path=config.conf # Use config file\\nosqueryi '.tables' # List available tables",
       "dependencies": [
-        []
+        "embedded"
       ]
     }
   ],

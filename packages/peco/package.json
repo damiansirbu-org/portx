@@ -1,12 +1,14 @@
 {
   "name": "peco",
   "version": "1.0.0",
+  "description": "Interactive filtering tool with fuzzy search for command-line text processing",
   "tools": [
     {
       "executable": "peco.exe",
-      "description": "TODO: Add description",
+      "description": "Interactive filtering tool for selecting items from lists with fuzzy matching and real-time search",
+      "usage": "history | peco # Filter command history\\nls | peco # Interactive file selection\\nps aux | peco # Process selection\\nfind . -name '*.txt' | peco # File finder with selection\\npeco --query 'initial search' # Start with pre-filled query",
       "dependencies": [
-        []
+        "embedded"
       ]
     }
   ],

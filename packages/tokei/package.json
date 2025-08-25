@@ -1,12 +1,14 @@
 {
   "name": "tokei",
   "version": "1.0.0",
+  "description": "Fast and accurate code statistics tool with support for 200+ programming languages",
   "tools": [
     {
       "executable": "tokei.exe",
-      "description": "TODO: Add description",
+      "description": "Display statistics about code, including lines of code, comments, and blanks by language",
+      "usage": "tokei . # Count lines in current directory\\ntokei --files src/ # Show per-file statistics\\ntokei --output json . # JSON format output\\ntokei --exclude '*.test.js' . # Exclude test files\\ntokei --sort lines . # Sort by line count",
       "dependencies": [
-        []
+        "embedded"
       ]
     }
   ],

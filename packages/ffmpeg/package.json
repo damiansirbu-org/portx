@@ -8,8 +8,9 @@
   "keywords": ["video", "audio", "converter", "encoder", "decoder", "streaming", "multimedia"],
   "author": "FFmpeg team",
   
-  "tools": {
-    "ffmpeg.exe": {
+  "tools": [
+    {
+      "executable": "ffmpeg.exe",
       "description": "Universal multimedia converter and processor",
       "usage": "ffmpeg -i input.mp4 output.avi",
       "examples": [
@@ -18,9 +19,14 @@
         "ffmpeg -i input.mp4 -ss 00:01:30 -t 00:00:30 -c copy clip.mp4"
       ],
       "flags": ["--help", "--version"],
-      "common_args": ["-i", "-c:v", "-c:a", "-b:v", "-b:a", "-r", "-s", "-ss", "-t", "-f"]
+      "common_args": ["-i", "-c:v", "-c:a", "-b:v", "-b:a", "-r", "-s", "-ss", "-t", "-f"],
+      "dependencies": [],
+      "aliases": [],
+      "category": "media",
+      "source": "bin"
     },
-    "ffplay.exe": {
+    {
+      "executable": "ffplay.exe",
       "description": "Simple media player based on SDL and FFmpeg libraries",
       "usage": "ffplay input.mp4",
       "examples": [
@@ -29,9 +35,14 @@
         "ffplay -f lavfi testsrc2=size=320x240:rate=30"
       ],
       "flags": ["--help", "--version"],
-      "common_args": ["-loop", "-volume", "-fs", "-an", "-vn"]
+      "common_args": ["-loop", "-volume", "-fs", "-an", "-vn"],
+      "dependencies": [],
+      "aliases": [],
+      "category": "media",
+      "source": "bin"
     },
-    "ffprobe.exe": {
+    {
+      "executable": "ffprobe.exe",
       "description": "Multimedia stream analyzer and metadata extractor",
       "usage": "ffprobe input.mp4",
       "examples": [
@@ -40,9 +51,14 @@
         "ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 video.mp4"
       ],
       "flags": ["--help", "--version"],
-      "common_args": ["-v", "-show_format", "-show_streams", "-print_format", "-select_streams"]
+      "common_args": ["-v", "-show_format", "-show_streams", "-print_format", "-select_streams"],
+      "dependencies": [],
+      "aliases": [],
+      "category": "media",
+      "source": "bin"
     }
-  },
+  ],
+  "tags": ["media", "video", "audio", "converter", "native"],
 
   "paths": [
     "bin/"

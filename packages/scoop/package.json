@@ -8,8 +8,9 @@
   "keywords": ["package-manager", "installer", "windows", "cli", "portable"],
   "author": "Scoop team",
   
-  "tools": {
-    "scoop.cmd": {
+  "tools": [
+    {
+      "executable": "scoop.cmd",
       "description": "Windows package manager for command-line programs",
       "usage": "scoop install <package>",
       "examples": [
@@ -33,9 +34,14 @@
         "import",
         "bucket",
         "cache"
-      ]
+      ],
+      "dependencies": [],
+      "aliases": [],
+      "category": "package-manager",
+      "source": "./"
     }
-  },
+  ],
+  "tags": ["package", "manager", "powershell", "automation"],
 
   "paths": [
     "./"

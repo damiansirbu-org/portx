@@ -1,0 +1,743 @@
+# PORTX Tools Inventory
+
+Complete list of all available tools in the PORTX portable development environment.
+
+**Total Packages**: 106  
+**Total Tools**: 500+  
+**Last Updated**: $(date)  
+
+---
+
+## Available Tools
+
+7zip                               LZMA2 archiver with 7z, ZIP, gzip, bzip2 support and AES encryption
+  - 7za.exe                        LZMA2 compression archiver with AES-256 encryption and multithreading
+
+adb                                Android Debug Bridge for device management and wireless debugging
+  - adb.exe                        Android Debug Bridge for device management and wireless debugging
+
+ag                                 Ultra-fast code search with .gitignore filtering and PCRE regex
+  - ag.exe                         Ultra-fast code search with .gitignore filtering and PCRE regex
+
+age                                Modern file encryption with X25519, ChaCha20-Poly1305, and Scrypt
+  - age-keygen.exe                 X25519 keypair generator with secure defaults and SSH integration
+  - age.exe                        ChaCha20-Poly1305 file encryptor with X25519 and scrypt support
+
+android-filesystem-tools           F2FS and ext2/3/4 filesystem creation tools for Android development
+  - make_f2fs.exe                  F2FS formatter with encryption and zoned block device support
+  - make_f2fs_casefold.exe         F2FS formatter optimized for case-insensitive operations
+  - mke2fs.exe                     Ext2/3/4 creator with journal, quota, and encryption features
+
+android-utilities                  Android SDK utility tools for texture compression and heap analysis
+  - etc1tool.exe                   ETC1 texture compression for OpenGL ES performance optimization
+  - hprof-conv.exe                 HPROF heap dump converter for Android memory profiling tools
+
+ast-grep                           AST-based code search and refactoring with tree-sitter parsing
+  - ast-grep.exe                   Tree-sitter powered structural code search with pattern matching
+
+aws                                AWS CLI v2 with enhanced performance, security, and SSO support
+  - aws.exe                        AWS CLI v2 with improved JSON handling and SSO authentication
+  - aws_completer.exe              Shell completion engine for AWS CLI commands and parameters
+
+azure-cli                          Azure CLI embedded Python runtime with Azure SDK and extensions
+  - python.exe                     Azure CLI Python 3.12 runtime with full Azure SDK integration
+  - pythonw.exe                    Silent Azure CLI Python runtime for background automation
+
+bandwhich                          Real-time network bandwidth monitoring per process and connection
+  - bandwhich.exe                  Real-time network monitor with process-level bandwidth tracking
+
+bat                                Cat with syntax highlighting, Git integration, and line numbers
+  - bat.exe                        Enhanced cat with syntax highlighting and Git change markers
+
+binskim                            Microsoft PE binary security analyzer with SARIF compliance reporting
+  - BinSkim.exe                    PE/MSIL security analyzer with comprehensive vulnerability detection
+
+bottom                             Cross-platform system monitor with customizable TUI and themes
+  - btm.exe                        Interactive system monitor with CPU, memory, network, and disk widgets
+
+btop                               Resource monitor with mouse support, game-style UI, and process trees
+  - btop.exe                       Interactive resource monitor with mouse support and colorful interface
+
+bun                                Fast JavaScript runtime, bundler, test runner, and package manager
+  - bun.exe                        All-in-one JavaScript toolkit with native performance and Zig implementation
+
+capture2text                       Tesseract OCR tool for screen capture and image text extraction
+  - Capture2Text.exe               GUI OCR tool with hotkey screen capture and multi-language support
+  - Capture2Text_CLI.exe           Command-line OCR for batch text extraction from images
+
+chocolatey                         Windows package manager with dependency resolution and automation
+  - choco.exe                      PowerShell-based package manager with community repository support
+
+cloc                               Source line counter with language detection and detailed statistics
+  - cloc.exe                       Multi-language source code line counter with complexity metrics
+
+csvtk                              CSV/TSV toolkit with 20+ commands for data processing and analysis
+  - csvtk.exe                      High-performance CSV processor with filtering, joining, and plotting
+
+ctags                              Universal source code indexer supporting 50+ programming languages
+  - ctags.exe                      Multi-language source indexer with advanced pattern recognition
+  - readtags.exe                   Tag file reader with filtering, sorting, and formatting capabilities
+
+detectiteasy                       PE/ELF packer, compiler, and obfuscation detection toolkit
+  - die.exe                        GUI packer detector with signature database and entropy analysis
+  - diec.exe                       Console packer detector for automated malware analysis pipelines
+  - diel.exe                       Lightweight packer detector optimized for speed over completeness
+
+docker-compose                     Multi-container orchestration with service dependency management
+  - docker-compose.exe             YAML-based multi-container orchestration with networking and volumes
+
+dprint                             Pluggable code formatter with TypeScript, JSON, Markdown support
+  - dprint.exe                     High-performance code formatter with plugin architecture
+
+dust                               Intuitive disk usage analyzer with colorized tree visualization
+  - dust.exe                       Modern du replacement with colorized output and intelligent sorting
+
+exiftool                           
+  - exiftool(-k).exe               ExifTool with -k option to keep console window open on Windows
+  - exiftool.exe                   Comprehensive metadata reader/writer for images, videos, and documents
+
+eza                                
+  - eza.exe                        Modern ls replacement with Git awareness, icons, and tree view
+
+far                                
+  - Far.exe                        Far Manager - powerful file manager with plugin architecture and scripting
+
+fastboot                           
+  - fastboot.exe                   Android fastboot protocol tool for bootloader flashing and device management
+
+fd                                 
+  - fd.exe                         Intuitive find replacement with smart defaults, regex support, and parallel execution
+
+ffmpeg                             Complete, cross-platform solution to record, convert and stream audio and video
+  - ffmpeg.exe                     Universal multimedia converter and processor
+  - ffplay.exe                     Simple media player based on SDL and FFmpeg libraries
+  - ffprobe.exe                    Multimedia stream analyzer and metadata extractor
+
+fx                                 
+  - fx.exe                         Interactive JSON viewer and processor with JavaScript expressions
+
+fzf                                
+  - fzf.exe                        Command-line fuzzy finder with UNIX pipe integration and preview
+
+git-extras                         
+  - delta.exe                      Syntax-highlighting diff pager with line numbering and side-by-side view
+  - difft.exe                      Structural diff tool that understands programming language syntax for better
+                                   comparisons
+  - gh.exe                         GitHub CLI for repository management, issues, pull requests, and GitHub Actions
+  - gitstatusd.exe                 High-performance git status daemon for responsive terminal prompts
+  - tig.exe                        Text-mode interface for Git with powerful browsing, searching, and commit
+                                   visualization
+  - git-lfs.exe                    Git Large File Storage extension for versioning large binary files efficiently
+
+gitsdk-usr-bin                     Complete usr/bin from Git SDK with MSYS2/Unix utilities
+  - base32.exe                     Base32 encoder/decoder utility for encoding binary data to base32 text representation
+  - base64.exe                     Base64 encoder/decoder utility for encoding binary data to base64 text representation
+  - bash.exe                       GNU Bourne Again Shell - Advanced command interpreter with scripting, job control,
+                                   and command history
+  - bzip2.exe                      High-quality block-sorting file compressor with better compression than gzip
+  - bunzip2.exe                    Decompressor for bzip2 compressed files with recovery options for damaged archives
+  - bzcat.exe                      Decompresses bzip2 files to standard output without creating intermediate files
+  - bzip2recover.exe               Recovers data from damaged bzip2 files by extracting undamaged blocks
+  - chmod.exe                      Changes file and directory permissions using symbolic or octal notation
+  - chown.exe                      Changes file and directory ownership including user and group settings
+  - chgrp.exe                      Changes group ownership of files and directories with recursive options
+  - clear.exe                      Clears the terminal screen and moves cursor to top-left position
+  - column.exe                     Formats input text into aligned columns with customizable separators and spacing
+  - curl.exe                       Command line HTTP/HTTPS client for transferring data with extensive protocol support
+  - dd.exe                         Data duplicator for copying and converting files with precise control over block size
+                                   and count
+  - df.exe                         Displays filesystem disk space usage with human-readable format options
+  - du.exe                         Displays directory space usage with summarization and depth control options
+  - dos2unix.exe                   Converts DOS/Windows line endings (CRLF) to Unix line endings (LF)
+  - unix2dos.exe                   Converts Unix line endings (LF) to DOS/Windows line endings (CRLF)
+  - expand.exe                     Converts tabs to spaces with configurable tab stop positions
+  - unexpand.exe                   Converts sequences of spaces to tabs with configurable tab stop positions
+  - file.exe                       Determines file type by examining file contents and magic numbers
+  - gzip.exe                       GNU compression utility using Lempel-Ziv coding (LZ77) algorithm
+  - id.exe                         Displays user and group IDs with names and group memberships
+  - kill.exe                       Terminates processes by PID or job number with various signal options
+  - less.exe                       Advanced pager for viewing file contents with search, navigation, and syntax
+                                   highlighting
+  - md5sum.exe                     Computes and verifies MD5 message digest checksums for file integrity
+  - sha1sum.exe                    Computes and verifies SHA-1 message digest checksums for file integrity
+  - sha256sum.exe                  Computes and verifies SHA-256 message digest checksums for enhanced security
+  - sha224sum.exe                  Computes and verifies SHA-224 message digest checksums for file integrity
+  - sha384sum.exe                  Computes and verifies SHA-384 message digest checksums with extended hash length
+  - sha512sum.exe                  Computes and verifies SHA-512 message digest checksums with maximum hash length
+  - cksum.exe                      Computes CRC checksums and byte counts for file verification
+  - sum.exe                        Computes and displays checksum and block count for files using BSD algorithm
+  - vim.exe                        Vi IMproved - Advanced text editor with syntax highlighting, multiple windows, and
+                                   extensive customization
+  - view.exe                       Read-only mode of vim editor for viewing files without modification risk
+  - vimdiff.exe                    Visual diff tool using vim to compare and merge files side by side
+  - nano.exe                       Simple, user-friendly text editor with basic editing features and help display
+  - ps.exe                         Displays information about active processes with detailed formatting options
+  - who.exe                        Shows who is logged into the system with login time and terminal information
+  - users.exe                      Displays list of currently logged in users in simple format
+  - hostname.exe                   Displays or sets the system hostname with domain and IP resolution options
+  - hostid.exe                     Displays the numeric identifier for the current host in hexadecimal format
+  - nproc.exe                      Displays the number of available processing units (CPU cores/threads)
+  - locale.exe                     Displays locale-specific information and available locales on the system
+  - mount.exe                      Mounts filesystems and displays mounted filesystem information with various options
+  - umount.exe                     Unmounts mounted filesystems with safety checks and force options
+  - sync.exe                       Forces filesystem buffers to be written to disk ensuring data persistence
+  - stat.exe                       Displays detailed file and filesystem status information including permissions and
+                                   timestamps
+  - chroot.exe                     Changes the root directory for command execution creating isolated environment
+  - nice.exe                       Runs programs with modified scheduling priority to control CPU resource allocation
+  - nohup.exe                      Runs commands immune to hangups with output redirected to nohup.out
+  - sleep.exe                      Delays execution for specified time duration with support for various time units
+  - timeout.exe                    Runs commands with time limit, terminating them if they exceed specified duration
+  - seq.exe                        Generates sequences of numbers with customizable format, step, and separator
+  - shuf.exe                       Shuffles lines of input text or generates random permutations and samples
+  - split.exe                      Splits large files into smaller pieces by lines, bytes, or custom criteria
+  - join.exe                       Joins lines from two sorted files based on common field values
+  - paste.exe                      Merges lines from multiple files horizontally with customizable delimiters
+  - fmt.exe                        Formats text by adjusting line length and paragraph structure with word wrapping
+  - fold.exe                       Wraps text lines to specified width breaking at spaces or characters
+  - nl.exe                         Numbers lines in text files with customizable numbering format and options
+  - pr.exe                         Formats text files for printing with headers, page numbers, and column layout
+  - tac.exe                        Concatenates and displays files in reverse line order (opposite of cat)
+  - tee.exe                        Reads from input and writes to both output and files simultaneously
+  - od.exe                         Dumps files in octal, hex, decimal, or ASCII format for binary analysis
+  - xxd.exe                        Creates hex dumps and reverse hex dumps with ASCII representation
+  - factor.exe                     Factors integers into prime numbers with support for large numbers
+  - numfmt.exe                     Formats and converts numbers between different representations and units
+  - truncate.exe                   Shrinks or extends files to specified size with various options
+  - xz.exe                         High compression ratio LZMA-based file compressor with multi-threading support
+  - unxz.exe                       Decompresses XZ compressed files with integrity verification
+  - xzcat.exe                      Decompresses XZ files to standard output without creating intermediate files
+  - xzdec.exe                      Small XZ decompressor with minimal memory footprint for embedded systems
+  - unzip.exe                      Extracts files from ZIP archives with various extraction and listing options
+  - zipinfo.exe                    Lists detailed information about ZIP archive contents including compression ratios
+  - funzip.exe                     Fast unzip filter for single-file ZIP archives without directory extraction
+  - unzipsfx.exe                   Self-extracting ZIP archive stub for creating executable ZIP files
+  - openssl.exe                    Complete cryptographic toolkit with SSL/TLS, certificate management, and encryption
+                                   utilities
+  - ssh-keygen.exe                 Generates, manages, and converts SSH authentication keys with various algorithms
+  - ssh-keyscan.exe                Scans hosts for SSH public keys to populate known_hosts files
+  - scp.exe                        Secure copy protocol for transferring files between hosts over SSH
+  - sftp.exe                       Secure file transfer protocol client with interactive and batch modes
+  - sftp-server.exe                SFTP server subprocess that handles SFTP protocol for SSH daemon
+  - ssh-pageant.exe                SSH authentication agent that interfaces with PuTTY's Pageant on Windows
+  - patch.exe                      Applies diff patches to files with context matching and backup options
+  - gawk.exe                       GNU implementation of AWK pattern scanning and processing language
+  - strace.exe                     Traces system calls and signals for debugging and analysis
+  - ldd.exe                        Lists dynamic library dependencies for executables and shared libraries
+  - make.exe                       Build automation tool that controls compilation of programs from source code
+  - iconv.exe                      Converts text between different character encodings with comprehensive charset
+                                   support
+  - gettext.exe                    Extracts translatable strings from source code for internationalization
+  - envsubst.exe                   Substitutes environment variables in shell format strings
+  - csplit.exe                     Splits files based on context patterns and regular expressions
+  - ptx.exe                        Produces permuted index or concordance for text analysis
+  - tsort.exe                      Performs topological sort on directed acyclic graphs from input pairs
+  - install.exe                    Installs files and directories with permission setting and backup options
+  - mkfifo.exe                     Creates named pipes (FIFOs) for inter-process communication
+  - mknod.exe                      Creates special files including device nodes and named pipes
+  - shred.exe                      Securely deletes files by overwriting with random data multiple times
+  - stdbuf.exe                     Controls standard stream buffering behavior for programs
+  - yes.exe                        Outputs specified string repeatedly until terminated, useful for automation
+  - logname.exe                    Displays the login name of the current user from system records
+  - printenv.exe                   Prints environment variables with optional filtering and formatting
+  - arch.exe                       Displays the machine hardware architecture type
+  - mintty.exe                     Terminal emulator for Windows with Unicode support and customizable appearance
+  - winpty.exe                     Windows pseudo terminal interface for console programs requiring Windows PTY
+  - winpty-agent.exe               Background agent process for winpty providing Windows console interface
+  - winpty-debugserver.exe         Debug server for winpty development and troubleshooting console issues
+  - reset.exe                      Resets terminal to default state clearing screen and resetting attributes
+  - stty.exe                       Displays and modifies terminal line settings and special characters
+  - tty.exe                        Displays the filename of the terminal connected to standard input
+  - tabs.exe                       Sets tab stops on terminals and displays current tab settings
+  - tput.exe                       Terminal capability interface for controlling cursor, colors, and screen properties
+  - tic.exe                        Terminfo compiler that translates terminfo source into binary format
+  - toe.exe                        Lists available terminal types from terminfo database
+  - captoinfo.exe                  Converts termcap descriptions to terminfo format
+  - infocmp.exe                    Compares and displays terminfo database entries with differences
+  - infotocap.exe                  Converts terminfo descriptions to termcap format
+  - tset.exe                       Terminal initialization utility that sets terminal type and modes
+  - lesskey.exe                    Compiles key binding definitions for the less pager
+  - lessecho.exe                   Expands metacharacters in less command arguments
+  - antiword.exe                   Converts Microsoft Word documents to plain text with formatting preservation
+  - odt2txt.exe                    Converts OpenDocument Text files to plain text format
+  - pdftotext.exe                  Converts PDF documents to plain text with layout preservation options
+  - git-gui.exe                    Graphical user interface for Git with commit, merge, and repository management
+  - gitk.exe                       Graphical repository browser showing commit history, branches, and diffs
+  - git-daemon.exe                 Lightweight Git protocol server for read-only repository access
+  - git-http-backend.exe           CGI program implementing server-side Git HTTP protocol
+  - git-imap-send.exe              Sends patches via IMAP for email-based patch submission workflows
+  - git-remote-ftp.exe             Git remote helper for FTP protocol repository access
+  - git-remote-ftps.exe            Git remote helper for FTPS (FTP over SSL) protocol repository access
+  - git-upload-archive.exe         Server-side component for git archive --remote functionality
+  - git-cmd.exe                    Windows-specific Git command line interface launcher
+  - compat-bash.exe                Compatibility version of bash for legacy script support
+  - ex.exe                         Line-oriented text editor and ex mode interface for vi/vim
+  - rview.exe                      Read-only restricted view mode of vim editor
+  - rvim.exe                       Restricted mode vim editor with limited functionality for security
+  - rnano.exe                      Restricted mode nano editor with limited file access
+  - locate.exe                     Finds files using pre-built database for fast searching
+  - frcode.exe                     Generates compressed database for locate command file searching
+  - tzset.exe                      Sets timezone information and displays timezone data
+  - getconf.exe                    Gets system configuration values and limits from system calls
+  - gawk-5.0.0.exe                 Specific version of GNU AWK (version 5.0.0)
+  - lzmadec.exe                    Decompresses LZMA compressed files with simple interface
+  - lzmainfo.exe                   Displays information about LZMA compressed files
+  - mac2unix.exe                   Converts Macintosh line endings (CR) to Unix line endings (LF)
+  - unix2mac.exe                   Converts Unix line endings (LF) to Macintosh line endings (CR)
+  - u2d.exe                        Converts Unix text files to DOS format (LF to CRLF)
+  - d2u.exe                        Converts DOS text files to Unix format (CRLF to LF)
+  - dir.exe                        Lists directory contents in DOS/Windows format
+  - vdir.exe                       Verbose directory listing similar to ls -l with detailed information
+  - dircolors.exe                  Sets up color configuration for ls and other directory listing commands
+  - cygcheck.exe                   Checks Cygwin installation and DLL dependencies for debugging
+  - ldh.exe                        Library dependency helper for analyzing shared library usage
+  - pldd.exe                       Lists dynamic shared objects loaded by running processes
+  - minidumper.exe                 Generates Windows minidump files for crashed processes
+  - connect.exe                    Makes network connections through SOCKS or HTTP proxies
+  - adig.exe                       Asynchronous DNS lookup tool for testing DNS resolution
+  - ahost.exe                      Asynchronous hostname lookup utility for DNS testing
+  - gpg-auth.exe                   GPG authentication helper for secure authentication workflows
+  - gpg-card.exe                   Smart card interface for GPG operations with hardware tokens
+  - gpg-check-pattern.exe          Checks passphrases against pattern files for security validation
+  - gpg-error.exe                  Displays GPG error codes and descriptions for troubleshooting
+  - gpg-mail-tube.exe              Mail filtering component for GPG email integration
+  - gpg-pair-tool.exe              Tool for pairing GPG keys with external devices or services
+  - gpgparsemail.exe               Parses email messages for GPG signatures and encryption
+  - gpg-preset-passphrase.exe      Presets passphrases in GPG agent cache for automated operations
+  - gpg-protect-tool.exe           Protects private keys with additional security layers
+  - gpgscm.exe                     GPG Scheme interpreter for advanced cryptographic scripting
+  - gpgsm.exe                      GPG S/MIME implementation for X.509 certificates and CMS encryption
+  - gpgsplit.exe                   Splits OpenPGP messages into individual packets for analysis
+  - gpgtar.exe                     Creates and extracts encrypted tar archives using GPG
+  - gpgv.exe                       Signature verification program without key management functionality
+  - gpg-wks-client.exe             Web Key Service client for automated key discovery and publication
+  - gpg-wks-server.exe             Web Key Service server for automated key publication and management
+  - scdaemon.exe                   Smart card daemon for GPG hardware token and card operations
+  - keyboxd.exe                    Key database daemon for GPG key storage and retrieval
+  - kbxutil.exe                    Keybox utility for GPG key database maintenance and operations
+  - dumpsexp.exe                   Dumps S-expressions from cryptographic data structures
+  - sexp-conv.exe                  Converts between different S-expression formats
+  - pkcs1-conv.exe                 Converts between PKCS#1 key formats for cryptographic operations
+  - hmac256.exe                    Computes HMAC-SHA256 message authentication codes
+  - pinentry.exe                   Secure passphrase entry dialog for GPG and cryptographic applications
+  - pinentry-w32.exe               Windows-specific secure passphrase entry dialog for GPG
+  - watchgnupg.exe                 Monitors GPG agent and daemon log output for debugging
+  - dirmngr-client.exe             Client for directory manager accessing certificate directories and CRL
+  - p11-kit.exe                    PKCS#11 toolkit for managing cryptographic tokens and smart cards
+  - p11-kit-remote.exe             Remote PKCS#11 module for distributed cryptographic operations
+  - p11-kit-server.exe             PKCS#11 server for sharing cryptographic modules across processes
+  - nettle-hash.exe                Nettle cryptographic hash function utility
+  - nettle-lfib-stream.exe         Nettle linear feedback shift register stream generator
+  - nettle-pbkdf2.exe              Password-Based Key Derivation Function 2 implementation
+  - trust.exe                      Trust anchor and certificate authority management utility
+  - chcon.exe                      Changes security context labels for SELinux file access control
+  - runcon.exe                     Runs commands with specified security context in SELinux environments
+  - passwd.exe                     Changes user password with security validation and policy enforcement
+  - mkgroup.exe                    Creates group database entries from Windows domain and local groups
+  - mkpasswd.exe                   Creates password database entries from Windows users and domains
+  - groups.exe                     Displays group memberships for users with group name resolution
+  - pinky.exe                      Displays user information including login time and contact details
+  - setfacl.exe                    Sets POSIX Access Control Lists for fine-grained file permissions
+  - setmetamode.exe                Sets keyboard meta mode for terminal key interpretation
+  - grcat.exe                      Generic colorizer for text output with pattern-based coloring rules
+  - pwcat.exe                      Outputs password database in various formats with field selection
+  - ssp.exe                        Simple stream processor for text filtering and transformation
+  - create-shortcut.exe            Creates Windows shortcuts (.lnk files) with customizable properties and icons
+  - dlls-copied.exe                Tracks and reports DLL dependencies and copying operations for debugging
+  - edit_test.exe                  Text editor functionality testing utility for validating editor operations
+  - edit_test_dll.exe              DLL version of text editor testing utility with library linking capabilities
+  - mpicalc.exe                    Multi-precision integer calculator for arbitrary precision arithmetic operations
+  - regtool.exe                    Windows registry manipulation tool for command-line registry operations
+  - rmt.exe                        Remote magnetic tape utility for tape drive operations over network
+  - tar.exe                        GNU tar archiving utility for creating and extracting compressed archives
+  - tclsh.exe                      TCL shell interpreter for running TCL scripts and interactive commands
+  - tclsh86.exe                    TCL shell interpreter version 8.6 with enhanced features and compatibility
+  - which.exe                      Locates executable programs in the system PATH environment variable
+  - WhoUses.exe                    Identifies processes and applications currently using specified files or resources
+  - wish.exe                       TCL windowing shell (Tk) for creating graphical user interfaces and applications
+  - wish86.exe                     TCL windowing shell (Tk) version 8.6 with enhanced GUI capabilities
+  - x86_64-w64-mingw32-agrep.exe   Approximate grep utility for fuzzy pattern matching with error tolerance
+  - xmlwf.exe                      XML well-formedness checker and validator using Expat parser
+  - yat2m.exe                      Yet Another Text to Man page converter for generating manual pages
+  - awk.exe                        Pattern scanning and processing language for text manipulation
+  - b2sum.exe                      BLAKE2 cryptographic hash calculator for file integrity verification
+  - basename.exe                   Extract filename component from file path by removing directory prefix
+  - basenc.exe                     Multi-format encoder/decoder supporting base16, base32, base64, and base85
+  - cat.exe                        Display and concatenate file contents to standard output
+  - chattr.exe                     Change file attributes on Linux-compatible filesystems
+  - cmp.exe                        Compare two files byte by byte and report first difference
+  - comm.exe                       Compare sorted files line by line and show common/unique lines
+  - cp.exe                         Copy files and directories with preservation of attributes
+  - cut.exe                        Extract columns from text files using delimiters or field positions
+  - cygwin-console-helper.exe      Cygwin console helper utility for terminal emulation and console operations
+  - dash.exe                       Debian Almquist Shell - Lightweight POSIX-compliant shell for fast script execution
+  - date.exe                       Display or set system date and time with formatting options
+  - diff.exe                       Compare files line by line and show differences in various formats
+  - diff3.exe                      Compare three files and show differences for three-way merging
+  - dirname.exe                    Extract directory component from file path by removing filename
+  - echo.exe                       Display text with support for escape sequences and formatting
+  - env.exe                        Display environment variables or run commands with modified environment
+  - expr.exe                       Evaluate arithmetic and string expressions for shell scripting
+  - false.exe                      Exit with failure status (exit code 1) - always returns false
+  - find.exe                       Search for files and directories with powerful filtering and action capabilities
+  - gencat.exe                     Generate message catalogs for internationalization and localization
+  - getfacl.exe                    Get file access control lists (ACLs) for advanced permission management
+  - getopt.exe                     Parse command line options for shell scripts with GNU extensions
+  - gmondump.exe                   GNU profiling data dump utility for gprof performance analysis
+  - grep.exe                       Search text patterns in files using regular expressions
+  - head.exe                       Display first lines of files for quick file preview
+  - ls.exe                         List directory contents with detailed file information and formatting
+  - lsattr.exe                     List file attributes on Linux-compatible filesystems
+  - mkdir.exe                      Create directories with support for nested directory structures
+  - mktemp.exe                     Create temporary files and directories with unique names
+  - mv.exe                         Move and rename files and directories with backup options
+  - newgrp.exe                     Switch to a new group ID for privilege management
+  - pathchk.exe                    Check pathname validity and portability across filesystems
+  - printf.exe                     Format and print data with C-style printf formatting
+  - profiler.exe                   GNU profiler utility for code performance analysis and optimization
+  - pwd.exe                        Print current working directory path
+  - readlink.exe                   Display target of symbolic links and resolve link chains
+  - rebase.exe                     Rebase DLL addresses to avoid conflicts in Windows memory management
+  - rm.exe                         Remove files and directories with safety options
+  - rmdir.exe                      Remove empty directories with nested directory support
+  - sdiff.exe                      Side-by-side file comparison with interactive merge capabilities
+  - sed.exe                        Stream editor for filtering and transforming text using regular expressions
+  - sh.exe                         POSIX shell interpreter for script execution and interactive use
+  - sort.exe                       Sort text lines with various ordering options and field specifications
+  - ssh.exe                        Secure Shell client for remote login and command execution
+  - ssh-add.exe                    Add SSH private keys to the authentication agent
+  - ssh-agent.exe                  SSH authentication agent for managing private keys
+  - tail.exe                       Display last lines of files with follow mode for log monitoring
+  - test.exe                       Evaluate conditional expressions for shell scripting and automation
+  - touch.exe                      Update file timestamps or create empty files
+  - tr.exe                         Translate or delete characters from standard input
+  - true.exe                       Exit with success status (exit code 0) - always returns true
+  - uname.exe                      Display system information including OS name, version, and architecture
+  - uniq.exe                       Filter adjacent duplicate lines from sorted input
+  - wc.exe                         Count lines, words, and characters in files
+  - xargs.exe                      Execute commands with arguments from standard input
+
+gitui                              
+  - gitui.exe                      Blazing fast terminal UI for Git with keyboard-driven workflow
+
+glow                               
+  - glow.exe                       Terminal Markdown renderer with syntax highlighting and paging
+
+gpg                                
+  - dirmngr.exe                    GnuPG keyserver and certificate manager daemon
+  - gpg-agent.exe                  GnuPG private key agent for secure key management and caching
+  - gpg-connect-agent.exe          GnuPG agent communication tool for daemon control and key operations
+  - gpg.exe                        GNU Privacy Guard for encryption, digital signatures, and key management
+  - gpgconf.exe                    GnuPG configuration management and component control utility
+
+gping                              
+  - gping.exe                      Ping with a graph - visual network latency monitor with real-time charts
+
+graphwiz                           Graph visualization software for creating diagrams from textual descriptions
+  - dot.exe                        Hierarchical or layered drawings of directed graphs
+  - neato.exe                      Spring model layouts for undirected graphs
+  - circo.exe                      Circular layout for graphs
+  - twopi.exe                      Radial layout for graphs
+  - fdp.exe                        Force-directed placement for undirected graphs
+  - sfdp.exe                       Scalable force-directed placement for large graphs
+  - osage.exe                      Array-based layouts for clustered graphs
+  - patchwork.exe                  Squarified treemap layout
+
+hashdeep                           Digital forensics hashing suite with MD5, SHA-1, SHA-256, Tiger, and Whirlpool support
+  - hashdeep.exe                   Recursive file hashing tool for digital forensics and integrity verification
+  - hashdeep64.exe                 64-bit version of hashdeep for large file operations and improved performance
+  - md5deep.exe                    Specialized MD5 hash calculator for forensic analysis and file verification
+  - md5deep64.exe                  64-bit MD5 hash calculator for large-scale forensic analysis and file verification
+  - sha1deep.exe                   SHA-1 hash calculator for legacy forensic analysis and file integrity verification
+  - sha1deep64.exe                 64-bit SHA-1 hash calculator for large-scale legacy forensic operations
+  - sha256deep.exe                 SHA-256 hash calculator for modern cryptographic file verification
+  - sha256deep64.exe               64-bit SHA-256 hash calculator for high-performance cryptographic verification
+  - tigerdeep.exe                  Tiger hash algorithm calculator for fast cryptographic hashing and file verification
+  - tigerdeep64.exe                64-bit Tiger hash calculator for high-speed cryptographic operations on large
+                                   datasets
+  - whirlpooldeep.exe              Whirlpool hash algorithm calculator for advanced cryptographic hashing and integrity
+                                   verification
+  - whirlpooldeep64.exe            64-bit Whirlpool hash calculator for enterprise-grade cryptographic operations
+
+helix                              
+  - hx.exe                         Helix editor with tree-sitter syntax highlighting and LSP support
+
+helm                               
+  - helm.exe                       Kubernetes package manager with templating, versioning, and application lifecycle
+                                   management
+
+helmfile                           
+  - helmfile.exe                   Declarative Helm chart deployment tool with environment management
+
+httpx                              
+  - httpx.exe                      Fast HTTP toolkit for web reconnaissance and security testing
+
+k6                                 
+  - k6.exe                         JavaScript-based load testing with built-in metrics and cloud-native integrations
+
+k8                                 
+  - kubectl.exe                    Kubernetes CLI for cluster management and application deployment
+  - kustomize.exe                  Kubernetes configuration management without templates using overlays
+
+k9s                                
+  - k9s.exe                        Terminal-based Kubernetes UI with real-time cluster monitoring
+
+kube-linter                        
+  - kube-linter.exe                Static analysis tool for Kubernetes YAML files and security best practices
+
+kube-score                         
+  - kube-score.exe                 Kubernetes object analysis for security and reliability best practices
+
+lazydocker                         
+  - lazydocker.exe                 Terminal UI for Docker and Docker Compose with mouse support
+
+lazygit                            
+  - lazygit.exe                    Terminal UI for Git commands with intuitive keyboard shortcuts
+
+lazysql                            
+  - lazysql.exe                    TODO: Add description
+
+liquibase                          Database schema change management and version control tool
+  - liquibase.bat                  Database migration and schema versioning tool
+  - liquibase                      Database migration shell script (Unix-style)
+
+lz4                                
+  - lz4.exe                        TODO: Add description
+
+mediainfo                          
+  - MediaInfo.exe                  TODO: Add description
+
+micro                              
+  - micro.exe                      TODO: Add description
+
+micro-latest                       
+  - micro.exe                      TODO: Add description
+
+minikube                           
+  - minikube.exe                   TODO: Add description
+
+monitoring                         
+  - promtool.exe                   TODO: Add description
+  - telegraf.exe                   TODO: Add description
+
+navi                               
+  - navi.exe                       TODO: Add description
+
+nircmd                             
+  - nircmd.exe                     TODO: Add description
+  - nircmdc.exe                    TODO: Add description
+
+nmap                               
+  - ncat.exe                       Nmap's network Swiss Army knife for connectivity and data transfer
+  - nmap.exe                       Network reconnaissance engine with NSE scripts for deep service enumeration and OS
+                                   fingerprinting
+  - npcap-1.83.exe                 TODO: Add description
+  - NpcapHelper.exe                TODO: Add description
+  - nping.exe                      TODO: Add description
+  - WlanHelper.exe                 TODO: Add description
+
+nuclei                             
+  - nuclei.exe                     YAML-driven vulnerability scanner with 9000+ community templates for modern threat
+                                   detection
+
+officetopdf                        
+  - OfficeToPDF.exe                TODO: Add description
+
+openshift                          
+  - oc.exe                         TODO: Add description
+
+osquery                            
+  - osqueryd.exe                   TODO: Add description
+  - osqueryi.exe                   TODO: Add description
+
+oxipng                             
+  - oxipng.exe                     TODO: Add description
+
+par2                               
+  - par2.exe                       TODO: Add description
+
+path-utils                         Essential path manipulation utilities from MSYS2 and MinGW toolchain
+  - basename.exe                   Extract filename component from file path by removing directory prefix
+  - convert.exe                    Path format converter between Windows and UNIX-style paths
+  - cygpath.exe                    Convert between MSYS2/Cygwin and Windows path formats with comprehensive options
+  - dirname.exe                    Extract directory component from file path by removing filename suffix
+  - hardlink.exe                   Create hard links to files for space-efficient file duplication
+  - link.exe                       Create file links with extended options and validation
+  - ln.exe                         UNIX-style link creator for symbolic and hard links with standard options
+  - pathchk.exe                    Validate file path names for portability and system compatibility
+  - readlink.exe                   Read and resolve symbolic links to display target paths
+  - realpath.exe                   Resolve absolute canonical path by following all symbolic links
+  - unlink.exe                     Remove single file or symbolic link using UNIX-style unlink operation
+  - windmc.exe                     Windows Message Compiler for creating message resource files from text definitions
+  - windres.exe                    Windows Resource Compiler for converting resource files to object format
+
+peco                               
+  - peco.exe                       TODO: Add description
+
+pnpm                               
+  - pnpm.exe                       TODO: Add description
+
+python-micromamba                  
+  - conda.exe                      TODO: Add description
+  - micromamba.exe                 TODO: Add description
+
+qsv                                
+  - qsv.exe                        Ultra-fast CSV toolkit with 50+ commands for data processing
+  - qsvdp.exe                      TODO: Add description
+  - qsvlite.exe                    TODO: Add description
+  - qsvlite_nightly.exe            TODO: Add description
+  - qsvp.exe                       TODO: Add description
+  - qsvpdp.exe                     TODO: Add description
+  - qsvplite.exe                   TODO: Add description
+  - qsvpy310.exe                   TODO: Add description
+  - qsvpy311.exe                   TODO: Add description
+  - qsvpy312.exe                   TODO: Add description
+  - qsvpy313.exe                   TODO: Add description
+  - qsv_nightly.exe                TODO: Add description
+
+radare2                            
+  - r2agent.exe                    TODO: Add description
+  - r2pm.exe                       TODO: Add description
+  - r2r.exe                        TODO: Add description
+  - rabin2.exe                     Binary analysis tool for extracting information from executables
+  - radare2.exe                    Advanced reverse engineering framework with disassembler and debugger
+  - radiff2.exe                    TODO: Add description
+  - rafind2.exe                    TODO: Add description
+  - ragg2.exe                      TODO: Add description
+  - rahash2.exe                    TODO: Add description
+  - rapatch2.exe                   TODO: Add description
+  - rarun2.exe                     TODO: Add description
+  - rasign2.exe                    TODO: Add description
+  - rasm2.exe                      TODO: Add description
+  - ravc2.exe                      TODO: Add description
+  - rax2.exe                       TODO: Add description
+
+rclone                             
+  - rclone.exe                     TODO: Add description
+
+ripgrep                            
+  - rg.exe                         Rust-powered search that respects .gitignore while delivering grep-impossible speeds
+
+ropgadget                          Return Oriented Programming gadget finder and automatic ROP chain generator
+  - ROPgadget                      Search ROP gadgets in binary files and generate exploit chains
+  - ROPgadget.py                   Python script version of ROPgadget tool
+
+rustscan                           
+  - rustscan.exe                   Ultra-fast port scanner with Nmap integration for network discovery
+
+scc                                
+  - scc.exe                        TODO: Add description
+
+scoop                              Command-line installer for Windows programs
+  - scoop.cmd                      Windows package manager for command-line programs
+
+scrcpy                             
+  - adb.exe                        TODO: Add description
+  - scrcpy.exe                     Display and control Android devices over USB/WiFi with low latency
+
+sd                                 
+  - sd.exe                         TODO: Add description
+
+shellcheck                         
+  - shellcheck.exe                 Static analysis tool for shell scripts to find bugs and improve code
+
+shellspec                          
+  - shellspec.exe                  TODO: Add description
+
+shfmt                              
+  - shfmt.exe                      TODO: Add description
+
+skopeo                             
+  - skopeo.exe                     TODO: Add description
+
+sqlite                             
+  - sqldiff.exe                    TODO: Add description
+  - sqlite3.exe                    SQLite command-line shell for database operations and queries
+  - sqlite3_analyzer.exe           TODO: Add description
+  - sqlite3_rsync.exe              TODO: Add description
+
+ssdeep                             
+  - ssdeep.exe                     TODO: Add description
+
+subfinder                          
+  - subfinder.exe                  Passive subdomain discovery tool using multiple online sources
+
+sysinternals                       
+  - accesschk64.exe                TODO: Add description
+  - adrestore64.exe                TODO: Add description
+  - autorunsc64.exe                TODO: Add description
+  - clockres64.exe                 TODO: Add description
+  - Contig64.exe                   TODO: Add description
+  - Coreinfo64.exe                 TODO: Add description
+  - FindLinks64.exe                TODO: Add description
+  - handle64.exe                   TODO: Add description
+  - hex2dec64.exe                  TODO: Add description
+  - junction64.exe                 TODO: Add description
+  - listdlls64.exe                 TODO: Add description
+  - LogonSessions64.exe            TODO: Add description
+  - PendMoves64.exe                TODO: Add description
+  - pipelist64.exe                 TODO: Add description
+  - procdump64.exe                 TODO: Add description
+  - PsExec64.exe                   TODO: Add description
+  - psfile64.exe                   TODO: Add description
+  - PsGetsid64.exe                 TODO: Add description
+  - psinfo64.exe                   TODO: Add description
+  - pskill64.exe                   TODO: Add description
+  - PsList64.exe                   TODO: Add description
+  - PsLoggedon64.exe               TODO: Add description
+  - psping64.exe                   TODO: Add description
+  - RegDelNull64.exe               TODO: Add description
+  - streams64.exe                  TODO: Add description
+  - strings64.exe                  TODO: Add description
+  - sync64.exe                     TODO: Add description
+  - VolumeId64.exe                 TODO: Add description
+  - whois64.exe                    TODO: Add description
+
+terraform                          
+  - terraform.exe                  Infrastructure as Code with state management, preventing configuration drift through
+                                   declarative syntax
+
+tinycc                             
+  - tcc.exe                        TODO: Add description
+  - tiny_impdef.exe                TODO: Add description
+  - tiny_libmaker.exe              TODO: Add description
+
+tokei                              
+  - tokei.exe                      TODO: Add description
+
+uefitools                          
+  - UEFIExtract.exe                TODO: Add description
+  - UEFIFind.exe                   TODO: Add description
+
+upx                                
+  - upx.exe                        TODO: Add description
+
+usql                               
+  - usql.exe                       TODO: Add description
+
+volatility                         
+  - vol.exe                        TODO: Add description
+  - VolatilityWorkbench.exe        TODO: Add description
+
+wget                               
+  - wget.exe                       Network downloader for retrieving files from web servers using HTTP, HTTPS, and FTP
+
+wireshark-cli                      Command-line network protocol analysis tools from Wireshark
+  - tshark.exe                     Network protocol analyzer - command line version of Wireshark
+  - dumpcap.exe                    Network traffic dump tool for packet capture
+  - capinfos.exe                   Print information about capture files
+
+yara                               
+  - yara32.exe                     TODO: Add description
+  - yarac32.exe                    TODO: Add description
+
+yarn                               Fast, reliable, and secure dependency management for JavaScript projects
+  - JavaScript package manager with improved performance and security
+
+yq                                 
+  - yq.exe                         YAML processor and transformer with jq-like syntax for YAML/JSON
+
+zstd                               
+  - zstd.exe                       TODO: Add description
+
+Summary: 103 packages, 509 total tools

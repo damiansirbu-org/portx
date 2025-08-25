@@ -1,6 +1,7 @@
 {
   "name": "qsv",
   "version": "1.0.0",
+  "description": "Ultra-fast CSV data processing toolkit with 50+ commands and Python integration",
   "tools": [
     {
       "executable": "qsv.exe",
@@ -12,79 +13,90 @@
     },
     {
       "executable": "qsvdp.exe",
-      "description": "TODO: Add description",
+      "description": "QSV DataPusher version with enhanced data uploading and API integration capabilities",
+      "usage": "qsvdp upload data.csv --api-endpoint https://api.example.com # Upload CSV to API\nqsvdp validate schema.json data.csv # Validate against schema\nqsvdp transform rules.json data.csv # Apply transformations",
       "dependencies": [
-        []
+        "embedded"
       ]
     },
     {
       "executable": "qsvlite.exe",
-      "description": "TODO: Add description",
+      "description": "Lightweight version of QSV with core functionality for basic CSV operations",
+      "usage": "qsvlite stats data.csv # Basic statistics\nqsvlite select 1,3 data.csv # Select columns\nqsvlite headers data.csv # Show headers\nqsvlite count data.csv # Row count",
       "dependencies": [
-        []
+        "embedded"
       ]
     },
     {
       "executable": "qsvlite_nightly.exe",
-      "description": "TODO: Add description",
+      "description": "Nightly development build of QSV Lite with latest experimental features",
+      "usage": "qsvlite_nightly stats --experimental data.csv # Use experimental features\nqsvlite_nightly beta-command data.csv # Try beta functionality\nqsvlite_nightly --version # Show nightly version info",
       "dependencies": [
-        []
+        "embedded"
       ]
     },
     {
       "executable": "qsvp.exe",
-      "description": "TODO: Add description",
+      "description": "QSV Pro version with advanced analytics and enterprise features",
+      "usage": "qsvp analyze --advanced data.csv # Advanced analytics\nqsvp ml-predict model.json data.csv # Machine learning predictions\nqsvp enterprise-export data.csv # Enterprise format export",
       "dependencies": [
-        []
+        "embedded"
       ]
     },
     {
       "executable": "qsvpdp.exe",
-      "description": "TODO: Add description",
+      "description": "QSV Pro DataPusher combining enterprise features with API integration",
+      "usage": "qsvpdp enterprise-upload data.csv --secure-api https://enterprise.api.com # Secure enterprise upload\nqsvpdp audit-trail data.csv # Generate audit trail\nqsvpdp compliance-check data.csv # Compliance validation",
       "dependencies": [
-        []
+        "embedded"
       ]
     },
     {
       "executable": "qsvplite.exe",
-      "description": "TODO: Add description",
+      "description": "QSV Pro Lite version with balanced features and performance",
+      "usage": "qsvplite pro-stats data.csv # Professional statistics\nqsvplite advanced-join file1.csv file2.csv # Advanced join operations\nqsvplite optimize data.csv # Performance optimizations",
       "dependencies": [
-        []
+        "embedded"
       ]
     },
     {
       "executable": "qsvpy310.exe",
-      "description": "TODO: Add description",
+      "description": "QSV with embedded Python 3.10 for advanced data processing and scripting",
+      "usage": "qsvpy310 py 'df.describe()' data.csv # Python pandas operations\nqsvpy310 script analysis.py data.csv # Run Python script\nqsvpy310 py 'import numpy; df.mean()' data.csv # NumPy operations",
       "dependencies": [
-        "api-ms-win-crt-math-l1-1-0.dll,api-ms-win-crt-string-l1-1-0.dll,api-ms-win-crt-runtime-l1-1-0.dll,api-ms-win-crt-heap-l1-1-0.dll,api-ms-win-crt-convert-l1-1-0.dll,api-ms-win-crt-stdio-l1-1-0.dll,api-ms-win-crt-utility-l1-1-0.dll,api-ms-win-crt-time-l1-1-0.dll,api-ms-win-crt-locale-l1-1-0.dll"
+        "system-windows"
       ]
     },
     {
       "executable": "qsvpy311.exe",
-      "description": "TODO: Add description",
+      "description": "QSV with embedded Python 3.11 offering improved performance for data science workflows",
+      "usage": "qsvpy311 py 'df.groupby(\"category\").sum()' data.csv # Group operations\nqsvpy311 ml-train model.py data.csv # Machine learning training\nqsvpy311 py 'df.plot()' data.csv # Data visualization",
       "dependencies": [
-        "api-ms-win-crt-math-l1-1-0.dll,api-ms-win-crt-string-l1-1-0.dll,api-ms-win-crt-runtime-l1-1-0.dll,api-ms-win-crt-heap-l1-1-0.dll,api-ms-win-crt-convert-l1-1-0.dll,api-ms-win-crt-stdio-l1-1-0.dll,api-ms-win-crt-utility-l1-1-0.dll,api-ms-win-crt-time-l1-1-0.dll,api-ms-win-crt-locale-l1-1-0.dll"
+        "system-windows"
       ]
     },
     {
       "executable": "qsvpy312.exe",
-      "description": "TODO: Add description",
+      "description": "QSV with embedded Python 3.12 featuring latest Python optimizations and syntax",
+      "usage": "qsvpy312 py 'match df.shape[0]: case n if n > 1000: print(\"Large dataset\")' data.csv # Pattern matching\nqsvpy312 py 'df.query(\"age > @threshold\")' data.csv # Enhanced querying\nqsvpy312 async-process data.csv # Async operations",
       "dependencies": [
-        "python312.dll"
+        "python-runtime"
       ]
     },
     {
       "executable": "qsvpy313.exe",
-      "description": "TODO: Add description",
+      "description": "QSV with embedded Python 3.13 beta featuring cutting-edge Python developments",
+      "usage": "qsvpy313 py --experimental 'df.new_feature()' data.csv # Experimental Python features\nqsvpy313 py 'df.enhanced_typing()' data.csv # Advanced type hints\nqsvpy313 beta-analysis data.csv # Beta analysis features",
       "dependencies": [
-        "api-ms-win-crt-math-l1-1-0.dll,api-ms-win-crt-string-l1-1-0.dll,api-ms-win-crt-runtime-l1-1-0.dll,api-ms-win-crt-heap-l1-1-0.dll,api-ms-win-crt-convert-l1-1-0.dll,api-ms-win-crt-stdio-l1-1-0.dll,api-ms-win-crt-utility-l1-1-0.dll,api-ms-win-crt-time-l1-1-0.dll,api-ms-win-crt-locale-l1-1-0.dll"
+        "system-windows"
       ]
     },
     {
       "executable": "qsv_nightly.exe",
-      "description": "TODO: Add description",
+      "description": "Nightly development build of QSV with latest features and experimental commands",
+      "usage": "qsv_nightly experimental-command data.csv # Try experimental features\nqsv_nightly beta-stats data.csv # Beta statistical functions\nqsv_nightly --nightly-info # Show nightly build information\nqsv_nightly bleeding-edge data.csv # Latest bleeding-edge features",
       "dependencies": [
-        []
+        "embedded"
       ]
     }
   ],

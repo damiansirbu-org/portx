@@ -1,12 +1,14 @@
 {
   "name": "lazysql",
   "version": "1.0.0",
+  "description": "Terminal-based SQL database browser with intuitive navigation and query execution",
   "tools": [
     {
       "executable": "lazysql.exe",
-      "description": "TODO: Add description",
+      "description": "Interactive terminal UI for browsing and querying SQL databases with vim-like navigation",
+      "usage": "lazysql # Connect to database interactively\\nlazysql -host localhost -port 5432 -user postgres -dbname mydb # PostgreSQL connection\\nlazysql -config config.yml # Load connection from config file\\nlazysql mysql://user:pass@localhost/db # MySQL connection string",
       "dependencies": [
-        []
+        "embedded"
       ]
     }
   ],

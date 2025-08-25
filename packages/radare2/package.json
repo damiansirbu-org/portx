@@ -1,33 +1,37 @@
 {
   "name": "radare2",
   "version": "1.0.0",
+  "description": "Advanced reverse engineering framework with comprehensive binary analysis and debugging tools",
   "tools": [
     {
       "executable": "r2agent.exe",
-      "description": "TODO: Add description",
+      "description": "Remote agent for radare2 allowing network-based reverse engineering sessions",
+      "usage": "r2agent -p 9999 # Listen on port 9999\nr2agent -H 0.0.0.0 -p 8080 # Bind to all interfaces\nr2agent -a x86 # Specify architecture\nr2agent -s # Use SSL/TLS encryption",
       "dependencies": [
-        "r_main.dll,r_cons.dll,r_config.dll,r_io.dll,r_util.dll,r_muta.dll,r_flag.dll,r_asm.dll,r_core.dll,r_debug.dll,r_bin.dll,r_anal.dll,r_bp.dll,r_egg.dll,r_reg.dll,r_search.dll,r_arch.dll,r_syscall.dll,r_socket.dll,r_magic.dll,r_fs.dll,r_esil.dll,r_esil.dll,r_lang.dll"
+        "embedded"
       ]
     },
     {
       "executable": "r2pm.exe",
-      "description": "TODO: Add description",
+      "description": "Package manager for radare2 plugins and extensions",
+      "usage": "r2pm update # Update package database\nr2pm search keyword # Search for packages\nr2pm install package_name # Install package\nr2pm list # List installed packages\nr2pm uninstall package_name # Remove package",
       "dependencies": [
-        "r_main.dll,r_config.dll,r_cons.dll,r_io.dll,r_muta.dll,r_util.dll,r_flag.dll,r_asm.dll,r_arch.dll,r_core.dll,r_debug.dll,r_bin.dll,r_anal.dll,r_egg.dll,r_bp.dll,r_reg.dll,r_search.dll,r_syscall.dll,r_socket.dll,r_magic.dll,r_fs.dll,r_esil.dll,r_esil.dll,r_lang.dll"
+        "embedded"
       ]
     },
     {
       "executable": "r2r.exe",
-      "description": "TODO: Add description",
+      "description": "Test runner for radare2 regression testing and validation",
+      "usage": "r2r test_file.r2 # Run specific test\nr2r -j tests/ # Run tests with JSON output\nr2r -v tests/ # Verbose test execution\nr2r -i # Interactive test mode",
       "dependencies": [
-        "r_util.dll,r_cons.dll"
+        "embedded"
       ]
     },
     {
       "executable": "rabin2.exe",
       "description": "Binary analysis tool for extracting information from executables",
       "dependencies": [
-        "r_main.dll,r_util.dll,r_config.dll,r_cons.dll,r_io.dll,r_muta.dll,r_flag.dll,r_arch.dll,r_asm.dll,r_core.dll,r_debug.dll,r_bin.dll,r_anal.dll,r_bp.dll,r_reg.dll,r_egg.dll,r_search.dll,r_syscall.dll,r_socket.dll,r_fs.dll,r_magic.dll,r_esil.dll,r_esil.dll,r_lang.dll"
+        "embedded"
       ],
       "usage": "rabin2 -I binary.exe # Show file info\\nrabin2 -i binary.exe # List imports\\nrabin2 -E binary.exe # Show exports\\nrabin2 -S binary.exe # List sections\\nrabin2 -z binary.exe # Extract strings"
     },
@@ -35,78 +39,88 @@
       "executable": "radare2.exe",
       "description": "Advanced reverse engineering framework with disassembler and debugger",
       "dependencies": [
-        "r_util.dll,r_main.dll,r_config.dll,r_cons.dll,r_io.dll,r_muta.dll,r_flag.dll,r_arch.dll,r_asm.dll,r_core.dll,r_bin.dll,r_debug.dll,r_bp.dll,r_egg.dll,r_anal.dll,r_reg.dll,r_search.dll,r_syscall.dll,r_socket.dll,r_fs.dll,r_magic.dll,r_esil.dll,r_esil.dll,r_lang.dll"
+        "embedded"
       ],
       "usage": "radare2 binary.exe # Open binary for analysis\\nr2 -A binary.exe # Auto-analyze binary\\nr2 -d program.exe # Debug mode\\nr2 -w binary.exe # Write mode\\nr2 -B 0x1000 mem.dump # Set base address"
     },
     {
       "executable": "radiff2.exe",
-      "description": "TODO: Add description",
+      "description": "Binary diffing tool for comparing executables and finding differences between versions",
+      "usage": "radiff2 file1.exe file2.exe # Basic binary diff\nradiff2 -g file1.exe file2.exe # Graphical diff output\nradiff2 -A file1.exe file2.exe # Unified diff format\nradiff2 -C file1.exe file2.exe # Code analysis diff",
       "dependencies": [
-        "r_main.dll,r_config.dll,r_cons.dll,r_io.dll,r_muta.dll,r_util.dll,r_flag.dll,r_asm.dll,r_core.dll,r_arch.dll,r_debug.dll,r_bin.dll,r_anal.dll,r_bp.dll,r_egg.dll,r_reg.dll,r_syscall.dll,r_search.dll,r_socket.dll,r_fs.dll,r_magic.dll,r_esil.dll,r_esil.dll,r_lang.dll"
+        "embedded"
       ]
     },
     {
       "executable": "rafind2.exe",
-      "description": "TODO: Add description",
+      "description": "Advanced search tool for finding patterns, strings, and bytes in binary files",
+      "usage": "rafind2 -s 'string' file.bin # Search for string\nrafind2 -x 4142434445 file.bin # Search hex bytes\nrafind2 -e /regex/i file.bin # Regex search\nrafind2 -z file.bin # Find null-terminated strings",
       "dependencies": [
-        "r_main.dll,r_config.dll,r_cons.dll,r_io.dll,r_muta.dll,r_util.dll,r_flag.dll,r_arch.dll,r_asm.dll,r_core.dll,r_bin.dll,r_debug.dll,r_anal.dll,r_bp.dll,r_egg.dll,r_reg.dll,r_search.dll,r_syscall.dll,r_socket.dll,r_fs.dll,r_magic.dll,r_esil.dll,r_lang.dll"
+        "embedded"
       ]
     },
     {
       "executable": "ragg2.exe",
-      "description": "TODO: Add description",
+      "description": "Shellcode compiler and payload generator for exploit development",
+      "usage": "ragg2 -a x86 -b 64 shellcode.r # Compile shellcode\nragg2 -F elf64 -o payload shellcode.r # Generate ELF payload\nragg2 -P print_shellcode.r # Print generated code\nragg2 -L # List available architectures",
       "dependencies": [
-        "r_main.dll,r_config.dll,r_cons.dll,r_io.dll,r_muta.dll,r_util.dll,r_flag.dll,r_asm.dll,r_core.dll,r_debug.dll,r_arch.dll,r_anal.dll,r_bin.dll,r_bp.dll,r_egg.dll,r_reg.dll,r_search.dll,r_socket.dll,r_syscall.dll,r_fs.dll,r_magic.dll,r_esil.dll,r_lang.dll"
+        "embedded"
       ]
     },
     {
       "executable": "rahash2.exe",
-      "description": "TODO: Add description",
+      "description": "Cryptographic hash calculator supporting multiple algorithms for file integrity verification",
+      "usage": "rahash2 file.exe # Default hash (SHA1)\nrahash2 -a md5 file.exe # MD5 hash\nrahash2 -a sha256 file.exe # SHA256 hash\nrahash2 -c hash_to_verify file.exe # Verify against hash\nrahash2 -B 1024 file.exe # Hash specific block size",
       "dependencies": [
-        "r_main.dll,r_cons.dll,r_config.dll,r_io.dll,r_muta.dll,r_util.dll,r_flag.dll,r_arch.dll,r_asm.dll,r_core.dll,r_debug.dll,r_bin.dll,r_anal.dll,r_bp.dll,r_egg.dll,r_search.dll,r_reg.dll,r_syscall.dll,r_socket.dll,r_fs.dll,r_magic.dll,r_esil.dll,r_esil.dll,r_lang.dll"
+        "embedded"
       ]
     },
     {
       "executable": "rapatch2.exe",
-      "description": "TODO: Add description",
+      "description": "Binary patching tool for applying modifications and fixes to executable files",
+      "usage": "rapatch2 -p patch.r2 binary.exe # Apply patch file\nrapatch2 -w 0x1000 \"41414141\" binary.exe # Write hex at offset\nrapatch2 -r 0x1000:10 binary.exe # Read bytes at offset\nrapatch2 -s old_bytes new_bytes binary.exe # Replace bytes",
       "dependencies": [
-        "r_main.dll,r_config.dll,r_cons.dll,r_io.dll,r_muta.dll,r_util.dll,r_flag.dll,r_arch.dll,r_asm.dll,r_core.dll,r_debug.dll,r_bin.dll,r_anal.dll,r_bp.dll,r_egg.dll,r_reg.dll,r_search.dll,r_syscall.dll,r_socket.dll,r_fs.dll,r_magic.dll,r_esil.dll,r_lang.dll"
+        "embedded"
       ]
     },
     {
       "executable": "rarun2.exe",
-      "description": "TODO: Add description",
+      "description": "Process launcher and runtime environment controller for debugging and analysis",
+      "usage": "rarun2 program=target.exe # Launch program for debugging\nrarun2 program=target.exe arg1=value # Launch with arguments\nrarun2 stdin=input.txt program=target.exe # Redirect stdin\nrarun2 timeout=30 program=target.exe # Set execution timeout",
       "dependencies": [
-        "r_main.dll,r_util.dll,r_config.dll,r_cons.dll,r_io.dll,r_muta.dll,r_flag.dll,r_asm.dll,r_arch.dll,r_core.dll,r_debug.dll,r_bin.dll,r_anal.dll,r_bp.dll,r_egg.dll,r_search.dll,r_reg.dll,r_syscall.dll,r_socket.dll,r_fs.dll,r_magic.dll,r_esil.dll,r_esil.dll,r_lang.dll"
+        "embedded"
       ]
     },
     {
       "executable": "rasign2.exe",
-      "description": "TODO: Add description",
+      "description": "Function signature generator and matcher for binary analysis and library identification",
+      "usage": "rasign2 -g signature.sig binary.exe # Generate signatures\nrasign2 -a signature.sig target.exe # Apply signatures to target\nrasign2 -f function_name binary.exe # Sign specific function\nrasign2 -r # Remove all signatures",
       "dependencies": [
-        "r_main.dll,r_cons.dll,r_config.dll,r_io.dll,r_muta.dll,r_util.dll,r_flag.dll,r_arch.dll,r_asm.dll,r_core.dll,r_debug.dll,r_bin.dll,r_anal.dll,r_bp.dll,r_reg.dll,r_egg.dll,r_search.dll,r_syscall.dll,r_fs.dll,r_socket.dll,r_magic.dll,r_esil.dll,r_lang.dll"
+        "embedded"
       ]
     },
     {
       "executable": "rasm2.exe",
-      "description": "TODO: Add description",
+      "description": "Multi-architecture assembler and disassembler supporting numerous CPU architectures",
+      "usage": "rasm2 -a x86 -b 64 'mov rax, rbx' # Assemble x86-64 instruction\nrasm2 -a arm -d '0x12345678' # Disassemble ARM bytes\nrasm2 -L # List supported architectures\nrasm2 -f input.asm # Assemble from file",
       "dependencies": [
-        "r_main.dll,r_cons.dll,r_io.dll,r_config.dll,r_muta.dll,r_util.dll,r_flag.dll,r_arch.dll,r_asm.dll,r_core.dll,r_bin.dll,r_debug.dll,r_anal.dll,r_bp.dll,r_egg.dll,r_search.dll,r_reg.dll,r_syscall.dll,r_fs.dll,r_socket.dll,r_magic.dll,r_esil.dll,r_esil.dll,r_lang.dll"
+        "embedded"
       ]
     },
     {
       "executable": "ravc2.exe",
-      "description": "TODO: Add description",
+      "description": "Version control system for radare2 projects and analysis session management",
+      "usage": "ravc2 init project_name # Initialize new project\nravc2 save checkpoint1 # Save analysis state\nravc2 load checkpoint1 # Load saved state\nravc2 diff checkpoint1 checkpoint2 # Compare states\nravc2 log # Show project history",
       "dependencies": [
-        "r_main.dll,r_cons.dll,r_config.dll,r_io.dll,r_muta.dll,r_util.dll,r_flag.dll,r_arch.dll,r_asm.dll,r_core.dll,r_debug.dll,r_bin.dll,r_anal.dll,r_bp.dll,r_egg.dll,r_search.dll,r_reg.dll,r_socket.dll,r_syscall.dll,r_fs.dll,r_magic.dll,r_esil.dll,r_esil.dll,r_lang.dll"
+        "embedded"
       ]
     },
     {
       "executable": "rax2.exe",
-      "description": "TODO: Add description",
+      "description": "Number base converter and mathematical calculator for various numeric formats",
+      "usage": "rax2 0x1000 # Convert hex to decimal\nrax2 -b 4096 # Convert decimal to hex\nrax2 -k 10+20*3 # Mathematical expressions\nrax2 -s hello # String to hex conversion\nrax2 -S 48656c6c6f # Hex to string conversion",
       "dependencies": [
-        "r_main.dll,r_cons.dll,r_config.dll,r_io.dll,r_muta.dll,r_util.dll,r_flag.dll,r_arch.dll,r_asm.dll,r_core.dll,r_debug.dll,r_bin.dll,r_anal.dll,r_bp.dll,r_egg.dll,r_reg.dll,r_search.dll,r_syscall.dll,r_socket.dll,r_fs.dll,r_magic.dll,r_esil.dll,r_lang.dll"
+        "embedded"
       ]
     }
   ],

@@ -16,8 +16,11 @@ packages/**
 .ssh/.portx_keys_added
 .ssh/cached_user
 
-# Generated cache files
-.portx_cache
+# Generated cache files (committed to repo for performance)
+# .portx_cache - now committed for faster startup
+# .portx_tools_cache - committed for documentation
+# .portx_exes_cache - committed for performance
+# .portx_cache.log - import logs, not committed
 .portx_cache.log
 
 # Git configuration files (user-specific)

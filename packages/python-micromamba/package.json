@@ -4,16 +4,18 @@
   "tools": [
     {
       "executable": "conda.exe",
-      "description": "TODO: Add description",
+      "description": "Cross-platform package manager for Python and R ecosystems, fully self-contained executable",
+      "usage": "conda create -n myenv python=3.11 # Create environment\\nconda install numpy pandas # Install packages\\nconda list # Show installed packages\\nconda env list # List environments",
       "dependencies": [
-        []
+        "embedded"
       ]
     },
     {
       "executable": "micromamba.exe",
-      "description": "TODO: Add description",
+      "description": "Fast, lightweight conda-compatible package manager with minimal dependencies",
+      "usage": "micromamba create -n myenv python=3.11 # Create environment\\nmicromamba install -n myenv numpy # Install to specific env\\nmicromamba activate myenv # Activate environment\\nmicromamba info # Show configuration",
       "dependencies": [
-        []
+        "embedded"
       ]
     }
   ],
