@@ -1,17 +1,21 @@
 {
   "name": "adb",
-  "version": "1.0.0",
+  "version": "36.0.0",
+  "description": "Android Debug Bridge for device management and wireless debugging",
   "tools": [
     {
       "executable": "adb.exe",
-      "description": "Android Debug Bridge for device communication, app deployment, and debugging",
-      "usage": "adb devices # List connected devices\\nadb install app.apk # Install APK\\nadb shell # Interactive shell\\nadb logcat # View logs\\nadb pull /sdcard/file.txt . # Copy from device\\nadb push file.txt /sdcard/ # Copy to device",
+      "description": "Android Debug Bridge for device management and wireless debugging",
+      "usage": "adb devices -l # List connected devices with detailed transport info\nadb connect 192.168.1.100:5555 # Connect to device over Wi-Fi\nadb install --fastdeploy -r app.apk # Fast incremental APK installation\nadb shell pm list packages -3 # List third-party installed packages\nadb shell dumpsys battery # Get detailed battery information\nadb pull /sdcard/DCIM/ ./photos/ --sync # Sync entire camera folder\nadb push build/ /data/local/tmp/ --sync # Upload build directory\nadb logcat -c && adb logcat MyApp:V *:S # Clear logs and filter by app\nadb shell input keyevent KEYCODE_POWER # Simulate power button press\nadb forward tcp:8080 tcp:8080 # Port forwarding for local development",
       "dependencies": [
-        "system-windows"
+        "ntdll.dll",
+        "wow64.dll",
+        "wow64win.dll"
       ]
     }
   ],
   "paths": [
     "./"
-  ]
+  ],
+  "tags": ["android", "mobile", "development", "native", "system"]
 }

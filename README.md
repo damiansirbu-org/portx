@@ -1,18 +1,20 @@
 # PORTX - Portable POSIX Environment for Windows
 
-A complete, portable POSIX toolkit built on Git Bash with 538 Windows-native command-line tools. Zero installation, zero dependencies, enterprise-friendly.
+A complete, portable POSIX toolkit built on Git Bash with 700+ Windows-native command-line tools spanning from MinGit essentials to full Git for Windows capabilities. Zero installation, zero dependencies, enterprise-friendly.
 
 ## Architecture
 
 PORTX transforms Git for Windows into a comprehensive POSIX environment using a layered architecture:
 
-**Foundation Layer**: Git Bash (MinGW64) provides the core POSIX shell environment with 284 Unix utilities (ls, grep, awk, sed, tar, curl, ssh)
+**Foundation Layer**: Git Bash (MinGW64) provides the core POSIX shell environment with 90+ MinGit utilities (ls, grep, awk, sed, tar, git-core)
 
-**Enhancement Layer**: 44 modern CLI tools (ripgrep, bat, fzf, jq, micro, 7za) for improved productivity
+**Extension Layer**: Git Extensions packages providing 203 additional tools bridging MinGit to full Git for Windows functionality including network utilities (curl, ssh, openssl), compression tools (xz, bzip2), text processing (vim, nano), and complete MSYS2 Unix toolset
 
-**Professional Layer**: 210 enterprise tools spanning cloud platforms (AWS CLI, Azure CLI), container orchestration (Kubernetes, Docker), infrastructure (Terraform, monitoring), security (ClamAV, YARA, osquery, nuclei), and system analysis (Microsoft SysInternals suite)
+**Enhancement Layer**: 104+ modern CLI packages with 200+ tools (ripgrep, bat, fzf, jq, micro, 7za) for improved productivity
 
-**Integration Layer**: Development tools (gcc, git-core, libraries) and system utilities for seamless interoperability
+**Professional Layer**: 210+ enterprise tools spanning cloud platforms (AWS CLI, Azure CLI), container orchestration (Kubernetes, Docker), infrastructure (Terraform, monitoring), security (ClamAV, YARA, osquery, nuclei), and system analysis (Microsoft SysInternals suite)
+
+**Integration Layer**: Smart wrapper system with .cmd integration for system-wide tool access and PATH optimization
 
 All tools are Windows-native executables with no external dependencies or DLL requirements.
 
@@ -26,7 +28,9 @@ All tools are Windows-native executables with no external dependencies or DLL re
 
 **Completeness**: Full POSIX shell environment with modern tooling. Covers development, DevOps, security, and system administration workflows.
 
-**Integration**: Tools work together seamlessly through proper PATH configuration and shared environment variables.
+**Integration**: Tools work together seamlessly through intelligent PATH optimization, smart wrapper system, and shared environment variables.
+
+**Git for Windows Completeness**: Bridges MinGit installations to full Git for Windows functionality through modular extension packages, providing complete Unix toolset without requiring full Git installation.
 
 **Professional Shell Scripting**: Portable environment library with cross-platform compatibility and standards compliance.
 
@@ -118,7 +122,9 @@ Development based on authoritative sources:
 
 ## Tool Categories
 
-**Development**: Git, GCC compiler suite, text editors (micro, helix), build tools (make), language runtimes
+**Git Extensions**: Complete Unix toolset bridging MinGit to full Git capabilities including network utilities (curl, ssh, openssl), compression tools (xz, bzip2, gzip), text editors (vim, nano, less), system utilities (mount, df, du), security tools (GPG suite, cryptography), and 200+ MSYS2 Unix tools
+
+**Development**: Git, GCC compiler suite, text editors (micro, helix), build tools (make), language runtimes, patch utilities
 
 **DevOps**: AWS CLI, Azure CLI, Terraform, Kubernetes (kubectl, helm, k9s), Docker Compose, monitoring tools
 
@@ -130,11 +136,11 @@ Development based on authoritative sources:
 
 **Text Processing**: Traditional Unix tools (grep, sed, awk) plus modern alternatives (ripgrep, bat, fd, sd), JSON/YAML processors (jq, yq)
 
-**System Administration**: Process monitoring (btop), file management (7za), network utilities (curl, SSH), remote access tools
+**System Administration**: Process monitoring (btop), file management (7za), network utilities, remote access tools, PATH optimization
 
 ## Tool Discovery & Research Methodology
 
-PORTX includes a comprehensive tool discovery system with scientifically curated documentation for all 538 tools:
+PORTX includes a comprehensive tool discovery system with scientifically curated documentation for all 700+ tools across MinGit foundation, Git Extensions, and professional toolkit:
 
 ### Discovery Interface
 
@@ -151,7 +157,7 @@ PORTX includes a comprehensive tool discovery system with scientifically curated
 
 ### Research & Curation Process
 
-**Systematic Tool Analysis**: Each of the 538 tools underwent individual research:
+**Systematic Tool Analysis**: Each of the 700+ tools underwent individual research:
 1. **Source Documentation Review**: Official manuals, GitHub repositories, vendor documentation
 2. **Functional Classification**: Categorization based on primary use case and professional domain
 3. **Usage Pattern Analysis**: Real-world command examples and common workflows
@@ -168,11 +174,18 @@ PORTX includes a comprehensive tool discovery system with scientifically curated
 tool_name|category|full_path|detailed_description|usage_examples
 ```
 
-**Extraction Methodology**: Automated deep-scan algorithm traversing 53 directories with 4-level depth analysis:
-- Minimum 1 executable per directory requirement
-- PATH optimization for 284 total executables
-- Smart caching system with regeneration triggers
-- Integration with Git Bash environment variables
+**Extraction Methodology**: Automated deep-scan algorithm with intelligent package management:
+- Smart wrapper system with .cmd integration for system-wide access
+- Import mode detection (path vs wrap) based on dependency analysis
+- Conflict resolution preventing tool overlap between packages
+- PATH optimization reducing directories from 100+ to 10+ optimized paths
+- Package.json metadata system with comprehensive tool documentation
+
+**Git Extensions Implementation**: Modular extension architecture bridges MinGit installations to full Git for Windows functionality:
+- **git-mingw64-bin-ext**: 32 Windows-native executables from mingw64/bin
+- **git-usr-bin-ext**: 171 MSYS2 Unix utilities from usr/bin  
+- Flat directory structure with importType: "path" for direct PATH integration
+- Zero conflicts with existing MinGit or PORTX packages
 
 This scientific approach ensures PORTX provides enterprise-grade tool discovery with professional documentation standards comparable to commercial development environments.
 
@@ -212,8 +225,10 @@ This scientific approach ensures PORTX provides enterprise-grade tool discovery 
 ## Technical Specifications
 
 **Shell Environment**: Bash 4.4+ with POSIX compatibility layer
-**Home Directory**: Portable user environment with SSH, Git configuration
-**PATH Management**: Complete integration - PORTX tools + Windows PATH with smart caching
+**Home Directory**: Portable user environment with SSH, Git configuration  
+**Package Management**: Industry-standard package.json with tools metadata, importType detection, smart wrapper generation
+**PATH Management**: Intelligent optimization reducing from 100+ to 10+ directories with conflict detection
+**Extension System**: Git Extensions providing 203 additional tools bridging MinGit to full Git functionality
 **SSH Integration**: Seamless Windows OpenSSH service integration with PORTX as source of truth
 **File System**: Unix-style paths with Windows compatibility layer
 **Process Management**: Native Windows process handling with Unix signals

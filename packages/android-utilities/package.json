@@ -1,25 +1,31 @@
 {
   "name": "android-utilities",
-  "version": "1.0.0",
+  "version": "34.0.5",
+  "description": "Android SDK utility tools for texture compression and heap analysis",
   "tools": [
     {
       "executable": "etc1tool.exe",
-      "description": "Android ETC1 texture compression tool for OpenGL ES optimization",
+      "description": "ETC1 texture compression for OpenGL ES performance optimization",
+      "usage": "etc1tool texture.png --encode -o compressed.pkm # Compress to ETC1 with header\\netc1tool texture.png --encodeNoHeader -o raw.etc1 # Raw ETC1 data without header\\netc1tool compressed.pkm --decode -o output.png # Decompress to PNG\\netc1tool input.png --encode --showDifference diff.png # Show compression artifacts\\netc1tool batch/*.png --encode # Batch compress all PNG files",
       "dependencies": [
-        "system-windows"
-      ],
-      "usage": "etc1tool input.png --encodeNoHeader # Encode to ETC1 format\\netc1tool input.pkm --decode # Decode ETC1 texture\\netc1tool --help # Show compression options"
+        "ntdll.dll",
+        "wow64.dll",
+        "wow64win.dll"
+      ]
     },
     {
       "executable": "hprof-conv.exe",
-      "description": "Android HPROF heap dump converter for memory analysis tools",
+      "description": "HPROF heap dump converter for Android memory profiling tools",
+      "usage": "hprof-conv android.hprof standard.hprof # Convert Android to standard HPROF\\nhprof-conv -z app.hprof filtered.hprof # Exclude Zygote heap data\\nadb shell am dumpheap com.app /sdcard/heap.hprof && adb pull /sdcard/heap.hprof && hprof-conv heap.hprof mat.hprof # Full workflow",
       "dependencies": [
-        "system-windows"
-      ],
-      "usage": "hprof-conv input.hprof output.hprof # Convert Android HPROF to standard format\\nadb shell am dumpheap com.app /sdcard/heap.hprof && adb pull /sdcard/heap.hprof . && hprof-conv heap.hprof converted.hprof"
+        "ntdll.dll",
+        "wow64.dll",
+        "wow64win.dll"
+      ]
     }
   ],
   "paths": [
     "./"
-  ]
+  ],
+  "tags": ["android", "profiling", "native", "graphics"]
 }

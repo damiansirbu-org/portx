@@ -1,17 +1,21 @@
 {
   "name": "csvtk",
-  "version": "1.0.0",
+  "version": "0.34.0",
+  "description": "CSV/TSV toolkit with 20+ commands for data processing and analysis",
   "tools": [
     {
       "executable": "csvtk.exe",
-      "description": "Swiss Army knife for CSV/TSV processing with 20+ subcommands",
+      "description": "High-performance CSV processor with filtering, joining, and plotting",
+      "usage": "csvtk stats data.csv # Statistical summary of numeric columns\\ncsvtk cut -f name,age,salary data.csv # Select specific columns\\ncsvtk filter -f 'salary>50000 && age<40' employees.csv # Complex filtering\\ncsvtk join -f id users.csv orders.csv # Join tables on ID column\\ncsvtk plot hist -f score --title 'Score Distribution' results.csv # Generate histogram",
       "dependencies": [
-        "system-windows"
-      ],
-      "usage": "csvtk stats data.csv # Show statistics\\ncsvtk cut -f 1,3 data.csv # Select columns\\ncsvtk filter -f 'age>30' data.csv # Filter rows\\ncsvtk join -f id file1.csv file2.csv # Join files\\ncsvtk plot hist -f age data.csv # Create histogram"
+        "ntdll.dll",
+        "KERNEL32.DLL",
+        "KERNELBASE.dll"
+      ]
     }
   ],
   "paths": [
     "./"
-  ]
+  ],
+  "tags": ["csv", "data", "native", "analysis"]
 }

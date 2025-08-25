@@ -1,17 +1,48 @@
 {
   "name": "bottom",
-  "version": "1.0.0",
+  "version": "0.9.6",
+  "description": "Cross-platform system monitor with customizable TUI and themes",
   "tools": [
     {
       "executable": "btm.exe",
-      "description": "Bottom - cross-platform system monitor with customizable widgets and themes",
+      "description": "Interactive system monitor with CPU, memory, network, and disk widgets",
+      "usage": "btm # Launch full interactive monitor\\nbtm -b # Basic mode without graphs and expanded details\\nbtm -S # Sort processes by memory usage\\nbtm --color=gruvbox # Apply gruvbox color theme\\nbtm -r 2000 # Refresh every 2 seconds instead of default 1s",
       "dependencies": [
-        "system-windows"
-      ],
-      "usage": "btm # Launch interactive monitor\\nbtm -b # Basic mode without graphs\\nbtm -S # Sort by memory usage\\nbtm --color=gruvbox # Use gruvbox theme"
+        "ntdll.dll",
+        "KERNEL32.DLL",
+        "KERNELBASE.dll",
+        "shell32.dll",
+        "msvcp_win.dll",
+        "ucrtbase.dll",
+        "USER32.dll",
+        "win32u.dll",
+        "GDI32.dll",
+        "gdi32full.dll",
+        "ole32.dll",
+        "RPCRT4.dll",
+        "combase.dll",
+        "setupapi.dll",
+        "msvcrt.dll",
+        "cfgmgr32.dll",
+        "pdh.dll",
+        "advapi32.dll",
+        "bcrypt.dll",
+        "sechost.dll",
+        "psapi.dll",
+        "oleaut32.dll",
+        "iphlpapi.dll",
+        "secur32.dll",
+        "netapi32.dll",
+        "powrprof.dll",
+        "CRYPTBASE.DLL",
+        "SAMCLI.DLL",
+        "NETUTILS.DLL",
+        "SSPICLI.DLL"
+      ]
     }
   ],
   "paths": [
     "./"
-  ]
+  ],
+  "tags": ["monitor", "system", "native", "tui"]
 }

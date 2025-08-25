@@ -1,17 +1,19 @@
 {
   "name": "cloc",
-  "version": "1.0.0",
+  "version": "2.06",
+  "description": "Source line counter with language detection and detailed statistics",
   "tools": [
     {
       "executable": "cloc.exe",
-      "description": "Count Lines of Code with language detection and detailed statistics",
+      "description": "Multi-language source code line counter with complexity metrics",
+      "usage": "cloc src/ # Count lines in source directory\\ncloc --by-file *.py # Per-file statistics for Python files\\ncloc --diff version1/ version2/ # Compare two code versions\\ncloc --exclude-dir=node_modules,dist . # Exclude specific directories\\ncloc --json --out=stats.json . # Output detailed JSON statistics",
       "dependencies": [
-        "system-windows"
-      ],
-      "usage": "cloc . # Count lines in current directory\\ncloc --exclude-dir=node_modules,dist . # Exclude directories\\ncloc --by-file src/ # Show per-file statistics\\ncloc --diff old_version/ new_version/ # Compare versions"
+        "perl"
+      ]
     }
   ],
   "paths": [
     "./"
-  ]
+  ],
+  "tags": ["analysis", "metrics", "perl", "development"]
 }

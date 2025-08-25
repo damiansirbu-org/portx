@@ -1,0 +1,320 @@
+{
+  // ==========================================
+  // PORTX GitSDK MinGW64 Bin Package
+  // ==========================================
+  
+  // CORE PACKAGE METADATA
+  "name": "gitsdk-mingw64-bin",
+  "version": "2.51.0",
+  "description": "Complete mingw64/bin directory from Git for Windows SDK - 32 Windows-native executables including curl, openssl, bzip2, antiword, pdftotext, and compression utilities. These are x64 native Windows binaries that bridge the gap between MinGit (90 tools) and Full Git (416 tools), providing essential development and system utilities missing from the minimal MinGit installation.",
+  "author": "PORTX Team",
+  "license": "Various",
+  
+  // IMPORT BEHAVIOR CONTROL
+  "import": "path",                       // Force PATH mode - add entire directory to PATH
+  "importType": "path",                   // Prevents wrapper script generation
+  
+  // EXECUTABLE DISCOVERY  
+  "paths": [
+    "./"                                  // All executables in root directory
+  ],
+  
+  // TECHNICAL CONFIGURATION
+  "architecture": "x64",
+  "platform": "win32",
+  "runtime": "native",
+  "source": "Git for Windows Full Installation",
+  "categories": ["development", "system", "utilities"],
+  
+  // COMPREHENSIVE TOOL DOCUMENTATION (32 MinGW64 tools - conflicts removed)
+  "tools": [
+    {
+      "executable": "adig.exe", 
+      "description": "Asynchronous DNS lookup utility with advanced query options and debugging",
+      "usage": "adig google.com\nadig -t MX domain.com\nadig -s 8.8.8.8 example.org",
+      "dependencies": [],
+      "aliases": [],
+      "category": "network", 
+      "source": "mingw64/bin"
+    },
+    {
+      "executable": "ahost.exe",
+      "description": "Simple DNS lookup utility for hostname resolution and reverse lookups",
+      "usage": "ahost google.com\nahost 8.8.8.8\nahost -v domain.com",
+      "dependencies": [],
+      "aliases": [],
+      "category": "network",
+      "source": "mingw64/bin"
+    },
+    {
+      "executable": "antiword.exe",
+      "description": "Microsoft Word document converter to plain text with formatting preservation",
+      "usage": "antiword document.doc\nantiword -t 4 report.doc\nantiword -w 100 file.doc",
+      "dependencies": [],
+      "aliases": [],
+      "category": "document",
+      "source": "mingw64/bin"
+    },
+    {
+      "executable": "bunzip2.exe",
+      "description": "Bzip2 decompression utility for extracting .bz2 compressed files",
+      "usage": "bunzip2 archive.tar.bz2\nbunzip2 -k file.bz2\nbunzip2 -v *.bz2",
+      "dependencies": [],
+      "aliases": [],
+      "category": "compression",
+      "source": "mingw64/bin"
+    },
+    {
+      "executable": "bzcat.exe",
+      "description": "Display contents of bzip2 compressed files without extraction",
+      "usage": "bzcat archive.tar.bz2\nbzcat file.txt.bz2 | grep pattern\nbzcat *.bz2",
+      "dependencies": [],
+      "aliases": [],
+      "category": "compression", 
+      "source": "mingw64/bin"
+    },
+    {
+      "executable": "bzip2.exe",
+      "description": "Bzip2 compression utility for high-compression data archiving",
+      "usage": "bzip2 file.txt\nbzip2 -k -9 document.pdf\nbzip2 -d archive.bz2",
+      "dependencies": [],
+      "aliases": [],
+      "category": "compression",
+      "source": "mingw64/bin"
+    },
+    {
+      "executable": "bzip2recover.exe",
+      "description": "Bzip2 file recovery utility for damaged or corrupted .bz2 archives",
+      "usage": "bzip2recover corrupted.bz2\nbzip2recover --help\nbzip2recover damaged_archive.tar.bz2",
+      "dependencies": [],
+      "aliases": [],
+      "category": "compression",
+      "source": "mingw64/bin"
+    },
+    {
+      "executable": "connect.exe",
+      "description": "SOCKS/HTTP proxy connection tool for tunneling network connections",
+      "usage": "connect proxy.com:1080 target.com:22\nconnect -H proxy:8080 server:443\nconnect -S socks5://proxy:1080 host:80",
+      "dependencies": [],
+      "aliases": [],
+      "category": "network",
+      "source": "mingw64/bin"
+    },
+    {
+      "executable": "create-shortcut.exe",
+      "description": "Windows shortcut creation utility with customizable properties and icons",
+      "usage": "create-shortcut --name=MyApp --path=C:\\App\\app.exe --icon=app.ico\ncreate-shortcut --target=/usr/bin/bash --arguments='-l'\nWindows shortcut creation utility",
+      "dependencies": [],
+      "aliases": [],
+      "category": "windows",
+      "source": "mingw64/bin"
+    },
+    {
+      "executable": "curl.exe",
+      "description": "Command line HTTP client with extensive protocol support and features",
+      "usage": "curl https://api.github.com\ncurl -X POST -d '{\"key\":\"value\"}' -H 'Content-Type: application/json' url\ncurl -o file.zip https://download.com/file.zip",
+      "dependencies": [],
+      "aliases": [],
+      "category": "network",
+      "source": "mingw64/bin"
+    },
+    {
+      "executable": "edit_test.exe",
+      "description": "Text editor functionality testing utility for validating editor operations",
+      "usage": "edit_test file.txt\nedit_test --mode=interactive\nEditor testing and validation",
+      "dependencies": [],
+      "aliases": [],
+      "category": "testing",
+      "source": "mingw64/bin"
+    },
+    {
+      "executable": "edit_test_dll.exe",
+      "description": "DLL version of text editor testing utility with library linking capabilities",
+      "usage": "edit_test_dll --test-mode\nedit_test_dll file.txt\nDLL-based editor testing",
+      "dependencies": [],
+      "aliases": [],
+      "category": "testing",
+      "source": "mingw64/bin"
+    },
+    {
+      "executable": "envsubst.exe",
+      "description": "Environment variable substitution utility for template processing",
+      "usage": "envsubst < template.txt\necho '$USER is at $HOME' | envsubst\nenvsubst '$USER,$HOME' < config.template",
+      "dependencies": [],
+      "aliases": [],
+      "category": "text-processing",
+      "source": "mingw64/bin"
+    },
+    {
+      "executable": "gettext.exe",
+      "description": "Message translation utility for internationalization and localization",
+      "usage": "gettext --help\ngettext 'Hello World'\ngettext -d domain 'message'",
+      "dependencies": [],
+      "aliases": [],
+      "category": "localization",
+      "source": "mingw64/bin"
+    },
+    {
+      "executable": "lzmadec.exe",
+      "description": "LZMA decompression utility for extracting .lzma compressed files",
+      "usage": "lzmadec file.lzma\nlzmadec < compressed.lzma > uncompressed.txt\nlzmadec --help",
+      "dependencies": [],
+      "aliases": [],
+      "category": "compression",
+      "source": "mingw64/bin"
+    },
+    {
+      "executable": "lzmainfo.exe",
+      "description": "LZMA file information utility for displaying compression metadata",
+      "usage": "lzmainfo file.lzma\nlzmainfo --help\nLZMA file analysis tool",
+      "dependencies": [],
+      "aliases": [],
+      "category": "compression",
+      "source": "mingw64/bin"
+    },
+    {
+      "executable": "odt2txt.exe",
+      "description": "OpenDocument text converter for extracting plain text from ODT files",
+      "usage": "odt2txt document.odt\nodt2txt --encoding=utf-8 file.odt\nodt2txt --raw document.odt",
+      "dependencies": [],
+      "aliases": [],
+      "category": "document",
+      "source": "mingw64/bin"
+    },
+    {
+      "executable": "openssl.exe",
+      "description": "OpenSSL cryptographic toolkit for certificates, keys, and encryption operations",
+      "usage": "openssl req -new -x509 -key private.key -out cert.crt\nopenssl enc -aes256 -in file.txt -out file.enc\nopenssl s_client -connect server:443",
+      "dependencies": [],
+      "aliases": [],
+      "category": "security",
+      "source": "mingw64/bin"
+    },
+    {
+      "executable": "pdftotext.exe",
+      "description": "PDF to text converter for extracting plain text content from PDF documents",
+      "usage": "pdftotext document.pdf\npdftotext -layout file.pdf output.txt\npdftotext -eol unix document.pdf",
+      "dependencies": [],
+      "aliases": [],
+      "category": "document",
+      "source": "mingw64/bin"
+    },
+    {
+      "executable": "pkcs1-conv.exe",
+      "description": "PKCS#1 key conversion utility for RSA key format transformations",
+      "usage": "pkcs1-conv --help\npkcs1-conv key.pem\nPKCS#1 key format conversion",
+      "dependencies": [],
+      "aliases": [],
+      "category": "security",
+      "source": "mingw64/bin"
+    },
+    {
+      "executable": "sexp-conv.exe",
+      "description": "S-expression conversion utility for transforming data between formats",
+      "usage": "sexp-conv --help\nsexp-conv input.sexp\nS-expression format conversion",
+      "dependencies": [],
+      "aliases": [],
+      "category": "security",
+      "source": "mingw64/bin"
+    },
+    {
+      "executable": "tclsh.exe",
+      "description": "TCL shell interpreter for running TCL scripts and interactive programming",
+      "usage": "tclsh script.tcl\ntclsh\nInteractive TCL development",
+      "dependencies": [],
+      "aliases": [],
+      "category": "interpreter",
+      "source": "mingw64/bin"
+    },
+    {
+      "executable": "tclsh86.exe",
+      "description": "TCL shell interpreter version 8.6 with enhanced features and compatibility",
+      "usage": "tclsh86 script.tcl\ntclsh86 -encoding utf-8 file.tcl\nTCL 8.6 script execution",
+      "dependencies": [],
+      "aliases": [],
+      "category": "interpreter",
+      "source": "mingw64/bin"
+    },
+    {
+      "executable": "unxz.exe",
+      "description": "XZ decompression utility for extracting .xz compressed files",
+      "usage": "unxz file.txt.xz\nunxz --keep archive.tar.xz\nunxz --test *.xz",
+      "dependencies": [],
+      "aliases": [],
+      "category": "compression",
+      "source": "mingw64/bin"
+    },
+    {
+      "executable": "WhoUses.exe",
+      "description": "Display processes and applications currently using specified files or resources",
+      "usage": "WhoUses file.txt\nWhoUses C:\\Windows\\System32\\kernel32.dll\nFile usage tracking utility",
+      "dependencies": [],
+      "aliases": [],
+      "category": "system",
+      "source": "mingw64/bin"
+    },
+    {
+      "executable": "wish.exe", 
+      "description": "TCL windowing shell (Tk) for creating graphical user interfaces and applications",
+      "usage": "wish gui_app.tcl\nwish\nTCL/Tk GUI development",
+      "dependencies": [],
+      "aliases": [],
+      "category": "gui",
+      "source": "mingw64/bin"
+    },
+    {
+      "executable": "wish86.exe",
+      "description": "TCL windowing shell (Tk) version 8.6 with enhanced GUI capabilities",
+      "usage": "wish86 application.tcl\nwish86 -encoding utf-8 gui.tcl\nTk 8.6 GUI applications",
+      "dependencies": [],
+      "aliases": [],
+      "category": "gui",
+      "source": "mingw64/bin"
+    },
+    {
+      "executable": "x86_64-w64-mingw32-agrep.exe",
+      "description": "Approximate grep utility for fuzzy pattern matching with error tolerance",
+      "usage": "x86_64-w64-mingw32-agrep -1 'pattern' file.txt\nx86_64-w64-mingw32-agrep -i -2 'search' *.log\nFuzzy text search tool",
+      "dependencies": [],
+      "aliases": ["agrep"],
+      "category": "text-processing",
+      "source": "mingw64/bin"
+    },
+    {
+      "executable": "xmlwf.exe",
+      "description": "XML well-formedness checker and validator using Expat parser",
+      "usage": "xmlwf document.xml\nxmlwf -v config.xml\necho '<test>content</test>' | xmlwf",
+      "dependencies": [],
+      "aliases": [],
+      "category": "xml",
+      "source": "mingw64/bin"
+    },
+    {
+      "executable": "xz.exe",
+      "description": "XZ compression utility for high-efficiency data compression and archiving", 
+      "usage": "xz file.txt\nxz -9 document.pdf\nxz -d archive.tar.xz",
+      "dependencies": [],
+      "aliases": [],
+      "category": "compression",
+      "source": "mingw64/bin"
+    },
+    {
+      "executable": "xzcat.exe",
+      "description": "Display contents of XZ compressed files without extraction",
+      "usage": "xzcat archive.tar.xz\nxzcat file.txt.xz | grep pattern\nxzcat *.xz",
+      "dependencies": [],
+      "aliases": [],
+      "category": "compression",
+      "source": "mingw64/bin"
+    },
+    {
+      "executable": "xzdec.exe",
+      "description": "XZ decompression utility optimized for simple decompression operations",
+      "usage": "xzdec < file.xz > output.txt\nxzdec file.txt.xz\nSimple XZ decompression",
+      "dependencies": [],
+      "aliases": [],
+      "category": "compression",
+      "source": "mingw64/bin"
+    }
+  ]
+}

@@ -1,0 +1,2018 @@
+{
+  "name": "gitsdk-usr-bin", 
+  "version": "2.51.0",
+  "description": "Complete usr/bin from Git SDK with MSYS2/Unix utilities",
+  "author": "PORTX Team",
+  "license": "Various",
+  
+  "importType": "path",
+  "import": "path",
+  "paths": ["./"],
+  
+  "architecture": "x64",
+  "platform": "win32", 
+  "runtime": "msys2",
+  "source": "Git for Windows PortableGit/GitSDK",
+  "categories": ["development", "unix-tools", "utilities", "git-extensions"],
+
+  "tools": [
+    {
+      "executable": "base32.exe",
+      "description": "Base32 encoder/decoder utility for encoding binary data to base32 text representation",
+      "usage": "echo 'hello world' | base32\nbase32 -d <<< 'NBSWY3DPEB3W64TMMQ======'\nbase32 --encode file.txt",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "encoding",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "base64.exe",
+      "description": "Base64 encoder/decoder utility for encoding binary data to base64 text representation",
+      "usage": "echo 'hello world' | base64\nbase64 -d <<< 'aGVsbG8gd29ybGQK'\nbase64 --wrap=0 file.txt",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "encoding",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "bash.exe",
+      "description": "GNU Bourne Again Shell - Advanced command interpreter with scripting, job control, and command history",
+      "usage": "bash script.sh\nbash -c 'echo $USER'\nbash -i --login",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": ["sh"],
+      "category": "shell",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "bzip2.exe",
+      "description": "High-quality block-sorting file compressor with better compression than gzip",
+      "usage": "bzip2 file.txt\nbzip2 -d file.txt.bz2\nbzip2 -k --best largefile.tar",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "compression",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "bunzip2.exe",
+      "description": "Decompressor for bzip2 compressed files with recovery options for damaged archives",
+      "usage": "bunzip2 file.bz2\nbunzip2 -t archive.bz2\nbunzip2 -c compressed.bz2 > output.txt",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "compression",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "bzcat.exe",
+      "description": "Decompresses bzip2 files to standard output without creating intermediate files",
+      "usage": "bzcat file.bz2\nbzcat archive.tar.bz2 | tar -tf -\nbzcat logs.bz2 | grep ERROR",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "compression",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "bzip2recover.exe",
+      "description": "Recovers data from damaged bzip2 files by extracting undamaged blocks",
+      "usage": "bzip2recover damaged.bz2\nbzip2recover corrupt-archive.bz2",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "compression",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "chmod.exe",
+      "description": "Changes file and directory permissions using symbolic or octal notation",
+      "usage": "chmod +x script.sh\nchmod 755 directory/\nchmod u+rw,g+r,o-w file.txt",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "file-operations",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "chown.exe",
+      "description": "Changes file and directory ownership including user and group settings",
+      "usage": "chown user:group file.txt\nchown -R user directory/\nchown :newgroup file.txt",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "file-operations",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "chgrp.exe",
+      "description": "Changes group ownership of files and directories with recursive options",
+      "usage": "chgrp staff file.txt\nchgrp -R developers project/\nchgrp --reference=other.txt file.txt",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "file-operations",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "clear.exe",
+      "description": "Clears the terminal screen and moves cursor to top-left position",
+      "usage": "clear\nclear; ls -la\nwatch -n 1 'clear && date'",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "terminal",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "column.exe",
+      "description": "Formats input text into aligned columns with customizable separators and spacing",
+      "usage": "mount | column -t\necho -e 'a:b:c\\n1:2:3' | column -t -s ':'\nps aux | column -t",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "text-processing",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "curl.exe",
+      "description": "Command line HTTP/HTTPS client for transferring data with extensive protocol support",
+      "usage": "curl https://api.github.com/user\ncurl -X POST -d 'key=value' url.com\ncurl -o file.zip https://example.com/download",
+      "dependencies": ["msys-2.0.dll", "libcurl-4.dll", "zlib1.dll"],
+      "aliases": [],
+      "category": "network",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "dd.exe",
+      "description": "Data duplicator for copying and converting files with precise control over block size and count",
+      "usage": "dd if=/dev/zero of=testfile bs=1M count=10\ndd if=disk.img of=/dev/sdb bs=4M\ndd if=file.txt of=backup.txt conv=ucase",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "file-operations",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "df.exe",
+      "description": "Displays filesystem disk space usage with human-readable format options",
+      "usage": "df -h\ndf -T /home\ndf --total -h",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "system",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "du.exe",
+      "description": "Displays directory space usage with summarization and depth control options",
+      "usage": "du -sh directory/\ndu -h --max-depth=1\ndu -c *.txt",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "system",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "dos2unix.exe",
+      "description": "Converts DOS/Windows line endings (CRLF) to Unix line endings (LF)",
+      "usage": "dos2unix file.txt\ndos2unix -b file.txt\ndos2unix -n input.txt output.txt",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "text-processing",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "unix2dos.exe",
+      "description": "Converts Unix line endings (LF) to DOS/Windows line endings (CRLF)",
+      "usage": "unix2dos file.txt\nunix2dos -b file.txt\nunix2dos -n input.txt output.txt",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "text-processing",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "expand.exe",
+      "description": "Converts tabs to spaces with configurable tab stop positions",
+      "usage": "expand file.txt\nexpand -t 4 code.py\nexpand --tabs=8 document.txt",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "text-processing",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "unexpand.exe",
+      "description": "Converts sequences of spaces to tabs with configurable tab stop positions",
+      "usage": "unexpand file.txt\nunexpand -t 4 code.py\nunexpand --first-only document.txt",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "text-processing",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "file.exe",
+      "description": "Determines file type by examining file contents and magic numbers",
+      "usage": "file document.pdf\nfile -b image.jpg\nfile --mime-type script.sh",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "file-operations",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "gzip.exe",
+      "description": "GNU compression utility using Lempel-Ziv coding (LZ77) algorithm",
+      "usage": "gzip largefile.txt\ngzip -d archive.gz\ngzip -9 --keep important.log",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "compression",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "id.exe",
+      "description": "Displays user and group IDs with names and group memberships",
+      "usage": "id\nid username\nid -G -n",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "system",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "kill.exe",
+      "description": "Terminates processes by PID or job number with various signal options",
+      "usage": "kill 1234\nkill -9 1234\nkill -TERM %1",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "process",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "less.exe",
+      "description": "Advanced pager for viewing file contents with search, navigation, and syntax highlighting",
+      "usage": "less logfile.txt\nless +/ERROR logfile.txt\nless -N source.c",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "text-viewer",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "md5sum.exe",
+      "description": "Computes and verifies MD5 message digest checksums for file integrity",
+      "usage": "md5sum file.txt\nmd5sum -c checksums.md5\nmd5sum *.txt > hashes.md5",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "checksum",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "sha1sum.exe",
+      "description": "Computes and verifies SHA-1 message digest checksums for file integrity",
+      "usage": "sha1sum file.txt\nsha1sum -c checksums.sha1\nsha1sum *.txt > hashes.sha1",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "checksum",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "sha256sum.exe",
+      "description": "Computes and verifies SHA-256 message digest checksums for enhanced security",
+      "usage": "sha256sum file.txt\nsha256sum -c checksums.sha256\nsha256sum *.txt > hashes.sha256",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "checksum",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "sha224sum.exe",
+      "description": "Computes and verifies SHA-224 message digest checksums for file integrity",
+      "usage": "sha224sum file.txt\nsha224sum -c checksums.sha224\nsha224sum *.txt > hashes.sha224",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "checksum",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "sha384sum.exe",
+      "description": "Computes and verifies SHA-384 message digest checksums with extended hash length",
+      "usage": "sha384sum file.txt\nsha384sum -c checksums.sha384\nsha384sum *.txt > hashes.sha384",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "checksum",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "sha512sum.exe",
+      "description": "Computes and verifies SHA-512 message digest checksums with maximum hash length",
+      "usage": "sha512sum file.txt\nsha512sum -c checksums.sha512\nsha512sum *.txt > hashes.sha512",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "checksum",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "cksum.exe",
+      "description": "Computes CRC checksums and byte counts for file verification",
+      "usage": "cksum file.txt\ncksum *.dat | sort\ncksum --algorithm=md5 file.txt",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "checksum",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "sum.exe",
+      "description": "Computes and displays checksum and block count for files using BSD algorithm",
+      "usage": "sum file.txt\nsum -r file.txt\nsum -s *.txt",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "checksum",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "vim.exe",
+      "description": "Vi IMproved - Advanced text editor with syntax highlighting, multiple windows, and extensive customization",
+      "usage": "vim file.txt\nvim +10 script.sh\nvim -d file1.txt file2.txt",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": ["vi"],
+      "category": "editor",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "view.exe",
+      "description": "Read-only mode of vim editor for viewing files without modification risk",
+      "usage": "view logfile.txt\nview +/ERROR system.log\nview -c 'set nu' file.txt",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "editor",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "vimdiff.exe",
+      "description": "Visual diff tool using vim to compare and merge files side by side",
+      "usage": "vimdiff file1.txt file2.txt\nvimdiff -o file1 file2\nvimdiff file.orig file.new",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "editor",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "nano.exe",
+      "description": "Simple, user-friendly text editor with basic editing features and help display",
+      "usage": "nano file.txt\nnano +15 script.sh\nnano -w file.txt",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "editor",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "ps.exe",
+      "description": "Displays information about active processes with detailed formatting options",
+      "usage": "ps aux\nps -ef\nps --forest -e",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "process",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "who.exe",
+      "description": "Shows who is logged into the system with login time and terminal information",
+      "usage": "who\nwho -b\nwho -r",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "system",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "users.exe",
+      "description": "Displays list of currently logged in users in simple format",
+      "usage": "users\nusers | tr ' ' '\\n' | sort -u\necho $(users | wc -w) users online",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "system",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "hostname.exe",
+      "description": "Displays or sets the system hostname with domain and IP resolution options",
+      "usage": "hostname\nhostname -f\nhostname -I",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "network",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "hostid.exe",
+      "description": "Displays the numeric identifier for the current host in hexadecimal format",
+      "usage": "hostid\nprintf '%x\\n' $(hostid)\necho Host ID: $(hostid)",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "system",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "nproc.exe",
+      "description": "Displays the number of available processing units (CPU cores/threads)",
+      "usage": "nproc\nnproc --all\nmake -j$(nproc)",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "system",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "locale.exe",
+      "description": "Displays locale-specific information and available locales on the system",
+      "usage": "locale\nlocale -a\nlocale LC_TIME",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "system",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "mount.exe",
+      "description": "Mounts filesystems and displays mounted filesystem information with various options",
+      "usage": "mount\nmount /dev/sdb1 /mnt/usb\nmount -t ntfs /dev/sdc1 /mnt/win",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "filesystem",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "umount.exe",
+      "description": "Unmounts mounted filesystems with safety checks and force options",
+      "usage": "umount /mnt/usb\numount -f /mnt/stuck\numount -a -t tmpfs",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "filesystem",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "sync.exe",
+      "description": "Forces filesystem buffers to be written to disk ensuring data persistence",
+      "usage": "sync\nsync /path/to/file\nsync && echo 'All data synced'",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "filesystem",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "stat.exe",
+      "description": "Displays detailed file and filesystem status information including permissions and timestamps",
+      "usage": "stat file.txt\nstat -c '%n %s %y' *.txt\nstat --filesystem /",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "file-operations",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "chroot.exe",
+      "description": "Changes the root directory for command execution creating isolated environment",
+      "usage": "chroot /new/root /bin/bash\nchroot --userspec=user:group /jail command\nchroot /path/to/jail ls -la",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "system",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "nice.exe",
+      "description": "Runs programs with modified scheduling priority to control CPU resource allocation",
+      "usage": "nice -n 10 command\nnice --adjustment=19 ./cpu-intensive\nnice -20 urgent-task",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "process",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "nohup.exe",
+      "description": "Runs commands immune to hangups with output redirected to nohup.out",
+      "usage": "nohup long-running-script &\nnohup python server.py > server.log 2>&1 &\nnohup ./background-task",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "process",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "sleep.exe",
+      "description": "Delays execution for specified time duration with support for various time units",
+      "usage": "sleep 5\nsleep 1.5\nsleep 30m && echo 'Timer done'",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "utility",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "timeout.exe",
+      "description": "Runs commands with time limit, terminating them if they exceed specified duration",
+      "usage": "timeout 30 slow-command\ntimeout 5s ping google.com\ntimeout --kill-after=2 10 command",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "process",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "seq.exe",
+      "description": "Generates sequences of numbers with customizable format, step, and separator",
+      "usage": "seq 1 10\nseq 0 2 20\nseq -f '%.2f' 0 0.1 1",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "utility",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "shuf.exe",
+      "description": "Shuffles lines of input text or generates random permutations and samples",
+      "usage": "shuf file.txt\nseq 1 100 | shuf -n 5\nshuf -e apple orange banana",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "utility",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "split.exe",
+      "description": "Splits large files into smaller pieces by lines, bytes, or custom criteria",
+      "usage": "split -l 1000 largefile.txt\nsplit -b 1M bigfile.bin part_\nsplit -d -a 3 file.txt chunk_",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "file-operations",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "join.exe",
+      "description": "Joins lines from two sorted files based on common field values",
+      "usage": "join file1.txt file2.txt\njoin -t: -1 2 -2 1 users.txt passwords.txt\njoin -a1 -a2 left.txt right.txt",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "text-processing",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "paste.exe",
+      "description": "Merges lines from multiple files horizontally with customizable delimiters",
+      "usage": "paste file1.txt file2.txt\npaste -d',' names.txt numbers.txt\npaste -s file.txt",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "text-processing",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "fmt.exe",
+      "description": "Formats text by adjusting line length and paragraph structure with word wrapping",
+      "usage": "fmt -w 60 document.txt\nfmt -s paragraph.txt\nfmt --crown-margin file.txt",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "text-processing",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "fold.exe",
+      "description": "Wraps text lines to specified width breaking at spaces or characters",
+      "usage": "fold -w 40 longlines.txt\nfold -s text.txt\nfold -b -w 80 file.txt",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "text-processing",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "nl.exe",
+      "description": "Numbers lines in text files with customizable numbering format and options",
+      "usage": "nl file.txt\nnl -b a code.c\nnl -n rz -w 3 document.txt",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "text-processing",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "pr.exe",
+      "description": "Formats text files for printing with headers, page numbers, and column layout",
+      "usage": "pr file.txt\npr -2 -t document.txt\npr -h 'My Document' -n file.txt",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "text-processing",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "tac.exe",
+      "description": "Concatenates and displays files in reverse line order (opposite of cat)",
+      "usage": "tac logfile.txt\ntac file1.txt file2.txt\ntac -s: /etc/passwd",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "text-processing",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "tee.exe",
+      "description": "Reads from input and writes to both output and files simultaneously",
+      "usage": "command | tee output.txt\nls -la | tee -a logfile.txt\necho 'test' | tee file1.txt file2.txt",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "utility",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "od.exe",
+      "description": "Dumps files in octal, hex, decimal, or ASCII format for binary analysis",
+      "usage": "od -x file.bin\nod -c textfile.txt\nod -A x -t x1z binary.dat",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "file-operations",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "xxd.exe",
+      "description": "Creates hex dumps and reverse hex dumps with ASCII representation",
+      "usage": "xxd file.bin\nxxd -r hexdump.txt restored.bin\nxxd -l 256 -c 16 binary.exe",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "file-operations",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "factor.exe",
+      "description": "Factors integers into prime numbers with support for large numbers",
+      "usage": "factor 1234\nfactor 2^32-1\necho 123456789 | factor",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "math",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "numfmt.exe",
+      "description": "Formats and converts numbers between different representations and units",
+      "usage": "numfmt --to=iec 1024\necho 1048576 | numfmt --to=si\ndf -B1 | numfmt --header --field=2-4 --to=iec",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "utility",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "truncate.exe",
+      "description": "Shrinks or extends files to specified size with various options",
+      "usage": "truncate -s 1024 file.txt\ntruncate -s 0 logfile.log\ntruncate --size=+100 growing.dat",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "file-operations",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "xz.exe",
+      "description": "High compression ratio LZMA-based file compressor with multi-threading support",
+      "usage": "xz file.txt\nxz -d archive.xz\nxz -9 --threads=4 bigfile.tar",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "compression",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "unxz.exe",
+      "description": "Decompresses XZ compressed files with integrity verification",
+      "usage": "unxz archive.xz\nunxz -t test.xz\nunxz -c compressed.xz > output.txt",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "compression",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "xzcat.exe",
+      "description": "Decompresses XZ files to standard output without creating intermediate files",
+      "usage": "xzcat archive.xz\nxzcat logs.tar.xz | tar -tf -\nxzcat file.xz | grep pattern",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "compression",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "xzdec.exe",
+      "description": "Small XZ decompressor with minimal memory footprint for embedded systems",
+      "usage": "xzdec < compressed.xz > output.txt\nxzdec archive.xz",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "compression",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "unzip.exe",
+      "description": "Extracts files from ZIP archives with various extraction and listing options",
+      "usage": "unzip archive.zip\nunzip -l archive.zip\nunzip -x '*.tmp' archive.zip",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "compression",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "zipinfo.exe",
+      "description": "Lists detailed information about ZIP archive contents including compression ratios",
+      "usage": "zipinfo archive.zip\nzipinfo -v archive.zip\nzipinfo -t archive.zip",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "compression",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "funzip.exe",
+      "description": "Fast unzip filter for single-file ZIP archives without directory extraction",
+      "usage": "funzip < single-file.zip > output.txt\ncat archive.zip | funzip",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "compression",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "unzipsfx.exe",
+      "description": "Self-extracting ZIP archive stub for creating executable ZIP files",
+      "usage": "cat unzipsfx.exe archive.zip > self-extract.exe\n./self-extract.exe",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "compression",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "openssl.exe",
+      "description": "Complete cryptographic toolkit with SSL/TLS, certificate management, and encryption utilities",
+      "usage": "openssl req -new -x509 -days 365 -keyout key.pem -out cert.pem\nopenssl enc -aes256 -in file.txt -out encrypted.bin\nopenssl dgst -sha256 document.pdf",
+      "dependencies": ["msys-2.0.dll", "libssl-1_1-x64.dll", "libcrypto-1_1-x64.dll"],
+      "aliases": [],
+      "category": "security",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "ssh-keygen.exe",
+      "description": "Generates, manages, and converts SSH authentication keys with various algorithms",
+      "usage": "ssh-keygen -t rsa -b 4096 -f ~/.ssh/id_rsa\nssh-keygen -t ed25519 -C 'user@host'\nssh-keygen -lf ~/.ssh/id_rsa.pub",
+      "dependencies": ["msys-2.0.dll", "libssl-1_1-x64.dll"],
+      "aliases": [],
+      "category": "security",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "ssh-keyscan.exe",
+      "description": "Scans hosts for SSH public keys to populate known_hosts files",
+      "usage": "ssh-keyscan github.com\nssh-keyscan -t rsa,ed25519 server.com\nssh-keyscan -f hostlist.txt",
+      "dependencies": ["msys-2.0.dll", "libssl-1_1-x64.dll"],
+      "aliases": [],
+      "category": "security",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "scp.exe",
+      "description": "Secure copy protocol for transferring files between hosts over SSH",
+      "usage": "scp file.txt user@host:/path/\nscp -r directory/ user@host:/remote/\nscp user@host:file.txt local.txt",
+      "dependencies": ["msys-2.0.dll", "libssl-1_1-x64.dll"],
+      "aliases": [],
+      "category": "network",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "sftp.exe",
+      "description": "Secure file transfer protocol client with interactive and batch modes",
+      "usage": "sftp user@host\nsftp -b batchfile.txt user@host\necho 'put file.txt' | sftp user@host",
+      "dependencies": ["msys-2.0.dll", "libssl-1_1-x64.dll"],
+      "aliases": [],
+      "category": "network",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "sftp-server.exe",
+      "description": "SFTP server subprocess that handles SFTP protocol for SSH daemon",
+      "usage": "Internal SSH daemon component - not directly invoked\nsshd uses sftp-server automatically\nSubsystem sftp /usr/lib/ssh/sftp-server",
+      "dependencies": ["msys-2.0.dll", "libssl-1_1-x64.dll"],
+      "aliases": [],
+      "category": "network",
+      "source": "usr/lib/ssh"
+    },
+    {
+      "executable": "ssh-pageant.exe",
+      "description": "SSH authentication agent that interfaces with PuTTY's Pageant on Windows",
+      "usage": "eval $(ssh-pageant -r -a '/tmp/.ssh-pageant-$USERNAME')\nssh-pageant -c 'ssh user@host'\nssh-pageant --reuse-socket",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "security",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "patch.exe",
+      "description": "Applies diff patches to files with context matching and backup options",
+      "usage": "patch < changes.patch\npatch -p1 < unified.diff\npatch --dry-run -i test.patch file.txt",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "development",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "gawk.exe",
+      "description": "GNU implementation of AWK pattern scanning and processing language",
+      "usage": "gawk '{print $1}' file.txt\nps aux | gawk '{sum += $6} END {print sum}'\ngawk -F: '{print $1, $3}' /etc/passwd",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": ["awk"],
+      "category": "text-processing",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "strace.exe",
+      "description": "Traces system calls and signals for debugging and analysis",
+      "usage": "strace ls\nstrace -e open,read program\nstrace -o trace.log -p 1234",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "debugging",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "ldd.exe",
+      "description": "Lists dynamic library dependencies for executables and shared libraries",
+      "usage": "ldd program.exe\nldd --verbose library.dll\nldd --unused program.exe",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "debugging",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "make.exe",
+      "description": "Build automation tool that controls compilation of programs from source code",
+      "usage": "make\nmake -j4 all\nmake clean && make install",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "development",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "iconv.exe",
+      "description": "Converts text between different character encodings with comprehensive charset support",
+      "usage": "iconv -f iso-8859-1 -t utf-8 file.txt\niconv -l | grep -i utf\niconv -c -f utf-16 -t utf-8 input.txt > output.txt",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "text-processing",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "gettext.exe",
+      "description": "Extracts translatable strings from source code for internationalization",
+      "usage": "xgettext --from-code=UTF-8 *.c\nmsgfmt messages.po -o messages.mo\ngettext 'Hello World'",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "development",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "envsubst.exe",
+      "description": "Substitutes environment variables in shell format strings",
+      "usage": "echo 'Hello $USER' | envsubst\nenvsubst < template.txt > output.txt\nenvsubst '$HOME,$PATH' < config.template",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "utility",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "csplit.exe",
+      "description": "Splits files based on context patterns and regular expressions",
+      "usage": "csplit file.txt /pattern/ {*}\ncsplit log.txt '/ERROR/' '{10}'\ncsplit -f part_ data.txt 100 200 300",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "text-processing",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "ptx.exe",
+      "description": "Produces permuted index or concordance for text analysis",
+      "usage": "ptx file.txt\nptx -W 20 document.txt\nptx -G -T -w 10 text.txt",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "text-processing",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "tsort.exe",
+      "description": "Performs topological sort on directed acyclic graphs from input pairs",
+      "usage": "tsort dependencies.txt\necho -e 'a b\\nb c\\na c' | tsort\ntsort --quiet graph.txt",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "utility",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "install.exe",
+      "description": "Installs files and directories with permission setting and backup options",
+      "usage": "install -m 755 script.sh /usr/local/bin/\ninstall -d /new/directory\ninstall --backup=numbered old.txt new.txt",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "file-operations",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "mkfifo.exe",
+      "description": "Creates named pipes (FIFOs) for inter-process communication",
+      "usage": "mkfifo mypipe\necho 'data' > mypipe &; cat mypipe\nmkfifo -m 644 /tmp/pipeline",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "file-operations",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "mknod.exe",
+      "description": "Creates special files including device nodes and named pipes",
+      "usage": "mknod /dev/mydevice c 254 0\nmknod mypipe p\nmknod --mode=644 special b 8 1",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "file-operations",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "shred.exe",
+      "description": "Securely deletes files by overwriting with random data multiple times",
+      "usage": "shred -vfz -n 3 sensitive.txt\nshred --random-source=/dev/urandom file.dat\nshred -u secret.doc",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "security",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "stdbuf.exe",
+      "description": "Controls standard stream buffering behavior for programs",
+      "usage": "stdbuf -oL command\nstdbuf -i0 -o0 -e0 unbuffered-program\nstdbuf --output=0 tail -f log.txt",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "utility",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "yes.exe",
+      "description": "Outputs specified string repeatedly until terminated, useful for automation",
+      "usage": "yes | head -5\nyes 'agree' | someprogram\nyes no | configure-script",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "utility",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "logname.exe",
+      "description": "Displays the login name of the current user from system records",
+      "usage": "logname\necho 'User:' $(logname)\nif [ $(logname) = 'admin' ]; then echo 'Admin user'; fi",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "system",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "printenv.exe",
+      "description": "Prints environment variables with optional filtering and formatting",
+      "usage": "printenv\nprintenv PATH\nprintenv | grep -i java",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "system",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "arch.exe",
+      "description": "Displays the machine hardware architecture type",
+      "usage": "arch\necho 'Architecture:' $(arch)\ncase $(arch) in x86_64) echo '64-bit system';; esac",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "system",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "mintty.exe",
+      "description": "Terminal emulator for Windows with Unicode support and customizable appearance",
+      "usage": "mintty bash\nmintty -e vim file.txt\nmintty --size=80,25 --title='My Terminal'",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "terminal",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "winpty.exe",
+      "description": "Windows pseudo terminal interface for console programs requiring Windows PTY",
+      "usage": "winpty python\nwinpty node interactive.js\nwinpty cmd /k",
+      "dependencies": ["msys-2.0.dll", "winpty-agent.exe"],
+      "aliases": [],
+      "category": "terminal",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "winpty-agent.exe",
+      "description": "Background agent process for winpty providing Windows console interface",
+      "usage": "Automatically launched by winpty\nwinpty-agent --show-input\nInternal winpty component",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "terminal",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "winpty-debugserver.exe",
+      "description": "Debug server for winpty development and troubleshooting console issues",
+      "usage": "winpty-debugserver\nUsed for winpty debugging\nDevelopment and diagnostic tool",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "debugging",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "reset.exe",
+      "description": "Resets terminal to default state clearing screen and resetting attributes",
+      "usage": "reset\nreset; clear\nreset && echo 'Terminal reset'",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "terminal",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "stty.exe",
+      "description": "Displays and modifies terminal line settings and special characters",
+      "usage": "stty -a\nstty -echo\nstty rows 50 cols 132",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "terminal",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "tty.exe",
+      "description": "Displays the filename of the terminal connected to standard input",
+      "usage": "tty\nif tty -s; then echo 'Interactive'; fi\ntty --quiet || echo 'Not a terminal'",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "terminal",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "tabs.exe",
+      "description": "Sets tab stops on terminals and displays current tab settings",
+      "usage": "tabs -8\ntabs 1,9,17,25,33\ntabs --file=/etc/tabstops",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "terminal",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "tput.exe",
+      "description": "Terminal capability interface for controlling cursor, colors, and screen properties",
+      "usage": "tput clear\ntput cup 10 20\ntput setaf 1; echo 'Red text'; tput sgr0",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "terminal",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "tic.exe",
+      "description": "Terminfo compiler that translates terminfo source into binary format",
+      "usage": "tic myterm.src\ntic -v xterm-256color.src\ntic -x custom.terminfo",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "terminal",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "toe.exe",
+      "description": "Lists available terminal types from terminfo database",
+      "usage": "toe\ntoe -a\ntoe | grep xterm",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "terminal",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "captoinfo.exe",
+      "description": "Converts termcap descriptions to terminfo format",
+      "usage": "captoinfo /etc/termcap\ncaptoinfo -v oldterm.cap\ncaptoinfo custom.termcap > custom.terminfo",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "terminal",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "infocmp.exe",
+      "description": "Compares and displays terminfo database entries with differences",
+      "usage": "infocmp xterm\ninfocmp -d xterm xterm-256color\ninfocmp -C xterm",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "terminal",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "infotocap.exe",
+      "description": "Converts terminfo descriptions to termcap format",
+      "usage": "infotocap xterm\ninfotocap -v screen > screen.termcap\ninfotocap custom-term",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "terminal",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "tset.exe",
+      "description": "Terminal initialization utility that sets terminal type and modes",
+      "usage": "tset\ntset -s\neval $(tset -s)",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "terminal",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "lesskey.exe",
+      "description": "Compiles key binding definitions for the less pager",
+      "usage": "lesskey\nlesskey custom.keys\nlesskey -o ~/.less mykeys.src",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "text-viewer",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "lessecho.exe",
+      "description": "Expands metacharacters in less command arguments",
+      "usage": "lessecho 'file*.txt'\nlessecho -p '*.log'\nlessecho -m 'test[0-9].dat'",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "text-viewer",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "antiword.exe",
+      "description": "Converts Microsoft Word documents to plain text with formatting preservation",
+      "usage": "antiword document.doc\nantiword -x db document.doc > output.xml\nantiword -t /tmp document.doc",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "document-conversion",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "odt2txt.exe",
+      "description": "Converts OpenDocument Text files to plain text format",
+      "usage": "odt2txt document.odt\nodt2txt --encoding=utf-8 file.odt\nodt2txt --width=80 document.odt > output.txt",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "document-conversion",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "pdftotext.exe",
+      "description": "Converts PDF documents to plain text with layout preservation options",
+      "usage": "pdftotext document.pdf\npdftotext -layout file.pdf output.txt\npdftotext -f 5 -l 10 document.pdf",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "document-conversion",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "git-gui.exe",
+      "description": "Graphical user interface for Git with commit, merge, and repository management",
+      "usage": "git gui\ngit gui --amend\ngit gui citool",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "git-tools",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "gitk.exe",
+      "description": "Graphical repository browser showing commit history, branches, and diffs",
+      "usage": "gitk\ngitk --all\ngitk branch1..branch2",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "git-tools",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "git-daemon.exe",
+      "description": "Lightweight Git protocol server for read-only repository access",
+      "usage": "git daemon --base-path=/git --export-all\ngit daemon --reuseaddr --port=9418\ngit daemon --enable=receive-pack --base-path=/repos",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "git-tools",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "git-http-backend.exe",
+      "description": "CGI program implementing server-side Git HTTP protocol",
+      "usage": "Used by web servers for Git HTTP(S) access\nApache/nginx configuration component\nCGI backend for Git repositories",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "git-tools",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "git-imap-send.exe",
+      "description": "Sends patches via IMAP for email-based patch submission workflows",
+      "usage": "git imap-send < patches.mbox\ngit format-patch --stdout HEAD~3 | git imap-send\nUsed with git send-email workflows",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "git-tools",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "git-remote-ftp.exe",
+      "description": "Git remote helper for FTP protocol repository access",
+      "usage": "git clone ftp://server/repo.git\ngit remote add origin ftp://ftp.example.com/git/repo\nAutomatic via git remote URLs",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "git-tools",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "git-remote-ftps.exe",
+      "description": "Git remote helper for FTPS (FTP over SSL) protocol repository access",
+      "usage": "git clone ftps://server/repo.git\ngit remote add origin ftps://secure.example.com/git/repo\nAutomatic via git remote URLs",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "git-tools",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "git-upload-archive.exe",
+      "description": "Server-side component for git archive --remote functionality",
+      "usage": "Automatically invoked by git archive --remote\nServer-side Git archive service\nInternal Git component",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "git-tools",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "git-cmd.exe",
+      "description": "Windows-specific Git command line interface launcher",
+      "usage": "git-cmd.exe\nLaunches Git command prompt on Windows\nWindows Git integration tool",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "git-tools",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "compat-bash.exe",
+      "description": "Compatibility version of bash for legacy script support",
+      "usage": "compat-bash legacy-script.sh\ncompat-bash --version\nBackward compatibility shell",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "shell",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "ex.exe",
+      "description": "Line-oriented text editor and ex mode interface for vi/vim",
+      "usage": "ex file.txt\nex -c '%s/old/new/g|wq' file.txt\necho '%s/pattern/replace/g|wq' | ex file.txt",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "editor",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "rview.exe",
+      "description": "Read-only restricted view mode of vim editor",
+      "usage": "rview file.txt\nrview +/pattern logfile.txt\nrview -c 'set number' document.txt",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "editor",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "rvim.exe",
+      "description": "Restricted mode vim editor with limited functionality for security",
+      "usage": "rvim file.txt\nrvim -Z script.sh\nSecure editing mode for untrusted environments",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "editor",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "rnano.exe",
+      "description": "Restricted mode nano editor with limited file access",
+      "usage": "rnano file.txt\nrnano -w document.txt\nSecure nano for restricted environments",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "editor",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "locate.exe",
+      "description": "Finds files using pre-built database for fast searching",
+      "usage": "locate filename\nlocate -i '*.pdf'\nlocate --regex '.*\\.log$'",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "file-search",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "frcode.exe",
+      "description": "Generates compressed database for locate command file searching",
+      "usage": "find / -print | frcode > locatedb\nfrcode < filelist > database\nUpdatedb backend component",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "file-search",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "tzset.exe",
+      "description": "Sets timezone information and displays timezone data",
+      "usage": "tzset\nTZ='America/New_York' tzset\ntzset --list-zones",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "system",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "getconf.exe",
+      "description": "Gets system configuration values and limits from system calls",
+      "usage": "getconf ARG_MAX\ngetconf _NPROCESSORS_ONLN\ngetconf -a | grep PATH",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "system",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "gawk-5.0.0.exe",
+      "description": "Specific version of GNU AWK (version 5.0.0)",
+      "usage": "gawk-5.0.0 '{print NF}' file.txt\ngawk-5.0.0 --version\nVersion-specific AWK execution",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "programming",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "lzmadec.exe",
+      "description": "Decompresses LZMA compressed files with simple interface",
+      "usage": "lzmadec < compressed.lzma > output.txt\nlzmadec file.lzma\nlzmadec --help",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "compression",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "lzmainfo.exe",
+      "description": "Displays information about LZMA compressed files",
+      "usage": "lzmainfo file.lzma\nlzmainfo compressed.lzma\nlzmainfo --help",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "compression",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "mac2unix.exe",
+      "description": "Converts Macintosh line endings (CR) to Unix line endings (LF)",
+      "usage": "mac2unix file.txt\nmac2unix -b file.txt\nmac2unix -n input.txt output.txt",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "text-processing",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "unix2mac.exe",
+      "description": "Converts Unix line endings (LF) to Macintosh line endings (CR)",
+      "usage": "unix2mac file.txt\nunix2mac -b file.txt\nunix2mac -n input.txt output.txt",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "text-processing",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "u2d.exe",
+      "description": "Converts Unix text files to DOS format (LF to CRLF)",
+      "usage": "u2d file.txt\nu2d *.txt\nAlias for unix2dos functionality",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": ["unix2dos"],
+      "category": "text-processing",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "d2u.exe",
+      "description": "Converts DOS text files to Unix format (CRLF to LF)",
+      "usage": "d2u file.txt\nd2u *.txt\nAlias for dos2unix functionality",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": ["dos2unix"],
+      "category": "text-processing",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "dir.exe",
+      "description": "Lists directory contents in DOS/Windows format",
+      "usage": "dir\ndir /w\ndir /s *.txt",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "file-operations",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "vdir.exe",
+      "description": "Verbose directory listing similar to ls -l with detailed information",
+      "usage": "vdir\nvdir *.txt\nvdir --color=auto",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "file-operations",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "dircolors.exe",
+      "description": "Sets up color configuration for ls and other directory listing commands",
+      "usage": "dircolors\neval $(dircolors)\ndircolors ~/.dir_colors",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "file-operations",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "cygcheck.exe",
+      "description": "Checks Cygwin installation and DLL dependencies for debugging",
+      "usage": "cygcheck program.exe\ncygcheck -s\ncygcheck -c cygwin",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "debugging",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "ldh.exe",
+      "description": "Library dependency helper for analyzing shared library usage",
+      "usage": "ldh program.exe\nldh --verbose binary\nldh --help",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "debugging",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "pldd.exe",
+      "description": "Lists dynamic shared objects loaded by running processes",
+      "usage": "pldd 1234\npldd $(pidof program)\npldd --help",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "debugging",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "minidumper.exe",
+      "description": "Generates Windows minidump files for crashed processes",
+      "usage": "minidumper program.exe\nminidumper -n program 1234\nminidumper --help",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "debugging",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "connect.exe",
+      "description": "Makes network connections through SOCKS or HTTP proxies",
+      "usage": "connect -S proxy:1080 target:80\nconnect -H proxy:8080 server:22\nconnect --help",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "network",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "adig.exe",
+      "description": "Asynchronous DNS lookup tool for testing DNS resolution",
+      "usage": "adig google.com\nadig -t MX domain.com\nadig -s 8.8.8.8 example.com",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "network",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "ahost.exe",
+      "description": "Asynchronous hostname lookup utility for DNS testing",
+      "usage": "ahost 8.8.8.8\nahost google.com\nahost -s 1.1.1.1 cloudflare.com",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "network",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "gpg-auth.exe",
+      "description": "GPG authentication helper for secure authentication workflows",
+      "usage": "gpg-auth --help\nUsed internally by GPG authentication systems\nGPG infrastructure component",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "security",
+      "source": "usr/lib/gnupg"
+    },
+    {
+      "executable": "gpg-card.exe",
+      "description": "Smart card interface for GPG operations with hardware tokens",
+      "usage": "gpg-card\ngpg-card --list\ngpg-card --change-pin",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "security",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "gpg-check-pattern.exe",
+      "description": "Checks passphrases against pattern files for security validation",
+      "usage": "gpg-check-pattern pattern.txt\necho 'password123' | gpg-check-pattern weak.patterns\nGPG security component",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "security",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "gpg-error.exe",
+      "description": "Displays GPG error codes and descriptions for troubleshooting",
+      "usage": "gpg-error 2\ngpg-error --list\nGPG error lookup utility",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "security",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "gpg-mail-tube.exe",
+      "description": "Mail filtering component for GPG email integration",
+      "usage": "Internal GPG mail processing component\nGPG email infrastructure\nAutomatic GPG mail handling",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "security",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "gpg-pair-tool.exe",
+      "description": "Tool for pairing GPG keys with external devices or services",
+      "usage": "gpg-pair-tool --help\nGPG device pairing utility\nHardware token integration",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "security",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "gpgparsemail.exe",
+      "description": "Parses email messages for GPG signatures and encryption",
+      "usage": "gpgparsemail < message.eml\ngpgparsemail --help\nGPG email processing utility",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "security",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "gpg-preset-passphrase.exe",
+      "description": "Presets passphrases in GPG agent cache for automated operations",
+      "usage": "gpg-preset-passphrase --preset keygrip\necho 'passphrase' | gpg-preset-passphrase --preset keygrip\nGPG automation tool",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "security",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "gpg-protect-tool.exe",
+      "description": "Protects private keys with additional security layers",
+      "usage": "gpg-protect-tool --help\nPrivate key protection utility\nGPG key security enhancement",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "security",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "gpgscm.exe",
+      "description": "GPG Scheme interpreter for advanced cryptographic scripting",
+      "usage": "gpgscm script.scm\ngpgscm --help\nGPG scripting environment",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "security",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "gpgsm.exe",
+      "description": "GPG S/MIME implementation for X.509 certificates and CMS encryption",
+      "usage": "gpgsm --list-keys\ngpgsm --encrypt -r recipient file.txt\ngpgsm --verify signature.p7s",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "security",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "gpgsplit.exe",
+      "description": "Splits OpenPGP messages into individual packets for analysis",
+      "usage": "gpgsplit message.gpg\ngpgsplit --verbose encrypted.asc\nGPG message analysis tool",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "security",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "gpgtar.exe",
+      "description": "Creates and extracts encrypted tar archives using GPG",
+      "usage": "gpgtar --encrypt -r recipient --output archive.tar.gpg directory/\ngpgtar --decrypt archive.tar.gpg\ngpgtar --list-archive encrypted.tar.gpg",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "security",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "gpgv.exe",
+      "description": "Signature verification program without key management functionality",
+      "usage": "gpgv signature.asc document.txt\ngpgv --keyring pubring.gpg signature.sig\nLightweight GPG verification",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "security",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "gpg-wks-client.exe",
+      "description": "Web Key Service client for automated key discovery and publication",
+      "usage": "gpg-wks-client --supported domain.com\ngpg-wks-client --create fingerprint user@domain.com\nWKS protocol implementation",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "security",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "gpg-wks-server.exe",
+      "description": "Web Key Service server for automated key publication and management",
+      "usage": "gpg-wks-server --list-domains\ngpg-wks-server --install-key\nWKS server implementation",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "security",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "scdaemon.exe",
+      "description": "Smart card daemon for GPG hardware token and card operations",
+      "usage": "scdaemon --daemon\nscdaemon --server\nAutomatic smart card support",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "security",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "keyboxd.exe",
+      "description": "Key database daemon for GPG key storage and retrieval",
+      "usage": "keyboxd --daemon\nkeyboxd --help\nGPG key management daemon",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "security",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "kbxutil.exe",
+      "description": "Keybox utility for GPG key database maintenance and operations",
+      "usage": "kbxutil --stats keybox.kbx\nkbxutil --find-dups keybox.kbx\nKeybox database management",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "security",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "dumpsexp.exe",
+      "description": "Dumps S-expressions from cryptographic data structures",
+      "usage": "dumpsexp keyfile.key\ndumpsexp --help\nCryptographic data analysis",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "security",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "sexp-conv.exe",
+      "description": "Converts between different S-expression formats",
+      "usage": "sexp-conv --base64 < data.sexp\nsexp-conv --canonical input.sexp\nS-expression format converter",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "security",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "pkcs1-conv.exe",
+      "description": "Converts between PKCS#1 key formats for cryptographic operations",
+      "usage": "pkcs1-conv < private.key\npkcs1-conv --help\nPKCS#1 format converter",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "security",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "hmac256.exe",
+      "description": "Computes HMAC-SHA256 message authentication codes",
+      "usage": "hmac256 key file.txt\necho 'message' | hmac256 secretkey\nHMAC authentication utility",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "security",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "pinentry.exe",
+      "description": "Secure passphrase entry dialog for GPG and cryptographic applications",
+      "usage": "pinentry\nAutomatic GPG passphrase collection\nSecure password input interface",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "security",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "pinentry-w32.exe",
+      "description": "Windows-specific secure passphrase entry dialog for GPG",
+      "usage": "pinentry-w32\nWindows GPG passphrase collection\nNative Windows secure input",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "security",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "watchgnupg.exe",
+      "description": "Monitors GPG agent and daemon log output for debugging",
+      "usage": "watchgnupg\nwatchgnupg --tcp 1234\nGPG debugging and monitoring",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "security",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "dirmngr-client.exe",
+      "description": "Client for directory manager accessing certificate directories and CRL",
+      "usage": "dirmngr-client --ocsp cert.crt\ndirmngr-client --lookup key@example.com\nCertificate directory client",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "security",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "p11-kit.exe",
+      "description": "PKCS#11 toolkit for managing cryptographic tokens and smart cards",
+      "usage": "p11-kit list-modules\np11-kit server --provider /path/to/module.so\nPKCS#11 token management",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "security",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "p11-kit-remote.exe",
+      "description": "Remote PKCS#11 module for distributed cryptographic operations",
+      "usage": "p11-kit-remote /path/to/socket\nRemote PKCS#11 access\nDistributed crypto operations",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "security",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "p11-kit-server.exe",
+      "description": "PKCS#11 server for sharing cryptographic modules across processes",
+      "usage": "p11-kit-server --provider module.so\np11-kit-server unix:/tmp/pkcs11\nPKCS#11 module server",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "security",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "nettle-hash.exe",
+      "description": "Nettle cryptographic hash function utility",
+      "usage": "nettle-hash --algorithm sha256 file.txt\nnettle-hash --list\nCryptographic hashing tool",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "security",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "nettle-lfib-stream.exe",
+      "description": "Nettle linear feedback shift register stream generator",
+      "usage": "nettle-lfib-stream --help\nPseudorandom stream generation\nCryptographic testing tool",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "security",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "nettle-pbkdf2.exe",
+      "description": "Password-Based Key Derivation Function 2 implementation",
+      "usage": "nettle-pbkdf2 --iterations 10000 password salt\necho 'password' | nettle-pbkdf2 --hex-salt abcd\nKey derivation utility",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "security",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "trust.exe",
+      "description": "Trust anchor and certificate authority management utility",
+      "usage": "trust list\ntrust anchor cert.pem\ntrust extract --format=pem-bundle ca-bundle.pem",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "security",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "chcon.exe",
+      "description": "Changes security context labels for SELinux file access control",
+      "usage": "chcon -t httpd_exec_t /path/to/script\nchcon -R --reference=/etc/hosts /new/config\nchcon system_u:object_r:admin_home_t:s0 file",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "security",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "runcon.exe",
+      "description": "Runs commands with specified security context in SELinux environments",
+      "usage": "runcon unconfined_t ls -Z\nruncon system_u:system_r:httpd_t:s0 httpd\nruncon --compute command",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "security",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "passwd.exe",
+      "description": "Changes user password with security validation and policy enforcement",
+      "usage": "passwd\npasswd username\npasswd --help",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "system",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "mkgroup.exe",
+      "description": "Creates group database entries from Windows domain and local groups",
+      "usage": "mkgroup -l > /etc/group\nmkgroup -d\nmkgroup --help",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "system",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "mkpasswd.exe",
+      "description": "Creates password database entries from Windows users and domains",
+      "usage": "mkpasswd -l > /etc/passwd\nmkpasswd -d\nmkpasswd -u username",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "system",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "groups.exe",
+      "description": "Displays group memberships for users with group name resolution",
+      "usage": "groups\ngroups username\ngroups user1 user2",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "system",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "pinky.exe",
+      "description": "Displays user information including login time and contact details",
+      "usage": "pinky\npinky username\npinky -l -p username",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "system",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "setfacl.exe",
+      "description": "Sets POSIX Access Control Lists for fine-grained file permissions",
+      "usage": "setfacl -m u:user:rwx file.txt\nsetfacl -R -m g:group:r-x directory/\nsetfacl --restore=acl_backup.txt",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "file-operations",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "setmetamode.exe",
+      "description": "Sets keyboard meta mode for terminal key interpretation",
+      "usage": "setmetamode meta\nsetmetamode esc\nTerminal keyboard configuration",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "terminal",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "grcat.exe",
+      "description": "Generic colorizer for text output with pattern-based coloring rules",
+      "usage": "tail -f /var/log/messages | grcat conf.logfile\nps aux | grcat conf.ps\nCustom text colorization",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "text-processing",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "pwcat.exe",
+      "description": "Outputs password database in various formats with field selection",
+      "usage": "pwcat\npwcat -g\nPassword database utility",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "system",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "ssp.exe",
+      "description": "Simple stream processor for text filtering and transformation",
+      "usage": "ssp --help\nText processing utility\nStream filtering tool",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "text-processing",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "create-shortcut.exe",
+      "description": "Creates Windows shortcuts (.lnk files) with customizable properties and icons",
+      "usage": "create-shortcut --name=MyApp --path=C:\\App\\app.exe --icon=app.ico\ncreate-shortcut --target=/usr/bin/bash --arguments='-l'\nWindows shortcut creation utility",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "windows",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "dlls-copied.exe", 
+      "description": "Tracks and reports DLL dependencies and copying operations for debugging",
+      "usage": "dlls-copied program.exe\ndlls-copied --verbose application.exe\nDLL dependency analysis tool",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "debug",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "edit_test.exe",
+      "description": "Text editor functionality testing utility for validating editor operations",
+      "usage": "edit_test file.txt\nedit_test --mode=interactive\nEditor testing and validation",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "testing",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "edit_test_dll.exe",
+      "description": "DLL version of text editor testing utility with library linking capabilities",
+      "usage": "edit_test_dll --test-mode\nedit_test_dll file.txt\nDLL-based editor testing",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "testing",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "mpicalc.exe",
+      "description": "Multi-precision integer calculator for arbitrary precision arithmetic operations",
+      "usage": "mpicalc '2^1000'\nmpicalc 'factorial(50)'\necho '123456789 * 987654321' | mpicalc",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "math",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "regtool.exe",
+      "description": "Windows registry manipulation tool for command-line registry operations",
+      "usage": "regtool get HKLM/Software/Microsoft/Windows/CurrentVersion\nregtool set HKCU/Software/MyApp/Setting value\nregtool delete HKLM/Software/OldApp",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "windows",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "rmt.exe",
+      "description": "Remote magnetic tape utility for tape drive operations over network",
+      "usage": "rmt /dev/tape0\nrmt --status\nRemote tape drive management",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "storage",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "tar.exe",
+      "description": "GNU tar archiving utility for creating and extracting compressed archives",
+      "usage": "tar -czf archive.tar.gz directory/\ntar -xzf archive.tar.gz\ntar -tf archive.tar --list",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "archive",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "tclsh.exe",
+      "description": "TCL shell interpreter for running TCL scripts and interactive commands",
+      "usage": "tclsh script.tcl\ntclsh\nInteractive TCL programming",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "interpreter",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "tclsh86.exe", 
+      "description": "TCL shell interpreter version 8.6 with enhanced features and compatibility",
+      "usage": "tclsh86 script.tcl\ntclsh86 -encoding utf-8 file.tcl\nTCL 8.6 script execution",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "interpreter",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "which.exe",
+      "description": "Locates executable programs in the system PATH environment variable",
+      "usage": "which python\nwhich -a gcc\nwhich --version",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "system",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "WhoUses.exe",
+      "description": "Identifies processes and applications currently using specified files or resources",
+      "usage": "WhoUses file.txt\nWhoUses C:\\Windows\\System32\\kernel32.dll\nFile usage tracking utility",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "system",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "wish.exe",
+      "description": "TCL windowing shell (Tk) for creating graphical user interfaces and applications",
+      "usage": "wish gui_app.tcl\nwish\nTCL/Tk GUI development",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "gui",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "wish86.exe",
+      "description": "TCL windowing shell (Tk) version 8.6 with enhanced GUI capabilities",
+      "usage": "wish86 application.tcl\nwish86 -encoding utf-8 gui.tcl\nTk 8.6 GUI applications",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "gui", 
+      "source": "usr/bin"
+    },
+    {
+      "executable": "x86_64-w64-mingw32-agrep.exe",
+      "description": "Approximate grep utility for fuzzy pattern matching with error tolerance",
+      "usage": "x86_64-w64-mingw32-agrep -1 'pattern' file.txt\nx86_64-w64-mingw32-agrep -i -2 'search' *.log\nFuzzy text search tool",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": ["agrep"],
+      "category": "text-processing",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "xmlwf.exe",
+      "description": "XML well-formedness checker and validator using Expat parser",
+      "usage": "xmlwf document.xml\nxmlwf -v config.xml\necho '<test>content</test>' | xmlwf",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "xml",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "yat2m.exe",
+      "description": "Yet Another Text to Man page converter for generating manual pages",
+      "usage": "yat2m input.yat output.1\nyat2m --help\nManual page generation tool",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "documentation",
+      "source": "usr/bin"
+    }
+  ]
+}

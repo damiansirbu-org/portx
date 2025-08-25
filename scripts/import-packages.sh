@@ -163,6 +163,33 @@ parse_package_manual() {
     jq.cmd -r '.tools[]?.executable // empty' "$json_file" 2>/dev/null | sort -u
 }
 
+# Method: Get package import type (path, wrap, or auto/default)
+get_import_type() {
+    local pkg_dir="$1"
+    local json_file="$pkg_dir/package.json"
+    
+    if [[ ! -f "$json_file" ]]; then
+        echo "auto"  # No package.json, use default behavior
+        return
+    fi
+    
+    # Check importType field
+    local import_type
+    import_type=$("$GIT_BASH_ROOT/home/portx/packages/jq/jq.exe" -r '.importType // empty' "$json_file" 2>/dev/null)
+    
+    case "$import_type" in
+        "path")
+            echo "path"
+            ;;
+        "wrap")  
+            echo "wrap"
+            ;;
+        *)
+            echo "auto"  # Default behavior: try wrappers, fallback to path
+            ;;
+    esac
+}
+
 # Method: Validate package integrity
 validate_package() {
     local pkg_dir="$1"
@@ -363,16 +390,42 @@ for pkg_path in "$PACKAGES_DIR"/*; do
         debug_log "Processing package: $pkg_name"
 
         if validate_package "$pkg_path" "$pkg_name"; then
-            # Try to create and test wrappers first
-            if create_and_test_wrappers "$pkg_path" "$pkg_name"; then
-                debug_log "Created working wrappers for $pkg_name"
-                WRAPPER_PACKAGES=$((WRAPPER_PACKAGES + 1))
-                WRAPPER_PACKAGE_NAMES+=("$pkg_name")
-            else
-                debug_log "Wrappers failed, adding $pkg_name to PATH"
-                add_to_path "$pkg_path" "$pkg_name"
-                PATH_PACKAGES=$((PATH_PACKAGES + 1))
-            fi
+            import_type=$(get_import_type "$pkg_path")
+            debug_log "Package $pkg_name has importType: $import_type"
+            
+            case "$import_type" in
+                "path")
+                    # Force PATH mode - skip wrapper creation entirely
+                    debug_log "Forcing PATH mode for $pkg_name"
+                    add_to_path "$pkg_path" "$pkg_name"
+                    PATH_PACKAGES=$((PATH_PACKAGES + 1))
+                    ;;
+                "wrap")
+                    # Force wrapper mode - create wrappers or fail
+                    debug_log "Forcing wrapper mode for $pkg_name"
+                    if create_and_test_wrappers "$pkg_path" "$pkg_name"; then
+                        debug_log "Created working wrappers for $pkg_name"
+                        WRAPPER_PACKAGES=$((WRAPPER_PACKAGES + 1))
+                        WRAPPER_PACKAGE_NAMES+=("$pkg_name")
+                    else
+                        debug_log "WRAPPER CREATION FAILED for $pkg_name (forced wrap mode)"
+                        # Don't fallback to PATH in wrap mode - this is an error
+                    fi
+                    ;;
+                "auto"|*)
+                    # Default behavior: try wrappers, fallback to PATH
+                    debug_log "Using auto mode for $pkg_name (try wrappers, fallback to PATH)"
+                    if create_and_test_wrappers "$pkg_path" "$pkg_name"; then
+                        debug_log "Created working wrappers for $pkg_name"
+                        WRAPPER_PACKAGES=$((WRAPPER_PACKAGES + 1))
+                        WRAPPER_PACKAGE_NAMES+=("$pkg_name")
+                    else
+                        debug_log "Wrappers failed, adding $pkg_name to PATH"
+                        add_to_path "$pkg_path" "$pkg_name"
+                        PATH_PACKAGES=$((PATH_PACKAGES + 1))
+                    fi
+                    ;;
+            esac
         else
             debug_log "VALIDATION FAILED: Package $pkg_name failed validation, skipping"
         fi

@@ -1,17 +1,42 @@
 {
   "name": "bandwhich",
-  "version": "1.0.0",
+  "version": "0.22.2",
+  "description": "Real-time network bandwidth monitoring per process and connection",
   "tools": [
     {
       "executable": "bandwhich.exe",
-      "description": "Real-time network bandwidth monitor showing per-process network usage",
-      "usage": "bandwhich # Monitor network usage by process\\nbandwhich -i eth0 # Monitor specific interface\\nbandwhich -r 1000 # Refresh every 1000ms\\nbandwhich --addresses # Show remote addresses",
+      "description": "Real-time network monitor with process-level bandwidth tracking",
+      "usage": "bandwhich # Monitor all network interfaces with process details\\nbandwhich -i Wi-Fi # Monitor specific network interface\\nbandwhich -r 500 # Refresh display every 500ms\\nbandwhich --addresses # Show remote IP addresses and ports\\nbandwhich --no-resolve # Skip DNS resolution for faster display",
       "dependencies": [
-        "system-windows"
+        "ntdll.dll",
+        "KERNEL32.DLL",
+        "KERNELBASE.dll",
+        "bcryptprimitives.dll",
+        "ws2_32.dll",
+        "RPCRT4.dll",
+        "advapi32.dll",
+        "msvcrt.dll",
+        "sechost.dll",
+        "powrprof.dll",
+        "pdh.dll",
+        "bcrypt.dll",
+        "ucrtbase.dll",
+        "iphlpapi.dll",
+        "psapi.dll",
+        "shell32.dll",
+        "msvcp_win.dll",
+        "USER32.dll",
+        "win32u.dll",
+        "GDI32.dll",
+        "gdi32full.dll",
+        "oleaut32.dll",
+        "combase.dll",
+        "VCRUNTIME140.dll"
       ]
     }
   ],
   "paths": [
     "./"
-  ]
+  ],
+  "tags": ["network", "monitor", "native", "system"]
 }

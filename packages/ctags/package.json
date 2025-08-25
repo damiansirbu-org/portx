@@ -1,25 +1,31 @@
 {
   "name": "ctags",
-  "version": "1.0.0",
+  "version": "6.2.0",
+  "description": "Universal source code indexer supporting 50+ programming languages",
   "tools": [
     {
       "executable": "ctags.exe",
-      "description": "Universal Ctags - advanced source code indexer supporting 50+ languages",
+      "description": "Multi-language source indexer with advanced pattern recognition",
+      "usage": "ctags -R --exclude=node_modules . # Recursive indexing excluding node_modules\\nctags --languages=+Python,-JavaScript src/ # Include Python, exclude JavaScript\\nctags --extras=+r --fields=+iaS --kinds-c=+p *.c # Enhanced C tags with prototypes\\nctags --output-format=json --fields=* -o tags.json *.py # JSON output format\\nctags --list-maps # Show file extension mappings",
       "dependencies": [
-        "system-windows"
-      ],
-      "usage": "ctags -R . # Generate tags for entire project\\nctags --languages=Python,JavaScript src/ # Specific languages\\nctags --extras=+r --fields=+l *.c # Enhanced tags with references\\nctags --list-languages # Show supported languages"
+        "ntdll.dll",
+        "KERNEL32.DLL",
+        "KERNELBASE.dll"
+      ]
     },
     {
       "executable": "readtags.exe",
-      "description": "Universal Ctags tag file reader with powerful filtering and formatting",
+      "description": "Tag file reader with filtering, sorting, and formatting capabilities",
+      "usage": "readtags -t tags main # Find 'main' function definitions\\nreadtags -Q '(and (eq? $kind \\\"function\\\") (prefix? $name \\\"get_\\\"))' -l # Find getter functions\\nreadtags -S -F '#{$name}#{$line}' -l # Custom format sorted output\\nreadtags -e -Q '(eq? $input \\\"main.c\\\")' -l # Tags from specific file\\nreadtags --help # Show all query expressions and formats",
       "dependencies": [
-        "system-windows"
-      ],
-      "usage": "readtags -t tags function_name # Find specific tag\\nreadtags -l # List all tags\\nreadtags -Q '(eq? $kind \\\"function\\\")' -l # Filter by kind\\nreadtags -S -l # Sort tags"
+        "ntdll.dll",
+        "KERNEL32.DLL",
+        "KERNELBASE.dll"
+      ]
     }
   ],
   "paths": [
     "./"
-  ]
+  ],
+  "tags": ["indexing", "search", "native", "multi"]
 }

@@ -1,0 +1,54 @@
+# PORTX Tools Cache - Generated Mon, Aug 25, 2025  6:05:27 AM
+# Format: executable:description
+#
+7za.exe:Standalone archiver achieving maximum compression ratios through advanced LZMA2 algorithms
+adb.exe:Android Debug Bridge for device communication, app deployment, and debugging
+ag.exe:The Silver Searcher - ultra-fast text search with smart defaults and .gitignore support
+age.exe:Simple, modern, and secure file encryption tool with public key cryptography
+age-keygen.exe:Modern age encryption key generator with secure defaults and SSH key support
+ast-grep.exe:Structural code search and refactoring tool using AST pattern matching
+aws.exe:AWS CLI v2 with improved performance, enhanced security, and new features
+aws_completer.exe:AWS CLI command completion engine for bash and zsh shells
+bandwhich.exe:Real-time network bandwidth monitor showing per-process network usage
+bat.exe:Cat clone with syntax highlighting, Git integration, and automatic paging
+BinSkim.exe:Microsoft binary security analyzer for PE files and security compliance
+btm.exe:Bottom - cross-platform system monitor with customizable widgets and themes
+btop.exe:Resource monitor with mouse support, game-like UI, and detailed process trees
+bun.exe:All-in-one JavaScript toolkit replacing npm/node/webpack with native speed and built-in bundling
+Capture2Text.exe:OCR tool for capturing and extracting text from screen regions or images
+Capture2Text_CLI.exe:Command-line OCR tool for automated text extraction from images
+choco.exe:Chocolatey package manager for Windows with automatic dependency resolution
+cloc.exe:Count Lines of Code with language detection and detailed statistics
+csvtk.exe:Swiss Army knife for CSV/TSV processing with 20+ subcommands
+ctags.exe:Universal Ctags - advanced source code indexer supporting 50+ languages
+delta.exe:Syntax-highlighting diff pager with line numbering and side-by-side view
+die.exe:Detect It Easy - advanced PE/ELF packer and compiler detection tool
+diec.exe:Detect It Easy console version for automated malware analysis
+diel.exe:Detect It Easy lite version optimized for speed and basic detection
+difft.exe:Structural diff tool that understands programming language syntax for better comparisons
+docker-compose.exe:Multi-container orchestration with environment isolation and service dependency management
+dprint.exe:Pluggable code formatter with TypeScript, JSON, Markdown, and TOML support
+dust.exe:Intuitive du replacement with colorized tree view and size sorting
+etc1tool.exe:Android ETC1 texture compression tool for OpenGL ES optimization
+exiftool(-k).exe:ExifTool with -k option to keep console window open on Windows
+exiftool.exe:Comprehensive metadata reader/writer for images, videos, and documents
+eza.exe:Modern ls replacement with Git awareness, icons, and tree view
+Far.exe:Far Manager - powerful file manager with plugin architecture and scripting
+fastboot.exe:Android fastboot protocol tool for bootloader flashing and device management
+fd.exe:Intuitive find replacement with smart defaults, regex support, and parallel execution
+fx.exe:Interactive JSON viewer and processor with JavaScript expressions
+fzf.exe:Command-line fuzzy finder with UNIX pipe integration and preview
+gh.exe:GitHub CLI for repository management, issues, pull requests, and GitHub Actions
+git-lfs.exe:Git Large File Storage extension for versioning large binary files efficiently
+gitstatusd.exe:High-performance git status daemon for responsive terminal prompts
+hprof-conv.exe:Android HPROF heap dump converter for memory analysis tools
+make_f2fs.exe:Flash-Friendly File System formatter optimized for NAND flash memory
+make_f2fs_casefold.exe:F2FS formatter with case-folding support for case-insensitive filesystems
+mke2fs.exe:Ext2/3/4 filesystem creator with advanced formatting options
+null:Multimedia stream analyzer and metadata extractor
+null:Simple media player based on SDL and FFmpeg libraries
+null:Universal multimedia converter and processor
+python.exe:Azure CLI embedded Python interpreter with Azure SDK modules
+pythonw.exe:Azure CLI Windows Python interpreter without console window
+readtags.exe:Universal Ctags tag file reader with powerful filtering and formatting
+tig.exe:Text-mode interface for Git with powerful browsing, searching, and commit visualization
