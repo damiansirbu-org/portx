@@ -1,17 +1,40 @@
 {
   "name": "btop",
-  "version": "1.0.0",
+  "version": "1.0.4",
+  "description": "Resource monitor with mouse support, game-style UI, and process trees",
   "tools": [
     {
       "executable": "btop.exe",
-      "description": "Resource monitor with mouse support, game-like UI, and detailed process trees",
+      "description": "Interactive resource monitor with mouse support and colorful interface",
+      "usage": "btop # Launch full-featured system monitor\\nbtop --utf-force # Force UTF-8 characters for better graphics\\nbtop --preset=0 # Use minimal preset configuration\\nbtop --help # Show all command line options and key bindings\\nbtop4win # Alternative launcher name for Windows version",
       "dependencies": [
-        "system-windows"
-      ],
-      "usage": "btop # Launch full-featured monitor\\nbtop --utf-force # Force UTF-8 characters\\nbtop --preset=0 # Use minimal preset\\nPress 'm' for memory view, 'n' for network, 'p' for processes"
+        "ntdll.dll",
+        "KERNEL32.DLL",
+        "KERNELBASE.dll",
+        "PSAPI.DLL",
+        "USER32.dll",
+        "win32u.dll",
+        "GDI32.dll",
+        "gdi32full.dll",
+        "msvcp_win.dll",
+        "ucrtbase.dll",
+        "ADVAPI32.dll",
+        "msvcrt.dll",
+        "sechost.dll",
+        "RPCRT4.dll",
+        "bcrypt.dll",
+        "ole32.dll",
+        "combase.dll",
+        "OLEAUT32.dll",
+        "WS2_32.dll",
+        "pdh.dll",
+        "POWRPROF.dll",
+        "IPHLPAPI.DLL"
+      ]
     }
   ],
   "paths": [
     "./"
-  ]
+  ],
+  "tags": ["monitor", "system", "native", "tui"]
 }

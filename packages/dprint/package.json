@@ -1,17 +1,21 @@
 {
   "name": "dprint",
-  "version": "1.0.0",
+  "version": "0.50.1",
+  "description": "Pluggable code formatter with TypeScript, JSON, Markdown support",
   "tools": [
     {
       "executable": "dprint.exe",
-      "description": "Pluggable code formatter with TypeScript, JSON, Markdown, and TOML support",
+      "description": "High-performance code formatter with plugin architecture",
+      "usage": "dprint fmt src/ # Format specific directory\\ndprint check --diff # Show formatting differences without applying\\ndprint fmt --config custom.json *.ts # Use custom configuration\\ndprint init --type typescript # Initialize TypeScript configuration\\ndprint upgrade # Update plugins to latest versions",
       "dependencies": [
-        "system-windows"
-      ],
-      "usage": "dprint fmt # Format all files\\ndprint check # Check formatting without changes\\ndprint fmt --config dprint.json src/ # Use specific config\\ndprint init # Create configuration file"
+        "ntdll.dll",
+        "KERNEL32.DLL",
+        "KERNELBASE.dll"
+      ]
     }
   ],
   "paths": [
     "./"
-  ]
+  ],
+  "tags": ["format", "code", "native", "multi"]
 }

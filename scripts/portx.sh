@@ -663,72 +663,68 @@ parse_markdown_format() {
         done
 }
 
-# List all tools
+# List all tools in hierarchical format (package -> tools)
 list_tools() {
-    local cache_file="$GIT_BASH_ROOT/home/portx/.portx_tools"
+    set +e  # Disable strict error handling for this function
+    echo "PORTX Tools Inventory - Hierarchical View"
+    echo
     
-    # Check if cache exists and is newer than any package.json
-    if [[ -f "$cache_file" ]]; then
-        local cache_needs_refresh=false
-        
-        # Check if any package.json is newer than cache
-        while IFS= read -r -d '' json_file; do
-            if [[ "$json_file" -nt "$cache_file" ]]; then
-                cache_needs_refresh=true
-                break
-            fi
-        done < <(find "$PACKAGES_DIR" -name "package.json" -print0 2>/dev/null)
-        
-        if [[ "$cache_needs_refresh" == false ]]; then
-            printf "%s%s Using cached tools data...%s\n" "$(color_primary)" "$(icon_package)" "$(color_reset)" >&2
-        fi
+    local total_tools=0
+    local total_packages=0
+    
+    # Check if packages directory exists
+    if [[ ! -d "$PACKAGES_DIR" ]]; then
+        echo "ERROR: Packages directory not found: $PACKAGES_DIR"
+        return 1
+    fi
+    
+    # Check if jq is available
+    local JQ_CMD=""
+    if command -v jq >/dev/null 2>&1; then
+        JQ_CMD="jq"
+    elif command -v jq.cmd >/dev/null 2>&1; then
+        JQ_CMD="jq.cmd"
     else
-        cache_needs_refresh=true
+        echo "ERROR: jq not found in PATH - required for package.json parsing"
+        return 1
     fi
     
-    # Generate cache if needed
-    if [[ "$cache_needs_refresh" == true ]]; then
-        printf "%s%s Generating tools cache from package.json files...%s\n" "$(color_primary)" "$(icon_package)" "$(color_reset)" >&2
-        
-        # Simple direct approach - create cache file directly
-        {
-            echo "# PORTX Tools Cache - Generated $(date)"
-            echo "# Format: executable:description"
-            echo "#"
+    for pkg_dir in "$PACKAGES_DIR"/*; do
+        if [[ -d "$pkg_dir" && -f "$pkg_dir/package.json" ]]; then
+            local pkg_name=$(basename "$pkg_dir")
             
-            for pkg_dir in "$PACKAGES_DIR"/*; do
-                if [[ -d "$pkg_dir" && -f "$pkg_dir/package.json" ]]; then
-                    if command -v jq >/dev/null 2>&1 || command -v jq.cmd >/dev/null 2>&1; then
-                        jq -r '.tools[]? | "\(.executable):\(.description)"' "$pkg_dir/package.json" 2>/dev/null
-                    else
-                        echo "# jq not found in PATH" >&2
-                        break
-                    fi
-                fi
-            done | sort
-        } > "$cache_file"
-        
-        local tool_count=$(grep -c '^[^#]' "$cache_file" 2>/dev/null || printf "0")
-        printf "%s%s Cache updated: %d tools from packages%s\n" "$(color_success)" "$(icon_success)" "$tool_count" "$(color_reset)" >&2
-    fi
+            # Extract package metadata safely
+            local pkg_description=""
+            local pkg_version=""
+            local tool_count=0
+            
+            pkg_description=$($JQ_CMD -r '.description // ""' "$pkg_dir/package.json" 2>/dev/null || echo "")
+            pkg_version=$($JQ_CMD -r '.version // ""' "$pkg_dir/package.json" 2>/dev/null || echo "")
+            tool_count=$($JQ_CMD -r '.tools // [] | length' "$pkg_dir/package.json" 2>/dev/null || echo "0")
+            
+            # Skip packages with no tools
+            if [[ "$tool_count" -eq 0 ]]; then
+                continue
+            fi
+            
+            ((total_packages++))
+            total_tools=$((total_tools + tool_count))
+            
+            # Display package header with aligned description
+            pkg_header="$pkg_name"
+            if [[ -n "$pkg_version" ]]; then
+                pkg_header="$pkg_header (v$pkg_version)"
+            fi
+            printf "%-30s %s\n" "$pkg_header" "$pkg_description"
+            
+            # Use jq to format complete output with tools and tags (using ASCII tree chars)
+            $JQ_CMD -r '(.tags // []) as $tags | .tools[]? | "  |- " + (.executable // "" | . + (25 - length) * " " | .[0:25]) + " " + (.description // "") + if ($tags | length > 0) then " [" + ($tags | join(", ")) + "]" else "" end' "$pkg_dir/package.json" 2>/dev/null
+            echo
+        fi
+    done
     
-    # Display tools from cache
-    printf "\n%s%s PORTX Tools Inventory%s\n\n" "$(color_success)" "$(icon_statistics)" "$(color_reset)"
-    
-    # Use awk for safe and efficient formatting
-    awk -F: '
-    !/^[[:space:]]*#/ && NF >= 2 && $1 != "" {
-        printf "%-25s %s\n", $1, $2
-        count++
-    }
-    END { 
-        if (count > 0) {
-            print ""
-            print "Total Tools: " count
-        } else {
-            print "No tools found in cache."
-        }
-    }' "$cache_file"
+    echo "Summary: $total_packages packages, $total_tools total tools"
+    set -e  # Re-enable strict error handling
 }
 
 # Search tools by pattern

@@ -1,17 +1,30 @@
 {
   "name": "bun",
-  "version": "1.0.0",
+  "version": "1.2.20",
+  "description": "Fast JavaScript runtime, bundler, test runner, and package manager",
   "tools": [
     {
       "executable": "bun.exe",
-      "description": "All-in-one JavaScript toolkit replacing npm/node/webpack with native speed and built-in bundling",
-      "usage": "bun install # Lightning-fast dependency installation\\nbun run --hot server.ts # Hot reload development server\\nbun build --minify --splitting ./src/index.ts # Production bundling\\nbun test --watch # Interactive test runner with file watching",
+      "description": "All-in-one JavaScript toolkit with native performance and Zig implementation",
+      "usage": "bun install # Ultra-fast package installation with global cache\\nbun run --hot server.ts # Hot reload TypeScript development server\\nbun build --minify --splitting ./src/index.ts --outdir dist # Production build with code splitting\\nbun test --watch --coverage # Test runner with coverage and file watching\\nbun create react-app my-app # Scaffold new projects from templates",
       "dependencies": [
-        "system-windows"
+        "ntdll.dll",
+        "KERNEL32.DLL",
+        "KERNELBASE.dll",
+        "SHELL32.dll",
+        "msvcp_win.dll",
+        "ucrtbase.dll",
+        "USER32.dll",
+        "win32u.dll",
+        "GDI32.dll",
+        "gdi32full.dll",
+        "USERENV.dll",
+        "RPCRT4.dll"
       ]
     }
   ],
   "paths": [
     "./"
-  ]
+  ],
+  "tags": ["javascript", "runtime", "native", "build"]
 }

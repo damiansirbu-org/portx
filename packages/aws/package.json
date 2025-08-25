@@ -1,25 +1,43 @@
 {
   "name": "aws",
-  "version": "1.0.0",
+  "version": "2.7.13",
+  "description": "AWS CLI v2 with enhanced performance, security, and SSO support",
   "tools": [
     {
       "executable": "aws.exe",
-      "description": "AWS CLI v2 with improved performance, enhanced security, and new features",
+      "description": "AWS CLI v2 with improved JSON handling and SSO authentication",
+      "usage": "aws configure sso # Setup SSO authentication\\naws s3 sync ./local s3://bucket/path --delete # Sync with deletion\\naws ec2 describe-instances --filters Name=instance-state-name,Values=running --query 'Reservations[].Instances[].[InstanceId,PublicDnsName]' --output table\\naws cloudformation deploy --template-file template.yaml --stack-name my-stack --capabilities CAPABILITY_IAM\\naws logs tail /aws/lambda/function-name --follow # Real-time log tailing",
       "dependencies": [
-        "system-windows"
-      ],
-      "usage": "aws configure # Setup credentials\\naws s3 ls # List S3 buckets\\naws ec2 describe-instances --query 'Reservations[].Instances[].{ID:InstanceId,State:State.Name}' --output table\\naws sts get-caller-identity # Check current identity"
+        "ntdll.dll",
+        "KERNEL32.DLL",
+        "KERNELBASE.dll",
+        "ADVAPI32.dll",
+        "msvcrt.dll",
+        "sechost.dll",
+        "RPCRT4.dll",
+        "bcrypt.dll",
+        "WS2_32.dll"
+      ]
     },
     {
       "executable": "aws_completer.exe",
-      "description": "AWS CLI command completion engine for bash and zsh shells",
+      "description": "Shell completion engine for AWS CLI commands and parameters",
+      "usage": "complete -C aws_completer aws # Enable bash completion\\necho 'complete -C aws_completer aws' >> ~/.bashrc # Persist completion\\naws s3 cp<TAB> # Auto-complete copy operations\\naws ec2 describe-<TAB> # Complete EC2 describe commands\\naws --cli-auto-prompt # Interactive command building",
       "dependencies": [
-        "system-windows"
-      ],
-      "usage": "complete -C aws_completer aws # Enable bash completion\\naws s3 <TAB> # Auto-complete S3 commands\\naws ec2 describe-<TAB> # Auto-complete EC2 operations"
+        "ntdll.dll",
+        "KERNEL32.DLL",
+        "KERNELBASE.dll",
+        "ADVAPI32.dll",
+        "msvcrt.dll",
+        "sechost.dll",
+        "RPCRT4.dll",
+        "bcrypt.dll",
+        "WS2_32.dll"
+      ]
     }
   ],
   "paths": [
     "./"
-  ]
+  ],
+  "tags": ["cloud", "aws", "native", "cli"]
 }

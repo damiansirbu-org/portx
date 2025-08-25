@@ -1,25 +1,31 @@
 {
   "name": "age",
-  "version": "1.0.0",
+  "version": "1.2.0",
+  "description": "Modern file encryption with X25519, ChaCha20-Poly1305, and Scrypt",
   "tools": [
     {
       "executable": "age-keygen.exe",
-      "description": "Modern age encryption key generator with secure defaults and SSH key support",
-      "usage": "age-keygen -o key.txt # Generate new keypair\\nage-keygen -y key.txt # Extract public key\\nage-keygen | tee key.txt | age-keygen -y > pub.txt # Generate and split keys",
+      "description": "X25519 keypair generator with secure defaults and SSH integration",
+      "usage": "age-keygen -o key.txt # Generate new X25519 keypair\\nage-keygen -y key.txt # Extract public key from private\\nage-keygen | tee private.key | age-keygen -y > public.key # Generate and split\\nssh-keygen -t ed25519 -f ssh.key && age-keygen -y ssh.key # Convert SSH to age\\nage-keygen -o - | age -r $(age-keygen -y -) secrets.txt # Generate and encrypt",
       "dependencies": [
-        "system-windows"
+        "ntdll.dll",
+        "KERNEL32.DLL",
+        "KERNELBASE.dll"
       ]
     },
     {
       "executable": "age.exe",
-      "description": "Simple, modern, and secure file encryption tool with public key cryptography",
-      "usage": "age -r pubkey.txt file.txt > file.txt.age # Encrypt with public key\\nage -d -i key.txt file.txt.age > file.txt # Decrypt with private key\\nage -p file.txt > file.txt.age # Encrypt with passphrase\\necho 'secret' | age -r pubkey.txt -a # Encrypt and armor",
+      "description": "ChaCha20-Poly1305 file encryptor with X25519 and scrypt support",
+      "usage": "age -r pubkey.txt secrets.txt > secrets.age # Encrypt with public key\\nage -d -i private.key secrets.age > secrets.txt # Decrypt with private key\\nage -p documents.tar > documents.tar.age # Encrypt with passphrase\\necho 'sensitive data' | age -r pubkey.txt -a # Encrypt and ASCII armor\\nage -R recipients.txt -o backup.age folder/ # Multi-recipient directory encryption",
       "dependencies": [
-        "system-windows"
+        "ntdll.dll",
+        "KERNEL32.DLL",
+        "KERNELBASE.dll"
       ]
     }
   ],
   "paths": [
     "./"
-  ]
+  ],
+  "tags": ["security", "encryption", "native", "crypto"]
 }

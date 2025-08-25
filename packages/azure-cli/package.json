@@ -1,25 +1,31 @@
 {
   "name": "azure-cli",
-  "version": "1.0.0",
+  "version": "3.12.10",
+  "description": "Azure CLI embedded Python runtime with Azure SDK and extensions",
   "tools": [
     {
       "executable": "python.exe",
-      "description": "Azure CLI embedded Python interpreter with Azure SDK modules",
+      "description": "Azure CLI Python 3.12 runtime with full Azure SDK integration",
+      "usage": "python -m azure.cli # Launch Azure CLI directly\\npython -c \"from azure.identity import DefaultAzureCredential; print('Auth ready')\" # Test Azure auth\\npython -m pip show azure-cli # Show Azure CLI package info\\npython azure_automation.py # Run custom Azure automation scripts\\npython -m azure.cli --help # Show all available Azure commands",
       "dependencies": [
-        "system-windows"
-      ],
-      "usage": "python -c \\\"import azure.cli.core; print('Azure CLI Python')\\\" # Test Azure modules\\npython -m pip list | grep azure # List Azure packages"
+        "ntdll.dll",
+        "wow64.dll",
+        "wow64win.dll"
+      ]
     },
     {
       "executable": "pythonw.exe",
-      "description": "Azure CLI Windows Python interpreter without console window",
+      "description": "Silent Azure CLI Python runtime for background automation",
+      "usage": "pythonw azure_batch_job.py # Run Azure batch operations silently\\npythonw -c \"import azure.cli.core; azure.cli.core.main()\" # Headless Azure CLI\\npythonw monitor_resources.py # Background Azure resource monitoring",
       "dependencies": [
-        "system-windows"
-      ],
-      "usage": "pythonw azure_script.py # Run Azure script silently\\npythonw -c \\\"import azure.cli; azure.cli.main()\\\" # Launch Azure CLI GUI mode"
+        "ntdll.dll",
+        "wow64.dll",
+        "wow64win.dll"
+      ]
     }
   ],
   "paths": [
     "./"
-  ]
+  ],
+  "tags": ["cloud", "azure", "python", "runtime"]
 }

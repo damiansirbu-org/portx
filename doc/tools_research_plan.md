@@ -1,6 +1,3 @@
-# Note by Damian: we lost BOTTOM for some fucked reason
-
-
 
 
 # DEEP TOOLS RESEARCH & ACQUISITION PLAN
