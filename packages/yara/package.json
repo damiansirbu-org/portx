@@ -1,19 +1,22 @@
 {
   "name": "yara",
   "version": "1.0.0",
+  "description": "Pattern matching engine for malware identification and classification in security research",
   "tools": [
     {
       "executable": "yara32.exe",
-      "description": "TODO: Add description",
+      "description": "Scan files and processes using YARA rules to identify malware and suspicious patterns",
+      "usage": "yara32 rules.yar suspicious_file.exe # Scan file with rules\\nyara32 -r rules.yar /path/to/scan # Recursive directory scan\\nyara32 -p 1234 rules.yar # Scan running process by PID\\nyara32 -s rules.yar file.exe # Show matching strings\\nyara32 -g rules.yar file.exe # Print tags and metadata",
       "dependencies": [
-        []
+        "embedded"
       ]
     },
     {
       "executable": "yarac32.exe",
-      "description": "TODO: Add description",
+      "description": "Compile YARA rules into binary format for faster scanning and distribution",
+      "usage": "yarac32 rules.yar rules.yarc # Compile rules to binary\\nyarac32 -d symbol=value rules.yar # Define external variables\\nyarac32 -n namespace rules.yar # Specify rule namespace\\nyarac32 -w rules.yar # Show compilation warnings",
       "dependencies": [
-        []
+        "embedded"
       ]
     }
   ],

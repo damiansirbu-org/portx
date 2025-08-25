@@ -1,12 +1,14 @@
 {
   "name": "officetopdf",
   "version": "1.0.0",
+  "description": "Command-line utility for converting Microsoft Office documents to PDF format",
   "tools": [
     {
       "executable": "OfficeToPDF.exe",
-      "description": "TODO: Add description",
+      "description": "Convert Word, Excel, PowerPoint documents to PDF using Microsoft Office automation",
+      "usage": "OfficeToPDF.exe document.docx output.pdf # Convert Word to PDF\\nOfficeToPDF.exe spreadsheet.xlsx report.pdf # Convert Excel to PDF\\nOfficeToPDF.exe presentation.pptx slides.pdf # Convert PowerPoint to PDF\\nOfficeToPDF.exe /bookmarks document.docx bookmarked.pdf # Include bookmarks",
       "dependencies": [
-        []
+        "microsoft-office"
       ]
     }
   ],

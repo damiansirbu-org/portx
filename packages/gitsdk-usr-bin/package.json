@@ -2013,6 +2013,519 @@
       "aliases": [],
       "category": "documentation",
       "source": "usr/bin"
+    },
+    {
+      "executable": "awk.exe",
+      "description": "Pattern scanning and processing language for text manipulation",
+      "usage": "awk '{print $1}' file.txt\nawk -F: '{print $1}' /etc/passwd\nawk 'NR>1 {print}' data.csv",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": ["gawk"],
+      "category": "text-processing",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "b2sum.exe",
+      "description": "BLAKE2 cryptographic hash calculator for file integrity verification",
+      "usage": "b2sum file.txt\nb2sum -c checksums.b2\nb2sum *.txt > hashes.b2",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "crypto",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "basename.exe",
+      "description": "Extract filename component from file path by removing directory prefix",
+      "usage": "basename /path/to/file.txt\nbasename /usr/bin/bash .exe\nbasename $(pwd)",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "file-utils",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "basenc.exe",
+      "description": "Multi-format encoder/decoder supporting base16, base32, base64, and base85",
+      "usage": "echo 'hello' | basenc --base64\nbasenc --base32 file.txt\nbasenc --decode --base16 < hex.txt",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "encoding",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "cat.exe",
+      "description": "Display and concatenate file contents to standard output",
+      "usage": "cat file.txt\ncat file1.txt file2.txt > combined.txt\ncat -n script.sh",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "file-utils",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "chattr.exe",
+      "description": "Change file attributes on Linux-compatible filesystems",
+      "usage": "chattr +i file.txt\nchattr -R +a logdir/\nchattr =aijsS file.dat",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "file-system",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "cmp.exe",
+      "description": "Compare two files byte by byte and report first difference",
+      "usage": "cmp file1.txt file2.txt\ncmp -s backup.dat original.dat && echo 'identical'\ncmp -l binary1.bin binary2.bin",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "file-utils",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "comm.exe",
+      "description": "Compare sorted files line by line and show common/unique lines",
+      "usage": "comm file1.txt file2.txt\ncomm -23 list1.txt list2.txt\ncomm -12 sorted1.txt sorted2.txt",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "text-processing",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "cp.exe",
+      "description": "Copy files and directories with preservation of attributes",
+      "usage": "cp file.txt backup.txt\ncp -r srcdir/ destdir/\ncp -p --preserve=timestamps file.dat copy.dat",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "file-utils",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "cut.exe",
+      "description": "Extract columns from text files using delimiters or field positions",
+      "usage": "cut -d: -f1 /etc/passwd\ncut -c1-10 file.txt\nps aux | cut -d' ' -f2,11-",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "text-processing",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "cygwin-console-helper.exe",
+      "description": "Cygwin console helper utility for terminal emulation and console operations",
+      "usage": "cygwin-console-helper\nConsole emulation support\nTerminal helper utility",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "system",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "dash.exe",
+      "description": "Debian Almquist Shell - Lightweight POSIX-compliant shell for fast script execution",
+      "usage": "dash script.sh\ndash -c 'echo $0'\nFast POSIX shell execution",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "shell",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "date.exe",
+      "description": "Display or set system date and time with formatting options",
+      "usage": "date\ndate '+%Y-%m-%d %H:%M:%S'\ndate -d 'tomorrow' '+%A'",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "system",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "diff.exe",
+      "description": "Compare files line by line and show differences in various formats",
+      "usage": "diff file1.txt file2.txt\ndiff -u old.txt new.txt\ndiff -r dir1/ dir2/",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "file-utils",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "diff3.exe",
+      "description": "Compare three files and show differences for three-way merging",
+      "usage": "diff3 mine.txt base.txt theirs.txt\ndiff3 -m file1 common file2\nThree-way file comparison",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "file-utils",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "dirname.exe",
+      "description": "Extract directory component from file path by removing filename",
+      "usage": "dirname /path/to/file.txt\ndirname $(which bash)\nmkdir -p $(dirname newfile.txt)",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "file-utils",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "echo.exe",
+      "description": "Display text with support for escape sequences and formatting",
+      "usage": "echo 'Hello World'\necho -e 'Line1\\nLine2'\necho -n 'No newline'",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "text-processing",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "env.exe",
+      "description": "Display environment variables or run commands with modified environment",
+      "usage": "env\nenv VAR=value command\nenv -u PATH bash",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "system",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "expr.exe",
+      "description": "Evaluate arithmetic and string expressions for shell scripting",
+      "usage": "expr 5 + 3\nexpr 'hello' : '.*o'\nexpr length 'string'",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "math",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "false.exe",
+      "description": "Exit with failure status (exit code 1) - always returns false",
+      "usage": "false\nfalse && echo 'never executed'\nif false; then echo 'no'; fi",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "system",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "find.exe",
+      "description": "Search for files and directories with powerful filtering and action capabilities",
+      "usage": "find . -name '*.txt'\nfind /var -type f -size +100M\nfind . -mtime -7 -exec ls -l {} \\;",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "file-search",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "gencat.exe",
+      "description": "Generate message catalogs for internationalization and localization",
+      "usage": "gencat messages.cat messages.msg\ngencat -H messages.h catalog.cat\nMessage catalog generator",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "localization",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "getfacl.exe",
+      "description": "Get file access control lists (ACLs) for advanced permission management",
+      "usage": "getfacl file.txt\ngetfacl -R directory/\ngetfacl --omit-header file.dat",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "permissions",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "getopt.exe",
+      "description": "Parse command line options for shell scripts with GNU extensions",
+      "usage": "getopt -o ab:c:: --long alpha,beta:,gamma:: -- \"$@\"\ngetopt --test\nCommand line option parsing",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "scripting",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "gmondump.exe",
+      "description": "GNU profiling data dump utility for gprof performance analysis",
+      "usage": "gmondump gmon.out\ngmondump --help\nProfiling data analysis tool",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "profiling",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "grep.exe",
+      "description": "Search text patterns in files using regular expressions",
+      "usage": "grep 'pattern' file.txt\ngrep -r 'function' src/\nps aux | grep 'process'",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": ["egrep", "fgrep"],
+      "category": "text-search",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "head.exe",
+      "description": "Display first lines of files for quick file preview",
+      "usage": "head file.txt\nhead -20 log.txt\nhead -c 100 binary.dat",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "file-utils",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "ls.exe",
+      "description": "List directory contents with detailed file information and formatting",
+      "usage": "ls -la\nls --color=auto *.txt\nls -lSh /usr/bin/",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": ["dir"],
+      "category": "file-utils",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "lsattr.exe",
+      "description": "List file attributes on Linux-compatible filesystems",
+      "usage": "lsattr file.txt\nlsattr -R directory/\nlsattr -a hiddenfile",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "file-system",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "mkdir.exe",
+      "description": "Create directories with support for nested directory structures",
+      "usage": "mkdir newdir\nmkdir -p deep/nested/dirs\nmkdir -m 755 publicdir",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "file-utils",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "mktemp.exe",
+      "description": "Create temporary files and directories with unique names",
+      "usage": "mktemp\nmktemp -d\nmktemp /tmp/script.XXXXXX",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "file-utils",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "mv.exe",
+      "description": "Move and rename files and directories with backup options",
+      "usage": "mv file.txt newname.txt\nmv *.txt archive/\nmv --backup=numbered file.dat file.dat",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "file-utils",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "newgrp.exe",
+      "description": "Switch to a new group ID for privilege management",
+      "usage": "newgrp groupname\nnewgrp - staff\nGroup membership switching",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "permissions",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "pathchk.exe",
+      "description": "Check pathname validity and portability across filesystems",
+      "usage": "pathchk filename.txt\npathchk -p /long/path/name\npathchk --portability file",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "file-utils",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "printf.exe",
+      "description": "Format and print data with C-style printf formatting",
+      "usage": "printf '%s\\n' 'Hello World'\nprintf '%d %x\\n' 255 255\nprintf '%-10s %5d\\n' 'Name' 42",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "text-processing",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "profiler.exe",
+      "description": "GNU profiler utility for code performance analysis and optimization",
+      "usage": "profiler program\nprofiler --help\nCode performance analysis",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "profiling",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "pwd.exe",
+      "description": "Print current working directory path",
+      "usage": "pwd\npwd -P\necho \"Currently in: $(pwd)\"",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "system",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "readlink.exe",
+      "description": "Display target of symbolic links and resolve link chains",
+      "usage": "readlink symlink.txt\nreadlink -f relative/path\nreadlink -e existing/link",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "file-utils",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "rebase.exe",
+      "description": "Rebase DLL addresses to avoid conflicts in Windows memory management",
+      "usage": "rebase -b 0x60000000 library.dll\nrebase --help\nWindows DLL memory rebasing",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "system",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "rm.exe",
+      "description": "Remove files and directories with safety options",
+      "usage": "rm file.txt\nrm -rf directory/\nrm -i *.tmp",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "file-utils",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "rmdir.exe",
+      "description": "Remove empty directories with nested directory support",
+      "usage": "rmdir emptydir\nrmdir -p deep/empty/dirs\nrmdir --ignore-fail-on-non-empty dir",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "file-utils",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "sdiff.exe",
+      "description": "Side-by-side file comparison with interactive merge capabilities",
+      "usage": "sdiff file1.txt file2.txt\nsdiff -w 120 old.txt new.txt\nsdiff -o merged.txt left.txt right.txt",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "file-utils",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "sed.exe",
+      "description": "Stream editor for filtering and transforming text using regular expressions",
+      "usage": "sed 's/old/new/g' file.txt\nsed -n '1,10p' log.txt\necho 'hello' | sed 'y/aeiou/AEIOU/'",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "text-processing",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "sh.exe",
+      "description": "POSIX shell interpreter for script execution and interactive use",
+      "usage": "sh script.sh\nsh -c 'echo $HOME'\nsh -x debug_script.sh",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "shell",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "sort.exe",
+      "description": "Sort text lines with various ordering options and field specifications",
+      "usage": "sort file.txt\nsort -n numbers.txt\nsort -k2,2 -t: /etc/passwd",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "text-processing",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "ssh.exe",
+      "description": "Secure Shell client for remote login and command execution",
+      "usage": "ssh user@hostname\nssh -i keyfile user@server\nssh -L 8080:localhost:80 user@gateway",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "network",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "ssh-add.exe",
+      "description": "Add SSH private keys to the authentication agent",
+      "usage": "ssh-add ~/.ssh/id_rsa\nssh-add -l\nssh-add -D",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "security",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "ssh-agent.exe",
+      "description": "SSH authentication agent for managing private keys",
+      "usage": "ssh-agent bash\neval $(ssh-agent)\nssh-agent -k",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "security",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "tail.exe",
+      "description": "Display last lines of files with follow mode for log monitoring",
+      "usage": "tail file.txt\ntail -f /var/log/messages\ntail -20 log.txt",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "file-utils",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "test.exe",
+      "description": "Evaluate conditional expressions for shell scripting and automation",
+      "usage": "test -f file.txt\ntest $# -gt 0\ntest -d directory && echo 'exists'",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": ["["],
+      "category": "scripting",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "touch.exe",
+      "description": "Update file timestamps or create empty files",
+      "usage": "touch newfile.txt\ntouch -t 202312251200 file.txt\ntouch -r reference.txt target.txt",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "file-utils",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "tr.exe",
+      "description": "Translate or delete characters from standard input",
+      "usage": "echo 'hello' | tr 'a-z' 'A-Z'\ntr -d '\\n' < file.txt\ntr -s ' ' < text.txt",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "text-processing",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "true.exe",
+      "description": "Exit with success status (exit code 0) - always returns true",
+      "usage": "true\ntrue && echo 'executed'\nwhile true; do echo 'loop'; break; done",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "system",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "uname.exe",
+      "description": "Display system information including OS name, version, and architecture",
+      "usage": "uname\nuname -a\nuname -s -r -m",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "system",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "uniq.exe",
+      "description": "Filter adjacent duplicate lines from sorted input",
+      "usage": "uniq file.txt\nsort data.txt | uniq -c\nuniq -d duplicates.txt",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "text-processing",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "wc.exe",
+      "description": "Count lines, words, and characters in files",
+      "usage": "wc file.txt\nwc -l *.txt\necho 'hello world' | wc -w",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "text-processing",
+      "source": "usr/bin"
+    },
+    {
+      "executable": "xargs.exe",
+      "description": "Execute commands with arguments from standard input",
+      "usage": "find . -name '*.tmp' | xargs rm\necho 'file1 file2' | xargs -n1 ls -l\nls | xargs -I {} cp {} backup/",
+      "dependencies": ["msys-2.0.dll"],
+      "aliases": [],
+      "category": "system",
+      "source": "usr/bin"
     }
   ]
 }

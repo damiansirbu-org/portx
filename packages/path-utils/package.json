@@ -1,97 +1,111 @@
 {
   "name": "path-utils",
   "version": "1.0.0",
+  "description": "Essential path manipulation utilities from MSYS2 and MinGW toolchain",
   "tools": [
     {
       "executable": "basename.exe",
-      "description": "TODO: Add description",
+      "description": "Extract filename component from file path by removing directory prefix",
       "dependencies": [
-        "msys-2.0.dll,msys-intl-8.dll,msys-iconv-2.dll"
-      ]
+        "msys-runtime"
+      ],
+      "usage": "basename /path/to/file.txt # Returns: file.txt\nbasename /path/to/file.txt .txt # Returns: file\nbasename $(pwd) # Get current directory name"
     },
     {
       "executable": "convert.exe",
-      "description": "TODO: Add description",
+      "description": "Path format converter between Windows and UNIX-style paths",
       "dependencies": [
-        []
-      ]
+        "embedded"
+      ],
+      "usage": "convert -w /c/path # Convert to Windows format: C:\\path\nconvert -u 'C:\\path' # Convert to UNIX format: /c/path"
     },
     {
       "executable": "cygpath.exe",
-      "description": "TODO: Add description",
+      "description": "Convert between MSYS2/Cygwin and Windows path formats with comprehensive options",
       "dependencies": [
-        "msys-2.0.dll"
-      ]
+        "msys-runtime"
+      ],
+      "usage": "cygpath -w /home/user # Convert to Windows path\ncygpath -u 'C:\\Users' # Convert to UNIX path\ncygpath -am /tmp # Absolute mixed path"
     },
     {
       "executable": "dirname.exe",
-      "description": "TODO: Add description",
+      "description": "Extract directory component from file path by removing filename suffix",
       "dependencies": [
-        "msys-2.0.dll,msys-intl-8.dll,msys-iconv-2.dll"
-      ]
+        "msys-runtime"
+      ],
+      "usage": "dirname /path/to/file.txt # Returns: /path/to\ndirname $(pwd)/script.sh # Get parent directory\ncd $(dirname $0) # Go to script directory"
     },
     {
       "executable": "hardlink.exe",
-      "description": "TODO: Add description",
+      "description": "Create hard links to files for space-efficient file duplication",
       "dependencies": [
-        "msys-2.0.dll,msys-intl-8.dll,msys-iconv-2.dll"
-      ]
+        "msys-runtime"
+      ],
+      "usage": "hardlink source.txt target.txt # Create hard link\nhardlink -n source.txt # Count existing links\nhardlink -v source.txt backup.txt # Verbose linking"
     },
     {
       "executable": "link.exe",
-      "description": "TODO: Add description",
+      "description": "Create file links with extended options and validation",
       "dependencies": [
-        "msys-2.0.dll,msys-intl-8.dll,msys-iconv-2.dll"
-      ]
+        "msys-runtime"
+      ],
+      "usage": "link -s source.txt symlink.txt # Create symbolic link\nlink -f source.txt hardlink.txt # Force link creation\nlink -v source.txt target.txt # Verbose link operation"
     },
     {
       "executable": "ln.exe",
-      "description": "TODO: Add description",
+      "description": "UNIX-style link creator for symbolic and hard links with standard options",
       "dependencies": [
-        "msys-2.0.dll,msys-intl-8.dll,msys-iconv-2.dll"
-      ]
+        "msys-runtime"
+      ],
+      "usage": "ln -s /path/to/file symlink # Create symbolic link\nln file1.txt file2.txt # Create hard link\nln -sf new_target existing_link # Force symbolic link"
     },
     {
       "executable": "pathchk.exe",
-      "description": "TODO: Add description",
+      "description": "Validate file path names for portability and system compatibility",
       "dependencies": [
-        "msys-2.0.dll,msys-intl-8.dll,msys-iconv-2.dll"
-      ]
+        "msys-runtime"
+      ],
+      "usage": "pathchk /path/to/file # Check path validity\npathchk -p /portable/path # Check POSIX portability\npathchk -P /strict/path # Strict portability check"
     },
     {
       "executable": "readlink.exe",
-      "description": "TODO: Add description",
+      "description": "Read and resolve symbolic links to display target paths",
       "dependencies": [
-        "msys-2.0.dll,msys-intl-8.dll,msys-iconv-2.dll"
-      ]
+        "msys-runtime"
+      ],
+      "usage": "readlink symlink.txt # Show link target\nreadlink -f symlink.txt # Canonicalize path\nreadlink -e symlink.txt # Require existing target"
     },
     {
       "executable": "realpath.exe",
-      "description": "TODO: Add description",
+      "description": "Resolve absolute canonical path by following all symbolic links",
       "dependencies": [
-        "msys-2.0.dll,msys-intl-8.dll,msys-iconv-2.dll"
-      ]
+        "msys-runtime"
+      ],
+      "usage": "realpath file.txt # Get absolute path\nrealpath -s symlink # Don't resolve final symlink\nrealpath --relative-to=/base /path # Get relative path"
     },
     {
       "executable": "unlink.exe",
-      "description": "TODO: Add description",
+      "description": "Remove single file or symbolic link using UNIX-style unlink operation",
       "dependencies": [
-        "msys-2.0.dll,msys-intl-8.dll,msys-iconv-2.dll"
-      ]
+        "msys-runtime"
+      ],
+      "usage": "unlink file.txt # Remove file\nunlink symlink # Remove symbolic link\nunlink /tmp/tempfile # Remove temporary file"
     },
     {
       "executable": "windmc.exe",
-      "description": "TODO: Add description",
+      "description": "Windows Message Compiler for creating message resource files from text definitions",
       "dependencies": [
-        "libintl-8.dll,zlib1.dll,libwinpthread-1.dll,libzstd.dll,libiconv-2.dll"
-      ]
+        "mingw-runtime"
+      ],
+      "usage": "windmc messages.mc # Compile message file\nwindmc -h include_dir messages.mc # Set header directory\nwindmc -r res_dir messages.mc # Set resource directory"
     },
     {
       "executable": "windres.exe",
-      "description": "TODO: Add description",
+      "description": "Windows Resource Compiler for converting resource files to object format",
       "dependencies": [
-        "libintl-8.dll,libzstd.dll,zlib1.dll,libwinpthread-1.dll,libiconv-2.dll"
-      ]
+        "mingw-runtime"
+      ],
+      "usage": "windres resource.rc resource.o # Compile resource\nwindres -i input.rc -o output.o # Specify input/output\nwindres --define MACRO=VALUE resource.rc # Define macro"
     }
   ],
   "paths": [

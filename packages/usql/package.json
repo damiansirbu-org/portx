@@ -1,12 +1,14 @@
 {
   "name": "usql",
   "version": "1.0.0",
+  "description": "Universal command-line interface for SQL databases supporting 30+ database types",
   "tools": [
     {
       "executable": "usql.exe",
-      "description": "TODO: Add description",
+      "description": "Universal SQL client supporting PostgreSQL, MySQL, SQLite, Oracle, SQL Server and many others",
+      "usage": "usql postgres://user:pass@host/db # Connect to PostgreSQL\\nusql mysql://user:pass@host/db # Connect to MySQL\\nusql sqlite:database.db # Connect to SQLite\\nusql 'SELECT * FROM users;' # Execute query directly\\nusql --drivers # List supported database drivers",
       "dependencies": [
-        []
+        "embedded"
       ]
     }
   ],

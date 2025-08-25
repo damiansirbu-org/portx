@@ -1,12 +1,14 @@
 {
   "name": "mediainfo",
   "version": "1.0.0",
+  "description": "Comprehensive multimedia file analysis tool for extracting technical and metadata information",
   "tools": [
     {
       "executable": "MediaInfo.exe",
-      "description": "TODO: Add description",
+      "description": "Extract detailed technical and metadata information from video, audio, and image files",
+      "usage": "MediaInfo.exe video.mp4 # Show detailed media information\\nMediaInfo.exe --Output=JSON video.mp4 # JSON format output\\nMediaInfo.exe --Output=XML audio.mp3 # XML format output\\nMediaInfo.exe --Inform=\"General;%Duration%\" video.avi # Extract specific field",
       "dependencies": [
-        []
+        "embedded"
       ]
     }
   ],

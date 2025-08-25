@@ -1,12 +1,14 @@
 {
   "name": "navi",
   "version": "1.0.0",
+  "description": "Interactive cheatsheet tool with fuzzy finding and command templating for terminal workflows",
   "tools": [
     {
       "executable": "navi.exe",
-      "description": "TODO: Add description",
+      "description": "Interactive cheatsheet tool with fuzzy search for discovering and executing command templates",
+      "usage": "navi # Open interactive fuzzy finder for commands\\nnavi --print # Show command without executing\\nnavi --path /path/to/cheats # Add custom cheatsheet directory\\nnavi widget shell # Install shell integration\\nnavi search docker # Search for docker-related commands",
       "dependencies": [
-        []
+        "embedded"
       ]
     }
   ],

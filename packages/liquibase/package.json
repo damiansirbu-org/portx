@@ -8,8 +8,9 @@
   "keywords": ["database", "migration", "schema", "versioning", "devops", "CI/CD"],
   "author": "Liquibase",
   
-  "tools": {
-    "liquibase.bat": {
+  "tools": [
+    {
+      "executable": "liquibase.bat",
       "description": "Database migration and schema versioning tool",
       "usage": "liquibase update",
       "examples": [
@@ -29,9 +30,14 @@
         "--classpath",
         "--contexts",
         "--labels"
-      ]
+      ],
+      "dependencies": [],
+      "aliases": [],
+      "category": "database",
+      "source": "./"
     },
-    "liquibase": {
+    {
+      "executable": "liquibase",
       "description": "Database migration shell script (Unix-style)",
       "usage": "liquibase update",
       "examples": [
@@ -44,9 +50,14 @@
         "--url", 
         "--username",
         "--password"
-      ]
+      ],
+      "dependencies": [],
+      "aliases": [],
+      "category": "database",
+      "source": "./"
     }
-  },
+  ],
+  "tags": ["database", "migration", "schema", "java", "devops"],
 
   "paths": [
     "./"

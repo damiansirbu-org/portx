@@ -315,6 +315,195 @@
       "aliases": [],
       "category": "compression",
       "source": "mingw64/bin"
+    },
+    {
+      "executable": "blocked-file-util.exe",
+      "description": "Windows blocked file utility for managing file security zones and attributes",
+      "usage": "blocked-file-util --help\nblocked-file-util unblock file.exe\nblocked-file-util check document.pdf",
+      "dependencies": [],
+      "aliases": [],
+      "category": "system",
+      "source": "mingw64/bin"
+    },
+    {
+      "executable": "brotli.exe",
+      "description": "Brotli compression utility with superior compression ratios for web assets",
+      "usage": "brotli -c file.txt > file.br\nbrotli -d file.txt.br\nbrotli -q 11 -c document.html > document.html.br",
+      "dependencies": [],
+      "aliases": [],
+      "category": "compression",
+      "source": "mingw64/bin"
+    },
+    {
+      "executable": "git.exe",
+      "description": "Git distributed version control system core executable",
+      "usage": "git clone https://github.com/user/repo.git\ngit commit -m 'message'\ngit push origin main",
+      "dependencies": [],
+      "aliases": [],
+      "category": "git",
+      "source": "mingw64/bin"
+    },
+    {
+      "executable": "git-askpass.exe",
+      "description": "Git password prompting utility for secure credential collection",
+      "usage": "git-askpass 'Enter password:'\nGIT_ASKPASS=git-askpass git clone url\nSecure Git authentication helper",
+      "dependencies": [],
+      "aliases": [],
+      "category": "git",
+      "source": "mingw64/bin"
+    },
+    {
+      "executable": "git-askyesno.exe",
+      "description": "Git yes/no confirmation utility for interactive Git operations",
+      "usage": "git-askyesno 'Continue with merge?'\nInteractive Git decision prompts\nGit confirmation dialog helper",
+      "dependencies": [],
+      "aliases": [],
+      "category": "git",
+      "source": "mingw64/bin"
+    },
+    {
+      "executable": "git-credential-helper-selector.exe",
+      "description": "Git credential helper selection utility for managing authentication methods",
+      "usage": "git config credential.helper selector\ngit-credential-helper-selector\nGit credential management",
+      "dependencies": [],
+      "aliases": [],
+      "category": "git",
+      "source": "mingw64/bin"
+    },
+    {
+      "executable": "git-credential-manager.exe",
+      "description": "Git Credential Manager for secure credential storage and authentication",
+      "usage": "git config credential.helper manager\ngit-credential-manager get\nSecure Git authentication",
+      "dependencies": [],
+      "aliases": [],
+      "category": "git",
+      "source": "mingw64/bin"
+    },
+    {
+      "executable": "git-credential-wincred.exe",
+      "description": "Windows Credential Store integration for Git authentication",
+      "usage": "git config credential.helper wincred\ngit-credential-wincred store\nWindows credential integration",
+      "dependencies": [],
+      "aliases": [],
+      "category": "git",
+      "source": "mingw64/bin"
+    },
+    {
+      "executable": "git-http-fetch.exe",
+      "description": "Git HTTP protocol fetch utility for retrieving objects over HTTP/HTTPS",
+      "usage": "git-http-fetch commit-id url\nGit HTTP object retrieval\nLow-level Git HTTP operations",
+      "dependencies": [],
+      "aliases": [],
+      "category": "git",
+      "source": "mingw64/bin"
+    },
+    {
+      "executable": "git-http-push.exe",
+      "description": "Git HTTP protocol push utility for publishing objects over HTTP/HTTPS",
+      "usage": "git-http-push url refs\nGit HTTP object publishing\nLow-level Git HTTP operations",
+      "dependencies": [],
+      "aliases": [],
+      "category": "git",
+      "source": "mingw64/bin"
+    },
+    {
+      "executable": "git-receive-pack.exe",
+      "description": "Git server-side receive utility for handling incoming pushes and updates",
+      "usage": "git-receive-pack repository\nSSH server Git operations\nGit push reception handler",
+      "dependencies": [],
+      "aliases": [],
+      "category": "git",
+      "source": "mingw64/bin"
+    },
+    {
+      "executable": "git-remote-http.exe",
+      "description": "Git remote helper for HTTP/HTTPS protocol operations and transport",
+      "usage": "git-remote-http origin url\nGit HTTP remote operations\nHTTP transport protocol handler",
+      "dependencies": [],
+      "aliases": [],
+      "category": "git",
+      "source": "mingw64/bin"
+    },
+    {
+      "executable": "git-remote-https.exe",
+      "description": "Git remote helper for secure HTTPS protocol operations and transport",
+      "usage": "git-remote-https origin url\nGit HTTPS remote operations\nSecure HTTP transport handler",
+      "dependencies": [],
+      "aliases": [],
+      "category": "git",
+      "source": "mingw64/bin"
+    },
+    {
+      "executable": "git-sh-i18n--envsubst.exe",
+      "description": "Git shell internationalization environment substitution utility",
+      "usage": "git-sh-i18n--envsubst\nGit localization support\nShell script internationalization",
+      "dependencies": [],
+      "aliases": [],
+      "category": "git",
+      "source": "mingw64/bin"
+    },
+    {
+      "executable": "git-upload-pack.exe",
+      "description": "Git server-side upload utility for handling fetch requests and object transfer",
+      "usage": "git-upload-pack repository\nSSH server Git operations\nGit fetch response handler",
+      "dependencies": [],
+      "aliases": [],
+      "category": "git",
+      "source": "mingw64/bin"
+    },
+    {
+      "executable": "headless-git.exe",
+      "description": "Git utility for non-interactive automated operations without UI prompts",
+      "usage": "headless-git clone url\nheadless-git pull origin main\nAutomated Git operations",
+      "dependencies": [],
+      "aliases": [],
+      "category": "git",
+      "source": "mingw64/bin"
+    },
+    {
+      "executable": "printf_gettext.exe",
+      "description": "Printf-style gettext utility for formatted internationalization messages",
+      "usage": "printf_gettext 'Hello %s' 'World'\nprintf_gettext -c 'format' args\nFormatted localization output",
+      "dependencies": [],
+      "aliases": [],
+      "category": "localization",
+      "source": "mingw64/bin"
+    },
+    {
+      "executable": "printf_ngettext.exe",
+      "description": "Printf-style ngettext utility for plural-aware internationalization",
+      "usage": "printf_ngettext '%d file' '%d files' 1\nprintf_ngettext 'singular' 'plural' count\nPlural-aware localization",
+      "dependencies": [],
+      "aliases": [],
+      "category": "localization",
+      "source": "mingw64/bin"
+    },
+    {
+      "executable": "proxy-lookup.exe",
+      "description": "Proxy server detection and lookup utility for network configuration",
+      "usage": "proxy-lookup url\nproxy-lookup --auto-detect\nNetwork proxy discovery",
+      "dependencies": [],
+      "aliases": [],
+      "category": "network",
+      "source": "mingw64/bin"
+    },
+    {
+      "executable": "psl.exe",
+      "description": "Public Suffix List utility for domain validation and cookie security",
+      "usage": "psl domain.com\npsl --is-public-suffix example.org\nDomain suffix validation",
+      "dependencies": [],
+      "aliases": [],
+      "category": "security",
+      "source": "mingw64/bin"
+    },
+    {
+      "executable": "scalar.exe",
+      "description": "Git Scalar utility for managing large Git repositories with enhanced performance",
+      "usage": "scalar clone url\nscalar register repo\nscalar unregister repo",
+      "dependencies": [],
+      "aliases": [],
+      "category": "git",
+      "source": "mingw64/bin"
     }
   ]
 }

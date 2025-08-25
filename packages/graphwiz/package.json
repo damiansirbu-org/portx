@@ -8,8 +8,9 @@
   "keywords": ["graph", "visualization", "diagram", "dot", "layout", "network"],
   "author": "Graphviz team",
   
-  "tools": {
-    "dot.exe": {
+  "tools": [
+    {
+      "executable": "dot.exe",
       "description": "Hierarchical or layered drawings of directed graphs",
       "usage": "dot -Tpng input.dot -o output.png",
       "examples": [
@@ -18,9 +19,14 @@
         "dot -Tpdf network.dot -o network.pdf"
       ],
       "flags": ["-V", "-?"],
-      "common_args": ["-T", "-o", "-G", "-N", "-E", "-K"]
+      "common_args": ["-T", "-o", "-G", "-N", "-E", "-K"],
+      "dependencies": [],
+      "aliases": [],
+      "category": "visualization",
+      "source": "bin"
     },
-    "neato.exe": {
+    {
+      "executable": "neato.exe",
       "description": "Spring model layouts for undirected graphs",
       "usage": "neato -Tpng input.dot -o output.png",
       "examples": [
@@ -28,9 +34,14 @@
         "neato -Tsvg -Goverlap=false graph.gv -o graph.svg"
       ],
       "flags": ["-V", "-?"],
-      "common_args": ["-T", "-o", "-G", "-N", "-E"]
+      "common_args": ["-T", "-o", "-G", "-N", "-E"],
+      "dependencies": [],
+      "aliases": [],
+      "category": "visualization",
+      "source": "bin"
     },
-    "circo.exe": {
+    {
+      "executable": "circo.exe",
       "description": "Circular layout for graphs",
       "usage": "circo -Tpng input.dot -o output.png",
       "examples": [
@@ -38,9 +49,14 @@
         "circo -Tsvg -Groot=center workflow.gv -o workflow.svg"
       ],
       "flags": ["-V", "-?"],
-      "common_args": ["-T", "-o", "-G", "-N", "-E"]
+      "common_args": ["-T", "-o", "-G", "-N", "-E"],
+      "dependencies": [],
+      "aliases": [],
+      "category": "visualization",
+      "source": "bin"
     },
-    "twopi.exe": {
+    {
+      "executable": "twopi.exe",
       "description": "Radial layout for graphs",
       "usage": "twopi -Tpng input.dot -o output.png",
       "examples": [
@@ -48,9 +64,14 @@
         "twopi -Tsvg -Groot=center tree.gv -o tree.svg"
       ],
       "flags": ["-V", "-?"],
-      "common_args": ["-T", "-o", "-G", "-N", "-E"]
+      "common_args": ["-T", "-o", "-G", "-N", "-E"],
+      "dependencies": [],
+      "aliases": [],
+      "category": "visualization",
+      "source": "bin"
     },
-    "fdp.exe": {
+    {
+      "executable": "fdp.exe",
       "description": "Force-directed placement for undirected graphs",
       "usage": "fdp -Tpng input.dot -o output.png",
       "examples": [
@@ -58,9 +79,14 @@
         "fdp -Tsvg -GK=2.0 graph.gv -o graph.svg"
       ],
       "flags": ["-V", "-?"],
-      "common_args": ["-T", "-o", "-G", "-N", "-E"]
+      "common_args": ["-T", "-o", "-G", "-N", "-E"],
+      "dependencies": [],
+      "aliases": [],
+      "category": "visualization",
+      "source": "bin"
     },
-    "sfdp.exe": {
+    {
+      "executable": "sfdp.exe",
       "description": "Scalable force-directed placement for large graphs",
       "usage": "sfdp -Tpng input.dot -o output.png",
       "examples": [
@@ -68,27 +94,42 @@
         "sfdp -Tsvg -GK=10 massive.gv -o massive.svg"
       ],
       "flags": ["-V", "-?"],
-      "common_args": ["-T", "-o", "-G", "-N", "-E"]
+      "common_args": ["-T", "-o", "-G", "-N", "-E"],
+      "dependencies": [],
+      "aliases": [],
+      "category": "visualization",
+      "source": "bin"
     },
-    "osage.exe": {
+    {
+      "executable": "osage.exe",
       "description": "Array-based layouts for clustered graphs",
       "usage": "osage -Tpng input.dot -o output.png",
       "examples": [
         "osage -Tpng clusters.dot -o clusters.png"
       ],
       "flags": ["-V", "-?"],
-      "common_args": ["-T", "-o", "-G", "-N", "-E"]
+      "common_args": ["-T", "-o", "-G", "-N", "-E"],
+      "dependencies": [],
+      "aliases": [],
+      "category": "visualization",
+      "source": "bin"
     },
-    "patchwork.exe": {
+    {
+      "executable": "patchwork.exe",
       "description": "Squarified treemap layout",
       "usage": "patchwork -Tpng input.dot -o output.png",
       "examples": [
         "patchwork -Tpng treemap.dot -o treemap.png"
       ],
       "flags": ["-V", "-?"],
-      "common_args": ["-T", "-o", "-G", "-N", "-E"]
+      "common_args": ["-T", "-o", "-G", "-N", "-E"],
+      "dependencies": [],
+      "aliases": [],
+      "category": "visualization",
+      "source": "bin"
     }
-  },
+  ],
+  "tags": ["visualization", "graph", "diagram", "native", "plotting"],
 
   "paths": [
     "bin/"

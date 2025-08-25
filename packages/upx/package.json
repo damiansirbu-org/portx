@@ -1,12 +1,14 @@
 {
   "name": "upx",
   "version": "1.0.0",
+  "description": "Ultimate executable packer with high compression ratios and fast decompression",
   "tools": [
     {
       "executable": "upx.exe",
-      "description": "TODO: Add description",
+      "description": "Compress executables and shared libraries to reduce file size while maintaining functionality",
+      "usage": "upx program.exe # Compress executable with default settings\\nupx --best program.exe # Maximum compression\\nupx -d packed.exe # Decompress/unpack executable\\nupx -t packed.exe # Test packed executable integrity\\nupx --info packed.exe # Show packing information",
       "dependencies": [
-        []
+        "embedded"
       ]
     }
   ],

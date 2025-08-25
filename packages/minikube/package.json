@@ -1,12 +1,14 @@
 {
   "name": "minikube",
   "version": "1.0.0",
+  "description": "Local Kubernetes cluster for development and testing with multiple driver support",
   "tools": [
     {
       "executable": "minikube.exe",
-      "description": "TODO: Add description",
+      "description": "Run Kubernetes clusters locally for development with various virtualization drivers",
+      "usage": "minikube start # Start local Kubernetes cluster\\nminikube status # Show cluster status\\nminikube dashboard # Open Kubernetes dashboard\\nminikube docker-env # Configure Docker to use minikube\\nminikube stop # Stop the cluster\\nminikube delete # Delete cluster",
       "dependencies": [
-        []
+        "embedded"
       ]
     }
   ],

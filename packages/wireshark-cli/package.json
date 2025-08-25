@@ -8,8 +8,9 @@
   "keywords": ["network", "packet", "capture", "analysis", "protocol", "cli"],
   "author": "Wireshark Foundation",
   
-  "tools": {
-    "tshark.exe": {
+  "tools": [
+    {
+      "executable": "tshark.exe",
       "description": "Network protocol analyzer - command line version of Wireshark",
       "usage": "tshark -i interface -w output.pcap",
       "examples": [
@@ -19,9 +20,14 @@
         "tshark -r input.pcap -Y \"http.request\" -T json"
       ],
       "flags": ["-h", "--help", "-v", "--version"],
-      "common_args": ["-i", "-r", "-w", "-c", "-f", "-Y", "-T", "-V", "-x"]
+      "common_args": ["-i", "-r", "-w", "-c", "-f", "-Y", "-T", "-V", "-x"],
+      "dependencies": [],
+      "aliases": [],
+      "category": "network",
+      "source": "./"
     },
-    "dumpcap.exe": {
+    {
+      "executable": "dumpcap.exe",
       "description": "Network traffic dump tool for packet capture",
       "usage": "dumpcap -i interface -w output.pcap",
       "examples": [
@@ -31,9 +37,14 @@
         "dumpcap -i eth0 -b filesize:100000 -b files:10 -w rolling.pcap"
       ],
       "flags": ["-h", "--help", "-v", "--version"],
-      "common_args": ["-i", "-w", "-D", "-a", "-b", "-f", "-s", "-P"]
+      "common_args": ["-i", "-w", "-D", "-a", "-b", "-f", "-s", "-P"],
+      "dependencies": [],
+      "aliases": [],
+      "category": "network",
+      "source": "./"
     },
-    "capinfos.exe": {
+    {
+      "executable": "capinfos.exe",
       "description": "Print information about capture files",
       "usage": "capinfos capture.pcap",
       "examples": [
@@ -42,9 +53,14 @@
         "capinfos -T capture.pcap"
       ],
       "flags": ["-h", "--help"],
-      "common_args": ["-t", "-c", "-s", "-a", "-e", "-u", "-d", "-T"]
+      "common_args": ["-t", "-c", "-s", "-a", "-e", "-u", "-d", "-T"],
+      "dependencies": [],
+      "aliases": [],
+      "category": "network",
+      "source": "./"
     }
-  },
+  ],
+  "tags": ["network", "packet", "analysis", "native", "security"],
 
   "paths": [
     "./"
