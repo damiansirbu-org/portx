@@ -257,7 +257,7 @@ configure_portx_path() {
     
     # PORTX Package Integration
     # Load PORTX tool paths using cached results for performance
-    local cache_file="$PORTX_HOME/.portx_cache"
+    local cache_file="$PORTX_HOME/.portx_path_cache"
     
     if [[ -f "$cache_file" ]]; then
         # shellcheck source=/dev/null
@@ -269,7 +269,7 @@ configure_portx_path() {
         fi
     else
         # Cache not found - show warning
-        echo "WARNING: No .portx_cache found, please regenerate using: ./scripts/import-packages.sh" >&2
+        echo "INFO: No .portx_path_cache found, please regenerate using: ./scripts/portx packages import" >&2
     fi
 }
 
