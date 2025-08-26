@@ -1033,12 +1033,185 @@ list_packages() {
     set -e # Re-enable strict error handling
 }
 
+# Terminal width and column layout constants
+readonly DEFAULT_TERMINAL_WIDTH=160
+readonly MIN_TERMINAL_WIDTH=80
+readonly WIDE_TERMINAL_THRESHOLD=160
+readonly MEDIUM_TERMINAL_THRESHOLD=120
+
+# Column width constants - simple 2-column layout
+readonly NAME_WIDTH=30
+readonly DESC_WIDTH=90  # Rest of the 120 chars minus spacing
+
+# Minimum column widths
+readonly MIN_TOOL_WIDTH=10
+readonly MIN_VERSION_WIDTH=4
+readonly MIN_DESC_WIDTH=20
+readonly MIN_TAGS_WIDTH=8
+
+# Spacing for tree characters and padding
+readonly TREE_SPACING=10
+
+# Helper function to detect terminal width
+_detect_terminal_width() {
+    local width
+    # Try to detect terminal width
+    if [[ -t 1 ]] && command -v tput >/dev/null 2>&1; then
+        width=$(tput cols 2>/dev/null || echo "$DEFAULT_TERMINAL_WIDTH")
+    elif [[ -n "${COLUMNS:-}" ]]; then
+        width="$COLUMNS"
+    else
+        width="$DEFAULT_TERMINAL_WIDTH"  # Default to modern terminal width
+    fi
+    
+    # Ensure minimum width
+    if [[ $width -lt $MIN_TERMINAL_WIDTH ]]; then
+        width="$MIN_TERMINAL_WIDTH"
+    fi
+    
+    echo "$width"
+}
+
+# Helper function to calculate actual maximum width needed for tool names
+_calculate_max_name_width() {
+    local max_width=0
+    local current_width
+    
+    # Determine jq command
+    local JQ_CMD=""
+    if command -v jq >/dev/null 2>&1; then
+        JQ_CMD="jq"
+    elif command -v jq.cmd >/dev/null 2>&1; then
+        JQ_CMD="jq.cmd"
+    else
+        echo "30"  # fallback to reasonable width
+        return
+    fi
+    
+    for pkg_dir in "$PACKAGES_DIR"/*; do
+        if [[ -d "$pkg_dir" && -f "$pkg_dir/package.json" ]]; then
+            # Check package name width (no version)
+            local pkg_name=$(basename "$pkg_dir")
+            current_width=${#pkg_name}
+            if [[ $current_width -gt $max_width ]]; then
+                max_width=$current_width
+            fi
+            
+            # Check tool name widths (add 2 for "- " prefix)
+            while IFS='|' read -r executable description tags; do
+                if [[ -n "$executable" ]]; then
+                    current_width=$((${#executable} + 2))  # Add 2 for "- " prefix
+                    if [[ $current_width -gt $max_width ]]; then
+                        max_width=$current_width
+                    fi
+                fi
+            done < <($JQ_CMD -r '.tools[]? | "\(.executable // "")|\(.description // "")|\((.tags // []) | join(", "))"' "$pkg_dir/package.json" 2>/dev/null)
+        fi
+    done
+    
+    # Add some padding but ensure minimum width
+    local result=$((max_width + 2))
+    if [[ $result -lt 25 ]]; then
+        result=25
+    fi
+    echo "$result"
+}
+
+# Helper function to return 2-column widths based on actual data
+_get_column_widths() {
+    local actual_name_width=$(_calculate_max_name_width)
+    local desc_width=$((120 - actual_name_width - 1))
+    echo "$actual_name_width:$desc_width"
+}
+
+# Helper function to wrap text with color escape sequence handling
+_wrap_text() {
+    local text="$1"
+    local content_width="$2"  # Width available for content (without prefix)
+    local first_line_prefix="$3"
+    local continuation_prefix="$4"
+    
+    # If text fits within content width, return it (hashtag coloring disabled for now)
+    if [[ ${#text} -le $content_width ]]; then
+        printf "%s%s\n" "$first_line_prefix" "$text"
+        return
+    fi
+    
+    # Split into words for careful wrapping
+    local words=($text)
+    local current_line=""
+    local is_first_line=true
+    
+    for word in "${words[@]}"; do
+        # Check if adding word would exceed width
+        local test_line
+        if [[ -z "$current_line" ]]; then
+            test_line="$word"
+        else
+            test_line="$current_line $word"
+        fi
+        
+        if [[ ${#test_line} -le $content_width ]]; then
+            current_line="$test_line"
+        else
+            # Output current line (hashtag coloring disabled for now)
+            if [[ -n "$current_line" ]]; then
+                if $is_first_line; then
+                    printf "%s%s\n" "$first_line_prefix" "$current_line"
+                    is_first_line=false
+                else
+                    printf "%s%s\n" "$continuation_prefix" "$current_line"
+                fi
+            fi
+            current_line="$word"
+        fi
+    done
+    
+    # Output final line (hashtag coloring disabled for now)
+    if [[ -n "$current_line" ]]; then
+        if $is_first_line; then
+            printf "%s%s\n" "$first_line_prefix" "$current_line"
+        else
+            printf "%s%s\n" "$continuation_prefix" "$current_line"
+        fi
+    fi
+}
+
+# Helper function to format a single tool entry with 2 columns using text wrapping
+_format_tool_entry() {
+    local executable="$1"
+    local version="$2"  # Not used in 2-column layout
+    local description="$3"
+    local tags="$4"
+    local name_width="$5"
+    local desc_width="$6"
+    
+    # Prepare tool name with minus prefix
+    local display_name="- $executable"
+    
+    # Concatenate description + tags in brackets: description [tag1, tag2, tag3]
+    local combined_content="$description"
+    # Strip carriage returns and whitespace from tags
+    tags=$(echo "$tags" | tr -d '\r' | sed 's/^[[:space:]]*//;s/[[:space:]]*$//')
+    if [[ -n "$tags" && "$tags" != "" ]]; then
+        combined_content="$description [$tags]"
+    fi
+    
+    # Create the prefixes for first line and continuation lines
+    local first_line_prefix
+    local continuation_prefix
+    
+    printf -v first_line_prefix "%-*s " "$name_width" "$display_name"
+    printf -v continuation_prefix "%*s " "$name_width" ""
+    
+    
+    # Use wrapping function to format the combined content
+    _wrap_text "$combined_content" "$desc_width" "$first_line_prefix" "$continuation_prefix"
+}
+
 # Internal function to generate the packages list
 _generate_packages_list() {
     
-    echo "PORTX Tools Inventory - Hierarchical View"
-    echo
-
     local total_tools=0
     local total_packages=0
 
@@ -1058,6 +1231,13 @@ _generate_packages_list() {
         echo "ERROR: jq not found in PATH - required for package.json parsing"
         return 1
     fi
+
+    # Get fixed column widths
+    local column_widths
+    column_widths=$(_get_column_widths)
+    
+    local name_width desc_width
+    IFS=':' read -r name_width desc_width <<< "$column_widths"
 
     for pkg_dir in "$PACKAGES_DIR"/*; do
         if [[ -d "$pkg_dir" && -f "$pkg_dir/package.json" ]]; then
@@ -1081,16 +1261,17 @@ _generate_packages_list() {
             ((total_packages++))
             total_tools=$((total_tools + tool_count))
 
-            # Display package header with aligned description
+            # Display package header using authoritative left-aligned padding approach
             pkg_header="$pkg_name"
-            if [[ -n "$pkg_version" ]]; then
-                pkg_header="$pkg_header (v$pkg_version)"
-            fi
-            printf "%-30s %s\n" "$pkg_header" "$pkg_description"
+            printf "\033[94m%-*s\033[0m %s\n" "$name_width" "$pkg_header" "$pkg_description"
 
-            # Use jq to format complete output with tools and tags (using ASCII tree chars)
-            # shellcheck disable=SC2016
-            $JQ_CMD -r '(.tags // []) as $tags | .tools[]? | "  |- " + (.executable // "" | . + (25 - length) * " " | .[0:25]) + " " + (.description // "") + if ($tags | length > 0) then " [" + ($tags | join(", ")) + "]" else "" end' "$pkg_dir/package.json" 2>/dev/null
+            # Format tools using the new 2-column layout
+            while IFS='|' read -r executable description tags; do
+                if [[ -n "$executable" ]]; then
+                    _format_tool_entry "$executable" "$pkg_version" "$description" "$tags" \
+                        "$name_width" "$desc_width"
+                fi
+            done < <($JQ_CMD -r '.tools[]? | "\(.executable // "")|\(.description // "")|\((.tags // []) | join(", "))"' "$pkg_dir/package.json" 2>/dev/null)
             echo
         fi
     done

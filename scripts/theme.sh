@@ -132,6 +132,13 @@ color_accent() {
     esac
 }
 
+color_pale_blue() {
+    detect_terminal_capabilities
+    case $PORTX_COLOR_LEVEL in
+        *) echo '\033[94m' ;;  # Pale blue for package names
+    esac
+}
+
 color_reset() {
     echo '\033[0m'
 }

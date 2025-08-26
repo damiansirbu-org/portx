@@ -8,12 +8,6 @@
       "description": "Extract digital artifacts from volatile memory (RAM) dumps for forensic analysis",
       "usage": "vol -f memory.dmp imageinfo # Identify OS and profile\\nvol -f memory.dmp --profile=Win10x64 pslist # List running processes\\nvol -f memory.dmp --profile=Win10x64 netscan # Network connections\\nvol -f memory.dmp --profile=Win10x64 malfind # Find malware artifacts\\nvol -f memory.dmp --profile=Win10x64 hashdump # Extract password hashes",
       "dependencies": "windows"
-    },
-    {
-      "executable": "VolatilityWorkbench.exe",
-      "description": "GUI interface for Volatility memory forensics with visual analysis capabilities",
-      "usage": "VolatilityWorkbench # Launch GUI interface\\nVolatilityWorkbench memory.dmp # Open memory dump in GUI\\nVolatilityWorkbench --help # Show available options",
-      "dependencies": "windows"
     }
   ],
   "paths": [

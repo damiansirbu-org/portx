@@ -10,20 +10,20 @@
   
   "tools": [
     {
-      "executable": "ROPgadget",
-      "description": "Search ROP gadgets in binary files and generate exploit chains",
-      "usage": "ROPgadget --binary ./binary",
+      "executable": "ROPgadget.py",
+      "description": "Python script to search ROP gadgets in binary files and generate exploit chains",
+      "usage": "python ROPgadget.py --binary ./binary",
       "examples": [
-        "ROPgadget --binary ./binary --ropchain",
-        "ROPgadget --binary ./binary --string 'bin/sh'",
-        "ROPgadget --binary ./binary --only 'pop|ret'",
-        "ROPgadget --binary ./binary --badbytes '00|0a|0d'",
-        "ROPgadget --binary ./binary --depth 5"
+        "python ROPgadget.py --binary ./binary --ropchain",
+        "python ROPgadget.py --binary ./binary --string 'system'",
+        "python ROPgadget.py --binary ./binary --only 'pop|ret'",
+        "python ROPgadget.py --binary ./binary --badbytes '00|0a|0d'",
+        "python ROPgadget.py --binary ./binary --depth 5"
       ],
       "flags": ["--help", "--version"],
       "common_args": [
         "--binary",
-        "--ropchain", 
+        "--ropchain",
         "--string",
         "--only",
         "--badbytes",
@@ -32,35 +32,15 @@
         "--memstr",
         "--console"
       ],
-      "dependencies": "windows",
+      "dependencies": "python",
       "aliases": [],
       "category": "security",
-      "source": "scripts"
-    },
-    {
-      "executable": "ROPgadget.py",
-      "description": "Python script version of ROPgadget tool",
-      "usage": "python ROPgadget.py --binary ./binary",
-      "examples": [
-        "python ROPgadget.py --binary ./binary --ropchain",
-        "python ROPgadget.py --binary ./binary --string 'system'"
-      ],
-      "flags": ["--help", "--version"],
-      "common_args": [
-        "--binary",
-        "--ropchain",
-        "--string",
-        "--only"
-      ],
-      "dependencies": "windows",
-      "aliases": [],
-      "category": "security",
-      "source": "scripts"
+      "source": "."
     }
   ],
   "tags": ["security", "exploit", "rop", "python", "analysis"],
 
   "paths": [
-    "scripts/"
+    "."
   ]
 }
