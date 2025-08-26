@@ -164,6 +164,28 @@ parse_package_manual() {
 }
 
 # Method: Get package import type (path, wrap, or auto/default)
+# Clean JSON by stripping comments and unnatural characters for jq processing
+# Research-based solution: Stack Overflow + GNU sed + Unix tr best practices
+clean_json_for_jq() {
+    local json_file="$1"
+    # Stack Overflow proven pattern + GNU sed multi-line comments + tr control chars
+    sed -e '/^[[:blank:]]*#/d' -e 's|//.*||' -e 's|/\*.*\*/||g' "$json_file" | \
+    tr -d '\000-\011\013-\037\177'
+}
+
+# Helper function to parse JSON with comments
+parse_json_with_comments() {
+    local json_file="$1"
+    local jq_filter="$2"
+    
+    # Special handling for importType - direct extraction avoids jq parsing issues
+    if [[ "$jq_filter" == '.importType // empty' ]]; then
+        grep '"importType"' "$json_file" | sed 's|.*"importType"[[:space:]]*:[[:space:]]*"||' | sed 's|".*||' | head -1
+    else
+        clean_json_for_jq "$json_file" | "$GIT_BASH_ROOT/home/portx/packages/jq/jq.exe" -r "$jq_filter" 2>/dev/null || echo ""
+    fi
+}
+
 get_import_type() {
     local pkg_dir="$1"
     local json_file="$pkg_dir/package.json"
@@ -173,9 +195,9 @@ get_import_type() {
         return
     fi
 
-    # Check importType field
+    # Check importType field using comment-aware JSON parser
     local import_type
-    import_type=$("$GIT_BASH_ROOT/home/portx/packages/jq/jq.exe" -r '.importType // empty' "$json_file" 2>/dev/null)
+    import_type=$(parse_json_with_comments "$json_file" '.importType // empty')
 
     case "$import_type" in
         "path")
@@ -256,7 +278,157 @@ has_command_conflict() {
     return 1 # No conflict
 }
 
-# Method: Create wrapper scripts (import only - no testing)
+# Method: Create bash wrapper scripts only
+create_bash_wrappers() {
+    local pkg_dir="$1"
+    local pkg_name="$2"
+    local executables
+
+    # Primary: Use package.json executables with defaultArgs
+    executables=$(get_executables_from_json "$pkg_dir")
+
+    # Fallback: If no package.json executables, scan directory (no defaultArgs)
+    if [[ -z "$executables" ]]; then
+        debug_log "    No executables in package.json, falling back to directory scan"
+        local scanned_exes
+        scanned_exes=$(get_scanned_executables "$pkg_dir")
+        if [[ -n "$scanned_exes" ]]; then
+            # Convert to "executable|" format (no defaultArgs)
+            executables=""
+            while IFS= read -r exe; do
+                executables+="${exe}|"$'\n'
+            done <<<"$scanned_exes"
+            debug_log "    Found $(echo "$scanned_exes" | wc -l) executables by scanning"
+        else
+            debug_log "    No executables found by scanning, skipping package"
+            return 1
+        fi
+    fi
+
+    debug_log "    Found executables in $pkg_name: $(echo "$executables" | wc -l) files"
+    if [[ -z "$executables" ]]; then
+        debug_log "    No executables found in package"
+        return 1
+    fi
+
+    local created_wrappers=0
+
+    # Create bash wrappers - parse executable|defaultArgs format
+    while IFS='|' read -r exe_name default_args; do
+        if [[ -n "$exe_name" ]]; then
+            local cmd_name="${exe_name%.*}"
+            local exe_file="$pkg_dir/$exe_name"
+
+            if [[ ! -f "$exe_file" ]]; then
+                debug_log "      SKIPPED: Executable does not exist: $exe_file"
+                continue
+            fi
+
+            if has_command_conflict "$cmd_name"; then
+                debug_log "      SKIPPED: $cmd_name conflicts with existing command"
+                continue
+            fi
+
+            local wrapper_sh="$SH_WRAPPERS_DIR/$cmd_name"
+            
+            # Create shell wrapper for Git Bash with defaultArgs
+            mkdir -p "$SH_WRAPPERS_DIR"
+            local posix_exe_path="$GIT_BASH_ROOT/home/portx/packages/$pkg_name/$exe_name"
+            if [[ -n "$default_args" && "$default_args" != "" ]]; then
+                cat >"$wrapper_sh" <<WRAPPER_EOF
+#!/bin/bash
+# PORTX-WRAPPER: Auto-generated wrapper for $pkg_name with defaultArgs
+exec "$posix_exe_path" $default_args "\$@"
+WRAPPER_EOF
+            else
+                cat >"$wrapper_sh" <<WRAPPER_EOF
+#!/bin/bash
+# PORTX-WRAPPER: Auto-generated wrapper for $pkg_name
+exec "$posix_exe_path" "\$@"
+WRAPPER_EOF
+            fi
+            chmod +x "$wrapper_sh"
+            debug_log "      Created bash wrapper for: $cmd_name"
+            debug_log "      Target exe: $exe_file"
+            created_wrappers=$((created_wrappers + 1))
+        fi
+    done <<<"$executables"
+
+    # Return 0 if any wrappers created, 1 if none created
+    [[ $created_wrappers -gt 0 ]]
+}
+
+# Method: Create cmd wrapper scripts only  
+create_cmd_wrappers() {
+    local pkg_dir="$1"
+    local pkg_name="$2"
+    local executables
+
+    # Primary: Use package.json executables with defaultArgs
+    executables=$(get_executables_from_json "$pkg_dir")
+
+    # Fallback: If no package.json executables, scan directory (no defaultArgs)
+    if [[ -z "$executables" ]]; then
+        debug_log "    No executables in package.json, falling back to directory scan"
+        local scanned_exes
+        scanned_exes=$(get_scanned_executables "$pkg_dir")
+        if [[ -n "$scanned_exes" ]]; then
+            # Convert to "executable|" format (no defaultArgs)
+            executables=""
+            while IFS= read -r exe; do
+                executables+="${exe}|"$'\n'
+            done <<<"$scanned_exes"
+            debug_log "    Found $(echo "$scanned_exes" | wc -l) executables by scanning"
+        else
+            debug_log "    No executables found by scanning, skipping package"
+            return 1
+        fi
+    fi
+
+    debug_log "    Found executables in $pkg_name: $(echo "$executables" | wc -l) files"
+    if [[ -z "$executables" ]]; then
+        debug_log "    No executables found in package"
+        return 1
+    fi
+
+    local created_wrappers=0
+
+    # Create cmd wrappers - parse executable|defaultArgs format
+    while IFS='|' read -r exe_name default_args; do
+        if [[ -n "$exe_name" ]]; then
+            local cmd_name="${exe_name%.*}"
+            local exe_file="$pkg_dir/$exe_name"
+
+            if [[ ! -f "$exe_file" ]]; then
+                debug_log "      SKIPPED: Executable does not exist: $exe_file"
+                continue
+            fi
+
+            if has_command_conflict "$cmd_name"; then
+                debug_log "      SKIPPED: $cmd_name conflicts with existing command"
+                continue
+            fi
+
+            local wrapper_cmd="$CMD_WRAPPERS_DIR/$cmd_name.cmd"
+            
+            # Create .cmd wrapper for Windows with defaultArgs  
+            mkdir -p "$CMD_WRAPPERS_DIR"
+            if [[ -n "$default_args" && "$default_args" != "" ]]; then
+                printf '@echo off\nrem PORTX-WRAPPER: Auto-generated wrapper for %s with defaultArgs\n"C:\\App\\Git\\home\\portx\\packages\\%s\\%s" %s %%*\n' "$pkg_name" "$pkg_name" "$exe_name" "$default_args" >"$wrapper_cmd"
+            else
+                printf '@echo off\nrem PORTX-WRAPPER: Auto-generated wrapper for %s\n"C:\\App\\Git\\home\\portx\\packages\\%s\\%s" %%*\n' "$pkg_name" "$pkg_name" "$exe_name" >"$wrapper_cmd"
+            fi
+            debug_log "      Created cmd wrapper for: $cmd_name"
+            debug_log "      Target exe: $exe_file"
+            created_wrappers=$((created_wrappers + 1))
+        fi
+    done <<<"$executables"
+
+    # Return 0 if any wrappers created, 1 if none created
+    [[ $created_wrappers -gt 0 ]]
+}
+
+# Method: Create wrapper scripts (import only - no testing) - LEGACY FUNCTION
 create_wrappers() {
     local pkg_dir="$1"
     local pkg_name="$2"
@@ -352,8 +524,9 @@ add_to_path() {
     local pkg_path="$1"
     local pkg_name="$2"
 
-    # Write only the path to the file, one per line
-    echo "$pkg_path" >> "$PORTX_PATH_CACHE"
+    # Add to PATH_PACKAGE_PATHS array for cache generation
+    PATH_PACKAGE_PATHS+=("$pkg_path")
+    debug_log "Added $pkg_path to PATH_PACKAGE_PATHS array"
     return 0
 }
 
@@ -364,6 +537,7 @@ import_packages() {
     debug_log "Starting package import scan..."
 
     printf "Importing portx packages\n" >&2
+    printf "Scanning packages for import types...\n" >&2
 
     # Cleanup at beginning - remove old cache files and wrappers
     rm -f "$PORTX_PATH_CACHE" "$PORTX_PACKAGES_CACHE" "$PORTX_TOOLS_CACHE"
@@ -404,38 +578,55 @@ import_packages() {
             fi
 
             VALID_PACKAGES=$((VALID_PACKAGES + 1))
-            import_type=$(get_import_type "$pkg_path")
+            import_type=$(get_import_type "$pkg_path" 2>/dev/null || echo "auto")
             debug_log "Package $pkg_name has importType: $import_type"
 
             case "$import_type" in
                 "path")
                     # Force PATH mode - skip wrapper creation entirely
+                    printf "  PATH: %s\n" "$pkg_name" >&2
                     debug_log "Forcing PATH mode for $pkg_name"
                     add_to_path "$pkg_path" "$pkg_name"
                     PATH_PACKAGES=$((PATH_PACKAGES + 1))
                     ;;
-                "wrap")
-                    # Force wrapper mode - create wrappers
-                    debug_log "Forcing wrapper mode for $pkg_name"
-                    if create_wrappers "$pkg_path" "$pkg_name"; then
-                        debug_log "Created wrappers for $pkg_name"
-                        WRAPPER_PACKAGES=$((WRAPPER_PACKAGES + 1))
-                        WRAPPER_PACKAGE_NAMES+=("$pkg_name")
-                    else
-                        debug_log "WRAPPER CREATION FAILED for $pkg_name (forced wrap mode)"
+                *)
+                    # Default wrapper creation logic
+                    printf "  WRAP: %s\n" "$pkg_name" >&2
+                    debug_log "Creating wrappers for $pkg_name"
+                    
+                    # Check if package has MSYS dependencies
+                    local has_msys_deps=false
+                    if [[ -f "$json_file" ]]; then
+                        # Check both top-level dependencies and tool-level dependencies using comment-aware parser
+                        local dependencies
+                        dependencies=$(parse_json_with_comments "$json_file" '.dependencies[]? // .tools[]?.dependencies[]? // empty')
+                        if echo "$dependencies" | grep -qi "msys"; then
+                            has_msys_deps=true
+                            debug_log "Detected MSYS dependencies in $pkg_name"
+                        fi
                     fi
-                    ;;
-                "auto" | *)
-                    # Default behavior: try wrappers, fallback to PATH
-                    debug_log "Using auto mode for $pkg_name"
-                    if create_wrappers "$pkg_path" "$pkg_name"; then
-                        debug_log "Created wrappers for $pkg_name"
+                    
+                    # Create bash wrapper (always)
+                    debug_log "About to create bash wrappers for $pkg_name"
+                    if create_bash_wrappers "$pkg_path" "$pkg_name"; then
+                        debug_log "Created bash wrappers for $pkg_name"
                         WRAPPER_PACKAGES=$((WRAPPER_PACKAGES + 1))
                         WRAPPER_PACKAGE_NAMES+=("$pkg_name")
                     else
-                        debug_log "No wrappers created, adding $pkg_name to PATH"
-                        add_to_path "$pkg_path" "$pkg_name"
-                        PATH_PACKAGES=$((PATH_PACKAGES + 1))
+                        debug_log "Failed to create bash wrappers for $pkg_name"
+                    fi
+                    
+                    # Create .cmd wrapper (only if not MSYS)
+                    debug_log "Checking MSYS deps: has_msys_deps=$has_msys_deps"
+                    if [[ "$has_msys_deps" != true ]]; then
+                        debug_log "About to create cmd wrappers for $pkg_name"
+                        if create_cmd_wrappers "$pkg_path" "$pkg_name"; then
+                            debug_log "Created cmd wrappers for $pkg_name"
+                        else
+                            debug_log "Failed to create cmd wrappers for $pkg_name"
+                        fi
+                    else
+                        debug_log "Skipping cmd wrappers for $pkg_name (has MSYS dependencies)"
                     fi
                     ;;
             esac
@@ -477,10 +668,10 @@ import_packages() {
         echo "#   Packages Directory: $PACKAGES_DIR"
         echo "#"
         echo "# TOOL COUNTS:"
-        echo "#   Git Bash Core: $(find "$GIT_BASH_ROOT/mingw64/bin" -name "*.exe" 2>/dev/null | wc -l) executables"
-        echo "#   PORTX Bin: $(find "$CMD_WRAPPERS_DIR" -name "*.cmd" 2>/dev/null | wc -l) wrappers"
+        echo "#   Git for Windows: $(find "$GIT_BASH_ROOT" -name "*.exe" -not -path "*/home/portx/packages/*" 2>/dev/null | wc -l) executables"
+        echo "#   PORTX Wrappers: $(find "$CMD_WRAPPERS_DIR" -name "*.cmd" 2>/dev/null | wc -l) wrappers"
         echo "#   PORTX Packages: $TOTAL_PACKAGES directories, $TOTAL_EXECUTABLES executables"
-        echo "#   Total: $(($(find "$GIT_BASH_ROOT/mingw64/bin" -name "*.exe" 2>/dev/null | wc -l) + $(find "$CMD_WRAPPERS_DIR" -name "*.cmd" 2>/dev/null | wc -l) + TOTAL_EXECUTABLES)) tools"
+        echo "#   Total: $(($(find "$GIT_BASH_ROOT" -name "*.exe" -not -path "*/home/portx/packages/*" 2>/dev/null | wc -l) + $(find "$CMD_WRAPPERS_DIR" -name "*.cmd" 2>/dev/null | wc -l) + TOTAL_EXECUTABLES)) tools"
         echo "#"
         echo "# USAGE: This file is automatically sourced by .bashrc on shell startup."
         echo "# To regenerate: rm ~/.portx_cache or run 'portx import'"
@@ -507,9 +698,9 @@ import_packages() {
         echo ""
         echo "# PORTX PATH statistics"
 
-        MINGW_COUNT=$(find "$GIT_BASH_ROOT/mingw64/bin" -name "*.exe" 2>/dev/null | wc -l)
-        BIN_COUNT=$(find "$CMD_WRAPPERS_DIR" -name "*.cmd" 2>/dev/null | wc -l)
-        TOTAL_COUNT=$((MINGW_COUNT + BIN_COUNT + TOTAL_EXECUTABLES))
+        GIT_FOR_WINDOWS_COUNT=$(find "$GIT_BASH_ROOT" -name "*.exe" -not -path "*/home/portx/packages/*" 2>/dev/null | wc -l)
+        PORTX_WRAPPERS_COUNT=$(find "$CMD_WRAPPERS_DIR" -name "*.cmd" 2>/dev/null | wc -l)
+        TOTAL_COUNT=$((GIT_FOR_WINDOWS_COUNT + PORTX_WRAPPERS_COUNT + TOTAL_EXECUTABLES))
         TOTAL_DIRS=$((PATH_PACKAGES + 1))
 
         # Raw structured data - following best practices
@@ -531,10 +722,8 @@ import_packages() {
             env_info="$env_info/$TERM"
         fi
         echo "export PORTX_ENV_TYPE=\"$env_info\""
-        echo "export PORTX_MINGW_DIRS=1"
-        echo "export PORTX_MINGW_EXECUTABLES=$MINGW_COUNT"
-        echo "export PORTX_BIN_DIRS=1"
-        echo "export PORTX_BIN_EXECUTABLES=$BIN_COUNT"
+        echo "export GIT_FOR_WINDOWS_COUNT=$GIT_FOR_WINDOWS_COUNT"
+        echo "export PORTX_WRAPPERS_COUNT=$PORTX_WRAPPERS_COUNT"
         echo "export PORTX_PKG_DIRS=$TOTAL_PACKAGES"
         echo "export PORTX_PKG_EXECUTABLES=$TOTAL_EXECUTABLES"
         echo "export PORTX_TOTAL_EXECUTABLES=$TOTAL_COUNT"
@@ -542,8 +731,8 @@ import_packages() {
         echo "export PORTX_LAST_SCAN=\"$(date '+%Y-%m-%d %H:%M')\""
 
         # Legacy compatibility (will be removed after testing)
-        echo "export MINGW_COUNT=$MINGW_COUNT"
-        echo "export BIN_COUNT=$BIN_COUNT"
+        echo "export MINGW_COUNT=$GIT_FOR_WINDOWS_COUNT"
+        echo "export BIN_COUNT=$PORTX_WRAPPERS_COUNT"
         echo "export PACKAGES_EXE_COUNT=$TOTAL_EXECUTABLES"
         echo "export PACKAGES_COUNT=$TOTAL_PACKAGES"
         echo "export TOTAL_EXE_COUNT=$TOTAL_COUNT"

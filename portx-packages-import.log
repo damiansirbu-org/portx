@@ -1,1479 +1,1727 @@
-PORTX Package Import - Tue, Aug 26, 2025 12:10:44 AM
+PORTX Package Import - Tue, Aug 26, 2025  3:11:28 AM
 [DEBUG] Starting package import scan...
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/7za
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/adb
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/ag
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/age
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/age-keygen
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/ast-grep
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/aws
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/aws_completer
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/bandwhich
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/bat
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/BinSkim
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/btm
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/btop
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/bun
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/capinfos
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/Capture2Text
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/Capture2Text_CLI
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/choco
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/cloc
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/conda
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/csvtk
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/ctags
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/delta
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/die
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/diec
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/diel
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/difft
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/dprint
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/dumpcap
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/dust
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/etc1tool
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/exiftool
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/exiftool(-k)
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/eza
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/Far
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/fastboot
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/fd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/fx
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/fzf
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/gh
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/gitstatusd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/gitui
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/glow
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/gping
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/hardlink
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/hashdeep
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/hashdeep64
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/helm
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/helmfile
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/hprof-conv
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/hx
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/jq
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/k6
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/k9s
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/kube-linter
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/kube-score
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/kustomize
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/lazydocker
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/lazygit
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/lazysql
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/lz4
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/make_f2fs
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/make_f2fs_casefold
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/md5deep
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/md5deep64
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/MediaInfo
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/micro
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/micromamba
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/minikube
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/mke2fs
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/navi
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/nircmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/nircmdc
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/npcap-1.83
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/NpcapHelper
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/nuclei
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/oc
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/OfficeToPDF
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/osqueryd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/osqueryi
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/oxipng
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/par2
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/peco
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/promtool
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/pythonw
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/qsv
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/qsv_nightly
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/qsvdp
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/qsvlite
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/qsvlite_nightly
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/qsvp
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/qsvpdp
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/qsvplite
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/qsvpy310
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/qsvpy311
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/qsvpy312
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/qsvpy313
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/r2agent
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/r2pm
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/r2r
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/rabin2
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/radare2
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/radiff2
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/rafind2
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/ragg2
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/rahash2
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/rapatch2
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/rarun2
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/rasign2
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/rasm2
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/ravc2
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/rax2
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/rclone
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/readtags
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/rg
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/rustscan
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/scc
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/scrcpy
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/sd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/sha1deep
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/sha1deep64
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/sha256deep
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/sha256deep64
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/shellcheck
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/shellspec
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/shfmt
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/skopeo
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/sqldiff
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/sqlite3
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/sqlite3_analyzer
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/sqlite3_rsync
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/ssdeep
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/subfinder
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/tcc
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/telegraf
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/terraform
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/tigerdeep
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/tigerdeep64
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/tiny_impdef
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/tiny_libmaker
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/tokei
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/tshark
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/UEFIExtract
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/UEFIFind
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/upx
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/usql
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/vol
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/VolatilityWorkbench
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/wget
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/whirlpooldeep
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/whirlpooldeep64
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/windmc
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/windres
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/WlanHelper
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/yara32
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/yarac32
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/yq
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/bin/zstd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/7za.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/adb.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/ag.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/age.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/age-keygen.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/ast-grep.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/aws.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/aws_completer.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/bandwhich.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/bat.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/BinSkim.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/btm.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/btop.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/bun.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/capinfos.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/Capture2Text.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/Capture2Text_CLI.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/choco.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/cloc.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/conda.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/csvtk.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/ctags.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/delta.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/die.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/diec.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/diel.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/difft.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/dprint.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/dumpcap.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/dust.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/etc1tool.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/exiftool(-k).cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/exiftool.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/eza.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/Far.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/fastboot.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/fd.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/fx.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/fzf.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/gh.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/gitstatusd.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/gitui.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/glow.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/gping.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/hardlink.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/hashdeep.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/hashdeep64.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/helm.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/helmfile.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/hprof-conv.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/hx.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/jq.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/k6.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/k9s.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/kube-linter.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/kube-score.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/kustomize.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/lazydocker.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/lazygit.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/lazysql.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/lz4.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/make_f2fs.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/make_f2fs_casefold.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/md5deep.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/md5deep64.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/MediaInfo.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/micro.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/micromamba.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/minikube.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/mke2fs.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/navi.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/nircmd.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/nircmdc.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/npcap-1.83.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/NpcapHelper.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/nuclei.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/oc.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/OfficeToPDF.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/osqueryd.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/osqueryi.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/oxipng.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/par2.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/peco.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/promtool.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/pythonw.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/qsv.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/qsv_nightly.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/qsvdp.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/qsvlite.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/qsvlite_nightly.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/qsvp.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/qsvpdp.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/qsvplite.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/qsvpy310.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/qsvpy311.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/qsvpy312.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/qsvpy313.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/r2agent.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/r2pm.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/r2r.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/rabin2.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/radare2.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/radiff2.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/rafind2.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/ragg2.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/rahash2.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/rapatch2.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/rarun2.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/rasign2.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/rasm2.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/ravc2.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/rax2.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/rclone.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/readtags.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/rg.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/rustscan.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/scc.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/scrcpy.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/sd.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/sha1deep.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/sha1deep64.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/sha256deep.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/sha256deep64.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/shellcheck.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/shellspec.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/shfmt.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/skopeo.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/sqldiff.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/sqlite3.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/sqlite3_analyzer.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/sqlite3_rsync.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/ssdeep.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/subfinder.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/tcc.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/telegraf.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/terraform.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/tigerdeep.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/tigerdeep64.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/tiny_impdef.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/tiny_libmaker.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/tokei.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/tshark.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/UEFIExtract.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/UEFIFind.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/upx.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/usql.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/vol.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/VolatilityWorkbench.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/wget.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/whirlpooldeep.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/whirlpooldeep64.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/windmc.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/windres.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/WlanHelper.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/yara32.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/yarac32.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/yq.cmd
-[DEBUG]       Removing PORTX wrapper: C:/App/Git/cmd/zstd.cmd
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/7za
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/adb
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/ag
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/age
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/age-keygen
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/ast-grep
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/aws
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/aws_completer
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/bandwhich
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/bat
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/BinSkim
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/btm
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/btop
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/bun
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/capinfos
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/Capture2Text
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/Capture2Text_CLI
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/choco
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/cloc
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/conda
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/csvtk
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/ctags
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/delta
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/die
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/diec
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/diel
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/difft
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/dprint
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/dumpcap
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/dust
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/etc1tool
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/exiftool
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/exiftool(-k)
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/eza
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/Far
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/fastboot
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/fd
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/fx
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/fzf
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/gh
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/gitstatusd
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/gitui
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/glow
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/gping
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/hardlink
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/hashdeep
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/hashdeep64
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/helm
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/helmfile
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/hprof-conv
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/hx
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/jq
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/k6
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/k9s
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/kube-linter
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/kube-score
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/kustomize
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/lazydocker
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/lazygit
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/lazysql
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/lz4
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/make_f2fs
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/make_f2fs_casefold
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/md5deep
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/md5deep64
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/MediaInfo
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/micro
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/micromamba
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/minikube
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/mke2fs
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/navi
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/nircmd
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/nircmdc
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/npcap-1.83
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/NpcapHelper
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/nuclei
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/oc
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/OfficeToPDF
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/osqueryd
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/osqueryi
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/oxipng
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/par2
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/peco
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/promtool
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/pythonw
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/qsv
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/qsv_nightly
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/qsvdp
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/qsvlite
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/qsvlite_nightly
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/qsvp
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/qsvpdp
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/qsvplite
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/qsvpy310
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/qsvpy311
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/qsvpy312
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/qsvpy313
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/r2agent
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/r2pm
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/r2r
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/rabin2
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/radare2
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/radiff2
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/rafind2
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/ragg2
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/rahash2
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/rapatch2
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/rarun2
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/rasign2
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/rasm2
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/ravc2
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/rax2
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/rclone
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/readtags
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/rg
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/rustscan
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/scc
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/scrcpy
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/sd
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/sha1deep
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/sha1deep64
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/sha256deep
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/sha256deep64
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/shellcheck
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/shellspec
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/shfmt
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/skopeo
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/sqldiff
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/sqlite3
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/sqlite3_analyzer
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/sqlite3_rsync
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/ssdeep
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/subfinder
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/tcc
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/telegraf
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/terraform
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/tigerdeep
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/tigerdeep64
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/tiny_impdef
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/tiny_libmaker
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/tokei
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/tshark
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/UEFIExtract
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/UEFIFind
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/upx
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/usql
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/vol
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/wget
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/whirlpooldeep
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/whirlpooldeep64
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/windmc
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/windres
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/WlanHelper
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/yara32
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/yarac32
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/yq
+[DEBUG]       Removing PORTX wrapper: /c/App/Git/bin/zstd
 [DEBUG] Processing package: 7zip
 [DEBUG] Package 7zip has importType: auto
-[DEBUG] Using auto mode for 7zip
+[DEBUG] Creating wrappers for 7zip
+[DEBUG] About to create bash wrappers for 7zip
 [DEBUG]     Found executables in 7zip: 1 files
-[DEBUG]       Processing executable: 7za.exe -> 7za (args: '')
-[DEBUG]       Created wrappers for: 7za
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/7zip/7za.exe
-[DEBUG] Created wrappers for 7zip
+[DEBUG]       Created bash wrapper for: 7za
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/7zip/7za.exe
+[DEBUG] Created bash wrappers for 7zip
+[DEBUG] Checking MSYS deps: has_msys_deps=false
+[DEBUG] About to create cmd wrappers for 7zip
+[DEBUG]     Found executables in 7zip: 1 files
+[DEBUG]       SKIPPED: 7za conflicts with existing command
+[DEBUG] Failed to create cmd wrappers for 7zip
 [DEBUG] Processing package: adb
 [DEBUG] Package adb has importType: auto
-[DEBUG] Using auto mode for adb
+[DEBUG] Creating wrappers for adb
+[DEBUG] About to create bash wrappers for adb
 [DEBUG]     Found executables in adb: 1 files
-[DEBUG]       Processing executable: adb.exe -> adb (args: '')
-[DEBUG]       Created wrappers for: adb
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/adb/adb.exe
-[DEBUG] Created wrappers for adb
+[DEBUG]       Created bash wrapper for: adb
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/adb/adb.exe
+[DEBUG] Created bash wrappers for adb
+[DEBUG] Checking MSYS deps: has_msys_deps=false
+[DEBUG] About to create cmd wrappers for adb
+[DEBUG]     Found executables in adb: 1 files
+[DEBUG]       SKIPPED: adb conflicts with existing command
+[DEBUG] Failed to create cmd wrappers for adb
 [DEBUG] Processing package: ag
 [DEBUG] Package ag has importType: auto
-[DEBUG] Using auto mode for ag
+[DEBUG] Creating wrappers for ag
+[DEBUG] About to create bash wrappers for ag
 [DEBUG]     Found executables in ag: 1 files
-[DEBUG]       Processing executable: ag.exe -> ag (args: '')
-[DEBUG]       Created wrappers for: ag
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/ag/ag.exe
-[DEBUG] Created wrappers for ag
+[DEBUG]       Created bash wrapper for: ag
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/ag/ag.exe
+[DEBUG] Created bash wrappers for ag
+[DEBUG] Checking MSYS deps: has_msys_deps=false
+[DEBUG] About to create cmd wrappers for ag
+[DEBUG]     Found executables in ag: 1 files
+[DEBUG]       SKIPPED: ag conflicts with existing command
+[DEBUG] Failed to create cmd wrappers for ag
 [DEBUG] Processing package: age
 [DEBUG] Package age has importType: auto
-[DEBUG] Using auto mode for age
+[DEBUG] Creating wrappers for age
+[DEBUG] About to create bash wrappers for age
 [DEBUG]     Found executables in age: 2 files
-[DEBUG]       Processing executable: age-keygen.exe -> age-keygen (args: '')
-[DEBUG]       Created wrappers for: age-keygen
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/age/age-keygen.exe
-[DEBUG]       Processing executable: age.exe -> age (args: '')
-[DEBUG]       Created wrappers for: age
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/age/age.exe
-[DEBUG] Created wrappers for age
+[DEBUG]       Created bash wrapper for: age-keygen
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/age/age-keygen.exe
+[DEBUG]       Created bash wrapper for: age
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/age/age.exe
+[DEBUG] Created bash wrappers for age
+[DEBUG] Checking MSYS deps: has_msys_deps=false
+[DEBUG] About to create cmd wrappers for age
+[DEBUG]     Found executables in age: 2 files
+[DEBUG]       SKIPPED: age-keygen conflicts with existing command
+[DEBUG]       SKIPPED: age conflicts with existing command
+[DEBUG] Failed to create cmd wrappers for age
 [DEBUG] Processing package: android-filesystem-tools
 [DEBUG] Package android-filesystem-tools has importType: auto
-[DEBUG] Using auto mode for android-filesystem-tools
+[DEBUG] Creating wrappers for android-filesystem-tools
+[DEBUG] About to create bash wrappers for android-filesystem-tools
 [DEBUG]     Found executables in android-filesystem-tools: 3 files
-[DEBUG]       Processing executable: make_f2fs.exe -> make_f2fs (args: '')
-[DEBUG]       Created wrappers for: make_f2fs
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/android-filesystem-tools/make_f2fs.exe
-[DEBUG]       Processing executable: make_f2fs_casefold.exe -> make_f2fs_casefold (args: '')
-[DEBUG]       Created wrappers for: make_f2fs_casefold
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/android-filesystem-tools/make_f2fs_casefold.exe
-[DEBUG]       Processing executable: mke2fs.exe -> mke2fs (args: '')
-[DEBUG]       Created wrappers for: mke2fs
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/android-filesystem-tools/mke2fs.exe
-[DEBUG] Created wrappers for android-filesystem-tools
+[DEBUG]       Created bash wrapper for: make_f2fs
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/android-filesystem-tools/make_f2fs.exe
+[DEBUG]       Created bash wrapper for: make_f2fs_casefold
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/android-filesystem-tools/make_f2fs_casefold.exe
+[DEBUG]       Created bash wrapper for: mke2fs
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/android-filesystem-tools/mke2fs.exe
+[DEBUG] Created bash wrappers for android-filesystem-tools
+[DEBUG] Checking MSYS deps: has_msys_deps=false
+[DEBUG] About to create cmd wrappers for android-filesystem-tools
+[DEBUG]     Found executables in android-filesystem-tools: 3 files
+[DEBUG]       SKIPPED: make_f2fs conflicts with existing command
+[DEBUG]       SKIPPED: make_f2fs_casefold conflicts with existing command
+[DEBUG]       SKIPPED: mke2fs conflicts with existing command
+[DEBUG] Failed to create cmd wrappers for android-filesystem-tools
 [DEBUG] Processing package: android-utilities
 [DEBUG] Package android-utilities has importType: auto
-[DEBUG] Using auto mode for android-utilities
+[DEBUG] Creating wrappers for android-utilities
+[DEBUG] About to create bash wrappers for android-utilities
 [DEBUG]     Found executables in android-utilities: 2 files
-[DEBUG]       Processing executable: etc1tool.exe -> etc1tool (args: '')
-[DEBUG]       Created wrappers for: etc1tool
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/android-utilities/etc1tool.exe
-[DEBUG]       Processing executable: hprof-conv.exe -> hprof-conv (args: '')
-[DEBUG]       Created wrappers for: hprof-conv
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/android-utilities/hprof-conv.exe
-[DEBUG] Created wrappers for android-utilities
+[DEBUG]       Created bash wrapper for: etc1tool
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/android-utilities/etc1tool.exe
+[DEBUG]       Created bash wrapper for: hprof-conv
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/android-utilities/hprof-conv.exe
+[DEBUG] Created bash wrappers for android-utilities
+[DEBUG] Checking MSYS deps: has_msys_deps=false
+[DEBUG] About to create cmd wrappers for android-utilities
+[DEBUG]     Found executables in android-utilities: 2 files
+[DEBUG]       SKIPPED: etc1tool conflicts with existing command
+[DEBUG]       SKIPPED: hprof-conv conflicts with existing command
+[DEBUG] Failed to create cmd wrappers for android-utilities
 [DEBUG] Processing package: ast-grep
 [DEBUG] Package ast-grep has importType: auto
-[DEBUG] Using auto mode for ast-grep
+[DEBUG] Creating wrappers for ast-grep
+[DEBUG] About to create bash wrappers for ast-grep
 [DEBUG]     Found executables in ast-grep: 1 files
-[DEBUG]       Processing executable: ast-grep.exe -> ast-grep (args: '')
-[DEBUG]       Created wrappers for: ast-grep
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/ast-grep/ast-grep.exe
-[DEBUG] Created wrappers for ast-grep
+[DEBUG]       Created bash wrapper for: ast-grep
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/ast-grep/ast-grep.exe
+[DEBUG] Created bash wrappers for ast-grep
+[DEBUG] Checking MSYS deps: has_msys_deps=false
+[DEBUG] About to create cmd wrappers for ast-grep
+[DEBUG]     Found executables in ast-grep: 1 files
+[DEBUG]       SKIPPED: ast-grep conflicts with existing command
+[DEBUG] Failed to create cmd wrappers for ast-grep
 [DEBUG] Processing package: aws
 [DEBUG] Package aws has importType: auto
-[DEBUG] Using auto mode for aws
+[DEBUG] Creating wrappers for aws
+[DEBUG] About to create bash wrappers for aws
 [DEBUG]     Found executables in aws: 2 files
-[DEBUG]       Processing executable: aws.exe -> aws (args: '')
-[DEBUG]       Created wrappers for: aws
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/aws/aws.exe
-[DEBUG]       Processing executable: aws_completer.exe -> aws_completer (args: '')
-[DEBUG]       Created wrappers for: aws_completer
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/aws/aws_completer.exe
-[DEBUG] Created wrappers for aws
+[DEBUG]       Created bash wrapper for: aws
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/aws/aws.exe
+[DEBUG]       Created bash wrapper for: aws_completer
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/aws/aws_completer.exe
+[DEBUG] Created bash wrappers for aws
+[DEBUG] Checking MSYS deps: has_msys_deps=false
+[DEBUG] About to create cmd wrappers for aws
+[DEBUG]     Found executables in aws: 2 files
+[DEBUG]       SKIPPED: aws conflicts with existing command
+[DEBUG]       SKIPPED: aws_completer conflicts with existing command
+[DEBUG] Failed to create cmd wrappers for aws
 [DEBUG] Processing package: azure-cli
 [DEBUG] Package azure-cli has importType: auto
-[DEBUG] Using auto mode for azure-cli
+[DEBUG] Creating wrappers for azure-cli
+[DEBUG] About to create bash wrappers for azure-cli
 [DEBUG]     Found executables in azure-cli: 2 files
-[DEBUG]       Processing executable: python.exe -> python (args: '')
 [DEBUG]       SKIPPED: python conflicts with existing command
-[DEBUG]       Processing executable: pythonw.exe -> pythonw (args: '')
-[DEBUG]       Created wrappers for: pythonw
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/azure-cli/pythonw.exe
-[DEBUG] Created wrappers for azure-cli
+[DEBUG]       Created bash wrapper for: pythonw
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/azure-cli/pythonw.exe
+[DEBUG] Created bash wrappers for azure-cli
+[DEBUG] Checking MSYS deps: has_msys_deps=false
+[DEBUG] About to create cmd wrappers for azure-cli
+[DEBUG]     Found executables in azure-cli: 2 files
+[DEBUG]       SKIPPED: python conflicts with existing command
+[DEBUG]       SKIPPED: pythonw conflicts with existing command
+[DEBUG] Failed to create cmd wrappers for azure-cli
 [DEBUG] Processing package: bandwhich
 [DEBUG] Package bandwhich has importType: auto
-[DEBUG] Using auto mode for bandwhich
+[DEBUG] Creating wrappers for bandwhich
+[DEBUG] About to create bash wrappers for bandwhich
 [DEBUG]     Found executables in bandwhich: 1 files
-[DEBUG]       Processing executable: bandwhich.exe -> bandwhich (args: '')
-[DEBUG]       Created wrappers for: bandwhich
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/bandwhich/bandwhich.exe
-[DEBUG] Created wrappers for bandwhich
+[DEBUG]       Created bash wrapper for: bandwhich
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/bandwhich/bandwhich.exe
+[DEBUG] Created bash wrappers for bandwhich
+[DEBUG] Checking MSYS deps: has_msys_deps=false
+[DEBUG] About to create cmd wrappers for bandwhich
+[DEBUG]     Found executables in bandwhich: 1 files
+[DEBUG]       SKIPPED: bandwhich conflicts with existing command
+[DEBUG] Failed to create cmd wrappers for bandwhich
 [DEBUG] Processing package: bat
 [DEBUG] Package bat has importType: auto
-[DEBUG] Using auto mode for bat
+[DEBUG] Creating wrappers for bat
+[DEBUG] About to create bash wrappers for bat
 [DEBUG]     Found executables in bat: 1 files
-[DEBUG]       Processing executable: bat.exe -> bat (args: '')
-[DEBUG]       Created wrappers for: bat
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/bat/bat.exe
-[DEBUG] Created wrappers for bat
+[DEBUG]       Created bash wrapper for: bat
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/bat/bat.exe
+[DEBUG] Created bash wrappers for bat
+[DEBUG] Checking MSYS deps: has_msys_deps=false
+[DEBUG] About to create cmd wrappers for bat
+[DEBUG]     Found executables in bat: 1 files
+[DEBUG]       SKIPPED: bat conflicts with existing command
+[DEBUG] Failed to create cmd wrappers for bat
 [DEBUG] Processing package: binskim
 [DEBUG] Package binskim has importType: auto
-[DEBUG] Using auto mode for binskim
+[DEBUG] Creating wrappers for binskim
+[DEBUG] About to create bash wrappers for binskim
 [DEBUG]     Found executables in binskim: 1 files
-[DEBUG]       Processing executable: BinSkim.exe -> BinSkim (args: '')
-[DEBUG]       Created wrappers for: BinSkim
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/binskim/BinSkim.exe
-[DEBUG] Created wrappers for binskim
+[DEBUG]       Created bash wrapper for: BinSkim
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/binskim/BinSkim.exe
+[DEBUG] Created bash wrappers for binskim
+[DEBUG] Checking MSYS deps: has_msys_deps=false
+[DEBUG] About to create cmd wrappers for binskim
+[DEBUG]     Found executables in binskim: 1 files
+[DEBUG]       SKIPPED: BinSkim conflicts with existing command
+[DEBUG] Failed to create cmd wrappers for binskim
 [DEBUG] Processing package: bottom
 [DEBUG] Package bottom has importType: auto
-[DEBUG] Using auto mode for bottom
+[DEBUG] Creating wrappers for bottom
+[DEBUG] About to create bash wrappers for bottom
 [DEBUG]     Found executables in bottom: 1 files
-[DEBUG]       Processing executable: btm.exe -> btm (args: '')
-[DEBUG]       Created wrappers for: btm
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/bottom/btm.exe
-[DEBUG] Created wrappers for bottom
+[DEBUG]       Created bash wrapper for: btm
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/bottom/btm.exe
+[DEBUG] Created bash wrappers for bottom
+[DEBUG] Checking MSYS deps: has_msys_deps=false
+[DEBUG] About to create cmd wrappers for bottom
+[DEBUG]     Found executables in bottom: 1 files
+[DEBUG]       SKIPPED: btm conflicts with existing command
+[DEBUG] Failed to create cmd wrappers for bottom
 [DEBUG] Processing package: btop
 [DEBUG] Package btop has importType: auto
-[DEBUG] Using auto mode for btop
+[DEBUG] Creating wrappers for btop
+[DEBUG] About to create bash wrappers for btop
 [DEBUG]     Found executables in btop: 1 files
-[DEBUG]       Processing executable: btop.exe -> btop (args: '')
-[DEBUG]       Created wrappers for: btop
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/btop/btop.exe
-[DEBUG] Created wrappers for btop
+[DEBUG]       Created bash wrapper for: btop
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/btop/btop.exe
+[DEBUG] Created bash wrappers for btop
+[DEBUG] Checking MSYS deps: has_msys_deps=false
+[DEBUG] About to create cmd wrappers for btop
+[DEBUG]     Found executables in btop: 1 files
+[DEBUG]       SKIPPED: btop conflicts with existing command
+[DEBUG] Failed to create cmd wrappers for btop
 [DEBUG] Processing package: bun
 [DEBUG] Package bun has importType: auto
-[DEBUG] Using auto mode for bun
+[DEBUG] Creating wrappers for bun
+[DEBUG] About to create bash wrappers for bun
 [DEBUG]     Found executables in bun: 1 files
-[DEBUG]       Processing executable: bun.exe -> bun (args: '')
-[DEBUG]       Created wrappers for: bun
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/bun/bun.exe
-[DEBUG] Created wrappers for bun
+[DEBUG]       Created bash wrapper for: bun
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/bun/bun.exe
+[DEBUG] Created bash wrappers for bun
+[DEBUG] Checking MSYS deps: has_msys_deps=false
+[DEBUG] About to create cmd wrappers for bun
+[DEBUG]     Found executables in bun: 1 files
+[DEBUG]       SKIPPED: bun conflicts with existing command
+[DEBUG] Failed to create cmd wrappers for bun
 [DEBUG] Processing package: capture2text
 [DEBUG] Package capture2text has importType: auto
-[DEBUG] Using auto mode for capture2text
+[DEBUG] Creating wrappers for capture2text
+[DEBUG] About to create bash wrappers for capture2text
 [DEBUG]     Found executables in capture2text: 2 files
-[DEBUG]       Processing executable: Capture2Text.exe -> Capture2Text (args: '')
-[DEBUG]       Created wrappers for: Capture2Text
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/capture2text/Capture2Text.exe
-[DEBUG]       Processing executable: Capture2Text_CLI.exe -> Capture2Text_CLI (args: '')
-[DEBUG]       Created wrappers for: Capture2Text_CLI
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/capture2text/Capture2Text_CLI.exe
-[DEBUG] Created wrappers for capture2text
+[DEBUG]       Created bash wrapper for: Capture2Text
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/capture2text/Capture2Text.exe
+[DEBUG]       Created bash wrapper for: Capture2Text_CLI
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/capture2text/Capture2Text_CLI.exe
+[DEBUG] Created bash wrappers for capture2text
+[DEBUG] Checking MSYS deps: has_msys_deps=false
+[DEBUG] About to create cmd wrappers for capture2text
+[DEBUG]     Found executables in capture2text: 2 files
+[DEBUG]       SKIPPED: Capture2Text conflicts with existing command
+[DEBUG]       SKIPPED: Capture2Text_CLI conflicts with existing command
+[DEBUG] Failed to create cmd wrappers for capture2text
 [DEBUG] Processing package: chocolatey
 [DEBUG] Package chocolatey has importType: auto
-[DEBUG] Using auto mode for chocolatey
+[DEBUG] Creating wrappers for chocolatey
+[DEBUG] About to create bash wrappers for chocolatey
 [DEBUG]     Found executables in chocolatey: 1 files
-[DEBUG]       Processing executable: choco.exe -> choco (args: '')
-[DEBUG]       Created wrappers for: choco
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/chocolatey/choco.exe
-[DEBUG] Created wrappers for chocolatey
+[DEBUG]       Created bash wrapper for: choco
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/chocolatey/choco.exe
+[DEBUG] Created bash wrappers for chocolatey
+[DEBUG] Checking MSYS deps: has_msys_deps=false
+[DEBUG] About to create cmd wrappers for chocolatey
+[DEBUG]     Found executables in chocolatey: 1 files
+[DEBUG]       SKIPPED: choco conflicts with existing command
+[DEBUG] Failed to create cmd wrappers for chocolatey
 [DEBUG] Processing package: cloc
 [DEBUG] Package cloc has importType: auto
-[DEBUG] Using auto mode for cloc
+[DEBUG] Creating wrappers for cloc
+[DEBUG] About to create bash wrappers for cloc
 [DEBUG]     Found executables in cloc: 1 files
-[DEBUG]       Processing executable: cloc.exe -> cloc (args: '')
-[DEBUG]       Created wrappers for: cloc
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/cloc/cloc.exe
-[DEBUG] Created wrappers for cloc
+[DEBUG]       Created bash wrapper for: cloc
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/cloc/cloc.exe
+[DEBUG] Created bash wrappers for cloc
+[DEBUG] Checking MSYS deps: has_msys_deps=false
+[DEBUG] About to create cmd wrappers for cloc
+[DEBUG]     Found executables in cloc: 1 files
+[DEBUG]       SKIPPED: cloc conflicts with existing command
+[DEBUG] Failed to create cmd wrappers for cloc
 [DEBUG] Processing package: csvtk
 [DEBUG] Package csvtk has importType: auto
-[DEBUG] Using auto mode for csvtk
+[DEBUG] Creating wrappers for csvtk
+[DEBUG] About to create bash wrappers for csvtk
 [DEBUG]     Found executables in csvtk: 1 files
-[DEBUG]       Processing executable: csvtk.exe -> csvtk (args: '')
-[DEBUG]       Created wrappers for: csvtk
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/csvtk/csvtk.exe
-[DEBUG] Created wrappers for csvtk
+[DEBUG]       Created bash wrapper for: csvtk
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/csvtk/csvtk.exe
+[DEBUG] Created bash wrappers for csvtk
+[DEBUG] Checking MSYS deps: has_msys_deps=false
+[DEBUG] About to create cmd wrappers for csvtk
+[DEBUG]     Found executables in csvtk: 1 files
+[DEBUG]       SKIPPED: csvtk conflicts with existing command
+[DEBUG] Failed to create cmd wrappers for csvtk
 [DEBUG] Processing package: ctags
 [DEBUG] Package ctags has importType: auto
-[DEBUG] Using auto mode for ctags
+[DEBUG] Creating wrappers for ctags
+[DEBUG] About to create bash wrappers for ctags
 [DEBUG]     Found executables in ctags: 2 files
-[DEBUG]       Processing executable: ctags.exe -> ctags (args: '')
-[DEBUG]       Created wrappers for: ctags
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/ctags/ctags.exe
-[DEBUG]       Processing executable: readtags.exe -> readtags (args: '')
-[DEBUG]       Created wrappers for: readtags
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/ctags/readtags.exe
-[DEBUG] Created wrappers for ctags
+[DEBUG]       Created bash wrapper for: ctags
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/ctags/ctags.exe
+[DEBUG]       Created bash wrapper for: readtags
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/ctags/readtags.exe
+[DEBUG] Created bash wrappers for ctags
+[DEBUG] Checking MSYS deps: has_msys_deps=false
+[DEBUG] About to create cmd wrappers for ctags
+[DEBUG]     Found executables in ctags: 2 files
+[DEBUG]       SKIPPED: ctags conflicts with existing command
+[DEBUG]       SKIPPED: readtags conflicts with existing command
+[DEBUG] Failed to create cmd wrappers for ctags
 [DEBUG] Processing package: detectiteasy
 [DEBUG] Package detectiteasy has importType: auto
-[DEBUG] Using auto mode for detectiteasy
+[DEBUG] Creating wrappers for detectiteasy
+[DEBUG] About to create bash wrappers for detectiteasy
 [DEBUG]     Found executables in detectiteasy: 3 files
-[DEBUG]       Processing executable: die.exe -> die (args: '')
-[DEBUG]       Created wrappers for: die
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/detectiteasy/die.exe
-[DEBUG]       Processing executable: diec.exe -> diec (args: '')
-[DEBUG]       Created wrappers for: diec
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/detectiteasy/diec.exe
-[DEBUG]       Processing executable: diel.exe -> diel (args: '')
-[DEBUG]       Created wrappers for: diel
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/detectiteasy/diel.exe
-[DEBUG] Created wrappers for detectiteasy
+[DEBUG]       Created bash wrapper for: die
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/detectiteasy/die.exe
+[DEBUG]       Created bash wrapper for: diec
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/detectiteasy/diec.exe
+[DEBUG]       Created bash wrapper for: diel
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/detectiteasy/diel.exe
+[DEBUG] Created bash wrappers for detectiteasy
+[DEBUG] Checking MSYS deps: has_msys_deps=false
+[DEBUG] About to create cmd wrappers for detectiteasy
+[DEBUG]     Found executables in detectiteasy: 3 files
+[DEBUG]       SKIPPED: die conflicts with existing command
+[DEBUG]       SKIPPED: diec conflicts with existing command
+[DEBUG]       SKIPPED: diel conflicts with existing command
+[DEBUG] Failed to create cmd wrappers for detectiteasy
 [DEBUG] Processing package: docker-compose
 [DEBUG] Package docker-compose has importType: auto
-[DEBUG] Using auto mode for docker-compose
+[DEBUG] Creating wrappers for docker-compose
+[DEBUG] About to create bash wrappers for docker-compose
 [DEBUG]     Found executables in docker-compose: 1 files
-[DEBUG]       Processing executable: docker-compose.exe -> docker-compose (args: '')
 [DEBUG]       SKIPPED: docker-compose conflicts with existing command
-[DEBUG] No wrappers created, adding docker-compose to PATH
+[DEBUG] Failed to create bash wrappers for docker-compose
+[DEBUG] Checking MSYS deps: has_msys_deps=false
+[DEBUG] About to create cmd wrappers for docker-compose
+[DEBUG]     Found executables in docker-compose: 1 files
+[DEBUG]       SKIPPED: docker-compose conflicts with existing command
+[DEBUG] Failed to create cmd wrappers for docker-compose
 [DEBUG] Processing package: dprint
 [DEBUG] Package dprint has importType: auto
-[DEBUG] Using auto mode for dprint
+[DEBUG] Creating wrappers for dprint
+[DEBUG] About to create bash wrappers for dprint
 [DEBUG]     Found executables in dprint: 1 files
-[DEBUG]       Processing executable: dprint.exe -> dprint (args: '')
-[DEBUG]       Created wrappers for: dprint
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/dprint/dprint.exe
-[DEBUG] Created wrappers for dprint
+[DEBUG]       Created bash wrapper for: dprint
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/dprint/dprint.exe
+[DEBUG] Created bash wrappers for dprint
+[DEBUG] Checking MSYS deps: has_msys_deps=false
+[DEBUG] About to create cmd wrappers for dprint
+[DEBUG]     Found executables in dprint: 1 files
+[DEBUG]       SKIPPED: dprint conflicts with existing command
+[DEBUG] Failed to create cmd wrappers for dprint
 [DEBUG] Processing package: dust
 [DEBUG] Package dust has importType: auto
-[DEBUG] Using auto mode for dust
+[DEBUG] Creating wrappers for dust
+[DEBUG] About to create bash wrappers for dust
 [DEBUG]     Found executables in dust: 1 files
-[DEBUG]       Processing executable: dust.exe -> dust (args: '')
-[DEBUG]       Created wrappers for: dust
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/dust/dust.exe
-[DEBUG] Created wrappers for dust
+[DEBUG]       Created bash wrapper for: dust
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/dust/dust.exe
+[DEBUG] Created bash wrappers for dust
+[DEBUG] Checking MSYS deps: has_msys_deps=false
+[DEBUG] About to create cmd wrappers for dust
+[DEBUG]     Found executables in dust: 1 files
+[DEBUG]       SKIPPED: dust conflicts with existing command
+[DEBUG] Failed to create cmd wrappers for dust
 [DEBUG] Processing package: exiftool
 [DEBUG] Package exiftool has importType: auto
-[DEBUG] Using auto mode for exiftool
+[DEBUG] Creating wrappers for exiftool
+[DEBUG] About to create bash wrappers for exiftool
 [DEBUG]     Found executables in exiftool: 2 files
-[DEBUG]       Processing executable: exiftool(-k).exe -> exiftool(-k) (args: '')
-[DEBUG]       Created wrappers for: exiftool(-k)
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/exiftool/exiftool(-k).exe
-[DEBUG]       Processing executable: exiftool.exe -> exiftool (args: '')
-[DEBUG]       Created wrappers for: exiftool
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/exiftool/exiftool.exe
-[DEBUG] Created wrappers for exiftool
+[DEBUG]       Created bash wrapper for: exiftool(-k)
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/exiftool/exiftool(-k).exe
+[DEBUG]       Created bash wrapper for: exiftool
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/exiftool/exiftool.exe
+[DEBUG] Created bash wrappers for exiftool
+[DEBUG] Checking MSYS deps: has_msys_deps=false
+[DEBUG] About to create cmd wrappers for exiftool
+[DEBUG]     Found executables in exiftool: 2 files
+[DEBUG]       SKIPPED: exiftool(-k) conflicts with existing command
+[DEBUG]       SKIPPED: exiftool conflicts with existing command
+[DEBUG] Failed to create cmd wrappers for exiftool
 [DEBUG] Processing package: eza
 [DEBUG] Package eza has importType: auto
-[DEBUG] Using auto mode for eza
+[DEBUG] Creating wrappers for eza
+[DEBUG] About to create bash wrappers for eza
 [DEBUG]     Found executables in eza: 1 files
-[DEBUG]       Processing executable: eza.exe -> eza (args: '')
-[DEBUG]       Created wrappers for: eza
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/eza/eza.exe
-[DEBUG] Created wrappers for eza
+[DEBUG]       Created bash wrapper for: eza
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/eza/eza.exe
+[DEBUG] Created bash wrappers for eza
+[DEBUG] Checking MSYS deps: has_msys_deps=false
+[DEBUG] About to create cmd wrappers for eza
+[DEBUG]     Found executables in eza: 1 files
+[DEBUG]       SKIPPED: eza conflicts with existing command
+[DEBUG] Failed to create cmd wrappers for eza
 [DEBUG] Processing package: far
 [DEBUG] Package far has importType: auto
-[DEBUG] Using auto mode for far
+[DEBUG] Creating wrappers for far
+[DEBUG] About to create bash wrappers for far
 [DEBUG]     Found executables in far: 1 files
-[DEBUG]       Processing executable: Far.exe -> Far (args: '')
-[DEBUG]       Created wrappers for: Far
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/far/Far.exe
-[DEBUG] Created wrappers for far
+[DEBUG]       Created bash wrapper for: Far
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/far/Far.exe
+[DEBUG] Created bash wrappers for far
+[DEBUG] Checking MSYS deps: has_msys_deps=false
+[DEBUG] About to create cmd wrappers for far
+[DEBUG]     Found executables in far: 1 files
+[DEBUG]       SKIPPED: Far conflicts with existing command
+[DEBUG] Failed to create cmd wrappers for far
 [DEBUG] Processing package: fastboot
 [DEBUG] Package fastboot has importType: auto
-[DEBUG] Using auto mode for fastboot
+[DEBUG] Creating wrappers for fastboot
+[DEBUG] About to create bash wrappers for fastboot
 [DEBUG]     Found executables in fastboot: 1 files
-[DEBUG]       Processing executable: fastboot.exe -> fastboot (args: '')
-[DEBUG]       Created wrappers for: fastboot
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/fastboot/fastboot.exe
-[DEBUG] Created wrappers for fastboot
+[DEBUG]       Created bash wrapper for: fastboot
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/fastboot/fastboot.exe
+[DEBUG] Created bash wrappers for fastboot
+[DEBUG] Checking MSYS deps: has_msys_deps=false
+[DEBUG] About to create cmd wrappers for fastboot
+[DEBUG]     Found executables in fastboot: 1 files
+[DEBUG]       SKIPPED: fastboot conflicts with existing command
+[DEBUG] Failed to create cmd wrappers for fastboot
 [DEBUG] Processing package: fd
 [DEBUG] Package fd has importType: auto
-[DEBUG] Using auto mode for fd
+[DEBUG] Creating wrappers for fd
+[DEBUG] About to create bash wrappers for fd
 [DEBUG]     Found executables in fd: 1 files
-[DEBUG]       Processing executable: fd.exe -> fd (args: '')
-[DEBUG]       Created wrappers for: fd
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/fd/fd.exe
-[DEBUG] Created wrappers for fd
+[DEBUG]       Created bash wrapper for: fd
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/fd/fd.exe
+[DEBUG] Created bash wrappers for fd
+[DEBUG] Checking MSYS deps: has_msys_deps=false
+[DEBUG] About to create cmd wrappers for fd
+[DEBUG]     Found executables in fd: 1 files
+[DEBUG]       SKIPPED: fd conflicts with existing command
+[DEBUG] Failed to create cmd wrappers for fd
 [DEBUG] Processing package: ffmpeg
 [DEBUG] SKIPPED: No executables found for ffmpeg
 [DEBUG] Processing package: fx
 [DEBUG] Package fx has importType: auto
-[DEBUG] Using auto mode for fx
+[DEBUG] Creating wrappers for fx
+[DEBUG] About to create bash wrappers for fx
 [DEBUG]     Found executables in fx: 1 files
-[DEBUG]       Processing executable: fx.exe -> fx (args: '')
-[DEBUG]       Created wrappers for: fx
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/fx/fx.exe
-[DEBUG] Created wrappers for fx
+[DEBUG]       Created bash wrapper for: fx
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/fx/fx.exe
+[DEBUG] Created bash wrappers for fx
+[DEBUG] Checking MSYS deps: has_msys_deps=false
+[DEBUG] About to create cmd wrappers for fx
+[DEBUG]     Found executables in fx: 1 files
+[DEBUG]       SKIPPED: fx conflicts with existing command
+[DEBUG] Failed to create cmd wrappers for fx
 [DEBUG] Processing package: fzf
 [DEBUG] Package fzf has importType: auto
-[DEBUG] Using auto mode for fzf
+[DEBUG] Creating wrappers for fzf
+[DEBUG] About to create bash wrappers for fzf
 [DEBUG]     Found executables in fzf: 1 files
-[DEBUG]       Processing executable: fzf.exe -> fzf (args: '')
-[DEBUG]       Created wrappers for: fzf
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/fzf/fzf.exe
-[DEBUG] Created wrappers for fzf
+[DEBUG]       Created bash wrapper for: fzf
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/fzf/fzf.exe
+[DEBUG] Created bash wrappers for fzf
+[DEBUG] Checking MSYS deps: has_msys_deps=false
+[DEBUG] About to create cmd wrappers for fzf
+[DEBUG]     Found executables in fzf: 1 files
+[DEBUG]       SKIPPED: fzf conflicts with existing command
+[DEBUG] Failed to create cmd wrappers for fzf
 [DEBUG] Processing package: git-extras
 [DEBUG] Package git-extras has importType: auto
-[DEBUG] Using auto mode for git-extras
+[DEBUG] Creating wrappers for git-extras
+[DEBUG] About to create bash wrappers for git-extras
 [DEBUG]     Found executables in git-extras: 6 files
-[DEBUG]       Processing executable: delta.exe -> delta (args: '')
-[DEBUG]       Created wrappers for: delta
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/git-extras/delta.exe
-[DEBUG]       Processing executable: difft.exe -> difft (args: '')
-[DEBUG]       Created wrappers for: difft
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/git-extras/difft.exe
-[DEBUG]       Processing executable: gh.exe -> gh (args: '')
-[DEBUG]       Created wrappers for: gh
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/git-extras/gh.exe
-[DEBUG]       Processing executable: gitstatusd.exe -> gitstatusd (args: '')
-[DEBUG]       Created wrappers for: gitstatusd
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/git-extras/gitstatusd.exe
-[DEBUG]       Processing executable: tig.exe -> tig (args: '')
+[DEBUG]       Created bash wrapper for: delta
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/git-extras/delta.exe
+[DEBUG]       Created bash wrapper for: difft
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/git-extras/difft.exe
+[DEBUG]       Created bash wrapper for: gh
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/git-extras/gh.exe
+[DEBUG]       Created bash wrapper for: gitstatusd
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/git-extras/gitstatusd.exe
 [DEBUG]       SKIPPED: tig conflicts with existing command
-[DEBUG]       Processing executable: git-lfs.exe -> git-lfs (args: '')
 [DEBUG]       SKIPPED: git-lfs conflicts with existing command
-[DEBUG] Created wrappers for git-extras
+[DEBUG] Created bash wrappers for git-extras
+[DEBUG] Checking MSYS deps: has_msys_deps=false
+[DEBUG] About to create cmd wrappers for git-extras
+[DEBUG]     Found executables in git-extras: 6 files
+[DEBUG]       SKIPPED: delta conflicts with existing command
+[DEBUG]       SKIPPED: difft conflicts with existing command
+[DEBUG]       SKIPPED: gh conflicts with existing command
+[DEBUG]       SKIPPED: gitstatusd conflicts with existing command
+[DEBUG]       SKIPPED: tig conflicts with existing command
+[DEBUG]       SKIPPED: git-lfs conflicts with existing command
+[DEBUG] Failed to create cmd wrappers for git-extras
 [DEBUG] Processing package: gitsdk-mingw64-bin
-[DEBUG] Package gitsdk-mingw64-bin has importType: auto
-[DEBUG] Using auto mode for gitsdk-mingw64-bin
-[DEBUG]     No executables in package.json, falling back to directory scan
-[DEBUG]     Found 32 executables by scanning
-[DEBUG]     Found executables in gitsdk-mingw64-bin: 33 files
-[DEBUG]       Processing executable: adig.exe -> adig (args: '')
-[DEBUG]       SKIPPED: adig conflicts with existing command
-[DEBUG]       Processing executable: ahost.exe -> ahost (args: '')
-[DEBUG]       SKIPPED: ahost conflicts with existing command
-[DEBUG]       Processing executable: antiword.exe -> antiword (args: '')
-[DEBUG]       SKIPPED: antiword conflicts with existing command
-[DEBUG]       Processing executable: bunzip2.exe -> bunzip2 (args: '')
-[DEBUG]       SKIPPED: bunzip2 conflicts with existing command
-[DEBUG]       Processing executable: bzcat.exe -> bzcat (args: '')
-[DEBUG]       SKIPPED: bzcat conflicts with existing command
-[DEBUG]       Processing executable: bzip2.exe -> bzip2 (args: '')
-[DEBUG]       SKIPPED: bzip2 conflicts with existing command
-[DEBUG]       Processing executable: bzip2recover.exe -> bzip2recover (args: '')
-[DEBUG]       SKIPPED: bzip2recover conflicts with existing command
-[DEBUG]       Processing executable: connect.exe -> connect (args: '')
-[DEBUG]       SKIPPED: connect conflicts with existing command
-[DEBUG]       Processing executable: create-shortcut.exe -> create-shortcut (args: '')
-[DEBUG]       SKIPPED: create-shortcut conflicts with existing command
-[DEBUG]       Processing executable: curl.exe -> curl (args: '')
-[DEBUG]       SKIPPED: curl conflicts with existing command
-[DEBUG]       Processing executable: edit_test.exe -> edit_test (args: '')
-[DEBUG]       SKIPPED: edit_test conflicts with existing command
-[DEBUG]       Processing executable: edit_test_dll.exe -> edit_test_dll (args: '')
-[DEBUG]       SKIPPED: edit_test_dll conflicts with existing command
-[DEBUG]       Processing executable: envsubst.exe -> envsubst (args: '')
-[DEBUG]       SKIPPED: envsubst conflicts with existing command
-[DEBUG]       Processing executable: gettext.exe -> gettext (args: '')
-[DEBUG]       SKIPPED: gettext conflicts with existing command
-[DEBUG]       Processing executable: lzmadec.exe -> lzmadec (args: '')
-[DEBUG]       SKIPPED: lzmadec conflicts with existing command
-[DEBUG]       Processing executable: lzmainfo.exe -> lzmainfo (args: '')
-[DEBUG]       SKIPPED: lzmainfo conflicts with existing command
-[DEBUG]       Processing executable: odt2txt.exe -> odt2txt (args: '')
-[DEBUG]       SKIPPED: odt2txt conflicts with existing command
-[DEBUG]       Processing executable: openssl.exe -> openssl (args: '')
-[DEBUG]       SKIPPED: openssl conflicts with existing command
-[DEBUG]       Processing executable: pdftotext.exe -> pdftotext (args: '')
-[DEBUG]       SKIPPED: pdftotext conflicts with existing command
-[DEBUG]       Processing executable: pkcs1-conv.exe -> pkcs1-conv (args: '')
-[DEBUG]       SKIPPED: pkcs1-conv conflicts with existing command
-[DEBUG]       Processing executable: sexp-conv.exe -> sexp-conv (args: '')
-[DEBUG]       SKIPPED: sexp-conv conflicts with existing command
-[DEBUG]       Processing executable: tclsh.exe -> tclsh (args: '')
-[DEBUG]       SKIPPED: tclsh conflicts with existing command
-[DEBUG]       Processing executable: tclsh86.exe -> tclsh86 (args: '')
-[DEBUG]       SKIPPED: tclsh86 conflicts with existing command
-[DEBUG]       Processing executable: unxz.exe -> unxz (args: '')
-[DEBUG]       SKIPPED: unxz conflicts with existing command
-[DEBUG]       Processing executable: WhoUses.exe -> WhoUses (args: '')
-[DEBUG]       SKIPPED: WhoUses conflicts with existing command
-[DEBUG]       Processing executable: wish.exe -> wish (args: '')
-[DEBUG]       SKIPPED: wish conflicts with existing command
-[DEBUG]       Processing executable: wish86.exe -> wish86 (args: '')
-[DEBUG]       SKIPPED: wish86 conflicts with existing command
-[DEBUG]       Processing executable: x86_64-w64-mingw32-agrep.exe -> x86_64-w64-mingw32-agrep (args: '')
-[DEBUG]       SKIPPED: x86_64-w64-mingw32-agrep conflicts with existing command
-[DEBUG]       Processing executable: xmlwf.exe -> xmlwf (args: '')
-[DEBUG]       SKIPPED: xmlwf conflicts with existing command
-[DEBUG]       Processing executable: xz.exe -> xz (args: '')
-[DEBUG]       SKIPPED: xz conflicts with existing command
-[DEBUG]       Processing executable: xzcat.exe -> xzcat (args: '')
-[DEBUG]       SKIPPED: xzcat conflicts with existing command
-[DEBUG]       Processing executable: xzdec.exe -> xzdec (args: '')
-[DEBUG]       SKIPPED: xzdec conflicts with existing command
-[DEBUG] No wrappers created, adding gitsdk-mingw64-bin to PATH
+[DEBUG] Package gitsdk-mingw64-bin has importType: path
+[DEBUG] Forcing PATH mode for gitsdk-mingw64-bin
+[DEBUG] Added /c/App/Git/home/portx/packages/gitsdk-mingw64-bin to PATH_PACKAGE_PATHS array
 [DEBUG] Processing package: gitsdk-usr-bin
 [DEBUG] Package gitsdk-usr-bin has importType: path
 [DEBUG] Forcing PATH mode for gitsdk-usr-bin
+[DEBUG] Added /c/App/Git/home/portx/packages/gitsdk-usr-bin to PATH_PACKAGE_PATHS array
 [DEBUG] Processing package: gitui
 [DEBUG] Package gitui has importType: auto
-[DEBUG] Using auto mode for gitui
+[DEBUG] Creating wrappers for gitui
+[DEBUG] About to create bash wrappers for gitui
 [DEBUG]     Found executables in gitui: 1 files
-[DEBUG]       Processing executable: gitui.exe -> gitui (args: '')
-[DEBUG]       Created wrappers for: gitui
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/gitui/gitui.exe
-[DEBUG] Created wrappers for gitui
+[DEBUG]       Created bash wrapper for: gitui
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/gitui/gitui.exe
+[DEBUG] Created bash wrappers for gitui
+[DEBUG] Checking MSYS deps: has_msys_deps=false
+[DEBUG] About to create cmd wrappers for gitui
+[DEBUG]     Found executables in gitui: 1 files
+[DEBUG]       SKIPPED: gitui conflicts with existing command
+[DEBUG] Failed to create cmd wrappers for gitui
 [DEBUG] Processing package: glow
 [DEBUG] Package glow has importType: auto
-[DEBUG] Using auto mode for glow
+[DEBUG] Creating wrappers for glow
+[DEBUG] About to create bash wrappers for glow
 [DEBUG]     Found executables in glow: 1 files
-[DEBUG]       Processing executable: glow.exe -> glow (args: '')
-[DEBUG]       Created wrappers for: glow
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/glow/glow.exe
-[DEBUG] Created wrappers for glow
+[DEBUG]       Created bash wrapper for: glow
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/glow/glow.exe
+[DEBUG] Created bash wrappers for glow
+[DEBUG] Checking MSYS deps: has_msys_deps=false
+[DEBUG] About to create cmd wrappers for glow
+[DEBUG]     Found executables in glow: 1 files
+[DEBUG]       SKIPPED: glow conflicts with existing command
+[DEBUG] Failed to create cmd wrappers for glow
 [DEBUG] Processing package: gpg
 [DEBUG] Package gpg has importType: auto
-[DEBUG] Using auto mode for gpg
+[DEBUG] Creating wrappers for gpg
+[DEBUG] About to create bash wrappers for gpg
 [DEBUG]     Found executables in gpg: 5 files
-[DEBUG]       Processing executable: dirmngr.exe -> dirmngr (args: '')
 [DEBUG]       SKIPPED: dirmngr conflicts with existing command
-[DEBUG]       Processing executable: gpg-agent.exe -> gpg-agent (args: '')
 [DEBUG]       SKIPPED: gpg-agent conflicts with existing command
-[DEBUG]       Processing executable: gpg-connect-agent.exe -> gpg-connect-agent (args: '')
 [DEBUG]       SKIPPED: gpg-connect-agent conflicts with existing command
-[DEBUG]       Processing executable: gpg.exe -> gpg (args: '')
 [DEBUG]       SKIPPED: gpg conflicts with existing command
-[DEBUG]       Processing executable: gpgconf.exe -> gpgconf (args: '')
 [DEBUG]       SKIPPED: gpgconf conflicts with existing command
-[DEBUG] No wrappers created, adding gpg to PATH
+[DEBUG] Failed to create bash wrappers for gpg
+[DEBUG] Checking MSYS deps: has_msys_deps=false
+[DEBUG] About to create cmd wrappers for gpg
+[DEBUG]     Found executables in gpg: 5 files
+[DEBUG]       SKIPPED: dirmngr conflicts with existing command
+[DEBUG]       SKIPPED: gpg-agent conflicts with existing command
+[DEBUG]       SKIPPED: gpg-connect-agent conflicts with existing command
+[DEBUG]       SKIPPED: gpg conflicts with existing command
+[DEBUG]       SKIPPED: gpgconf conflicts with existing command
+[DEBUG] Failed to create cmd wrappers for gpg
 [DEBUG] Processing package: gping
 [DEBUG] Package gping has importType: auto
-[DEBUG] Using auto mode for gping
+[DEBUG] Creating wrappers for gping
+[DEBUG] About to create bash wrappers for gping
 [DEBUG]     Found executables in gping: 1 files
-[DEBUG]       Processing executable: gping.exe -> gping (args: '')
-[DEBUG]       Created wrappers for: gping
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/gping/gping.exe
-[DEBUG] Created wrappers for gping
+[DEBUG]       Created bash wrapper for: gping
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/gping/gping.exe
+[DEBUG] Created bash wrappers for gping
+[DEBUG] Checking MSYS deps: has_msys_deps=false
+[DEBUG] About to create cmd wrappers for gping
+[DEBUG]     Found executables in gping: 1 files
+[DEBUG]       SKIPPED: gping conflicts with existing command
+[DEBUG] Failed to create cmd wrappers for gping
 [DEBUG] Processing package: graphwiz
 [DEBUG] SKIPPED: No executables found for graphwiz
 [DEBUG] Processing package: hashdeep
 [DEBUG] Package hashdeep has importType: auto
-[DEBUG] Using auto mode for hashdeep
+[DEBUG] Creating wrappers for hashdeep
+[DEBUG] About to create bash wrappers for hashdeep
 [DEBUG]     Found executables in hashdeep: 12 files
-[DEBUG]       Processing executable: hashdeep.exe -> hashdeep (args: '')
-[DEBUG]       Created wrappers for: hashdeep
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/hashdeep/hashdeep.exe
-[DEBUG]       Processing executable: hashdeep64.exe -> hashdeep64 (args: '')
-[DEBUG]       Created wrappers for: hashdeep64
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/hashdeep/hashdeep64.exe
-[DEBUG]       Processing executable: md5deep.exe -> md5deep (args: '')
-[DEBUG]       Created wrappers for: md5deep
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/hashdeep/md5deep.exe
-[DEBUG]       Processing executable: md5deep64.exe -> md5deep64 (args: '')
-[DEBUG]       Created wrappers for: md5deep64
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/hashdeep/md5deep64.exe
-[DEBUG]       Processing executable: sha1deep.exe -> sha1deep (args: '')
-[DEBUG]       Created wrappers for: sha1deep
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/hashdeep/sha1deep.exe
-[DEBUG]       Processing executable: sha1deep64.exe -> sha1deep64 (args: '')
-[DEBUG]       Created wrappers for: sha1deep64
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/hashdeep/sha1deep64.exe
-[DEBUG]       Processing executable: sha256deep.exe -> sha256deep (args: '')
-[DEBUG]       Created wrappers for: sha256deep
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/hashdeep/sha256deep.exe
-[DEBUG]       Processing executable: sha256deep64.exe -> sha256deep64 (args: '')
-[DEBUG]       Created wrappers for: sha256deep64
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/hashdeep/sha256deep64.exe
-[DEBUG]       Processing executable: tigerdeep.exe -> tigerdeep (args: '')
-[DEBUG]       Created wrappers for: tigerdeep
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/hashdeep/tigerdeep.exe
-[DEBUG]       Processing executable: tigerdeep64.exe -> tigerdeep64 (args: '')
-[DEBUG]       Created wrappers for: tigerdeep64
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/hashdeep/tigerdeep64.exe
-[DEBUG]       Processing executable: whirlpooldeep.exe -> whirlpooldeep (args: '')
-[DEBUG]       Created wrappers for: whirlpooldeep
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/hashdeep/whirlpooldeep.exe
-[DEBUG]       Processing executable: whirlpooldeep64.exe -> whirlpooldeep64 (args: '')
-[DEBUG]       Created wrappers for: whirlpooldeep64
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/hashdeep/whirlpooldeep64.exe
-[DEBUG] Created wrappers for hashdeep
+[DEBUG]       Created bash wrapper for: hashdeep
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/hashdeep/hashdeep.exe
+[DEBUG]       Created bash wrapper for: hashdeep64
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/hashdeep/hashdeep64.exe
+[DEBUG]       Created bash wrapper for: md5deep
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/hashdeep/md5deep.exe
+[DEBUG]       Created bash wrapper for: md5deep64
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/hashdeep/md5deep64.exe
+[DEBUG]       Created bash wrapper for: sha1deep
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/hashdeep/sha1deep.exe
+[DEBUG]       Created bash wrapper for: sha1deep64
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/hashdeep/sha1deep64.exe
+[DEBUG]       Created bash wrapper for: sha256deep
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/hashdeep/sha256deep.exe
+[DEBUG]       Created bash wrapper for: sha256deep64
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/hashdeep/sha256deep64.exe
+[DEBUG]       Created bash wrapper for: tigerdeep
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/hashdeep/tigerdeep.exe
+[DEBUG]       Created bash wrapper for: tigerdeep64
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/hashdeep/tigerdeep64.exe
+[DEBUG]       Created bash wrapper for: whirlpooldeep
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/hashdeep/whirlpooldeep.exe
+[DEBUG]       Created bash wrapper for: whirlpooldeep64
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/hashdeep/whirlpooldeep64.exe
+[DEBUG] Created bash wrappers for hashdeep
+[DEBUG] Checking MSYS deps: has_msys_deps=false
+[DEBUG] About to create cmd wrappers for hashdeep
+[DEBUG]     Found executables in hashdeep: 12 files
+[DEBUG]       SKIPPED: hashdeep conflicts with existing command
+[DEBUG]       SKIPPED: hashdeep64 conflicts with existing command
+[DEBUG]       SKIPPED: md5deep conflicts with existing command
+[DEBUG]       SKIPPED: md5deep64 conflicts with existing command
+[DEBUG]       SKIPPED: sha1deep conflicts with existing command
+[DEBUG]       SKIPPED: sha1deep64 conflicts with existing command
+[DEBUG]       SKIPPED: sha256deep conflicts with existing command
+[DEBUG]       SKIPPED: sha256deep64 conflicts with existing command
+[DEBUG]       SKIPPED: tigerdeep conflicts with existing command
+[DEBUG]       SKIPPED: tigerdeep64 conflicts with existing command
+[DEBUG]       SKIPPED: whirlpooldeep conflicts with existing command
+[DEBUG]       SKIPPED: whirlpooldeep64 conflicts with existing command
+[DEBUG] Failed to create cmd wrappers for hashdeep
 [DEBUG] Processing package: helix
 [DEBUG] Package helix has importType: auto
-[DEBUG] Using auto mode for helix
+[DEBUG] Creating wrappers for helix
+[DEBUG] About to create bash wrappers for helix
 [DEBUG]     Found executables in helix: 1 files
-[DEBUG]       Processing executable: hx.exe -> hx (args: '')
-[DEBUG]       Created wrappers for: hx
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/helix/hx.exe
-[DEBUG] Created wrappers for helix
+[DEBUG]       Created bash wrapper for: hx
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/helix/hx.exe
+[DEBUG] Created bash wrappers for helix
+[DEBUG] Checking MSYS deps: has_msys_deps=false
+[DEBUG] About to create cmd wrappers for helix
+[DEBUG]     Found executables in helix: 1 files
+[DEBUG]       SKIPPED: hx conflicts with existing command
+[DEBUG] Failed to create cmd wrappers for helix
 [DEBUG] Processing package: helm
 [DEBUG] Package helm has importType: auto
-[DEBUG] Using auto mode for helm
+[DEBUG] Creating wrappers for helm
+[DEBUG] About to create bash wrappers for helm
 [DEBUG]     Found executables in helm: 1 files
-[DEBUG]       Processing executable: helm.exe -> helm (args: '')
-[DEBUG]       Created wrappers for: helm
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/helm/helm.exe
-[DEBUG] Created wrappers for helm
+[DEBUG]       Created bash wrapper for: helm
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/helm/helm.exe
+[DEBUG] Created bash wrappers for helm
+[DEBUG] Checking MSYS deps: has_msys_deps=false
+[DEBUG] About to create cmd wrappers for helm
+[DEBUG]     Found executables in helm: 1 files
+[DEBUG]       SKIPPED: helm conflicts with existing command
+[DEBUG] Failed to create cmd wrappers for helm
 [DEBUG] Processing package: helmfile
 [DEBUG] Package helmfile has importType: auto
-[DEBUG] Using auto mode for helmfile
+[DEBUG] Creating wrappers for helmfile
+[DEBUG] About to create bash wrappers for helmfile
 [DEBUG]     Found executables in helmfile: 1 files
-[DEBUG]       Processing executable: helmfile.exe -> helmfile (args: '')
-[DEBUG]       Created wrappers for: helmfile
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/helmfile/helmfile.exe
-[DEBUG] Created wrappers for helmfile
+[DEBUG]       Created bash wrapper for: helmfile
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/helmfile/helmfile.exe
+[DEBUG] Created bash wrappers for helmfile
+[DEBUG] Checking MSYS deps: has_msys_deps=false
+[DEBUG] About to create cmd wrappers for helmfile
+[DEBUG]     Found executables in helmfile: 1 files
+[DEBUG]       SKIPPED: helmfile conflicts with existing command
+[DEBUG] Failed to create cmd wrappers for helmfile
 [DEBUG] Processing package: httpx
 [DEBUG] Package httpx has importType: auto
-[DEBUG] Using auto mode for httpx
+[DEBUG] Creating wrappers for httpx
+[DEBUG] About to create bash wrappers for httpx
 [DEBUG]     Found executables in httpx: 1 files
-[DEBUG]       Processing executable: httpx.exe -> httpx (args: '')
 [DEBUG]       SKIPPED: httpx conflicts with existing command
-[DEBUG] No wrappers created, adding httpx to PATH
+[DEBUG] Failed to create bash wrappers for httpx
+[DEBUG] Checking MSYS deps: has_msys_deps=false
+[DEBUG] About to create cmd wrappers for httpx
+[DEBUG]     Found executables in httpx: 1 files
+[DEBUG]       SKIPPED: httpx conflicts with existing command
+[DEBUG] Failed to create cmd wrappers for httpx
 [DEBUG] Processing package: jq
 [DEBUG] Package jq has importType: auto
-[DEBUG] Using auto mode for jq
+[DEBUG] Creating wrappers for jq
+[DEBUG] About to create bash wrappers for jq
 [DEBUG]     No executables in package.json, falling back to directory scan
 [DEBUG]     Found 1 executables by scanning
 [DEBUG]     Found executables in jq: 2 files
-[DEBUG]       Processing executable: jq.exe -> jq (args: '')
-[DEBUG]       Created wrappers for: jq
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/jq/jq.exe
-[DEBUG] Created wrappers for jq
+[DEBUG]       Created bash wrapper for: jq
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/jq/jq.exe
+[DEBUG] Created bash wrappers for jq
+[DEBUG] Checking MSYS deps: has_msys_deps=false
+[DEBUG] About to create cmd wrappers for jq
+[DEBUG]     No executables in package.json, falling back to directory scan
+[DEBUG]     Found 1 executables by scanning
+[DEBUG]     Found executables in jq: 2 files
+[DEBUG]       SKIPPED: jq conflicts with existing command
+[DEBUG] Failed to create cmd wrappers for jq
 [DEBUG] Processing package: k6
 [DEBUG] Package k6 has importType: auto
-[DEBUG] Using auto mode for k6
+[DEBUG] Creating wrappers for k6
+[DEBUG] About to create bash wrappers for k6
 [DEBUG]     Found executables in k6: 1 files
-[DEBUG]       Processing executable: k6.exe -> k6 (args: '')
-[DEBUG]       Created wrappers for: k6
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/k6/k6.exe
-[DEBUG] Created wrappers for k6
+[DEBUG]       Created bash wrapper for: k6
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/k6/k6.exe
+[DEBUG] Created bash wrappers for k6
+[DEBUG] Checking MSYS deps: has_msys_deps=false
+[DEBUG] About to create cmd wrappers for k6
+[DEBUG]     Found executables in k6: 1 files
+[DEBUG]       SKIPPED: k6 conflicts with existing command
+[DEBUG] Failed to create cmd wrappers for k6
 [DEBUG] Processing package: k8
 [DEBUG] Package k8 has importType: auto
-[DEBUG] Using auto mode for k8
+[DEBUG] Creating wrappers for k8
+[DEBUG] About to create bash wrappers for k8
 [DEBUG]     Found executables in k8: 2 files
-[DEBUG]       Processing executable: kubectl.exe -> kubectl (args: '')
 [DEBUG]       SKIPPED: kubectl conflicts with existing command
-[DEBUG]       Processing executable: kustomize.exe -> kustomize (args: '')
-[DEBUG]       Created wrappers for: kustomize
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/k8/kustomize.exe
-[DEBUG] Created wrappers for k8
+[DEBUG]       Created bash wrapper for: kustomize
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/k8/kustomize.exe
+[DEBUG] Created bash wrappers for k8
+[DEBUG] Checking MSYS deps: has_msys_deps=false
+[DEBUG] About to create cmd wrappers for k8
+[DEBUG]     Found executables in k8: 2 files
+[DEBUG]       SKIPPED: kubectl conflicts with existing command
+[DEBUG]       SKIPPED: kustomize conflicts with existing command
+[DEBUG] Failed to create cmd wrappers for k8
 [DEBUG] Processing package: k9s
 [DEBUG] Package k9s has importType: auto
-[DEBUG] Using auto mode for k9s
+[DEBUG] Creating wrappers for k9s
+[DEBUG] About to create bash wrappers for k9s
 [DEBUG]     Found executables in k9s: 1 files
-[DEBUG]       Processing executable: k9s.exe -> k9s (args: '')
-[DEBUG]       Created wrappers for: k9s
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/k9s/k9s.exe
-[DEBUG] Created wrappers for k9s
+[DEBUG]       Created bash wrapper for: k9s
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/k9s/k9s.exe
+[DEBUG] Created bash wrappers for k9s
+[DEBUG] Checking MSYS deps: has_msys_deps=false
+[DEBUG] About to create cmd wrappers for k9s
+[DEBUG]     Found executables in k9s: 1 files
+[DEBUG]       SKIPPED: k9s conflicts with existing command
+[DEBUG] Failed to create cmd wrappers for k9s
 [DEBUG] Processing package: kube-linter
 [DEBUG] Package kube-linter has importType: auto
-[DEBUG] Using auto mode for kube-linter
+[DEBUG] Creating wrappers for kube-linter
+[DEBUG] About to create bash wrappers for kube-linter
 [DEBUG]     Found executables in kube-linter: 1 files
-[DEBUG]       Processing executable: kube-linter.exe -> kube-linter (args: '')
-[DEBUG]       Created wrappers for: kube-linter
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/kube-linter/kube-linter.exe
-[DEBUG] Created wrappers for kube-linter
+[DEBUG]       Created bash wrapper for: kube-linter
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/kube-linter/kube-linter.exe
+[DEBUG] Created bash wrappers for kube-linter
+[DEBUG] Checking MSYS deps: has_msys_deps=false
+[DEBUG] About to create cmd wrappers for kube-linter
+[DEBUG]     Found executables in kube-linter: 1 files
+[DEBUG]       SKIPPED: kube-linter conflicts with existing command
+[DEBUG] Failed to create cmd wrappers for kube-linter
 [DEBUG] Processing package: kube-score
 [DEBUG] Package kube-score has importType: auto
-[DEBUG] Using auto mode for kube-score
+[DEBUG] Creating wrappers for kube-score
+[DEBUG] About to create bash wrappers for kube-score
 [DEBUG]     Found executables in kube-score: 1 files
-[DEBUG]       Processing executable: kube-score.exe -> kube-score (args: '')
-[DEBUG]       Created wrappers for: kube-score
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/kube-score/kube-score.exe
-[DEBUG] Created wrappers for kube-score
+[DEBUG]       Created bash wrapper for: kube-score
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/kube-score/kube-score.exe
+[DEBUG] Created bash wrappers for kube-score
+[DEBUG] Checking MSYS deps: has_msys_deps=false
+[DEBUG] About to create cmd wrappers for kube-score
+[DEBUG]     Found executables in kube-score: 1 files
+[DEBUG]       SKIPPED: kube-score conflicts with existing command
+[DEBUG] Failed to create cmd wrappers for kube-score
 [DEBUG] Processing package: lazydocker
 [DEBUG] Package lazydocker has importType: auto
-[DEBUG] Using auto mode for lazydocker
+[DEBUG] Creating wrappers for lazydocker
+[DEBUG] About to create bash wrappers for lazydocker
 [DEBUG]     Found executables in lazydocker: 1 files
-[DEBUG]       Processing executable: lazydocker.exe -> lazydocker (args: '')
-[DEBUG]       Created wrappers for: lazydocker
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/lazydocker/lazydocker.exe
-[DEBUG] Created wrappers for lazydocker
+[DEBUG]       Created bash wrapper for: lazydocker
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/lazydocker/lazydocker.exe
+[DEBUG] Created bash wrappers for lazydocker
+[DEBUG] Checking MSYS deps: has_msys_deps=false
+[DEBUG] About to create cmd wrappers for lazydocker
+[DEBUG]     Found executables in lazydocker: 1 files
+[DEBUG]       SKIPPED: lazydocker conflicts with existing command
+[DEBUG] Failed to create cmd wrappers for lazydocker
 [DEBUG] Processing package: lazygit
 [DEBUG] Package lazygit has importType: auto
-[DEBUG] Using auto mode for lazygit
+[DEBUG] Creating wrappers for lazygit
+[DEBUG] About to create bash wrappers for lazygit
 [DEBUG]     Found executables in lazygit: 1 files
-[DEBUG]       Processing executable: lazygit.exe -> lazygit (args: '')
-[DEBUG]       Created wrappers for: lazygit
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/lazygit/lazygit.exe
-[DEBUG] Created wrappers for lazygit
+[DEBUG]       Created bash wrapper for: lazygit
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/lazygit/lazygit.exe
+[DEBUG] Created bash wrappers for lazygit
+[DEBUG] Checking MSYS deps: has_msys_deps=false
+[DEBUG] About to create cmd wrappers for lazygit
+[DEBUG]     Found executables in lazygit: 1 files
+[DEBUG]       SKIPPED: lazygit conflicts with existing command
+[DEBUG] Failed to create cmd wrappers for lazygit
 [DEBUG] Processing package: lazysql
 [DEBUG] Package lazysql has importType: auto
-[DEBUG] Using auto mode for lazysql
+[DEBUG] Creating wrappers for lazysql
+[DEBUG] About to create bash wrappers for lazysql
 [DEBUG]     Found executables in lazysql: 1 files
-[DEBUG]       Processing executable: lazysql.exe -> lazysql (args: '')
-[DEBUG]       Created wrappers for: lazysql
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/lazysql/lazysql.exe
-[DEBUG] Created wrappers for lazysql
+[DEBUG]       Created bash wrapper for: lazysql
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/lazysql/lazysql.exe
+[DEBUG] Created bash wrappers for lazysql
+[DEBUG] Checking MSYS deps: has_msys_deps=false
+[DEBUG] About to create cmd wrappers for lazysql
+[DEBUG]     Found executables in lazysql: 1 files
+[DEBUG]       SKIPPED: lazysql conflicts with existing command
+[DEBUG] Failed to create cmd wrappers for lazysql
 [DEBUG] Processing package: liquibase
 [DEBUG] SKIPPED: No executables found for liquibase
 [DEBUG] Processing package: lz4
 [DEBUG] Package lz4 has importType: auto
-[DEBUG] Using auto mode for lz4
+[DEBUG] Creating wrappers for lz4
+[DEBUG] About to create bash wrappers for lz4
 [DEBUG]     Found executables in lz4: 1 files
-[DEBUG]       Processing executable: lz4.exe -> lz4 (args: '')
-[DEBUG]       Created wrappers for: lz4
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/lz4/lz4.exe
-[DEBUG] Created wrappers for lz4
+[DEBUG]       Created bash wrapper for: lz4
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/lz4/lz4.exe
+[DEBUG] Created bash wrappers for lz4
+[DEBUG] Checking MSYS deps: has_msys_deps=false
+[DEBUG] About to create cmd wrappers for lz4
+[DEBUG]     Found executables in lz4: 1 files
+[DEBUG]       SKIPPED: lz4 conflicts with existing command
+[DEBUG] Failed to create cmd wrappers for lz4
 [DEBUG] Processing package: mediainfo
 [DEBUG] Package mediainfo has importType: auto
-[DEBUG] Using auto mode for mediainfo
+[DEBUG] Creating wrappers for mediainfo
+[DEBUG] About to create bash wrappers for mediainfo
 [DEBUG]     Found executables in mediainfo: 1 files
-[DEBUG]       Processing executable: MediaInfo.exe -> MediaInfo (args: '')
-[DEBUG]       Created wrappers for: MediaInfo
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/mediainfo/MediaInfo.exe
-[DEBUG] Created wrappers for mediainfo
+[DEBUG]       Created bash wrapper for: MediaInfo
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/mediainfo/MediaInfo.exe
+[DEBUG] Created bash wrappers for mediainfo
+[DEBUG] Checking MSYS deps: has_msys_deps=false
+[DEBUG] About to create cmd wrappers for mediainfo
+[DEBUG]     Found executables in mediainfo: 1 files
+[DEBUG]       SKIPPED: MediaInfo conflicts with existing command
+[DEBUG] Failed to create cmd wrappers for mediainfo
 [DEBUG] Processing package: micro
 [DEBUG] Package micro has importType: auto
-[DEBUG] Using auto mode for micro
+[DEBUG] Creating wrappers for micro
+[DEBUG] About to create bash wrappers for micro
 [DEBUG]     Found executables in micro: 1 files
-[DEBUG]       Processing executable: micro.exe -> micro (args: '')
-[DEBUG]       Created wrappers for: micro
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/micro/micro.exe
-[DEBUG] Created wrappers for micro
+[DEBUG]       Created bash wrapper for: micro
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/micro/micro.exe
+[DEBUG] Created bash wrappers for micro
+[DEBUG] Checking MSYS deps: has_msys_deps=false
+[DEBUG] About to create cmd wrappers for micro
+[DEBUG]     Found executables in micro: 1 files
+[DEBUG]       SKIPPED: micro conflicts with existing command
+[DEBUG] Failed to create cmd wrappers for micro
 [DEBUG] Processing package: micro-latest
 [DEBUG] Package micro-latest has importType: auto
-[DEBUG] Using auto mode for micro-latest
+[DEBUG] Creating wrappers for micro-latest
+[DEBUG] About to create bash wrappers for micro-latest
 [DEBUG]     Found executables in micro-latest: 1 files
-[DEBUG]       Processing executable: micro.exe -> micro (args: '')
 [DEBUG]       SKIPPED: micro conflicts with existing command
-[DEBUG] No wrappers created, adding micro-latest to PATH
+[DEBUG] Failed to create bash wrappers for micro-latest
+[DEBUG] Checking MSYS deps: has_msys_deps=false
+[DEBUG] About to create cmd wrappers for micro-latest
+[DEBUG]     Found executables in micro-latest: 1 files
+[DEBUG]       SKIPPED: micro conflicts with existing command
+[DEBUG] Failed to create cmd wrappers for micro-latest
 [DEBUG] Processing package: minikube
 [DEBUG] Package minikube has importType: auto
-[DEBUG] Using auto mode for minikube
+[DEBUG] Creating wrappers for minikube
+[DEBUG] About to create bash wrappers for minikube
 [DEBUG]     Found executables in minikube: 1 files
-[DEBUG]       Processing executable: minikube.exe -> minikube (args: '')
-[DEBUG]       Created wrappers for: minikube
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/minikube/minikube.exe
-[DEBUG] Created wrappers for minikube
+[DEBUG]       Created bash wrapper for: minikube
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/minikube/minikube.exe
+[DEBUG] Created bash wrappers for minikube
+[DEBUG] Checking MSYS deps: has_msys_deps=false
+[DEBUG] About to create cmd wrappers for minikube
+[DEBUG]     Found executables in minikube: 1 files
+[DEBUG]       SKIPPED: minikube conflicts with existing command
+[DEBUG] Failed to create cmd wrappers for minikube
 [DEBUG] Processing package: monitoring
 [DEBUG] Package monitoring has importType: auto
-[DEBUG] Using auto mode for monitoring
+[DEBUG] Creating wrappers for monitoring
+[DEBUG] About to create bash wrappers for monitoring
 [DEBUG]     Found executables in monitoring: 2 files
-[DEBUG]       Processing executable: promtool.exe -> promtool (args: '')
-[DEBUG]       Created wrappers for: promtool
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/monitoring/promtool.exe
-[DEBUG]       Processing executable: telegraf.exe -> telegraf (args: '')
-[DEBUG]       Created wrappers for: telegraf
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/monitoring/telegraf.exe
-[DEBUG] Created wrappers for monitoring
+[DEBUG]       Created bash wrapper for: promtool
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/monitoring/promtool.exe
+[DEBUG]       Created bash wrapper for: telegraf
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/monitoring/telegraf.exe
+[DEBUG] Created bash wrappers for monitoring
+[DEBUG] Checking MSYS deps: has_msys_deps=false
+[DEBUG] About to create cmd wrappers for monitoring
+[DEBUG]     Found executables in monitoring: 2 files
+[DEBUG]       SKIPPED: promtool conflicts with existing command
+[DEBUG]       SKIPPED: telegraf conflicts with existing command
+[DEBUG] Failed to create cmd wrappers for monitoring
 [DEBUG] Processing package: navi
 [DEBUG] Package navi has importType: auto
-[DEBUG] Using auto mode for navi
+[DEBUG] Creating wrappers for navi
+[DEBUG] About to create bash wrappers for navi
 [DEBUG]     Found executables in navi: 1 files
-[DEBUG]       Processing executable: navi.exe -> navi (args: '')
-[DEBUG]       Created wrappers for: navi
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/navi/navi.exe
-[DEBUG] Created wrappers for navi
+[DEBUG]       Created bash wrapper for: navi
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/navi/navi.exe
+[DEBUG] Created bash wrappers for navi
+[DEBUG] Checking MSYS deps: has_msys_deps=false
+[DEBUG] About to create cmd wrappers for navi
+[DEBUG]     Found executables in navi: 1 files
+[DEBUG]       SKIPPED: navi conflicts with existing command
+[DEBUG] Failed to create cmd wrappers for navi
 [DEBUG] Processing package: nircmd
 [DEBUG] Package nircmd has importType: auto
-[DEBUG] Using auto mode for nircmd
+[DEBUG] Creating wrappers for nircmd
+[DEBUG] About to create bash wrappers for nircmd
 [DEBUG]     Found executables in nircmd: 2 files
-[DEBUG]       Processing executable: nircmd.exe -> nircmd (args: '')
-[DEBUG]       Created wrappers for: nircmd
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/nircmd/nircmd.exe
-[DEBUG]       Processing executable: nircmdc.exe -> nircmdc (args: '')
-[DEBUG]       Created wrappers for: nircmdc
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/nircmd/nircmdc.exe
-[DEBUG] Created wrappers for nircmd
+[DEBUG]       Created bash wrapper for: nircmd
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/nircmd/nircmd.exe
+[DEBUG]       Created bash wrapper for: nircmdc
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/nircmd/nircmdc.exe
+[DEBUG] Created bash wrappers for nircmd
+[DEBUG] Checking MSYS deps: has_msys_deps=false
+[DEBUG] About to create cmd wrappers for nircmd
+[DEBUG]     Found executables in nircmd: 2 files
+[DEBUG]       SKIPPED: nircmd conflicts with existing command
+[DEBUG]       SKIPPED: nircmdc conflicts with existing command
+[DEBUG] Failed to create cmd wrappers for nircmd
 [DEBUG] Processing package: nmap
 [DEBUG] Package nmap has importType: auto
-[DEBUG] Using auto mode for nmap
+[DEBUG] Creating wrappers for nmap
+[DEBUG] About to create bash wrappers for nmap
 [DEBUG]     Found executables in nmap: 6 files
-[DEBUG]       Processing executable: ncat.exe -> ncat (args: '')
 [DEBUG]       SKIPPED: ncat conflicts with existing command
-[DEBUG]       Processing executable: nmap.exe -> nmap (args: '')
 [DEBUG]       SKIPPED: nmap conflicts with existing command
-[DEBUG]       Processing executable: npcap-1.83.exe -> npcap-1.83 (args: '')
-[DEBUG]       Created wrappers for: npcap-1.83
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/nmap/npcap-1.83.exe
-[DEBUG]       Processing executable: NpcapHelper.exe -> NpcapHelper (args: '')
-[DEBUG]       Created wrappers for: NpcapHelper
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/nmap/NpcapHelper.exe
-[DEBUG]       Processing executable: nping.exe -> nping (args: '')
+[DEBUG]       Created bash wrapper for: npcap-1.83
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/nmap/npcap-1.83.exe
+[DEBUG]       Created bash wrapper for: NpcapHelper
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/nmap/NpcapHelper.exe
 [DEBUG]       SKIPPED: nping conflicts with existing command
-[DEBUG]       Processing executable: WlanHelper.exe -> WlanHelper (args: '')
-[DEBUG]       Created wrappers for: WlanHelper
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/nmap/WlanHelper.exe
-[DEBUG] Created wrappers for nmap
+[DEBUG]       Created bash wrapper for: WlanHelper
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/nmap/WlanHelper.exe
+[DEBUG] Created bash wrappers for nmap
+[DEBUG] Checking MSYS deps: has_msys_deps=false
+[DEBUG] About to create cmd wrappers for nmap
+[DEBUG]     Found executables in nmap: 6 files
+[DEBUG]       SKIPPED: ncat conflicts with existing command
+[DEBUG]       SKIPPED: nmap conflicts with existing command
+[DEBUG]       SKIPPED: npcap-1.83 conflicts with existing command
+[DEBUG]       SKIPPED: NpcapHelper conflicts with existing command
+[DEBUG]       SKIPPED: nping conflicts with existing command
+[DEBUG]       SKIPPED: WlanHelper conflicts with existing command
+[DEBUG] Failed to create cmd wrappers for nmap
 [DEBUG] Processing package: nuclei
 [DEBUG] Package nuclei has importType: auto
-[DEBUG] Using auto mode for nuclei
+[DEBUG] Creating wrappers for nuclei
+[DEBUG] About to create bash wrappers for nuclei
 [DEBUG]     Found executables in nuclei: 1 files
-[DEBUG]       Processing executable: nuclei.exe -> nuclei (args: '')
-[DEBUG]       Created wrappers for: nuclei
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/nuclei/nuclei.exe
-[DEBUG] Created wrappers for nuclei
+[DEBUG]       Created bash wrapper for: nuclei
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/nuclei/nuclei.exe
+[DEBUG] Created bash wrappers for nuclei
+[DEBUG] Checking MSYS deps: has_msys_deps=false
+[DEBUG] About to create cmd wrappers for nuclei
+[DEBUG]     Found executables in nuclei: 1 files
+[DEBUG]       SKIPPED: nuclei conflicts with existing command
+[DEBUG] Failed to create cmd wrappers for nuclei
 [DEBUG] Processing package: officetopdf
 [DEBUG] Package officetopdf has importType: auto
-[DEBUG] Using auto mode for officetopdf
+[DEBUG] Creating wrappers for officetopdf
+[DEBUG] About to create bash wrappers for officetopdf
 [DEBUG]     Found executables in officetopdf: 1 files
-[DEBUG]       Processing executable: OfficeToPDF.exe -> OfficeToPDF (args: '')
-[DEBUG]       Created wrappers for: OfficeToPDF
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/officetopdf/OfficeToPDF.exe
-[DEBUG] Created wrappers for officetopdf
+[DEBUG]       Created bash wrapper for: OfficeToPDF
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/officetopdf/OfficeToPDF.exe
+[DEBUG] Created bash wrappers for officetopdf
+[DEBUG] Checking MSYS deps: has_msys_deps=false
+[DEBUG] About to create cmd wrappers for officetopdf
+[DEBUG]     Found executables in officetopdf: 1 files
+[DEBUG]       SKIPPED: OfficeToPDF conflicts with existing command
+[DEBUG] Failed to create cmd wrappers for officetopdf
 [DEBUG] Processing package: openshift
 [DEBUG] Package openshift has importType: auto
-[DEBUG] Using auto mode for openshift
+[DEBUG] Creating wrappers for openshift
+[DEBUG] About to create bash wrappers for openshift
 [DEBUG]     Found executables in openshift: 1 files
-[DEBUG]       Processing executable: oc.exe -> oc (args: '')
-[DEBUG]       Created wrappers for: oc
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/openshift/oc.exe
-[DEBUG] Created wrappers for openshift
+[DEBUG]       Created bash wrapper for: oc
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/openshift/oc.exe
+[DEBUG] Created bash wrappers for openshift
+[DEBUG] Checking MSYS deps: has_msys_deps=false
+[DEBUG] About to create cmd wrappers for openshift
+[DEBUG]     Found executables in openshift: 1 files
+[DEBUG]       SKIPPED: oc conflicts with existing command
+[DEBUG] Failed to create cmd wrappers for openshift
 [DEBUG] Processing package: osquery
 [DEBUG] Package osquery has importType: auto
-[DEBUG] Using auto mode for osquery
+[DEBUG] Creating wrappers for osquery
+[DEBUG] About to create bash wrappers for osquery
 [DEBUG]     Found executables in osquery: 2 files
-[DEBUG]       Processing executable: osqueryd.exe -> osqueryd (args: '')
-[DEBUG]       Created wrappers for: osqueryd
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/osquery/osqueryd.exe
-[DEBUG]       Processing executable: osqueryi.exe -> osqueryi (args: '')
-[DEBUG]       Created wrappers for: osqueryi
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/osquery/osqueryi.exe
-[DEBUG] Created wrappers for osquery
+[DEBUG]       Created bash wrapper for: osqueryd
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/osquery/osqueryd.exe
+[DEBUG]       Created bash wrapper for: osqueryi
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/osquery/osqueryi.exe
+[DEBUG] Created bash wrappers for osquery
+[DEBUG] Checking MSYS deps: has_msys_deps=false
+[DEBUG] About to create cmd wrappers for osquery
+[DEBUG]     Found executables in osquery: 2 files
+[DEBUG]       SKIPPED: osqueryd conflicts with existing command
+[DEBUG]       SKIPPED: osqueryi conflicts with existing command
+[DEBUG] Failed to create cmd wrappers for osquery
 [DEBUG] Processing package: oxipng
 [DEBUG] Package oxipng has importType: auto
-[DEBUG] Using auto mode for oxipng
+[DEBUG] Creating wrappers for oxipng
+[DEBUG] About to create bash wrappers for oxipng
 [DEBUG]     Found executables in oxipng: 1 files
-[DEBUG]       Processing executable: oxipng.exe -> oxipng (args: '')
-[DEBUG]       Created wrappers for: oxipng
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/oxipng/oxipng.exe
-[DEBUG] Created wrappers for oxipng
+[DEBUG]       Created bash wrapper for: oxipng
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/oxipng/oxipng.exe
+[DEBUG] Created bash wrappers for oxipng
+[DEBUG] Checking MSYS deps: has_msys_deps=false
+[DEBUG] About to create cmd wrappers for oxipng
+[DEBUG]     Found executables in oxipng: 1 files
+[DEBUG]       SKIPPED: oxipng conflicts with existing command
+[DEBUG] Failed to create cmd wrappers for oxipng
 [DEBUG] Processing package: par2
 [DEBUG] Package par2 has importType: auto
-[DEBUG] Using auto mode for par2
+[DEBUG] Creating wrappers for par2
+[DEBUG] About to create bash wrappers for par2
 [DEBUG]     Found executables in par2: 1 files
-[DEBUG]       Processing executable: par2.exe -> par2 (args: '')
-[DEBUG]       Created wrappers for: par2
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/par2/par2.exe
-[DEBUG] Created wrappers for par2
+[DEBUG]       Created bash wrapper for: par2
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/par2/par2.exe
+[DEBUG] Created bash wrappers for par2
+[DEBUG] Checking MSYS deps: has_msys_deps=false
+[DEBUG] About to create cmd wrappers for par2
+[DEBUG]     Found executables in par2: 1 files
+[DEBUG]       SKIPPED: par2 conflicts with existing command
+[DEBUG] Failed to create cmd wrappers for par2
 [DEBUG] Processing package: path-utils
 [DEBUG] Package path-utils has importType: auto
-[DEBUG] Using auto mode for path-utils
+[DEBUG] Creating wrappers for path-utils
+[DEBUG] Detected MSYS dependencies in path-utils
+[DEBUG] About to create bash wrappers for path-utils
 [DEBUG]     Found executables in path-utils: 13 files
-[DEBUG]       Processing executable: basename.exe -> basename (args: '')
 [DEBUG]       SKIPPED: basename conflicts with existing command
-[DEBUG]       Processing executable: convert.exe -> convert (args: '')
 [DEBUG]       SKIPPED: convert conflicts with existing command
-[DEBUG]       Processing executable: cygpath.exe -> cygpath (args: '')
 [DEBUG]       SKIPPED: cygpath conflicts with existing command
-[DEBUG]       Processing executable: dirname.exe -> dirname (args: '')
 [DEBUG]       SKIPPED: dirname conflicts with existing command
-[DEBUG]       Processing executable: hardlink.exe -> hardlink (args: '')
-[DEBUG]       Created wrappers for: hardlink
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/path-utils/hardlink.exe
-[DEBUG]       Processing executable: link.exe -> link (args: '')
+[DEBUG]       Created bash wrapper for: hardlink
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/path-utils/hardlink.exe
 [DEBUG]       SKIPPED: link conflicts with existing command
-[DEBUG]       Processing executable: ln.exe -> ln (args: '')
 [DEBUG]       SKIPPED: ln conflicts with existing command
-[DEBUG]       Processing executable: pathchk.exe -> pathchk (args: '')
 [DEBUG]       SKIPPED: pathchk conflicts with existing command
-[DEBUG]       Processing executable: readlink.exe -> readlink (args: '')
 [DEBUG]       SKIPPED: readlink conflicts with existing command
-[DEBUG]       Processing executable: realpath.exe -> realpath (args: '')
 [DEBUG]       SKIPPED: realpath conflicts with existing command
-[DEBUG]       Processing executable: unlink.exe -> unlink (args: '')
 [DEBUG]       SKIPPED: unlink conflicts with existing command
-[DEBUG]       Processing executable: windmc.exe -> windmc (args: '')
-[DEBUG]       Created wrappers for: windmc
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/path-utils/windmc.exe
-[DEBUG]       Processing executable: windres.exe -> windres (args: '')
-[DEBUG]       Created wrappers for: windres
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/path-utils/windres.exe
-[DEBUG] Created wrappers for path-utils
+[DEBUG]       Created bash wrapper for: windmc
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/path-utils/windmc.exe
+[DEBUG]       Created bash wrapper for: windres
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/path-utils/windres.exe
+[DEBUG] Created bash wrappers for path-utils
+[DEBUG] Checking MSYS deps: has_msys_deps=true
+[DEBUG] Skipping cmd wrappers for path-utils (has MSYS dependencies)
 [DEBUG] Processing package: peco
 [DEBUG] Package peco has importType: auto
-[DEBUG] Using auto mode for peco
+[DEBUG] Creating wrappers for peco
+[DEBUG] About to create bash wrappers for peco
 [DEBUG]     Found executables in peco: 1 files
-[DEBUG]       Processing executable: peco.exe -> peco (args: '')
-[DEBUG]       Created wrappers for: peco
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/peco/peco.exe
-[DEBUG] Created wrappers for peco
+[DEBUG]       Created bash wrapper for: peco
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/peco/peco.exe
+[DEBUG] Created bash wrappers for peco
+[DEBUG] Checking MSYS deps: has_msys_deps=false
+[DEBUG] About to create cmd wrappers for peco
+[DEBUG]     Found executables in peco: 1 files
+[DEBUG]       SKIPPED: peco conflicts with existing command
+[DEBUG] Failed to create cmd wrappers for peco
 [DEBUG] Processing package: pnpm
 [DEBUG] Package pnpm has importType: auto
-[DEBUG] Using auto mode for pnpm
+[DEBUG] Creating wrappers for pnpm
+[DEBUG] About to create bash wrappers for pnpm
 [DEBUG]     Found executables in pnpm: 1 files
-[DEBUG]       Processing executable: pnpm.exe -> pnpm (args: '')
 [DEBUG]       SKIPPED: pnpm conflicts with existing command
-[DEBUG] No wrappers created, adding pnpm to PATH
+[DEBUG] Failed to create bash wrappers for pnpm
+[DEBUG] Checking MSYS deps: has_msys_deps=false
+[DEBUG] About to create cmd wrappers for pnpm
+[DEBUG]     Found executables in pnpm: 1 files
+[DEBUG]       SKIPPED: pnpm conflicts with existing command
+[DEBUG] Failed to create cmd wrappers for pnpm
 [DEBUG] Processing package: python
 [DEBUG] SKIPPED: No package.json for python
 [DEBUG] Processing package: python-micromamba
 [DEBUG] Package python-micromamba has importType: auto
-[DEBUG] Using auto mode for python-micromamba
+[DEBUG] Creating wrappers for python-micromamba
+[DEBUG] About to create bash wrappers for python-micromamba
 [DEBUG]     Found executables in python-micromamba: 2 files
-[DEBUG]       Processing executable: conda.exe -> conda (args: '')
-[DEBUG]       Created wrappers for: conda
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/python-micromamba/conda.exe
-[DEBUG]       Processing executable: micromamba.exe -> micromamba (args: '')
-[DEBUG]       Created wrappers for: micromamba
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/python-micromamba/micromamba.exe
-[DEBUG] Created wrappers for python-micromamba
+[DEBUG]       Created bash wrapper for: conda
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/python-micromamba/conda.exe
+[DEBUG]       Created bash wrapper for: micromamba
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/python-micromamba/micromamba.exe
+[DEBUG] Created bash wrappers for python-micromamba
+[DEBUG] Checking MSYS deps: has_msys_deps=false
+[DEBUG] About to create cmd wrappers for python-micromamba
+[DEBUG]     Found executables in python-micromamba: 2 files
+[DEBUG]       SKIPPED: conda conflicts with existing command
+[DEBUG]       SKIPPED: micromamba conflicts with existing command
+[DEBUG] Failed to create cmd wrappers for python-micromamba
 [DEBUG] Processing package: qsv
 [DEBUG] Package qsv has importType: auto
-[DEBUG] Using auto mode for qsv
+[DEBUG] Creating wrappers for qsv
+[DEBUG] About to create bash wrappers for qsv
 [DEBUG]     Found executables in qsv: 12 files
-[DEBUG]       Processing executable: qsv.exe -> qsv (args: '')
-[DEBUG]       Created wrappers for: qsv
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/qsv/qsv.exe
-[DEBUG]       Processing executable: qsvdp.exe -> qsvdp (args: '')
-[DEBUG]       Created wrappers for: qsvdp
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/qsv/qsvdp.exe
-[DEBUG]       Processing executable: qsvlite.exe -> qsvlite (args: '')
-[DEBUG]       Created wrappers for: qsvlite
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/qsv/qsvlite.exe
-[DEBUG]       Processing executable: qsvlite_nightly.exe -> qsvlite_nightly (args: '')
-[DEBUG]       Created wrappers for: qsvlite_nightly
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/qsv/qsvlite_nightly.exe
-[DEBUG]       Processing executable: qsvp.exe -> qsvp (args: '')
-[DEBUG]       Created wrappers for: qsvp
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/qsv/qsvp.exe
-[DEBUG]       Processing executable: qsvpdp.exe -> qsvpdp (args: '')
-[DEBUG]       Created wrappers for: qsvpdp
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/qsv/qsvpdp.exe
-[DEBUG]       Processing executable: qsvplite.exe -> qsvplite (args: '')
-[DEBUG]       Created wrappers for: qsvplite
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/qsv/qsvplite.exe
-[DEBUG]       Processing executable: qsvpy310.exe -> qsvpy310 (args: '')
-[DEBUG]       Created wrappers for: qsvpy310
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/qsv/qsvpy310.exe
-[DEBUG]       Processing executable: qsvpy311.exe -> qsvpy311 (args: '')
-[DEBUG]       Created wrappers for: qsvpy311
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/qsv/qsvpy311.exe
-[DEBUG]       Processing executable: qsvpy312.exe -> qsvpy312 (args: '')
-[DEBUG]       Created wrappers for: qsvpy312
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/qsv/qsvpy312.exe
-[DEBUG]       Processing executable: qsvpy313.exe -> qsvpy313 (args: '')
-[DEBUG]       Created wrappers for: qsvpy313
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/qsv/qsvpy313.exe
-[DEBUG]       Processing executable: qsv_nightly.exe -> qsv_nightly (args: '')
-[DEBUG]       Created wrappers for: qsv_nightly
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/qsv/qsv_nightly.exe
-[DEBUG] Created wrappers for qsv
+[DEBUG]       Created bash wrapper for: qsv
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/qsv/qsv.exe
+[DEBUG]       Created bash wrapper for: qsvdp
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/qsv/qsvdp.exe
+[DEBUG]       Created bash wrapper for: qsvlite
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/qsv/qsvlite.exe
+[DEBUG]       Created bash wrapper for: qsvlite_nightly
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/qsv/qsvlite_nightly.exe
+[DEBUG]       Created bash wrapper for: qsvp
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/qsv/qsvp.exe
+[DEBUG]       Created bash wrapper for: qsvpdp
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/qsv/qsvpdp.exe
+[DEBUG]       Created bash wrapper for: qsvplite
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/qsv/qsvplite.exe
+[DEBUG]       Created bash wrapper for: qsvpy310
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/qsv/qsvpy310.exe
+[DEBUG]       Created bash wrapper for: qsvpy311
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/qsv/qsvpy311.exe
+[DEBUG]       Created bash wrapper for: qsvpy312
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/qsv/qsvpy312.exe
+[DEBUG]       Created bash wrapper for: qsvpy313
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/qsv/qsvpy313.exe
+[DEBUG]       Created bash wrapper for: qsv_nightly
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/qsv/qsv_nightly.exe
+[DEBUG] Created bash wrappers for qsv
+[DEBUG] Checking MSYS deps: has_msys_deps=false
+[DEBUG] About to create cmd wrappers for qsv
+[DEBUG]     Found executables in qsv: 12 files
+[DEBUG]       SKIPPED: qsv conflicts with existing command
+[DEBUG]       SKIPPED: qsvdp conflicts with existing command
+[DEBUG]       SKIPPED: qsvlite conflicts with existing command
+[DEBUG]       SKIPPED: qsvlite_nightly conflicts with existing command
+[DEBUG]       SKIPPED: qsvp conflicts with existing command
+[DEBUG]       SKIPPED: qsvpdp conflicts with existing command
+[DEBUG]       SKIPPED: qsvplite conflicts with existing command
+[DEBUG]       SKIPPED: qsvpy310 conflicts with existing command
+[DEBUG]       SKIPPED: qsvpy311 conflicts with existing command
+[DEBUG]       SKIPPED: qsvpy312 conflicts with existing command
+[DEBUG]       SKIPPED: qsvpy313 conflicts with existing command
+[DEBUG]       SKIPPED: qsv_nightly conflicts with existing command
+[DEBUG] Failed to create cmd wrappers for qsv
 [DEBUG] Processing package: radare2
 [DEBUG] Package radare2 has importType: auto
-[DEBUG] Using auto mode for radare2
+[DEBUG] Creating wrappers for radare2
+[DEBUG] About to create bash wrappers for radare2
 [DEBUG]     Found executables in radare2: 15 files
-[DEBUG]       Processing executable: r2agent.exe -> r2agent (args: '')
-[DEBUG]       Created wrappers for: r2agent
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/radare2/r2agent.exe
-[DEBUG]       Processing executable: r2pm.exe -> r2pm (args: '')
-[DEBUG]       Created wrappers for: r2pm
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/radare2/r2pm.exe
-[DEBUG]       Processing executable: r2r.exe -> r2r (args: '')
-[DEBUG]       Created wrappers for: r2r
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/radare2/r2r.exe
-[DEBUG]       Processing executable: rabin2.exe -> rabin2 (args: '')
-[DEBUG]       Created wrappers for: rabin2
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/radare2/rabin2.exe
-[DEBUG]       Processing executable: radare2.exe -> radare2 (args: '')
-[DEBUG]       Created wrappers for: radare2
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/radare2/radare2.exe
-[DEBUG]       Processing executable: radiff2.exe -> radiff2 (args: '')
-[DEBUG]       Created wrappers for: radiff2
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/radare2/radiff2.exe
-[DEBUG]       Processing executable: rafind2.exe -> rafind2 (args: '')
-[DEBUG]       Created wrappers for: rafind2
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/radare2/rafind2.exe
-[DEBUG]       Processing executable: ragg2.exe -> ragg2 (args: '')
-[DEBUG]       Created wrappers for: ragg2
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/radare2/ragg2.exe
-[DEBUG]       Processing executable: rahash2.exe -> rahash2 (args: '')
-[DEBUG]       Created wrappers for: rahash2
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/radare2/rahash2.exe
-[DEBUG]       Processing executable: rapatch2.exe -> rapatch2 (args: '')
-[DEBUG]       Created wrappers for: rapatch2
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/radare2/rapatch2.exe
-[DEBUG]       Processing executable: rarun2.exe -> rarun2 (args: '')
-[DEBUG]       Created wrappers for: rarun2
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/radare2/rarun2.exe
-[DEBUG]       Processing executable: rasign2.exe -> rasign2 (args: '')
-[DEBUG]       Created wrappers for: rasign2
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/radare2/rasign2.exe
-[DEBUG]       Processing executable: rasm2.exe -> rasm2 (args: '')
-[DEBUG]       Created wrappers for: rasm2
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/radare2/rasm2.exe
-[DEBUG]       Processing executable: ravc2.exe -> ravc2 (args: '')
-[DEBUG]       Created wrappers for: ravc2
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/radare2/ravc2.exe
-[DEBUG]       Processing executable: rax2.exe -> rax2 (args: '')
-[DEBUG]       Created wrappers for: rax2
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/radare2/rax2.exe
-[DEBUG] Created wrappers for radare2
+[DEBUG]       Created bash wrapper for: r2agent
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/radare2/r2agent.exe
+[DEBUG]       Created bash wrapper for: r2pm
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/radare2/r2pm.exe
+[DEBUG]       Created bash wrapper for: r2r
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/radare2/r2r.exe
+[DEBUG]       Created bash wrapper for: rabin2
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/radare2/rabin2.exe
+[DEBUG]       Created bash wrapper for: radare2
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/radare2/radare2.exe
+[DEBUG]       Created bash wrapper for: radiff2
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/radare2/radiff2.exe
+[DEBUG]       Created bash wrapper for: rafind2
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/radare2/rafind2.exe
+[DEBUG]       Created bash wrapper for: ragg2
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/radare2/ragg2.exe
+[DEBUG]       Created bash wrapper for: rahash2
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/radare2/rahash2.exe
+[DEBUG]       Created bash wrapper for: rapatch2
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/radare2/rapatch2.exe
+[DEBUG]       Created bash wrapper for: rarun2
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/radare2/rarun2.exe
+[DEBUG]       Created bash wrapper for: rasign2
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/radare2/rasign2.exe
+[DEBUG]       Created bash wrapper for: rasm2
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/radare2/rasm2.exe
+[DEBUG]       Created bash wrapper for: ravc2
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/radare2/ravc2.exe
+[DEBUG]       Created bash wrapper for: rax2
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/radare2/rax2.exe
+[DEBUG] Created bash wrappers for radare2
+[DEBUG] Checking MSYS deps: has_msys_deps=false
+[DEBUG] About to create cmd wrappers for radare2
+[DEBUG]     Found executables in radare2: 15 files
+[DEBUG]       SKIPPED: r2agent conflicts with existing command
+[DEBUG]       SKIPPED: r2pm conflicts with existing command
+[DEBUG]       SKIPPED: r2r conflicts with existing command
+[DEBUG]       SKIPPED: rabin2 conflicts with existing command
+[DEBUG]       SKIPPED: radare2 conflicts with existing command
+[DEBUG]       SKIPPED: radiff2 conflicts with existing command
+[DEBUG]       SKIPPED: rafind2 conflicts with existing command
+[DEBUG]       SKIPPED: ragg2 conflicts with existing command
+[DEBUG]       SKIPPED: rahash2 conflicts with existing command
+[DEBUG]       SKIPPED: rapatch2 conflicts with existing command
+[DEBUG]       SKIPPED: rarun2 conflicts with existing command
+[DEBUG]       SKIPPED: rasign2 conflicts with existing command
+[DEBUG]       SKIPPED: rasm2 conflicts with existing command
+[DEBUG]       SKIPPED: ravc2 conflicts with existing command
+[DEBUG]       SKIPPED: rax2 conflicts with existing command
+[DEBUG] Failed to create cmd wrappers for radare2
 [DEBUG] Processing package: rclone
 [DEBUG] Package rclone has importType: auto
-[DEBUG] Using auto mode for rclone
+[DEBUG] Creating wrappers for rclone
+[DEBUG] About to create bash wrappers for rclone
 [DEBUG]     Found executables in rclone: 1 files
-[DEBUG]       Processing executable: rclone.exe -> rclone (args: '')
-[DEBUG]       Created wrappers for: rclone
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/rclone/rclone.exe
-[DEBUG] Created wrappers for rclone
+[DEBUG]       Created bash wrapper for: rclone
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/rclone/rclone.exe
+[DEBUG] Created bash wrappers for rclone
+[DEBUG] Checking MSYS deps: has_msys_deps=false
+[DEBUG] About to create cmd wrappers for rclone
+[DEBUG]     Found executables in rclone: 1 files
+[DEBUG]       SKIPPED: rclone conflicts with existing command
+[DEBUG] Failed to create cmd wrappers for rclone
 [DEBUG] Processing package: ripgrep
 [DEBUG] Package ripgrep has importType: auto
-[DEBUG] Using auto mode for ripgrep
+[DEBUG] Creating wrappers for ripgrep
+[DEBUG] About to create bash wrappers for ripgrep
 [DEBUG]     Found executables in ripgrep: 1 files
-[DEBUG]       Processing executable: rg.exe -> rg (args: '')
-[DEBUG]       Created wrappers for: rg
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/ripgrep/rg.exe
-[DEBUG] Created wrappers for ripgrep
+[DEBUG]       Created bash wrapper for: rg
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/ripgrep/rg.exe
+[DEBUG] Created bash wrappers for ripgrep
+[DEBUG] Checking MSYS deps: has_msys_deps=false
+[DEBUG] About to create cmd wrappers for ripgrep
+[DEBUG]     Found executables in ripgrep: 1 files
+[DEBUG]       SKIPPED: rg conflicts with existing command
+[DEBUG] Failed to create cmd wrappers for ripgrep
 [DEBUG] Processing package: ropgadget
 [DEBUG] SKIPPED: No executables found for ropgadget
 [DEBUG] Processing package: rustscan
 [DEBUG] Package rustscan has importType: auto
-[DEBUG] Using auto mode for rustscan
+[DEBUG] Creating wrappers for rustscan
+[DEBUG] About to create bash wrappers for rustscan
 [DEBUG]     Found executables in rustscan: 1 files
-[DEBUG]       Processing executable: rustscan.exe -> rustscan (args: '')
-[DEBUG]       Created wrappers for: rustscan
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/rustscan/rustscan.exe
-[DEBUG] Created wrappers for rustscan
+[DEBUG]       Created bash wrapper for: rustscan
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/rustscan/rustscan.exe
+[DEBUG] Created bash wrappers for rustscan
+[DEBUG] Checking MSYS deps: has_msys_deps=false
+[DEBUG] About to create cmd wrappers for rustscan
+[DEBUG]     Found executables in rustscan: 1 files
+[DEBUG]       SKIPPED: rustscan conflicts with existing command
+[DEBUG] Failed to create cmd wrappers for rustscan
 [DEBUG] Processing package: scc
 [DEBUG] Package scc has importType: auto
-[DEBUG] Using auto mode for scc
+[DEBUG] Creating wrappers for scc
+[DEBUG] About to create bash wrappers for scc
 [DEBUG]     Found executables in scc: 1 files
-[DEBUG]       Processing executable: scc.exe -> scc (args: '')
-[DEBUG]       Created wrappers for: scc
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/scc/scc.exe
-[DEBUG] Created wrappers for scc
+[DEBUG]       Created bash wrapper for: scc
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/scc/scc.exe
+[DEBUG] Created bash wrappers for scc
+[DEBUG] Checking MSYS deps: has_msys_deps=false
+[DEBUG] About to create cmd wrappers for scc
+[DEBUG]     Found executables in scc: 1 files
+[DEBUG]       SKIPPED: scc conflicts with existing command
+[DEBUG] Failed to create cmd wrappers for scc
 [DEBUG] Processing package: scoop
 [DEBUG] SKIPPED: No executables found for scoop
 [DEBUG] Processing package: scrcpy
 [DEBUG] Package scrcpy has importType: auto
-[DEBUG] Using auto mode for scrcpy
+[DEBUG] Creating wrappers for scrcpy
+[DEBUG] About to create bash wrappers for scrcpy
 [DEBUG]     Found executables in scrcpy: 2 files
-[DEBUG]       Processing executable: adb.exe -> adb (args: '')
 [DEBUG]       SKIPPED: adb conflicts with existing command
-[DEBUG]       Processing executable: scrcpy.exe -> scrcpy (args: '')
-[DEBUG]       Created wrappers for: scrcpy
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/scrcpy/scrcpy.exe
-[DEBUG] Created wrappers for scrcpy
+[DEBUG]       Created bash wrapper for: scrcpy
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/scrcpy/scrcpy.exe
+[DEBUG] Created bash wrappers for scrcpy
+[DEBUG] Checking MSYS deps: has_msys_deps=false
+[DEBUG] About to create cmd wrappers for scrcpy
+[DEBUG]     Found executables in scrcpy: 2 files
+[DEBUG]       SKIPPED: adb conflicts with existing command
+[DEBUG]       SKIPPED: scrcpy conflicts with existing command
+[DEBUG] Failed to create cmd wrappers for scrcpy
 [DEBUG] Processing package: sd
 [DEBUG] Package sd has importType: auto
-[DEBUG] Using auto mode for sd
+[DEBUG] Creating wrappers for sd
+[DEBUG] About to create bash wrappers for sd
 [DEBUG]     Found executables in sd: 1 files
-[DEBUG]       Processing executable: sd.exe -> sd (args: '')
-[DEBUG]       Created wrappers for: sd
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/sd/sd.exe
-[DEBUG] Created wrappers for sd
+[DEBUG]       Created bash wrapper for: sd
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/sd/sd.exe
+[DEBUG] Created bash wrappers for sd
+[DEBUG] Checking MSYS deps: has_msys_deps=false
+[DEBUG] About to create cmd wrappers for sd
+[DEBUG]     Found executables in sd: 1 files
+[DEBUG]       SKIPPED: sd conflicts with existing command
+[DEBUG] Failed to create cmd wrappers for sd
 [DEBUG] Processing package: shellcheck
 [DEBUG] Package shellcheck has importType: auto
-[DEBUG] Using auto mode for shellcheck
+[DEBUG] Creating wrappers for shellcheck
+[DEBUG] About to create bash wrappers for shellcheck
 [DEBUG]     Found executables in shellcheck: 1 files
-[DEBUG]       Processing executable: shellcheck.exe -> shellcheck (args: '')
-[DEBUG]       Created wrappers for: shellcheck
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/shellcheck/shellcheck.exe
-[DEBUG] Created wrappers for shellcheck
+[DEBUG]       Created bash wrapper for: shellcheck
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/shellcheck/shellcheck.exe
+[DEBUG] Created bash wrappers for shellcheck
+[DEBUG] Checking MSYS deps: has_msys_deps=false
+[DEBUG] About to create cmd wrappers for shellcheck
+[DEBUG]     Found executables in shellcheck: 1 files
+[DEBUG]       SKIPPED: shellcheck conflicts with existing command
+[DEBUG] Failed to create cmd wrappers for shellcheck
 [DEBUG] Processing package: shellspec
 [DEBUG] Package shellspec has importType: auto
-[DEBUG] Using auto mode for shellspec
+[DEBUG] Creating wrappers for shellspec
+[DEBUG] About to create bash wrappers for shellspec
 [DEBUG]     Found executables in shellspec: 1 files
-[DEBUG]       Processing executable: shellspec.exe -> shellspec (args: '')
-[DEBUG]       Created wrappers for: shellspec
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/shellspec/shellspec.exe
-[DEBUG] Created wrappers for shellspec
+[DEBUG]       Created bash wrapper for: shellspec
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/shellspec/shellspec.exe
+[DEBUG] Created bash wrappers for shellspec
+[DEBUG] Checking MSYS deps: has_msys_deps=false
+[DEBUG] About to create cmd wrappers for shellspec
+[DEBUG]     Found executables in shellspec: 1 files
+[DEBUG]       SKIPPED: shellspec conflicts with existing command
+[DEBUG] Failed to create cmd wrappers for shellspec
 [DEBUG] Processing package: shfmt
 [DEBUG] Package shfmt has importType: auto
-[DEBUG] Using auto mode for shfmt
+[DEBUG] Creating wrappers for shfmt
+[DEBUG] About to create bash wrappers for shfmt
 [DEBUG]     Found executables in shfmt: 1 files
-[DEBUG]       Processing executable: shfmt.exe -> shfmt (args: '')
-[DEBUG]       Created wrappers for: shfmt
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/shfmt/shfmt.exe
-[DEBUG] Created wrappers for shfmt
+[DEBUG]       Created bash wrapper for: shfmt
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/shfmt/shfmt.exe
+[DEBUG] Created bash wrappers for shfmt
+[DEBUG] Checking MSYS deps: has_msys_deps=false
+[DEBUG] About to create cmd wrappers for shfmt
+[DEBUG]     Found executables in shfmt: 1 files
+[DEBUG]       SKIPPED: shfmt conflicts with existing command
+[DEBUG] Failed to create cmd wrappers for shfmt
 [DEBUG] Processing package: skopeo
 [DEBUG] Package skopeo has importType: auto
-[DEBUG] Using auto mode for skopeo
+[DEBUG] Creating wrappers for skopeo
+[DEBUG] About to create bash wrappers for skopeo
 [DEBUG]     Found executables in skopeo: 1 files
-[DEBUG]       Processing executable: skopeo.exe -> skopeo (args: '')
-[DEBUG]       Created wrappers for: skopeo
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/skopeo/skopeo.exe
-[DEBUG] Created wrappers for skopeo
+[DEBUG]       Created bash wrapper for: skopeo
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/skopeo/skopeo.exe
+[DEBUG] Created bash wrappers for skopeo
+[DEBUG] Checking MSYS deps: has_msys_deps=false
+[DEBUG] About to create cmd wrappers for skopeo
+[DEBUG]     Found executables in skopeo: 1 files
+[DEBUG]       SKIPPED: skopeo conflicts with existing command
+[DEBUG] Failed to create cmd wrappers for skopeo
 [DEBUG] Processing package: sqlite
 [DEBUG] Package sqlite has importType: auto
-[DEBUG] Using auto mode for sqlite
+[DEBUG] Creating wrappers for sqlite
+[DEBUG] About to create bash wrappers for sqlite
 [DEBUG]     Found executables in sqlite: 4 files
-[DEBUG]       Processing executable: sqldiff.exe -> sqldiff (args: '')
-[DEBUG]       Created wrappers for: sqldiff
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/sqlite/sqldiff.exe
-[DEBUG]       Processing executable: sqlite3.exe -> sqlite3 (args: '')
-[DEBUG]       Created wrappers for: sqlite3
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/sqlite/sqlite3.exe
-[DEBUG]       Processing executable: sqlite3_analyzer.exe -> sqlite3_analyzer (args: '')
-[DEBUG]       Created wrappers for: sqlite3_analyzer
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/sqlite/sqlite3_analyzer.exe
-[DEBUG]       Processing executable: sqlite3_rsync.exe -> sqlite3_rsync (args: '')
-[DEBUG]       Created wrappers for: sqlite3_rsync
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/sqlite/sqlite3_rsync.exe
-[DEBUG] Created wrappers for sqlite
+[DEBUG]       Created bash wrapper for: sqldiff
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/sqlite/sqldiff.exe
+[DEBUG]       Created bash wrapper for: sqlite3
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/sqlite/sqlite3.exe
+[DEBUG]       Created bash wrapper for: sqlite3_analyzer
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/sqlite/sqlite3_analyzer.exe
+[DEBUG]       Created bash wrapper for: sqlite3_rsync
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/sqlite/sqlite3_rsync.exe
+[DEBUG] Created bash wrappers for sqlite
+[DEBUG] Checking MSYS deps: has_msys_deps=false
+[DEBUG] About to create cmd wrappers for sqlite
+[DEBUG]     Found executables in sqlite: 4 files
+[DEBUG]       SKIPPED: sqldiff conflicts with existing command
+[DEBUG]       SKIPPED: sqlite3 conflicts with existing command
+[DEBUG]       SKIPPED: sqlite3_analyzer conflicts with existing command
+[DEBUG]       SKIPPED: sqlite3_rsync conflicts with existing command
+[DEBUG] Failed to create cmd wrappers for sqlite
 [DEBUG] Processing package: ssdeep
 [DEBUG] Package ssdeep has importType: auto
-[DEBUG] Using auto mode for ssdeep
+[DEBUG] Creating wrappers for ssdeep
+[DEBUG] About to create bash wrappers for ssdeep
 [DEBUG]     Found executables in ssdeep: 1 files
-[DEBUG]       Processing executable: ssdeep.exe -> ssdeep (args: '')
-[DEBUG]       Created wrappers for: ssdeep
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/ssdeep/ssdeep.exe
-[DEBUG] Created wrappers for ssdeep
+[DEBUG]       Created bash wrapper for: ssdeep
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/ssdeep/ssdeep.exe
+[DEBUG] Created bash wrappers for ssdeep
+[DEBUG] Checking MSYS deps: has_msys_deps=false
+[DEBUG] About to create cmd wrappers for ssdeep
+[DEBUG]     Found executables in ssdeep: 1 files
+[DEBUG]       SKIPPED: ssdeep conflicts with existing command
+[DEBUG] Failed to create cmd wrappers for ssdeep
 [DEBUG] Processing package: subfinder
 [DEBUG] Package subfinder has importType: auto
-[DEBUG] Using auto mode for subfinder
+[DEBUG] Creating wrappers for subfinder
+[DEBUG] About to create bash wrappers for subfinder
 [DEBUG]     Found executables in subfinder: 1 files
-[DEBUG]       Processing executable: subfinder.exe -> subfinder (args: '')
-[DEBUG]       Created wrappers for: subfinder
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/subfinder/subfinder.exe
-[DEBUG] Created wrappers for subfinder
+[DEBUG]       Created bash wrapper for: subfinder
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/subfinder/subfinder.exe
+[DEBUG] Created bash wrappers for subfinder
+[DEBUG] Checking MSYS deps: has_msys_deps=false
+[DEBUG] About to create cmd wrappers for subfinder
+[DEBUG]     Found executables in subfinder: 1 files
+[DEBUG]       SKIPPED: subfinder conflicts with existing command
+[DEBUG] Failed to create cmd wrappers for subfinder
 [DEBUG] Processing package: sysinternals
 [DEBUG] Package sysinternals has importType: auto
-[DEBUG] Using auto mode for sysinternals
+[DEBUG] Creating wrappers for sysinternals
+[DEBUG] About to create bash wrappers for sysinternals
 [DEBUG]     Found executables in sysinternals: 29 files
-[DEBUG]       Processing executable: accesschk64.exe -> accesschk64 (args: '')
 [DEBUG]       SKIPPED: accesschk64 conflicts with existing command
-[DEBUG]       Processing executable: adrestore64.exe -> adrestore64 (args: '')
 [DEBUG]       SKIPPED: adrestore64 conflicts with existing command
-[DEBUG]       Processing executable: autorunsc64.exe -> autorunsc64 (args: '')
 [DEBUG]       SKIPPED: autorunsc64 conflicts with existing command
-[DEBUG]       Processing executable: clockres64.exe -> clockres64 (args: '')
 [DEBUG]       SKIPPED: clockres64 conflicts with existing command
-[DEBUG]       Processing executable: Contig64.exe -> Contig64 (args: '')
 [DEBUG]       SKIPPED: Contig64 conflicts with existing command
-[DEBUG]       Processing executable: Coreinfo64.exe -> Coreinfo64 (args: '')
 [DEBUG]       SKIPPED: Coreinfo64 conflicts with existing command
-[DEBUG]       Processing executable: FindLinks64.exe -> FindLinks64 (args: '')
 [DEBUG]       SKIPPED: FindLinks64 conflicts with existing command
-[DEBUG]       Processing executable: handle64.exe -> handle64 (args: '')
 [DEBUG]       SKIPPED: handle64 conflicts with existing command
-[DEBUG]       Processing executable: hex2dec64.exe -> hex2dec64 (args: '')
 [DEBUG]       SKIPPED: hex2dec64 conflicts with existing command
-[DEBUG]       Processing executable: junction64.exe -> junction64 (args: '')
 [DEBUG]       SKIPPED: junction64 conflicts with existing command
-[DEBUG]       Processing executable: listdlls64.exe -> listdlls64 (args: '')
 [DEBUG]       SKIPPED: listdlls64 conflicts with existing command
-[DEBUG]       Processing executable: LogonSessions64.exe -> LogonSessions64 (args: '')
 [DEBUG]       SKIPPED: LogonSessions64 conflicts with existing command
-[DEBUG]       Processing executable: PendMoves64.exe -> PendMoves64 (args: '')
 [DEBUG]       SKIPPED: PendMoves64 conflicts with existing command
-[DEBUG]       Processing executable: pipelist64.exe -> pipelist64 (args: '')
 [DEBUG]       SKIPPED: pipelist64 conflicts with existing command
-[DEBUG]       Processing executable: procdump64.exe -> procdump64 (args: '')
 [DEBUG]       SKIPPED: procdump64 conflicts with existing command
-[DEBUG]       Processing executable: PsExec64.exe -> PsExec64 (args: '')
 [DEBUG]       SKIPPED: PsExec64 conflicts with existing command
-[DEBUG]       Processing executable: psfile64.exe -> psfile64 (args: '')
 [DEBUG]       SKIPPED: psfile64 conflicts with existing command
-[DEBUG]       Processing executable: PsGetsid64.exe -> PsGetsid64 (args: '')
 [DEBUG]       SKIPPED: PsGetsid64 conflicts with existing command
-[DEBUG]       Processing executable: psinfo64.exe -> psinfo64 (args: '')
 [DEBUG]       SKIPPED: psinfo64 conflicts with existing command
-[DEBUG]       Processing executable: pskill64.exe -> pskill64 (args: '')
 [DEBUG]       SKIPPED: pskill64 conflicts with existing command
-[DEBUG]       Processing executable: PsList64.exe -> PsList64 (args: '')
 [DEBUG]       SKIPPED: PsList64 conflicts with existing command
-[DEBUG]       Processing executable: PsLoggedon64.exe -> PsLoggedon64 (args: '')
 [DEBUG]       SKIPPED: PsLoggedon64 conflicts with existing command
-[DEBUG]       Processing executable: psping64.exe -> psping64 (args: '')
 [DEBUG]       SKIPPED: psping64 conflicts with existing command
-[DEBUG]       Processing executable: RegDelNull64.exe -> RegDelNull64 (args: '')
 [DEBUG]       SKIPPED: RegDelNull64 conflicts with existing command
-[DEBUG]       Processing executable: streams64.exe -> streams64 (args: '')
 [DEBUG]       SKIPPED: streams64 conflicts with existing command
-[DEBUG]       Processing executable: strings64.exe -> strings64 (args: '')
 [DEBUG]       SKIPPED: strings64 conflicts with existing command
-[DEBUG]       Processing executable: sync64.exe -> sync64 (args: '')
 [DEBUG]       SKIPPED: sync64 conflicts with existing command
-[DEBUG]       Processing executable: VolumeId64.exe -> VolumeId64 (args: '')
 [DEBUG]       SKIPPED: VolumeId64 conflicts with existing command
-[DEBUG]       Processing executable: whois64.exe -> whois64 (args: '')
 [DEBUG]       SKIPPED: whois64 conflicts with existing command
-[DEBUG] No wrappers created, adding sysinternals to PATH
+[DEBUG] Failed to create bash wrappers for sysinternals
+[DEBUG] Checking MSYS deps: has_msys_deps=false
+[DEBUG] About to create cmd wrappers for sysinternals
+[DEBUG]     Found executables in sysinternals: 29 files
+[DEBUG]       SKIPPED: accesschk64 conflicts with existing command
+[DEBUG]       SKIPPED: adrestore64 conflicts with existing command
+[DEBUG]       SKIPPED: autorunsc64 conflicts with existing command
+[DEBUG]       SKIPPED: clockres64 conflicts with existing command
+[DEBUG]       SKIPPED: Contig64 conflicts with existing command
+[DEBUG]       SKIPPED: Coreinfo64 conflicts with existing command
+[DEBUG]       SKIPPED: FindLinks64 conflicts with existing command
+[DEBUG]       SKIPPED: handle64 conflicts with existing command
+[DEBUG]       SKIPPED: hex2dec64 conflicts with existing command
+[DEBUG]       SKIPPED: junction64 conflicts with existing command
+[DEBUG]       SKIPPED: listdlls64 conflicts with existing command
+[DEBUG]       SKIPPED: LogonSessions64 conflicts with existing command
+[DEBUG]       SKIPPED: PendMoves64 conflicts with existing command
+[DEBUG]       SKIPPED: pipelist64 conflicts with existing command
+[DEBUG]       SKIPPED: procdump64 conflicts with existing command
+[DEBUG]       SKIPPED: PsExec64 conflicts with existing command
+[DEBUG]       SKIPPED: psfile64 conflicts with existing command
+[DEBUG]       SKIPPED: PsGetsid64 conflicts with existing command
+[DEBUG]       SKIPPED: psinfo64 conflicts with existing command
+[DEBUG]       SKIPPED: pskill64 conflicts with existing command
+[DEBUG]       SKIPPED: PsList64 conflicts with existing command
+[DEBUG]       SKIPPED: PsLoggedon64 conflicts with existing command
+[DEBUG]       SKIPPED: psping64 conflicts with existing command
+[DEBUG]       SKIPPED: RegDelNull64 conflicts with existing command
+[DEBUG]       SKIPPED: streams64 conflicts with existing command
+[DEBUG]       SKIPPED: strings64 conflicts with existing command
+[DEBUG]       SKIPPED: sync64 conflicts with existing command
+[DEBUG]       SKIPPED: VolumeId64 conflicts with existing command
+[DEBUG]       SKIPPED: whois64 conflicts with existing command
+[DEBUG] Failed to create cmd wrappers for sysinternals
 [DEBUG] Processing package: terraform
 [DEBUG] Package terraform has importType: auto
-[DEBUG] Using auto mode for terraform
+[DEBUG] Creating wrappers for terraform
+[DEBUG] About to create bash wrappers for terraform
 [DEBUG]     Found executables in terraform: 1 files
-[DEBUG]       Processing executable: terraform.exe -> terraform (args: '')
-[DEBUG]       Created wrappers for: terraform
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/terraform/terraform.exe
-[DEBUG] Created wrappers for terraform
+[DEBUG]       Created bash wrapper for: terraform
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/terraform/terraform.exe
+[DEBUG] Created bash wrappers for terraform
+[DEBUG] Checking MSYS deps: has_msys_deps=false
+[DEBUG] About to create cmd wrappers for terraform
+[DEBUG]     Found executables in terraform: 1 files
+[DEBUG]       SKIPPED: terraform conflicts with existing command
+[DEBUG] Failed to create cmd wrappers for terraform
 [DEBUG] Processing package: tinycc
 [DEBUG] Package tinycc has importType: auto
-[DEBUG] Using auto mode for tinycc
+[DEBUG] Creating wrappers for tinycc
+[DEBUG] About to create bash wrappers for tinycc
 [DEBUG]     Found executables in tinycc: 3 files
-[DEBUG]       Processing executable: tcc.exe -> tcc (args: '')
-[DEBUG]       Created wrappers for: tcc
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/tinycc/tcc.exe
-[DEBUG]       Processing executable: tiny_impdef.exe -> tiny_impdef (args: '')
-[DEBUG]       Created wrappers for: tiny_impdef
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/tinycc/tiny_impdef.exe
-[DEBUG]       Processing executable: tiny_libmaker.exe -> tiny_libmaker (args: '')
-[DEBUG]       Created wrappers for: tiny_libmaker
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/tinycc/tiny_libmaker.exe
-[DEBUG] Created wrappers for tinycc
+[DEBUG]       Created bash wrapper for: tcc
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/tinycc/tcc.exe
+[DEBUG]       Created bash wrapper for: tiny_impdef
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/tinycc/tiny_impdef.exe
+[DEBUG]       Created bash wrapper for: tiny_libmaker
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/tinycc/tiny_libmaker.exe
+[DEBUG] Created bash wrappers for tinycc
+[DEBUG] Checking MSYS deps: has_msys_deps=false
+[DEBUG] About to create cmd wrappers for tinycc
+[DEBUG]     Found executables in tinycc: 3 files
+[DEBUG]       SKIPPED: tcc conflicts with existing command
+[DEBUG]       SKIPPED: tiny_impdef conflicts with existing command
+[DEBUG]       SKIPPED: tiny_libmaker conflicts with existing command
+[DEBUG] Failed to create cmd wrappers for tinycc
 [DEBUG] Processing package: tokei
 [DEBUG] Package tokei has importType: auto
-[DEBUG] Using auto mode for tokei
+[DEBUG] Creating wrappers for tokei
+[DEBUG] About to create bash wrappers for tokei
 [DEBUG]     Found executables in tokei: 1 files
-[DEBUG]       Processing executable: tokei.exe -> tokei (args: '')
-[DEBUG]       Created wrappers for: tokei
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/tokei/tokei.exe
-[DEBUG] Created wrappers for tokei
+[DEBUG]       Created bash wrapper for: tokei
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/tokei/tokei.exe
+[DEBUG] Created bash wrappers for tokei
+[DEBUG] Checking MSYS deps: has_msys_deps=false
+[DEBUG] About to create cmd wrappers for tokei
+[DEBUG]     Found executables in tokei: 1 files
+[DEBUG]       SKIPPED: tokei conflicts with existing command
+[DEBUG] Failed to create cmd wrappers for tokei
 [DEBUG] Processing package: uefitools
 [DEBUG] Package uefitools has importType: auto
-[DEBUG] Using auto mode for uefitools
+[DEBUG] Creating wrappers for uefitools
+[DEBUG] About to create bash wrappers for uefitools
 [DEBUG]     Found executables in uefitools: 2 files
-[DEBUG]       Processing executable: UEFIExtract.exe -> UEFIExtract (args: '')
-[DEBUG]       Created wrappers for: UEFIExtract
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/uefitools/UEFIExtract.exe
-[DEBUG]       Processing executable: UEFIFind.exe -> UEFIFind (args: '')
-[DEBUG]       Created wrappers for: UEFIFind
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/uefitools/UEFIFind.exe
-[DEBUG] Created wrappers for uefitools
+[DEBUG]       Created bash wrapper for: UEFIExtract
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/uefitools/UEFIExtract.exe
+[DEBUG]       Created bash wrapper for: UEFIFind
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/uefitools/UEFIFind.exe
+[DEBUG] Created bash wrappers for uefitools
+[DEBUG] Checking MSYS deps: has_msys_deps=false
+[DEBUG] About to create cmd wrappers for uefitools
+[DEBUG]     Found executables in uefitools: 2 files
+[DEBUG]       SKIPPED: UEFIExtract conflicts with existing command
+[DEBUG]       SKIPPED: UEFIFind conflicts with existing command
+[DEBUG] Failed to create cmd wrappers for uefitools
 [DEBUG] Processing package: upx
 [DEBUG] Package upx has importType: auto
-[DEBUG] Using auto mode for upx
+[DEBUG] Creating wrappers for upx
+[DEBUG] About to create bash wrappers for upx
 [DEBUG]     Found executables in upx: 1 files
-[DEBUG]       Processing executable: upx.exe -> upx (args: '')
-[DEBUG]       Created wrappers for: upx
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/upx/upx.exe
-[DEBUG] Created wrappers for upx
+[DEBUG]       Created bash wrapper for: upx
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/upx/upx.exe
+[DEBUG] Created bash wrappers for upx
+[DEBUG] Checking MSYS deps: has_msys_deps=false
+[DEBUG] About to create cmd wrappers for upx
+[DEBUG]     Found executables in upx: 1 files
+[DEBUG]       SKIPPED: upx conflicts with existing command
+[DEBUG] Failed to create cmd wrappers for upx
 [DEBUG] Processing package: usql
 [DEBUG] Package usql has importType: auto
-[DEBUG] Using auto mode for usql
+[DEBUG] Creating wrappers for usql
+[DEBUG] About to create bash wrappers for usql
 [DEBUG]     Found executables in usql: 1 files
-[DEBUG]       Processing executable: usql.exe -> usql (args: '')
-[DEBUG]       Created wrappers for: usql
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/usql/usql.exe
-[DEBUG] Created wrappers for usql
+[DEBUG]       Created bash wrapper for: usql
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/usql/usql.exe
+[DEBUG] Created bash wrappers for usql
+[DEBUG] Checking MSYS deps: has_msys_deps=false
+[DEBUG] About to create cmd wrappers for usql
+[DEBUG]     Found executables in usql: 1 files
+[DEBUG]       SKIPPED: usql conflicts with existing command
+[DEBUG] Failed to create cmd wrappers for usql
 [DEBUG] Processing package: volatility
 [DEBUG] Package volatility has importType: auto
-[DEBUG] Using auto mode for volatility
+[DEBUG] Creating wrappers for volatility
+[DEBUG] About to create bash wrappers for volatility
 [DEBUG]     Found executables in volatility: 2 files
-[DEBUG]       Processing executable: vol.exe -> vol (args: '')
-[DEBUG]       Created wrappers for: vol
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/volatility/vol.exe
-[DEBUG]       Processing executable: VolatilityWorkbench.exe -> VolatilityWorkbench (args: '')
-[DEBUG]       Created wrappers for: VolatilityWorkbench
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/volatility/VolatilityWorkbench.exe
-[DEBUG] Created wrappers for volatility
+[DEBUG]       Created bash wrapper for: vol
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/volatility/vol.exe
+[DEBUG]       SKIPPED: Executable does not exist: /c/App/Git/home/portx/packages/volatility/VolatilityWorkbench.exe
+[DEBUG] Created bash wrappers for volatility
+[DEBUG] Checking MSYS deps: has_msys_deps=false
+[DEBUG] About to create cmd wrappers for volatility
+[DEBUG]     Found executables in volatility: 2 files
+[DEBUG]       SKIPPED: vol conflicts with existing command
+[DEBUG]       SKIPPED: Executable does not exist: /c/App/Git/home/portx/packages/volatility/VolatilityWorkbench.exe
+[DEBUG] Failed to create cmd wrappers for volatility
 [DEBUG] Processing package: wget
 [DEBUG] Package wget has importType: auto
-[DEBUG] Using auto mode for wget
+[DEBUG] Creating wrappers for wget
+[DEBUG] About to create bash wrappers for wget
 [DEBUG]     Found executables in wget: 1 files
-[DEBUG]       Processing executable: wget.exe -> wget (args: '')
-[DEBUG]       Created wrappers for: wget
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/wget/wget.exe
-[DEBUG] Created wrappers for wget
+[DEBUG]       Created bash wrapper for: wget
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/wget/wget.exe
+[DEBUG] Created bash wrappers for wget
+[DEBUG] Checking MSYS deps: has_msys_deps=false
+[DEBUG] About to create cmd wrappers for wget
+[DEBUG]     Found executables in wget: 1 files
+[DEBUG]       SKIPPED: wget conflicts with existing command
+[DEBUG] Failed to create cmd wrappers for wget
 [DEBUG] Processing package: wireshark-cli
 [DEBUG] Package wireshark-cli has importType: auto
-[DEBUG] Using auto mode for wireshark-cli
+[DEBUG] Creating wrappers for wireshark-cli
+[DEBUG] About to create bash wrappers for wireshark-cli
 [DEBUG]     Found executables in wireshark-cli: 3 files
-[DEBUG]       Processing executable: tshark.exe -> tshark (args: '')
-[DEBUG]       Created wrappers for: tshark
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/wireshark-cli/tshark.exe
-[DEBUG]       Processing executable: dumpcap.exe -> dumpcap (args: '')
-[DEBUG]       Created wrappers for: dumpcap
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/wireshark-cli/dumpcap.exe
-[DEBUG]       Processing executable: capinfos.exe -> capinfos (args: '')
-[DEBUG]       Created wrappers for: capinfos
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/wireshark-cli/capinfos.exe
-[DEBUG] Created wrappers for wireshark-cli
+[DEBUG]       Created bash wrapper for: tshark
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/wireshark-cli/tshark.exe
+[DEBUG]       Created bash wrapper for: dumpcap
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/wireshark-cli/dumpcap.exe
+[DEBUG]       Created bash wrapper for: capinfos
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/wireshark-cli/capinfos.exe
+[DEBUG] Created bash wrappers for wireshark-cli
+[DEBUG] Checking MSYS deps: has_msys_deps=false
+[DEBUG] About to create cmd wrappers for wireshark-cli
+[DEBUG]     Found executables in wireshark-cli: 3 files
+[DEBUG]       SKIPPED: tshark conflicts with existing command
+[DEBUG]       SKIPPED: dumpcap conflicts with existing command
+[DEBUG]       SKIPPED: capinfos conflicts with existing command
+[DEBUG] Failed to create cmd wrappers for wireshark-cli
 [DEBUG] Processing package: yara
 [DEBUG] Package yara has importType: auto
-[DEBUG] Using auto mode for yara
+[DEBUG] Creating wrappers for yara
+[DEBUG] About to create bash wrappers for yara
 [DEBUG]     Found executables in yara: 2 files
-[DEBUG]       Processing executable: yara32.exe -> yara32 (args: '')
-[DEBUG]       Created wrappers for: yara32
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/yara/yara32.exe
-[DEBUG]       Processing executable: yarac32.exe -> yarac32 (args: '')
-[DEBUG]       Created wrappers for: yarac32
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/yara/yarac32.exe
-[DEBUG] Created wrappers for yara
+[DEBUG]       Created bash wrapper for: yara32
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/yara/yara32.exe
+[DEBUG]       Created bash wrapper for: yarac32
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/yara/yarac32.exe
+[DEBUG] Created bash wrappers for yara
+[DEBUG] Checking MSYS deps: has_msys_deps=false
+[DEBUG] About to create cmd wrappers for yara
+[DEBUG]     Found executables in yara: 2 files
+[DEBUG]       SKIPPED: yara32 conflicts with existing command
+[DEBUG]       SKIPPED: yarac32 conflicts with existing command
+[DEBUG] Failed to create cmd wrappers for yara
 [DEBUG] Processing package: yarn
 [DEBUG] SKIPPED: No executables found for yarn
 [DEBUG] Processing package: yq
 [DEBUG] Package yq has importType: auto
-[DEBUG] Using auto mode for yq
+[DEBUG] Creating wrappers for yq
+[DEBUG] About to create bash wrappers for yq
 [DEBUG]     Found executables in yq: 1 files
-[DEBUG]       Processing executable: yq.exe -> yq (args: '')
-[DEBUG]       Created wrappers for: yq
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/yq/yq.exe
-[DEBUG] Created wrappers for yq
+[DEBUG]       Created bash wrapper for: yq
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/yq/yq.exe
+[DEBUG] Created bash wrappers for yq
+[DEBUG] Checking MSYS deps: has_msys_deps=false
+[DEBUG] About to create cmd wrappers for yq
+[DEBUG]     Found executables in yq: 1 files
+[DEBUG]       SKIPPED: yq conflicts with existing command
+[DEBUG] Failed to create cmd wrappers for yq
 [DEBUG] Processing package: zstd
 [DEBUG] Package zstd has importType: auto
-[DEBUG] Using auto mode for zstd
+[DEBUG] Creating wrappers for zstd
+[DEBUG] About to create bash wrappers for zstd
 [DEBUG]     Found executables in zstd: 1 files
-[DEBUG]       Processing executable: zstd.exe -> zstd (args: '')
-[DEBUG]       Created wrappers for: zstd
-[DEBUG]       Target exe: C:/App/Git/home/portx/packages/zstd/zstd.exe
-[DEBUG] Created wrappers for zstd
+[DEBUG]       Created bash wrapper for: zstd
+[DEBUG]       Target exe: /c/App/Git/home/portx/packages/zstd/zstd.exe
+[DEBUG] Created bash wrappers for zstd
+[DEBUG] Checking MSYS deps: has_msys_deps=false
+[DEBUG] About to create cmd wrappers for zstd
+[DEBUG]     Found executables in zstd: 1 files
+[DEBUG]       SKIPPED: zstd conflicts with existing command
+[DEBUG] Failed to create cmd wrappers for zstd
+[DEBUG] /home/portx/portx-packages-verify.log
