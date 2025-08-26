@@ -32,7 +32,7 @@
         "--memstr",
         "--console"
       ],
-      "dependencies": [],
+      "dependencies": "windows",
       "aliases": [],
       "category": "security",
       "source": "scripts"
@@ -52,7 +52,7 @@
         "--string",
         "--only"
       ],
-      "dependencies": [],
+      "dependencies": "windows",
       "aliases": [],
       "category": "security",
       "source": "scripts"

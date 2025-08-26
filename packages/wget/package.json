@@ -6,9 +6,7 @@
       "executable": "wget.exe",
       "description": "Network downloader for retrieving files from web servers using HTTP, HTTPS, and FTP",
       "usage": "wget https://example.com/file.zip # Download single file\\nwget -r -np -k https://site.com/ # Mirror website recursively\\nwget --user=username --password=pass ftp://server/file # FTP with authentication\\nwget -c https://large-file.zip # Resume interrupted download\\nwget -O output.html https://example.com # Save with custom filename",
-      "dependencies": [
-        "system-windows"
-      ]
+      "dependencies": "windows"
     }
   ],
   "paths": [

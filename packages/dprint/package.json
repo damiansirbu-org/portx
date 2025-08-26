@@ -7,11 +7,7 @@
       "executable": "dprint.exe",
       "description": "High-performance code formatter with plugin architecture",
       "usage": "dprint fmt src/ # Format specific directory\\ndprint check --diff # Show formatting differences without applying\\ndprint fmt --config custom.json *.ts # Use custom configuration\\ndprint init --type typescript # Initialize TypeScript configuration\\ndprint upgrade # Update plugins to latest versions",
-      "dependencies": [
-        "ntdll.dll",
-        "KERNEL32.DLL",
-        "KERNELBASE.dll"
-      ]
+      "dependencies": "windows"
     }
   ],
   "paths": [

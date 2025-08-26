@@ -6,7 +6,7 @@
 # This provides fast access to all PORTX tools and packages
 #
 # GENERATION INFO:
-#   Generated: Tue, Aug 26, 2025  3:12:34 AM
+#   Generated: Tue, Aug 26, 2025  3:35:52 AM
 #   Git Bash Directory: /c/App/Git
 #   Packages Directory: /c/App/Git/home/portx/packages
 #
@@ -35,18 +35,12 @@ PACKAGES_PATH="$PACKAGES_PATH:/c/App/Git/home/portx/packages/gitsdk-usr-bin"  # 
 
 # PORTX PATH statistics
 export PORTX_ENV_TYPE="MSYS2-UCRT64/xterm-256color"
-export GIT_FOR_WINDOWS_COUNT=349
-export PORTX_WRAPPERS_COUNT=2
+export GFW_DIRS=3
+export GFW_EXECUTABLES=349
 export PORTX_PKG_DIRS=106
 export PORTX_PKG_EXECUTABLES=416
 export PORTX_TOTAL_EXECUTABLES=767
-export PORTX_TOTAL_DIRS=3
-export PORTX_LAST_SCAN="2025-08-26 03:12"
-export MINGW_COUNT=349
-export BIN_COUNT=2
-export PACKAGES_EXE_COUNT=416
-export PACKAGES_COUNT=106
-export TOTAL_EXE_COUNT=767
-export TOTAL_PATH_DIRS=3
-export PATH_LAST_SCAN="2025-08-26 03:12"
+export PORTX_TOTAL_DIRS=5
+export PORTX_LAST_SCAN="2025-08-26 03:35"
+export PATH_LAST_SCAN="2025-08-26 03:35"
 

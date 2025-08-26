@@ -5,9 +5,7 @@
     {
       "executable": "helmfile.exe",
       "description": "Declarative Helm chart deployment tool with environment management",
-      "dependencies": [
-        "system-windows"
-      ],
+      "dependencies": "windows",
       "usage": "helmfile apply # Deploy all charts\\nhelmfile -e production apply # Deploy to specific environment\\nhelmfile diff # Show deployment differences\\nhelmfile destroy # Remove all releases\\nhelmfile template # Render templates locally"
     }
   ],

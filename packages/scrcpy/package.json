@@ -7,16 +7,12 @@
       "executable": "adb.exe",
       "description": "Android Debug Bridge for device communication and debugging",
       "usage": "adb devices # List connected devices\nadb shell # Interactive device shell\nadb install app.apk # Install application\nadb pull /sdcard/file.txt . # Download file from device\nadb push file.txt /sdcard/ # Upload file to device",
-      "dependencies": [
-        "embedded"
-      ]
+      "dependencies": "windows"
     },
     {
       "executable": "scrcpy.exe",
       "description": "Display and control Android devices over USB/WiFi with low latency",
-      "dependencies": [
-        "multimedia-runtime"
-      ],
+      "dependencies": "windows",
       "usage": "scrcpy # Mirror default device\\nscrcpy -s DEVICE_ID # Specific device\\nscrcpy --max-size 1024 # Limit resolution\\nscrcpy --record file.mp4 # Record session\\nscrcpy --turn-screen-off # Turn off device screen"
     }
   ],

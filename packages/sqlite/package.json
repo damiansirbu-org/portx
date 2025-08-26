@@ -7,33 +7,25 @@
       "executable": "sqldiff.exe",
       "description": "Compare and display differences between two SQLite database files",
       "usage": "sqldiff database1.db database2.db # Compare databases\nsqldiff --summary db1.db db2.db # Summary of differences\nsqldiff --changeset changes.db db1.db db2.db # Generate changeset\nsqldiff --table users db1.db db2.db # Compare specific table",
-      "dependencies": [
-        "embedded"
-      ]
+      "dependencies": "windows"
     },
     {
       "executable": "sqlite3.exe",
       "description": "SQLite command-line shell for database operations and queries",
-      "dependencies": [
-        "embedded"
-      ],
+      "dependencies": "windows",
       "usage": "sqlite3 database.db # Open database\\nsqlite3 -header -csv database.db 'SELECT * FROM users;' # CSV output\\nsqlite3 database.db < schema.sql # Execute SQL file\\nsqlite3 -bail database.db '.dump' > backup.sql # Create backup\\nsqlite3 ':memory:' # In-memory database"
     },
     {
       "executable": "sqlite3_analyzer.exe",
       "description": "Analyze SQLite database structure and provide detailed storage statistics",
       "usage": "sqlite3_analyzer database.db # Full database analysis\nsqlite3_analyzer database.db > report.txt # Save analysis report\nsqlite3_analyzer --help # Show available options",
-      "dependencies": [
-        "embedded"
-      ]
+      "dependencies": "windows"
     },
     {
       "executable": "sqlite3_rsync.exe",
       "description": "Synchronize SQLite databases over network connections with incremental updates",
       "usage": "sqlite3_rsync client.db server_url # Sync local to remote\nsqlite3_rsync --server database.db # Run as sync server\nsqlite3_rsync --download remote.db local.db # Download from remote\nsqlite3_rsync --verbose client.db server # Verbose sync operation",
-      "dependencies": [
-        "embedded"
-      ]
+      "dependencies": "windows"
     }
   ],
   "paths": [

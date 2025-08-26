@@ -7,59 +7,13 @@
       "executable": "Capture2Text.exe",
       "description": "GUI OCR tool with hotkey screen capture and multi-language support",
       "usage": "Capture2Text.exe # Launch OCR GUI with hotkey configuration\\nWindows Key + Q # Default hotkey for screen text capture\\nAlt + Q # Capture text and read aloud with TTS\\nConfigure languages and OCR settings in GUI\\nSupports Japanese, Chinese, German, French, and 100+ languages",
-      "dependencies": [
-        "ntdll.dll",
-        "KERNEL32.DLL",
-        "KERNELBASE.dll",
-        "USER32.dll",
-        "win32u.dll",
-        "GDI32.dll",
-        "gdi32full.dll",
-        "msvcp_win.dll",
-        "WS2_32.dll",
-        "ucrtbase.dll",
-        "RPCRT4.dll",
-        "SHELL32.dll",
-        "ADVAPI32.dll",
-        "ole32.dll",
-        "msvcrt.dll",
-        "combase.dll",
-        "sechost.dll",
-        "bcrypt.dll",
-        "CRYPT32.dll",
-        "tesseract400.dll",
-        "pvt.cppan.demo.danbloomberg.leptonica-1.74.4.dll",
-        "Qt5Core.dll",
-        "Qt5Gui.dll",
-        "Qt5Widgets.dll",
-        "Qt5Network.dll",
-        "Qt5TextToSpeech.dll",
-        "VCRUNTIME140.dll",
-        "MSVCP140.dll"
-      ]
+      "dependencies": "windows"
     },
     {
       "executable": "Capture2Text_CLI.exe",
       "description": "Command-line OCR for batch text extraction from images",
       "usage": "Capture2Text_CLI.exe -i image.png -o text.txt # Extract text to file\\nCapture2Text_CLI.exe --lang jpn -i japanese.jpg # Japanese OCR\\nCapture2Text_CLI.exe --whitelist \"0123456789\" -i digits.png # Extract only numbers\\nCapture2Text_CLI.exe --scale-factor 2 -i small_text.png # Scale up for better OCR\\nCapture2Text_CLI.exe --show-conf -i scan.jpg # Show confidence scores",
-      "dependencies": [
-        "ntdll.dll",
-        "KERNEL32.DLL",
-        "KERNELBASE.dll",
-        "USER32.dll",
-        "win32u.dll",
-        "GDI32.dll",
-        "gdi32full.dll",
-        "msvcp_win.dll",
-        "ucrtbase.dll",
-        "msvcrt.dll",
-        "tesseract400.dll",
-        "pvt.cppan.demo.danbloomberg.leptonica-1.74.4.dll",
-        "Qt5Core.dll",
-        "Qt5Gui.dll",
-        "VCRUNTIME140.dll",
-        "MSVCP140.dll"
-      ]
+      "dependencies": "windows"
     }
   ],
   "paths": [

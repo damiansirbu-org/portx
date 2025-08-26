@@ -6,105 +6,79 @@
     {
       "executable": "basename.exe",
       "description": "Extract filename component from file path by removing directory prefix",
-      "dependencies": [
-        "msys-runtime"
-      ],
+      "dependencies": "windows",
       "usage": "basename /path/to/file.txt # Returns: file.txt\nbasename /path/to/file.txt .txt # Returns: file\nbasename $(pwd) # Get current directory name"
     },
     {
       "executable": "convert.exe",
       "description": "Path format converter between Windows and UNIX-style paths",
-      "dependencies": [
-        "embedded"
-      ],
+      "dependencies": "windows",
       "usage": "convert -w /c/path # Convert to Windows format: C:\\path\nconvert -u 'C:\\path' # Convert to UNIX format: /c/path"
     },
     {
       "executable": "cygpath.exe",
       "description": "Convert between MSYS2/Cygwin and Windows path formats with comprehensive options",
-      "dependencies": [
-        "msys-runtime"
-      ],
+      "dependencies": "windows",
       "usage": "cygpath -w /home/user # Convert to Windows path\ncygpath -u 'C:\\Users' # Convert to UNIX path\ncygpath -am /tmp # Absolute mixed path"
     },
     {
       "executable": "dirname.exe",
       "description": "Extract directory component from file path by removing filename suffix",
-      "dependencies": [
-        "msys-runtime"
-      ],
+      "dependencies": "windows",
       "usage": "dirname /path/to/file.txt # Returns: /path/to\ndirname $(pwd)/script.sh # Get parent directory\ncd $(dirname $0) # Go to script directory"
     },
     {
       "executable": "hardlink.exe",
       "description": "Create hard links to files for space-efficient file duplication",
-      "dependencies": [
-        "msys-runtime"
-      ],
+      "dependencies": "windows",
       "usage": "hardlink source.txt target.txt # Create hard link\nhardlink -n source.txt # Count existing links\nhardlink -v source.txt backup.txt # Verbose linking"
     },
     {
       "executable": "link.exe",
       "description": "Create file links with extended options and validation",
-      "dependencies": [
-        "msys-runtime"
-      ],
+      "dependencies": "windows",
       "usage": "link -s source.txt symlink.txt # Create symbolic link\nlink -f source.txt hardlink.txt # Force link creation\nlink -v source.txt target.txt # Verbose link operation"
     },
     {
       "executable": "ln.exe",
       "description": "UNIX-style link creator for symbolic and hard links with standard options",
-      "dependencies": [
-        "msys-runtime"
-      ],
+      "dependencies": "windows",
       "usage": "ln -s /path/to/file symlink # Create symbolic link\nln file1.txt file2.txt # Create hard link\nln -sf new_target existing_link # Force symbolic link"
     },
     {
       "executable": "pathchk.exe",
       "description": "Validate file path names for portability and system compatibility",
-      "dependencies": [
-        "msys-runtime"
-      ],
+      "dependencies": "windows",
       "usage": "pathchk /path/to/file # Check path validity\npathchk -p /portable/path # Check POSIX portability\npathchk -P /strict/path # Strict portability check"
     },
     {
       "executable": "readlink.exe",
       "description": "Read and resolve symbolic links to display target paths",
-      "dependencies": [
-        "msys-runtime"
-      ],
+      "dependencies": "windows",
       "usage": "readlink symlink.txt # Show link target\nreadlink -f symlink.txt # Canonicalize path\nreadlink -e symlink.txt # Require existing target"
     },
     {
       "executable": "realpath.exe",
       "description": "Resolve absolute canonical path by following all symbolic links",
-      "dependencies": [
-        "msys-runtime"
-      ],
+      "dependencies": "windows",
       "usage": "realpath file.txt # Get absolute path\nrealpath -s symlink # Don't resolve final symlink\nrealpath --relative-to=/base /path # Get relative path"
     },
     {
       "executable": "unlink.exe",
       "description": "Remove single file or symbolic link using UNIX-style unlink operation",
-      "dependencies": [
-        "msys-runtime"
-      ],
+      "dependencies": "windows",
       "usage": "unlink file.txt # Remove file\nunlink symlink # Remove symbolic link\nunlink /tmp/tempfile # Remove temporary file"
     },
     {
       "executable": "windmc.exe",
       "description": "Windows Message Compiler for creating message resource files from text definitions",
-      "dependencies": [
-        "mingw-runtime"
-      ],
+      "dependencies": "windows",
       "usage": "windmc messages.mc # Compile message file\nwindmc -h include_dir messages.mc # Set header directory\nwindmc -r res_dir messages.mc # Set resource directory"
     },
     {
       "executable": "windres.exe",
       "description": "Windows Resource Compiler for converting resource files to object format",
-      "dependencies": [
-        "mingw-runtime"
-      ],
+      "dependencies": "windows",
       "usage": "windres resource.rc resource.o # Compile resource\nwindres -i input.rc -o output.o # Specify input/output\nwindres --define MACRO=VALUE resource.rc # Define macro"
     }
   ],

@@ -20,7 +20,7 @@
       ],
       "flags": ["-V", "-?"],
       "common_args": ["-T", "-o", "-G", "-N", "-E", "-K"],
-      "dependencies": [],
+      "dependencies": "windows",
       "aliases": [],
       "category": "visualization",
       "source": "bin"
@@ -35,7 +35,7 @@
       ],
       "flags": ["-V", "-?"],
       "common_args": ["-T", "-o", "-G", "-N", "-E"],
-      "dependencies": [],
+      "dependencies": "windows",
       "aliases": [],
       "category": "visualization",
       "source": "bin"
@@ -50,7 +50,7 @@
       ],
       "flags": ["-V", "-?"],
       "common_args": ["-T", "-o", "-G", "-N", "-E"],
-      "dependencies": [],
+      "dependencies": "windows",
       "aliases": [],
       "category": "visualization",
       "source": "bin"
@@ -65,7 +65,7 @@
       ],
       "flags": ["-V", "-?"],
       "common_args": ["-T", "-o", "-G", "-N", "-E"],
-      "dependencies": [],
+      "dependencies": "windows",
       "aliases": [],
       "category": "visualization",
       "source": "bin"
@@ -80,7 +80,7 @@
       ],
       "flags": ["-V", "-?"],
       "common_args": ["-T", "-o", "-G", "-N", "-E"],
-      "dependencies": [],
+      "dependencies": "windows",
       "aliases": [],
       "category": "visualization",
       "source": "bin"
@@ -95,7 +95,7 @@
       ],
       "flags": ["-V", "-?"],
       "common_args": ["-T", "-o", "-G", "-N", "-E"],
-      "dependencies": [],
+      "dependencies": "windows",
       "aliases": [],
       "category": "visualization",
       "source": "bin"
@@ -109,7 +109,7 @@
       ],
       "flags": ["-V", "-?"],
       "common_args": ["-T", "-o", "-G", "-N", "-E"],
-      "dependencies": [],
+      "dependencies": "windows",
       "aliases": [],
       "category": "visualization",
       "source": "bin"
@@ -123,7 +123,7 @@
       ],
       "flags": ["-V", "-?"],
       "common_args": ["-T", "-o", "-G", "-N", "-E"],
-      "dependencies": [],
+      "dependencies": "windows",
       "aliases": [],
       "category": "visualization",
       "source": "bin"

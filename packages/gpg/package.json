@@ -5,41 +5,31 @@
     {
       "executable": "dirmngr.exe",
       "description": "GnuPG keyserver and certificate manager daemon",
-      "dependencies": [
-        "system-windows"
-      ],
+      "dependencies": "windows",
       "usage": "dirmngr --server # Start keyserver daemon\\ndirmngr --list-crls # List certificate revocation lists\\ndirmngr --lookup-cert email@example.com # Look up certificate"
     },
     {
       "executable": "gpg-agent.exe",
       "description": "GnuPG private key agent for secure key management and caching",
-      "dependencies": [
-        "system-windows"
-      ],
+      "dependencies": "windows",
       "usage": "gpg-agent --daemon # Start agent daemon\\ngpg-agent --reload # Reload configuration\\necho RELOADAGENT | gpg-connect-agent # Reload via socket"
     },
     {
       "executable": "gpg-connect-agent.exe",
       "description": "GnuPG agent communication tool for daemon control and key operations",
-      "dependencies": [
-        "system-windows"
-      ],
+      "dependencies": "windows",
       "usage": "gpg-connect-agent # Interactive agent communication\\necho 'KEYINFO --list' | gpg-connect-agent # List loaded keys\\necho '/bye' | gpg-connect-agent # Close connection"
     },
     {
       "executable": "gpg.exe",
       "description": "GNU Privacy Guard for encryption, digital signatures, and key management",
-      "dependencies": [
-        "system-windows"
-      ],
+      "dependencies": "windows",
       "usage": "gpg --gen-key # Generate new key pair\\ngpg --encrypt -r recipient@email.com file.txt # Encrypt file\\ngpg --decrypt file.txt.gpg # Decrypt file\\ngpg --sign document.pdf # Create digital signature\\ngpg --verify signature.sig file.txt # Verify signature"
     },
     {
       "executable": "gpgconf.exe",
       "description": "GnuPG configuration management and component control utility",
-      "dependencies": [
-        "system-windows"
-      ],
+      "dependencies": "windows",
       "usage": "gpgconf --list-components # List GnuPG components\\ngpgconf --reload gpg-agent # Reload specific component\\ngpgconf --list-options gpg # Show GPG options\\ngpgconf --change-options gpg # Modify configuration"
     }
   ],

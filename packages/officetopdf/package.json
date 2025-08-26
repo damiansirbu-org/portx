@@ -7,9 +7,7 @@
       "executable": "OfficeToPDF.exe",
       "description": "Convert Word, Excel, PowerPoint documents to PDF using Microsoft Office automation",
       "usage": "OfficeToPDF.exe document.docx output.pdf # Convert Word to PDF\\nOfficeToPDF.exe spreadsheet.xlsx report.pdf # Convert Excel to PDF\\nOfficeToPDF.exe presentation.pptx slides.pdf # Convert PowerPoint to PDF\\nOfficeToPDF.exe /bookmarks document.docx bookmarked.pdf # Include bookmarks",
-      "dependencies": [
-        "microsoft-office"
-      ]
+      "dependencies": "windows"
     }
   ],
   "paths": [

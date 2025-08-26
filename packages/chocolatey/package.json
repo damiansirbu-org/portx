@@ -7,10 +7,7 @@
       "executable": "choco.exe",
       "description": "PowerShell-based package manager with community repository support",
       "usage": "choco install firefox -y # Install package without prompts\\nchoco upgrade all --except=\"package1,package2\" # Update all except specified\\nchoco search --by-id-only nodejs # Exact package ID search\\nchoco list --local-only --include-programs # List all installed software\\nchoco pin add --name=\"package\" # Pin package to prevent updates",
-      "dependencies": [
-        "powershell",
-        "dotnet"
-      ]
+      "dependencies": "windows"
     }
   ],
   "paths": [

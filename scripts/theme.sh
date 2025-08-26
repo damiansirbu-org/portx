@@ -239,17 +239,14 @@ format_portx_status() {
 }
 
 format_tools_status() {
-    local mingw_dirs="${PORTX_MINGW_DIRS:-0}"
-    local mingw_execs="${PORTX_MINGW_EXECUTABLES:-0}"
-    local bin_dirs="${PORTX_BIN_DIRS:-0}" 
-    local bin_execs="${PORTX_BIN_EXECUTABLES:-0}"
+    local gfw_dirs="${GFW_DIRS:-0}"
+    local gfw_execs="${GFW_EXECUTABLES:-0}"
     local pkg_dirs="${PORTX_PKG_DIRS:-0}"
     local pkg_execs="${PORTX_PKG_EXECUTABLES:-0}"
     
-    printf '%bTools[mingw:%d/%d, bin:%d/%d, pkg:%d/%d]%b' \
+    printf '%bTools[gfw:%d/%d, pkg:%d/%d]%b' \
         "$(color_muted)" \
-        "$mingw_dirs" "$mingw_execs" \
-        "$bin_dirs" "$bin_execs" \
+        "$gfw_dirs" "$gfw_execs" \
         "$pkg_dirs" "$pkg_execs" \
         "$(color_reset)"
 }

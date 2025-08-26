@@ -21,7 +21,7 @@
       ],
       "flags": ["-h", "--help", "-v", "--version"],
       "common_args": ["-i", "-r", "-w", "-c", "-f", "-Y", "-T", "-V", "-x"],
-      "dependencies": [],
+      "dependencies": "windows",
       "aliases": [],
       "category": "network",
       "source": "./"
@@ -38,7 +38,7 @@
       ],
       "flags": ["-h", "--help", "-v", "--version"],
       "common_args": ["-i", "-w", "-D", "-a", "-b", "-f", "-s", "-P"],
-      "dependencies": [],
+      "dependencies": "windows",
       "aliases": [],
       "category": "network",
       "source": "./"
@@ -54,7 +54,7 @@
       ],
       "flags": ["-h", "--help"],
       "common_args": ["-t", "-c", "-s", "-a", "-e", "-u", "-d", "-T"],
-      "dependencies": [],
+      "dependencies": "windows",
       "aliases": [],
       "category": "network",
       "source": "./"

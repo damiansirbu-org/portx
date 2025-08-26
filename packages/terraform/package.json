@@ -6,9 +6,7 @@
       "executable": "terraform.exe",
       "description": "Infrastructure as Code with state management, preventing configuration drift through declarative syntax",
       "usage": "terraform plan -out=changes.tfplan # Preview infrastructure changes\\nterraform apply changes.tfplan # Execute planned changes\\nterraform import aws_instance.web i-1234567890abcdef0 # Import existing resources\\nterraform state list | grep aws_instance # Audit managed resources",
-      "dependencies": [
-        "system-windows"
-      ]
+      "dependencies": "windows"
     }
   ],
   "paths": [

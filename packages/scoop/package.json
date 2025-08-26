@@ -35,7 +35,7 @@
         "bucket",
         "cache"
       ],
-      "dependencies": [],
+      "dependencies": "windows",
       "aliases": [],
       "category": "package-manager",
       "source": "./"

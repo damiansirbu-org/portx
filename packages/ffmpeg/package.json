@@ -20,7 +20,7 @@
       ],
       "flags": ["--help", "--version"],
       "common_args": ["-i", "-c:v", "-c:a", "-b:v", "-b:a", "-r", "-s", "-ss", "-t", "-f"],
-      "dependencies": [],
+      "dependencies": "windows",
       "aliases": [],
       "category": "media",
       "source": "bin"
@@ -36,7 +36,7 @@
       ],
       "flags": ["--help", "--version"],
       "common_args": ["-loop", "-volume", "-fs", "-an", "-vn"],
-      "dependencies": [],
+      "dependencies": "windows",
       "aliases": [],
       "category": "media",
       "source": "bin"
@@ -52,7 +52,7 @@
       ],
       "flags": ["--help", "--version"],
       "common_args": ["-v", "-show_format", "-show_streams", "-print_format", "-select_streams"],
-      "dependencies": [],
+      "dependencies": "windows",
       "aliases": [],
       "category": "media",
       "source": "bin"

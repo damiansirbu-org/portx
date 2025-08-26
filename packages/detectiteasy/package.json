@@ -7,46 +7,19 @@
       "executable": "die.exe",
       "description": "GUI packer detector with signature database and entropy analysis",
       "usage": "die malware.exe # Interactive GUI analysis with detailed results\\ndie --scan=all --json suspicious.dll > analysis.json # Full scan with JSON export\\ndie --db-path=custom.db sample.bin # Use custom signature database\\ndie --scan=entropy,heuristic packed.exe # Multiple scan types\\ndie --recursive --mask=*.exe samples/ # Batch recursive scanning",
-      "dependencies": [
-        "Qt5Core.dll",
-        "Qt5Gui.dll",
-        "Qt5Widgets.dll",
-        "Qt5Script.dll",
-        "Qt5Network.dll",
-        "Qt5ScriptTools.dll",
-        "VCRUNTIME140.dll",
-        "VCRUNTIME140_1.dll",
-        "MSVCP140.dll",
-        "MSVCP140_1.dll"
-      ]
+      "dependencies": "windows"
     },
     {
       "executable": "diec.exe",
       "description": "Console packer detector for automated malware analysis pipelines",
       "usage": "diec --json sample.exe | jq '.detects[].name' # Extract detected packers\\ndiec --all --verbose malware.bin # Comprehensive analysis\\ndiec --signature-scan --entropy trojan.exe # Combined signature and entropy\\ndiec --db-stats # Display signature database statistics\\ndiec --scan-time=30 large_binary.exe # Set scan timeout",
-      "dependencies": [
-        "Qt5Core.dll",
-        "Qt5Script.dll",
-        "VCRUNTIME140.dll",
-        "VCRUNTIME140_1.dll",
-        "MSVCP140.dll",
-        "MSVCP140_1.dll"
-      ]
+      "dependencies": "windows"
     },
     {
       "executable": "diel.exe",
       "description": "Lightweight packer detector optimized for speed over completeness",
       "usage": "diel --fast *.exe # Quick batch scanning mode\\ndiel --basic-info --no-scan binary.dll # File info without deep analysis\\ndiel --format=csv samples/ > results.csv # CSV output format\\ndiel --quick-detect --exit-code packed.exe # Return exit code for scripts\\ndiel --minimal-output suspicious.bin # Terse output for automation",
-      "dependencies": [
-        "Qt5Core.dll",
-        "Qt5Gui.dll",
-        "Qt5Widgets.dll",
-        "Qt5Script.dll",
-        "VCRUNTIME140.dll",
-        "VCRUNTIME140_1.dll",
-        "MSVCP140.dll",
-        "MSVCP140_1.dll"
-      ]
+      "dependencies": "windows"
     }
   ],
   "paths": [

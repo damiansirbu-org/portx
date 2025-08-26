@@ -7,9 +7,7 @@
       "executable": "rclone.exe",
       "description": "Sync files and directories to/from cloud storage providers like Google Drive, S3, Dropbox, and 70+ others",
       "usage": "rclone copy /local/path remote:bucket # Copy files to cloud\\nrclone sync /local remote:folder --dry-run # Preview sync operations\\nrclone mount remote:bucket /mnt/cloud # Mount cloud storage\\nrclone serve webdav remote: --addr :8080 # WebDAV server\\nrclone config # Configure cloud providers",
-      "dependencies": [
-        "embedded"
-      ]
+      "dependencies": "windows"
     }
   ],
   "paths": [

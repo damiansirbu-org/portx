@@ -5,9 +5,7 @@
     {
       "executable": "lazydocker.exe",
       "description": "Terminal UI for Docker and Docker Compose with mouse support",
-      "dependencies": [
-        "system-windows"
-      ],
+      "dependencies": "windows",
       "usage": "lazydocker # Launch Docker TUI\\nm - View container logs, e - Execute command in container\\nx - Remove container, r - Restart container\\nTab - Switch between panels, ? - Help"
     }
   ],

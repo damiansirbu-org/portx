@@ -5,17 +5,13 @@
     {
       "executable": "exiftool(-k).exe",
       "description": "ExifTool with -k option to keep console window open on Windows",
-      "dependencies": [
-        "system-windows"
-      ],
+      "dependencies": "windows",
       "usage": "\\\"exiftool(-k).exe\\\" image.jpg # View metadata with persistent window\\n\\\"exiftool(-k).exe\\\" -all= clean_image.jpg # Remove all metadata"
     },
     {
       "executable": "exiftool.exe",
       "description": "Comprehensive metadata reader/writer for images, videos, and documents",
-      "dependencies": [
-        "system-windows"
-      ],
+      "dependencies": "windows",
       "usage": "exiftool image.jpg # Read all metadata\\nexiftool -GPS* photo.jpg # Show GPS data\\nexiftool -overwrite_original -all= secure.jpg # Strip metadata\\nexiftool -r -ext jpg -GPSLatitude . # Find geotagged images"
     }
   ],

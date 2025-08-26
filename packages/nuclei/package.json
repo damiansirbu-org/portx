@@ -5,9 +5,7 @@
     {
       "executable": "nuclei.exe",
       "description": "YAML-driven vulnerability scanner with 9000+ community templates for modern threat detection",
-      "dependencies": [
-        "system-windows"
-      ],
+      "dependencies": "windows",
       "usage": "nuclei -u https://target.com -t cves/ -silent # CVE hunting\\nnuclei -l targets.txt -t exposures/ -severity critical # Exposure scan\\nnuclei -target https://api.com -t technologies/ # Tech fingerprinting\\nnuclei -u target.com -t misconfiguration/ -markdown-export report.md"
     }
   ],

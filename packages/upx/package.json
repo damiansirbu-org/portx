@@ -7,9 +7,7 @@
       "executable": "upx.exe",
       "description": "Compress executables and shared libraries to reduce file size while maintaining functionality",
       "usage": "upx program.exe # Compress executable with default settings\\nupx --best program.exe # Maximum compression\\nupx -d packed.exe # Decompress/unpack executable\\nupx -t packed.exe # Test packed executable integrity\\nupx --info packed.exe # Show packing information",
-      "dependencies": [
-        "embedded"
-      ]
+      "dependencies": "windows"
     }
   ],
   "paths": [

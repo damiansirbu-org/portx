@@ -7,9 +7,7 @@
       "executable": "tokei.exe",
       "description": "Display statistics about code, including lines of code, comments, and blanks by language",
       "usage": "tokei . # Count lines in current directory\\ntokei --files src/ # Show per-file statistics\\ntokei --output json . # JSON format output\\ntokei --exclude '*.test.js' . # Exclude test files\\ntokei --sort lines . # Sort by line count",
-      "dependencies": [
-        "embedded"
-      ]
+      "dependencies": "windows"
     }
   ],
   "paths": [

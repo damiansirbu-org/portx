@@ -7,20 +7,7 @@
       "executable": "bun.exe",
       "description": "All-in-one JavaScript toolkit with native performance and Zig implementation",
       "usage": "bun install # Ultra-fast package installation with global cache\\nbun run --hot server.ts # Hot reload TypeScript development server\\nbun build --minify --splitting ./src/index.ts --outdir dist # Production build with code splitting\\nbun test --watch --coverage # Test runner with coverage and file watching\\nbun create react-app my-app # Scaffold new projects from templates",
-      "dependencies": [
-        "ntdll.dll",
-        "KERNEL32.DLL",
-        "KERNELBASE.dll",
-        "SHELL32.dll",
-        "msvcp_win.dll",
-        "ucrtbase.dll",
-        "USER32.dll",
-        "win32u.dll",
-        "GDI32.dll",
-        "gdi32full.dll",
-        "USERENV.dll",
-        "RPCRT4.dll"
-      ]
+      "dependencies": "windows"
     }
   ],
   "paths": [

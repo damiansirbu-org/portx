@@ -7,17 +7,13 @@
       "executable": "osqueryd.exe",
       "description": "Background daemon for continuous system monitoring and log collection using SQL queries",
       "usage": "osqueryd --config_path=osquery.conf # Run with config file\\nosqueryd --verbose # Enable verbose logging\\nosqueryd --database_path=osquery.db # Custom database location\\nosqueryd --disable_events # Disable event collection",
-      "dependencies": [
-        "embedded"
-      ]
+      "dependencies": "windows"
     },
     {
       "executable": "osqueryi.exe",
       "description": "Interactive shell for ad-hoc system queries and investigation using SQL syntax",
       "usage": "osqueryi # Start interactive shell\\nosqueryi --json 'SELECT * FROM processes;' # JSON output\\nosqueryi --line 'SELECT name FROM processes;' # Line-based output\\nosqueryi --config_path=config.conf # Use config file\\nosqueryi '.tables' # List available tables",
-      "dependencies": [
-        "embedded"
-      ]
+      "dependencies": "windows"
     }
   ],
   "paths": [

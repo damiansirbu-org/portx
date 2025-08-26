@@ -7,9 +7,7 @@
       "executable": "sd.exe",
       "description": "Fast and intuitive find & replace tool with regex support, safer than sed",
       "usage": "sd 'old_text' 'new_text' file.txt # Simple replacement\\nsd '\\d+' 'NUMBER' *.txt # Regex replacement in multiple files\\nsd --preview 'foo' 'bar' file.txt # Preview changes without applying\\nsd -s 'literal.string' 'replacement' file.txt # Literal string mode",
-      "dependencies": [
-        "embedded"
-      ]
+      "dependencies": "windows"
     }
   ],
   "paths": [

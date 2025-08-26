@@ -7,17 +7,13 @@
       "executable": "yara32.exe",
       "description": "Scan files and processes using YARA rules to identify malware and suspicious patterns",
       "usage": "yara32 rules.yar suspicious_file.exe # Scan file with rules\\nyara32 -r rules.yar /path/to/scan # Recursive directory scan\\nyara32 -p 1234 rules.yar # Scan running process by PID\\nyara32 -s rules.yar file.exe # Show matching strings\\nyara32 -g rules.yar file.exe # Print tags and metadata",
-      "dependencies": [
-        "embedded"
-      ]
+      "dependencies": "windows"
     },
     {
       "executable": "yarac32.exe",
       "description": "Compile YARA rules into binary format for faster scanning and distribution",
       "usage": "yarac32 rules.yar rules.yarc # Compile rules to binary\\nyarac32 -d symbol=value rules.yar # Define external variables\\nyarac32 -n namespace rules.yar # Specify rule namespace\\nyarac32 -w rules.yar # Show compilation warnings",
-      "dependencies": [
-        "embedded"
-      ]
+      "dependencies": "windows"
     }
   ],
   "paths": [

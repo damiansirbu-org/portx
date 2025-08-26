@@ -31,7 +31,7 @@
         "--contexts",
         "--labels"
       ],
-      "dependencies": [],
+      "dependencies": "windows",
       "aliases": [],
       "category": "database",
       "source": "./"
@@ -51,7 +51,7 @@
         "--username",
         "--password"
       ],
-      "dependencies": [],
+      "dependencies": "windows",
       "aliases": [],
       "category": "database",
       "source": "./"

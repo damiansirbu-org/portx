@@ -7,9 +7,7 @@
       "executable": "BinSkim.exe",
       "description": "PE/MSIL security analyzer with comprehensive vulnerability detection",
       "usage": "BinSkim analyze app.exe --output results.sarif # Analyze single binary to SARIF\\nBinSkim analyze *.dll --recurse --config custom.json # Recursive DLL analysis with config\\nBinSkim analyze --verbose --hashes C:\\\\Program Files\\\\MyApp\\\\ # Detailed analysis with file hashes\\nBinSkim export-rules --output rules.xml # Export security rules\\nBinSkim dump binary.exe --pdb # Dump binary metadata with PDB info",
-      "dependencies": [
-        "dotnet"
-      ]
+      "dependencies": "windows"
     }
   ],
   "paths": [

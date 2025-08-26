@@ -5,9 +5,7 @@
     {
       "executable": "subfinder.exe",
       "description": "Passive subdomain discovery tool using multiple online sources",
-      "dependencies": [
-        "system-windows"
-      ],
+      "dependencies": "windows",
       "usage": "subfinder -d example.com # Find subdomains\\nsubfinder -dL domains.txt # Multiple domains from file\\nsubfinder -d example.com -o results.txt # Save output\\nsubfinder -d example.com -silent # Silent mode\\nsubfinder -d example.com -recursive # Recursive enumeration"
     }
   ],

@@ -5,9 +5,7 @@
     {
       "executable": "shellcheck.exe",
       "description": "Static analysis tool for shell scripts to find bugs and improve code",
-      "dependencies": [
-        "system-windows"
-      ],
+      "dependencies": "windows",
       "usage": "shellcheck script.sh # Check script for issues\\nshellcheck -f json script.sh # JSON output\\nshellcheck -e SC2086 script.sh # Exclude specific check\\nshellcheck -S style script.sh # Style suggestions only\\nfind . -name '*.sh' -exec shellcheck {} +"
     }
   ],

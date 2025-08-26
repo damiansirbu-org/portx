@@ -5,9 +5,7 @@
     {
       "executable": "lazygit.exe",
       "description": "Terminal UI for Git commands with intuitive keyboard shortcuts",
-      "dependencies": [
-        "system-windows"
-      ],
+      "dependencies": "windows",
       "usage": "lazygit # Launch Git TUI\\nSpace - Stage/unstage files, c - Commit\\na - Stage all changes, p - Pull from remote\\nP - Push to remote, m - Merge, r - Rebase"
     }
   ],
