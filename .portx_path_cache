@@ -6,15 +6,15 @@
 # This provides fast access to all PORTX tools and packages
 #
 # GENERATION INFO:
-#   Generated: Tue, Aug 26, 2025 12:11:38 AM
-#   Git Bash Directory: C:/App/Git
-#   Packages Directory: C:/App/Git/home/portx/packages
+#   Generated: Tue, Aug 26, 2025  3:12:34 AM
+#   Git Bash Directory: /c/App/Git
+#   Packages Directory: /c/App/Git/home/portx/packages
 #
 # TOOL COUNTS:
-#   Git Bash Core: 51 executables
-#   PORTX Bin: 160 wrappers
+#   Git for Windows: 349 executables
+#   PORTX Wrappers: 2 wrappers
 #   PORTX Packages: 106 directories, 416 executables
-#   Total: 627 tools
+#   Total: 767 tools
 #
 # USAGE: This file is automatically sourced by .bashrc on shell startup.
 # To regenerate: rm ~/.portx_cache or run 'portx import'
@@ -23,30 +23,30 @@
 #   - PORTX packages are added/removed/updated
 #   - PORTX installation is moved or modified
 
-# Git Bash Home: C:/App/Git
+# Git Bash Home: /c/App/Git
 
 # Build PORTX PACKAGES PATH
 PACKAGES_PATH=""
-# PORTX packages added: 8 directories
+PACKAGES_PATH="$PACKAGES_PATH:/c/App/Git/home/portx/packages/gitsdk-mingw64-bin"  # 32 executables
+PACKAGES_PATH="$PACKAGES_PATH:/c/App/Git/home/portx/packages/gitsdk-usr-bin"  # 171 executables
+# PORTX packages added: 2 directories
 
 # NOTE: .bashrc controls PATH integration using PACKAGES_PATH
 
 # PORTX PATH statistics
-export PORTX_ENV_TYPE="MSYS2-MINGW64/xterm-256color"
-export PORTX_MINGW_DIRS=1
-export PORTX_MINGW_EXECUTABLES=51
-export PORTX_BIN_DIRS=1
-export PORTX_BIN_EXECUTABLES=160
+export PORTX_ENV_TYPE="MSYS2-UCRT64/xterm-256color"
+export GIT_FOR_WINDOWS_COUNT=349
+export PORTX_WRAPPERS_COUNT=2
 export PORTX_PKG_DIRS=106
 export PORTX_PKG_EXECUTABLES=416
-export PORTX_TOTAL_EXECUTABLES=627
-export PORTX_TOTAL_DIRS=9
-export PORTX_LAST_SCAN="2025-08-26 00:11"
-export MINGW_COUNT=51
-export BIN_COUNT=160
+export PORTX_TOTAL_EXECUTABLES=767
+export PORTX_TOTAL_DIRS=3
+export PORTX_LAST_SCAN="2025-08-26 03:12"
+export MINGW_COUNT=349
+export BIN_COUNT=2
 export PACKAGES_EXE_COUNT=416
 export PACKAGES_COUNT=106
-export TOTAL_EXE_COUNT=627
-export TOTAL_PATH_DIRS=9
-export PATH_LAST_SCAN="2025-08-26 00:11"
+export TOTAL_EXE_COUNT=767
+export TOTAL_PATH_DIRS=3
+export PATH_LAST_SCAN="2025-08-26 03:12"
 
