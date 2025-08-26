@@ -84,14 +84,76 @@ The type of resources or entities the tool works with:
 - Maintain consistent tagging across similar tools
 - Document any new tags that emerge during classification
 
+## PORTX Package.json Structure Reference
+
+### Standard Package Structure
+Every PORTX package follows this exact structure:
+
+```json
+{
+  "name": "package-name",
+  "version": "x.y.z", 
+  "description": "Brief description of package purpose and functionality",
+  "tools": [
+    {
+      "executable": "tool.exe",
+      "description": "Detailed tool description with purpose and capabilities",
+      "usage": "command examples\\nseparated by newlines\\nwith typical use cases",
+      "dependencies": "native|windows|msys-runtime",
+      "tags": ["purpose", "domain", "runtime", "target"]
+    }
+  ],
+  "paths": [
+    "./"
+  ]
+}
+```
+
+### Required Fields
+- **name**: Package identifier (lowercase, hyphen-separated)
+- **version**: Semantic version number
+- **description**: Comprehensive package description
+- **tools**: Array of tool objects (see Tool Structure)
+- **paths**: Array of relative paths where executables are located
+
+### Tool Structure
+Each tool object must contain:
+- **executable**: Exact executable filename (including .exe on Windows)
+- **description**: Detailed description of tool purpose and capabilities
+- **usage**: Multi-line usage examples separated by `\\n`
+- **dependencies**: Runtime dependency type
+- **tags**: Array of taxonomy tags (see 4-dimensional taxonomy)
+
+### Dependency Types
+- **native**: Compiled native binaries (C/C++/Rust/Go)
+- **windows**: Windows-specific native executables
+- **msys-runtime**: Requires MSYS2/MinGW runtime environment
+
+### Invalid Fields
+These fields are NOT supported and should never be used:
+- ❌ `category` - Use tags array instead
+- ❌ `aliases` - Not tracked in package.json
+- ❌ `source` - Not a valid field
+- ❌ `author` - Package-level metadata not supported
+- ❌ `license` - Not tracked at package level
+- ❌ `importType` - Invalid field
+- ❌ `import` - Invalid field
+- ❌ `architecture` - Not package metadata
+- ❌ `platform` - Not package metadata
+- ❌ `runtime` - Use tags instead
+- ❌ `categories` - Use tags array instead
+- ❌ `packageInfo` - Not a valid structure
+
 ## Implementation in package.json
 
-Add simple tags array to each tool object:
+Add tags array to each tool object following the 4-dimensional taxonomy:
 
 ```json
 {
   "executable": "ffmpeg.exe",
   "description": "Universal multimedia converter and processor",
+  "usage": "ffmpeg -i input.mp4 output.avi\\nffmpeg -i video.mp4 -vn audio.mp3",
+  "dependencies": "native",
   "tags": ["convert", "process", "media", "native", "files"]
 }
 ```
