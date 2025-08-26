@@ -7,9 +7,7 @@
       "executable": "zstd.exe",
       "description": "High-performance compression tool with excellent speed-to-compression ratio balance",
       "usage": "zstd file.txt # Compress file (creates file.txt.zst)\\nzstd -d file.txt.zst # Decompress file\\nzstd -19 file.txt # Maximum compression level\\nzstd -c file.txt > compressed.zst # Compress to stdout\\nzstd -r directory/ # Compress directory recursively",
-      "dependencies": [
-        "embedded"
-      ]
+      "dependencies": "windows"
     }
   ],
   "paths": [

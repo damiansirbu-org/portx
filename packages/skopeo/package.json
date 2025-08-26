@@ -7,9 +7,7 @@
       "executable": "skopeo.exe",
       "description": "Inspect, copy, and manage container images across registries without Docker daemon",
       "usage": "skopeo inspect docker://alpine:latest # Inspect remote image\\nskopeo copy docker://alpine:latest oci:./alpine # Copy to local OCI format\\nskopeo list-tags docker://nginx # List available tags\\nskopeo delete docker://registry.com/image:tag # Delete remote image\\nskopeo sync --src docker --dest dir registry.com/repo ./backup # Sync images",
-      "dependencies": [
-        "embedded"
-      ]
+      "dependencies": "windows"
     }
   ],
   "paths": [

@@ -7,9 +7,7 @@
       "executable": "lazysql.exe",
       "description": "Interactive terminal UI for browsing and querying SQL databases with vim-like navigation",
       "usage": "lazysql # Connect to database interactively\\nlazysql -host localhost -port 5432 -user postgres -dbname mydb # PostgreSQL connection\\nlazysql -config config.yml # Load connection from config file\\nlazysql mysql://user:pass@localhost/db # MySQL connection string",
-      "dependencies": [
-        "embedded"
-      ]
+      "dependencies": "windows"
     }
   ],
   "paths": [

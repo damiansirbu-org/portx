@@ -6,49 +6,37 @@
       "executable": "delta.exe",
       "description": "Syntax-highlighting diff pager with line numbering and side-by-side view",
       "usage": "git config --global core.pager delta # Set as git pager\\ndelta file1.txt file2.txt # Compare files\\necho 'diff --git a/old b/new' | delta # Pipe diff output\\ngit show HEAD | delta # View commit with syntax highlighting",
-      "dependencies": [
-        "system-windows"
-      ]
+      "dependencies": "windows"
     },
     {
       "executable": "difft.exe", 
       "description": "Structural diff tool that understands programming language syntax for better comparisons",
       "usage": "difft file1.py file2.py # Compare Python files with syntax awareness\\ngit difftool --tool=difft # Use as git difftool\\ndifft --language=javascript old.js new.js # Specify language\\ndifft --display=side-by-side src/ dest/ # Directory comparison",
-      "dependencies": [
-        "system-windows"
-      ]
+      "dependencies": "windows"
     },
     {
       "executable": "gh.exe",
       "description": "GitHub CLI for repository management, issues, pull requests, and GitHub Actions",
       "usage": "gh repo create myproject --public # Create repository\\ngh pr create --title 'Fix bug' --body 'Description' # Create pull request\\ngh issue list --label bug # List issues with label\\ngh workflow run ci.yml # Trigger GitHub Actions workflow",
-      "dependencies": [
-        "system-windows"
-      ]
+      "dependencies": "windows"
     },
     {
       "executable": "gitstatusd.exe",
       "description": "High-performance git status daemon for responsive terminal prompts",
       "usage": "gitstatusd # Run status daemon\\nexport GITSTATUS_DAEMON=$PWD/gitstatusd.exe # Set daemon path\\n# Used internally by powerlevel10k and other prompt themes\\n# Provides sub-second git status for large repositories",
-      "dependencies": [
-        "system-windows"
-      ]
+      "dependencies": "windows"
     },
     {
       "executable": "tig.exe",
       "description": "Text-mode interface for Git with powerful browsing, searching, and commit visualization",
       "usage": "tig # Browse repository history\\ntig status # Interactive staging area\\ntig blame file.txt # Blame view with navigation\\ntig show HEAD~5 # Show specific commit\\ntig --all # View all branches",
-      "dependencies": [
-        "system-windows"
-      ]
+      "dependencies": "windows"
     },
     {
       "executable": "git-lfs.exe",
       "description": "Git Large File Storage extension for versioning large binary files efficiently",
       "usage": "git lfs install # Initialize LFS in repository\\ngit lfs track '*.psd' '*.zip' # Track large file types\\ngit lfs ls-files # List tracked files\\ngit lfs pull # Download LFS objects\\ngit lfs migrate import --include='*.bin' # Migrate existing files",
-      "dependencies": [
-        "system-windows"
-      ]
+      "dependencies": "windows"
     }
   ],
   "paths": [

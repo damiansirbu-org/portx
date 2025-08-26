@@ -7,9 +7,7 @@
       "executable": "micro.exe",
       "description": "Latest development build of micro text editor with newest features and improvements",
       "usage": "micro file.txt # Edit file with latest features\\nmicro -colorscheme dracula # Use modern color scheme\\nmicro -plugin install lsp # Install language server plugin\\nmicro +50:20 file.txt # Jump to line 50, column 20\\nmicro -option autosu=true # Enable auto-save on focus loss",
-      "dependencies": [
-        "embedded"
-      ]
+      "dependencies": "windows"
     }
   ],
   "paths": [

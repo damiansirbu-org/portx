@@ -5,9 +5,7 @@
     {
       "executable": "fastboot.exe",
       "description": "Android fastboot protocol tool for bootloader flashing and device management",
-      "dependencies": [
-        "system-windows"
-      ],
+      "dependencies": "windows",
       "usage": "fastboot devices # List devices in fastboot mode\\nfastboot flash boot boot.img # Flash boot partition\\nfastboot oem unlock # Unlock bootloader\\nfastboot reboot # Reboot device\\nfastboot getvar all # Get device variables"
     }
   ],

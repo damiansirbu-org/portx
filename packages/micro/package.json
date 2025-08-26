@@ -7,9 +7,7 @@
       "executable": "micro.exe",
       "description": "Modern, intuitive terminal text editor with mouse support, syntax highlighting, and common key bindings",
       "usage": "micro file.txt # Edit file with familiar keybindings\\nmicro -colorscheme monokai # Use specific color scheme\\nmicro -plugin install filemanager # Install plugin\\nmicro +10 file.txt # Jump to line 10\\nmicro -config-dir /path # Custom config directory",
-      "dependencies": [
-        "embedded"
-      ]
+      "dependencies": "windows"
     }
   ],
   "paths": [

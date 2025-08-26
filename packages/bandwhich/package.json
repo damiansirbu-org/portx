@@ -7,32 +7,7 @@
       "executable": "bandwhich.exe",
       "description": "Real-time network monitor with process-level bandwidth tracking",
       "usage": "bandwhich # Monitor all network interfaces with process details\\nbandwhich -i Wi-Fi # Monitor specific network interface\\nbandwhich -r 500 # Refresh display every 500ms\\nbandwhich --addresses # Show remote IP addresses and ports\\nbandwhich --no-resolve # Skip DNS resolution for faster display",
-      "dependencies": [
-        "ntdll.dll",
-        "KERNEL32.DLL",
-        "KERNELBASE.dll",
-        "bcryptprimitives.dll",
-        "ws2_32.dll",
-        "RPCRT4.dll",
-        "advapi32.dll",
-        "msvcrt.dll",
-        "sechost.dll",
-        "powrprof.dll",
-        "pdh.dll",
-        "bcrypt.dll",
-        "ucrtbase.dll",
-        "iphlpapi.dll",
-        "psapi.dll",
-        "shell32.dll",
-        "msvcp_win.dll",
-        "USER32.dll",
-        "win32u.dll",
-        "GDI32.dll",
-        "gdi32full.dll",
-        "oleaut32.dll",
-        "combase.dll",
-        "VCRUNTIME140.dll"
-      ]
+      "dependencies": "windows"
     }
   ],
   "paths": [

@@ -7,9 +7,7 @@
       "executable": "ssdeep.exe",
       "description": "Generate and compare context triggered piecewise hashes (fuzzy hashes) to find similar files",
       "usage": "ssdeep file.txt # Generate fuzzy hash\\nssdeep -r /path # Recursive hash generation\\nssdeep -m hashfile.txt -d /suspect # Compare against known hashes\\nssdeep -b -r /samples > baseline.txt # Create hash baseline\\nssdeep -x hashfile.txt file.exe # Match against hash database",
-      "dependencies": [
-        "embedded"
-      ]
+      "dependencies": "windows"
     }
   ],
   "paths": [

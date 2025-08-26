@@ -5,9 +5,7 @@
     {
       "executable": "fx.exe",
       "description": "Interactive JSON viewer and processor with JavaScript expressions",
-      "dependencies": [
-        "system-windows"
-      ],
+      "dependencies": "windows",
       "usage": "fx data.json # Interactive JSON browser\\ncat data.json | fx '.users[0].name' # Extract specific field\\necho '{\\\"a\\\":1}' | fx 'this.b = 2; this' # Transform JSON\\nfx data.json '.filter(x => x.age > 30)' # Filter arrays"
     }
   ],

@@ -5,9 +5,7 @@
     {
       "executable": "yq.exe",
       "description": "YAML processor and transformer with jq-like syntax for YAML/JSON",
-      "dependencies": [
-        "system-windows"
-      ],
+      "dependencies": "windows",
       "usage": "yq '.name' config.yaml # Extract field\\nyq -i '.version = \\\"2.0\\\"' config.yaml # Update in-place\\nyq -o json config.yaml # Convert YAML to JSON\\nyq '.servers[] | select(.env == \\\"prod\\\")' config.yaml # Filter arrays"
     }
   ],

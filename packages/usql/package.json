@@ -7,9 +7,7 @@
       "executable": "usql.exe",
       "description": "Universal SQL client supporting PostgreSQL, MySQL, SQLite, Oracle, SQL Server and many others",
       "usage": "usql postgres://user:pass@host/db # Connect to PostgreSQL\\nusql mysql://user:pass@host/db # Connect to MySQL\\nusql sqlite:database.db # Connect to SQLite\\nusql 'SELECT * FROM users;' # Execute query directly\\nusql --drivers # List supported database drivers",
-      "dependencies": [
-        "embedded"
-      ]
+      "dependencies": "windows"
     }
   ],
   "paths": [

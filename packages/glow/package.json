@@ -5,9 +5,7 @@
     {
       "executable": "glow.exe",
       "description": "Terminal Markdown renderer with syntax highlighting and paging",
-      "dependencies": [
-        "system-windows"
-      ],
+      "dependencies": "windows",
       "usage": "glow README.md # Render Markdown file\\nglow -p # Browse local files\\necho '# Hello' | glow - # Render from stdin\\nglow -w 120 # Set custom width"
     }
   ],

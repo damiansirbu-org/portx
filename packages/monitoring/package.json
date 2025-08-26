@@ -7,17 +7,13 @@
       "executable": "promtool.exe",
       "description": "Command-line tooling for Prometheus monitoring system configuration and rule validation",
       "usage": "promtool check config prometheus.yml # Validate Prometheus config\\npromtool check rules rules.yml # Validate recording/alerting rules\\npromtool query instant 'up' # Execute instant query\\npromtool test rules test.yml # Test rules with sample data",
-      "dependencies": [
-        "embedded"
-      ]
+      "dependencies": "windows"
     },
     {
       "executable": "telegraf.exe",
       "description": "Agent for collecting and reporting metrics from systems, applications, and sensors",
       "usage": "telegraf --input-list # List available input plugins\\ntelegraf --config telegraf.conf # Run with specific config\\ntelegraf --test # Test configuration and output sample metrics\\ntelegraf --config-directory /etc/telegraf/conf.d # Use config directory",
-      "dependencies": [
-        "embedded"
-      ]
+      "dependencies": "windows"
     }
   ],
   "paths": [

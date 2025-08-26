@@ -7,9 +7,7 @@
       "executable": "minikube.exe",
       "description": "Run Kubernetes clusters locally for development with various virtualization drivers",
       "usage": "minikube start # Start local Kubernetes cluster\\nminikube status # Show cluster status\\nminikube dashboard # Open Kubernetes dashboard\\nminikube docker-env # Configure Docker to use minikube\\nminikube stop # Stop the cluster\\nminikube delete # Delete cluster",
-      "dependencies": [
-        "embedded"
-      ]
+      "dependencies": "windows"
     }
   ],
   "paths": [

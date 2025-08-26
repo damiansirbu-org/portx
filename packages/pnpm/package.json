@@ -7,9 +7,7 @@
       "executable": "pnpm.exe",
       "description": "Performant npm alternative with content-addressable storage and strict dependency isolation",
       "usage": "pnpm install # Install dependencies\\npnpm add package-name # Add new package\\npnpm run build # Run package script\\npnpm create vite my-app # Create new project\\npnpm store prune # Clean unused packages from store",
-      "dependencies": [
-        "embedded"
-      ]
+      "dependencies": "windows"
     }
   ],
   "paths": [

@@ -7,9 +7,7 @@
       "executable": "lz4.exe",
       "description": "Ultra-fast compression tool optimized for speed over compression ratio",
       "usage": "lz4 file.txt # Compress file to file.txt.lz4\\nlz4 -d file.txt.lz4 # Decompress to original\\nlz4 -9 file.txt # Maximum compression level\\nlz4 -c file.txt | process # Compress to stdout for piping\\nlz4 -f existing.lz4 # Force overwrite existing compressed file",
-      "dependencies": [
-        "embedded"
-      ]
+      "dependencies": "windows"
     }
   ],
   "paths": [

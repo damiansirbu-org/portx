@@ -27,9 +27,11 @@ success() { printf "%s%s%s\n" "$(color_success)" "$1" "$(color_reset)"; }
 warning() { printf "%s%s%s\n" "$(color_warning)" "$1" "$(color_reset)"; }
 
 # Configuration
-PACKAGES_DIR="$GIT_BASH_ROOT/home/portx/packages"
-SH_WRAPPERS_DIR="$GIT_BASH_ROOT/bin"
-CMD_WRAPPERS_DIR="$GIT_BASH_ROOT/cmd"
+# Convert Windows paths to MSYS format for bash commands
+GIT_BASH_ROOT_POSIX="${GIT_BASH_ROOT//C:/\/c}"
+PACKAGES_DIR="$GIT_BASH_ROOT_POSIX/home/portx/packages"
+SH_WRAPPERS_DIR="$GIT_BASH_ROOT_POSIX/bin"
+CMD_WRAPPERS_DIR="$GIT_BASH_ROOT_POSIX/cmd"
 PORTX_PATH_CACHE="$HOME/.portx_path_cache"
 PORTX_PACKAGES_CACHE="$HOME/.portx_packages_cache"
 PORTX_TOOLS_CACHE="$HOME/.portx_tools_cache"
@@ -73,7 +75,14 @@ PATH_PACKAGE_PATHS=()
 CORRUPTED_PACKAGE_NAMES=()
 MISMATCH_PACKAGE_NAMES=()
 
-# Method: Test wrapper functionality to determine if standalone (for verify command)
+# Error codes for wrapper testing (research-based)
+declare -g WRAPPER_MISSING_EXECUTABLE=10
+declare -g WRAPPER_DEPENDENCY_MISSING=11
+declare -g WRAPPER_TIMEOUT_EXCEEDED=12
+declare -g WRAPPER_UNSUPPORTED_FLAGS=13
+declare -g WRAPPER_FUNCTIONAL_PASS=0
+
+# Method: Test wrapper functionality with comprehensive error categorization
 test_wrapper_works() {
     local cmd_name="$1"
 
@@ -82,24 +91,31 @@ test_wrapper_works() {
     # Check if wrapper exists and is executable
     local wrapper_sh="$SH_WRAPPERS_DIR/$cmd_name"
     if [[ ! -f "$wrapper_sh" ]]; then
-        debug_log "$PORTX_VERIFY_LOG_FILE" "      Wrapper file does not exist: $wrapper_sh"
-        return 1
+        debug_log "$PORTX_VERIFY_LOG_FILE" "      MISSING_EXECUTABLE: $wrapper_sh"
+        return $WRAPPER_MISSING_EXECUTABLE
     fi
 
     if [[ ! -x "$wrapper_sh" ]]; then
-        debug_log "$PORTX_VERIFY_LOG_FILE" "      Wrapper file is not executable: $wrapper_sh"
-        return 1
+        debug_log "$PORTX_VERIFY_LOG_FILE" "      MISSING_EXECUTABLE: $wrapper_sh not executable"
+        return $WRAPPER_MISSING_EXECUTABLE
     fi
 
-    # Test basic wrapper execution using full path
+    # Test basic wrapper execution (dependency check)  
     debug_log "$PORTX_VERIFY_LOG_FILE" "      Testing basic wrapper execution"
     local basic_test_output
     basic_test_output=$(timeout 3 "$wrapper_sh" 2>&1 || true)
     local basic_exit_code=$?
-    debug_log "$PORTX_VERIFY_LOG_FILE" "      Basic execution exit code: $basic_exit_code"
-    if [[ -n "$basic_test_output" ]]; then
-        debug_log "$PORTX_VERIFY_LOG_FILE" "      Basic output: $(echo "$basic_test_output" | head -1)"
+    
+    # Check for dependency issues (common error patterns)
+    if [[ "$basic_exit_code" -eq 124 ]]; then
+        debug_log "$PORTX_VERIFY_LOG_FILE" "      TIMEOUT_EXCEEDED: Basic execution timed out"
+        return $WRAPPER_TIMEOUT_EXCEEDED
+    elif echo "$basic_test_output" | grep -qi "dll.*not found\|missing.*dependency\|cannot.*load"; then
+        debug_log "$PORTX_VERIFY_LOG_FILE" "      DEPENDENCY_MISSING: $basic_test_output"
+        return $WRAPPER_DEPENDENCY_MISSING
     fi
+    
+    debug_log "$PORTX_VERIFY_LOG_FILE" "      Basic execution exit code: $basic_exit_code"
 
     # Check if timeout command exists
     if ! command -v timeout >/dev/null 2>&1; then
@@ -115,21 +131,28 @@ test_wrapper_works() {
             fi
         done
     else
-        debug_log "$PORTX_VERIFY_LOG_FILE" "      Using timeout for wrapper tests"
+        debug_log "$PORTX_VERIFY_LOG_FILE" "      Using timeout for wrapper tests (10s timeout)"
         # Test with timeout using wrapper full path - comprehensive flags for CLI and GUI tools
         for flag in "--help" "--version" "-h" "-v" "/?" "-?" "help" "version" "--usage" "/help" "/version"; do
             debug_log "$PORTX_VERIFY_LOG_FILE" "      Testing flag with timeout: $flag"
-            if timeout 3 "$wrapper_sh" "$flag" >/dev/null 2>&1; then
-                debug_log "$PORTX_VERIFY_LOG_FILE" "      Wrapper test SUCCESS with flag: $flag"
-                return 0
+            local error_output
+            error_output=$(timeout 3 "$wrapper_sh" "$flag" 2>&1 >/dev/null || true)
+            local exit_code=$?
+            if [[ $exit_code -eq 0 ]]; then
+                debug_log "$PORTX_VERIFY_LOG_FILE" "      FUNCTIONAL_PASS: Success with flag $flag"
+                return $WRAPPER_FUNCTIONAL_PASS
             else
-                debug_log "$PORTX_VERIFY_LOG_FILE" "      Timeout flag $flag failed (exit: $?)"
+                if [[ $exit_code -eq 124 ]]; then
+                    debug_log "$PORTX_VERIFY_LOG_FILE" "      TIMEOUT_EXCEEDED: Flag $flag timed out"
+                    return $WRAPPER_TIMEOUT_EXCEEDED
+                fi
+                debug_log "$PORTX_VERIFY_LOG_FILE" "      Flag $flag failed (exit: $exit_code)"
             fi
         done
     fi
 
-    debug_log "$PORTX_VERIFY_LOG_FILE" "      Wrapper test FAILED for all flags"
-    return 1
+    # debug_log "$PORTX_VERIFY_LOG_FILE" "      UNSUPPORTED_FLAGS: Tool works but doesn't support help/version flags"
+    return $WRAPPER_UNSUPPORTED_FLAGS
 }
 
 # Method: Get executables from package.json (preferred) with defaultArgs
@@ -139,14 +162,17 @@ get_executables_from_json() {
 
     if [[ -f "$json_file" ]]; then
         # Extract executables with defaultArgs: "executable.exe|defaultArgs"
-        "$GIT_BASH_ROOT/home/portx/packages/jq/jq.exe" -r '.tools[]? | select(.executable) | "\(.executable)|\(.defaultArgs // "")"' "$json_file" 2>/dev/null
+        parse_json_with_comments "$json_file" '.tools[]? | select(.executable) | "\(.executable)|\(.defaultArgs // "")"'
     fi
 }
 
 # Method: Get executables by scanning directory (for validation)
 get_scanned_executables() {
     local pkg_dir="$1"
-    find "$pkg_dir" -maxdepth 1 -name "*.exe" -exec basename {} \; 2>/dev/null | sort
+    debug_log "$PORTX_VERIFY_LOG_FILE" "Scanning for executables in: $pkg_dir"
+    local result=$(find "$pkg_dir" -maxdepth 1 -name "*.exe" -exec basename {} \; 2>/dev/null | sort)
+    debug_log "$PORTX_VERIFY_LOG_FILE" "Found executables: $result"
+    echo "$result"
 }
 
 # Method: Parse package JSON for declared tools
@@ -160,7 +186,7 @@ parse_package_manual() {
     fi
 
     # Extract executables from JSON tools array
-    jq.cmd -r '.tools[]?.executable // empty' "$json_file" 2>/dev/null | sort -u
+    parse_json_with_comments "$json_file" '.tools[]?.executable // empty' | sort -u
 }
 
 # Method: Get package import type (path, wrap, or auto/default)
@@ -182,7 +208,7 @@ parse_json_with_comments() {
     if [[ "$jq_filter" == '.importType // empty' ]]; then
         grep '"importType"' "$json_file" | sed 's|.*"importType"[[:space:]]*:[[:space:]]*"||' | sed 's|".*||' | head -1
     else
-        clean_json_for_jq "$json_file" | "$GIT_BASH_ROOT/home/portx/packages/jq/jq.exe" -r "$jq_filter" 2>/dev/null || echo ""
+        clean_json_for_jq "$json_file" | "$GIT_BASH_ROOT_POSIX/home/portx/packages/jq/jq.exe" -r "$jq_filter" 2>/dev/null || echo ""
     fi
 }
 
@@ -229,8 +255,10 @@ validate_package() {
     fi
 
     # Check 2: Executables exist
+    debug_log "$PORTX_VERIFY_LOG_FILE" "validate_package: checking executables"
     local discovered_exes
     discovered_exes=$(get_scanned_executables "$pkg_dir")
+    debug_log "$PORTX_VERIFY_LOG_FILE" "validate_package: discovered_exes='$discovered_exes'"
     if [[ -z "$discovered_exes" ]]; then
         validation_issues+=("No executables found")
         validation_status="CORRUPTED"
@@ -256,12 +284,15 @@ validate_package() {
     fi
 
     # Silent validation results
+    debug_log "$PORTX_VERIFY_LOG_FILE" "validate_package: final status='$validation_status'"
     if [[ "$validation_status" == "VALID" ]]; then
         VALID_PACKAGES=$((VALID_PACKAGES + 1))
+        debug_log "$PORTX_VERIFY_LOG_FILE" "validate_package: returning 0 (valid)"
         return 0
     else
         CORRUPTED_PACKAGES=$((CORRUPTED_PACKAGES + 1))
         CORRUPTED_PACKAGE_NAMES+=("$pkg_name")
+        debug_log "$PORTX_VERIFY_LOG_FILE" "validate_package: returning 1 (corrupted)"
         return 1
     fi
 }
@@ -333,7 +364,7 @@ create_bash_wrappers() {
             
             # Create shell wrapper for Git Bash with defaultArgs
             mkdir -p "$SH_WRAPPERS_DIR"
-            local posix_exe_path="$GIT_BASH_ROOT/home/portx/packages/$pkg_name/$exe_name"
+            local posix_exe_path="$GIT_BASH_ROOT_POSIX/home/portx/packages/$pkg_name/$exe_name"
             if [[ -n "$default_args" && "$default_args" != "" ]]; then
                 cat >"$wrapper_sh" <<WRAPPER_EOF
 #!/bin/bash
@@ -492,7 +523,7 @@ create_wrappers() {
             fi
 
             # Create shell wrapper for Git Bash with defaultArgs
-            local posix_exe_path="$GIT_BASH_ROOT/home/portx/packages/$pkg_name/$exe_name"
+            local posix_exe_path="$GIT_BASH_ROOT_POSIX/home/portx/packages/$pkg_name/$exe_name"
             if [[ -n "$default_args" && "$default_args" != "" ]]; then
                 cat >"$wrapper_sh" <<WRAPPER_EOF
 #!/bin/bash
@@ -668,10 +699,10 @@ import_packages() {
         echo "#   Packages Directory: $PACKAGES_DIR"
         echo "#"
         echo "# TOOL COUNTS:"
-        echo "#   Git for Windows: $(find "$GIT_BASH_ROOT" -name "*.exe" -not -path "*/home/portx/packages/*" 2>/dev/null | wc -l) executables"
+        echo "#   Git for Windows: $(find "$GIT_BASH_ROOT_POSIX" -name "*.exe" -not -path "*/home/portx/packages/*" 2>/dev/null | wc -l) executables"
         echo "#   PORTX Wrappers: $(find "$CMD_WRAPPERS_DIR" -name "*.cmd" 2>/dev/null | wc -l) wrappers"
         echo "#   PORTX Packages: $TOTAL_PACKAGES directories, $TOTAL_EXECUTABLES executables"
-        echo "#   Total: $(($(find "$GIT_BASH_ROOT" -name "*.exe" -not -path "*/home/portx/packages/*" 2>/dev/null | wc -l) + $(find "$CMD_WRAPPERS_DIR" -name "*.cmd" 2>/dev/null | wc -l) + TOTAL_EXECUTABLES)) tools"
+        echo "#   Total: $(($(find "$GIT_BASH_ROOT_POSIX" -name "*.exe" -not -path "*/home/portx/packages/*" 2>/dev/null | wc -l) + $(find "$CMD_WRAPPERS_DIR" -name "*.cmd" 2>/dev/null | wc -l) + TOTAL_EXECUTABLES)) tools"
         echo "#"
         echo "# USAGE: This file is automatically sourced by .bashrc on shell startup."
         echo "# To regenerate: rm ~/.portx_cache or run 'portx import'"
@@ -698,10 +729,12 @@ import_packages() {
         echo ""
         echo "# PORTX PATH statistics"
 
-        GIT_FOR_WINDOWS_COUNT=$(find "$GIT_BASH_ROOT" -name "*.exe" -not -path "*/home/portx/packages/*" 2>/dev/null | wc -l)
+        # Calculate Git for Windows stats (directories with executables / total executables)  
+        GFW_DIRS=$(find "$GIT_BASH_ROOT_POSIX/bin" "$GIT_BASH_ROOT_POSIX/mingw64/bin" "$GIT_BASH_ROOT_POSIX/usr/bin" -name "*.exe" -printf '%h\n' 2>/dev/null | sort -u | wc -l)
+        GFW_EXECUTABLES=$(find "$GIT_BASH_ROOT_POSIX" -name "*.exe" -not -path "*/home/portx/packages/*" 2>/dev/null | wc -l)
         PORTX_WRAPPERS_COUNT=$(find "$CMD_WRAPPERS_DIR" -name "*.cmd" 2>/dev/null | wc -l)
-        TOTAL_COUNT=$((GIT_FOR_WINDOWS_COUNT + PORTX_WRAPPERS_COUNT + TOTAL_EXECUTABLES))
-        TOTAL_DIRS=$((PATH_PACKAGES + 1))
+        TOTAL_COUNT=$((GFW_EXECUTABLES + PORTX_WRAPPERS_COUNT + TOTAL_EXECUTABLES))
+        TOTAL_DIRS=$((GFW_DIRS + PATH_PACKAGES))
 
         # Raw structured data - following best practices
         # Generate environment info directly (avoid function dependency)
@@ -722,21 +755,13 @@ import_packages() {
             env_info="$env_info/$TERM"
         fi
         echo "export PORTX_ENV_TYPE=\"$env_info\""
-        echo "export GIT_FOR_WINDOWS_COUNT=$GIT_FOR_WINDOWS_COUNT"
-        echo "export PORTX_WRAPPERS_COUNT=$PORTX_WRAPPERS_COUNT"
+        echo "export GFW_DIRS=$GFW_DIRS"
+        echo "export GFW_EXECUTABLES=$GFW_EXECUTABLES" 
         echo "export PORTX_PKG_DIRS=$TOTAL_PACKAGES"
         echo "export PORTX_PKG_EXECUTABLES=$TOTAL_EXECUTABLES"
         echo "export PORTX_TOTAL_EXECUTABLES=$TOTAL_COUNT"
         echo "export PORTX_TOTAL_DIRS=$TOTAL_DIRS"
         echo "export PORTX_LAST_SCAN=\"$(date '+%Y-%m-%d %H:%M')\""
-
-        # Legacy compatibility (will be removed after testing)
-        echo "export MINGW_COUNT=$GIT_FOR_WINDOWS_COUNT"
-        echo "export BIN_COUNT=$PORTX_WRAPPERS_COUNT"
-        echo "export PACKAGES_EXE_COUNT=$TOTAL_EXECUTABLES"
-        echo "export PACKAGES_COUNT=$TOTAL_PACKAGES"
-        echo "export TOTAL_EXE_COUNT=$TOTAL_COUNT"
-        echo "export TOTAL_PATH_DIRS=$TOTAL_DIRS"
         echo "export PATH_LAST_SCAN=\"$(date '+%Y-%m-%d %H:%M')\""
         echo ""
     } >"$PORTX_PATH_CACHE"
@@ -757,6 +782,13 @@ verify_packages() {
     local failed_packages=0
     local wrapper_tests_passed=0
     local wrapper_tests_failed=0
+    local wrapper_missing=0
+    local wrapper_deps_missing=0
+    local wrapper_timeouts=0
+    local wrapper_flags_unsupported=0
+    local package_count=0
+    local total_packages=$(find "$PACKAGES_DIR" -maxdepth 1 -type d | wc -l)
+    total_packages=$((total_packages - 1)) # Subtract 1 for the parent directory
 
     # Validation: Compare package.json vs scanned executables and test wrappers
     debug_log "$PORTX_VERIFY_LOG_FILE" ""
@@ -765,22 +797,28 @@ verify_packages() {
     for pkg_path in "$PACKAGES_DIR"/*; do
         if [[ -d "$pkg_path" ]]; then
             pkg_name="$(basename "$pkg_path")"
+            package_count=$((package_count + 1))
+            printf "  [%d/%d] %s\n" "$package_count" "$total_packages" "$pkg_name" >&2
             debug_log "$PORTX_VERIFY_LOG_FILE" "Verifying package: $pkg_name"
 
             # Validate package integrity
+            debug_log "$PORTX_VERIFY_LOG_FILE" "About to validate: $pkg_path, $pkg_name"
             if validate_package "$pkg_path" "$pkg_name"; then
-                ((verified_packages++))
+                debug_log "$PORTX_VERIFY_LOG_FILE" "Package validation passed, about to increment verified_packages"
+                debug_log "$PORTX_VERIFY_LOG_FILE" "Current verified_packages value: '$verified_packages'"
+                verified_packages=$((verified_packages + 1))
+                debug_log "$PORTX_VERIFY_LOG_FILE" "Incremented verified_packages to: '$verified_packages'"
 
-                # Get executables from both sources
-                json_executables=$(get_executables_from_json "$pkg_path" | cut -d'|' -f1 | sort)
+                # Get executables from both sources  
+                debug_log "$PORTX_VERIFY_LOG_FILE" "Calling get_executables_from_json with: $pkg_path"
+                local raw_json_output
+                raw_json_output=$(get_executables_from_json "$pkg_path")
+                debug_log "$PORTX_VERIFY_LOG_FILE" "Raw JSON output: '$raw_json_output'"
+                json_executables=$(echo "$raw_json_output" | cut -d'|' -f1 | sort)
+                debug_log "$PORTX_VERIFY_LOG_FILE" "JSON executables: '$json_executables'"
                 scanned_executables=$(get_scanned_executables "$pkg_path")
 
                 if [[ -n "$json_executables" ]]; then
-                    # Check for malformed package.json entries
-                    malformed_count=$("$GIT_BASH_ROOT/home/portx/packages/jq/jq.exe" -r '.tools[]? | select(.description == "TODO: Add description" or (.description | test("TODO|todo|FIXME|fixme"))) | .executable' "$pkg_path/package.json" 2>/dev/null | wc -l)
-                    if [[ "$malformed_count" -gt 0 ]]; then
-                        debug_log "$PORTX_VERIFY_LOG_FILE" "MALFORMED: $pkg_name has $malformed_count tools with TODO/incomplete descriptions"
-                    fi
 
                     # Compare lists
                     json_only=$(comm -23 <(echo "$json_executables") <(echo "$scanned_executables") 2>/dev/null)
@@ -799,36 +837,84 @@ verify_packages() {
                     fi
 
                     # Test wrappers if they exist
+                    debug_log "$PORTX_VERIFY_LOG_FILE" "About to start wrapper testing loop with json_executables='$json_executables'"
                     while IFS= read -r exe_name; do
                         if [[ -n "$exe_name" ]]; then
                             local cmd_name="${exe_name%.*}"
-                            if [[ -f "$GIT_BASH_ROOT/bin/$cmd_name" ]]; then
-                                if test_wrapper_works "$cmd_name"; then
-                                    debug_log "$PORTX_VERIFY_LOG_FILE" "WRAPPER OK: $cmd_name"
-                                    ((wrapper_tests_passed++))
-                                else
-                                    debug_log "$PORTX_VERIFY_LOG_FILE" "WRAPPER FAILED: $cmd_name"
-                                    ((wrapper_tests_failed++))
-                                fi
+                            if [[ -f "$GIT_BASH_ROOT_POSIX/bin/$cmd_name" ]]; then
+                                printf "    Testing wrapper: %s" "$cmd_name" >&2; sync
+                                
+                                
+                                local test_result
+                                test_wrapper_works "$cmd_name"
+                                test_result=$?
+                                
+                                case $test_result in
+                                    $WRAPPER_FUNCTIONAL_PASS)
+                                        printf " ✓\n" >&2; sync
+                                        debug_log "$PORTX_VERIFY_LOG_FILE" "WRAPPER OK: $cmd_name"
+                                        wrapper_tests_passed=$((wrapper_tests_passed + 1))
+                                        ;;
+                                    $WRAPPER_MISSING_EXECUTABLE)
+                                        printf " ✗ (missing)\n" >&2; sync
+                                        debug_log "$PORTX_VERIFY_LOG_FILE" "WRAPPER FAILED: $cmd_name (missing executable)"
+                                        wrapper_tests_failed=$((wrapper_tests_failed + 1))
+                                        wrapper_missing=$((wrapper_missing + 1))
+                                        ;;
+                                    $WRAPPER_DEPENDENCY_MISSING)
+                                        printf " ✗ (deps)\n" >&2; sync
+                                        debug_log "$PORTX_VERIFY_LOG_FILE" "WRAPPER FAILED: $cmd_name (dependency missing)"
+                                        wrapper_tests_failed=$((wrapper_tests_failed + 1))
+                                        wrapper_deps_missing=$((wrapper_deps_missing + 1))
+                                        ;;
+                                    $WRAPPER_TIMEOUT_EXCEEDED)
+                                        printf " ✗ (timeout)\n" >&2; sync
+                                        debug_log "$PORTX_VERIFY_LOG_FILE" "WRAPPER FAILED: $cmd_name (timeout exceeded)"
+                                        wrapper_tests_failed=$((wrapper_tests_failed + 1))
+                                        wrapper_timeouts=$((wrapper_timeouts + 1))
+                                        ;;
+                                    $WRAPPER_UNSUPPORTED_FLAGS)
+                                        printf " ✗ (flags)\n" >&2; sync
+                                        debug_log "$PORTX_VERIFY_LOG_FILE" "WRAPPER FAILED: $cmd_name (unsupported flags)"
+                                        wrapper_tests_failed=$((wrapper_tests_failed + 1))
+                                        wrapper_flags_unsupported=$((wrapper_flags_unsupported + 1))
+                                        ;;
+                                    *)
+                                        printf " ✗ (unknown)\n" >&2; sync
+                                        debug_log "$PORTX_VERIFY_LOG_FILE" "WRAPPER FAILED: $cmd_name (unknown error: $test_result)"
+                                        wrapper_tests_failed=$((wrapper_tests_failed + 1))
+                                        ;;
+                                esac
+                                debug_log "$PORTX_VERIFY_LOG_FILE" "Completed wrapper test for: $cmd_name"
                             fi
                         fi
+                        debug_log "$PORTX_VERIFY_LOG_FILE" "Completed processing exe_name: '$exe_name'"
                     done <<<"$json_executables"
+                    debug_log "$PORTX_VERIFY_LOG_FILE" "Finished wrapper testing for package: $pkg_name"
                 else
                     if [[ -n "$scanned_executables" ]]; then
                         debug_log "$PORTX_VERIFY_LOG_FILE" "MISSING package.json: $pkg_name has $(echo "$scanned_executables" | wc -l) executables"
                     fi
                 fi
             else
-                ((failed_packages++))
+                failed_packages=$((failed_packages + 1))
                 debug_log "$PORTX_VERIFY_LOG_FILE" "VALIDATION FAILED: $pkg_name"
             fi
         fi
+        debug_log "$PORTX_VERIFY_LOG_FILE" "Completed processing package: $pkg_name"
     done
+
+    debug_log "$PORTX_VERIFY_LOG_FILE" "Finished processing all packages"
 
     debug_log "$PORTX_VERIFY_LOG_FILE" "=== END VALIDATION REPORT ==="
 
-    printf "Verified %d packages (%d failed), wrapper tests: %d passed, %d failed\n" \
-        "$verified_packages" "$failed_packages" "$wrapper_tests_passed" "$wrapper_tests_failed" >&2
+    printf "Verified %d packages (%d failed)\n" "$verified_packages" "$failed_packages" >&2
+    printf "Wrapper tests: %d passed, %d failed" "$wrapper_tests_passed" "$wrapper_tests_failed" >&2
+    if [[ $wrapper_tests_failed -gt 0 ]]; then
+        printf " (missing:%d, deps:%d, timeout:%d, flags:%d)" \
+            "$wrapper_missing" "$wrapper_deps_missing" "$wrapper_timeouts" "$wrapper_flags_unsupported" >&2
+    fi
+    printf "\n" >&2
 }
 
 # ===== TOOLS AGGREGATOR FUNCTIONALITY (from portx.sh backup) =====

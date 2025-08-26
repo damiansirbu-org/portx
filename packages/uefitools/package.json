@@ -7,17 +7,13 @@
       "executable": "UEFIExtract.exe",
       "description": "Extract and analyze UEFI firmware images, modules, and components",
       "usage": "UEFIExtract firmware.fd # Extract all components from firmware\\nUEFIExtract -dump firmware.fd output/ # Extract to specific directory\\nUEFIExtract -info firmware.fd # Show firmware structure info\\nUEFIExtract -text firmware.fd # Extract as text for analysis",
-      "dependencies": [
-        "embedded"
-      ]
+      "dependencies": "windows"
     },
     {
       "executable": "UEFIFind.exe",
       "description": "Search for patterns, strings, and signatures within UEFI firmware images",
       "usage": "UEFIFind firmware.fd text 'string_to_find' # Search for text strings\\nUEFIFind firmware.fd hex '48656C6C6F' # Search for hex patterns\\nUEFIFind firmware.fd guid AAAAAAAA-BBBB-CCCC-DDDD-EEEEEEEEEEEE # Find GUID\\nUEFIFind firmware.fd all # Find all known patterns",
-      "dependencies": [
-        "embedded"
-      ]
+      "dependencies": "windows"
     }
   ],
   "paths": [

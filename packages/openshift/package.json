@@ -7,9 +7,7 @@
       "executable": "oc.exe",
       "description": "OpenShift CLI for managing applications, builds, deployments, and cluster resources",
       "usage": "oc login https://api.cluster.com # Login to cluster\\noc new-app nodejs~https://github.com/user/app # Create new application\\noc get pods # List running pods\\noc logs deployment/myapp # View application logs\\noc scale --replicas=3 deployment/myapp # Scale deployment",
-      "dependencies": [
-        "embedded"
-      ]
+      "dependencies": "windows"
     }
   ],
   "paths": [

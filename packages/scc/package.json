@@ -7,9 +7,7 @@
       "executable": "scc.exe",
       "description": "Sloc, Cloc and Code complexity counter with support for 200+ programming languages",
       "usage": "scc . # Count lines in current directory\\nscc --by-file src/ # Show per-file statistics\\nscc --format json . # JSON output format\\nscc --exclude-dir node_modules,vendor . # Exclude directories\\nscc --sort complexity . # Sort by complexity",
-      "dependencies": [
-        "embedded"
-      ]
+      "dependencies": "windows"
     }
   ],
   "paths": [

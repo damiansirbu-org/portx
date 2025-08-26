@@ -7,9 +7,7 @@
       "executable": "shfmt.exe",
       "description": "Format and pretty-print shell scripts with consistent style and indentation",
       "usage": "shfmt script.sh # Format and print to stdout\\nshfmt -w *.sh # Format files in-place\\nshfmt -i 4 script.sh # Use 4-space indentation\\nshfmt -d script.sh # Show diff of changes\\nshfmt -ln bash script.sh # Format as Bash script",
-      "dependencies": [
-        "embedded"
-      ]
+      "dependencies": "windows"
     }
   ],
   "paths": [

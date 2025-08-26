@@ -7,9 +7,7 @@
       "executable": "par2.exe",
       "description": "Create and use parity files for error detection and correction to recover damaged or missing files",
       "usage": "par2 create archive.par2 file1.txt file2.txt # Create parity files\\npar2 verify archive.par2 # Check for errors\\npar2 repair archive.par2 # Repair damaged files\\npar2 create -r5 archive.par2 *.jpg # 5% redundancy for images",
-      "dependencies": [
-        "embedded"
-      ]
+      "dependencies": "windows"
     }
   ],
   "paths": [

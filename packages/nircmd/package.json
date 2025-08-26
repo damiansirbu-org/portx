@@ -7,17 +7,13 @@
       "executable": "nircmd.exe",
       "description": "Comprehensive command-line tool for Windows operations like window management, system control, and registry manipulation",
       "usage": "nircmd win hide title \"Calculator\" # Hide window by title\\nnircmd setvolume 0.8 # Set system volume to 80%\\nnircmd cdrom open # Open CD/DVD tray\\nnircmd monitor off # Turn off monitor\\nnircmd exitwin shutdown # Shutdown system",
-      "dependencies": [
-        "system-windows"
-      ]
+      "dependencies": "windows"
     },
     {
       "executable": "nircmdc.exe",
       "description": "Console version of NirCmd with enhanced output and scripting capabilities",
       "usage": "nircmdc win max process \"notepad.exe\" # Maximize notepad windows\\nnircmdc setdefaultsounddevice \"Speakers\" # Set default audio device\\nnircmdc exec show \"C:\\\\Program Files\" # Open folder\\nnircmdc killprocess \"process.exe\" # Kill process by name",
-      "dependencies": [
-        "system-windows"
-      ]
+      "dependencies": "windows"
     }
   ],
   "paths": [

@@ -7,33 +7,13 @@
       "executable": "aws.exe",
       "description": "AWS CLI v2 with improved JSON handling and SSO authentication",
       "usage": "aws configure sso # Setup SSO authentication\\naws s3 sync ./local s3://bucket/path --delete # Sync with deletion\\naws ec2 describe-instances --filters Name=instance-state-name,Values=running --query 'Reservations[].Instances[].[InstanceId,PublicDnsName]' --output table\\naws cloudformation deploy --template-file template.yaml --stack-name my-stack --capabilities CAPABILITY_IAM\\naws logs tail /aws/lambda/function-name --follow # Real-time log tailing",
-      "dependencies": [
-        "ntdll.dll",
-        "KERNEL32.DLL",
-        "KERNELBASE.dll",
-        "ADVAPI32.dll",
-        "msvcrt.dll",
-        "sechost.dll",
-        "RPCRT4.dll",
-        "bcrypt.dll",
-        "WS2_32.dll"
-      ]
+      "dependencies": "windows"
     },
     {
       "executable": "aws_completer.exe",
       "description": "Shell completion engine for AWS CLI commands and parameters",
       "usage": "complete -C aws_completer aws # Enable bash completion\\necho 'complete -C aws_completer aws' >> ~/.bashrc # Persist completion\\naws s3 cp<TAB> # Auto-complete copy operations\\naws ec2 describe-<TAB> # Complete EC2 describe commands\\naws --cli-auto-prompt # Interactive command building",
-      "dependencies": [
-        "ntdll.dll",
-        "KERNEL32.DLL",
-        "KERNELBASE.dll",
-        "ADVAPI32.dll",
-        "msvcrt.dll",
-        "sechost.dll",
-        "RPCRT4.dll",
-        "bcrypt.dll",
-        "WS2_32.dll"
-      ]
+      "dependencies": "windows"
     }
   ],
   "paths": [

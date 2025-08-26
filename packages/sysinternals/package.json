@@ -6,234 +6,176 @@
     {
       "executable": "accesschk64.exe",
       "description": "Display access permissions for files, registry keys, and Windows services",
-      "dependencies": [
-        "system-windows"
-      ],
+      "dependencies": "windows",
       "usage": "accesschk64 -s /path # Show access for path\naccesschk64 -q -u user service # Check service access\naccesschk64 -w /path # Show write access"
     },
     {
       "executable": "adrestore64.exe",
       "description": "Restore deleted Active Directory objects from tombstone state",
-      "dependencies": [
-        "system-windows"
-      ],
+      "dependencies": "windows",
       "usage": "adrestore64 -r \"CN=DeletedUser,CN=Deleted Objects,DC=domain,DC=com\" # Restore deleted user\nadrestore64 -l # List deleted objects"
     },
     {
       "executable": "autorunsc64.exe",
       "description": "Command-line version of Autoruns showing programs configured to run during startup",
-      "dependencies": [
-        "system-windows"
-      ],
+      "dependencies": "windows",
       "usage": "autorunsc64 -a # Show all autorun entries\nautorunsc64 -m # Show only Microsoft entries\nautorunsc64 -c # CSV output format"
     },
     {
       "executable": "clockres64.exe",
       "description": "Display system clock resolution and timer information for performance analysis",
-      "dependencies": [
-        "system-windows"
-      ],
+      "dependencies": "windows",
       "usage": "clockres64 # Show clock resolution\nclockres64 -c # Continuous monitoring\nclockres64 -h # High precision mode"
     },
     {
       "executable": "Contig64.exe",
       "description": "Defragment individual files or analyze file fragmentation on NTFS volumes",
-      "dependencies": [
-        "system-windows"
-      ],
+      "dependencies": "windows",
       "usage": "Contig64 -a file.txt # Analyze fragmentation\nContig64 -f file.txt # Defragment file\nContig64 -s /path # Show fragmentation stats"
     },
     {
       "executable": "Coreinfo64.exe",
       "description": "Display CPU and memory topology information including cores, threads, cache hierarchy, and NUMA nodes",
       "usage": "Coreinfo64 # Show CPU topology\\nCoreinfo64 -c # Logical to physical core mapping\\nCoreinfo64 -g # Group assignments\\nCoreinfo64 -n # NUMA node topology",
-      "dependencies": [
-        "system-windows"
-      ]
+      "dependencies": "windows"
     },
     {
       "executable": "FindLinks64.exe",
       "description": "Find all hard links to a file and display file link information on NTFS volumes",
       "usage": "FindLinks64 file.txt # Find all hard links to file\\nFindLinks64 -v /path # Verbose output for path\\nFindLinks64 -r /dir # Recursive search in directory",
-      "dependencies": [
-        "system-windows"
-      ]
+      "dependencies": "windows"
     },
     {
       "executable": "handle64.exe",
       "description": "Display open handles for processes, helping identify file and resource locks",
       "usage": "handle64 # Show all handles\\nhandle64 file.txt # Show handles to specific file\\nhandle64 -p 1234 # Show handles for process ID\\nhandle64 -u # Show unnamed handles",
-      "dependencies": [
-        "system-windows"
-      ]
+      "dependencies": "windows"
     },
     {
       "executable": "hex2dec64.exe",
       "description": "Convert hexadecimal numbers to decimal and vice versa with support for various number bases",
       "usage": "hex2dec64 0x1A # Convert hex to decimal\\nhex2dec64 -d 26 # Convert decimal to hex\\nhex2dec64 -b 8 77 # Convert octal to decimal",
-      "dependencies": [
-        "system-windows"
-      ]
+      "dependencies": "windows"
     },
     {
       "executable": "junction64.exe",
       "description": "Create, delete, and list NTFS junction points and symbolic links on Windows",
       "usage": "junction64 link target # Create junction point\\njunction64 -d link # Delete junction\\njunction64 -s # Show existing junctions\\njunction64 link # Show junction target",
-      "dependencies": [
-        "system-windows"
-      ]
+      "dependencies": "windows"
     },
     {
       "executable": "listdlls64.exe",
       "description": "Display loaded DLLs for running processes with version information and base addresses",
       "usage": "listdlls64 # List DLLs for all processes\\nlistdlls64 -p 1234 # List DLLs for specific PID\\nlistdlls64 -v # Verbose version information\\nlistdlls64 explorer # List DLLs for process name",
-      "dependencies": [
-        "system-windows"
-      ]
+      "dependencies": "windows"
     },
     {
       "executable": "LogonSessions64.exe",
       "description": "Display active logon sessions and associated processes on the local system",
       "usage": "LogonSessions64 # Show all logon sessions\\nLogonSessions64 -p # Include process information\\nLogonSessions64 -c # Show session creation time\\nLogonSessions64 -s # Summary format",
-      "dependencies": [
-        "system-windows"
-      ]
+      "dependencies": "windows"
     },
     {
       "executable": "PendMoves64.exe",
       "description": "Display files and directories scheduled for move or delete on next reboot",
       "usage": "PendMoves64 # Show pending moves and deletes\\nPendMoves64 -c # Clear pending operations\\nPendMoves64 -v # Verbose output with full paths",
-      "dependencies": [
-        "system-windows"
-      ]
+      "dependencies": "windows"
     },
     {
       "executable": "pipelist64.exe",
       "description": "Display named pipes on the system and processes that have them open",
       "usage": "pipelist64 # List all named pipes\\npipelist64 -v # Verbose pipe information\\npipelist64 pipe_name # Show specific pipe details",
-      "dependencies": [
-        "system-windows"
-      ]
+      "dependencies": "windows"
     },
     {
       "executable": "procdump64.exe",
       "description": "Generate dumps of running processes for analysis and troubleshooting",
       "usage": "procdump64 -ma process.exe # Full memory dump\\nprocdump64 -e 1 -f C00000FD process.exe # Dump on exception\\nprocdump64 -c 80 -s 5 process.exe # CPU threshold trigger\\nprocdump64 -t process.exe # Terminate after dump",
-      "dependencies": [
-        "system-windows"
-      ]
+      "dependencies": "windows"
     },
     {
       "executable": "PsExec64.exe",
       "description": "Execute processes remotely and locally with different user credentials and system privileges",
       "usage": "PsExec64 \\\\remote-pc cmd # Run command on remote system\\nPsExec64 -s cmd # Run as SYSTEM account\\nPsExec64 -i -s cmd # Interactive SYSTEM session\\nPsExec64 -u user -p pass \\\\pc cmd # With credentials",
-      "dependencies": [
-        "system-windows"
-      ]
+      "dependencies": "windows"
     },
     {
       "executable": "psfile64.exe",
       "description": "Display files opened remotely via file shares and optionally close them",
       "usage": "psfile64 # Show all remote file opens\\npsfile64 \\\\\\remote-pc # Files on specific system\\npsfile64 -c 123 # Close file by ID\\npsfile64 file.txt # Show opens for specific file",
-      "dependencies": [
-        "system-windows"
-      ]
+      "dependencies": "windows"
     },
     {
       "executable": "PsGetsid64.exe",
       "description": "Display Security Identifier (SID) for user accounts on local or remote systems",
       "usage": "PsGetsid64 username # Get SID for user\\nPsGetsid64 \\\\remote-pc username # Remote user SID\\nPsGetsid64 S-1-5-21-123... # Convert SID to username",
-      "dependencies": [
-        "system-windows"
-      ]
+      "dependencies": "windows"
     },
     {
       "executable": "psinfo64.exe",
       "description": "Display system information including hardware, OS version, and installed software",
       "usage": "psinfo64 # Local system info\\npsinfo64 \\\\remote-pc # Remote system info\\npsinfo64 -h # Hardware details\\npsinfo64 -s # Installed software\\npsinfo64 -d # Disk space",
-      "dependencies": [
-        "system-windows"
-      ]
+      "dependencies": "windows"
     },
     {
       "executable": "pskill64.exe",
       "description": "Kill processes by name or process ID on local or remote systems",
       "usage": "pskill64 notepad # Kill by process name\\npskill64 1234 # Kill by PID\\npskill64 \\\\remote-pc notepad # Kill on remote system\\npskill64 -t 1234 # Kill process tree",
-      "dependencies": [
-        "system-windows"
-      ]
+      "dependencies": "windows"
     },
     {
       "executable": "PsList64.exe",
       "description": "Display detailed information about running processes including CPU usage and memory statistics",
       "usage": "PsList64 # List all processes\\nPsList64 -m # Include memory usage\\nPsList64 -t # Show process tree\\nPsList64 -x # Show threads and handles\\nPsList64 notepad # Info for specific process",
-      "dependencies": [
-        "system-windows"
-      ]
+      "dependencies": "windows"
     },
     {
       "executable": "PsLoggedon64.exe",
       "description": "Display locally and remotely logged on users with logon times and session information",
       "usage": "PsLoggedon64 # Show local logons\\nPsLoggedon64 \\\\remote-pc # Remote system logons\\nPsLoggedon64 -l # Local logons only\\nPsLoggedon64 -x # Don't show logon times",
-      "dependencies": [
-        "system-windows"
-      ]
+      "dependencies": "windows"
     },
     {
       "executable": "psping64.exe",
       "description": "Enhanced ping utility with TCP ping, latency testing, and bandwidth measurement capabilities",
       "usage": "psping64 hostname # ICMP ping\\npsping64 -t hostname:80 # TCP ping to port\\npsping64 -l 1024 -n 100 hostname # Latency test\\npsping64 -b -l 1k -n 1000 hostname:80 # Bandwidth test",
-      "dependencies": [
-        "system-windows"
-      ]
+      "dependencies": "windows"
     },
     {
       "executable": "RegDelNull64.exe",
       "description": "Delete registry keys containing null characters that cannot be deleted with standard tools",
       "usage": "RegDelNull64 HKLM\\\\Software\\\\BadKey # Delete key with null chars\\nRegDelNull64 -s HKLM\\\\Software # Scan for null-char keys\\nRegDelNull64 -r HKLM\\\\Software\\\\BadKey # Recurse subdirectories",
-      "dependencies": [
-        "system-windows"
-      ]
+      "dependencies": "windows"
     },
     {
       "executable": "streams64.exe",
       "description": "Display and delete alternate data streams (ADS) attached to NTFS files",
       "usage": "streams64 file.txt # Show streams for file\\nstreams64 -s /dir # Recurse directory\\nstreams64 -d file.txt:stream # Delete specific stream\\nstreams64 -nobanner /path # Quiet output",
-      "dependencies": [
-        "system-windows"
-      ]
+      "dependencies": "windows"
     },
     {
       "executable": "strings64.exe",
       "description": "Extract printable strings from binary files, executables, and memory dumps for analysis",
       "usage": "strings64 file.exe # Extract strings from executable\\nstrings64 -n 10 file.bin # Minimum string length 10\\nstrings64 -u file.exe # Unicode strings\\nstrings64 -o file.exe # Show offsets",
-      "dependencies": [
-        "system-windows"
-      ]
+      "dependencies": "windows"
     },
     {
       "executable": "sync64.exe",
       "description": "Flush file system buffers to ensure data is written to disk immediately",
       "usage": "sync64 # Flush all file system buffers\\nsync64 C: # Flush specific drive\\nsync64 -e # Show elapsed time\\nsync64 -r # Force registry flush",
-      "dependencies": [
-        "system-windows"
-      ]
+      "dependencies": "windows"
     },
     {
       "executable": "VolumeId64.exe",
       "description": "Display or change the volume serial number of FAT and NTFS drives",
       "usage": "VolumeId64 C: # Show volume ID for C:\\nVolumeId64 C: 1234-ABCD # Set new volume ID\\nVolumeId64 # Show all volume IDs",
-      "dependencies": [
-        "system-windows"
-      ]
+      "dependencies": "windows"
     },
     {
       "executable": "whois64.exe",
       "description": "Perform WHOIS lookups to retrieve domain registration and IP address information",
       "usage": "whois64 example.com # Domain WHOIS lookup\\nwhois64 192.168.1.1 # IP address lookup\\nwhois64 -v example.com # Verbose output\\nwhois64 -h server example.com # Use specific WHOIS server",
-      "dependencies": [
-        "system-windows"
-      ]
+      "dependencies": "windows"
     }
   ],
   "paths": [
