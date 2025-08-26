@@ -356,8 +356,7 @@ create_bash_wrappers() {
             fi
 
             if has_command_conflict "$cmd_name"; then
-                debug_log "      SKIPPED: $cmd_name conflicts with existing command"
-                continue
+                debug_log "      WARNING: $cmd_name conflicts with existing command, but creating wrapper anyway"
             fi
 
             local wrapper_sh="$SH_WRAPPERS_DIR/$cmd_name"
@@ -436,8 +435,7 @@ create_cmd_wrappers() {
             fi
 
             if has_command_conflict "$cmd_name"; then
-                debug_log "      SKIPPED: $cmd_name conflicts with existing command"
-                continue
+                debug_log "      WARNING: $cmd_name conflicts with existing command, but creating wrapper anyway"
             fi
 
             local wrapper_cmd="$CMD_WRAPPERS_DIR/$cmd_name.cmd"
@@ -507,8 +505,7 @@ create_wrappers() {
 
             # Check for command conflicts before creating wrappers
             if has_command_conflict "$cmd_name"; then
-                debug_log "      SKIPPED: $cmd_name conflicts with existing command"
-                continue
+                debug_log "      WARNING: $cmd_name conflicts with existing command, but creating wrapper anyway"
             fi
 
             local wrapper_cmd="$CMD_WRAPPERS_DIR/$cmd_name.cmd"
@@ -625,18 +622,6 @@ import_packages() {
                     printf "  WRAP: %s\n" "$pkg_name" >&2
                     debug_log "Creating wrappers for $pkg_name"
                     
-                    # Check if package has MSYS dependencies
-                    local has_msys_deps=false
-                    if [[ -f "$json_file" ]]; then
-                        # Check both top-level dependencies and tool-level dependencies using comment-aware parser
-                        local dependencies
-                        dependencies=$(parse_json_with_comments "$json_file" '.dependencies[]? // .tools[]?.dependencies[]? // empty')
-                        if echo "$dependencies" | grep -qi "msys"; then
-                            has_msys_deps=true
-                            debug_log "Detected MSYS dependencies in $pkg_name"
-                        fi
-                    fi
-                    
                     # Create bash wrapper (always)
                     debug_log "About to create bash wrappers for $pkg_name"
                     if create_bash_wrappers "$pkg_path" "$pkg_name"; then
@@ -647,17 +632,12 @@ import_packages() {
                         debug_log "Failed to create bash wrappers for $pkg_name"
                     fi
                     
-                    # Create .cmd wrapper (only if not MSYS)
-                    debug_log "Checking MSYS deps: has_msys_deps=$has_msys_deps"
-                    if [[ "$has_msys_deps" != true ]]; then
-                        debug_log "About to create cmd wrappers for $pkg_name"
-                        if create_cmd_wrappers "$pkg_path" "$pkg_name"; then
-                            debug_log "Created cmd wrappers for $pkg_name"
-                        else
-                            debug_log "Failed to create cmd wrappers for $pkg_name"
-                        fi
+                    # Create .cmd wrapper (always)
+                    debug_log "About to create cmd wrappers for $pkg_name"
+                    if create_cmd_wrappers "$pkg_path" "$pkg_name"; then
+                        debug_log "Created cmd wrappers for $pkg_name"
                     else
-                        debug_log "Skipping cmd wrappers for $pkg_name (has MSYS dependencies)"
+                        debug_log "Failed to create cmd wrappers for $pkg_name"
                     fi
                     ;;
             esac

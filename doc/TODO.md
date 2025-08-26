@@ -1,244 +1,91 @@
 # PORTX Development TODO
-**By Damian Sirbu**
 
-## 🚨 Critical Issues
+## Phase 1: Taxonomy & Standards (Foundation) ✅
+- [x] **Document 4-dimensional taxonomy standards** - Created `standards-tags.md` with comprehensive taxonomy system (Purpose, Domain, Runtime, Target)
+- [ ] **Apply taxonomy to ALL 400+ tools** - Systematically tag all tools across 106 packages using the research-based classification system
 
-### ClamAV Antivirus Fix
-- **Status**: ❌ BROKEN
-- **Issue**: `clamscan.exe` fails to run (dependency/library issues)
-- **Impact**: No antivirus scanning capability
-- **Priority**: HIGH
-- **Action Required**: 
-  - Debug missing DLL dependencies
-  - Test with fresh ClamAV Windows build
-  - Consider alternative: Windows Defender integration
-  - Verify virus definition updates work
+## Phase 2: Core System Improvements  
+- [ ] **Enhanced package listing** - Improve `portx packages list` with proper formatting, tags display, and rich descriptions
+- [ ] **Fix verify issues** - Resolve all problems found by `portx packages verify` from previous debugging
+- [ ] **Update documentation** - Document the portx logic, taxonomy system, and usage patterns
 
-## 🛡️ Security Tools Expansion
+## Phase 3: AI Integration
+- [ ] **Ollama AI wrapper** - Create intelligent tool discovery system that sends tool list, context, and user questions to Ollama for smart recommendations
 
-### Missing Antivirus/Anti-malware Tools
-Research and consider adding comprehensive security suite:
-- **Windows Defender CLI** - Native Windows antivirus interface
-- **ESET Online Scanner** - Portable antivirus scanner
-- **Malwarebytes CLI** - Anti-malware command line
-- **Sophos Scan CLI** - Enterprise antivirus scanner
-- **Bitdefender Scanner** - Command line virus scanner
-- **F-Secure CLI** - Security scanning tools
-- **Trend Micro Scanner** - Portable malware detection
-- **Kaspersky Rescue Tool** - Malware removal utility
+## Phase 4: Critical Development Tools
+- [ ] **Add essential runtimes** - Java, C/C++ compiler, **Node.js (CRITICAL for Claude Code)**
+- [ ] **Add build systems** - Maven, Gradle, and other essential build tools  
+- [ ] **Add powerful linters** - ESLint, Pylint, Checkstyle, SpotBugs for Java/JavaScript/Python
 
-### Missing Anti-spyware/Anti-hijack Tools
-- **AdwCleaner CLI** - Adware/PUP removal
-- **RootkitRevealer** - Rootkit detection (Microsoft Sysinternals)
-- **Malwarebytes Anti-Rootkit** - Advanced rootkit removal
-- **GMER** - Rootkit detector and remover
-- **RKill** - Malware process terminator
-- **ComboFix** - Malware removal tool
-- **HijackThis** - Browser hijack analyzer
-- **Spybot S&D CLI** - Spyware detection and removal
+## Phase 5: Git Environment Optimization  
+- [ ] **Replace portable git with MinGit** - Swap out current portable git executables for MinGit versions
+- [ ] **CRITICAL: Redesign package architecture with proper DLL dependency management** - Current design flaw: executables copied without matching runtime DLLs cause compatibility issues (TTY detection failures, etc.)
 
-## 🔒 Security & Analysis Tools to Add
+## Detailed Tasks
 
-### Code Security Analysis
-| Tool | Status | Category | Purpose |
-|------|--------|----------|---------|
-| **semgrep.exe** | ➕ NEEDED | Security | Static analysis security scanner |
-| **grype.exe** | ➕ NEEDED | Security | Vulnerability scanner for containers |
-| **syft.exe** | ➕ NEEDED | Security | SBOM generation tool |
-| **snyk.exe** | ➕ NEEDED | Security | Developer security platform |
-| **osv-scanner.exe** | ➕ NEEDED | Security | OSV vulnerability database scanner |
-| **trufflehog.exe** | ➕ NEEDED | Security | Secret detection in Git repositories |
-| **gitleaks.exe** | ➕ NEEDED | Security | Git secret scanner |
-| ~~nuclei.exe~~ | ✅ HAVE | Security | Vulnerability scanner (v3.2.0) |
+### Taxonomy Application
+- [ ] Apply 4-dimensional tags to security tools (yara, nuclei, nmap, etc.)
+- [ ] Apply tags to development tools (git, docker, kubectl, terraform)
+- [ ] Apply tags to code analysis tools (ast-grep, rg, shellcheck, scc)
+- [ ] Apply tags to system tools (sysinternals, bottom, btop, bandwhich)
+- [ ] Apply tags to media tools (ffmpeg suite)
+- [ ] Apply tags to cloud tools (aws, azure-cli, kubectl, helm)
+- [ ] Apply tags to network tools (nmap, rustscan, gping, httpx)
+- [ ] Apply tags to Unix utilities (gitsdk-usr-bin 200+ tools)
 
-### Kubernetes Security
-| Tool | Status | Category | Purpose |
-|------|--------|----------|---------|
-| **kubesec.exe** | ➕ NEEDED | Kubernetes | Security risk analysis for K8s resources |
-| **kube-score.exe** | ➕ NEEDED | Kubernetes | K8s object analysis for security/reliability |
-| **kubeval.exe** | ➕ NEEDED | Kubernetes | K8s manifest validation |
-| **polaris.exe** | ➕ NEEDED | Kubernetes | K8s best practices validation |
-| **conftest.exe** | ➕ NEEDED | Kubernetes | Policy testing with Open Policy Agent |
-| **datree.exe** | ➕ NEEDED | Kubernetes | K8s policy enforcement |
-| **kics.exe** | ➕ NEEDED | Kubernetes | Infrastructure security scanner |
+### Package System Enhancements
+- [ ] Update `portx packages list` to show tags in formatted output
+- [ ] Add tag filtering: `portx packages list --tags purpose:analyze`
+- [ ] Add description formatting and better tool discovery
+- [ ] Fix all wrapper testing issues from verify command
 
-### Infrastructure Security
-| Tool | Status | Category | Purpose |
-|------|--------|----------|---------|
-| **terrascan.exe** | ➕ NEEDED | Infrastructure | Terraform security scanner |
-| **tflint.exe** | ➕ NEEDED | Infrastructure | Terraform linter |
-| **checkov.exe** | ➕ NEEDED | Infrastructure | IaC security scanner |
+### AI Integration Development
+- [ ] Design Ollama API integration for tool discovery
+- [ ] Create context-aware tool recommendation system
+- [ ] Implement natural language tool queries
+- [ ] Add examples and usage suggestions from AI
 
-### Container Security
-| Tool | Status | Category | Purpose |
-|------|--------|----------|---------|
-| **hadolint.exe** | ➕ NEEDED | Containers | Dockerfile linter |
-| **dockle.exe** | ➕ NEEDED | Containers | Container image security scanner |
-| **dive.exe** | ➕ NEEDED | Containers | Docker image layer explorer |
+### Critical Package Additions
+- [ ] **Node.js** - Essential for Claude Code and modern development
+- [ ] **Java JDK** - Core Java development environment
+- [ ] **GCC/MinGW-w64** - C/C++ compilation capabilities
+- [ ] **Maven** - Java project management and build
+- [ ] **Gradle** - Modern build automation
+- [ ] **ESLint** - JavaScript/TypeScript linting (critical)
+- [ ] **Pylint/Black** - Python code quality tools
+- [ ] **Checkstyle/SpotBugs** - Java static analysis
 
-### Language-Specific Security
-| Tool | Status | Category | Purpose |
-|------|--------|----------|---------|
-| **shellcheck.exe** | ➕ NEEDED | Languages | Shell script static analysis |
-| **shfmt.exe** | ➕ NEEDED | Languages | Shell script formatter |
-| **golangci-lint.exe** | ➕ NEEDED | Languages | Go linter aggregator |
-| **staticcheck.exe** | ➕ NEEDED | Languages | Go static analysis |
-| **revive.exe** | ➕ NEEDED | Languages | Go linter |
+### Git Environment Cleanup
+- [ ] Identify all portable git executables currently included
+- [ ] Source MinGit equivalents 
+- [ ] Replace portable git binaries with MinGit versions
+- [ ] Update package dependencies and paths
+- [ ] Test git functionality with MinGit replacements
 
-### Web Security
-| Tool | Status | Category | Purpose |
-|------|--------|----------|---------|
-| ~~httpx.exe~~ | ✅ HAVE | Web | HTTP toolkit for security testing |
-| ~~subfinder.exe~~ | ✅ HAVE | Web | Subdomain discovery |
-| **gospider.exe** | ➕ NEEDED | Web | Web crawler for security testing |
-| **katana.exe** | ➕ NEEDED | Web | Next-gen crawling framework |
+### CRITICAL: Layered Package Architecture Redesign
+- [ ] **Test MinGW executables first** - Verify /mingw64/bin executables are clean and don't break TTY
+- [ ] **Create gitportable-usr-bin package** - Compare MinGit vs PortableGit, package differences with PortableGit executables + their matching DLL dependencies
+- [ ] **Create gitsdk-usr-bin package** - Compare (MinGit + PortableGit) vs GitSDK, package differences with GitSDK executables + their matching DLL dependencies  
+- [ ] **Self-contained packages** - Each package must include executables AND their specific runtime DLLs to prevent compatibility issues
+- [ ] **Remove current broken gitsdk-usr-bin** - Replace with properly designed layered packages
+- [ ] **Test compatibility** - Ensure each layer works without DLL conflicts or TTY detection issues
 
-### Documentation & Analysis
-| Tool | Status | Category | Purpose |
-|------|--------|----------|---------|
-| **vale.exe** | ➕ NEEDED | Docs | Prose linter for documentation |
-| **binskim.exe** | ➕ NEEDED | Docs | Binary analysis tool |
+## Priority Order
+1. **CRITICAL**: Redesign package architecture with proper DLL dependency management
+2. **IMMEDIATE**: Complete taxonomy application to existing tools  
+3. **HIGH**: Add Node.js package (critical for Claude Code)
+4. **HIGH**: Fix portx packages verify issues
+5. **MEDIUM**: Enhance package listing and add AI wrapper
+6. **MEDIUM**: Add remaining development tools and linters
+7. **LOW**: Replace portable git with MinGit
 
-## 📁 Proposed Directory Structure
-
-Create organized security tool hierarchy:
-```
-bin-tools/
-├── security/
-│   ├── code-analysis/
-│   │   ├── semgrep.exe
-│   │   ├── snyk.exe
-│   │   ├── osv-scanner.exe
-│   │   ├── trufflehog.exe
-│   │   └── gitleaks.exe
-│   ├── container-security/
-│   │   ├── grype.exe
-│   │   ├── syft.exe
-│   │   ├── hadolint.exe
-│   │   ├── dockle.exe
-│   │   └── dive.exe
-│   ├── k8s-security/
-│   │   ├── kubesec.exe
-│   │   ├── kube-score.exe
-│   │   ├── kubeval.exe
-│   │   ├── polaris.exe
-│   │   ├── conftest.exe
-│   │   ├── datree.exe
-│   │   └── kics.exe
-│   ├── infrastructure/
-│   │   ├── terrascan.exe
-│   │   ├── tflint.exe
-│   │   └── checkov.exe
-│   ├── web-security/
-│   │   ├── gospider.exe
-│   │   └── katana.exe
-│   └── antivirus/
-│       └── [fixed-clamav-tools]
-├── languages/
-│   ├── shell/
-│   │   ├── shellcheck.exe
-│   │   └── shfmt.exe
-│   └── go/
-│       ├── golangci-lint.exe
-│       ├── staticcheck.exe
-│       └── revive.exe
-└── docs/
-    ├── vale.exe
-    └── binskim.exe
-```
-
-## 🖥️ TUI Wiki System (Major Enhancement Needed)
-
-### Current Status: ⚠️ Basic but Needs Major Improvement
-- ✅ **Enhanced portx command** - Basic interactive system
-- ✅ **Manual directory structure** - Organized categories  
-- ✅ **Glow integration** - v2.1.1 with clean ASCII styling
-- ❌ **Missing Main Menu** - No central navigation hub
-- ❌ **No Category Browser** - Can't easily browse tool categories
-- ❌ **Limited Search** - No integrated wiki search functionality
-- ❌ **Poor Navigation** - No breadcrumbs or easy back/forward
-
-### Critical Wiki Improvements Needed
-1. **Main Menu Interface** - Create proper wiki home page with:
-   - Category overview with tool counts
-   - Quick access buttons/links
-   - Search functionality
-   - Recent/popular tools section
-
-2. **Enhanced Navigation System**:
-   - Breadcrumb navigation (Home > Category > Tool)
-   - Back/Forward buttons or hotkeys
-   - Category browser with descriptions
-   - Cross-references between related tools
-
-3. **Integrated Search Engine**:
-   - Real-time search across all documentation
-   - Search results with context snippets
-   - Filter by category, tool type, or version
-   - Search history and suggestions
-
-4. **Better User Experience**:
-   - Loading indicators for large operations
-   - Help system with keyboard shortcuts
-   - Bookmarking favorite tools/sections
-   - Recent history navigation
-
-2. **Complete manual categories** - Create remaining category files:
-   - `manual/categories/security.md`
-   - `manual/categories/development.md` 
-   - `manual/categories/monitoring.md`
-   - `manual/categories/database.md`
-   - `manual/categories/mobile.md`
-   - `manual/categories/files.md`
-   - `manual/categories/testing.md`
-   - `manual/categories/modern-unix.md`
-   - `manual/categories/gnu-linux.md`
-
-3. **Individual tool pages** - Create `manual/tools/*.md` for popular tools
-4. **Guides section** - Create getting started, troubleshooting guides
-
-## 🔄 Implementation Priority
-
-### Phase 1 (Immediate - Critical Wiki & Security)
-1. **Major Wiki Enhancement** - Implement proper navigation and search
-2. **Fix ClamAV** - Restore antivirus functionality  
-3. **Add semgrep** - Critical code security analysis
-4. **Add gitleaks/trufflehog** - Prevent secret leaks
-5. **Add shellcheck** - Shell script security
-
-### Phase 2 (High Priority - Container/K8s Security)
-1. **Container security**: grype, syft, hadolint, dockle
-2. **K8s security**: kubesec, kube-score, polaris
-3. **Infrastructure**: terrascan, tflint, checkov
-
-### Phase 3 (Medium Priority - Extended Security)
-1. **Web security**: gospider, katana
-2. **Language tools**: Go linting suite
-3. **Documentation**: vale, binskim
-
-### Phase 4 (Future - Comprehensive Antivirus)
-1. **Research additional antivirus solutions**
-2. **Add anti-spyware/anti-hijack tools**
-3. **Integration with Windows Defender**
-
-## 📋 Action Items
-
-- [ ] Debug and fix ClamAV dependencies
-- [ ] Research Windows-compatible builds for each tool
-- [ ] Create security tool installation script
-- [ ] Update .bashrc_tools with new directories
-- [ ] Test all new tools for Windows compatibility
-- [ ] Update MANUAL.md with new security categories
-- [ ] Update README.md tool counts
-- [ ] Create security-focused documentation
-
-## 🎯 Success Metrics
-
-- **ClamAV restored**: Antivirus scanning functional
-- **Tool count increase**: From 494 to 520+ tools
-- **Security coverage**: Comprehensive DevSecOps toolkit
-- **Compatibility**: >99% tool success rate maintained
-- **Documentation**: Complete manual coverage for all new tools
+## Success Metrics
+- All 400+ tools properly tagged with 4-dimensional taxonomy
+- `portx packages list` shows rich, filterable tool information
+- AI assistant can effectively recommend tools based on user queries
+- All critical development environments (Node.js, Java, C++) available
+- Zero failures in `portx packages verify`
+- MinGit integration maintains full git functionality
 
 ---
-*Last Updated: [Current Date] - PORTX Development Team*
+*This TODO reflects the comprehensive PORTX enhancement plan for creating an AI-enhanced portable development environment.*
