@@ -6,15 +6,15 @@
 # This provides fast access to all PORTX tools and packages
 #
 # GENERATION INFO:
-#   Generated: Tue, Aug 26, 2025 12:15:24 PM
-#   Git Bash Directory: C:/App/Git
+#   Generated: Tue, Aug 26, 2025 12:56:57 PM
+#   Git Bash Directory: /c/App/Git
 #   Packages Directory: /c/App/Git/home/portx/packages
 #
 # TOOL COUNTS:
-#   Git for Windows: 349 executables
+#   Git for Windows: 347 executables
 #   PORTX Wrappers: 213 wrappers
 #   PORTX Packages: 106 directories, 416 executables
-#   Total: 978 tools
+#   Total: 976 tools
 #
 # USAGE: This file is automatically sourced by .bashrc on shell startup.
 # To regenerate: rm ~/.portx_cache or run 'portx import'
@@ -23,7 +23,7 @@
 #   - PORTX packages are added/removed/updated
 #   - PORTX installation is moved or modified
 
-# Git Bash Home: C:/App/Git
+# Git Bash Home: /c/App/Git
 
 # Build PORTX PACKAGES PATH
 PACKAGES_PATH=""
@@ -34,13 +34,13 @@ PACKAGES_PATH="$PACKAGES_PATH:/c/App/Git/home/portx/packages/gitsdk-usr-bin"  # 
 # NOTE: .bashrc controls PATH integration using PACKAGES_PATH
 
 # PORTX PATH statistics
-export PORTX_ENV_TYPE="MSYS2-MINGW64/xterm-256color"
+export PORTX_ENV_TYPE="MSYS2-UCRT64/xterm-256color"
 export GFW_DIRS=3
-export GFW_EXECUTABLES=349
+export GFW_EXECUTABLES=347
 export PORTX_PKG_DIRS=106
 export PORTX_PKG_EXECUTABLES=416
-export PORTX_TOTAL_EXECUTABLES=978
+export PORTX_TOTAL_EXECUTABLES=976
 export PORTX_TOTAL_DIRS=5
-export PORTX_LAST_SCAN="2025-08-26 12:15"
-export PATH_LAST_SCAN="2025-08-26 12:15"
+export PORTX_LAST_SCAN="2025-08-26 12:57"
+export PATH_LAST_SCAN="2025-08-26 12:57"
 
