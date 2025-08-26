@@ -378,7 +378,3 @@ source ~/scripts/env-security.sh
 # shellcheck source=/dev/null
 source ~/scripts/ps1.sh
 
-# =============================================================================
-# Bashrc Configuration Complete
-# =============================================================================
-export PATH="/home/portx/bin:$PATH"

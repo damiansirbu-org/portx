@@ -13,5 +13,5 @@
   "paths": [
     "./"
   ],
-  "tags": ["search", "refactor", "native", "multi"]
+  "tags": ["analyze", "develop", "code", "native"]
 }
