@@ -6,7 +6,12 @@
 
 ## Phase 2: Core System Improvements  
 - [ ] **Enhanced package listing** - Improve `portx packages list` with proper formatting, tags display, and rich descriptions
-- [ ] **Fix verify issues** - Resolve all problems found by `portx packages verify` from previous debugging
+- [ ] **🔥 CRITICAL: Fix scanner logic in portx.sh** - Scanner fails to find executables in bin/ subdirectories and non-.exe files (discovered 2025-08-26)
+  - ffmpeg: Scanner finds 0 executables, actual: 3 (.exe files in bin/)
+  - graphwiz: Scanner finds 0 executables, actual: 90+ (.exe files in bin/)  
+  - liquibase: Scanner finds 0 executables, actual: 2 (.bat and shell script)
+  - scoop: Scanner finds 0 executables, actual: 1 (.cmd file)
+  - ropgadget: Scanner finds 0 executables, actual: 1 (.py file)
 - [ ] **Update documentation** - Document the portx logic, taxonomy system, and usage patterns
 
 ## Phase 3: AI Integration
@@ -37,7 +42,7 @@
 - [ ] Update `portx packages list` to show tags in formatted output
 - [ ] Add tag filtering: `portx packages list --tags purpose:analyze`
 - [ ] Add description formatting and better tool discovery
-- [ ] Fix all wrapper testing issues from verify command
+- [x] **Fixed package.json issues** - ✅ COMPLETED (2025-08-26): Removed missing executables, enhanced micromamba documentation
 
 ### AI Integration Development
 - [ ] Design Ollama API integration for tool discovery
@@ -73,10 +78,10 @@
 - [ ] **Test compatibility** - Ensure each layer works without DLL conflicts or TTY detection issues
 
 ## Priority Order
-1. **CRITICAL**: Redesign package architecture with proper DLL dependency management
-2. **IMMEDIATE**: Complete taxonomy application to existing tools  
-3. **HIGH**: Add Node.js package (critical for Claude Code)
-4. **HIGH**: Fix portx packages verify issues
+1. **🔥 URGENT**: Fix scanner logic in portx.sh (5+ packages completely broken)
+2. **CRITICAL**: Redesign package architecture with proper DLL dependency management
+3. **IMMEDIATE**: Complete taxonomy application to existing tools  
+4. **HIGH**: Add Node.js package (critical for Claude Code)
 5. **MEDIUM**: Enhance package listing and add AI wrapper
 6. **MEDIUM**: Add remaining development tools and linters
 7. **LOW**: Replace portable git with MinGit
