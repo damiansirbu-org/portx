@@ -2,87 +2,86 @@
   "name": "path-utils",
   "version": "1.0.0",
   "description": "Essential path manipulation utilities from MSYS2 and MinGW toolchain",
-  "tools": [
-    {
-      "executable": "basename.exe",
+  "importType": "wrap",
+  "bin": {
+    "basename": {
+      "path": "basename.exe",
       "description": "Extract filename component from file path by removing directory prefix",
-      "dependencies": "windows",
-      "usage": "basename /path/to/file.txt # Returns: file.txt\nbasename /path/to/file.txt .txt # Returns: file\nbasename $(pwd) # Get current directory name"
+      "usage": "basename /path/to/file.txt\\nbasename /path/to/file.txt .txt\\nbasename $(pwd)",
+      "dependencies": "windows"
     },
-    {
-      "executable": "convert.exe",
+    "convert": {
+      "path": "convert.exe", 
       "description": "Path format converter between Windows and UNIX-style paths",
-      "dependencies": "windows",
-      "usage": "convert -w /c/path # Convert to Windows format: C:\\path\nconvert -u 'C:\\path' # Convert to UNIX format: /c/path"
+      "usage": "convert -w /c/path\\nconvert -u 'C:\\\\path'",
+      "dependencies": "windows"
     },
-    {
-      "executable": "cygpath.exe",
+    "cygpath": {
+      "path": "cygpath.exe",
       "description": "Convert between MSYS2/Cygwin and Windows path formats with comprehensive options",
-      "dependencies": "windows",
-      "usage": "cygpath -w /home/user # Convert to Windows path\ncygpath -u 'C:\\Users' # Convert to UNIX path\ncygpath -am /tmp # Absolute mixed path"
+      "usage": "cygpath -w /home/user\\ncygpath -u 'C:\\\\Users'\\ncygpath -am /tmp",
+      "dependencies": "windows"
     },
-    {
-      "executable": "dirname.exe",
-      "description": "Extract directory component from file path by removing filename suffix",
-      "dependencies": "windows",
-      "usage": "dirname /path/to/file.txt # Returns: /path/to\ndirname $(pwd)/script.sh # Get parent directory\ncd $(dirname $0) # Go to script directory"
+    "dirname": {
+      "path": "dirname.exe",
+      "description": "Extract directory component from file path by removing filename suffix", 
+      "usage": "dirname /path/to/file.txt\\ndirname $(pwd)/script.sh\\ncd $(dirname $0)",
+      "dependencies": "windows"
     },
-    {
-      "executable": "hardlink.exe",
+    "hardlink": {
+      "path": "hardlink.exe",
       "description": "Create hard links to files for space-efficient file duplication",
-      "dependencies": "windows",
-      "usage": "hardlink source.txt target.txt # Create hard link\nhardlink -n source.txt # Count existing links\nhardlink -v source.txt backup.txt # Verbose linking"
+      "usage": "hardlink source.txt target.txt\\nhardlink -n source.txt\\nhardlink -v source.txt backup.txt",
+      "dependencies": "windows"
     },
-    {
-      "executable": "link.exe",
+    "link": {
+      "path": "link.exe",
       "description": "Create file links with extended options and validation",
-      "dependencies": "windows",
-      "usage": "link -s source.txt symlink.txt # Create symbolic link\nlink -f source.txt hardlink.txt # Force link creation\nlink -v source.txt target.txt # Verbose link operation"
+      "usage": "link -s source.txt symlink.txt\\nlink -f source.txt hardlink.txt\\nlink -v source.txt target.txt",
+      "dependencies": "windows"
     },
-    {
-      "executable": "ln.exe",
+    "ln": {
+      "path": "ln.exe",
       "description": "UNIX-style link creator for symbolic and hard links with standard options",
-      "dependencies": "windows",
-      "usage": "ln -s /path/to/file symlink # Create symbolic link\nln file1.txt file2.txt # Create hard link\nln -sf new_target existing_link # Force symbolic link"
+      "usage": "ln -s /path/to/file symlink\\nln file1.txt file2.txt\\nln -sf new_target existing_link",
+      "dependencies": "windows"
     },
-    {
-      "executable": "pathchk.exe",
+    "pathchk": {
+      "path": "pathchk.exe",
       "description": "Validate file path names for portability and system compatibility",
-      "dependencies": "windows",
-      "usage": "pathchk /path/to/file # Check path validity\npathchk -p /portable/path # Check POSIX portability\npathchk -P /strict/path # Strict portability check"
+      "usage": "pathchk /path/to/file\\npathchk -p /portable/path\\npathchk -P /strict/path",
+      "dependencies": "windows"
     },
-    {
-      "executable": "readlink.exe",
+    "readlink": {
+      "path": "readlink.exe",
       "description": "Read and resolve symbolic links to display target paths",
-      "dependencies": "windows",
-      "usage": "readlink symlink.txt # Show link target\nreadlink -f symlink.txt # Canonicalize path\nreadlink -e symlink.txt # Require existing target"
+      "usage": "readlink symlink.txt\\nreadlink -f symlink.txt\\nreadlink -e symlink.txt",
+      "dependencies": "windows"
     },
-    {
-      "executable": "realpath.exe",
+    "realpath": {
+      "path": "realpath.exe", 
       "description": "Resolve absolute canonical path by following all symbolic links",
-      "dependencies": "windows",
-      "usage": "realpath file.txt # Get absolute path\nrealpath -s symlink # Don't resolve final symlink\nrealpath --relative-to=/base /path # Get relative path"
+      "usage": "realpath file.txt\\nrealpath -s symlink\\nrealpath --relative-to=/base /path",
+      "dependencies": "windows"
     },
-    {
-      "executable": "unlink.exe",
+    "unlink": {
+      "path": "unlink.exe",
       "description": "Remove single file or symbolic link using UNIX-style unlink operation",
-      "dependencies": "windows",
-      "usage": "unlink file.txt # Remove file\nunlink symlink # Remove symbolic link\nunlink /tmp/tempfile # Remove temporary file"
+      "usage": "unlink file.txt\\nunlink symlink\\nunlink /tmp/tempfile",
+      "dependencies": "windows"
     },
-    {
-      "executable": "windmc.exe",
+    "windmc": {
+      "path": "windmc.exe",
       "description": "Windows Message Compiler for creating message resource files from text definitions",
-      "dependencies": "windows",
-      "usage": "windmc messages.mc # Compile message file\nwindmc -h include_dir messages.mc # Set header directory\nwindmc -r res_dir messages.mc # Set resource directory"
+      "usage": "windmc messages.mc\\nwindmc -h include_dir messages.mc\\nwindmc -r res_dir messages.mc",
+      "dependencies": "windows"
     },
-    {
-      "executable": "windres.exe",
+    "windres": {
+      "path": "windres.exe",
       "description": "Windows Resource Compiler for converting resource files to object format",
-      "dependencies": "windows",
-      "usage": "windres resource.rc resource.o # Compile resource\nwindres -i input.rc -o output.o # Specify input/output\nwindres --define MACRO=VALUE resource.rc # Define macro"
+      "usage": "windres resource.rc resource.o\\nwindres -i input.rc -o output.o\\nwindres --define MACRO=VALUE resource.rc",
+      "dependencies": "windows"
     }
-  ],
-  "paths": [
-    "./"
-  ]
+  },
+  "tags": ["paths", "files", "links", "conversion", "msys2", "utilities"]
 }

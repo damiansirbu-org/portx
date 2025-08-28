@@ -1,3 +1,6 @@
+
+#TODO: Damian removed httpie and httpprompt because of python. We need to find a cmd wrapper based solution
+
 # TODO: Missing CLI Tools for PORTX
 *Filtered from merged documentation - only tools NOT in current PORTX collection*
 *Current PORTX tools analyzed: 700+ tools from portx tools command*
@@ -35,6 +38,12 @@
 ### JSON/Data Processing
 - **jless** - Interactive JSON viewer
 - **jo** - JSON output generator
+
+### JSON Schema Validators (Portable Windows Executables)
+- **yajsv** - Yet Another JSON Schema Validator (Go single binary, Windows .exe available)
+- **JSONBuddy Validator** - Windows native JSON validator with CLI support (standalone .exe, commercial)
+- **jsonschema-cli** - Rust-based validator (compile to Windows .exe)
+- **jv** - Go validator by santhosh-tekuri (compile to Windows .exe, Linux binaries available)
 
 ### Text & Document Processing
 - **lowdown** - Markdown processor

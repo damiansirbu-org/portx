@@ -2,81 +2,26 @@
   "name": "hashdeep",
   "version": "1.0.0",
   "description": "Digital forensics hashing suite with MD5, SHA-1, SHA-256, Tiger, and Whirlpool support",
-  "tools": [
-    {
-      "executable": "hashdeep.exe",
+  "importType": "wrap",
+  "bin": {
+    "hashdeep": {
+      "path": "hashdeep.exe",
       "description": "Recursive file hashing tool for digital forensics and integrity verification",
-      "dependencies": "windows",
-      "usage": "hashdeep -r /path/to/investigate # Recursive hashing\\nhashdeep -c baseline.txt # Compare against baseline\\nhashdeep -a -e -s *.exe # Audit mode with estimates\\nhashdeep -m known_hashes.txt suspect_files/ # Match against known hashes"
+      "usage": "hashdeep -r /path/to/investigate # Recursive hashing\\nhashdeep -c baseline.txt # Compare against baseline",
+      "dependencies": "windows"
     },
-    {
-      "executable": "hashdeep64.exe",
-      "description": "64-bit version of hashdeep for large file operations and improved performance",
-      "dependencies": "windows",
-      "usage": "hashdeep64 -r -s /large/dataset # Hash large datasets\\nhashdeep64 -j 8 -r /path # Use 8 threads for parallel processing\\nhashdeep64 -W audit.txt # Whirlpool hashing audit"
-    },
-    {
-      "executable": "md5deep.exe",
+    "md5deep": {
+      "path": "md5deep.exe",
       "description": "Specialized MD5 hash calculator for forensic analysis and file verification",
-      "dependencies": "windows",
-      "usage": "md5deep -r /evidence # Recursive MD5 hashing\\nmd5deep -m known_md5.txt *.bin # Match against known MD5s\\nmd5deep -x known_bad.txt /suspect # Exclude known bad hashes"
+      "usage": "md5deep -r /evidence # Recursive MD5 hashing\\nmd5deep -m known_md5.txt *.bin # Match against known MD5s",
+      "dependencies": "windows"
     },
-    {
-      "executable": "md5deep64.exe",
-      "description": "64-bit MD5 hash calculator for large-scale forensic analysis and file verification",
-      "dependencies": "windows",
-      "usage": "md5deep64 -r /large/evidence # Hash large evidence directories\nmd5deep64 -j 16 /parallel # Use 16 threads\nmd5deep64 -m baseline.md5 /check # Verify against baseline"
-    },
-    {
-      "executable": "sha1deep.exe",
-      "description": "SHA-1 hash calculator for legacy forensic analysis and file integrity verification",
-      "dependencies": "windows",
-      "usage": "sha1deep -r /evidence # Recursive SHA-1 hashing\nsha1deep -m known.sha1 *.bin # Match against known hashes\nsha1deep -a -e /audit # Audit with size estimates"
-    },
-    {
-      "executable": "sha1deep64.exe",
-      "description": "64-bit SHA-1 hash calculator for large-scale legacy forensic operations",
-      "dependencies": "windows",
-      "usage": "sha1deep64 -r -j 8 /large/dataset # Multi-threaded hashing\nsha1deep64 -m baseline.sha1 /verify # Verify integrity"
-    },
-    {
-      "executable": "sha256deep.exe",
+    "sha256deep": {
+      "path": "sha256deep.exe",
       "description": "SHA-256 hash calculator for modern cryptographic file verification",
-      "dependencies": "windows",
-      "usage": "sha256deep -r /secure/files # Recursive SHA-256 hashing\\nsha256deep -m hashes.sha256 /download # Verify downloads\\nsha256deep -a -e /forensics # Audit with size estimates"
-    },
-    {
-      "executable": "sha256deep64.exe",
-      "description": "64-bit SHA-256 hash calculator for high-performance cryptographic verification",
-      "dependencies": "windows",
-      "usage": "sha256deep64 -r -j 16 /enterprise # High-performance hashing\nsha256deep64 -m checksums.sha256 /verify # Bulk verification"
-    },
-    {
-      "executable": "tigerdeep.exe",
-      "description": "Tiger hash algorithm calculator for fast cryptographic hashing and file verification",
-      "dependencies": "windows",
-      "usage": "tigerdeep -r /files # Recursive Tiger hashing\ntigerdeep -m baseline.tiger *.bin # Match verification\ntigerdeep -a -e /audit # Audit mode with estimates"
-    },
-    {
-      "executable": "tigerdeep64.exe",
-      "description": "64-bit Tiger hash calculator for high-speed cryptographic operations on large datasets",
-      "dependencies": "windows",
-      "usage": "tigerdeep64 -r -j 12 /large/files # Multi-threaded Tiger hashing\ntigerdeep64 -m hashes.tiger /verify # Verification"
-    },
-    {
-      "executable": "whirlpooldeep.exe",
-      "description": "Whirlpool hash algorithm calculator for advanced cryptographic hashing and integrity verification",
-      "dependencies": "windows",
-      "usage": "whirlpooldeep -r /secure # Recursive Whirlpool hashing\nwhirlpooldeep -m baseline.whirlpool *.exe # Verification\nwhirlpooldeep -a -e /forensics # Audit mode"
-    },
-    {
-      "executable": "whirlpooldeep64.exe",
-      "description": "64-bit Whirlpool hash calculator for enterprise-grade cryptographic operations",
-      "dependencies": "windows",
-      "usage": "whirlpooldeep64 -r -j 16 /enterprise # High-performance Whirlpool hashing\nwhirlpooldeep64 -m checksums.whirlpool /verify # Bulk verification"
+      "usage": "sha256deep -r /secure/files # Recursive SHA-256 hashing\\nsha256deep -m hashes.sha256 /download # Verify downloads",
+      "dependencies": "windows"
     }
-  ],
-  "paths": [
-    "./"
-  ]
+  },
+  "tags": ["forensics", "hashing", "security", "md5", "sha256", "integrity", "verification", "cryptography"]
 }

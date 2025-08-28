@@ -2,15 +2,14 @@
   "name": "oxipng",
   "version": "1.0.0",
   "description": "Lossless PNG compression optimizer with advanced filtering and chunk optimization",
-  "tools": [
-    {
-      "executable": "oxipng.exe",
+  "importType": "wrap",
+  "bin": {
+    "oxipng": {
+      "path": "oxipng.exe",
       "description": "High-performance PNG optimizer that reduces file size without quality loss using advanced algorithms",
-      "usage": "oxipng image.png # Optimize PNG file\\noxipng -o 6 image.png # Maximum optimization level\\noxipng --strip safe image.png # Remove metadata safely\\noxipng -r *.png # Optimize all PNGs recursively\\noxipng --alpha # Optimize alpha channel",
+      "usage": "oxipng image.png\\noxipng -o 6 image.png\\noxipng --strip safe image.png\\noxipng -r *.png\\noxipng --alpha",
       "dependencies": "windows"
     }
-  ],
-  "paths": [
-    "./"
-  ]
+  },
+  "tags": ["png", "compression", "optimizer", "lossless", "image", "performance", "metadata", "binary"]
 }

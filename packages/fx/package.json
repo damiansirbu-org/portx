@@ -1,45 +1,15 @@
 {
-  // ==========================================
-  // PORTX Package Configuration (package.json)
-  // ==========================================
-  
-  // CORE PACKAGE METADATA
   "name": "fx",
   "version": "1.0.0",
   "description": "Interactive JSON viewer with JavaScript expressions and live editing - terminal-based JSON explorer with syntax highlighting",
-  "author": "PORTX Team",
-  "license": "MIT",
-  
-  // IMPORT BEHAVIOR CONTROL
-  "import": "auto",
-  
-  // EXECUTABLE DISCOVERY  
-  "paths": [
-    "./"
-  ],
-  
-  // TOOL DEFINITIONS
-  "tools": [
-    {
-      "executable": "fx.exe",
-      "defaultArgs": "",
+  "importType": "wrap",
+  "bin": {
+    "fx": {
+      "path": "fx.exe",
       "description": "Interactive JSON viewer and processor with JavaScript expressions and live editing capabilities - perfect for exploring large JSON files with syntax highlighting",
       "usage": "fx data.json # Interactive JSON browser with syntax highlighting\\ncat data.json | fx '.users[0].name' # Extract specific field\\necho '{\\\"a\\\":1}' | fx 'this.b = 2; this' # Transform JSON with live editing\\nfx data.json '.filter(x => x.age > 30)' # Filter arrays interactively",
-      "dependencies": "windows",
-      "aliases": [],
-      "category": "json-processing",
-      "tags": ["json", "interactive", "viewer", "javascript", "explorer", "syntax-highlighting"]
+      "dependencies": "windows"
     }
-  ],
-  
-  // PACKAGE METADATA
-  "homepage": "https://github.com/antonmedv/fx",
-  "repository": "https://github.com/antonmedv/fx",
-  "keywords": ["json", "viewer", "interactive", "javascript", "explorer"],
-  "categories": ["data-processing", "json", "interactive"],
-  
-  // TECHNICAL CONFIGURATION
-  "architecture": "x64",
-  "platform": "win32",
-  "runtime": "native"
+  },
+  "tags": ["json", "interactive", "viewer", "javascript", "explorer", "syntax-highlighting", "terminal", "processing"]
 }

@@ -2,67 +2,26 @@
   "name": "wireshark-cli",
   "version": "4.4.8",
   "description": "Command-line network protocol analysis tools from Wireshark",
-  "category": "networking",
-  "homepage": "https://www.wireshark.org/",
-  "license": "GPL-2.0",
-  "keywords": ["network", "packet", "capture", "analysis", "protocol", "cli"],
-  "author": "Wireshark Foundation",
-  
-  "tools": [
-    {
-      "executable": "tshark.exe",
+  "importType": "wrap",
+  "bin": {
+    "tshark": {
+      "path": "tshark.exe",
       "description": "Network protocol analyzer - command line version of Wireshark",
-      "usage": "tshark -i interface -w output.pcap",
-      "examples": [
-        "tshark -i eth0 -c 100 -w capture.pcap",
-        "tshark -r capture.pcap -T fields -e ip.src -e ip.dst",
-        "tshark -i any -f \"tcp port 80\" -V",
-        "tshark -r input.pcap -Y \"http.request\" -T json"
-      ],
-      "flags": ["-h", "--help", "-v", "--version"],
-      "common_args": ["-i", "-r", "-w", "-c", "-f", "-Y", "-T", "-V", "-x"],
-      "dependencies": "windows",
-      "aliases": [],
-      "category": "network",
-      "source": "./"
+      "usage": "tshark -i interface -w output.pcap\\ntshark -i eth0 -c 100 -w capture.pcap\\ntshark -r capture.pcap -T fields -e ip.src -e ip.dst\\ntshark -i any -f \"tcp port 80\" -V\\ntshark -r input.pcap -Y \"http.request\" -T json",
+      "dependencies": "windows"
     },
-    {
-      "executable": "dumpcap.exe",
+    "dumpcap": {
+      "path": "dumpcap.exe",
       "description": "Network traffic dump tool for packet capture",
-      "usage": "dumpcap -i interface -w output.pcap",
-      "examples": [
-        "dumpcap -i eth0 -w capture.pcap",
-        "dumpcap -D",
-        "dumpcap -i any -a duration:60 -w timed_capture.pcap",
-        "dumpcap -i eth0 -b filesize:100000 -b files:10 -w rolling.pcap"
-      ],
-      "flags": ["-h", "--help", "-v", "--version"],
-      "common_args": ["-i", "-w", "-D", "-a", "-b", "-f", "-s", "-P"],
-      "dependencies": "windows",
-      "aliases": [],
-      "category": "network",
-      "source": "./"
+      "usage": "dumpcap -i interface -w output.pcap\\ndumpcap -i eth0 -w capture.pcap\\ndumpcap -D\\ndumpcap -i any -a duration:60 -w timed_capture.pcap\\ndumpcap -i eth0 -b filesize:100000 -b files:10 -w rolling.pcap",
+      "dependencies": "windows"
     },
-    {
-      "executable": "capinfos.exe",
+    "capinfos": {
+      "path": "capinfos.exe",
       "description": "Print information about capture files",
-      "usage": "capinfos capture.pcap",
-      "examples": [
-        "capinfos capture.pcap",
-        "capinfos -t -c -s *.pcap",
-        "capinfos -T capture.pcap"
-      ],
-      "flags": ["-h", "--help"],
-      "common_args": ["-t", "-c", "-s", "-a", "-e", "-u", "-d", "-T"],
-      "dependencies": "windows",
-      "aliases": [],
-      "category": "network",
-      "source": "./"
+      "usage": "capinfos capture.pcap\\ncapinfos -t -c -s *.pcap\\ncapinfos -T capture.pcap",
+      "dependencies": "windows"
     }
-  ],
-  "tags": ["network", "packet", "analysis", "native", "security"],
-
-  "paths": [
-    "./"
-  ]
+  },
+  "tags": ["network", "packet", "capture", "analysis", "protocol", "wireshark", "cli", "c"]
 }

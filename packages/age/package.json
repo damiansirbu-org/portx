@@ -2,22 +2,14 @@
   "name": "age",
   "version": "1.2.0",
   "description": "Modern file encryption with X25519, ChaCha20-Poly1305, and Scrypt",
-  "tools": [
-    {
-      "executable": "age-keygen.exe",
+  "importType": "wrap",
+  "bin": {
+    "age-keygen": {
+      "path": "age-keygen.exe",
       "description": "X25519 keypair generator with secure defaults and SSH integration",
       "usage": "age-keygen -o key.txt # Generate new X25519 keypair\\nage-keygen -y key.txt # Extract public key from private\\nage-keygen | tee private.key | age-keygen -y > public.key # Generate and split\\nssh-keygen -t ed25519 -f ssh.key && age-keygen -y ssh.key # Convert SSH to age\\nage-keygen -o - | age -r $(age-keygen -y -) secrets.txt # Generate and encrypt",
       "dependencies": "windows"
-    },
-    {
-      "executable": "age.exe",
-      "description": "ChaCha20-Poly1305 file encryptor with X25519 and scrypt support",
-      "usage": "age -r pubkey.txt secrets.txt > secrets.age # Encrypt with public key\\nage -d -i private.key secrets.age > secrets.txt # Decrypt with private key\\nage -p documents.tar > documents.tar.age # Encrypt with passphrase\\necho 'sensitive data' | age -r pubkey.txt -a # Encrypt and ASCII armor\\nage -R recipients.txt -o backup.age folder/ # Multi-recipient directory encryption",
-      "dependencies": "windows"
     }
-  ],
-  "paths": [
-    "./"
-  ],
+  },
   "tags": ["security", "encryption", "native", "crypto"]
 }

@@ -1,15 +1,15 @@
 {
   "name": "ripgrep",
   "version": "1.0.0",
-  "tools": [
-    {
-      "executable": "rg.exe",
+  "description": "Fast grep alternative with .gitignore support and high-performance search",
+  "importType": "wrap",
+  "bin": {
+    "rg": {
+      "path": "rg.exe",
       "description": "Rust-powered search that respects .gitignore while delivering grep-impossible speeds",
-      "usage": "rg 'TODO|FIXME|XXX' --type rust # Hunt technical debt\\nrg -C3 'panic!' --type rust # Context around panics\\nrg --files-with-matches 'deprecated' | head -10 # Files needing updates\\nrg -U 'fn\\s+\\w+.*\\{[^}]*panic' # Multiline function search",
+      "usage": "rg 'TODO|FIXME|XXX' --type rust\\nrg -C3 'panic!' --type rust\\nrg --files-with-matches 'deprecated' | head -10\\nrg -U 'fn\\s+\\w+.*\\{[^}]*panic'",
       "dependencies": "windows"
     }
-  ],
-  "paths": [
-    "./"
-  ]
+  },
+  "tags": ["search", "grep", "fast", "rust", "regex", "gitignore", "text", "rust"]
 }

@@ -2,136 +2,26 @@
   "name": "graphviz",
   "version": "12.1.2",
   "description": "Graph visualization software for creating diagrams from textual descriptions",
-  "category": "visualization",
-  "homepage": "https://graphviz.org/",
-  "license": "EPL-1.0",
-  "keywords": ["graph", "visualization", "diagram", "dot", "layout", "network"],
-  "author": "Graphviz team",
-  
-  "tools": [
-    {
-      "executable": "dot.exe",
+  "importType": "wrap",
+  "bin": {
+    "dot": {
+      "path": "bin/dot.exe",
       "description": "Hierarchical or layered drawings of directed graphs",
       "usage": "dot -Tpng input.dot -o output.png",
-      "examples": [
-        "dot -Tpng graph.dot -o diagram.png",
-        "dot -Tsvg -Gdpi=300 flowchart.gv -o flowchart.svg",
-        "dot -Tpdf network.dot -o network.pdf"
-      ],
-      "flags": ["-V", "-?"],
-      "common_args": ["-T", "-o", "-G", "-N", "-E", "-K"],
-      "dependencies": "windows",
-      "aliases": [],
-      "category": "visualization",
-      "source": "bin"
+      "dependencies": "windows"
     },
-    {
-      "executable": "neato.exe",
+    "neato": {
+      "path": "bin/neato.exe", 
       "description": "Spring model layouts for undirected graphs",
       "usage": "neato -Tpng input.dot -o output.png",
-      "examples": [
-        "neato -Tpng network.dot -o network.png",
-        "neato -Tsvg -Goverlap=false graph.gv -o graph.svg"
-      ],
-      "flags": ["-V", "-?"],
-      "common_args": ["-T", "-o", "-G", "-N", "-E"],
-      "dependencies": "windows",
-      "aliases": [],
-      "category": "visualization",
-      "source": "bin"
+      "dependencies": "windows"
     },
-    {
-      "executable": "circo.exe",
-      "description": "Circular layout for graphs",
+    "circo": {
+      "path": "bin/circo.exe",
+      "description": "Circular layout for graphs", 
       "usage": "circo -Tpng input.dot -o output.png",
-      "examples": [
-        "circo -Tpng circular.dot -o circular.png",
-        "circo -Tsvg -Groot=center workflow.gv -o workflow.svg"
-      ],
-      "flags": ["-V", "-?"],
-      "common_args": ["-T", "-o", "-G", "-N", "-E"],
-      "dependencies": "windows",
-      "aliases": [],
-      "category": "visualization",
-      "source": "bin"
-    },
-    {
-      "executable": "twopi.exe",
-      "description": "Radial layout for graphs",
-      "usage": "twopi -Tpng input.dot -o output.png",
-      "examples": [
-        "twopi -Tpng radial.dot -o radial.png",
-        "twopi -Tsvg -Groot=center tree.gv -o tree.svg"
-      ],
-      "flags": ["-V", "-?"],
-      "common_args": ["-T", "-o", "-G", "-N", "-E"],
-      "dependencies": "windows",
-      "aliases": [],
-      "category": "visualization",
-      "source": "bin"
-    },
-    {
-      "executable": "fdp.exe",
-      "description": "Force-directed placement for undirected graphs",
-      "usage": "fdp -Tpng input.dot -o output.png",
-      "examples": [
-        "fdp -Tpng network.dot -o network.png",
-        "fdp -Tsvg -GK=2.0 graph.gv -o graph.svg"
-      ],
-      "flags": ["-V", "-?"],
-      "common_args": ["-T", "-o", "-G", "-N", "-E"],
-      "dependencies": "windows",
-      "aliases": [],
-      "category": "visualization",
-      "source": "bin"
-    },
-    {
-      "executable": "sfdp.exe",
-      "description": "Scalable force-directed placement for large graphs",
-      "usage": "sfdp -Tpng input.dot -o output.png",
-      "examples": [
-        "sfdp -Tpng large_graph.dot -o large_graph.png",
-        "sfdp -Tsvg -GK=10 massive.gv -o massive.svg"
-      ],
-      "flags": ["-V", "-?"],
-      "common_args": ["-T", "-o", "-G", "-N", "-E"],
-      "dependencies": "windows",
-      "aliases": [],
-      "category": "visualization",
-      "source": "bin"
-    },
-    {
-      "executable": "osage.exe",
-      "description": "Array-based layouts for clustered graphs",
-      "usage": "osage -Tpng input.dot -o output.png",
-      "examples": [
-        "osage -Tpng clusters.dot -o clusters.png"
-      ],
-      "flags": ["-V", "-?"],
-      "common_args": ["-T", "-o", "-G", "-N", "-E"],
-      "dependencies": "windows",
-      "aliases": [],
-      "category": "visualization",
-      "source": "bin"
-    },
-    {
-      "executable": "patchwork.exe",
-      "description": "Squarified treemap layout",
-      "usage": "patchwork -Tpng input.dot -o output.png",
-      "examples": [
-        "patchwork -Tpng treemap.dot -o treemap.png"
-      ],
-      "flags": ["-V", "-?"],
-      "common_args": ["-T", "-o", "-G", "-N", "-E"],
-      "dependencies": "windows",
-      "aliases": [],
-      "category": "visualization",
-      "source": "bin"
+      "dependencies": "windows"
     }
-  ],
-  "tags": ["visualization", "graph", "diagram", "native", "plotting"],
-
-  "paths": [
-    "bin/"
-  ]
+  },
+  "tags": ["visualization", "graph", "diagram", "native", "plotting", "dot", "layout", "network"]
 }

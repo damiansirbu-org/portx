@@ -2,15 +2,14 @@
   "name": "rclone",
   "version": "1.0.0",
   "description": "Command-line program to manage files on cloud storage services with sync and backup capabilities",
-  "tools": [
-    {
-      "executable": "rclone.exe",
+  "importType": "wrap",
+  "bin": {
+    "rclone": {
+      "path": "rclone.exe",
       "description": "Sync files and directories to/from cloud storage providers like Google Drive, S3, Dropbox, and 70+ others",
-      "usage": "rclone copy /local/path remote:bucket # Copy files to cloud\\nrclone sync /local remote:folder --dry-run # Preview sync operations\\nrclone mount remote:bucket /mnt/cloud # Mount cloud storage\\nrclone serve webdav remote: --addr :8080 # WebDAV server\\nrclone config # Configure cloud providers",
+      "usage": "rclone copy /local/path remote:bucket\\nrclone sync /local remote:folder --dry-run\\nrclone mount remote:bucket /mnt/cloud\\nrclone serve webdav remote: --addr :8080\\nrclone config",
       "dependencies": "windows"
     }
-  ],
-  "paths": [
-    "./"
-  ]
+  },
+  "tags": ["cloud", "storage", "sync", "backup", "files", "mount", "webdav", "go"]
 }

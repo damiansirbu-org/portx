@@ -2,16 +2,14 @@
   "name": "bun",
   "version": "1.2.20",
   "description": "Fast JavaScript runtime, bundler, test runner, and package manager",
-  "tools": [
-    {
-      "executable": "bun.exe",
+  "importType": "wrap",
+  "bin": {
+    "bun": {
+      "path": "bun.exe",
       "description": "All-in-one JavaScript toolkit with native performance and Zig implementation",
-      "usage": "bun install # Ultra-fast package installation with global cache\\nbun run --hot server.ts # Hot reload TypeScript development server\\nbun build --minify --splitting ./src/index.ts --outdir dist # Production build with code splitting\\nbun test --watch --coverage # Test runner with coverage and file watching\\nbun create react-app my-app # Scaffold new projects from templates",
+      "usage": "bun install # Ultra-fast package installation with global cache\nbun run --hot server.ts # Hot reload TypeScript development server\nbun build --minify --splitting ./src/index.ts --outdir dist # Production build with code splitting\nbun test --watch --coverage # Test runner with coverage and file watching\nbun create react-app my-app # Scaffold new projects from templates",
       "dependencies": "windows"
     }
-  ],
-  "paths": [
-    "./"
-  ],
-  "tags": ["javascript", "runtime", "native", "build"]
+  },
+  "tags": ["javascript", "runtime", "native", "build", "package-manager", "testing"]
 }

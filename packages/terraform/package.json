@@ -1,15 +1,15 @@
 {
   "name": "terraform",
   "version": "1.0.0",
-  "tools": [
-    {
-      "executable": "terraform.exe",
+  "description": "Infrastructure as Code with state management and declarative syntax",
+  "importType": "wrap",
+  "bin": {
+    "terraform": {
+      "path": "terraform.exe",
       "description": "Infrastructure as Code with state management, preventing configuration drift through declarative syntax",
-      "usage": "terraform plan -out=changes.tfplan # Preview infrastructure changes\\nterraform apply changes.tfplan # Execute planned changes\\nterraform import aws_instance.web i-1234567890abcdef0 # Import existing resources\\nterraform state list | grep aws_instance # Audit managed resources",
+      "usage": "terraform plan -out=changes.tfplan\\nterraform apply changes.tfplan\\nterraform import aws_instance.web i-1234567890abcdef0\\nterraform state list | grep aws_instance",
       "dependencies": "windows"
     }
-  ],
-  "paths": [
-    "./"
-  ]
+  },
+  "tags": ["infrastructure", "code", "state", "management", "declarative", "cloud", "provisioning", "go"]
 }

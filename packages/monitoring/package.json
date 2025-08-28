@@ -2,21 +2,20 @@
   "name": "monitoring",
   "version": "1.0.0",
   "description": "System monitoring and metrics collection tools for observability and performance analysis",
-  "tools": [
-    {
-      "executable": "promtool.exe",
+  "importType": "wrap",
+  "bin": {
+    "promtool": {
+      "path": "promtool.exe",
       "description": "Command-line tooling for Prometheus monitoring system configuration and rule validation",
-      "usage": "promtool check config prometheus.yml # Validate Prometheus config\\npromtool check rules rules.yml # Validate recording/alerting rules\\npromtool query instant 'up' # Execute instant query\\npromtool test rules test.yml # Test rules with sample data",
+      "usage": "promtool check config prometheus.yml\\npromtool check rules rules.yml\\npromtool query instant 'up'\\npromtool test rules test.yml",
       "dependencies": "windows"
     },
-    {
-      "executable": "telegraf.exe",
+    "telegraf": {
+      "path": "telegraf.exe",
       "description": "Agent for collecting and reporting metrics from systems, applications, and sensors",
-      "usage": "telegraf --input-list # List available input plugins\\ntelegraf --config telegraf.conf # Run with specific config\\ntelegraf --test # Test configuration and output sample metrics\\ntelegraf --config-directory /etc/telegraf/conf.d # Use config directory",
+      "usage": "telegraf --input-list\\ntelegraf --config telegraf.conf\\ntelegraf --test\\ntelegraf --config-directory /etc/telegraf/conf.d",
       "dependencies": "windows"
     }
-  ],
-  "paths": [
-    "./"
-  ]
+  },
+  "tags": ["monitoring", "metrics", "prometheus", "telegraf", "observability", "performance", "system", "go"]
 }

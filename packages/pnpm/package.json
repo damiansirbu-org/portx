@@ -2,15 +2,14 @@
   "name": "pnpm",
   "version": "1.0.0",
   "description": "Fast, disk space efficient package manager with strict dependency management",
-  "tools": [
-    {
-      "executable": "pnpm.exe",
+  "importType": "wrap",
+  "bin": {
+    "pnpm": {
+      "path": "pnpm.exe",
       "description": "Performant npm alternative with content-addressable storage and strict dependency isolation",
-      "usage": "pnpm install # Install dependencies\\npnpm add package-name # Add new package\\npnpm run build # Run package script\\npnpm create vite my-app # Create new project\\npnpm store prune # Clean unused packages from store",
+      "usage": "pnpm install\\npnpm add package-name\\npnpm run build\\npnpm create vite my-app\\npnpm store prune",
       "dependencies": "windows"
     }
-  ],
-  "paths": [
-    "./"
-  ]
+  },
+  "tags": ["package", "manager", "npm", "performance", "dependency", "isolation", "storage", "javascript"]
 }

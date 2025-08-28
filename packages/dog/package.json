@@ -1,45 +1,15 @@
 {
-  // ==========================================
-  // PORTX Package Configuration (package.json)
-  // ==========================================
-  
-  // CORE PACKAGE METADATA
   "name": "dog",
   "version": "0.1.0",
   "description": "Colorful DNS client with modern interface - supports DNS-over-TLS, DNS-over-HTTPS, and JSON output as a user-friendly dig alternative",
-  "author": "PORTX Team",
-  "license": "EUPL-1.2",
-  
-  // IMPORT BEHAVIOR CONTROL
-  "import": "auto",
-  
-  // EXECUTABLE DISCOVERY  
-  "paths": [
-    "./bin"
-  ],
-  
-  // TOOL DEFINITIONS
-  "tools": [
-    {
-      "executable": "dog.exe",
-      "defaultArgs": "",
+  "importType": "wrap",
+  "bin": {
+    "dog": {
+      "path": "bin/dog.exe",
       "description": "Modern DNS client written in Rust with colorful output, DoT/DoH support, and JSON export - easier to use than dig with intuitive syntax",
       "usage": "dog example.com # Basic DNS lookup\\ndog example.com MX @1.1.1.1 # MX records via Cloudflare DNS\\ndog --tls @1.1.1.1 example.com # DNS over TLS\\ndog --https @cloudflare-dns.com/dns-query example.com # DNS over HTTPS\\ndog --json example.com A # JSON output format",
-      "dependencies": "windows", 
-      "aliases": [],
-      "category": "network",
-      "tags": ["dns", "dig", "alternative", "colorful", "dot", "doh", "json", "rust", "lookup"]
+      "dependencies": "windows"
     }
-  ],
-  
-  // PACKAGE METADATA
-  "homepage": "https://dns.lookup.dog/",
-  "repository": "https://github.com/ogham/dog",
-  "keywords": ["dns", "dig", "lookup", "colorful", "dot", "doh", "client"],
-  "categories": ["network", "dns", "utilities"],
-  
-  // TECHNICAL CONFIGURATION
-  "architecture": "x64",
-  "platform": "win32",
-  "runtime": "native"
+  },
+  "tags": ["dns", "dig", "alternative", "colorful", "dot", "doh", "json", "rust", "lookup", "network"]
 }

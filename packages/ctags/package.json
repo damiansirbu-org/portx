@@ -2,22 +2,20 @@
   "name": "ctags",
   "version": "6.2.0",
   "description": "Universal source code indexer supporting 50+ programming languages",
-  "tools": [
-    {
-      "executable": "ctags.exe",
+  "importType": "wrap",
+  "bin": {
+    "ctags": {
+      "path": "ctags.exe",
       "description": "Multi-language source indexer with advanced pattern recognition",
-      "usage": "ctags -R --exclude=node_modules . # Recursive indexing excluding node_modules\\nctags --languages=+Python,-JavaScript src/ # Include Python, exclude JavaScript\\nctags --extras=+r --fields=+iaS --kinds-c=+p *.c # Enhanced C tags with prototypes\\nctags --output-format=json --fields=* -o tags.json *.py # JSON output format\\nctags --list-maps # Show file extension mappings",
+      "usage": "ctags -R --exclude=node_modules . # Recursive indexing excluding node_modules\nctags --languages=+Python,-JavaScript src/ # Include Python, exclude JavaScript\nctags --extras=+r --fields=+iaS --kinds-c=+p *.c # Enhanced C tags with prototypes\nctags --output-format=json --fields=* -o tags.json *.py # JSON output format\nctags --list-maps # Show file extension mappings",
       "dependencies": "windows"
     },
-    {
-      "executable": "readtags.exe",
+    "readtags": {
+      "path": "readtags.exe",
       "description": "Tag file reader with filtering, sorting, and formatting capabilities",
-      "usage": "readtags -t tags main # Find 'main' function definitions\\nreadtags -Q '(and (eq? $kind \\\"function\\\") (prefix? $name \\\"get_\\\"))' -l # Find getter functions\\nreadtags -S -F '#{$name}#{$line}' -l # Custom format sorted output\\nreadtags -e -Q '(eq? $input \\\"main.c\\\")' -l # Tags from specific file\\nreadtags --help # Show all query expressions and formats",
+      "usage": "readtags -t tags main # Find 'main' function definitions\nreadtags -Q '(and (eq? $kind \"function\") (prefix? $name \"get_\"))' -l # Find getter functions\nreadtags -S -F '#{$name}#{$line}' -l # Custom format sorted output\nreadtags -e -Q '(eq? $input \"main.c\")' -l # Tags from specific file\nreadtags --help # Show all query expressions and formats",
       "dependencies": "windows"
     }
-  ],
-  "paths": [
-    "./"
-  ],
-  "tags": ["indexing", "search", "native", "multi"]
+  },
+  "tags": ["indexing", "search", "native", "multi", "development", "code-analysis"]
 }

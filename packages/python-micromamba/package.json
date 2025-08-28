@@ -2,82 +2,20 @@
   "name": "python-micromamba",
   "version": "1.5.8",
   "description": "Fast, lightweight conda-compatible package manager for Python environments",
-  "category": "development",
-  "homepage": "https://mamba.readthedocs.io/",
-  "license": "BSD-3-Clause",
-  "keywords": ["python", "package-manager", "conda", "environment", "mamba"],
-  "author": "Mamba Organization",
-  
-  "tools": [
-    {
-      "executable": "conda.exe",
+  "importType": "wrap",
+  "bin": {
+    "conda": {
+      "path": "conda.exe",
       "description": "Cross-platform package manager for Python and R ecosystems, fully self-contained executable",
-      "usage": "conda create -n myenv python=3.11",
-      "examples": [
-        "conda create -n myenv python=3.11",
-        "conda install numpy pandas scipy",
-        "conda list",
-        "conda env list",
-        "conda activate myenv",
-        "conda deactivate",
-        "conda update --all",
-        "conda remove package-name"
-      ],
-      "flags": ["--help", "--version"],
-      "common_args": [
-        "create",
-        "install", 
-        "remove",
-        "update",
-        "list",
-        "search",
-        "activate",
-        "deactivate",
-        "env",
-        "config"
-      ],
-      "dependencies": "embedded",
-      "aliases": [],
-      "category": "development",
-      "source": "."
+      "usage": "conda create -n myenv python=3.11\\nconda install numpy pandas scipy\\nconda list\\nconda env list\\nconda activate myenv\\nconda deactivate\\nconda update --all\\nconda remove package-name",
+      "dependencies": "native"
     },
-    {
-      "executable": "micromamba.exe",
+    "micromamba": {
+      "path": "micromamba.exe", 
       "description": "Fast, lightweight conda-compatible package manager with minimal dependencies",
-      "usage": "micromamba create -n myenv python=3.11",
-      "examples": [
-        "micromamba create -n myenv python=3.11",
-        "micromamba install -n myenv numpy pandas",
-        "micromamba activate myenv",
-        "micromamba list",
-        "micromamba info",
-        "micromamba env list",
-        "micromamba update --all",
-        "micromamba clean --all"
-      ],
-      "flags": ["--help", "--version"],
-      "common_args": [
-        "create",
-        "install",
-        "remove", 
-        "update",
-        "list",
-        "search",
-        "activate",
-        "info",
-        "env",
-        "clean",
-        "config"
-      ],
-      "dependencies": "embedded",
-      "aliases": [],
-      "category": "development",
-      "source": "."
+      "usage": "micromamba create -n myenv python=3.11\\nmicromamba install -n myenv numpy pandas\\nmicromamba activate myenv\\nmicromamba list\\nmicromamba info\\nmicromamba env list\\nmicromamba update --all\\nmicromamba clean --all",
+      "dependencies": "native"
     }
-  ],
-  "tags": ["python", "package-manager", "conda", "development", "environment"],
-
-  "paths": [
-    "."
-  ]
+  },
+  "tags": ["python", "packages", "conda", "environment", "development", "mamba"]
 }

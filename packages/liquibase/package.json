@@ -2,64 +2,14 @@
   "name": "liquibase",
   "version": "4.29.2",
   "description": "Database schema change management and version control tool",
-  "category": "database",
-  "homepage": "https://www.liquibase.org/",
-  "license": "Apache-2.0",
-  "keywords": ["database", "migration", "schema", "versioning", "devops", "CI/CD"],
-  "author": "Liquibase",
-  
-  "tools": [
-    {
-      "executable": "liquibase.bat",
+  "importType": "wrap",
+  "bin": {
+    "liquibase": {
+      "path": "liquibase.bat",
       "description": "Database migration and schema versioning tool",
-      "usage": "liquibase update",
-      "examples": [
-        "liquibase --changeLogFile=changelog.xml update",
-        "liquibase --changeLogFile=changelog.xml rollback --count=1",
-        "liquibase --changeLogFile=changelog.xml generateChangeLog",
-        "liquibase --changeLogFile=changelog.xml status",
-        "liquibase --changeLogFile=changelog.xml validate"
-      ],
-      "flags": ["--help", "--version"],
-      "common_args": [
-        "--changeLogFile",
-        "--url",
-        "--username", 
-        "--password",
-        "--driver",
-        "--classpath",
-        "--contexts",
-        "--labels"
-      ],
-      "dependencies": "windows",
-      "aliases": [],
-      "category": "database",
-      "source": "./"
-    },
-    {
-      "executable": "liquibase",
-      "description": "Database migration shell script (Unix-style)",
-      "usage": "liquibase update",
-      "examples": [
-        "liquibase --changeLogFile=changelog.xml update",
-        "liquibase --changeLogFile=changelog.xml rollback --count=1"
-      ],
-      "flags": ["--help", "--version"],
-      "common_args": [
-        "--changeLogFile",
-        "--url", 
-        "--username",
-        "--password"
-      ],
-      "dependencies": "windows",
-      "aliases": [],
-      "category": "database",
-      "source": "./"
+      "usage": "liquibase update\\nliquibase --changeLogFile=changelog.xml update\\nliquibase --changeLogFile=changelog.xml rollback --count=1\\nliquibase --changeLogFile=changelog.xml generateChangeLog\\nliquibase --changeLogFile=changelog.xml status",
+      "dependencies": "windows"
     }
-  ],
-  "tags": ["database", "migration", "schema", "java", "devops"],
-
-  "paths": [
-    "./"
-  ]
+  },
+  "tags": ["database", "migration", "schema", "java", "devops", "versioning", "changelog", "sql"]
 }

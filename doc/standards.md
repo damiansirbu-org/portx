@@ -34,11 +34,28 @@
 
 **Decision:** All user-facing output must use the unified theme system.
 
-**Required Functions:** `status_success`, `status_error`, `header`, `icon_*`, `color_*`
+**Required Functions:** `color_success()`, `color_error()`, `color_warning()`, `color_primary()`, `color_reset()`
 
-**Prohibited:** Direct terminal codes, hardcoded icons, manual formatting.
+**Prohibited:** 
+- Direct ANSI escape codes (`\033[91m`)
+- Hardcoded colors or formatting
+- Icons, symbols, emojis (✓ ❌ 🎉 ⚠️)
+- Unicode box drawing characters (╔ ║ ╚)
+- Decorative elements or "stupid shit"
 
-**Fallbacks:** Required when theme system unavailable.
+**Required:** Clean, professional text output using theme.sh functions only
+
+**Examples:**
+```bash
+# ✅ CORRECT
+printf "%sCRITICAL ERROR: Missing executable file%s\n" "$(color_error)" "$(color_reset)"
+printf "%sAll %d executables verified%s\n" "$(color_success)" "$count" "$(color_reset)"
+
+# ❌ WRONG  
+printf "\033[91mCRITICAL ERROR\033[0m\n"  # Hardcoded
+printf "✓ All %d executables verified\n" "$count"  # Icons
+printf "╔══════════════════════╗\n"  # Box drawing
+```
 
 ---
 

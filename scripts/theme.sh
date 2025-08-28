@@ -79,68 +79,75 @@ detect_terminal_capabilities() {
 color_primary() {
     detect_terminal_capabilities
     case $PORTX_COLOR_LEVEL in
-        *) echo '\033[37m' ;;  # White (primary text)
+        *) echo $'\033[37m' ;;  # White (primary text)
     esac
 }
 
 color_secondary() {
     detect_terminal_capabilities
     case $PORTX_COLOR_LEVEL in
-        *) echo '\033[90m' ;;  # Gray (secondary/muted text)
+        *) echo $'\033[90m' ;;  # Gray (secondary/muted text)
     esac
 }
 
 color_success() {
     detect_terminal_capabilities
     case $PORTX_COLOR_LEVEL in
-        *) echo '\033[90m' ;;  # Dim gray (minimal)
+        *) echo $'\033[90m' ;;  # Dim gray (minimal)
     esac
 }
 
 color_error() {
     detect_terminal_capabilities
     case $PORTX_COLOR_LEVEL in
-        *) echo '\033[1;31m' ;;  # Bright red
+        *) echo $'\033[1;31m' ;;  # Bright red
     esac
 }
 
 color_warning() {
     detect_terminal_capabilities
     case $PORTX_COLOR_LEVEL in
-        *) echo '\033[90m' ;;  # Gray
+        *) echo $'\033[93m' ;;  # Bright yellow
     esac
 }
 
 color_info() {
     detect_terminal_capabilities
     case $PORTX_COLOR_LEVEL in
-        *) echo '\033[90m' ;;  # Gray (no more blue)
+        *) echo $'\033[90m' ;;  # Gray (no more blue)
     esac
 }
 
 color_muted() {
     detect_terminal_capabilities
     case $PORTX_COLOR_LEVEL in
-        *) echo '\033[90m' ;;  # Dim gray
+        *) echo $'\033[90m' ;;  # Dim gray
     esac
 }
 
 color_accent() {
     detect_terminal_capabilities
     case $PORTX_COLOR_LEVEL in
-        *) echo '\033[37m' ;;  # White
+        *) echo $'\033[37m' ;;  # White
     esac
 }
 
 color_pale_blue() {
     detect_terminal_capabilities
     case $PORTX_COLOR_LEVEL in
-        *) echo '\033[94m' ;;  # Pale blue for package names
+        *) echo $'\033[94m' ;;  # Pale blue for package names
+    esac
+}
+
+color_pale_green() {
+    detect_terminal_capabilities
+    case $PORTX_COLOR_LEVEL in
+        *) echo $'\033[92m' ;;  # Pale green for success messages
     esac
 }
 
 color_reset() {
-    echo '\033[0m'
+    echo $'\033[0m'
 }
 
 # GEOMETRIC ICONS - ◆ ◈ ◇

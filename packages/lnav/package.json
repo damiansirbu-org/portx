@@ -1,45 +1,15 @@
 {
-  // ==========================================
-  // PORTX Package Configuration (package.json)
-  // ==========================================
-  
-  // CORE PACKAGE METADATA
   "name": "lnav",
   "version": "0.13.0",
-  "description": "Advanced log file navigator with automatic format detection, SQL queries, timeline view, and multi-file correlation - the ultimate log analysis tool",
-  "author": "PORTX Team",
-  "license": "BSD-2-Clause",
-  
-  // IMPORT BEHAVIOR CONTROL
-  "import": "auto",
-  
-  // EXECUTABLE DISCOVERY  
-  "paths": [
-    "./bin"
-  ],
-  
-  // TOOL DEFINITIONS
-  "tools": [
-    {
-      "executable": "lnav.exe",
-      "defaultArgs": "",
+  "description": "Advanced log file navigator with automatic format detection, SQL queries, timeline view, and multi-file correlation",
+  "importType": "wrap",
+  "bin": {
+    "lnav": {
+      "path": "lnav.exe",
       "description": "Advanced ncurses-based log file navigator with automatic format detection, SQL querying, timeline visualization, and intelligent multi-file correlation",
-      "usage": "lnav /var/log/apache2/*.log # Analyze web server logs\\nlnav -c ';UPDATE access_log SET status = 500 WHERE status = 404' access.log # SQL queries on logs\\nlnav -n -c '.schema' error.log # Headless mode for scripting\\nlnav -c 'SELECT * FROM syslog_log WHERE log_level = \"ERROR\"' /var/log/syslog # Extract errors with SQL",
-      "dependencies": "windows",
-      "aliases": [],
-      "category": "log-analysis",
-      "tags": ["logs", "analysis", "navigator", "sql", "timeline", "ncurses", "correlation", "sysadmin"]
+      "usage": "lnav /var/log/apache2/*.log\\nlnav -c ';UPDATE access_log SET status = 500 WHERE status = 404' access.log\\nlnav -n -c '.schema' error.log\\nlnav -c 'SELECT * FROM syslog_log WHERE log_level = \"ERROR\"' /var/log/syslog",
+      "dependencies": "windows"
     }
-  ],
-  
-  // PACKAGE METADATA
-  "homepage": "https://lnav.org/",
-  "repository": "https://github.com/tstack/lnav",
-  "keywords": ["log", "analysis", "navigator", "sql", "timeline", "correlation"],
-  "categories": ["log-analysis", "sysadmin", "debugging"],
-  
-  // TECHNICAL CONFIGURATION
-  "architecture": "x64",
-  "platform": "win32",
-  "runtime": "native"
+  },
+  "tags": ["logs", "analysis", "navigator", "sql", "timeline", "ncurses", "correlation", "sysadmin"]
 }

@@ -1,45 +1,15 @@
 {
-  // ==========================================
-  // PORTX Package Configuration (package.json)
-  // ==========================================
-  
-  // CORE PACKAGE METADATA
   "name": "dasel",
   "version": "2.8.1",
   "description": "Universal data selector with jq-like syntax for JSON, YAML, TOML, XML, CSV - 3x faster than jq, zero dependencies, format conversion",
-  "author": "PORTX Team",
-  "license": "MIT",
-  
-  // IMPORT BEHAVIOR CONTROL
-  "import": "auto",
-  
-  // EXECUTABLE DISCOVERY  
-  "paths": [
-    "./"
-  ],
-  
-  // TOOL DEFINITIONS
-  "tools": [
-    {
-      "executable": "dasel.exe",
-      "defaultArgs": "",
+  "importType": "wrap",
+  "bin": {
+    "dasel": {
+      "path": "dasel.exe",
       "description": "Universal data selector supporting JSON, YAML, TOML, XML, CSV with unified query syntax and format conversion - up to 3x faster than jq with zero runtime dependencies",
-      "usage": "dasel -f config.yaml '.database.host' # Query any format\\ndasel -f data.json '.users.[0].name' # Extract nested values\\ndasel -f input.csv -w yaml # Convert CSV to YAML\\ndasel -f config.toml '.servers' -w json # Convert TOML to JSON\\ndasel -f data.json put '.timestamp' -v '2023-01-01' # Modify data in place",
-      "dependencies": "windows",
-      "aliases": [],
-      "category": "data-processing",
-      "tags": ["json", "yaml", "toml", "xml", "csv", "query", "selector", "converter", "fast", "zero-dependencies"]
+      "usage": "dasel -f config.yaml '.database.host' # Query any format\ndasel -f data.json '.users.[0].name' # Extract nested values\ndasel -f input.csv -w yaml # Convert CSV to YAML\ndasel -f config.toml '.servers' -w json # Convert TOML to JSON\ndasel -f data.json put '.timestamp' -v '2023-01-01' # Modify data in place",
+      "dependencies": "windows"
     }
-  ],
-  
-  // PACKAGE METADATA
-  "homepage": "https://daseldocs.tomwright.me/",
-  "repository": "https://github.com/TomWright/dasel",
-  "keywords": ["data", "selector", "json", "yaml", "toml", "xml", "csv", "query", "converter"],
-  "categories": ["data-processing", "json", "yaml", "converter"],
-  
-  // TECHNICAL CONFIGURATION
-  "architecture": "x64",
-  "platform": "win32",
-  "runtime": "native"
+  },
+  "tags": ["json", "yaml", "toml", "xml", "csv", "query"]
 }

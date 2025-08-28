@@ -20,7 +20,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=/dev/null
 source "$SCRIPT_DIR/theme.sh"
 
-# Logging functions using printf
+# Logging functions using theme.sh color functions
 log() { printf "%s%s%s\n" "$(color_primary)" "$1" "$(color_reset)"; }
 error() { printf "%s%s%s\n" "$(color_error)" "$1" "$(color_reset)" >&2; }
 success() { printf "%s%s%s\n" "$(color_success)" "$1" "$(color_reset)"; }
@@ -36,7 +36,7 @@ PORTX_PATH_CACHE="$HOME/.portx_path_cache"
 PORTX_PACKAGES_CACHE="$HOME/.portx_packages_cache"
 PORTX_TOOLS_CACHE="$HOME/.portx_tools_cache"
 PORTX_IMPORT_LOG_FILE="$HOME/portx-packages-import.log"
-PORTX_VERIFY_LOG_FILE="$HOME/portx-packages-verify.log"
+# Legacy verify log file variable removed
 
 # Function for debug logging (only to file)
 debug_log() {
@@ -64,95 +64,63 @@ info_log() {
 TOTAL_PACKAGES=0
 TOTAL_EXECUTABLES=0
 VALID_PACKAGES=0
-CORRUPTED_PACKAGES=0
 WRAPPER_PACKAGES=0
 PATH_PACKAGES=0
-EXECUTABLE_MISMATCHES=0
 
-# Arrays
+# Arrays  
 WRAPPER_PACKAGE_NAMES=()
 PATH_PACKAGE_PATHS=()
-CORRUPTED_PACKAGE_NAMES=()
-MISMATCH_PACKAGE_NAMES=()
 
-# Error codes for wrapper testing (research-based)
-declare -g WRAPPER_MISSING_EXECUTABLE=10
-declare -g WRAPPER_DEPENDENCY_MISSING=11
-declare -g WRAPPER_TIMEOUT_EXCEEDED=12
-declare -g WRAPPER_UNSUPPORTED_FLAGS=13
-declare -g WRAPPER_FUNCTIONAL_PASS=0
+# Legacy wrapper testing constants removed
+
+# Schema validation error codes
+declare -g SCHEMA_VALID=0
+declare -g SCHEMA_INVALID=20
+declare -g SCHEMA_FILE_MISSING=21
+declare -g JSON_SYNTAX_ERROR=22
+
+# Method: Validate package.json against portx schema
+validate_package_json() {
+    local package_json_path="$1"
+    
+    debug_log "Validating: $package_json_path"
+    
+    # Check if package.json exists
+    if [[ ! -f "$package_json_path" ]]; then
+        debug_log "ERROR: package.json not found: $package_json_path"
+        return $SCHEMA_FILE_MISSING
+    fi
+    
+    # Use native portx validator (no external dependencies)
+    local validator_script="$GIT_BASH_ROOT_POSIX/home/portx/scripts/validate-json.sh"
+    if [[ -f "$validator_script" ]]; then
+        if "$validator_script" "$package_json_path" >/dev/null 2>&1; then
+            debug_log "SUCCESS: Schema validation passed: $package_json_path"
+            return $SCHEMA_VALID
+        else
+            debug_log "ERROR: Schema validation failed: $package_json_path"
+            # Show detailed validation errors
+            "$validator_script" "$package_json_path" 2>&1 | while read -r line; do
+                debug_log "  $line"
+            done
+            return $SCHEMA_INVALID
+        fi
+    else
+        debug_log "WARNING: Native validator not found, using basic JSON syntax check"
+        # Fallback to basic JSON syntax validation
+        if ! cat "$package_json_path" | jq empty >/dev/null 2>&1; then
+            debug_log "ERROR: Invalid JSON syntax in: $package_json_path"
+            return $JSON_SYNTAX_ERROR
+        fi
+        return $SCHEMA_VALID
+    fi
+}
 
 # Method: Test wrapper functionality with comprehensive error categorization
-test_wrapper_works() {
-    local cmd_name="$1"
-
-    debug_log "$PORTX_VERIFY_LOG_FILE" "      Testing wrapper for: $cmd_name"
-
-    # Check if wrapper exists and is executable
-    local wrapper_sh="$SH_WRAPPERS_DIR/$cmd_name"
-    if [[ ! -f "$wrapper_sh" ]]; then
-        debug_log "$PORTX_VERIFY_LOG_FILE" "      MISSING_EXECUTABLE: $wrapper_sh"
-        return $WRAPPER_MISSING_EXECUTABLE
-    fi
-
-    if [[ ! -x "$wrapper_sh" ]]; then
-        debug_log "$PORTX_VERIFY_LOG_FILE" "      MISSING_EXECUTABLE: $wrapper_sh not executable"
-        return $WRAPPER_MISSING_EXECUTABLE
-    fi
-
-    # Test basic wrapper execution (dependency check)  
-    debug_log "$PORTX_VERIFY_LOG_FILE" "      Testing basic wrapper execution"
-    local basic_test_output
-    basic_test_output=$(timeout 3 "$wrapper_sh" 2>&1 || true)
-    local basic_exit_code=$?
-    
-    # Check for dependency issues (common error patterns)
-    if [[ "$basic_exit_code" -eq 124 ]]; then
-        debug_log "$PORTX_VERIFY_LOG_FILE" "      TIMEOUT_EXCEEDED: Basic execution timed out"
-        return $WRAPPER_TIMEOUT_EXCEEDED
-    elif echo "$basic_test_output" | grep -qi "dll.*not found\|missing.*dependency\|cannot.*load"; then
-        debug_log "$PORTX_VERIFY_LOG_FILE" "      DEPENDENCY_MISSING: $basic_test_output"
-        return $WRAPPER_DEPENDENCY_MISSING
-    fi
-    
-    debug_log "$PORTX_VERIFY_LOG_FILE" "      Basic execution exit code: $basic_exit_code"
-
-    # Check if timeout command exists
-    if ! command -v timeout >/dev/null 2>&1; then
-        debug_log "$PORTX_VERIFY_LOG_FILE" "      timeout command not available, using direct test"
-        # Test without timeout - comprehensive flags for CLI and GUI tools
-        for flag in "--help" "--version" "-h" "-v" "/?" "-?" "help" "version" "--usage" "/help" "/version"; do
-            debug_log "$PORTX_VERIFY_LOG_FILE" "      Testing flag: $flag"
-            if "$wrapper_sh" "$flag" >/dev/null 2>&1; then
-                debug_log "$PORTX_VERIFY_LOG_FILE" "      Wrapper test SUCCESS with flag: $flag"
-                return 0
-            else
-                debug_log "$PORTX_VERIFY_LOG_FILE" "      Flag $flag failed"
-            fi
-        done
-    else
-        debug_log "$PORTX_VERIFY_LOG_FILE" "      Using timeout for wrapper tests (10s timeout)"
-        # Test with timeout using wrapper full path - comprehensive flags for CLI and GUI tools
-        for flag in "--help" "--version" "-h" "-v" "/?" "-?" "help" "version" "--usage" "/help" "/version"; do
-            debug_log "$PORTX_VERIFY_LOG_FILE" "      Testing flag with timeout: $flag"
-            local error_output
-            error_output=$(timeout 3 "$wrapper_sh" "$flag" 2>&1 >/dev/null || true)
-            local exit_code=$?
-            if [[ $exit_code -eq 0 ]]; then
-                debug_log "$PORTX_VERIFY_LOG_FILE" "      FUNCTIONAL_PASS: Success with flag $flag"
-                return $WRAPPER_FUNCTIONAL_PASS
-            else
-                if [[ $exit_code -eq 124 ]]; then
-                    debug_log "$PORTX_VERIFY_LOG_FILE" "      TIMEOUT_EXCEEDED: Flag $flag timed out"
-                    return $WRAPPER_TIMEOUT_EXCEEDED
-                fi
-                debug_log "$PORTX_VERIFY_LOG_FILE" "      Flag $flag failed (exit: $exit_code)"
-            fi
-        done
-    fi
-
-    # debug_log "$PORTX_VERIFY_LOG_FILE" "      UNSUPPORTED_FLAGS: Tool works but doesn't support help/version flags"
-    return $WRAPPER_UNSUPPORTED_FLAGS
+# Legacy test_wrapper_works() function removed - import does not test wrappers
+test_wrapper_works_REMOVED() {
+    # Function removed - import does not test wrappers, only validates executables exist
+    return 1
 }
 
 # Method: Get executables from package.json (preferred) with defaultArgs
@@ -161,7 +129,17 @@ get_executables_from_json() {
     local json_file="$pkg_dir/package.json"
 
     if [[ -f "$json_file" ]]; then
-        # Extract executables with defaultArgs: "executable.exe|defaultArgs"
+        # NEW SCHEMA: Extract executables from bin object: "path|defaultArgs"
+        # First try new schema (bin object)
+        local bin_executables
+        bin_executables=$(parse_json_with_comments "$json_file" '.bin // {} | to_entries[]? | "\(.value.path)|\(.value.defaultArgs // "")"')
+        
+        if [[ -n "$bin_executables" ]]; then
+            echo "$bin_executables"
+            return
+        fi
+        
+        # LEGACY FALLBACK: Extract from old tools array for backward compatibility
         parse_json_with_comments "$json_file" '.tools[]? | select(.executable) | "\(.executable)|\(.defaultArgs // "")"'
     fi
 }
@@ -169,16 +147,18 @@ get_executables_from_json() {
 # Method: Get executables by scanning directory (for validation)
 get_scanned_executables() {
     local pkg_dir="$1"
-    debug_log "$PORTX_VERIFY_LOG_FILE" "Scanning for executables in: $pkg_dir"
+    debug_log "Scanning for executables in: $pkg_dir"
     
     # Find executables in package directory and subdirectories
-    # Support multiple extensions: .exe, .bat, .cmd, .sh, .py, and extensionless scripts
-    local result=$(find "$pkg_dir" \
-        \( -name "*.exe" -o -name "*.bat" -o -name "*.cmd" -o -name "*.sh" -o -name "*.py" \) \
+    # Support Windows executables only: .exe, .bat, .cmd
+    local result
+    result=$(find "$pkg_dir" \
+        \( -name "*.exe" -o -name "*.bat" -o -name "*.cmd" \) \
         -type f -exec basename {} \; 2>/dev/null | sort -u)
     
     # Also find extensionless executables (like 'liquibase', 'az')
-    local extensionless=$(find "$pkg_dir" -type f ! -name "*.txt" ! -name "*.md" ! -name "*.json" \
+    local extensionless
+    extensionless=$(find "$pkg_dir" -type f ! -name "*.txt" ! -name "*.md" ! -name "*.json" \
         ! -name "*.dll" ! -name "*.so" ! -name "*.conf" ! -name "*.config" ! -name "*.xml" \
         ! -name "*.ini" ! -name "*.log" ! -name "*.zip" ! -name "*.tar*" ! -name "*.gz" \
         ! -name "*.*" -executable -exec basename {} \; 2>/dev/null | sort -u)
@@ -186,7 +166,7 @@ get_scanned_executables() {
     # Combine both results and remove duplicates
     result=$(printf "%s\n%s\n" "$result" "$extensionless" | grep -v "^$" | sort -u)
     
-    debug_log "$PORTX_VERIFY_LOG_FILE" "Found executables: $result"
+    debug_log "Found executables: $result"
     echo "$result"
 }
 
@@ -200,7 +180,16 @@ parse_package_manual() {
         return
     fi
 
-    # Extract executables from JSON tools array
+    # NEW SCHEMA: Extract executables from bin object
+    local bin_executables
+    bin_executables=$(parse_json_with_comments "$json_file" '.bin // {} | to_entries[]? | .value.path' | sort -u)
+    
+    if [[ -n "$bin_executables" ]]; then
+        echo "$bin_executables"
+        return
+    fi
+
+    # LEGACY FALLBACK: Extract executables from JSON tools array
     parse_json_with_comments "$json_file" '.tools[]?.executable // empty' | sort -u
 }
 
@@ -254,62 +243,115 @@ get_import_type() {
 }
 
 # Method: Validate package integrity
-validate_package() {
+# Legacy validate_package() function removed - use validate_package_comprehensive() instead  
+validate_package_REMOVED() {
+    # Legacy function removed - use validate_package_comprehensive() instead
+    return 1
+}
+
+# Method: Comprehensive package validation with schema and executable verification
+validate_package_comprehensive() {
     local pkg_dir="$1"
     local pkg_name="$2"
     local json_file="$pkg_dir/package.json"
-    local validation_status="VALID"
-    local validation_issues=()
-
-    # Silent analysis
-
-    # Check 1: Package JSON exists
+    
+    printf "    Validating: %s\n" "$pkg_name"
+    debug_log "=== COMPREHENSIVE VALIDATION: $pkg_name ==="
+    debug_log "Package directory: $pkg_dir"
+    debug_log "JSON file: $json_file"
+    
+    # STEP 1: Check package.json exists
     if [[ ! -f "$json_file" ]]; then
-        validation_issues+=("No package.json found")
-        validation_status="CORRUPTED"
-    fi
-
-    # Check 2: Executables exist
-    debug_log "$PORTX_VERIFY_LOG_FILE" "validate_package: checking executables"
-    local discovered_exes
-    discovered_exes=$(get_scanned_executables "$pkg_dir")
-    debug_log "$PORTX_VERIFY_LOG_FILE" "validate_package: discovered_exes='$discovered_exes'"
-    if [[ -z "$discovered_exes" ]]; then
-        validation_issues+=("No executables found")
-        validation_status="CORRUPTED"
-    fi
-
-    # Check 3: Compare discovered vs declared executables
-    if [[ -f "$json_file" ]] && [[ -n "$discovered_exes" ]]; then
-        local declared_exes
-        declared_exes=$(parse_package_manual "$pkg_dir")
-
-        if [[ -n "$declared_exes" ]]; then
-            local discovered_sorted
-            local declared_sorted
-            discovered_sorted=$(echo "$discovered_exes" | xargs -n1 basename | sort)
-            declared_sorted=$(echo "$declared_exes" | sort)
-
-            if [[ "$discovered_sorted" != "$declared_sorted" ]]; then
-                validation_issues+=("Executable mismatch between discovery and manual")
-                EXECUTABLE_MISMATCHES=$((EXECUTABLE_MISMATCHES + 1))
-                MISMATCH_PACKAGE_NAMES+=("$pkg_name")
-            fi
-        fi
-    fi
-
-    # Silent validation results
-    debug_log "$PORTX_VERIFY_LOG_FILE" "validate_package: final status='$validation_status'"
-    if [[ "$validation_status" == "VALID" ]]; then
-        VALID_PACKAGES=$((VALID_PACKAGES + 1))
-        debug_log "$PORTX_VERIFY_LOG_FILE" "validate_package: returning 0 (valid)"
-        return 0
-    else
-        CORRUPTED_PACKAGES=$((CORRUPTED_PACKAGES + 1))
-        CORRUPTED_PACKAGE_NAMES+=("$pkg_name")
-        debug_log "$PORTX_VERIFY_LOG_FILE" "validate_package: returning 1 (corrupted)"
+        printf "%sCRITICAL ERROR: Missing package.json%s\n" "$(color_error)" "$(color_reset)" >&2
+        printf "Package: %s\n" "$pkg_name" >&2
+        printf "Path: %s\n" "$pkg_dir" >&2
+        printf "Cannot proceed - package.json is required for all packages\n" >&2
+        debug_log "FATAL: Missing package.json for $pkg_name"
         return 1
     fi
+    debug_log "✓ package.json exists"
+    
+    # STEP 2: Validate JSON schema with comprehensive validation
+    printf "      Checking JSON schema...\n"
+    debug_log "Running comprehensive schema validation..."
+    if ! bash "$SCRIPT_DIR/validate-json.sh" "$json_file" >/dev/null 2>&1; then
+        local validation_output
+        validation_output=$(bash "$SCRIPT_DIR/validate-json.sh" "$json_file" 2>&1)
+        
+        printf "%sCRITICAL ERROR: Invalid package.json schema%s\n" "$(color_error)" "$(color_reset)" >&2
+        printf "Package: %s\n" "$pkg_name" >&2
+        printf "Path: %s\n" "$json_file" >&2
+        printf "\n" >&2
+        printf "Schema validation failed - package MUST be 100%% compliant\n" >&2
+        printf "Validation errors:\n" >&2
+        while IFS= read -r line; do
+            printf "  %s\n" "$line" >&2
+        done <<<"$validation_output"
+        printf "\n" >&2
+        printf "Fix the schema issues and re-run import\n" >&2
+        debug_log "FATAL: Schema validation failed for $pkg_name"
+        debug_log "Validation output: $validation_output"
+        return 1
+    fi
+    debug_log "✓ JSON schema validation passed"
+    
+    # STEP 3: Parse executables and verify each one exists
+    printf "      Checking executable files...\n"
+    debug_log "Parsing executables from package.json..."
+    
+    local declared_executables
+    declared_executables=$(parse_package_manual "$pkg_dir")
+    
+    if [[ -z "$declared_executables" ]]; then
+        debug_log "No executables declared in package.json, checking for any files..."
+        local scanned_executables
+        scanned_executables=$(get_scanned_executables "$pkg_dir")
+        if [[ -z "$scanned_executables" ]]; then
+            warning "Package $pkg_name has no executables (documentation package?)"
+            debug_log "✓ No executables found (acceptable for documentation packages)"
+            return 0
+        fi
+        debug_log "Found undeclared executables: $scanned_executables"
+    fi
+    
+    # STEP 4: Verify each declared executable exists at specified path
+    if [[ -n "$declared_executables" ]]; then
+        local exe_count=0
+        local exe_verified=0
+        while IFS= read -r exe_path; do
+            [[ -z "$exe_path" ]] && continue
+            # Strip carriage returns from exe_path (Windows line ending issue)
+            exe_path="${exe_path//$'\r'/}"
+            exe_count=$((exe_count + 1))
+            
+            local full_exe_path="$pkg_dir/$exe_path"
+            debug_log "Checking executable: $exe_path -> $full_exe_path"
+            printf "        Verifying: %s\n" "$exe_path"
+            
+            debug_log "Testing file existence: $full_exe_path"
+            
+            if [[ ! -f "$full_exe_path" ]]; then
+                printf "%sCRITICAL ERROR: Missing executable file%s\n" "$(color_error)" "$(color_reset)" >&2
+                printf "Package: %s\n" "$pkg_name" >&2
+                printf "Declared path: %s\n" "$exe_path" >&2
+                printf "Full path: %s\n" "$full_exe_path" >&2
+                printf "\n" >&2
+                printf "All declared executables MUST exist at their specified paths\n" >&2
+                printf "Check package.json paths and directory structure\n" >&2
+                debug_log "FATAL: Missing executable $exe_path in package $pkg_name"
+                debug_log "Expected at: $full_exe_path"
+                return 1
+            fi
+            exe_verified=$((exe_verified + 1))
+            debug_log "✓ Verified executable: $exe_path"
+        done <<<"$declared_executables"
+        
+        printf "      %sAll %d executables verified%s\n" "$(color_pale_green)" "$exe_verified" "$(color_reset)"
+        debug_log "✓ All $exe_verified/$exe_count executables verified successfully"
+    fi
+    
+    debug_log "✓ COMPREHENSIVE VALIDATION PASSED: $pkg_name"
+    return 0
 }
 
 # Method: Check if command conflicts with existing binaries
@@ -362,7 +404,8 @@ create_bash_wrappers() {
     # Create bash wrappers - parse executable|defaultArgs format
     while IFS='|' read -r exe_name default_args; do
         if [[ -n "$exe_name" ]]; then
-            local cmd_name="${exe_name%.*}"
+            local cmd_name
+            cmd_name="$(basename "${exe_name%.*}")"
             local exe_file="$pkg_dir/$exe_name"
 
             if [[ ! -f "$exe_file" ]]; then
@@ -393,6 +436,7 @@ exec "$posix_exe_path" "\$@"
 WRAPPER_EOF
             fi
             chmod +x "$wrapper_sh"
+            printf "    BASH: %s -> %s\n" "$cmd_name" "$wrapper_sh" >&2
             debug_log "      Created bash wrapper for: $cmd_name"
             debug_log "      Target exe: $exe_file"
             created_wrappers=$((created_wrappers + 1))
@@ -441,7 +485,8 @@ create_cmd_wrappers() {
     # Create cmd wrappers - parse executable|defaultArgs format
     while IFS='|' read -r exe_name default_args; do
         if [[ -n "$exe_name" ]]; then
-            local cmd_name="${exe_name%.*}"
+            local cmd_name
+            cmd_name="$(basename "${exe_name%.*}")"
             local exe_file="$pkg_dir/$exe_name"
 
             if [[ ! -f "$exe_file" ]]; then
@@ -462,6 +507,7 @@ create_cmd_wrappers() {
             else
                 printf '@echo off\nrem PORTX-WRAPPER: Auto-generated wrapper for %s\n"C:\\App\\Git\\home\\portx\\packages\\%s\\%s" %%*\n' "$pkg_name" "$pkg_name" "$exe_name" >"$wrapper_cmd"
             fi
+            printf "    CMD:  %s -> %s\n" "$cmd_name" "$wrapper_cmd" >&2
             debug_log "      Created cmd wrapper for: $cmd_name"
             debug_log "      Target exe: $exe_file"
             created_wrappers=$((created_wrappers + 1))
@@ -510,7 +556,8 @@ create_wrappers() {
     # Create wrappers - parse executable|defaultArgs format
     while IFS='|' read -r exe_name default_args; do
         if [[ -n "$exe_name" ]]; then
-            local cmd_name="${exe_name%.*}"
+            local cmd_name
+            cmd_name="$(basename "${exe_name%.*}")"
             local exe_file="$pkg_dir/$exe_name"
 
             # Clean up empty default_args
@@ -590,7 +637,6 @@ tokenize_expression() {
     
     local i=0
     local token=""
-    local in_token=false
     
     while [[ $i -lt ${#expression} ]]; do
         local char="${expression:$i:1}"
@@ -601,7 +647,6 @@ tokenize_expression() {
                 if [[ -n "$token" ]]; then
                     PARSER_TOKENS+=("$token")
                     token=""
-                    in_token=false
                 fi
                 # Add operator/bracket as token
                 PARSER_TOKENS+=("$char")
@@ -611,13 +656,11 @@ tokenize_expression() {
                 if [[ -n "$token" ]]; then
                     PARSER_TOKENS+=("$token")
                     token=""
-                    in_token=false
                 fi
                 ;;
             *)
                 # Add character to current token
                 token="$token$char"
-                in_token=true
                 ;;
         esac
         ((i++))
@@ -846,30 +889,25 @@ import_packages() {
     done
     mkdir -p "$SH_WRAPPERS_DIR"
 
-    # Main processing loop - simple import without validation
+    # Main processing loop - comprehensive validation before import
     for pkg_path in "$PACKAGES_DIR"/*; do
         if [[ -d "$pkg_path" ]]; then
             pkg_name="$(basename "$pkg_path")"
             TOTAL_PACKAGES=$((TOTAL_PACKAGES + 1))
-            debug_log "Processing package: $pkg_name"
+            
+            printf "  Processing: %s\n" "$pkg_name"
+            debug_log "=== PROCESSING PACKAGE: $pkg_name ==="
+            debug_log "Package path: $pkg_path"
 
-            # Simple validation: package.json exists and has executables
-            local json_file="$pkg_path/package.json"
-            if [[ ! -f "$json_file" ]]; then
-                debug_log "SKIPPED: No package.json for $pkg_name"
-                continue
-            fi
-
-            local discovered_exes
-            discovered_exes=$(get_scanned_executables "$pkg_path")
-            if [[ -z "$discovered_exes" ]]; then
-                debug_log "SKIPPED: No executables found for $pkg_name"
+            # COMPREHENSIVE VALIDATION: Schema + executable verification
+            if ! validate_package_comprehensive "$pkg_path" "$pkg_name"; then
+                debug_log "Package $pkg_name failed comprehensive validation - SKIPPING"
                 continue
             fi
 
             VALID_PACKAGES=$((VALID_PACKAGES + 1))
             import_type=$(get_import_type "$pkg_path" 2>/dev/null || echo "auto")
-            debug_log "Package $pkg_name has importType: $import_type"
+            debug_log "Package $pkg_name validated successfully, importType: $import_type"
 
             case "$import_type" in
                 "path")
@@ -879,9 +917,13 @@ import_packages() {
                     add_to_path "$pkg_path" "$pkg_name"
                     PATH_PACKAGES=$((PATH_PACKAGES + 1))
                     ;;
+                "none")
+                    # Documentation package - skip import entirely
+                    printf "  SKIP: %s (documentation only)\n" "$pkg_name" >&2
+                    debug_log "Skipping documentation package $pkg_name"
+                    ;;
                 *)
-                    # Default wrapper creation logic
-                    printf "  WRAP: %s\n" "$pkg_name" >&2
+                    # Default wrapper creation logic  
                     debug_log "Creating wrappers for $pkg_name"
                     
                     # Create bash wrapper (always)
@@ -1008,155 +1050,21 @@ import_packages() {
         echo ""
     } >"$PORTX_PATH_CACHE"
 
-    printf "Imported %d packages, %d executables, %d paths, %d wrappers\n" \
-        "$TOTAL_PACKAGES" "$TOTAL_EXECUTABLES" "$PATH_PACKAGES" "$WRAPPER_PACKAGES" >&2
+    # Count actual wrapper files created
+    local bash_wrappers=$(find "$SH_WRAPPERS_DIR" -name "*" -type f 2>/dev/null | wc -l)
+    local cmd_wrappers=$(find "$CMD_WRAPPERS_DIR" -name "*.cmd" -type f 2>/dev/null | wc -l)
+    local total_wrappers=$((bash_wrappers + cmd_wrappers))
+    
+    printf "Imported %d packages, %d executables, %d PATH packages, %d wrapper packages (%d total wrappers: %d bash + %d cmd)\n" \
+        "$TOTAL_PACKAGES" "$TOTAL_EXECUTABLES" "$PATH_PACKAGES" "$WRAPPER_PACKAGES" "$total_wrappers" "$bash_wrappers" "$cmd_wrappers" >&2
 }
 
 # Verify packages function (validation and wrapper testing)
-verify_packages() {
-    # Clear the verify log file at start
-    echo "PORTX Package Verification - $(date)" >"$PORTX_VERIFY_LOG_FILE"
-    debug_log "$PORTX_VERIFY_LOG_FILE" "Starting package verification..."
-
-    printf "Verifying portx packages\n" >&2
-
-    local verified_packages=0
-    local failed_packages=0
-    local wrapper_tests_passed=0
-    local wrapper_tests_failed=0
-    local wrapper_missing=0
-    local wrapper_deps_missing=0
-    local wrapper_timeouts=0
-    local wrapper_flags_unsupported=0
-    local package_count=0
-    local total_packages=$(find "$PACKAGES_DIR" -maxdepth 1 -type d | wc -l)
-    total_packages=$((total_packages - 1)) # Subtract 1 for the parent directory
-
-    # Validation: Compare package.json vs scanned executables and test wrappers
-    debug_log "$PORTX_VERIFY_LOG_FILE" ""
-    debug_log "$PORTX_VERIFY_LOG_FILE" "=== VALIDATION REPORT ==="
-
-    for pkg_path in "$PACKAGES_DIR"/*; do
-        if [[ -d "$pkg_path" ]]; then
-            pkg_name="$(basename "$pkg_path")"
-            package_count=$((package_count + 1))
-            printf "  [%d/%d] %s\n" "$package_count" "$total_packages" "$pkg_name" >&2
-            debug_log "$PORTX_VERIFY_LOG_FILE" "Verifying package: $pkg_name"
-
-            # Validate package integrity
-            debug_log "$PORTX_VERIFY_LOG_FILE" "About to validate: $pkg_path, $pkg_name"
-            if validate_package "$pkg_path" "$pkg_name"; then
-                debug_log "$PORTX_VERIFY_LOG_FILE" "Package validation passed, about to increment verified_packages"
-                debug_log "$PORTX_VERIFY_LOG_FILE" "Current verified_packages value: '$verified_packages'"
-                verified_packages=$((verified_packages + 1))
-                debug_log "$PORTX_VERIFY_LOG_FILE" "Incremented verified_packages to: '$verified_packages'"
-
-                # Get executables from both sources  
-                debug_log "$PORTX_VERIFY_LOG_FILE" "Calling get_executables_from_json with: $pkg_path"
-                local raw_json_output
-                raw_json_output=$(get_executables_from_json "$pkg_path")
-                debug_log "$PORTX_VERIFY_LOG_FILE" "Raw JSON output: '$raw_json_output'"
-                json_executables=$(echo "$raw_json_output" | cut -d'|' -f1 | sort)
-                debug_log "$PORTX_VERIFY_LOG_FILE" "JSON executables: '$json_executables'"
-                scanned_executables=$(get_scanned_executables "$pkg_path")
-
-                if [[ -n "$json_executables" ]]; then
-
-                    # Compare lists
-                    json_only=$(comm -23 <(echo "$json_executables") <(echo "$scanned_executables") 2>/dev/null)
-                    scanned_only=$(comm -13 <(echo "$json_executables") <(echo "$scanned_executables") 2>/dev/null)
-
-                    if [[ -n "$json_only" || -n "$scanned_only" ]]; then
-                        debug_log "$PORTX_VERIFY_LOG_FILE" "MISMATCH in $pkg_name:"
-                        if [[ -n "$json_only" ]]; then
-                            debug_log "$PORTX_VERIFY_LOG_FILE" "  In package.json but not found: $json_only"
-                        fi
-                        if [[ -n "$scanned_only" ]]; then
-                            debug_log "$PORTX_VERIFY_LOG_FILE" "  Found on disk but not in package.json: $scanned_only"
-                        fi
-                    else
-                        debug_log "$PORTX_VERIFY_LOG_FILE" "OK: $pkg_name ($(echo "$json_executables" | wc -l) executables match)"
-                    fi
-
-                    # Test wrappers if they exist
-                    debug_log "$PORTX_VERIFY_LOG_FILE" "About to start wrapper testing loop with json_executables='$json_executables'"
-                    while IFS= read -r exe_name; do
-                        if [[ -n "$exe_name" ]]; then
-                            local cmd_name="${exe_name%.*}"
-                            if [[ -f "$GIT_BASH_ROOT_POSIX/bin/$cmd_name" ]]; then
-                                printf "    Testing wrapper: %s" "$cmd_name" >&2; sync
-                                
-                                
-                                local test_result
-                                test_wrapper_works "$cmd_name"
-                                test_result=$?
-                                
-                                case $test_result in
-                                    "$WRAPPER_FUNCTIONAL_PASS")
-                                        printf " ✓\n" >&2; sync
-                                        debug_log "$PORTX_VERIFY_LOG_FILE" "WRAPPER OK: $cmd_name"
-                                        wrapper_tests_passed=$((wrapper_tests_passed + 1))
-                                        ;;
-                                    "$WRAPPER_MISSING_EXECUTABLE")
-                                        printf " ✗ (missing)\n" >&2; sync
-                                        debug_log "$PORTX_VERIFY_LOG_FILE" "WRAPPER FAILED: $cmd_name (missing executable)"
-                                        wrapper_tests_failed=$((wrapper_tests_failed + 1))
-                                        wrapper_missing=$((wrapper_missing + 1))
-                                        ;;
-                                    "$WRAPPER_DEPENDENCY_MISSING")
-                                        printf " ✗ (deps)\n" >&2; sync
-                                        debug_log "$PORTX_VERIFY_LOG_FILE" "WRAPPER FAILED: $cmd_name (dependency missing)"
-                                        wrapper_tests_failed=$((wrapper_tests_failed + 1))
-                                        wrapper_deps_missing=$((wrapper_deps_missing + 1))
-                                        ;;
-                                    "$WRAPPER_TIMEOUT_EXCEEDED")
-                                        printf " ✗ (timeout)\n" >&2; sync
-                                        debug_log "$PORTX_VERIFY_LOG_FILE" "WRAPPER FAILED: $cmd_name (timeout exceeded)"
-                                        wrapper_tests_failed=$((wrapper_tests_failed + 1))
-                                        wrapper_timeouts=$((wrapper_timeouts + 1))
-                                        ;;
-                                    "$WRAPPER_UNSUPPORTED_FLAGS")
-                                        printf " ✗ (flags)\n" >&2; sync
-                                        debug_log "$PORTX_VERIFY_LOG_FILE" "WRAPPER FAILED: $cmd_name (unsupported flags)"
-                                        wrapper_tests_failed=$((wrapper_tests_failed + 1))
-                                        wrapper_flags_unsupported=$((wrapper_flags_unsupported + 1))
-                                        ;;
-                                    *)
-                                        printf " ✗ (unknown)\n" >&2; sync
-                                        debug_log "$PORTX_VERIFY_LOG_FILE" "WRAPPER FAILED: $cmd_name (unknown error: $test_result)"
-                                        wrapper_tests_failed=$((wrapper_tests_failed + 1))
-                                        ;;
-                                esac
-                                debug_log "$PORTX_VERIFY_LOG_FILE" "Completed wrapper test for: $cmd_name"
-                            fi
-                        fi
-                        debug_log "$PORTX_VERIFY_LOG_FILE" "Completed processing exe_name: '$exe_name'"
-                    done <<<"$json_executables"
-                    debug_log "$PORTX_VERIFY_LOG_FILE" "Finished wrapper testing for package: $pkg_name"
-                else
-                    if [[ -n "$scanned_executables" ]]; then
-                        debug_log "$PORTX_VERIFY_LOG_FILE" "MISSING package.json: $pkg_name has $(echo "$scanned_executables" | wc -l) executables"
-                    fi
-                fi
-            else
-                failed_packages=$((failed_packages + 1))
-                debug_log "$PORTX_VERIFY_LOG_FILE" "VALIDATION FAILED: $pkg_name"
-            fi
-        fi
-        debug_log "$PORTX_VERIFY_LOG_FILE" "Completed processing package: $pkg_name"
-    done
-
-    debug_log "$PORTX_VERIFY_LOG_FILE" "Finished processing all packages"
-
-    debug_log "$PORTX_VERIFY_LOG_FILE" "=== END VALIDATION REPORT ==="
-
-    printf "Verified %d packages (%d failed)\n" "$verified_packages" "$failed_packages" >&2
-    printf "Wrapper tests: %d passed, %d failed" "$wrapper_tests_passed" "$wrapper_tests_failed" >&2
-    if [[ $wrapper_tests_failed -gt 0 ]]; then
-        printf " (missing:%d, deps:%d, timeout:%d, flags:%d)" \
-            "$wrapper_missing" "$wrapper_deps_missing" "$wrapper_timeouts" "$wrapper_flags_unsupported" >&2
-    fi
-    printf "\n" >&2
+# Legacy verify_packages() function removed - use import with validate_package_comprehensive() instead
+verify_packages_REMOVED() {
+    # Legacy verify function removed - use 'portx packages import' instead for validation
+    echo "ERROR: verify command removed. Use 'portx packages import' for package validation." >&2
+    return 1
 }
 
 # ===== TOOLS AGGREGATOR FUNCTIONALITY (from portx.sh backup) =====
@@ -1324,21 +1232,6 @@ list_packages() {
 # Terminal width and column layout constants
 readonly DEFAULT_TERMINAL_WIDTH=160
 readonly MIN_TERMINAL_WIDTH=80
-readonly WIDE_TERMINAL_THRESHOLD=160
-readonly MEDIUM_TERMINAL_THRESHOLD=120
-
-# Column width constants - simple 2-column layout
-readonly NAME_WIDTH=30
-readonly DESC_WIDTH=90  # Rest of the 120 chars minus spacing
-
-# Minimum column widths
-readonly MIN_TOOL_WIDTH=10
-readonly MIN_VERSION_WIDTH=4
-readonly MIN_DESC_WIDTH=20
-readonly MIN_TAGS_WIDTH=8
-
-# Spacing for tree characters and padding
-readonly TREE_SPACING=10
 
 # Helper function to detect terminal width
 _detect_terminal_width() {
@@ -1379,7 +1272,8 @@ _calculate_max_name_width() {
     for pkg_dir in "$PACKAGES_DIR"/*; do
         if [[ -d "$pkg_dir" && -f "$pkg_dir/package.json" ]]; then
             # Check package name width (no version)
-            local pkg_name=$(basename "$pkg_dir")
+            local pkg_name
+            pkg_name=$(basename "$pkg_dir")
             current_width=${#pkg_name}
             if [[ $current_width -gt $max_width ]]; then
                 max_width=$current_width
@@ -1407,7 +1301,8 @@ _calculate_max_name_width() {
 
 # Helper function to return 2-column widths based on actual data
 _get_column_widths() {
-    local actual_name_width=$(_calculate_max_name_width)
+    local actual_name_width
+    actual_name_width=$(_calculate_max_name_width)
     local desc_width=$((120 - actual_name_width - 1))
     echo "$actual_name_width:$desc_width"
 }
@@ -1469,11 +1364,10 @@ _wrap_text() {
 # Helper function to format a single tool entry with 2 columns using text wrapping
 _format_tool_entry() {
     local executable="$1"
-    local version="$2"  # Not used in 2-column layout
-    local description="$3"
-    local tags="$4"
-    local name_width="$5"
-    local desc_width="$6"
+    local description="$2"
+    local tags="$3"
+    local name_width="$4"
+    local desc_width="$5"
     
     # Prepare tool name with minus prefix
     local display_name="- $executable"
@@ -1535,11 +1429,9 @@ _generate_packages_list() {
 
             # Extract package metadata safely
             local pkg_description=""
-            local pkg_version=""
             local tool_count=0
 
             pkg_description=$($JQ_CMD -r '.description // ""' "$pkg_dir/package.json" 2>/dev/null || echo "")
-            pkg_version=$($JQ_CMD -r '.version // ""' "$pkg_dir/package.json" 2>/dev/null || echo "")
             tool_count=$($JQ_CMD -r '.tools // [] | length' "$pkg_dir/package.json" 2>/dev/null || echo "0")
 
             # Skip packages with no tools
@@ -1552,12 +1444,12 @@ _generate_packages_list() {
 
             # Display package header using authoritative left-aligned padding approach
             pkg_header="$pkg_name"
-            printf "\033[94m%-*s\033[0m %s\n" "$name_width" "$pkg_header" "$pkg_description"
+            printf "%s%-*s%s %s\n" "$(color_primary)" "$name_width" "$pkg_header" "$(color_reset)" "$pkg_description"
 
             # Format tools using the new 2-column layout
             while IFS='|' read -r executable description tags; do
                 if [[ -n "$executable" ]]; then
-                    _format_tool_entry "$executable" "$pkg_version" "$description" "$tags" \
+                    _format_tool_entry "$executable" "$description" "$tags" \
                         "$name_width" "$desc_width"
                 fi
             done < <($JQ_CMD -r '.tools[]? | "\(.executable // "")|\(.description // "")|\((.tags // []) | join(", "))"' "$pkg_dir/package.json" 2>/dev/null)
@@ -1660,9 +1552,7 @@ handle_packages_command() {
         import)
             import_packages
             ;;
-        verify)
-            verify_packages
-            ;;
+        # verify command removed - use import instead
         list | ls)
             list_packages
             ;;
@@ -1684,7 +1574,7 @@ handle_packages_command() {
             echo
             echo "Commands:"
             echo "  import            Import and configure all packages"
-            echo "  verify            Verify package integrity and test wrappers"
+            # verify command removed
             echo "  list              List all available tools"
             echo "  search PATTERN    Search tools by name or description"
             echo "  count             Show tool count statistics"
@@ -1692,7 +1582,7 @@ handle_packages_command() {
             echo
             echo "Examples:"
             echo "  portx packages import"
-            echo "  portx packages verify"
+            # verify command removed
             echo "  portx packages list"
             echo "  portx packages search git"
             echo "  portx packages count"

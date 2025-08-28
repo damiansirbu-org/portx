@@ -2,27 +2,26 @@
   "name": "tinycc",
   "version": "1.0.0",
   "description": "Tiny C Compiler - fast, lightweight C compiler with runtime compilation support",
-  "tools": [
-    {
-      "executable": "tcc.exe",
+  "importType": "wrap",
+  "bin": {
+    "tcc": {
+      "path": "tcc.exe",
       "description": "Tiny C Compiler for fast C compilation and execution, supports runtime compilation",
-      "usage": "tcc hello.c # Compile and run C program directly\ntcc -o hello hello.c # Compile to executable\ntcc -run hello.c args # Compile and run with arguments\ntcc -E hello.c # Preprocess only\ntcc -c hello.c # Compile to object file",
+      "usage": "tcc hello.c\\ntcc -o hello hello.c\\ntcc -run hello.c args\\ntcc -E hello.c\\ntcc -c hello.c",
       "dependencies": "windows"
     },
-    {
-      "executable": "tiny_impdef.exe",
+    "tiny-impdef": {
+      "path": "tiny_impdef.exe",
       "description": "Generate import definition files (.def) from DLL files for TinyCC linking",
-      "usage": "tiny_impdef library.dll # Generate .def file from DLL\ntiny_impdef -o custom.def library.dll # Custom output filename\ntiny_impdef kernel32.dll # Generate Windows API definitions",
+      "usage": "tiny_impdef library.dll\\ntiny_impdef -o custom.def library.dll\\ntiny_impdef kernel32.dll",
       "dependencies": "windows"
     },
-    {
-      "executable": "tiny_libmaker.exe",
+    "tiny-libmaker": {
+      "path": "tiny_libmaker.exe",
       "description": "Create static library archives (.lib) from object files for TinyCC",
-      "usage": "tiny_libmaker library.lib object1.o object2.o # Create library from objects\ntiny_libmaker mylib.lib *.o # Create library from all object files\ntiny_libmaker -v library.lib objects/* # Verbose library creation",
+      "usage": "tiny_libmaker library.lib object1.o object2.o\\ntiny_libmaker mylib.lib *.o\\ntiny_libmaker -v library.lib objects/*",
       "dependencies": "windows"
     }
-  ],
-  "paths": [
-    "./"
-  ]
+  },
+  "tags": ["compiler", "c-language", "development", "build", "libraries", "runtime"]
 }

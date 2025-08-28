@@ -2,28 +2,14 @@
   "name": "android-filesystem-tools",
   "version": "1.16.0",
   "description": "F2FS and ext2/3/4 filesystem creation tools for Android development",
-  "tools": [
-    {
-      "executable": "make_f2fs.exe",
+  "importType": "wrap",
+  "bin": {
+    "make_f2fs": {
+      "path": "make_f2fs.exe",
       "description": "F2FS formatter with encryption and zoned block device support",
       "usage": "make_f2fs -f -l system /dev/sdX # Format with label and force\\nmake_f2fs -O encrypt -C utf8:strict /dev/sdX # Encrypted with casefolding\\nmake_f2fs -s 1 -z 4 -o 7 /dev/sdX # Custom segments/zones/overprovision\\nmake_f2fs -e mp3,mp4,jpg -E db,log /dev/sdX # Hot/cold file extensions\\nmake_f2fs -T 1234567890 -U $(uuidgen) /dev/sdX # Custom timestamp and UUID",
       "dependencies": "windows"
-    },
-    {
-      "executable": "make_f2fs_casefold.exe",
-      "description": "F2FS formatter optimized for case-insensitive operations",
-      "usage": "make_f2fs_casefold -O casefold -C utf8 /dev/sdX # Standard casefolding\\nmake_f2fs_casefold -f -l userdata /dev/sdX # Force format with label\\nmake_f2fs_casefold -q -S /dev/sdX # Quiet sparse mode format",
-      "dependencies": "windows"
-    },
-    {
-      "executable": "mke2fs.exe",
-      "description": "Ext2/3/4 creator with journal, quota, and encryption features",
-      "usage": "mke2fs -t ext4 -F -L system /dev/sdX # Force ext4 with label\\nmke2fs -j -O dir_index,extent /dev/sdX # Ext3 with performance features\\nmke2fs -T largefile4 -O quota /dev/sdX # Large file optimized with quota\\nmke2fs -E quotatype=usrquota:grpquota /dev/sdX # Enable user/group quotas\\nmke2fs -O encrypt -F /dev/sdX # Encrypted ext4 filesystem",
-      "dependencies": "windows"
     }
-  ],
-  "paths": [
-    "./"
-  ],
+  },
   "tags": ["android", "filesystem", "native", "system"]
 }
