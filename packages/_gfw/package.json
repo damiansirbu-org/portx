@@ -1,6 +1,6 @@
 {
-  "name": "_gfw",
-  "version": "2.51.0",
+  "name": "gfw",
+  "version": "2.51.0", 
   "description": "Git for Windows PortableGit complete executable documentation - comprehensive catalog of all 324 tools",
   "importType": "none",
   "tools": [
@@ -2272,8 +2272,5 @@
       "dependencies": "native",
       "tags": ["analyze", "process", "native", "files"]
     }
-  ],
-  "paths": [
-    "./"
   ]
 }

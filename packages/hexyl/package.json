@@ -1,45 +1,15 @@
 {
-  // ==========================================
-  // PORTX Package Configuration (package.json)
-  // ==========================================
-  
-  // CORE PACKAGE METADATA
   "name": "hexyl",
   "version": "0.14.0",
   "description": "Modern colorized hex viewer with intelligent byte categorization - distinguishes NULL, ASCII printable, whitespace, and non-ASCII bytes",
-  "author": "PORTX Team",
-  "license": "MIT",
-  
-  // IMPORT BEHAVIOR CONTROL
-  "import": "auto",
-  
-  // EXECUTABLE DISCOVERY  
-  "paths": [
-    "./"
-  ],
-  
-  // TOOL DEFINITIONS
-  "tools": [
-    {
-      "executable": "hexyl.exe",
-      "defaultArgs": "",
+  "importType": "wrap",
+  "bin": {
+    "hexyl": {
+      "path": "hexyl.exe",
       "description": "Modern command-line hex viewer with colorized output for binary file analysis - written in Rust with high performance and intelligent byte categorization",
       "usage": "hexyl firmware.bin # View binary file with colors\\nhexyl --no-color data.bin # Plain output for scripting\\nhexyl --raw binary.exe # Compact view without addresses\\nhexyl --length 1024 large.bin # View first 1KB only",
-      "dependencies": "windows",
-      "aliases": [],
-      "category": "binary-analysis",
-      "tags": ["hex", "binary", "viewer", "colorized", "rust", "analysis", "debugging", "forensics"]
+      "dependencies": "windows"
     }
-  ],
-  
-  // PACKAGE METADATA
-  "homepage": "https://github.com/sharkdp/hexyl",
-  "repository": "https://github.com/sharkdp/hexyl",
-  "keywords": ["hex", "binary", "viewer", "colorized", "rust", "analysis"],
-  "categories": ["binary-analysis", "debugging", "forensics"],
-  
-  // TECHNICAL CONFIGURATION
-  "architecture": "x64",
-  "platform": "win32",
-  "runtime": "native"
+  },
+  "tags": ["hex", "binary", "viewer", "colorized", "rust", "analysis", "debugging", "forensics"]
 }

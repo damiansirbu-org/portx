@@ -1,45 +1,15 @@
 {
-  // ==========================================
-  // PORTX Package Configuration (package.json)
-  // ==========================================
-  
-  // CORE PACKAGE METADATA
   "name": "gron",
   "version": "0.7.1",
   "description": "Make JSON greppable by flattening into discrete key-value assignments - perfect for exploring APIs and searching complex JSON structures",
-  "author": "PORTX Team", 
-  "license": "MIT",
-  
-  // IMPORT BEHAVIOR CONTROL
-  "import": "auto",
-  
-  // EXECUTABLE DISCOVERY  
-  "paths": [
-    "./"
-  ],
-  
-  // TOOL DEFINITIONS
-  "tools": [
-    {
-      "executable": "gron.exe",
-      "defaultArgs": "",
+  "importType": "wrap",
+  "bin": {
+    "gron": {
+      "path": "gron.exe",
       "description": "Transform JSON into greppable discrete assignments for easier searching - flattens hierarchical JSON into simple key-value pairs with full path context",
       "usage": "curl api.com/data | gron # Flatten API response for grepping\\ngron data.json | grep 'user' # Search for user-related fields\\necho '{\\\"users\\\":[{\\\"name\\\":\\\"John\\\"}]}' | gron | grep name # Find name fields\\ngron data.json | grep price | gron --ungron # Extract and reconstruct price data",
-      "dependencies": "windows",
-      "aliases": [],
-      "category": "json",
-      "tags": ["json", "grep", "flatten", "search", "api", "exploration", "key-value", "discrete"]
+      "dependencies": "windows"
     }
-  ],
-  
-  // PACKAGE METADATA
-  "homepage": "https://github.com/tomnomnom/gron",
-  "repository": "https://github.com/tomnomnom/gron", 
-  "keywords": ["json", "grep", "flatten", "search", "api", "exploration"],
-  "categories": ["json", "text-processing", "api"],
-  
-  // TECHNICAL CONFIGURATION
-  "architecture": "x64",
-  "platform": "win32",
-  "runtime": "native"
+  },
+  "tags": ["json", "grep", "flatten", "search", "api", "exploration", "key-value", "discrete"]
 }

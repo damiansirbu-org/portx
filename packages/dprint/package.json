@@ -2,16 +2,14 @@
   "name": "dprint",
   "version": "0.50.1",
   "description": "Pluggable code formatter with TypeScript, JSON, Markdown support",
-  "tools": [
-    {
-      "executable": "dprint.exe",
+  "importType": "wrap",
+  "bin": {
+    "dprint": {
+      "path": "dprint.exe",
       "description": "High-performance code formatter with plugin architecture",
       "usage": "dprint fmt src/ # Format specific directory\\ndprint check --diff # Show formatting differences without applying\\ndprint fmt --config custom.json *.ts # Use custom configuration\\ndprint init --type typescript # Initialize TypeScript configuration\\ndprint upgrade # Update plugins to latest versions",
       "dependencies": "windows"
     }
-  ],
-  "paths": [
-    "./"
-  ],
-  "tags": ["format", "code", "native", "multi"]
+  },
+  "tags": ["format", "code", "native", "multi", "typescript", "json", "markdown", "plugins"]
 }

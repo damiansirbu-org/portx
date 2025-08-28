@@ -1,18 +1,19 @@
 {
   "name": "7zip",
-  "version": "25.01",
+  "version": "25.01.0",
   "description": "LZMA2 archiver with 7z, ZIP, gzip, bzip2 support and AES encryption",
-  "tools": [
-    {
-      "executable": "7za.exe",
+  "importType": "wrap",
+  "bin": {
+    "7za": {
+      "path": "7za.exe",
       "description": "LZMA2 compression archiver with AES-256 encryption and multithreading",
       "usage": "7za a -t7z -mx=9 -mfb=64 -md=32m -ms=on backup.7z *.* # Maximum LZMA2 compression with 32MB dictionary\n7za a -p -mhe=on secure.7z documents/ # Create encrypted archive with header encryption\n7za x archive.7z -o./extracted/ -aoa -y # Extract with overwrite and no prompts\n7za l -slt -ba archive.7z # List archive contents with technical details\n7za t *.7z -r # Test integrity of all 7z archives recursively\n7za a -sfx backup.exe *.txt # Create self-extracting executable archive",
-      "dependencies": "windows",
-      "tags": ["convert", "process", "secure", "system", "native", "files"]
+      "dependencies": "windows"
     }
-  ],
-  "paths": [
-    "./"
-  ],
-  "tags": ["compression", "native", "file"]
+  },
+  "tags": [
+    "compression",
+    "native",
+    "file"
+  ]
 }

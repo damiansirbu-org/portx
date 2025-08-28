@@ -2,45 +2,44 @@
   "name": "nmap",
   "version": "1.0.0",
   "description": "Network discovery and security auditing toolkit with comprehensive scanning capabilities",
-  "tools": [
-    {
-      "executable": "ncat.exe",
+  "importType": "wrap",
+  "bin": {
+    "ncat": {
+      "path": "ncat.exe",
       "description": "Nmap's network Swiss Army knife for connectivity and data transfer",
-      "dependencies": "windows",
-      "usage": "ncat -l 8080 # Listen on port 8080\\nncat example.com 80 # Connect to HTTP port\\nncat --broker --listen 8080 # Chat server\\nncat --ssl example.com 443 # SSL connection\\necho 'GET / HTTP/1.0' | ncat example.com 80"
+      "usage": "ncat -l 8080\\nncat example.com 80\\nncat --broker --listen 8080\\nncat --ssl example.com 443\\necho 'GET / HTTP/1.0' | ncat example.com 80",
+      "dependencies": "windows"
     },
-    {
-      "executable": "nmap.exe",
+    "nmap": {
+      "path": "nmap.exe",
       "description": "Network reconnaissance engine with NSE scripts for deep service enumeration and OS fingerprinting",
-      "usage": "nmap -sS -O target.com # Stealth SYN scan with OS detection\\nnmap --script vuln target.com # Vulnerability enumeration\\nnmap -sV --script discovery target.com # Service version detection\\nnmap -p- --min-rate 10000 target.com # Fast full port scan",
+      "usage": "nmap -sS -O target.com\\nnmap --script vuln target.com\\nnmap -sV --script discovery target.com\\nnmap -p- --min-rate 10000 target.com",
       "dependencies": "windows"
     },
-    {
-      "executable": "npcap-1.83.exe",
+    "npcap-installer": {
+      "path": "npcap-1.83.exe",
       "description": "Packet capture library installer for Windows network packet analysis",
-      "usage": "npcap-1.83.exe /S # Silent installation\nnpcap-1.83.exe /LOOPBACK_SUPPORT=yes # Install with loopback support\nnpcap-1.83.exe /WINPCAP_MODE=yes # WinPcap compatibility mode",
+      "usage": "npcap-1.83.exe /S\\nnpcap-1.83.exe /LOOPBACK_SUPPORT=yes\\nnpcap-1.83.exe /WINPCAP_MODE=yes",
       "dependencies": "windows"
     },
-    {
-      "executable": "NpcapHelper.exe",
+    "npcap-helper": {
+      "path": "NpcapHelper.exe",
       "description": "Helper utility for managing Npcap driver installation and configuration",
-      "usage": "NpcapHelper.exe --install-driver # Install Npcap driver\nNpcapHelper.exe --uninstall-driver # Remove Npcap driver\nNpcapHelper.exe --check-status # Check driver status",
+      "usage": "NpcapHelper.exe --install-driver\\nNpcapHelper.exe --uninstall-driver\\nNpcapHelper.exe --check-status",
       "dependencies": "windows"
     },
-    {
-      "executable": "nping.exe",
+    "nping": {
+      "path": "nping.exe",
       "description": "Advanced ping utility with custom packet crafting and network troubleshooting capabilities",
-      "usage": "nping --tcp -p 80 target.com # TCP ping to port 80\nnping --udp -p 53 dns-server.com # UDP ping to DNS\nnping --icmp target.com # Traditional ICMP ping\nnping --arp 192.168.1.1 # ARP ping for local networks",
+      "usage": "nping --tcp -p 80 target.com\\nnping --udp -p 53 dns-server.com\\nnping --icmp target.com\\nnping --arp 192.168.1.1",
       "dependencies": "windows"
     },
-    {
-      "executable": "WlanHelper.exe",
+    "wlan-helper": {
+      "path": "WlanHelper.exe",
       "description": "Wireless network helper utility for WiFi adapter management and configuration",
-      "usage": "WlanHelper.exe --scan # Scan for available networks\nWlanHelper.exe --monitor-mode # Enable monitor mode\nWlanHelper.exe --list-adapters # Show wireless adapters\nWlanHelper.exe --set-channel 6 # Set wireless channel",
+      "usage": "WlanHelper.exe --scan\\nWlanHelper.exe --monitor-mode\\nWlanHelper.exe --list-adapters\\nWlanHelper.exe --set-channel 6",
       "dependencies": "windows"
     }
-  ],
-  "paths": [
-    "./"
-  ]
+  },
+  "tags": ["network", "scanning", "security", "reconnaissance", "penetration", "testing", "nmap", "c"]
 }

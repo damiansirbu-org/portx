@@ -2,15 +2,14 @@
   "name": "shfmt",
   "version": "1.0.0",
   "description": "Shell script formatter supporting POSIX sh, Bash, and mksh with customizable styles",
-  "tools": [
-    {
-      "executable": "shfmt.exe",
+  "importType": "wrap",
+  "bin": {
+    "shfmt": {
+      "path": "shfmt.exe",
       "description": "Format and pretty-print shell scripts with consistent style and indentation",
-      "usage": "shfmt script.sh # Format and print to stdout\\nshfmt -w *.sh # Format files in-place\\nshfmt -i 4 script.sh # Use 4-space indentation\\nshfmt -d script.sh # Show diff of changes\\nshfmt -ln bash script.sh # Format as Bash script",
+      "usage": "shfmt script.sh\\nshfmt -w *.sh\\nshfmt -i 4 script.sh\\nshfmt -d script.sh\\nshfmt -ln bash script.sh",
       "dependencies": "windows"
     }
-  ],
-  "paths": [
-    "./"
-  ]
+  },
+  "tags": ["formatter", "shell", "bash", "posix", "scripts", "pretty", "print", "go"]
 }

@@ -2,48 +2,14 @@
   "name": "scoop",
   "version": "0.4.1",
   "description": "Command-line installer for Windows programs",
-  "category": "package-manager",
-  "homepage": "https://scoop.sh/",
-  "license": "MIT",
-  "keywords": ["package-manager", "installer", "windows", "cli", "portable"],
-  "author": "Scoop team",
-  
-  "tools": [
-    {
-      "executable": "scoop.cmd",
+  "importType": "wrap",
+  "bin": {
+    "scoop": {
+      "path": "scoop.cmd",
       "description": "Windows package manager for command-line programs",
-      "usage": "scoop install <package>",
-      "examples": [
-        "scoop install git",
-        "scoop search python",
-        "scoop list",
-        "scoop update",
-        "scoop uninstall package-name",
-        "scoop bucket add extras",
-        "scoop export > my-apps.json"
-      ],
-      "flags": ["--help", "--version"],
-      "common_args": [
-        "install",
-        "uninstall", 
-        "list",
-        "search",
-        "update",
-        "status",
-        "export",
-        "import",
-        "bucket",
-        "cache"
-      ],
-      "dependencies": "windows",
-      "aliases": [],
-      "category": "package-manager",
-      "source": "./"
+      "usage": "scoop install <package>\\nscoop install git\\nscoop search python\\nscoop list\\nscoop update\\nscoop uninstall package-name\\nscoop bucket add extras\\nscoop export > my-apps.json",
+      "dependencies": "windows"
     }
-  ],
-  "tags": ["package", "manager", "powershell", "automation"],
-
-  "paths": [
-    "./"
-  ]
+  },
+  "tags": ["package", "manager", "installer", "windows", "cli", "portable", "powershell", "automation"]
 }

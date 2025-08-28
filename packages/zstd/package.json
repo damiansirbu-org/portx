@@ -2,15 +2,14 @@
   "name": "zstd",
   "version": "1.0.0",
   "description": "Fast lossless compression algorithm with high compression ratios and rapid decompression",
-  "tools": [
-    {
-      "executable": "zstd.exe",
+  "importType": "wrap",
+  "bin": {
+    "zstd": {
+      "path": "zstd.exe",
       "description": "High-performance compression tool with excellent speed-to-compression ratio balance",
-      "usage": "zstd file.txt # Compress file (creates file.txt.zst)\\nzstd -d file.txt.zst # Decompress file\\nzstd -19 file.txt # Maximum compression level\\nzstd -c file.txt > compressed.zst # Compress to stdout\\nzstd -r directory/ # Compress directory recursively",
+      "usage": "zstd file.txt\\nzstd -d file.txt.zst\\nzstd -19 file.txt\\nzstd -c file.txt > compressed.zst\\nzstd -r directory/",
       "dependencies": "windows"
     }
-  ],
-  "paths": [
-    "./"
-  ]
+  },
+  "tags": ["compression", "algorithm", "fast", "lossless", "performance", "decompression", "binary", "c"]
 }

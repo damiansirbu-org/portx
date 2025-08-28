@@ -2,15 +2,14 @@
   "name": "volatility",
   "version": "1.0.0",
   "description": "Advanced memory forensics framework for incident response and malware analysis",
-  "tools": [
-    {
-      "executable": "vol.exe",
+  "importType": "wrap",
+  "bin": {
+    "vol": {
+      "path": "vol.exe",
       "description": "Extract digital artifacts from volatile memory (RAM) dumps for forensic analysis",
-      "usage": "vol -f memory.dmp imageinfo # Identify OS and profile\\nvol -f memory.dmp --profile=Win10x64 pslist # List running processes\\nvol -f memory.dmp --profile=Win10x64 netscan # Network connections\\nvol -f memory.dmp --profile=Win10x64 malfind # Find malware artifacts\\nvol -f memory.dmp --profile=Win10x64 hashdump # Extract password hashes",
+      "usage": "vol -f memory.dmp imageinfo\\nvol -f memory.dmp --profile=Win10x64 pslist\\nvol -f memory.dmp --profile=Win10x64 netscan\\nvol -f memory.dmp --profile=Win10x64 malfind\\nvol -f memory.dmp --profile=Win10x64 hashdump",
       "dependencies": "windows"
     }
-  ],
-  "paths": [
-    "./"
-  ]
+  },
+  "tags": ["memory", "forensics", "malware", "analysis", "incident", "response", "ram", "python"]
 }

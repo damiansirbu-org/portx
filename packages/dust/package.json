@@ -2,16 +2,14 @@
   "name": "dust",
   "version": "1.2.3",
   "description": "Intuitive disk usage analyzer with colorized tree visualization",
-  "tools": [
-    {
-      "executable": "dust.exe",
+  "importType": "wrap",
+  "bin": {
+    "dust": {
+      "path": "dust.exe",
       "description": "Modern du replacement with colorized output and intelligent sorting",
       "usage": "dust -d 2 /c/Projects # Show 2 levels deep in Projects directory\\ndust -r -n 10 . # Reverse sort showing 10 smallest items\\ndust -x -s # Stay on filesystem, show size summary only\\ndust -b -t # Show sizes in bytes with file type icons\\ndust --no-colors -p # Plain output with full paths for scripting",
       "dependencies": "windows"
     }
-  ],
-  "paths": [
-    "./"
-  ],
-  "tags": ["disk", "analysis", "native", "system"]
+  },
+  "tags": ["disk", "analysis", "native", "system", "du", "usage", "colorized", "tree"]
 }

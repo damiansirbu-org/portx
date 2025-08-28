@@ -2,16 +2,14 @@
   "name": "btop",
   "version": "1.0.4",
   "description": "Resource monitor with mouse support, game-style UI, and process trees",
-  "tools": [
-    {
-      "executable": "btop.exe",
+  "importType": "wrap",
+  "bin": {
+    "btop": {
+      "path": "btop.exe",
       "description": "Interactive resource monitor with mouse support and colorful interface",
-      "usage": "btop # Launch full-featured system monitor\\nbtop --utf-force # Force UTF-8 characters for better graphics\\nbtop --preset=0 # Use minimal preset configuration\\nbtop --help # Show all command line options and key bindings\\nbtop4win # Alternative launcher name for Windows version",
+      "usage": "btop # Launch full-featured system monitor\nbtop --utf-force # Force UTF-8 characters for better graphics\nbtop --preset=0 # Use minimal preset configuration\nbtop --help # Show all command line options and key bindings\nbtop4win # Alternative launcher name for Windows version",
       "dependencies": "windows"
     }
-  ],
-  "paths": [
-    "./"
-  ],
-  "tags": ["monitor", "system", "native", "tui"]
+  },
+  "tags": ["monitor", "system", "native", "tui", "performance", "interactive"]
 }

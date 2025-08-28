@@ -2,16 +2,14 @@
   "name": "ag",
   "version": "2.2.0",
   "description": "Ultra-fast code search with .gitignore filtering and PCRE regex",
-  "tools": [
-    {
-      "executable": "ag.exe",
+  "importType": "wrap",
+  "bin": {
+    "ag": {
+      "path": "ag.exe",
       "description": "Ultra-fast code search with .gitignore filtering and PCRE regex",
       "usage": "ag 'TODO|FIXME' --color --group # Search for todos with colored grouped output\nag -i -w 'function' --js --ts # Case-insensitive whole-word search in JS/TS files\nag -l -0 'pattern' | xargs -0 sed -i 's/old/new/g' # Find files then batch replace\nag -A 5 -B 2 'class.*extends' --java # Show context around class definitions\nag --depth 3 'import.*react' src/ # Limit search depth and directory\nag -s 'SENSITIVE' # Search including normally ignored files\nag --stats 'function' # Show search statistics and performance metrics\nag -o '\\b\\w+@\\w+\\.\\w+\\b' # Extract email addresses using regex groups\nag --parallel --nofilename '^#include' *.{c,h,cpp} # Parallel search C headers\nag -Q 'literal.string.with.dots' # Literal search without regex interpretation",
       "dependencies": "windows"
     }
-  ],
-  "paths": [
-    "./"
-  ],
+  },
   "tags": ["search", "text", "development", "native", "multi"]
 }

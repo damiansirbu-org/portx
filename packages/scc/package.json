@@ -2,15 +2,14 @@
   "name": "scc",
   "version": "1.0.0",
   "description": "Fast and accurate code counter with complexity calculation and multiple output formats",
-  "tools": [
-    {
-      "executable": "scc.exe",
+  "importType": "wrap",
+  "bin": {
+    "scc": {
+      "path": "scc.exe",
       "description": "Sloc, Cloc and Code complexity counter with support for 200+ programming languages",
-      "usage": "scc . # Count lines in current directory\\nscc --by-file src/ # Show per-file statistics\\nscc --format json . # JSON output format\\nscc --exclude-dir node_modules,vendor . # Exclude directories\\nscc --sort complexity . # Sort by complexity",
+      "usage": "scc .\\nscc --by-file src/\\nscc --format json .\\nscc --exclude-dir node_modules,vendor .\\nscc --sort complexity .",
       "dependencies": "windows"
     }
-  ],
-  "paths": [
-    "./"
-  ]
+  },
+  "tags": ["code", "counter", "complexity", "analysis", "statistics", "sloc", "cloc", "go"]
 }

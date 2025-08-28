@@ -1,45 +1,15 @@
 {
-  // ==========================================
-  // PORTX Package Configuration (package.json)
-  // ==========================================
-  
-  // CORE PACKAGE METADATA
   "name": "yq",
   "version": "4.44.3",
-  "description": "Portable YAML processor with jq-like syntax supporting JSON, XML, CSV, TSV, and property formats - the Swiss Army knife for structured data",
-  "author": "PORTX Team",
-  "license": "MIT",
-  
-  // IMPORT BEHAVIOR CONTROL
-  "import": "auto",
-  
-  // EXECUTABLE DISCOVERY  
-  "paths": [
-    "./"
-  ],
-  
-  // TOOL DEFINITIONS
-  "tools": [
-    {
-      "executable": "yq.exe",
-      "defaultArgs": "",
-      "description": "Portable YAML processor with jq-like syntax supporting multiple formats (YAML, JSON, XML, CSV, TSV, properties) - essential for config file manipulation",
-      "usage": "yq '.name' config.yaml # Extract field\\nyq -i '.version = \\\"2.0\\\"' config.yaml # Update in-place\\nyq -o json config.yaml # Convert YAML to JSON\\nyq '.servers[] | select(.env == \\\"prod\\\")' config.yaml # Filter arrays\\nyq -P '.databases.*.host' config.yaml # Pretty print with colors",
-      "dependencies": "windows",
-      "aliases": [],
-      "category": "data-processing",
-      "tags": ["yaml", "json", "xml", "csv", "processor", "config", "jq-syntax", "converter"]
+  "description": "Portable YAML processor with jq-like syntax supporting JSON, XML, CSV, TSV, and property formats",
+  "importType": "wrap",
+  "bin": {
+    "yq": {
+      "path": "yq.exe",
+      "description": "Portable YAML processor with jq-like syntax supporting multiple formats (YAML, JSON, XML, CSV, TSV, properties)",
+      "usage": "yq '.name' config.yaml\\nyq -i '.version = \"2.0\"' config.yaml\\nyq -o json config.yaml\\nyq '.servers[] | select(.env == \"prod\")' config.yaml\\nyq -P '.databases.*.host' config.yaml",
+      "dependencies": "windows"
     }
-  ],
-  
-  // PACKAGE METADATA
-  "homepage": "https://github.com/mikefarah/yq",
-  "repository": "https://github.com/mikefarah/yq",
-  "keywords": ["yaml", "json", "xml", "processor", "jq", "config", "converter"],
-  "categories": ["data-processing", "yaml", "config"],
-  
-  // TECHNICAL CONFIGURATION
-  "architecture": "x64",
-  "platform": "win32",
-  "runtime": "native"
+  },
+  "tags": ["yaml", "json", "xml", "csv", "processor", "config", "jq-syntax", "converter"]
 }

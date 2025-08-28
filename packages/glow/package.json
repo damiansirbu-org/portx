@@ -1,15 +1,15 @@
 {
   "name": "glow",
   "version": "1.0.0",
-  "tools": [
-    {
-      "executable": "glow.exe",
+  "description": "Terminal Markdown renderer with syntax highlighting and paging",
+  "importType": "wrap",
+  "bin": {
+    "glow": {
+      "path": "glow.exe",
       "description": "Terminal Markdown renderer with syntax highlighting and paging",
-      "dependencies": "windows",
-      "usage": "glow README.md # Render Markdown file\\nglow -p # Browse local files\\necho '# Hello' | glow - # Render from stdin\\nglow -w 120 # Set custom width"
+      "usage": "glow README.md # Render Markdown file\\nglow -p # Browse local files\\necho '# Hello' | glow - # Render from stdin\\nglow -w 120 # Set custom width",
+      "dependencies": "windows"
     }
-  ],
-  "paths": [
-    "./"
-  ]
+  },
+  "tags": ["markdown", "terminal", "renderer", "syntax-highlighting", "paging", "viewer", "go", "cli"]
 }

@@ -1,15 +1,15 @@
 {
   "name": "httpx",
   "version": "1.0.0",
-  "tools": [
-    {
-      "executable": "httpx.exe",
+  "description": "Fast HTTP toolkit for web reconnaissance and security testing",
+  "importType": "wrap",
+  "bin": {
+    "httpx": {
+      "path": "httpx.exe",
       "description": "Fast HTTP toolkit for web reconnaissance and security testing",
-      "dependencies": "windows",
-      "usage": "httpx -l domains.txt # Probe HTTP services\\nhttpx -sc -title -tech-detect -l hosts.txt # Full reconnaissance\\nhttpx -x GET,POST -mc 200,301 -silent # Custom methods and status\\necho 'domain.com' | httpx -probe # Pipeline usage"
+      "usage": "httpx -l domains.txt # Probe HTTP services\\nhttpx -sc -title -tech-detect -l hosts.txt # Full reconnaissance\\nhttpx -x GET,POST -mc 200,301 -silent # Custom methods and status\\necho 'domain.com' | httpx -probe # Pipeline usage",
+      "dependencies": "windows"
     }
-  ],
-  "paths": [
-    "./"
-  ]
+  },
+  "tags": ["http", "reconnaissance", "security", "testing", "probe", "toolkit", "go", "pentesting"]
 }

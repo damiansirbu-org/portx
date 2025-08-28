@@ -1,55 +1,15 @@
 {
-  // ==========================================
-  // PORTX Package Configuration (package.json)
-  // ==========================================
-  
-  // CORE PACKAGE METADATA
-  "name": "jq",                           // Package name (must match directory name)
-  "version": "1.0.0",                     // Package version (semver format)
-  "description": "Original JSON stream processor with functional programming constructs - the standard for JSON querying and transformation", // Brief package description
-  
-  // CLAUDE CODE BUG WORKAROUND
-  // Claude Code Bash tool mangles jq filters with pipes when using file arguments
-  // BAD:  jq '.field | operation' file.json
-  // GOOD: cat file.json | jq '.field | operation'
-  "author": "PORTX Team",                 // Package maintainer
-  "license": "MIT",                       // Package license
-  
-  // IMPORT BEHAVIOR CONTROL
-  "import": "auto",                       // Import mode: "auto" (default), "wrap", "path", "exclude"
-                                          // - auto: Smart detection (test wrapper, fallback to path if fails)
-                                          // - wrap: Force create wrappers in /c/App/Git/bin/
-                                          // - path: Force add package directory to PATH directly  
-                                          // - exclude: Skip this package during import
-  
-  // EXECUTABLE DISCOVERY  
-  "paths": [                              // Directories containing executables (relative to package root)
-    "./"                                  // Current directory contains executables
-    // Examples: "./bin", "./tools", "./", "./subdir"
-  ],
-  
-  // TOOL DEFINITIONS
-  "tools": [                              // Array of executable tools in this package
-    {
-      "executable": "jq.exe",             // Executable filename (must exist in one of the paths)
-      "defaultArgs": "",                  // Default arguments to prepend (optional)
-                                          // Example: "--verbose --config=default.conf"
+  "name": "jq",
+  "version": "1.0.0",
+  "description": "Original JSON stream processor with functional programming constructs - the standard for JSON querying and transformation",
+  "importType": "wrap",
+  "bin": {
+    "jq": {
+      "path": "jq.exe",
       "description": "The original and most comprehensive JSON processor with powerful functional programming constructs - industry standard for complex JSON transformations and queries",
-      "usage": "curl api.com/data | jq '.results[] | select(.score > 80)' # Filter API responses\\ncat logs.json | jq -s 'group_by(.level) | map({level: .[0].level, count: length})' # Aggregate log levels\\necho '{}' | jq '.timestamp = now | .uuid = \\\"\\3caab4e9-9d9d-4b82-8801-558a77004590\\\"' # Generate enriched JSON\\njq -r '.users[] | [.name, .email] | @csv' data.json # Convert to CSV",
-      "dependencies": "windows",
-      "aliases": [],                      // Alternative command names (optional)
-      "category": "data-processing"       // Tool category for organization (optional)
+      "usage": "curl api.com/data | jq '.results[] | select(.score > 80)' # Filter API responses\\ncat logs.json | jq -s 'group_by(.level) | map({level: .[0].level, count: length})' # Aggregate log levels\\necho '{}' | jq '.timestamp = now | .uuid = \\\"3caab4e9-9d9d-4b82-8801-558a77004590\\\"' # Generate enriched JSON\\njq -r '.users[] | [.name, .email] | @csv' data.json # Convert to CSV",
+      "dependencies": "windows"
     }
-  ],
-  
-  // PACKAGE METADATA (Optional)
-  "homepage": "",                         // Project homepage URL
-  "repository": "",                       // Source repository URL  
-  "keywords": ["json", "processor", "query", "transform", "functional"],      // Search keywords
-  "categories": ["data-processing"],      // Package categories
-  
-  // TECHNICAL CONFIGURATION (Optional)
-  "architecture": "x64",                  // Target architecture: x64, x86, arm64
-  "platform": "win32",                   // Target platform: win32, linux, darwin
-  "runtime": "native"                     // Runtime requirement: native, dotnet, java, node, python
+  },
+  "tags": ["json", "processor", "query", "transform", "functional", "standard", "c", "portable"]
 }
