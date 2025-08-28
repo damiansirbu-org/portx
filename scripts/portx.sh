@@ -170,7 +170,22 @@ get_executables_from_json() {
 get_scanned_executables() {
     local pkg_dir="$1"
     debug_log "$PORTX_VERIFY_LOG_FILE" "Scanning for executables in: $pkg_dir"
-    local result=$(find "$pkg_dir" -maxdepth 1 -name "*.exe" -exec basename {} \; 2>/dev/null | sort)
+    
+    # Find executables in package directory and subdirectories
+    # Support multiple extensions: .exe, .bat, .cmd, .sh, .py, and extensionless scripts
+    local result=$(find "$pkg_dir" \
+        \( -name "*.exe" -o -name "*.bat" -o -name "*.cmd" -o -name "*.sh" -o -name "*.py" \) \
+        -type f -exec basename {} \; 2>/dev/null | sort -u)
+    
+    # Also find extensionless executables (like 'liquibase', 'az')
+    local extensionless=$(find "$pkg_dir" -type f ! -name "*.txt" ! -name "*.md" ! -name "*.json" \
+        ! -name "*.dll" ! -name "*.so" ! -name "*.conf" ! -name "*.config" ! -name "*.xml" \
+        ! -name "*.ini" ! -name "*.log" ! -name "*.zip" ! -name "*.tar*" ! -name "*.gz" \
+        ! -name "*.*" -executable -exec basename {} \; 2>/dev/null | sort -u)
+    
+    # Combine both results and remove duplicates
+    result=$(printf "%s\n%s\n" "$result" "$extensionless" | grep -v "^$" | sort -u)
+    
     debug_log "$PORTX_VERIFY_LOG_FILE" "Found executables: $result"
     echo "$result"
 }
@@ -558,6 +573,253 @@ add_to_path() {
     return 0
 }
 
+# ===== BOOLEAN EXPRESSION PARSER FOR TAG FILTERING =====
+
+# Global variables for parser state
+declare -g PARSER_TOKENS=()
+declare -g PARSER_POS=0
+
+# Method: Tokenize boolean expression into array of tokens
+tokenize_expression() {
+    local expression="$1"
+    PARSER_TOKENS=()
+    PARSER_POS=0
+    
+    # Remove extra whitespace and normalize
+    expression=$(echo "$expression" | sed 's/[[:space:]]*&[[:space:]]*/\&/g' | sed 's/[[:space:]]*|[[:space:]]*/|/g' | sed 's/[[:space:]]*![[:space:]]*/!/g')
+    
+    local i=0
+    local token=""
+    local in_token=false
+    
+    while [[ $i -lt ${#expression} ]]; do
+        local char="${expression:$i:1}"
+        
+        case "$char" in
+            '&'|'|'|'!'|'('|')')
+                # End current token if exists
+                if [[ -n "$token" ]]; then
+                    PARSER_TOKENS+=("$token")
+                    token=""
+                    in_token=false
+                fi
+                # Add operator/bracket as token
+                PARSER_TOKENS+=("$char")
+                ;;
+            ' '|$'\t')
+                # End current token on whitespace
+                if [[ -n "$token" ]]; then
+                    PARSER_TOKENS+=("$token")
+                    token=""
+                    in_token=false
+                fi
+                ;;
+            *)
+                # Add character to current token
+                token="$token$char"
+                in_token=true
+                ;;
+        esac
+        ((i++))
+    done
+    
+    # Add final token if exists
+    if [[ -n "$token" ]]; then
+        PARSER_TOKENS+=("$token")
+    fi
+}
+
+# Method: Get current token
+get_current_token() {
+    if [[ $PARSER_POS -lt ${#PARSER_TOKENS[@]} ]]; then
+        echo "${PARSER_TOKENS[$PARSER_POS]}"
+    else
+        echo ""
+    fi
+}
+
+# Method: Advance to next token
+advance_token() {
+    ((PARSER_POS++))
+}
+
+# Method: Parse OR expressions (lowest precedence)
+parse_or_expression() {
+    local package_tags_array=("$@")
+    
+    local result
+    if ! parse_and_expression "${package_tags_array[@]}"; then
+        result=1
+    else
+        result=0
+    fi
+    
+    while [[ "$(get_current_token)" == "|" ]]; do
+        advance_token
+        if parse_and_expression "${package_tags_array[@]}"; then
+            result=0  # OR: if any operand is true, result is true
+        fi
+    done
+    
+    return $result
+}
+
+# Method: Parse AND expressions (medium precedence)
+parse_and_expression() {
+    local package_tags_array=("$@")
+    
+    local result
+    if ! parse_not_expression "${package_tags_array[@]}"; then
+        result=1
+    else
+        result=0
+    fi
+    
+    while [[ "$(get_current_token)" == "&" ]]; do
+        advance_token
+        if ! parse_not_expression "${package_tags_array[@]}"; then
+            result=1  # AND: if any operand is false, result is false
+        fi
+    done
+    
+    return $result
+}
+
+# Method: Parse NOT expressions (highest precedence)
+parse_not_expression() {
+    local package_tags_array=("$@")
+    
+    if [[ "$(get_current_token)" == "!" ]]; then
+        advance_token
+        if parse_term "${package_tags_array[@]}"; then
+            return 1  # NOT: invert result
+        else
+            return 0
+        fi
+    else
+        parse_term "${package_tags_array[@]}"
+    fi
+}
+
+# Method: Parse terms (tag names and parentheses)
+parse_term() {
+    local package_tags_array=("$@")
+    local token
+    token=$(get_current_token)
+    
+    if [[ "$token" == "(" ]]; then
+        advance_token
+        local result
+        if parse_or_expression "${package_tags_array[@]}"; then
+            result=0
+        else
+            result=1
+        fi
+        
+        # Expect closing parenthesis
+        if [[ "$(get_current_token)" == ")" ]]; then
+            advance_token
+        fi
+        
+        return $result
+    elif [[ -n "$token" && "$token" != "&" && "$token" != "|" && "$token" != "!" && "$token" != ")" ]]; then
+        advance_token
+        # Use fuzzy tag matching for the term
+        evaluate_tag_fuzzy "$token" "${package_tags_array[@]}"
+    else
+        return 1  # Invalid token
+    fi
+}
+
+# Method: Ultra-fast fuzzy tag matching using pure bash
+evaluate_tag_fuzzy() {
+    local tag_pattern="$1"
+    shift
+    local package_tags_array=("$@")
+    local pattern_lower="${tag_pattern,,}"
+    
+    for tag in "${package_tags_array[@]}"; do
+        if [[ "${tag,,}" == *"$pattern_lower"* ]]; then
+            return 0  # Match found
+        fi
+    done
+    return 1  # No match
+}
+
+# Method: Main boolean expression evaluator
+parse_boolean_expression() {
+    local expression="$1"
+    shift
+    local package_tags_array=("$@")
+    
+    # Handle empty expression (match everything)
+    if [[ -z "$expression" ]]; then
+        return 0
+    fi
+    
+    # Tokenize and parse
+    tokenize_expression "$expression"
+    PARSER_POS=0
+    
+    parse_or_expression "${package_tags_array[@]}"
+}
+
+# ===== SMART LRU CACHE MANAGEMENT =====
+
+# Method: Get cached result for tag filter expression
+get_cached_result() {
+    local query_key="$1"
+    local cache_file="$HOME/.portx_tag_cache"
+    
+    if [[ -f "$cache_file" ]]; then
+        grep "^${query_key}:" "$cache_file" 2>/dev/null | tail -1 | cut -d':' -f3- || true
+    fi
+}
+
+# Method: Save result to cache with LRU management
+save_to_cache() {
+    local query_key="$1"
+    local result="$2"
+    local cache_file="$HOME/.portx_tag_cache"
+    local temp_file="$cache_file.tmp"
+    
+    # Handle permanent "no_tags" entry
+    if [[ "$query_key" == "no_tags" ]]; then
+        # Remove old no_tags entry if exists
+        if [[ -f "$cache_file" ]]; then
+            grep -v "^no_tags:" "$cache_file" > "$temp_file" 2>/dev/null || touch "$temp_file"
+        else
+            touch "$temp_file"
+        fi
+        # Add permanent no_tags entry
+        echo "no_tags:permanent:${result}" >> "$temp_file"
+        mv "$temp_file" "$cache_file"
+        return 0
+    fi
+    
+    # Handle regular LRU entries
+    local timestamp
+    timestamp=$(date +%s)
+    
+    # Create temp file with existing entries except the one we're updating
+    if [[ -f "$cache_file" ]]; then
+        grep -v "^${query_key}:" "$cache_file" > "$temp_file" 2>/dev/null || touch "$temp_file"
+    else
+        touch "$temp_file"
+    fi
+    
+    # Add new entry
+    echo "${query_key}:${timestamp}:${result}" >> "$temp_file"
+    
+    # Keep no_tags (permanent) + 10 most recent tagged queries
+    {
+        grep "^no_tags:" "$temp_file" 2>/dev/null || true
+        grep -v "^no_tags:" "$temp_file" 2>/dev/null | sort -t: -k2 -n | tail -10
+    } > "$cache_file"
+    
+    rm -f "$temp_file"
+}
+
 # Import packages function (main package processing logic - no verification)
 import_packages() {
     # Clear the log file at start
@@ -830,30 +1092,30 @@ verify_packages() {
                                 test_result=$?
                                 
                                 case $test_result in
-                                    $WRAPPER_FUNCTIONAL_PASS)
+                                    "$WRAPPER_FUNCTIONAL_PASS")
                                         printf " ✓\n" >&2; sync
                                         debug_log "$PORTX_VERIFY_LOG_FILE" "WRAPPER OK: $cmd_name"
                                         wrapper_tests_passed=$((wrapper_tests_passed + 1))
                                         ;;
-                                    $WRAPPER_MISSING_EXECUTABLE)
+                                    "$WRAPPER_MISSING_EXECUTABLE")
                                         printf " ✗ (missing)\n" >&2; sync
                                         debug_log "$PORTX_VERIFY_LOG_FILE" "WRAPPER FAILED: $cmd_name (missing executable)"
                                         wrapper_tests_failed=$((wrapper_tests_failed + 1))
                                         wrapper_missing=$((wrapper_missing + 1))
                                         ;;
-                                    $WRAPPER_DEPENDENCY_MISSING)
+                                    "$WRAPPER_DEPENDENCY_MISSING")
                                         printf " ✗ (deps)\n" >&2; sync
                                         debug_log "$PORTX_VERIFY_LOG_FILE" "WRAPPER FAILED: $cmd_name (dependency missing)"
                                         wrapper_tests_failed=$((wrapper_tests_failed + 1))
                                         wrapper_deps_missing=$((wrapper_deps_missing + 1))
                                         ;;
-                                    $WRAPPER_TIMEOUT_EXCEEDED)
+                                    "$WRAPPER_TIMEOUT_EXCEEDED")
                                         printf " ✗ (timeout)\n" >&2; sync
                                         debug_log "$PORTX_VERIFY_LOG_FILE" "WRAPPER FAILED: $cmd_name (timeout exceeded)"
                                         wrapper_tests_failed=$((wrapper_tests_failed + 1))
                                         wrapper_timeouts=$((wrapper_timeouts + 1))
                                         ;;
-                                    $WRAPPER_UNSUPPORTED_FLAGS)
+                                    "$WRAPPER_UNSUPPORTED_FLAGS")
                                         printf " ✗ (flags)\n" >&2; sync
                                         debug_log "$PORTX_VERIFY_LOG_FILE" "WRAPPER FAILED: $cmd_name (unsupported flags)"
                                         wrapper_tests_failed=$((wrapper_tests_failed + 1))
@@ -931,26 +1193,20 @@ show_manual() {
     fi
 }
 
-# List all tools in flat format - one line separated by comma
+# List all tools in flat format - one line separated by comma with boolean tag filtering
 list_tools_flat() {
-    local filter_tag="$1"
+    local filter_expression="$1"
+    local cache_key="${filter_expression:-no_tags}"
     
-    # Create cache key - sort tags alphabetically if multiple
-    local cache_key
-    if [[ -z "$filter_tag" ]]; then
-        cache_key="no_filter"
-    else
-        # Sort multiple tags alphabetically and join with underscore
-        cache_key=$(echo "$filter_tag" | tr ',' '\n' | sort | tr '\n' '_' | sed 's/_$//')
-    fi
-    
-    # Check if cache exists and use it
-    if [[ -f "$PORTX_TOOLS_CACHE" ]] && grep -q "^${cache_key}:" "$PORTX_TOOLS_CACHE"; then
-        grep "^${cache_key}:" "$PORTX_TOOLS_CACHE" | cut -d':' -f2-
+    # Try cache first using smart LRU cache
+    local cached_result
+    cached_result=$(get_cached_result "$cache_key")
+    if [[ -n "$cached_result" ]]; then
+        echo "$cached_result"
         return 0
     fi
     
-    # Generate output directly without intermediate functions
+    # Generate fresh result
     local all_tools=()
     
     # Check if packages directory exists
@@ -970,48 +1226,80 @@ list_tools_flat() {
     
     for pkg_dir in "$PACKAGES_DIR"/*; do
         if [[ -d "$pkg_dir" && -f "$pkg_dir/package.json" ]]; then
-            # If filter is provided, check if package has any of the tags
-            if [[ -n "$filter_tag" ]]; then
-                local has_tag=false
-                # Split filter_tag by comma and check each tag
-                IFS=',' read -ra tags <<< "$filter_tag"
-                for tag in "${tags[@]}"; do
-                    tag=$(echo "$tag" | xargs) # trim whitespace
-                    # Check if this tag exists in the package tags array
-                    if $JQ_CMD -e --arg tag "$tag" '.tags[]? | select(. == $tag)' "$pkg_dir/package.json" >/dev/null 2>&1; then
-                        has_tag=true
-                        break
+            # If filter expression is provided, filter at tool level (checking both tool and package tags)
+            if [[ -n "$filter_expression" ]]; then
+                # Use jq to extract tools with combined package+tool tags, then filter in bash
+                while IFS='|' read -r exe_name tag_list; do
+                    if [[ -n "$exe_name" ]]; then
+                        # Parse combined tags into bash array for boolean evaluation
+                        local combined_tags=()
+                        if [[ -n "$tag_list" ]]; then
+                            # Split comma-separated tags and clean them
+                            IFS=',' read -ra tag_array <<< "$tag_list"
+                            for tag in "${tag_array[@]}"; do
+                                # Remove carriage returns and whitespace
+                                tag="${tag//$'\r'/}"
+                                tag=$(echo "$tag" | xargs)
+                                if [[ -n "$tag" ]]; then
+                                    combined_tags+=("$tag")
+                                fi
+                            done
+                        fi
+                        
+                        # Check if this tool's combined tags match the filter expression
+                        if [[ ${#combined_tags[@]} -gt 0 ]]; then
+                            # Fast path for simple single tag filters (90% of cases)
+                            if [[ "$filter_expression" != *"|"* && "$filter_expression" != *"&"* && "$filter_expression" != *"("* ]]; then
+                                # Simple tag match - just check if tag exists in array
+                                local found=false
+                                for tag in "${combined_tags[@]}"; do
+                                    if [[ "$tag" == "$filter_expression" ]]; then
+                                        found=true
+                                        break
+                                    fi
+                                done
+                                if [[ "$found" == true ]]; then
+                                    exe_name="${exe_name//$'\r'/}"
+                                    all_tools+=("$exe_name")
+                                fi
+                            else
+                                # Complex boolean expression - use parser
+                                if parse_boolean_expression "$filter_expression" "${combined_tags[@]}"; then
+                                    exe_name="${exe_name//$'\r'/}"
+                                    all_tools+=("$exe_name")
+                                fi
+                            fi
+                        fi
                     fi
-                done
-                if [[ "$has_tag" != true ]]; then
-                    continue
-                fi
+                done < <($JQ_CMD -r '. as $root | .tools[]? | select(.executable) | "\(.executable)|\(((.tags // []) + ($root.tags // [])) | unique | join(","))"' "$pkg_dir/package.json" 2>/dev/null)
+            else
+                # No filter - extract all executables
+                while IFS= read -r exe; do
+                    if [[ -n "$exe" ]]; then
+                        # Remove carriage returns
+                        exe="${exe//$'\r'/}"
+                        all_tools+=("$exe")
+                    fi
+                done < <($JQ_CMD -r '.tools[]?.executable // empty' "$pkg_dir/package.json" 2>/dev/null)
             fi
-            
-            # Extract executables from package.json
-            while IFS= read -r exe; do
-                if [[ -n "$exe" ]]; then
-                    # Remove carriage returns
-                    exe="${exe//$'\r'/}"
-                    all_tools+=("$exe")
-                fi
-            done < <($JQ_CMD -r '.tools[]?.executable // empty' "$pkg_dir/package.json" 2>/dev/null)
         fi
     done
     
     # Sort and output tools with comma delimiter
-    local temp_file=$(mktemp)
+    local temp_file
+    temp_file=$(mktemp)
     printf '%s\n' "${all_tools[@]}" > "$temp_file"
     
     # Use dos2unix to clean line endings, then sort and deduplicate
     dos2unix "$temp_file" 2>/dev/null || true
-    local result=$(sort -u "$temp_file" | tr '\n' ',' | sed 's/,$//')
+    local result
+    result=$(sort -u "$temp_file" | tr '\n' ',' | sed 's/,$//')
+    
+    # Save to smart LRU cache
+    save_to_cache "$cache_key" "$result"
     
     # Output result
     echo "$result"
-    
-    # Save to cache with key
-    echo "${cache_key}:${result}" >> "$PORTX_TOOLS_CACHE"
     
     rm -f "$temp_file"
 }
@@ -1138,7 +1426,8 @@ _wrap_text() {
     fi
     
     # Split into words for careful wrapping
-    local words=($text)
+    local words
+    read -ra words <<< "$text"
     local current_line=""
     local is_first_line=true
     

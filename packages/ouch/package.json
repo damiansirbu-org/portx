@@ -1,0 +1,45 @@
+{
+  // ==========================================
+  // PORTX Package Configuration (package.json)
+  // ==========================================
+  
+  // CORE PACKAGE METADATA
+  "name": "ouch",
+  "version": "0.5.1",
+  "description": "Painless compression and decompression tool supporting 20+ formats - automatic format detection with parallel compression and intuitive interface",
+  "author": "PORTX Team",
+  "license": "MIT",
+  
+  // IMPORT BEHAVIOR CONTROL
+  "import": "auto",
+  
+  // EXECUTABLE DISCOVERY  
+  "paths": [
+    "./"
+  ],
+  
+  // TOOL DEFINITIONS
+  "tools": [
+    {
+      "executable": "ouch.exe",
+      "defaultArgs": "",
+      "description": "Universal compression tool with automatic format detection - supports ZIP, TAR, 7Z, RAR, ZSTD, LZMA, BZIP2, LZ4, and more with parallel processing",
+      "usage": "ouch compress file1.txt file2.txt archive.zip # Compress multiple files\\nouch decompress archive.zip # Auto-detect and decompress\\nouch list archive.tar.gz # List archive contents\\nouch compress folder/ backup.tar.xz # Compress entire directory\\nouch decompress *.zip # Decompress multiple archives",
+      "dependencies": "windows",
+      "aliases": [],
+      "category": "compression",
+      "tags": ["compression", "archive", "zip", "tar", "7z", "rar", "extraction", "decompression", "parallel"]
+    }
+  ],
+  
+  // PACKAGE METADATA
+  "homepage": "https://github.com/ouch-org/ouch",
+  "repository": "https://github.com/ouch-org/ouch",
+  "keywords": ["compression", "archive", "zip", "tar", "7z", "extraction"],
+  "categories": ["compression", "utilities", "archive"],
+  
+  // TECHNICAL CONFIGURATION
+  "architecture": "x64",
+  "platform": "win32", 
+  "runtime": "native"
+}

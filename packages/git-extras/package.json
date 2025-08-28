@@ -1,11 +1,11 @@
 {
   "name": "git-extras",
-  "version": "1.0.0",
+  "version": "0.18.2",
   "tools": [
     {
       "executable": "delta.exe",
-      "description": "Syntax-highlighting diff pager with line numbering and side-by-side view",
-      "usage": "git config --global core.pager delta # Set as git pager\\ndelta file1.txt file2.txt # Compare files\\necho 'diff --git a/old b/new' | delta # Pipe diff output\\ngit show HEAD | delta # View commit with syntax highlighting",
+      "description": "A syntax-highlighting pager for git, diff, grep, and blame output with themes and customizable colors",
+      "usage": "git config --global core.pager delta # Set as git pager\\ndelta --theme=gruvbox-dark file1.txt file2.txt # Compare files with theme\\ngit diff | delta --side-by-side # Side-by-side view\\ndelta --plus-style='bold green' --minus-style='bold red' # Custom colors",
       "dependencies": "windows"
     },
     {

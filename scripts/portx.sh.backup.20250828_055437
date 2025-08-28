@@ -1,0 +1,1774 @@
+#!/bin/bash
+# PORTX Package Manager - Consolidated Script
+# Imports packages into PORTX system: discover, validate, analyze dependencies, create wrappers, configure PATH
+# Also provides tools aggregator functionality
+
+# Enhanced error handling
+set -euo pipefail
+
+# Check if GIT_BASH_ROOT is set
+if [[ -z "${GIT_BASH_ROOT:-}" ]]; then
+	echo "ERROR: GIT_BASH_ROOT environment variable not set" >&2
+	echo "This variable should be set by .bashrc" >&2
+	exit 1
+fi
+
+# Get script directory for theme loading
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+# Load theme system for consistent colors and icons - let it crash if not found
+# shellcheck source=/dev/null
+source "$SCRIPT_DIR/theme.sh"
+
+# Logging functions using printf
+log() { printf "%s%s%s\n" "$(color_primary)" "$1" "$(color_reset)"; }
+error() { printf "%s%s%s\n" "$(color_error)" "$1" "$(color_reset)" >&2; }
+success() { printf "%s%s%s\n" "$(color_success)" "$1" "$(color_reset)"; }
+warning() { printf "%s%s%s\n" "$(color_warning)" "$1" "$(color_reset)"; }
+
+# Configuration
+# Convert Windows paths to MSYS format for bash commands
+GIT_BASH_ROOT_POSIX="${GIT_BASH_ROOT//C:/\/c}"
+PACKAGES_DIR="$GIT_BASH_ROOT_POSIX/home/portx/packages"
+SH_WRAPPERS_DIR="$GIT_BASH_ROOT_POSIX/bin"
+CMD_WRAPPERS_DIR="$GIT_BASH_ROOT_POSIX/cmd"
+PORTX_PATH_CACHE="$HOME/.portx_path_cache"
+PORTX_PACKAGES_CACHE="$HOME/.portx_packages_cache"
+PORTX_TOOLS_CACHE="$HOME/.portx_tools_cache"
+PORTX_IMPORT_LOG_FILE="$HOME/portx-packages-import.log"
+PORTX_VERIFY_LOG_FILE="$HOME/portx-packages-verify.log"
+
+# Command paths based on GIT_BASH_ROOT
+SED_CMD="$GIT_BASH_ROOT_POSIX/usr/bin/sed"
+
+# Function for debug logging (only to file)
+debug_log() {
+	local log_file="${1:-$PORTX_IMPORT_LOG_FILE}"
+	local message="${2:-}"
+	if [[ -z "$message" ]]; then
+		message="$1"
+		log_file="$PORTX_IMPORT_LOG_FILE"
+	fi
+	printf "[DEBUG] %s\n" "$message" >>"$log_file"
+}
+
+# Function for regular logging (to both screen and file)
+info_log() {
+	local log_file="${1:-$PORTX_IMPORT_LOG_FILE}"
+	local message="$2"
+	if [[ -z "$message" ]]; then
+		message="$1"
+		log_file="$PORTX_IMPORT_LOG_FILE"
+	fi
+	printf "%s\n" "$message" | tee -a "$log_file"
+}
+
+# Counters
+TOTAL_PACKAGES=0
+TOTAL_EXECUTABLES=0
+VALID_PACKAGES=0
+CORRUPTED_PACKAGES=0
+WRAPPER_PACKAGES=0
+PATH_PACKAGES=0
+EXECUTABLE_MISMATCHES=0
+
+# Arrays
+WRAPPER_PACKAGE_NAMES=()
+PATH_PACKAGE_PATHS=()
+CORRUPTED_PACKAGE_NAMES=()
+MISMATCH_PACKAGE_NAMES=()
+
+# Error codes for wrapper testing (research-based)
+declare -g WRAPPER_MISSING_EXECUTABLE=10
+declare -g WRAPPER_DEPENDENCY_MISSING=11
+declare -g WRAPPER_TIMEOUT_EXCEEDED=12
+declare -g WRAPPER_UNSUPPORTED_FLAGS=13
+declare -g WRAPPER_FUNCTIONAL_PASS=0
+
+# Method: Test wrapper functionality with comprehensive error categorization
+test_wrapper_works() {
+	local cmd_name="$1"
+
+	debug_log "$PORTX_VERIFY_LOG_FILE" "      Testing wrapper for: $cmd_name"
+
+	# Check if wrapper exists and is executable
+	local wrapper_sh="$SH_WRAPPERS_DIR/$cmd_name"
+	if [[ ! -f "$wrapper_sh" ]]; then
+		debug_log "$PORTX_VERIFY_LOG_FILE" "      MISSING_EXECUTABLE: $wrapper_sh"
+		return $WRAPPER_MISSING_EXECUTABLE
+	fi
+
+	if [[ ! -x "$wrapper_sh" ]]; then
+		debug_log "$PORTX_VERIFY_LOG_FILE" "      MISSING_EXECUTABLE: $wrapper_sh not executable"
+		return $WRAPPER_MISSING_EXECUTABLE
+	fi
+
+	# Test basic wrapper execution (dependency check)
+	debug_log "$PORTX_VERIFY_LOG_FILE" "      Testing basic wrapper execution"
+	local basic_test_output
+	basic_test_output=$(timeout 3 "$wrapper_sh" 2>&1 || true)
+	local basic_exit_code=$?
+
+	# Check for dependency issues (common error patterns)
+	if [[ "$basic_exit_code" -eq 124 ]]; then
+		debug_log "$PORTX_VERIFY_LOG_FILE" "      TIMEOUT_EXCEEDED: Basic execution timed out"
+		return $WRAPPER_TIMEOUT_EXCEEDED
+	elif echo "$basic_test_output" | grep -qi "dll.*not found\|missing.*dependency\|cannot.*load"; then
+		debug_log "$PORTX_VERIFY_LOG_FILE" "      DEPENDENCY_MISSING: $basic_test_output"
+		return $WRAPPER_DEPENDENCY_MISSING
+	fi
+
+	debug_log "$PORTX_VERIFY_LOG_FILE" "      Basic execution exit code: $basic_exit_code"
+
+	# Check if timeout command exists
+	if ! command -v timeout >/dev/null 2>&1; then
+		debug_log "$PORTX_VERIFY_LOG_FILE" "      timeout command not available, using direct test"
+		# Test without timeout - comprehensive flags for CLI and GUI tools
+		for flag in "--help" "--version" "-h" "-v" "/?" "-?" "help" "version" "--usage" "/help" "/version"; do
+			debug_log "$PORTX_VERIFY_LOG_FILE" "      Testing flag: $flag"
+			if "$wrapper_sh" "$flag" >/dev/null 2>&1; then
+				debug_log "$PORTX_VERIFY_LOG_FILE" "      Wrapper test SUCCESS with flag: $flag"
+				return 0
+			else
+				debug_log "$PORTX_VERIFY_LOG_FILE" "      Flag $flag failed"
+			fi
+		done
+	else
+		debug_log "$PORTX_VERIFY_LOG_FILE" "      Using timeout for wrapper tests (10s timeout)"
+		# Test with timeout using wrapper full path - comprehensive flags for CLI and GUI tools
+		for flag in "--help" "--version" "-h" "-v" "/?" "-?" "help" "version" "--usage" "/help" "/version"; do
+			debug_log "$PORTX_VERIFY_LOG_FILE" "      Testing flag with timeout: $flag"
+			local error_output
+			error_output=$(timeout 3 "$wrapper_sh" "$flag" 2>&1 >/dev/null || true)
+			local exit_code=$?
+			if [[ $exit_code -eq 0 ]]; then
+				debug_log "$PORTX_VERIFY_LOG_FILE" "      FUNCTIONAL_PASS: Success with flag $flag"
+				return $WRAPPER_FUNCTIONAL_PASS
+			else
+				if [[ $exit_code -eq 124 ]]; then
+					debug_log "$PORTX_VERIFY_LOG_FILE" "      TIMEOUT_EXCEEDED: Flag $flag timed out"
+					return $WRAPPER_TIMEOUT_EXCEEDED
+				fi
+				debug_log "$PORTX_VERIFY_LOG_FILE" "      Flag $flag failed (exit: $exit_code)"
+			fi
+		done
+	fi
+
+	# debug_log "$PORTX_VERIFY_LOG_FILE" "      UNSUPPORTED_FLAGS: Tool works but doesn't support help/version flags"
+	return $WRAPPER_UNSUPPORTED_FLAGS
+}
+
+# Method: Get executables from package.json (preferred) with defaultArgs
+get_executables_from_json() {
+	local pkg_dir="$1"
+	local json_file="$pkg_dir/package.json"
+
+	if [[ -f "$json_file" ]]; then
+		# Extract executables with defaultArgs: "executable.exe|defaultArgs"
+		parse_json_with_comments "$json_file" '.tools[]? | select(.executable) | "\(.executable)|\(.defaultArgs // "")"'
+	fi
+}
+
+# Method: Get executables by scanning directory (for validation)
+get_scanned_executables() {
+	local pkg_dir="$1"
+	local log_file="${2:-$PORTX_VERIFY_LOG_FILE}"
+	debug_log "$log_file" "Scanning for executables in: $pkg_dir"
+
+	# Find executables in package directory and subdirectories
+	# Support multiple extensions: .exe, .bat, .cmd, .sh, .py, and extensionless scripts
+	local result=$(find "$pkg_dir" \
+		\( -name "*.exe" -o -name "*.bat" -o -name "*.cmd" -o -name "*.sh" -o -name "*.py" \) \
+		-type f -exec basename {} \; 2>/dev/null | sort -u)
+
+	# Also find extensionless executables (like 'liquibase', 'az')
+	local extensionless=$(find "$pkg_dir" -type f ! -name "*.txt" ! -name "*.md" ! -name "*.json" \
+		! -name "*.dll" ! -name "*.so" ! -name "*.conf" ! -name "*.config" ! -name "*.xml" \
+		! -name "*.ini" ! -name "*.log" ! -name "*.zip" ! -name "*.tar*" ! -name "*.gz" \
+		! -name "*.*" -executable -exec basename {} \; 2>/dev/null | sort -u)
+
+	# Combine both results and remove duplicates
+	result=$(printf "%s\n%s\n" "$result" "$extensionless" | grep -v "^$" | sort -u)
+
+	debug_log "$log_file" "Found executables: $result"
+	echo "$result"
+}
+
+# Method: Parse package JSON for declared tools
+parse_package_manual() {
+	local pkg_dir="$1"
+	local json_file="$pkg_dir/package.json"
+
+	if [[ ! -f "$json_file" ]]; then
+		echo ""
+		return
+	fi
+
+	# Extract executables from JSON tools array
+	parse_json_with_comments "$json_file" '.tools[]?.executable // empty' | sort -u
+}
+
+# Method: Get package import type (path, wrap, or auto/default)
+# Clean JSON by stripping comments and unnatural characters for gojq processing
+# Research-based solution: Stack Overflow + GNU sed + Unix tr best practices
+clean_json_for_jq() {
+	local json_file="$1"
+	# Stack Overflow proven pattern + GNU sed multi-line comments + tr control chars
+	# Only remove // comments that are not part of URLs (not preceded by : or /)
+	"$SED_CMD" -e '/^[[:blank:]]*#/d' -e 's#[^:/]//.*##' -e 's#/\*.*\*/##g' "$json_file" |
+		tr -d '\000-\011\013-\037\177'
+}
+
+# Helper function to get gojq command path
+get_gojq_cmd() {
+	# Always use PORTX gojq - it's faster and more reliable than jq
+	echo "$GIT_BASH_ROOT_POSIX/home/portx/packages/gojq/gojq.exe"
+}
+
+# Helper function to parse JSON with comments
+parse_json_with_comments() {
+	local json_file="$1"
+	local jq_filter="$2"
+
+	# Special handling for importType - direct extraction avoids parsing issues
+	if [[ "$jq_filter" == '.importType // empty' ]]; then
+		grep '"importType"' "$json_file" | sed 's|.*"importType"[[:space:]]*:[[:space:]]*"||' | sed 's|".*||' | head -1
+	else
+		# Use pipe pattern to avoid Claude Code gojq bug
+		clean_json_for_jq "$json_file" | "$(get_gojq_cmd)" -r "$jq_filter" 2>/dev/null || echo ""
+	fi
+}
+
+get_import_type() {
+	local pkg_dir="$1"
+	local json_file="$pkg_dir/package.json"
+
+	if [[ ! -f "$json_file" ]]; then
+		echo "auto" # No package.json, use default behavior
+		return
+	fi
+
+	# Check importType field using comment-aware JSON parser
+	local import_type
+	import_type=$(parse_json_with_comments "$json_file" '.importType // empty')
+
+	case "$import_type" in
+	"path")
+		echo "path"
+		;;
+	"wrap")
+		echo "wrap"
+		;;
+	*)
+		echo "auto" # Default behavior: try wrappers, fallback to path
+		;;
+	esac
+}
+
+# Method: Validate package integrity
+validate_package() {
+	local pkg_dir="$1"
+	local pkg_name="$2"
+	local json_file="$pkg_dir/package.json"
+	local validation_status="VALID"
+	local validation_issues=()
+
+	# Silent analysis
+
+	# Check 1: Package JSON exists
+	if [[ ! -f "$json_file" ]]; then
+		validation_issues+=("No package.json found")
+		validation_status="CORRUPTED"
+	fi
+
+	# Check 2: Executables exist
+	debug_log "$PORTX_VERIFY_LOG_FILE" "validate_package: checking executables"
+	local discovered_exes
+	discovered_exes=$(get_scanned_executables "$pkg_dir")
+	debug_log "$PORTX_VERIFY_LOG_FILE" "validate_package: discovered_exes='$discovered_exes'"
+	if [[ -z "$discovered_exes" ]]; then
+		validation_issues+=("No executables found")
+		validation_status="CORRUPTED"
+	fi
+
+	# Check 3: Compare discovered vs declared executables
+	if [[ -f "$json_file" ]] && [[ -n "$discovered_exes" ]]; then
+		local declared_exes
+		declared_exes=$(parse_package_manual "$pkg_dir")
+
+		if [[ -n "$declared_exes" ]]; then
+			local discovered_sorted
+			local declared_sorted
+			discovered_sorted=$(echo "$discovered_exes" | xargs -n1 basename | sort)
+			declared_sorted=$(echo "$declared_exes" | sort)
+
+			if [[ "$discovered_sorted" != "$declared_sorted" ]]; then
+				validation_issues+=("Executable mismatch between discovery and manual")
+				EXECUTABLE_MISMATCHES=$((EXECUTABLE_MISMATCHES + 1))
+				MISMATCH_PACKAGE_NAMES+=("$pkg_name")
+			fi
+		fi
+	fi
+
+	# Silent validation results
+	debug_log "$PORTX_VERIFY_LOG_FILE" "validate_package: final status='$validation_status'"
+	if [[ "$validation_status" == "VALID" ]]; then
+		VALID_PACKAGES=$((VALID_PACKAGES + 1))
+		debug_log "$PORTX_VERIFY_LOG_FILE" "validate_package: returning 0 (valid)"
+		return 0
+	else
+		CORRUPTED_PACKAGES=$((CORRUPTED_PACKAGES + 1))
+		CORRUPTED_PACKAGE_NAMES+=("$pkg_name")
+		debug_log "$PORTX_VERIFY_LOG_FILE" "validate_package: returning 1 (corrupted)"
+		return 1
+	fi
+}
+
+# Method: Check if command conflicts with existing binaries
+has_command_conflict() {
+	local cmd_name="$1"
+
+	# Check if command exists in system PATH (Git Bash bin/)
+	if command -v "$cmd_name" >/dev/null 2>&1; then
+		return 0 # Conflict found
+	fi
+
+	return 1 # No conflict
+}
+
+# Method: Create bash wrapper scripts only
+create_bash_wrappers() {
+	local pkg_dir="$1"
+	local pkg_name="$2"
+	local executables
+
+	# Use package.json executables with defaultArgs - package.json is authoritative
+	executables=$(get_executables_from_json "$pkg_dir")
+
+	# If no executables defined in package.json, skip this package
+	if [[ -z "$executables" ]]; then
+		debug_log "    No executables defined in package.json for $pkg_name, skipping"
+		return 1
+	fi
+
+	debug_log "    Found executables in $pkg_name: $(echo "$executables" | wc -l) files"
+	if [[ -z "$executables" ]]; then
+		debug_log "    No executables found in package"
+		return 1
+	fi
+
+	local created_wrappers=0
+
+	# Create bash wrappers - parse executable|defaultArgs format
+	while IFS='|' read -r exe_name default_args; do
+		if [[ -n "$exe_name" ]]; then
+			local cmd_name="${exe_name%.*}"
+			local exe_file="$pkg_dir/$exe_name"
+
+			# Check if executable exists (important validation)
+			if [[ ! -f "$exe_file" ]]; then
+				debug_log "      ERROR: Executable defined in package.json does not exist: $exe_file"
+				debug_log "      Package $pkg_name is broken - fix package.json or add missing executable"
+				continue
+			fi
+
+			if has_command_conflict "$cmd_name"; then
+				debug_log "      WARNING: $cmd_name conflicts with existing command, but creating wrapper anyway"
+			fi
+
+			local wrapper_sh="$SH_WRAPPERS_DIR/$cmd_name"
+
+			# Create shell wrapper for Git Bash with defaultArgs
+			mkdir -p "$SH_WRAPPERS_DIR"
+			local posix_exe_path="$GIT_BASH_ROOT_POSIX/home/portx/packages/$pkg_name/$exe_name"
+			if [[ -n "$default_args" && "$default_args" != "" ]]; then
+				cat >"$wrapper_sh" <<WRAPPER_EOF
+#!/bin/bash
+# PORTX-WRAPPER: Auto-generated wrapper for $pkg_name with defaultArgs
+exec "$posix_exe_path" $default_args "\$@"
+WRAPPER_EOF
+			else
+				cat >"$wrapper_sh" <<WRAPPER_EOF
+#!/bin/bash
+# PORTX-WRAPPER: Auto-generated wrapper for $pkg_name
+exec "$posix_exe_path" "\$@"
+WRAPPER_EOF
+			fi
+			chmod +x "$wrapper_sh"
+			debug_log "      Created bash wrapper for: $cmd_name"
+			debug_log "      Target exe: $exe_file"
+			created_wrappers=$((created_wrappers + 1))
+		fi
+	done <<<"$executables"
+
+	# Return 0 if any wrappers created, 1 if none created
+	[[ $created_wrappers -gt 0 ]]
+}
+
+# Method: Create cmd wrapper scripts only
+create_cmd_wrappers() {
+	local pkg_dir="$1"
+	local pkg_name="$2"
+	local executables
+
+	# Use package.json executables with defaultArgs - package.json is authoritative
+	executables=$(get_executables_from_json "$pkg_dir")
+
+	# If no executables defined in package.json, skip this package
+	if [[ -z "$executables" ]]; then
+		debug_log "    No executables defined in package.json for $pkg_name, skipping"
+		return 1
+	fi
+
+	debug_log "    Found executables in $pkg_name: $(echo "$executables" | wc -l) files"
+	if [[ -z "$executables" ]]; then
+		debug_log "    No executables found in package"
+		return 1
+	fi
+
+	local created_wrappers=0
+
+	# Create cmd wrappers - parse executable|defaultArgs format
+	while IFS='|' read -r exe_name default_args; do
+		if [[ -n "$exe_name" ]]; then
+			local cmd_name="${exe_name%.*}"
+			local exe_file="$pkg_dir/$exe_name"
+
+			# Check if executable exists (important validation)
+			if [[ ! -f "$exe_file" ]]; then
+				debug_log "      ERROR: Executable defined in package.json does not exist: $exe_file"
+				debug_log "      Package $pkg_name is broken - fix package.json or add missing executable"
+				continue
+			fi
+
+			if has_command_conflict "$cmd_name"; then
+				debug_log "      WARNING: $cmd_name conflicts with existing command, but creating wrapper anyway"
+			fi
+
+			local wrapper_cmd="$CMD_WRAPPERS_DIR/$cmd_name.cmd"
+
+			# Create .cmd wrapper for Windows with defaultArgs
+			mkdir -p "$CMD_WRAPPERS_DIR"
+			if [[ -n "$default_args" && "$default_args" != "" ]]; then
+				printf '@echo off\nrem PORTX-WRAPPER: Auto-generated wrapper for %s with defaultArgs\n"%s\\home\\portx\\packages\\%s\\%s" %s %%*\n' "$pkg_name" "$GIT_BASH_ROOT" "$pkg_name" "$exe_name" "$default_args" >"$wrapper_cmd"
+			else
+				printf '@echo off\nrem PORTX-WRAPPER: Auto-generated wrapper for %s\n"%s\\home\\portx\\packages\\%s\\%s" %%*\n' "$pkg_name" "$GIT_BASH_ROOT" "$pkg_name" "$exe_name" >"$wrapper_cmd"
+			fi
+			debug_log "      Created cmd wrapper for: $cmd_name"
+			debug_log "      Target exe: $exe_file"
+			created_wrappers=$((created_wrappers + 1))
+		fi
+	done <<<"$executables"
+
+	# Return 0 if any wrappers created, 1 if none created
+	[[ $created_wrappers -gt 0 ]]
+}
+
+# Method: Create wrapper scripts (import only - no testing) - LEGACY FUNCTION
+create_wrappers() {
+	local pkg_dir="$1"
+	local pkg_name="$2"
+	local executables
+
+	# Use package.json executables with defaultArgs - package.json is authoritative
+	executables=$(get_executables_from_json "$pkg_dir")
+
+	# If no executables defined in package.json, skip this package
+	if [[ -z "$executables" ]]; then
+		debug_log "    No executables defined in package.json for $pkg_name, skipping"
+		return 1
+	fi
+
+	debug_log "    Found executables in $pkg_name: $(echo "$executables" | wc -l) files"
+	if [[ -z "$executables" ]]; then
+		debug_log "    No executables found in package"
+		return 1
+	fi
+
+	local created_wrappers=0
+
+	# Create wrappers - parse executable|defaultArgs format
+	while IFS='|' read -r exe_name default_args; do
+		if [[ -n "$exe_name" ]]; then
+			local cmd_name="${exe_name%.*}"
+			local exe_file="$pkg_dir/$exe_name"
+
+			# Clean up empty default_args
+			[[ -z "$default_args" ]] && default_args=""
+
+			debug_log "      Processing executable: $exe_name -> $cmd_name (args: '$default_args')"
+
+			# Check for command conflicts before creating wrappers
+			if has_command_conflict "$cmd_name"; then
+				debug_log "      WARNING: $cmd_name conflicts with existing command, but creating wrapper anyway"
+			fi
+
+			local wrapper_cmd="$CMD_WRAPPERS_DIR/$cmd_name.cmd"
+			local wrapper_sh="$SH_WRAPPERS_DIR/$cmd_name"
+
+			# Create .cmd wrapper for Windows with defaultArgs
+			mkdir -p "$CMD_WRAPPERS_DIR"
+			if [[ -n "$default_args" && "$default_args" != "" ]]; then
+				printf '@echo off\nrem PORTX-WRAPPER: Auto-generated wrapper for %s with defaultArgs\n"%s\\home\\portx\\packages\\%s\\%s" %s %%*\n' "$pkg_name" "$GIT_BASH_ROOT" "$pkg_name" "$exe_name" "$default_args" >"$wrapper_cmd"
+			else
+				printf '@echo off\nrem PORTX-WRAPPER: Auto-generated wrapper for %s\n"%s\\home\\portx\\packages\\%s\\%s" %%*\n' "$pkg_name" "$GIT_BASH_ROOT" "$pkg_name" "$exe_name" >"$wrapper_cmd"
+			fi
+
+			# Create shell wrapper for Git Bash with defaultArgs
+			local posix_exe_path="$GIT_BASH_ROOT_POSIX/home/portx/packages/$pkg_name/$exe_name"
+			if [[ -n "$default_args" && "$default_args" != "" ]]; then
+				cat >"$wrapper_sh" <<WRAPPER_EOF
+#!/bin/bash
+# PORTX-WRAPPER: Auto-generated wrapper for $pkg_name with defaultArgs
+exec "$posix_exe_path" $default_args "\$@"
+WRAPPER_EOF
+			else
+				cat >"$wrapper_sh" <<WRAPPER_EOF
+#!/bin/bash
+# PORTX-WRAPPER: Auto-generated wrapper for $pkg_name
+exec "$posix_exe_path" "\$@"
+WRAPPER_EOF
+			fi
+			chmod +x "$wrapper_sh"
+
+			debug_log "      Created wrappers for: $cmd_name"
+			debug_log "      Target exe: $exe_file"
+
+			created_wrappers=$((created_wrappers + 2)) # 1 sh + 1 cmd file
+		fi
+	done <<<"$executables"
+
+	# Return 0 if any wrappers created, 1 if none created
+	[[ $created_wrappers -gt 0 ]]
+}
+
+# Method: Add package to PATH configuration
+add_to_path() {
+	local pkg_path="$1"
+	local pkg_name="$2"
+
+	# Add to PATH_PACKAGE_PATHS array for cache generation
+	PATH_PACKAGE_PATHS+=("$pkg_path")
+	debug_log "Added $pkg_path to PATH_PACKAGE_PATHS array"
+	return 0
+}
+
+# ===== BOOLEAN EXPRESSION PARSER FOR TAG FILTERING =====
+
+# Global variables for parser state
+declare -g PARSER_TOKENS=()
+declare -g PARSER_POS=0
+
+# Method: Tokenize boolean expression into array of tokens
+tokenize_expression() {
+	local expression="$1"
+	PARSER_TOKENS=()
+	PARSER_POS=0
+
+	# Remove extra whitespace and normalize
+	expression=$(echo "$expression" | sed 's/[[:space:]]*&[[:space:]]*/\&/g' | sed 's/[[:space:]]*|[[:space:]]*/|/g' | sed 's/[[:space:]]*![[:space:]]*/!/g')
+
+	local i=0
+	local token=""
+	local in_token=false
+
+	while [[ $i -lt ${#expression} ]]; do
+		local char="${expression:$i:1}"
+
+		case "$char" in
+		'&' | '|' | '!' | '(' | ')')
+			# End current token if exists
+			if [[ -n "$token" ]]; then
+				PARSER_TOKENS+=("$token")
+				token=""
+				in_token=false
+			fi
+			# Add operator/bracket as token
+			PARSER_TOKENS+=("$char")
+			;;
+		' ' | $'\t')
+			# End current token on whitespace
+			if [[ -n "$token" ]]; then
+				PARSER_TOKENS+=("$token")
+				token=""
+				in_token=false
+			fi
+			;;
+		*)
+			# Add character to current token
+			token="$token$char"
+			in_token=true
+			;;
+		esac
+		((i++))
+	done
+
+	# Add final token if exists
+	if [[ -n "$token" ]]; then
+		PARSER_TOKENS+=("$token")
+	fi
+}
+
+# Method: Get current token
+get_current_token() {
+	if [[ $PARSER_POS -lt ${#PARSER_TOKENS[@]} ]]; then
+		echo "${PARSER_TOKENS[$PARSER_POS]}"
+	else
+		echo ""
+	fi
+}
+
+# Method: Advance to next token
+advance_token() {
+	((PARSER_POS++))
+}
+
+# Method: Parse OR expressions (lowest precedence)
+parse_or_expression() {
+	local package_tags_array=("$@")
+
+	local result
+	if ! parse_and_expression "${package_tags_array[@]}"; then
+		result=1
+	else
+		result=0
+	fi
+
+	while [[ "$(get_current_token)" == "|" ]]; do
+		advance_token
+		if parse_and_expression "${package_tags_array[@]}"; then
+			result=0 # OR: if any operand is true, result is true
+		fi
+	done
+
+	return $result
+}
+
+# Method: Parse AND expressions (medium precedence)
+parse_and_expression() {
+	local package_tags_array=("$@")
+
+	local result
+	if ! parse_not_expression "${package_tags_array[@]}"; then
+		result=1
+	else
+		result=0
+	fi
+
+	while [[ "$(get_current_token)" == "&" ]]; do
+		advance_token
+		if ! parse_not_expression "${package_tags_array[@]}"; then
+			result=1 # AND: if any operand is false, result is false
+		fi
+	done
+
+	return $result
+}
+
+# Method: Parse NOT expressions (highest precedence)
+parse_not_expression() {
+	local package_tags_array=("$@")
+
+	if [[ "$(get_current_token)" == "!" ]]; then
+		advance_token
+		if parse_term "${package_tags_array[@]}"; then
+			return 1 # NOT: invert result
+		else
+			return 0
+		fi
+	else
+		parse_term "${package_tags_array[@]}"
+	fi
+}
+
+# Method: Parse terms (tag names and parentheses)
+parse_term() {
+	local package_tags_array=("$@")
+	local token
+	token=$(get_current_token)
+
+	if [[ "$token" == "(" ]]; then
+		advance_token
+		local result
+		if parse_or_expression "${package_tags_array[@]}"; then
+			result=0
+		else
+			result=1
+		fi
+
+		# Expect closing parenthesis
+		if [[ "$(get_current_token)" == ")" ]]; then
+			advance_token
+		fi
+
+		return $result
+	elif [[ -n "$token" && "$token" != "&" && "$token" != "|" && "$token" != "!" && "$token" != ")" ]]; then
+		advance_token
+		# Use fuzzy tag matching for the term
+		evaluate_tag_fuzzy "$token" "${package_tags_array[@]}"
+	else
+		return 1 # Invalid token
+	fi
+}
+
+# Method: Ultra-fast fuzzy tag matching using pure bash
+evaluate_tag_fuzzy() {
+	local tag_pattern="$1"
+	shift
+	local package_tags_array=("$@")
+	local pattern_lower="${tag_pattern,,}"
+
+	for tag in "${package_tags_array[@]}"; do
+		if [[ "${tag,,}" == *"$pattern_lower"* ]]; then
+			return 0 # Match found
+		fi
+	done
+	return 1 # No match
+}
+
+# Method: Main boolean expression evaluator
+parse_boolean_expression() {
+	local expression="$1"
+	shift
+	local package_tags_array=("$@")
+
+	# Handle empty expression (match everything)
+	if [[ -z "$expression" ]]; then
+		return 0
+	fi
+
+	# Tokenize and parse
+	tokenize_expression "$expression"
+	PARSER_POS=0
+
+	parse_or_expression "${package_tags_array[@]}"
+}
+
+# ===== SMART LRU CACHE MANAGEMENT =====
+
+# Method: Get cached result for tag filter expression
+get_cached_result() {
+	local query_key="$1"
+	local cache_file="$HOME/.portx_tag_cache"
+
+	if [[ -f "$cache_file" ]]; then
+		grep "^${query_key}:" "$cache_file" 2>/dev/null | tail -1 | cut -d':' -f3- || true
+	fi
+}
+
+# Method: Save result to cache with LRU management
+save_to_cache() {
+	local query_key="$1"
+	local result="$2"
+	local cache_file="$HOME/.portx_tag_cache"
+	local temp_file="$cache_file.tmp"
+
+	# Handle permanent "no_tags" entry
+	if [[ "$query_key" == "no_tags" ]]; then
+		# Remove old no_tags entry if exists
+		if [[ -f "$cache_file" ]]; then
+			grep -v "^no_tags:" "$cache_file" >"$temp_file" 2>/dev/null || touch "$temp_file"
+		else
+			touch "$temp_file"
+		fi
+		# Add permanent no_tags entry
+		echo "no_tags:permanent:${result}" >>"$temp_file"
+		mv "$temp_file" "$cache_file"
+		return 0
+	fi
+
+	# Handle regular LRU entries
+	local timestamp
+	timestamp=$(date +%s)
+
+	# Create temp file with existing entries except the one we're updating
+	if [[ -f "$cache_file" ]]; then
+		grep -v "^${query_key}:" "$cache_file" >"$temp_file" 2>/dev/null || touch "$temp_file"
+	else
+		touch "$temp_file"
+	fi
+
+	# Add new entry
+	echo "${query_key}:${timestamp}:${result}" >>"$temp_file"
+
+	# Keep no_tags (permanent) + 10 most recent tagged queries
+	{
+		grep "^no_tags:" "$temp_file" 2>/dev/null || true
+		grep -v "^no_tags:" "$temp_file" 2>/dev/null | sort -t: -k2 -n | tail -10
+	} >"$cache_file"
+
+	rm -f "$temp_file"
+}
+
+# Import packages function (main package processing logic - no verification)
+import_packages() {
+	# Clear the log file at start
+	echo "PORTX Package Import - $(date)" >"$PORTX_IMPORT_LOG_FILE"
+	debug_log "Starting package import scan..."
+
+	printf "Importing portx packages\n" >&2
+	printf "Scanning packages for import types...\n" >&2
+
+	# Cleanup at beginning - remove old cache files and wrappers
+	rm -f "$PORTX_PATH_CACHE" "$PORTX_PACKAGES_CACHE" "$PORTX_TOOLS_CACHE"
+
+	# Remove PORTX wrapper files from both bin and cmd directories
+	# Safe deletion: only remove PORTX-tagged wrappers (.sh and .cmd files)
+	for wrapper_dir in "$SH_WRAPPERS_DIR" "$CMD_WRAPPERS_DIR"; do
+		if [[ -d "$wrapper_dir" ]]; then
+			for file in "$wrapper_dir"/*; do
+				if [[ -f "$file" ]] && head -n 3 "$file" 2>/dev/null | grep -q "PORTX-WRAPPER"; then
+					debug_log "      Removing PORTX wrapper: $file"
+					rm -f "$file"
+				fi
+			done
+		fi
+	done
+	mkdir -p "$SH_WRAPPERS_DIR"
+
+	# Main processing loop - simple import without validation
+	for pkg_path in "$PACKAGES_DIR"/*; do
+		if [[ -d "$pkg_path" ]]; then
+			pkg_name="$(basename "$pkg_path")"
+			TOTAL_PACKAGES=$((TOTAL_PACKAGES + 1))
+			debug_log "Processing package: $pkg_name"
+
+			# Simple validation: package.json exists and has executables
+			local json_file="$pkg_path/package.json"
+			if [[ ! -f "$json_file" ]]; then
+				debug_log "SKIPPED: No package.json for $pkg_name"
+				continue
+			fi
+
+			# Check if package has executables without detailed validation
+			local has_tools
+			has_tools=$(clean_json_for_jq "$json_file" | "$(get_gojq_cmd)" -r '.tools // [] | length' 2>/dev/null || echo "0")
+			if [[ "$has_tools" == "0" ]]; then
+				debug_log "SKIPPED: No tools defined for $pkg_name"
+				continue
+			fi
+
+			VALID_PACKAGES=$((VALID_PACKAGES + 1))
+			import_type=$(get_import_type "$pkg_path" 2>/dev/null || echo "auto")
+			debug_log "Package $pkg_name has importType: $import_type"
+
+			case "$import_type" in
+			"none")
+				# Skip import entirely - documentation only
+				printf "  SKIP: %s (importType: none)\n" "$pkg_name" >&2
+				debug_log "Skipping package with importType: none - $pkg_name"
+				continue
+				;;
+			"path")
+				# Force PATH mode - skip wrapper creation entirely
+				printf "  PATH: %s\n" "$pkg_name" >&2
+				debug_log "Forcing PATH mode for $pkg_name"
+				add_to_path "$pkg_path" "$pkg_name"
+				PATH_PACKAGES=$((PATH_PACKAGES + 1))
+				;;
+			*)
+				# Default wrapper creation logic
+				printf "  WRAP: %s\n" "$pkg_name" >&2
+				debug_log "Creating wrappers for $pkg_name"
+
+				# Create bash wrapper (always)
+				debug_log "About to create bash wrappers for $pkg_name"
+				if create_bash_wrappers "$pkg_path" "$pkg_name"; then
+					debug_log "Created bash wrappers for $pkg_name"
+					WRAPPER_PACKAGES=$((WRAPPER_PACKAGES + 1))
+					WRAPPER_PACKAGE_NAMES+=("$pkg_name")
+				else
+					debug_log "Failed to create bash wrappers for $pkg_name"
+				fi
+
+				# Create .cmd wrapper (always)
+				debug_log "About to create cmd wrappers for $pkg_name"
+				if create_cmd_wrappers "$pkg_path" "$pkg_name"; then
+					debug_log "Created cmd wrappers for $pkg_name"
+				else
+					debug_log "Failed to create cmd wrappers for $pkg_name"
+				fi
+				;;
+			esac
+		fi
+	done
+
+	# Count total executables from package.json (consistent with packages list)
+	TOTAL_EXECUTABLES=0
+
+	for pkg_path in "$PACKAGES_DIR"/*; do
+		if [[ -d "$pkg_path" && -f "$pkg_path/package.json" ]]; then
+			local pkg_name=$(basename "$pkg_path")
+			# Skip _gfw documentation package
+			if [[ "$pkg_name" == "_gfw" ]]; then
+				continue
+			fi
+			local tool_count
+			tool_count=$(clean_json_for_jq "$pkg_path/package.json" | "$(get_gojq_cmd)" -r '.tools // [] | length' 2>/dev/null || echo "0")
+			TOTAL_EXECUTABLES=$((TOTAL_EXECUTABLES + tool_count))
+		fi
+	done
+
+	# Subtract 1 from package count for _gfw
+	TOTAL_PACKAGES=$((TOTAL_PACKAGES - 1))
+
+	# Build PATH configuration silently
+	path_config=""
+
+	# Add cmd (our wrappers)
+	path_config="$CMD_WRAPPERS_DIR"
+
+	# Add package directories for packages with dependencies
+	for pkg_path in "${PATH_PACKAGE_PATHS[@]}"; do
+		path_config="$path_config:$pkg_path"
+	done
+
+	# Save configuration with comprehensive header
+	{
+		echo "#!/bin/bash"
+		echo "# PORTX PATH Cache"
+		echo "# =========================="
+		echo "#"
+		echo "# PURPOSE: PORTX tools PATH integration"
+		echo "# This provides fast access to all PORTX tools and packages"
+		echo "#"
+		echo "# GENERATION INFO:"
+		echo "#   Generated: $(date '+%a, %b %d, %Y %l:%M:%S %p')"
+		echo "#   Git Bash Directory: $GIT_BASH_ROOT"
+		echo "#   Packages Directory: $PACKAGES_DIR"
+		echo "#"
+		echo "# TOOL COUNTS:"
+		echo "#   Git for Windows: $(find "$GIT_BASH_ROOT_POSIX" -name "*.exe" -not -path "*/home/portx/packages/*" 2>/dev/null | wc -l) executables"
+		echo "#   PORTX Wrappers: $(find "$CMD_WRAPPERS_DIR" -name "*.cmd" 2>/dev/null | wc -l) wrappers"
+		echo "#   PORTX Packages: $TOTAL_PACKAGES directories, $TOTAL_EXECUTABLES executables"
+		echo "#   Total: $(($(find "$GIT_BASH_ROOT_POSIX" -name "*.exe" -not -path "*/home/portx/packages/*" 2>/dev/null | wc -l) + $(find "$CMD_WRAPPERS_DIR" -name "*.cmd" 2>/dev/null | wc -l) + TOTAL_EXECUTABLES)) tools"
+		echo "#"
+		echo "# USAGE: This file is automatically sourced by .bashrc on shell startup."
+		echo "# To regenerate: rm ~/.portx_cache or run 'portx import'"
+		echo "#"
+		echo "# CACHE INVALIDATION: Delete this file if any of the following change:"
+		echo "#   - PORTX packages are added/removed/updated"
+		echo "#   - PORTX installation is moved or modified"
+		echo ""
+		echo "# Git Bash Home: $GIT_BASH_ROOT"
+		echo ""
+		echo "# Build PORTX PACKAGES PATH"
+		echo "PACKAGES_PATH=\"\""
+
+		# Add package directories with executable counts
+		for pkg_path in "${PATH_PACKAGE_PATHS[@]}"; do
+			pkg_name="$(basename "$pkg_path")"
+			exe_count=$(find "$pkg_path" -maxdepth 1 -name "*.exe" 2>/dev/null | wc -l)
+			echo "PACKAGES_PATH=\"\$PACKAGES_PATH:$pkg_path\"  # $exe_count executables"
+		done
+
+		echo "# PORTX packages added: $PATH_PACKAGES directories"
+		echo ""
+		echo "# NOTE: .bashrc controls PATH integration using PACKAGES_PATH"
+		echo ""
+		echo "# PORTX PATH statistics"
+
+		# Calculate Git for Windows stats (directories with executables / total executables)
+		GFW_DIRS=$(find "$GIT_BASH_ROOT_POSIX/bin" "$GIT_BASH_ROOT_POSIX/mingw64/bin" "$GIT_BASH_ROOT_POSIX/usr/bin" -name "*.exe" -printf '%h\n' 2>/dev/null | sort -u | wc -l)
+		GFW_EXECUTABLES=$(find "$GIT_BASH_ROOT_POSIX" -name "*.exe" -not -path "*/home/portx/packages/*" 2>/dev/null | wc -l)
+		PORTX_WRAPPERS_COUNT=$(find "$CMD_WRAPPERS_DIR" -name "*.cmd" 2>/dev/null | wc -l)
+		TOTAL_COUNT=$((GFW_EXECUTABLES + PORTX_WRAPPERS_COUNT + TOTAL_EXECUTABLES))
+		TOTAL_DIRS=$((GFW_DIRS + PATH_PACKAGES))
+
+		# Raw structured data - following best practices
+		# Generate environment info directly (avoid function dependency)
+		env_info=""
+		if [[ -n "$MSYSTEM" ]]; then
+			env_info="MSYS2-$MSYSTEM"
+		elif [[ -n "$CYGWIN" ]]; then
+			env_info="Cygwin"
+		elif [[ "$OSTYPE" == "msys" ]]; then
+			env_info="MSYS"
+		elif [[ -n "$WSL_DISTRO_NAME" ]]; then
+			env_info="WSL-$WSL_DISTRO_NAME"
+		else
+			env_info="Unknown"
+		fi
+		# Add terminal type if available
+		if [[ -n "$TERM" ]]; then
+			env_info="$env_info/$TERM"
+		fi
+		echo "export PORTX_ENV_TYPE=\"$env_info\""
+		echo "export GFW_DIRS=$GFW_DIRS"
+		echo "export GFW_EXECUTABLES=$GFW_EXECUTABLES"
+		echo "export PORTX_PKG_DIRS=$TOTAL_PACKAGES"
+		echo "export PORTX_PKG_EXECUTABLES=$TOTAL_EXECUTABLES"
+		echo "export PORTX_TOTAL_EXECUTABLES=$TOTAL_COUNT"
+		echo "export PORTX_TOTAL_DIRS=$TOTAL_DIRS"
+		echo "export PORTX_LAST_SCAN=\"$(date '+%Y-%m-%d %H:%M')\""
+		echo "export PATH_LAST_SCAN=\"$(date '+%Y-%m-%d %H:%M')\""
+		echo ""
+	} >"$PORTX_PATH_CACHE"
+
+	printf "Imported %d packages, %d executables, %d paths, %d wrappers\n" \
+		"$TOTAL_PACKAGES" "$TOTAL_EXECUTABLES" "$PATH_PACKAGES" "$WRAPPER_PACKAGES" >&2
+}
+
+# Verify packages function (validation and wrapper testing)
+verify_packages() {
+	# Clear the verify log file at start
+	echo "PORTX Package Verification - $(date)" >"$PORTX_VERIFY_LOG_FILE"
+	debug_log "$PORTX_VERIFY_LOG_FILE" "Starting package verification..."
+
+	printf "Verifying portx packages\n" >&2
+
+	local verified_packages=0
+	local failed_packages=0
+	local wrapper_tests_passed=0
+	local wrapper_tests_failed=0
+	local wrapper_missing=0
+	local wrapper_deps_missing=0
+	local wrapper_timeouts=0
+	local wrapper_flags_unsupported=0
+	local package_count=0
+	local total_packages=$(find "$PACKAGES_DIR" -maxdepth 1 -type d | wc -l)
+	total_packages=$((total_packages - 1)) # Subtract 1 for the parent directory
+
+	# Validation: Compare package.json vs scanned executables and test wrappers
+	debug_log "$PORTX_VERIFY_LOG_FILE" ""
+	debug_log "$PORTX_VERIFY_LOG_FILE" "=== VALIDATION REPORT ==="
+
+	for pkg_path in "$PACKAGES_DIR"/*; do
+		if [[ -d "$pkg_path" ]]; then
+			pkg_name="$(basename "$pkg_path")"
+			package_count=$((package_count + 1))
+			printf "  [%d/%d] %s\n" "$package_count" "$total_packages" "$pkg_name" >&2
+			debug_log "$PORTX_VERIFY_LOG_FILE" "Verifying package: $pkg_name"
+
+			# Validate package integrity
+			debug_log "$PORTX_VERIFY_LOG_FILE" "About to validate: $pkg_path, $pkg_name"
+			if validate_package "$pkg_path" "$pkg_name"; then
+				debug_log "$PORTX_VERIFY_LOG_FILE" "Package validation passed, about to increment verified_packages"
+				debug_log "$PORTX_VERIFY_LOG_FILE" "Current verified_packages value: '$verified_packages'"
+				verified_packages=$((verified_packages + 1))
+				debug_log "$PORTX_VERIFY_LOG_FILE" "Incremented verified_packages to: '$verified_packages'"
+
+				# Get executables from both sources
+				debug_log "$PORTX_VERIFY_LOG_FILE" "Calling get_executables_from_json with: $pkg_path"
+				local raw_json_output
+				raw_json_output=$(get_executables_from_json "$pkg_path")
+				debug_log "$PORTX_VERIFY_LOG_FILE" "Raw JSON output: '$raw_json_output'"
+				json_executables=$(echo "$raw_json_output" | cut -d'|' -f1 | sort)
+				debug_log "$PORTX_VERIFY_LOG_FILE" "JSON executables: '$json_executables'"
+				scanned_executables=$(get_scanned_executables "$pkg_path")
+
+				if [[ -n "$json_executables" ]]; then
+
+					# Compare lists
+					json_only=$(comm -23 <(echo "$json_executables") <(echo "$scanned_executables") 2>/dev/null)
+					scanned_only=$(comm -13 <(echo "$json_executables") <(echo "$scanned_executables") 2>/dev/null)
+
+					if [[ -n "$json_only" || -n "$scanned_only" ]]; then
+						debug_log "$PORTX_VERIFY_LOG_FILE" "MISMATCH in $pkg_name:"
+						if [[ -n "$json_only" ]]; then
+							debug_log "$PORTX_VERIFY_LOG_FILE" "  In package.json but not found: $json_only"
+						fi
+						if [[ -n "$scanned_only" ]]; then
+							debug_log "$PORTX_VERIFY_LOG_FILE" "  Found on disk but not in package.json: $scanned_only"
+						fi
+					else
+						debug_log "$PORTX_VERIFY_LOG_FILE" "OK: $pkg_name ($(echo "$json_executables" | wc -l) executables match)"
+					fi
+
+					# Test wrappers if they exist
+					debug_log "$PORTX_VERIFY_LOG_FILE" "About to start wrapper testing loop with json_executables='$json_executables'"
+					while IFS= read -r exe_name; do
+						if [[ -n "$exe_name" ]]; then
+							local cmd_name="${exe_name%.*}"
+							if [[ -f "$GIT_BASH_ROOT_POSIX/bin/$cmd_name" ]]; then
+								printf "    Testing wrapper: %s" "$cmd_name" >&2
+								sync
+
+								local test_result
+								test_wrapper_works "$cmd_name"
+								test_result=$?
+
+								case $test_result in
+								"$WRAPPER_FUNCTIONAL_PASS")
+									printf " ✓\n" >&2
+									sync
+									debug_log "$PORTX_VERIFY_LOG_FILE" "WRAPPER OK: $cmd_name"
+									wrapper_tests_passed=$((wrapper_tests_passed + 1))
+									;;
+								"$WRAPPER_MISSING_EXECUTABLE")
+									printf " ✗ (missing)\n" >&2
+									sync
+									debug_log "$PORTX_VERIFY_LOG_FILE" "WRAPPER FAILED: $cmd_name (missing executable)"
+									wrapper_tests_failed=$((wrapper_tests_failed + 1))
+									wrapper_missing=$((wrapper_missing + 1))
+									;;
+								"$WRAPPER_DEPENDENCY_MISSING")
+									printf " ✗ (deps)\n" >&2
+									sync
+									debug_log "$PORTX_VERIFY_LOG_FILE" "WRAPPER FAILED: $cmd_name (dependency missing)"
+									wrapper_tests_failed=$((wrapper_tests_failed + 1))
+									wrapper_deps_missing=$((wrapper_deps_missing + 1))
+									;;
+								"$WRAPPER_TIMEOUT_EXCEEDED")
+									printf " ✗ (timeout)\n" >&2
+									sync
+									debug_log "$PORTX_VERIFY_LOG_FILE" "WRAPPER FAILED: $cmd_name (timeout exceeded)"
+									wrapper_tests_failed=$((wrapper_tests_failed + 1))
+									wrapper_timeouts=$((wrapper_timeouts + 1))
+									;;
+								"$WRAPPER_UNSUPPORTED_FLAGS")
+									printf " ✗ (flags)\n" >&2
+									sync
+									debug_log "$PORTX_VERIFY_LOG_FILE" "WRAPPER FAILED: $cmd_name (unsupported flags)"
+									wrapper_tests_failed=$((wrapper_tests_failed + 1))
+									wrapper_flags_unsupported=$((wrapper_flags_unsupported + 1))
+									;;
+								*)
+									printf " ✗ (unknown)\n" >&2
+									sync
+									debug_log "$PORTX_VERIFY_LOG_FILE" "WRAPPER FAILED: $cmd_name (unknown error: $test_result)"
+									wrapper_tests_failed=$((wrapper_tests_failed + 1))
+									;;
+								esac
+								debug_log "$PORTX_VERIFY_LOG_FILE" "Completed wrapper test for: $cmd_name"
+							fi
+						fi
+						debug_log "$PORTX_VERIFY_LOG_FILE" "Completed processing exe_name: '$exe_name'"
+					done <<<"$json_executables"
+					debug_log "$PORTX_VERIFY_LOG_FILE" "Finished wrapper testing for package: $pkg_name"
+				else
+					if [[ -n "$scanned_executables" ]]; then
+						debug_log "$PORTX_VERIFY_LOG_FILE" "MISSING package.json: $pkg_name has $(echo "$scanned_executables" | wc -l) executables"
+					fi
+				fi
+			else
+				failed_packages=$((failed_packages + 1))
+				debug_log "$PORTX_VERIFY_LOG_FILE" "VALIDATION FAILED: $pkg_name"
+			fi
+		fi
+		debug_log "$PORTX_VERIFY_LOG_FILE" "Completed processing package: $pkg_name"
+	done
+
+	debug_log "$PORTX_VERIFY_LOG_FILE" "Finished processing all packages"
+
+	debug_log "$PORTX_VERIFY_LOG_FILE" "=== END VALIDATION REPORT ==="
+
+	printf "Verified %d packages (%d failed)\n" "$verified_packages" "$failed_packages" >&2
+	printf "Wrapper tests: %d passed, %d failed" "$wrapper_tests_passed" "$wrapper_tests_failed" >&2
+	if [[ $wrapper_tests_failed -gt 0 ]]; then
+		printf " (missing:%d, deps:%d, timeout:%d, flags:%d)" \
+			"$wrapper_missing" "$wrapper_deps_missing" "$wrapper_timeouts" "$wrapper_flags_unsupported" >&2
+	fi
+	printf "\n" >&2
+}
+
+# ===== TOOLS AGGREGATOR FUNCTIONALITY (from portx.sh backup) =====
+
+# Show manual function
+show_manual() {
+	local package_name="$1"
+
+	if [[ -z "$package_name" ]]; then
+		error "Package name required"
+		echo "Usage: portx man <package_name>"
+		exit 1
+	fi
+
+	local manual_file="$PACKAGES_DIR/$package_name/package-manual.md"
+
+	if [[ ! -f "$manual_file" ]]; then
+		error "Manual not found for package: $package_name"
+		echo "Package may not be installed or manual file is missing."
+		echo "Try: portx packages list"
+		exit 1
+	fi
+
+	log "Showing manual for package: $package_name"
+	echo
+
+	# Use appropriate pager/viewer
+	if command -v less >/dev/null 2>&1; then
+		less "$manual_file"
+	elif command -v more >/dev/null 2>&1; then
+		more "$manual_file"
+	else
+		cat "$manual_file"
+	fi
+}
+
+# List all tools in flat format - one line separated by comma with boolean tag filtering
+list_tools_flat() {
+	local filter_expression="$1"
+	local cache_key="${filter_expression:-no_tags}"
+
+	# Try cache first using smart LRU cache
+	local cached_result
+	cached_result=$(get_cached_result "$cache_key")
+	if [[ -n "$cached_result" ]]; then
+		echo "$cached_result"
+		return 0
+	fi
+
+	# Generate fresh result
+	local all_tools=()
+
+	# Check if packages directory exists
+	if [[ ! -d "$PACKAGES_DIR" ]]; then
+		return 1
+	fi
+
+	# Use PORTX gojq - always available
+	local GOJQ_CMD
+	GOJQ_CMD="$(get_gojq_cmd)"
+
+	for pkg_dir in "$PACKAGES_DIR"/*; do
+		if [[ -d "$pkg_dir" && -f "$pkg_dir/package.json" ]]; then
+			# If filter expression is provided, filter at tool level (checking both tool and package tags)
+			if [[ -n "$filter_expression" ]]; then
+				# Use jq to extract tools with combined package+tool tags, then filter in bash
+				while IFS='|' read -r exe_name tag_list; do
+					if [[ -n "$exe_name" ]]; then
+						# Parse combined tags into bash array for boolean evaluation
+						local combined_tags=()
+						if [[ -n "$tag_list" ]]; then
+							# Split comma-separated tags and clean them
+							IFS=',' read -ra tag_array <<<"$tag_list"
+							for tag in "${tag_array[@]}"; do
+								# Remove carriage returns and whitespace
+								tag="${tag//$'\r'/}"
+								tag=$(echo "$tag" | xargs)
+								if [[ -n "$tag" ]]; then
+									combined_tags+=("$tag")
+								fi
+							done
+						fi
+
+						# Check if this tool's combined tags match the filter expression
+						if [[ ${#combined_tags[@]} -gt 0 ]]; then
+							# Fast path for simple single tag filters (90% of cases)
+							if [[ "$filter_expression" != *"|"* && "$filter_expression" != *"&"* && "$filter_expression" != *"("* ]]; then
+								# Simple tag match - just check if tag exists in array
+								local found=false
+								for tag in "${combined_tags[@]}"; do
+									if [[ "$tag" == "$filter_expression" ]]; then
+										found=true
+										break
+									fi
+								done
+								if [[ "$found" == true ]]; then
+									exe_name="${exe_name//$'\r'/}"
+									all_tools+=("$exe_name")
+								fi
+							elif [[ "$filter_expression" == *"|"* && "$filter_expression" != *"&"* && "$filter_expression" != *"("* ]]; then
+								# Simple OR expression - check if any tag matches
+								IFS='|' read -ra or_tags <<<"$filter_expression"
+								local found=false
+								for or_tag in "${or_tags[@]}"; do
+									or_tag=$(echo "$or_tag" | xargs) # trim whitespace
+									for tag in "${combined_tags[@]}"; do
+										if [[ "$tag" == "$or_tag" ]]; then
+											found=true
+											break 2
+										fi
+									done
+								done
+								if [[ "$found" == true ]]; then
+									exe_name="${exe_name//$'\r'/}"
+									all_tools+=("$exe_name")
+								fi
+							elif [[ "$filter_expression" == *"&"* && "$filter_expression" != *"|"* && "$filter_expression" != *"("* ]]; then
+								# Simple AND expression - check if all tags match
+								IFS='&' read -ra and_tags <<<"$filter_expression"
+								local all_found=true
+								for and_tag in "${and_tags[@]}"; do
+									and_tag=$(echo "$and_tag" | xargs) # trim whitespace
+									local tag_found=false
+									for tag in "${combined_tags[@]}"; do
+										if [[ "$tag" == "$and_tag" ]]; then
+											tag_found=true
+											break
+										fi
+									done
+									if [[ "$tag_found" == false ]]; then
+										all_found=false
+										break
+									fi
+								done
+								if [[ "$all_found" == true ]]; then
+									exe_name="${exe_name//$'\r'/}"
+									all_tools+=("$exe_name")
+								fi
+							else
+								# Complex boolean expression with parentheses - use full parser (slow)
+								if parse_boolean_expression "$filter_expression" "${combined_tags[@]}"; then
+									exe_name="${exe_name//$'\r'/}"
+									all_tools+=("$exe_name")
+								fi
+							fi
+						fi
+					fi
+				done < <(clean_json_for_jq "$pkg_dir/package.json" | "$GOJQ_CMD" -r '. as $root | .tools[]? | select(.executable) | "\(.executable)|\(((.tags // []) + ($root.tags // [])) | unique | join(","))"' 2>/dev/null)
+			else
+				# No filter - extract all executables
+				while IFS= read -r exe; do
+					if [[ -n "$exe" ]]; then
+						# Remove carriage returns
+						exe="${exe//$'\r'/}"
+						all_tools+=("$exe")
+					fi
+				done < <(clean_json_for_jq "$pkg_dir/package.json" | "$GOJQ_CMD" -r '.tools[]?.executable // empty' 2>/dev/null)
+			fi
+		fi
+	done
+
+	# Sort and output tools with comma delimiter
+	local temp_file
+	temp_file=$(mktemp)
+	printf '%s\n' "${all_tools[@]}" >"$temp_file"
+
+	# Use dos2unix to clean line endings, then sort and deduplicate
+	dos2unix "$temp_file" 2>/dev/null || true
+	local result
+	result=$(sort -u "$temp_file" | tr '\n' ',' | sed 's/,$//')
+
+	# Save to smart LRU cache
+	save_to_cache "$cache_key" "$result"
+
+	# Output result
+	echo "$result"
+
+	rm -f "$temp_file"
+}
+
+# List all packages in hierarchical format (package -> tools)
+list_packages() {
+	set +e # Disable strict error handling for this function
+
+	# Check if cache exists and use it
+	if [[ -f "$PORTX_PACKAGES_CACHE" ]]; then
+		cat "$PORTX_PACKAGES_CACHE"
+		return 0
+	fi
+
+	# Generate output and save to cache
+	_generate_packages_list | tee "$PORTX_PACKAGES_CACHE"
+	set -e # Re-enable strict error handling
+}
+
+# Terminal width and column layout constants
+readonly DEFAULT_TERMINAL_WIDTH=160
+readonly MIN_TERMINAL_WIDTH=80
+readonly WIDE_TERMINAL_THRESHOLD=160
+readonly MEDIUM_TERMINAL_THRESHOLD=120
+
+# Column width constants - simple 2-column layout
+readonly NAME_WIDTH=30
+readonly DESC_WIDTH=90 # Rest of the 120 chars minus spacing
+
+# Minimum column widths
+readonly MIN_TOOL_WIDTH=10
+readonly MIN_VERSION_WIDTH=4
+readonly MIN_DESC_WIDTH=20
+readonly MIN_TAGS_WIDTH=8
+
+# Spacing for tree characters and padding
+readonly TREE_SPACING=10
+
+# Helper function to detect terminal width
+_detect_terminal_width() {
+	local width
+	# Try to detect terminal width
+	if [[ -t 1 ]] && command -v tput >/dev/null 2>&1; then
+		width=$(tput cols 2>/dev/null || echo "$DEFAULT_TERMINAL_WIDTH")
+	elif [[ -n "${COLUMNS:-}" ]]; then
+		width="$COLUMNS"
+	else
+		width="$DEFAULT_TERMINAL_WIDTH" # Default to modern terminal width
+	fi
+
+	# Ensure minimum width
+	if [[ $width -lt $MIN_TERMINAL_WIDTH ]]; then
+		width="$MIN_TERMINAL_WIDTH"
+	fi
+
+	echo "$width"
+}
+
+# Helper function to calculate actual maximum width needed for tool names
+_calculate_max_name_width() {
+	local max_width=0
+	local current_width
+
+	# Use PORTX gojq - always available
+	local GOJQ_CMD
+	GOJQ_CMD="$(get_gojq_cmd)"
+
+	for pkg_dir in "$PACKAGES_DIR"/*; do
+		if [[ -d "$pkg_dir" && -f "$pkg_dir/package.json" ]]; then
+			# Check package name width (no version)
+			local pkg_name=$(basename "$pkg_dir")
+			current_width=${#pkg_name}
+			if [[ $current_width -gt $max_width ]]; then
+				max_width=$current_width
+			fi
+
+			# Check tool name widths (add 2 for "- " prefix)
+			while IFS='|' read -r executable description tags; do
+				if [[ -n "$executable" ]]; then
+					current_width=$((${#executable} + 2)) # Add 2 for "- " prefix
+					if [[ $current_width -gt $max_width ]]; then
+						max_width=$current_width
+					fi
+				fi
+			done < <(clean_json_for_jq "$pkg_dir/package.json" | "$GOJQ_CMD" -r '.tools[]? | "\(.executable // "")|\(.description // "")|\((.tags // []) | join(", "))"' 2>/dev/null)
+		fi
+	done
+
+	# Add some padding but ensure minimum width
+	local result=$((max_width + 2))
+	if [[ $result -lt 25 ]]; then
+		result=25
+	fi
+	echo "$result"
+}
+
+# Helper function to return 2-column widths based on actual data
+_get_column_widths() {
+	local actual_name_width=$(_calculate_max_name_width)
+	local desc_width=$((120 - actual_name_width - 1))
+	echo "$actual_name_width:$desc_width"
+}
+
+# Helper function to wrap text with color escape sequence handling
+_wrap_text() {
+	local text="$1"
+	local content_width="$2" # Width available for content (without prefix)
+	local first_line_prefix="$3"
+	local continuation_prefix="$4"
+
+	# If text fits within content width, return it (hashtag coloring disabled for now)
+	if [[ ${#text} -le $content_width ]]; then
+		printf "%s%s\n" "$first_line_prefix" "$text"
+		return
+	fi
+
+	# Split into words for careful wrapping
+	local words
+	read -ra words <<<"$text"
+	local current_line=""
+	local is_first_line=true
+
+	for word in "${words[@]}"; do
+		# Check if adding word would exceed width
+		local test_line
+		if [[ -z "$current_line" ]]; then
+			test_line="$word"
+		else
+			test_line="$current_line $word"
+		fi
+
+		if [[ ${#test_line} -le $content_width ]]; then
+			current_line="$test_line"
+		else
+			# Output current line (hashtag coloring disabled for now)
+			if [[ -n "$current_line" ]]; then
+				if $is_first_line; then
+					printf "%s%s\n" "$first_line_prefix" "$current_line"
+					is_first_line=false
+				else
+					printf "%s%s\n" "$continuation_prefix" "$current_line"
+				fi
+			fi
+			current_line="$word"
+		fi
+	done
+
+	# Output final line (hashtag coloring disabled for now)
+	if [[ -n "$current_line" ]]; then
+		if $is_first_line; then
+			printf "%s%s\n" "$first_line_prefix" "$current_line"
+		else
+			printf "%s%s\n" "$continuation_prefix" "$current_line"
+		fi
+	fi
+}
+
+# Helper function to format a single tool entry with 2 columns using text wrapping
+_format_tool_entry() {
+	local executable="$1"
+	local version="$2" # Not used in 2-column layout
+	local description="$3"
+	local tags="$4"
+	local name_width="$5"
+	local desc_width="$6"
+
+	# Prepare tool name with minus prefix
+	local display_name="- $executable"
+
+	# Concatenate description + tags in brackets: description [tag1, tag2, tag3]
+	local combined_content="$description"
+	# Strip carriage returns and whitespace from tags
+	tags=$(echo "$tags" | tr -d '\r' | sed 's/^[[:space:]]*//;s/[[:space:]]*$//')
+	if [[ -n "$tags" && "$tags" != "" ]]; then
+		combined_content="$description [$tags]"
+	fi
+
+	# Create the prefixes for first line and continuation lines
+	local first_line_prefix
+	local continuation_prefix
+
+	printf -v first_line_prefix "%-*s " "$name_width" "$display_name"
+	printf -v continuation_prefix "%*s " "$name_width" ""
+
+	# Use wrapping function to format the combined content
+	_wrap_text "$combined_content" "$desc_width" "$first_line_prefix" "$continuation_prefix"
+}
+
+# Internal function to generate the packages list
+_generate_packages_list() {
+
+	local total_tools=0
+	local total_packages=0
+
+	# Check if packages directory exists
+	if [[ ! -d "$PACKAGES_DIR" ]]; then
+		echo "ERROR: Packages directory not found: $PACKAGES_DIR"
+		return 1
+	fi
+
+	# Use PORTX gojq - always available
+	local GOJQ_CMD
+	GOJQ_CMD="$(get_gojq_cmd)"
+
+	# Get fixed column widths
+	local column_widths
+	column_widths=$(_get_column_widths)
+
+	local name_width desc_width
+	IFS=':' read -r name_width desc_width <<<"$column_widths"
+
+	for pkg_dir in "$PACKAGES_DIR"/*; do
+		if [[ -d "$pkg_dir" && -f "$pkg_dir/package.json" ]]; then
+			local pkg_name
+			pkg_name=$(basename "$pkg_dir")
+
+			# Extract package metadata safely
+			local pkg_description=""
+			local pkg_version=""
+			local tool_count=0
+
+			pkg_description=$(clean_json_for_jq "$pkg_dir/package.json" | "$GOJQ_CMD" -r '.description // ""' 2>/dev/null || echo "")
+			pkg_version=$(clean_json_for_jq "$pkg_dir/package.json" | "$GOJQ_CMD" -r '.version // ""' 2>/dev/null || echo "")
+			tool_count=$(clean_json_for_jq "$pkg_dir/package.json" | "$GOJQ_CMD" -r '.tools // [] | length' 2>/dev/null || echo "0")
+
+			# Skip packages with no tools
+			if [[ "$tool_count" -eq 0 ]]; then
+				continue
+			fi
+
+			((total_packages++))
+			total_tools=$((total_tools + tool_count))
+
+			# Display package header using authoritative left-aligned padding approach
+			pkg_header="$pkg_name"
+			printf "\033[94m%-*s\033[0m %s\n" "$name_width" "$pkg_header" "$pkg_description"
+
+			# Format tools using the new 2-column layout
+			while IFS='|' read -r executable description tags; do
+				if [[ -n "$executable" ]]; then
+					_format_tool_entry "$executable" "$pkg_version" "$description" "$tags" \
+						"$name_width" "$desc_width"
+				fi
+			done < <(clean_json_for_jq "$pkg_dir/package.json" | "$GOJQ_CMD" -r '.tools[]? | "\(.executable // "")|\(.description // "")|\((.tags // []) | join(", "))"' 2>/dev/null)
+			echo
+		fi
+	done
+
+	echo "Summary: $total_packages packages, $total_tools total tools"
+}
+
+# Search tools by pattern (simplified version - manual parsing removed)
+search_tools() {
+	local pattern="$1"
+	local matches=0
+
+	printf "%sSearching for '%s'...%s\n" "$(color_primary)" "$pattern" "$(color_reset)" >&2
+
+	printf "\n%sSearch Results for '%s'%s\n" "$(color_success)" "$pattern" "$(color_reset)"
+	echo
+
+	# Use PORTX gojq - always available
+	local GOJQ_CMD
+	GOJQ_CMD="$(get_gojq_cmd)"
+
+	for pkg_dir in "$PACKAGES_DIR"/*; do
+		if [[ -d "$pkg_dir" && -f "$pkg_dir/package.json" ]]; then
+			local pkg_name
+			pkg_name=$(basename "$pkg_dir")
+
+			# Search in tools using gojq
+			while IFS='|' read -r executable description; do
+				if [[ -n "$executable" ]] && echo "$executable $description" | grep -qi "$pattern"; then
+					printf "%-20s %-25s %s\n" "$executable" "($pkg_name)" "$description"
+					((matches++))
+				fi
+			done < <(clean_json_for_jq "$pkg_dir/package.json" | "$GOJQ_CMD" -r '.tools[]? | "\(.executable // "")|\(.description // "")"' 2>/dev/null)
+		fi
+	done
+
+	echo
+	printf "%sFound %d matches%s\n" "$(color_primary)" "$matches" "$(color_reset)"
+}
+
+# Show count statistics
+show_tools_count() {
+	local total_tools=0
+	local total_packages=0
+	declare -A package_counts
+
+	# Use PORTX gojq - always available
+	local GOJQ_CMD
+	GOJQ_CMD="$(get_gojq_cmd)"
+
+	for pkg_dir in "$PACKAGES_DIR"/*; do
+		if [[ -d "$pkg_dir" && -f "$pkg_dir/package.json" ]]; then
+			((total_packages++))
+			local pkg_name
+			pkg_name=$(basename "$pkg_dir")
+			local package_tool_count=0
+
+			package_tool_count=$(clean_json_for_jq "$pkg_dir/package.json" | "$GOJQ_CMD" -r '.tools // [] | length' 2>/dev/null || echo "0")
+			total_tools=$((total_tools + package_tool_count))
+			package_counts["$pkg_name"]=$package_tool_count
+		fi
+	done
+
+	printf "\n%sPORTX Tools Statistics%s\n" "$(color_success)" "$(color_reset)"
+	printf "%sTotal Packages: %d%s\n" "$(color_primary)" "$total_packages" "$(color_reset)"
+	printf "%sTotal Tools: %d%s\n" "$(color_primary)" "$total_tools" "$(color_reset)"
+	echo
+
+	echo
+	printf "%sTop Packages by Tool Count:%s\n" "$(color_warning)" "$(color_reset)"
+	for package in "${!package_counts[@]}"; do
+		if [[ ${package_counts[$package]} -gt 0 ]]; then
+			printf "  %-20s %d tools\n" "$package" "${package_counts[$package]}"
+		fi
+	done | sort -k3 -nr | head -10
+}
+
+# Handle packages commands (renamed from tools)
+handle_packages_command() {
+	local command="${1:-list}"
+
+	case "$command" in
+	import)
+		import_packages
+		;;
+	verify)
+		verify_packages
+		;;
+	list | ls)
+		list_packages
+		;;
+	search | find)
+		if [[ -z "$2" ]]; then
+			error "Search pattern required"
+			echo "Usage: portx packages search <pattern>"
+			exit 1
+		fi
+		search_tools "$2"
+		;;
+	count | stats)
+		show_tools_count
+		;;
+	help | --help | -h)
+		echo "PORTX Package Manager"
+		echo
+		echo "Usage: portx packages <command> [options]"
+		echo
+		echo "Commands:"
+		echo "  import            Import and configure all packages"
+		echo "  verify            Verify package integrity and test wrappers"
+		echo "  list              List all available tools"
+		echo "  search PATTERN    Search tools by name or description"
+		echo "  count             Show tool count statistics"
+		echo "  help              Show this help message"
+		echo
+		echo "Examples:"
+		echo "  portx packages import"
+		echo "  portx packages verify"
+		echo "  portx packages list"
+		echo "  portx packages search git"
+		echo "  portx packages count"
+		;;
+	*)
+		error "Unknown packages command: $command"
+		echo "Try: portx packages help"
+		exit 1
+		;;
+	esac
+}
+
+# Show help
+show_help() {
+	echo "PORTX Package Manager"
+	echo
+	echo "Usage: portx <command> [arguments]"
+	echo
+	echo "Commands:"
+	echo "  packages [command]  Access PORTX tools aggregator"
+	echo "  tools [--tags=...]  List all tools (flat, space-separated), optionally filter by tags"
+	echo "  man <package>       Show package manual"
+	echo "  help               Show this help"
+	echo
+	echo "Examples:"
+	echo "  portx packages import"
+	echo "  portx packages verify"
+	echo "  portx packages list"
+	echo "  portx packages search git"
+	echo "  portx tools"
+	echo "  portx tools --tags=bash"
+	echo "  portx tools --tags=bash,security"
+	echo "  portx man ag"
+}
+
+# Main script logic
+main() {
+	# Parse command
+	local command="${1:-help}"
+
+	case "$command" in
+	"packages")
+		# Handle packages command with all remaining arguments
+		shift # Remove 'packages' from arguments
+		handle_packages_command "$@"
+		;;
+	"tools")
+		# Parse --tags= argument
+		local filter_tags=""
+		for arg in "$@"; do
+			if [[ "$arg" =~ ^--tags=(.+)$ ]]; then
+				filter_tags="${BASH_REMATCH[1]}"
+				break
+			fi
+		done
+		list_tools_flat "$filter_tags"
+		;;
+	"man" | "manual")
+		show_manual "$2"
+		;;
+	"help" | "-h" | "--help")
+		show_help
+		;;
+	*)
+		error "Unknown command: $command"
+		echo
+		show_help
+		exit 1
+		;;
+	esac
+}
+
+# Run main function with all arguments
+main "$@"

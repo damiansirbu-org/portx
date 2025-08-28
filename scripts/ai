@@ -1,0 +1,121 @@
+#!/bin/bash
+# PORTX AI Assistant - Simple Version
+
+set -euo pipefail
+
+# Configuration
+OLLAMA_HOST="http://127.0.0.1:11434"
+OLLAMA_MODEL="qwen2.5-coder:7b"
+
+# Check if command exists
+has_command() {
+	command -v "$1" >/dev/null 2>&1
+}
+
+# Get basic context
+get_context() {
+	echo "Directory: $(pwd)"
+	echo "Files: $(ls -la | head -10 | tail -n +2 | awk '{print $9}' | tr '\n' ' ')"
+	echo "User: $(whoami)"
+	echo "System: $(uname -s)"
+}
+
+# Send request to Ollama
+call_ai() {
+	local query="$1"
+	local context="$2"
+	local debug_mode="${3:-false}"
+	
+	local prompt="Context: $context
+
+Question: $query"
+
+	# Show debug information if requested
+	if [[ "$debug_mode" == "true" ]]; then
+		echo "🔍 DEBUG: Context sent to AI:"
+		echo "==========================================="
+		echo "$context"
+		echo "==========================================="
+		echo "📝 Query: $query"
+		echo "==========================================="
+		echo "🤖 AI Response:"
+		echo
+	fi
+
+	# Use jq to properly construct JSON payload
+	local payload
+	payload=$(jq -n \
+		--arg model "$OLLAMA_MODEL" \
+		--arg prompt "$prompt" \
+		'{
+			model: $model,
+			prompt: $prompt,
+			stream: false,
+			options: {
+				temperature: 0.3,
+				num_predict: 512
+			}
+		}')
+	
+	local response
+	response=$(timeout 15 curl -s --connect-timeout 5 \
+		-X POST "$OLLAMA_HOST/api/generate" \
+		-H "Content-Type: application/json" \
+		-d "$payload" 2>/dev/null)
+	
+	if [[ -n "$response" ]]; then
+		echo "$response" | jq -r '.response // "No response"' 2>/dev/null
+	else
+		echo "Error: Cannot connect to Ollama at $OLLAMA_HOST"
+		echo "Make sure Ollama is running: ollama serve"
+		return 1
+	fi
+}
+
+# Main
+main() {
+	local debug_mode="false"
+	local query_args=()
+	
+	# Parse arguments
+	while [[ $# -gt 0 ]]; do
+		case $1 in
+			--debug|-d)
+				debug_mode="true"
+				shift
+				;;
+			*)
+				query_args+=("$1")
+				shift
+				;;
+		esac
+	done
+	
+	if [[ ${#query_args[@]} -eq 0 ]]; then
+		echo "Usage: ai [--debug|-d] <question>"
+		echo "Examples:"
+		echo "  ai how do I list files"
+		echo "  ai help me with this error"
+		echo "  ai --debug what is in this directory"
+		exit 1
+	fi
+	
+	# Check dependencies
+	if ! has_command curl; then
+		echo "Error: curl required but not found"
+		exit 1
+	fi
+	
+	if ! has_command jq; then
+		echo "Error: jq required but not found"
+		exit 1
+	fi
+	
+	local query="${query_args[*]}"
+	local context
+	context=$(get_context)
+	
+	call_ai "$query" "$context" "$debug_mode"
+}
+
+main "$@"

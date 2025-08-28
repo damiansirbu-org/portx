@@ -1,0 +1,45 @@
+{
+  // ==========================================
+  // PORTX Package Configuration (package.json)
+  // ==========================================
+  
+  // CORE PACKAGE METADATA
+  "name": "miller",
+  "version": "6.15.0",
+  "description": "Swiss Army chainsaw for CSV, TSV, JSON data - like awk, sed, cut, join, sort for name-indexed data with 40+ built-in processing verbs",
+  "author": "PORTX Team",
+  "license": "BSD-2-Clause",
+  
+  // IMPORT BEHAVIOR CONTROL
+  "import": "auto",
+  
+  // EXECUTABLE DISCOVERY  
+  "paths": [
+    "./"
+  ],
+  
+  // TOOL DEFINITIONS
+  "tools": [
+    {
+      "executable": "mlr.exe",
+      "defaultArgs": "",
+      "description": "Powerful data processing tool combining awk, sed, cut, join, sort functionality for CSV, TSV, JSON with 40+ built-in verbs and high-performance Go implementation",
+      "usage": "mlr --csv cut -f name,age data.csv # Extract columns\\nmlr --icsv --ojson cat data.csv # Convert CSV to JSON\\nmlr --csv stats1 -a sum -f sales data.csv # Statistical aggregation\\nmlr --csv filter '$age > 25' people.csv # Filter rows\\nmlr --csv put '$bonus = $salary * 0.1' employees.csv # Calculate new fields",
+      "dependencies": "windows",
+      "aliases": [],
+      "category": "data-processing",
+      "tags": ["csv", "tsv", "json", "data", "processing", "awk", "sed", "statistics", "converter", "swiss-army"]
+    }
+  ],
+  
+  // PACKAGE METADATA
+  "homepage": "https://miller.readthedocs.io/",
+  "repository": "https://github.com/johnkerl/miller",
+  "keywords": ["miller", "mlr", "csv", "tsv", "json", "data", "processing", "statistics"],
+  "categories": ["data-processing", "csv", "json", "statistics"],
+  
+  // TECHNICAL CONFIGURATION
+  "architecture": "x64",
+  "platform": "win32",
+  "runtime": "native"
+}

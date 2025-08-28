@@ -1,0 +1,45 @@
+{
+  // ==========================================
+  // PORTX Package Configuration (package.json)
+  // ==========================================
+  
+  // CORE PACKAGE METADATA
+  "name": "jql",
+  "version": "7.1.13",
+  "description": "Rust-based JSON Query Language with Lisp-like syntax and streaming support - designed for step-by-step JSON transformation with intuitive token-based queries",
+  "author": "PORTX Team",
+  "license": "MIT",
+  
+  // IMPORT BEHAVIOR CONTROL
+  "import": "auto",
+  
+  // EXECUTABLE DISCOVERY  
+  "paths": [
+    "./"
+  ],
+  
+  // TOOL DEFINITIONS
+  "tools": [
+    {
+      "executable": "jql.exe",
+      "defaultArgs": "",
+      "description": "JSON Query Language with Lisp-like syntax and streaming support for Docker logs and real-time JSON processing - intuitive token-based queries for complex transformations",
+      "usage": "jql '.[\"users\"].[0].[\"name\"]' data.json\njql --stream '.[\"message\"]' # Stream processing for Docker logs\necho '{\"items\":[1,2,3]}' | jql '.[\"items\"] | flatten'\njql '.[\"logs\"] | select(.[\"level\"] == \"error\") | .[\"message\"]' app.json\njql --help # Show Lisp-like syntax examples",
+      "dependencies": "windows",
+      "aliases": [],
+      "category": "json-processing",
+      "tags": ["json", "query", "lisp", "streaming", "rust", "docker", "logs", "realtime", "transformation"]
+    }
+  ],
+  
+  // PACKAGE METADATA
+  "homepage": "https://github.com/yamafaktory/jql",
+  "repository": "https://github.com/yamafaktory/jql",
+  "keywords": ["json", "query", "lisp", "streaming", "rust", "cli"],
+  "categories": ["data-processing", "json", "streaming"],
+  
+  // TECHNICAL CONFIGURATION
+  "architecture": "x64", 
+  "platform": "win32",
+  "runtime": "native"
+}

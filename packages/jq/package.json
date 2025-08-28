@@ -6,7 +6,12 @@
   // CORE PACKAGE METADATA
   "name": "jq",                           // Package name (must match directory name)
   "version": "1.0.0",                     // Package version (semver format)
-  "description": "JSON stream processor", // Brief package description
+  "description": "Original JSON stream processor with functional programming constructs - the standard for JSON querying and transformation", // Brief package description
+  
+  // CLAUDE CODE BUG WORKAROUND
+  // Claude Code Bash tool mangles jq filters with pipes when using file arguments
+  // BAD:  jq '.field | operation' file.json
+  // GOOD: cat file.json | jq '.field | operation'
   "author": "PORTX Team",                 // Package maintainer
   "license": "MIT",                       // Package license
   
@@ -29,7 +34,7 @@
       "executable": "jq.exe",             // Executable filename (must exist in one of the paths)
       "defaultArgs": "",                  // Default arguments to prepend (optional)
                                           // Example: "--verbose --config=default.conf"
-      "description": "JSON stream processor with functional programming constructs for data transformation pipelines",
+      "description": "The original and most comprehensive JSON processor with powerful functional programming constructs - industry standard for complex JSON transformations and queries",
       "usage": "curl api.com/data | jq '.results[] | select(.score > 80)' # Filter API responses\\ncat logs.json | jq -s 'group_by(.level) | map({level: .[0].level, count: length})' # Aggregate log levels\\necho '{}' | jq '.timestamp = now | .uuid = \\\"\\3caab4e9-9d9d-4b82-8801-558a77004590\\\"' # Generate enriched JSON\\njq -r '.users[] | [.name, .email] | @csv' data.json # Convert to CSV",
       "dependencies": "windows",
       "aliases": [],                      // Alternative command names (optional)
@@ -40,7 +45,7 @@
   // PACKAGE METADATA (Optional)
   "homepage": "",                         // Project homepage URL
   "repository": "",                       // Source repository URL  
-  "keywords": ["json", "processor"],      // Search keywords
+  "keywords": ["json", "processor", "query", "transform", "functional"],      // Search keywords
   "categories": ["data-processing"],      // Package categories
   
   // TECHNICAL CONFIGURATION (Optional)

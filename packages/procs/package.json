@@ -1,0 +1,45 @@
+{
+  // ==========================================
+  // PORTX Package Configuration (package.json)
+  // ==========================================
+  
+  // CORE PACKAGE METADATA
+  "name": "procs",
+  "version": "0.14.8",
+  "description": "Modern ps replacement with colorful output and enhanced process information - shows TCP/UDP ports, I/O throughput, memory details, and Docker containers",
+  "author": "PORTX Team",
+  "license": "MIT",
+  
+  // IMPORT BEHAVIOR CONTROL
+  "import": "auto",
+  
+  // EXECUTABLE DISCOVERY  
+  "paths": [
+    "./"
+  ],
+  
+  // TOOL DEFINITIONS
+  "tools": [
+    {
+      "executable": "procs.exe",
+      "defaultArgs": "",
+      "description": "Modern process viewer with colorful output and advanced filtering - displays network ports, disk I/O, memory usage, and Docker container names with tree view and search capabilities",
+      "usage": "procs # Colorful process list\\nprocs --tree # Process tree view\\nprocs -W # Watch mode (like top)\\nprocs chrome # Search for Chrome processes\\nprocs --and chrome --and --pid 1000-2000 # Boolean search with PID range",
+      "dependencies": "windows",
+      "aliases": [],
+      "category": "system",
+      "tags": ["process", "ps", "alternative", "colorful", "system", "monitoring", "tree", "docker", "rust"]
+    }
+  ],
+  
+  // PACKAGE METADATA
+  "homepage": "https://github.com/dalance/procs",
+  "repository": "https://github.com/dalance/procs",
+  "keywords": ["process", "ps", "system", "monitoring", "colorful", "alternative"],
+  "categories": ["system", "monitoring", "process"],
+  
+  // TECHNICAL CONFIGURATION
+  "architecture": "x64",
+  "platform": "win32",
+  "runtime": "native"
+}
