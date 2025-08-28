@@ -1,0 +1,55 @@
+{
+  // ==========================================
+  // PORTX Package Configuration (package.json)
+  // ==========================================
+  
+  // CORE PACKAGE METADATA
+  "name": "gojq",
+  "version": "0.12.16",
+  "description": "Pure Go implementation of jq with superior Unicode handling, arbitrary-precision integers, and YAML support - handles large numbers without precision loss",
+  "author": "PORTX Team",
+  "license": "MIT",
+  
+  // IMPORT BEHAVIOR CONTROL
+  "import": "auto",
+  
+  // EXECUTABLE DISCOVERY  
+  "paths": [
+    "./"
+  ],
+  
+  // TOOL DEFINITIONS
+  "tools": [
+    {
+      "executable": "gojq.exe",
+      "defaultArgs": "",
+      "description": "Pure Go jq implementation with enhanced Unicode support, arbitrary-precision arithmetic, and YAML input/output - maintains precision for large integers unlike standard jq",
+      "usage": "gojq '.users[] | select(.age > 21)' data.json\necho '{\"large\": 12345678901234567890}' | gojq '.large' # Preserves precision\ngojq --yaml-input --yaml-output '.services.web' docker-compose.yml\necho '[1,2,3]' | gojq 'map(. * 999999999999999999999)' # Arbitrary precision math\ngojq '.items | length' huge-file.json # Consistent Unicode character counting",
+      "dependencies": "windows",
+      "aliases": [],
+      "category": "json-processing",
+      "tags": ["json", "yaml", "query", "unicode", "precision", "go", "portable"]
+    },
+    {
+      "executable": "_gojq",
+      "defaultArgs": "",
+      "description": "Internal gojq library executable for embedded Go applications",
+      "usage": "_gojq # Internal use - prefer gojq.exe for command line",
+      "dependencies": "windows",
+      "aliases": [],
+      "category": "json-processing",
+      "tags": ["json", "internal", "library"]
+    }
+  ],
+  
+  // PACKAGE METADATA
+  "homepage": "https://github.com/itchyny/gojq",
+  "repository": "https://github.com/itchyny/gojq",
+  "keywords": ["json", "jq", "go", "unicode", "yaml", "precision"],
+  "categories": ["data-processing", "json"],
+  
+  // TECHNICAL CONFIGURATION
+  "architecture": "x64",
+  "platform": "win32",
+  "runtime": "native"
+}

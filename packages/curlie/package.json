@@ -1,0 +1,45 @@
+{
+  // ==========================================
+  // PORTX Package Configuration (package.json)
+  // ==========================================
+  
+  // CORE PACKAGE METADATA
+  "name": "curlie",
+  "version": "1.7.2",
+  "description": "Modern curl frontend with HTTPie-inspired syntax and curl's power - colorful output with simplified header syntax and real-time streaming",
+  "author": "PORTX Team",
+  "license": "MIT",
+  
+  // IMPORT BEHAVIOR CONTROL
+  "import": "auto",
+  
+  // EXECUTABLE DISCOVERY  
+  "paths": [
+    "./"
+  ],
+  
+  // TOOL DEFINITIONS
+  "tools": [
+    {
+      "executable": "curlie.exe",
+      "defaultArgs": "",
+      "description": "Modern curl frontend combining curl's power with HTTPie's ease of use - supports all curl features with syntax highlighting and intuitive header syntax",
+      "usage": "curlie GET httpbin.org/json # Simple GET request\\ncurlie POST httpbin.org/post name=John age:=25 # JSON POST with HTTPie syntax\\ncurlie -L httpbin.org/redirect/3 # Follow redirects like curl\\ncurlie --data '{\\\"key\\\":\\\"value\\\"}' -H Content-Type:application/json POST api.com/data # Raw JSON with headers",
+      "dependencies": "windows",
+      "aliases": [],
+      "category": "network",
+      "tags": ["http", "curl", "httpie", "api", "client", "colorful", "frontend", "streaming"]
+    }
+  ],
+  
+  // PACKAGE METADATA
+  "homepage": "https://curlie.io/",
+  "repository": "https://github.com/rs/curlie",
+  "keywords": ["curl", "http", "api", "client", "httpie", "frontend"],
+  "categories": ["network", "api", "http"],
+  
+  // TECHNICAL CONFIGURATION
+  "architecture": "x64",
+  "platform": "win32",
+  "runtime": "native"
+}

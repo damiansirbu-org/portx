@@ -1,0 +1,45 @@
+{
+  // ==========================================
+  // PORTX Package Configuration (package.json)
+  // ==========================================
+  
+  // CORE PACKAGE METADATA
+  "name": "jaq",
+  "version": "2.0.0",
+  "description": "Lightning-fast Rust jq clone with 30x faster startup and superior performance - focused on correctness, speed, and simplicity with security auditing",
+  "author": "PORTX Team", 
+  "license": "MIT",
+  
+  // IMPORT BEHAVIOR CONTROL
+  "import": "auto",
+  
+  // EXECUTABLE DISCOVERY  
+  "paths": [
+    "./"
+  ],
+  
+  // TOOL DEFINITIONS
+  "tools": [
+    {
+      "executable": "jaq.exe",
+      "defaultArgs": "",
+      "description": "Ultra-fast Rust jq implementation with 30x faster startup and superior performance on most benchmarks - security audited with 500+ test suite",
+      "usage": "jaq '.users[] | select(.active)' users.json\njaq -r '.items[] | \"\\(.name): \\(.price)\"' catalog.json\necho '{\"data\": [1,2,3]}' | jaq '.data | map(. * 2)'\njaq '.logs[] | select(.level == \"error\") | .message' app.log\njaq --version # Check version and performance info",
+      "dependencies": "windows",
+      "aliases": [],
+      "category": "json-processing", 
+      "tags": ["json", "jq", "rust", "fast", "performance", "startup", "audited", "secure"]
+    }
+  ],
+  
+  // PACKAGE METADATA
+  "homepage": "https://github.com/01mf02/jaq",
+  "repository": "https://github.com/01mf02/jaq", 
+  "keywords": ["json", "jq", "rust", "performance", "fast", "startup"],
+  "categories": ["data-processing", "json", "performance"],
+  
+  // TECHNICAL CONFIGURATION
+  "architecture": "x64",
+  "platform": "win32",
+  "runtime": "native"
+}

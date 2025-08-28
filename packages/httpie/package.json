@@ -1,0 +1,45 @@
+{
+  // ==========================================
+  // PORTX Package Configuration (package.json)
+  // ==========================================
+  
+  // CORE PACKAGE METADATA
+  "name": "httpie",
+  "version": "3.2.3",
+  "description": "Modern, user-friendly HTTP client with JSON support and intuitive syntax - auto-installs via micromamba on first use",
+  "author": "PORTX Team",
+  "license": "BSD-3-Clause",
+  
+  // IMPORT BEHAVIOR CONTROL
+  "import": "auto",
+  
+  // EXECUTABLE DISCOVERY  
+  "paths": [
+    "./"
+  ],
+  
+  // TOOL DEFINITIONS
+  "tools": [
+    {
+      "executable": "python-env/python.exe",
+      "defaultArgs": "-m httpie",
+      "description": "Modern HTTP client with intuitive syntax and JSON support - bundled Python HTTPie with isolated environment",
+      "usage": "http GET httpbin.org/json # Simple GET request\\nhttp POST httpbin.org/post name=John age:=25 # POST with JSON\\nhttp --json POST api.example.com/users name=Alice email=alice@example.com # Explicit JSON\\nhttp --form POST httpbin.org/post name=value file@path/to/file # Form data with file upload",
+      "dependencies": "windows",
+      "aliases": ["http"],
+      "category": "network",
+      "tags": ["http", "api", "client", "json", "rest", "testing", "curl-alternative"]
+    }
+  ],
+  
+  // PACKAGE METADATA
+  "homepage": "https://httpie.io/",
+  "repository": "https://github.com/httpie/httpie",
+  "keywords": ["http", "https", "api", "client", "json", "rest", "curl"],
+  "categories": ["network", "api", "testing"],
+  
+  // TECHNICAL CONFIGURATION
+  "architecture": "x64",
+  "platform": "win32",
+  "runtime": "python"
+}

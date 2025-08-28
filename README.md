@@ -1,6 +1,14 @@
-# PORTX - Portable POSIX Environment for Windows
+# PORTX - Enterprise Portable Development Environment
 
-A complete, portable POSIX toolkit built on Git Bash with 700+ Windows-native command-line tools spanning from MinGit essentials to full Git for Windows capabilities. Zero installation, zero dependencies, enterprise-friendly.
+A comprehensive portable development environment solving the fundamental enterprise security vs. portability dilemma through signature-preserving architecture. PORTX delivers 700+ Windows-native CLI tools with planned expansion to 1000+ tools including complete language runtimes (Java, Node.js, .NET, C/C++), build systems (Maven, Gradle), and professional toolchains.
+
+## The Enterprise Portability Solution
+
+PORTX addresses what most consider impossible: achieving true portability while maintaining enterprise security compliance. Traditional portable environments break Windows code signing, triggering SmartScreen warnings and corporate security rejections. PORTX preserves Git for Windows digital signatures through profile-based configuration, enabling corporate deployment without security compromise.
+
+**Key Innovation**: Configuration-layer portability instead of executable modification maintains Windows Authenticode integrity, AppLocker compatibility, and Device Guard compliance.
+
+**Technical Architecture**: Detailed analysis available in [PORTX Architecture Documentation](doc/portx-architecture.md) and [Git for Windows Architecture Analysis](doc/git-for-windows-architecture.md).
 
 ## Architecture
 
@@ -16,23 +24,59 @@ PORTX transforms Git for Windows into a comprehensive POSIX environment using a 
 
 **Integration Layer**: Smart wrapper system with .cmd integration for system-wide tool access and PATH optimization
 
-All tools are Windows-native executables with no external dependencies or DLL requirements.
+All tools are Windows-native executables optimized for performance and compatibility. Current focus on C and Rust-compiled tools ensures maximum speed and minimal dependencies.
+
+## Future Vision: The Ultimate Development Environment
+
+PORTX is expanding to become the definitive portable development platform:
+
+**Language Runtime Integration** (In Development):
+- **Java JDK** with Maven, Gradle, and enterprise tooling
+- **Node.js** ecosystem with npm, package managers, and development tools  
+- **.NET runtime** with build tools and framework support
+- **C/C++ toolchain** with MinGW-w64 compiler suite
+- **Python** with comprehensive package management
+
+**Target Audience**: The complete environment for developers, DevOps engineers, system administrators, security researchers, data scientists, and enterprise architects requiring portable, compliant, high-performance tooling.
+
+**Scale**: 1000+ tools covering every aspect of modern software development, infrastructure management, and system analysis.
+
+**Form Factor**: Despite comprehensive functionality, PORTX maintains surprisingly compact size through intelligent packaging and dependency optimization.
+
+## Competitive Differentiation
+
+PORTX uniquely solves enterprise portability challenges that existing solutions cannot address:
+
+| Solution | Enterprise Security | True Portability | Comprehensive Tooling | Windows Integration |
+|----------|-------------------|-----------------|---------------------|--------------------|
+| **PORTX** | ✅ Signature preserved | ✅ Zero installation | ✅ 700+ → 1000+ tools | ✅ Native Windows |
+| Scoop/Chocolatey | ❌ Requires installation | ❌ System-wide changes | ✅ Good ecosystem | ⚠️ Limited integration |
+| MSYS2 | ❌ Installation required | ❌ System conflicts | ✅ Comprehensive | ⚠️ Unix-centric |
+| WSL | ❌ Windows features | ❌ Not portable | ✅ Full Linux | ❌ Linux-only focus |
+| Dev Containers | ⚠️ Docker dependency | ❌ Orchestration needed | ✅ Consistent envs | ⚠️ Corporate firewall |
+
+## Enterprise Security Architecture
+
+**Digital Signature Preservation**: PORTX maintains original Git for Windows executable signatures through `/etc/profile` configuration rather than binary modification. This ensures:
+
+- **Windows Defender SmartScreen compatibility** - No "unknown publisher" warnings
+- **AppLocker policy compliance** - Signed executables remain whitelisted  
+- **Device Guard integration** - Code integrity policies preserved
+- **Certificate trust validation** - Enterprise PKI requirements met
+
+**Corporate Compliance**: Zero administrative privileges, no registry modifications, no system-wide changes. Functions within corporate security policies and application whitelisting.
 
 ## Key Advantages
 
-**Enterprise Compatible**: No installation required, no registry entries, no administrative privileges needed. Works on locked-down corporate environments.
+**Enterprise Architecture**: Signature-preserving design maintains Windows security compliance while delivering portable functionality. Works in locked-down corporate environments without policy violations.
 
-**Performance**: Native Windows executables without emulation layers. No cygwin1.dll or msys-2.0.dll dependencies.
+**Performance**: Native Windows executables compiled in C and Rust for optimal speed and compatibility. No emulation layers or DLL dependencies.
 
-**Portability**: Self-contained environment runs from any directory. Consistent toolset across different Windows machines.
+**Comprehensive Tooling**: 700+ current tools expanding to 1000+ with complete language runtimes, build systems, and professional development toolchains.
 
-**Completeness**: Full POSIX shell environment with modern tooling. Covers development, DevOps, security, and system administration workflows.
+**Windows-First Design**: Unlike Unix-centric solutions, PORTX understands Windows enterprise reality with proper PATH management and CMD/PowerShell integration.
 
-**Integration**: Tools work together seamlessly through intelligent PATH optimization, smart wrapper system, and shared environment variables.
-
-**Git for Windows Completeness**: Bridges MinGit installations to full Git for Windows functionality through modular extension packages, providing complete Unix toolset without requiring full Git installation.
-
-**Professional Shell Scripting**: Portable environment library with cross-platform compatibility and standards compliance.
+**Professional Development**: Complete polyglot development environment supporting Java, Node.js, .NET, C/C++, Python with corresponding build tools and frameworks.
 
 ## Portable Shell Environment Library
 
@@ -244,5 +288,12 @@ This scientific approach ensures PORTX provides enterprise-grade tool discovery 
 - NTFS permission preservation during synchronization
 
 **Compatibility**: Works across Git Bash, PowerShell, Windows Terminal, VS Code, and native Windows applications.
+
+## Documentation
+
+- **[PORTX Architecture](doc/portx-architecture.md)** - Comprehensive technical architecture, security model, and design decisions
+- **[Git for Windows Architecture](doc/git-for-windows-architecture.md)** - Foundation analysis and integration patterns  
+- **[Development Standards](doc/standards.md)** - Technical standards and development guidelines
+- **[Project Roadmap](doc/TODO.md)** - Current development status and future enhancement plans
 
 PORTX delivers enterprise-grade Unix functionality on Windows without the complexity or security concerns of traditional emulation approaches.
