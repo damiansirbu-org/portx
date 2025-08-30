@@ -5,11 +5,11 @@
   "importType": "wrap",
   "bin": {
     "lnav": {
-      "path": "lnav.exe",
+      "path": "bin/lnav.exe",
       "description": "Advanced ncurses-based log file navigator with automatic format detection, SQL querying, timeline visualization, and intelligent multi-file correlation",
-      "usage": "lnav /var/log/apache2/*.log\\nlnav -c ';UPDATE access_log SET status = 500 WHERE status = 404' access.log\\nlnav -n -c '.schema' error.log\\nlnav -c 'SELECT * FROM syslog_log WHERE log_level = \"ERROR\"' /var/log/syslog",
-      "dependencies": "windows"
+      "usage": "lnav /var/log/*.log | lnav -c \"SELECT * FROM log WHERE level = \\\"ERROR\\\"\" | lnav -t access.log",
+      "dependencies": "native"
     }
   },
-  "tags": ["logs", "analysis", "navigator", "sql", "timeline", "ncurses", "correlation", "sysadmin"]
+  "tags": ["logs", "analysis", "navigator", "sql", "timeline", "ncurses"]
 }

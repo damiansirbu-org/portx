@@ -1,0 +1,15 @@
+{
+  "name": "hyperfine",
+  "version": "1.19.0",
+  "description": "Command-line benchmarking tool with statistical analysis and warmup runs",
+  "importType": "wrap",
+  "bin": {
+    "hyperfine": {
+      "path": "hyperfine.exe",
+      "description": "Statistical benchmarking tool with warmup runs and JSON output support",
+      "usage": "hyperfine 'command1' 'command2' # Compare two commands\\nhyperfine --warmup 3 'command' # Run 3 warmup iterations\\nhyperfine --min-runs 10 'command' # Minimum 10 benchmark runs\\nhyperfine --export-json results.json 'command' # Export to JSON\\nhyperfine --prepare 'setup-command' 'main-command' # Setup before each run",
+      "dependencies": "windows"
+    }
+  },
+  "tags": ["benchmark", "performance", "analyze", "measure", "native", "statistics"]
+}

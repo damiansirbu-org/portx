@@ -152,6 +152,9 @@ readonly GIT_BASH_ROOT
 export GIT_BASH_ROOT
 export USER="portx"
 export PORTX_HOME="$GIT_BASH_ROOT/home/$USER"
+# Java Development Environment
+export JAVA_HOME="$PORTX_HOME/packages/java"
+export PATH="$JAVA_HOME/bin:$PATH"
 
 # Configure Claude Code Git Bash integration with dynamic path
 # Transform Unix path (/c/App/Git) to Windows path (C:\App\Git)
@@ -378,3 +381,4 @@ source ~/scripts/env-security.sh
 # shellcheck source=/dev/null
 source ~/scripts/ps1.sh
 
+alias gref="LAST_PWD=\"\" && rm -f \/home/portx/.git_prompt_cache"

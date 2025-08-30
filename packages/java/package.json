@@ -1,0 +1,45 @@
+{
+  "name": "java",
+  "version": "21.0.7",
+  "description": "OpenJDK 21 LTS - Java Development Kit with compiler, runtime, and development tools",
+  "importType": "wrap",
+  "bin": {
+    "java": {
+      "path": "bin/java.exe",
+      "description": "Java runtime environment for executing Java applications and JAR files",
+      "usage": "java -version | java -jar app.jar | java MyClass",
+      "dependencies": "windows"
+    },
+    "javac": {
+      "path": "bin/javac.exe",
+      "description": "Java compiler for compiling Java source files to bytecode",
+      "usage": "javac MyClass.java | javac -cp lib/*.jar src/*.java | javac -d build src/*.java",
+      "dependencies": "windows"
+    },
+    "jar": {
+      "path": "bin/jar.exe",
+      "description": "Java archive tool for creating and managing JAR files",
+      "usage": "jar -cf app.jar *.class | jar -xf archive.jar | jar -tf library.jar",
+      "dependencies": "windows"
+    },
+    "javadoc": {
+      "path": "bin/javadoc.exe",
+      "description": "Java documentation generator for creating API documentation from source code",
+      "usage": "javadoc *.java | javadoc -d docs -sourcepath src com.example | javadoc -classpath lib/*.jar *.java",
+      "dependencies": "windows"
+    },
+    "jarsigner": {
+      "path": "bin/jarsigner.exe", 
+      "description": "Java JAR signing and verification tool for code signing and security",
+      "usage": "jarsigner -keystore keystore.jks app.jar mykey | jarsigner -verify signed.jar",
+      "dependencies": "windows"
+    },
+    "javap": {
+      "path": "bin/javap.exe",
+      "description": "Java class file disassembler for analyzing bytecode and class structure",
+      "usage": "javap MyClass | javap -c -verbose MyClass.class | javap -classpath lib MyClass",
+      "dependencies": "windows"
+    }
+  },
+  "tags": ["java", "jdk", "compiler", "runtime", "development", "enterprise", "openjdk", "temurin"]
+}
