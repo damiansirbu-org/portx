@@ -10,53 +10,56 @@ source "$PORTX_HOME/scripts/theme.sh"
 # Git status variables (updated by PROMPT_COMMAND)
 GIT_STATUS_CACHED=""
 LAST_PWD=""
+LAST_GIT_DIR=""
 
 # Fast git status using gitstatusd or fallback
 update_git_status() {
-    # Only update if directory changed
-    if [[ "$PWD" == "$LAST_PWD" ]]; then
-        return
+    # Check if git state changed (not just directory)
+    local should_update=false
+    
+    # Always update if directory changed
+    if [[ "$PWD" != "$LAST_PWD" ]]; then
+        should_update=true
+        LAST_PWD="$PWD"
     fi
-    LAST_PWD="$PWD"
+    
+    # Also update if in git repo and HEAD/index changed
+    if [[ "$should_update" == "false" ]] && git rev-parse --git-dir &>/dev/null 2>&1; then
+        local git_dir=$(git rev-parse --git-dir 2>/dev/null)
+        local cache_file="$HOME/.git_prompt_cache"
+        if [[ "$git_dir/HEAD" -nt "$cache_file" ]] || 
+           [[ "$git_dir/index" -nt "$cache_file" ]] 2>/dev/null; then
+            should_update=true
+            touch "$cache_file" 2>/dev/null
+        fi
+    fi
+    
+    # Skip if no update needed
+    [[ "$should_update" == "false" ]] && return
     
     # Check if we're in a git repo (fast check)
-    if ! git rev-parse --git-dir &>/dev/null 2>&1; then
+    local current_git_dir
+    current_git_dir=$(git rev-parse --git-dir 2>/dev/null)
+    if [[ -z "$current_git_dir" ]]; then
         GIT_STATUS_CACHED=""
         return
     fi
     
-    # Try gitstatusd first (much faster)
-    if command -v gitstatusd >/dev/null 2>&1; then
-        local req_id="ps1"
-        local response
-        response=$(echo -nE "${req_id}"$'\x1f'"${PWD}"$'\x1e' | gitstatusd 2>/dev/null | head -1)
-        
-        if [[ -n "$response" ]]; then
-            IFS=$'\x1f' read -ra resp <<< "$response"
-            if [[ "${resp[1]}" == "1" ]]; then  # Is git repo
-                local branch="${resp[4]}"
-                local staged="${resp[10]}"
-                local unstaged="${resp[11]}"
-                local untracked="${resp[13]}"
-                
-                if [[ "$staged" != "0" || "$unstaged" != "0" || "$untracked" != "0" ]]; then
-                    GIT_STATUS_CACHED=$(printf ' %b[%s]%b' "$(color_error)" "${branch}" "$(color_reset)")
-                else
-                    GIT_STATUS_CACHED=$(printf ' %b[%s]%b' "$(color_success)" "${branch}" "$(color_reset)")
-                fi
-                return
-            fi
-        fi
+    # Reset cache if we changed git repositories
+    if [[ "$current_git_dir" != "$LAST_GIT_DIR" ]]; then
+        LAST_GIT_DIR="$current_git_dir"
+        should_update=true
+        rm -f "$HOME/.git_prompt_cache" 2>/dev/null
     fi
     
-    # Fallback to regular git commands
+    # Use fast git commands (gitstatusd has timeout issues)
     local branch=$(git branch --show-current 2>/dev/null || echo "detached")
     local status=$(git status --porcelain 2>/dev/null)
     
     if [[ -n "$status" ]]; then
         GIT_STATUS_CACHED=$(printf ' %b[%s]%b' "$(color_error)" "${branch}" "$(color_reset)")
     else
-        GIT_STATUS_CACHED=$(printf ' %b[%s]%b' "$(color_success)" "${branch}" "$(color_reset)")
+        GIT_STATUS_CACHED=$(printf ' %b[%s]%b' "$(color_pale_green)" "${branch}" "$(color_reset)")
     fi
 }
 

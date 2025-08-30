@@ -23,8 +23,8 @@
     },
     "importType": {
       "type": "string",
-      "enum": ["wrap", "path"],
-      "description": "Import strategy: wrap (create wrappers with intelligent PATH detection), path (add package root to PATH)"
+      "enum": ["wrap", "path", "none"],
+      "description": "Import strategy: wrap (create wrappers with intelligent PATH detection), path (add package root to PATH), none (documentation only, no imports)"
     },
     "bin": {
       "type": "object",
