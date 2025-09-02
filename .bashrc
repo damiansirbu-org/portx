@@ -248,10 +248,15 @@ PROMPT_COMMAND="history -a;$PROMPT_COMMAND"
 #
 # ORDER OF OPERATIONS:
 #   1. Start with inherited Windows PATH (via MSYS2_PATH_TYPE=inherit)
-#   2. Add local development directories
-#   3. Add PORTX package paths
-#   4. Ensure no duplicates
+#   2. Add Java Development Environment
+#   3. Add local development directories
+#   4. Add PORTX package paths
+#   5. Add Git tools LAST (CRITICAL: DO NOT MOVE - breaks Node.js)
 configure_portx_path() {
+    # Java Development Environment
+    # Add Java binaries to PATH if JAVA_HOME is set
+    [[ -n "$JAVA_HOME" && -d "$JAVA_HOME/bin" ]] && export PATH="$JAVA_HOME/bin:$PATH"
+    
     # Local Development PATH Extensions
     # Add user-specific binary directories to PATH if they exist
     [[ -d "$HOME/bin" ]] && export PATH="$HOME/bin:$PATH"
@@ -274,6 +279,9 @@ configure_portx_path() {
         # Cache not found - show warning
         echo "INFO: No .portx_path_cache found, please regenerate using: ./scripts/portx packages import" >&2
     fi
+    
+    # ⚠️  CRITICAL: Git/bin MUST be LAST - interferes with Node.js and many apps!
+    export PATH="$PATH:/c/App/Git/bin"
 }
 
 # =============================================================================
@@ -381,4 +389,4 @@ source ~/scripts/env-security.sh
 # shellcheck source=/dev/null
 source ~/scripts/ps1.sh
 
-alias gref="LAST_PWD=\"\" && rm -f \/home/portx/.git_prompt_cache"
+alias gref="LAST_PWD=\"\" && rm -f \/home/portx/.git_prompt_marker"

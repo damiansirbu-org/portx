@@ -13,7 +13,7 @@
 - **Version**: 1.19.0
 - **Type**: Native Windows executable
 - **Location**: `packages/hyperfine/hyperfine.exe`
-- **Package**: `packages/hyperfine/package.json` ✅
+- **Package**: `packages/hyperfine/portx.json` ✅
 - **Test Result**: Successfully benchmarked commands with statistical analysis
 - **Impact**: 500% improvement in performance analysis capability
 
@@ -22,7 +22,7 @@
 - **Version**: 0.77.0
 - **Type**: Python script with batch wrapper
 - **Location**: `packages/klp/klp.py` + `packages/klp/klp.bat`
-- **Package**: `packages/klp/package.json` ✅
+- **Package**: `packages/klp/portx.json` ✅
 - **Dependencies**: Uses PORTX python-runtime
 - **Test Result**: Successfully parses JSON log files
 - **Impact**: 400% improvement in log analysis capability
@@ -78,11 +78,11 @@ The tools we couldn't install would have provided:
 packages/
 ├── hyperfine/
 │   ├── hyperfine.exe          # Native Windows binary
-│   └── package.json           # PORTX package metadata
+│   └── portx.json           # PORTX package metadata
 └── klp/
     ├── klp.py                 # Python source
     ├── klp.bat                # Windows batch wrapper
-    └── package.json           # PORTX package metadata
+    └── portx.json           # PORTX package metadata
 ```
 
 ### Package.json Schema Compliance
@@ -174,7 +174,7 @@ fi
 - ✅ 2/5 priority tools working (40% success rate)
 - ✅ 900% combined improvement in covered areas
 - ✅ Full PORTX integration compatibility
-- ✅ Proper package.json schema compliance
+- ✅ Proper portx.json schema compliance
 
 **Expected Claude Analysis Enhancement**:
 - Performance tasks: Much better insights
