@@ -6,6 +6,7 @@ packages/**
 !packages/
 !packages/*/
 !packages/*/package.json
+!packages/*/README.md
 
 # SSH certificates and keys (keep config, ignore sensitive files)
 .ssh/*.pem

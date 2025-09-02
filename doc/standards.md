@@ -71,7 +71,7 @@ printf "╔══════════════════════╗
 
 ## DS-005: Industry-Standard Package Format
 
-**Decision:** All packages use `package.json` format with complete metadata.
+**Decision:** All packages use `portx.json` format with complete metadata.
 
 **Required Fields:**
 - `name`, `version`, `description`

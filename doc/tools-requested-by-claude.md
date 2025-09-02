@@ -268,11 +268,11 @@ Each tool should follow the current pattern:
 
 #### `npm-check-updates`
 - **Type**: npm dependency analyzer and updater
-- **Impact**: 400% improvement in package.json understanding
+- **Impact**: 400% improvement in portx.json understanding
 - **Features**: Outdated dependency detection, security audit, dependency analysis
 - **Windows**: ✅ npm package, globally installable
 - **Integration**: `npm audit` and `npm outdated` commands
-- **Hook Usage**: Enhanced package.json analysis with dependency insights
+- **Hook Usage**: Enhanced portx.json analysis with dependency insights
 
 #### `npm-audit` (built-in)
 - **Type**: Security vulnerability scanner for npm packages
@@ -280,7 +280,7 @@ Each tool should follow the current pattern:
 - **Features**: Known vulnerability detection, fix recommendations
 - **Windows**: ✅ Built into npm
 - **Integration**: Direct npm audit command
-- **Hook Usage**: Security analysis for package.json files
+- **Hook Usage**: Security analysis for portx.json files
 
 ### **Enhanced Hook Integration for Build Files**
 
@@ -300,8 +300,8 @@ if [[ "$(basename "$FILE_PATH")" =~ build\.gradle ]]; then
     cd "$(dirname "$FILE_PATH")" && gradle dependencies --quiet 2>/dev/null | head -30 || echo "Gradle analysis completed"
 fi
 
-# npm package.json analysis
-if [[ "$(basename "$FILE_PATH")" == "package.json" ]]; then
+# npm portx.json analysis
+if [[ "$(basename "$FILE_PATH")" == "portx.json" ]]; then
     echo "[NPM-AUDIT]"
     cd "$(dirname "$FILE_PATH")" && npm audit --audit-level=high 2>/dev/null | head -20 || echo "npm audit completed"
     

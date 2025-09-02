@@ -2,7 +2,7 @@
 
 ## Schema Overview
 
-PORTX uses a standardized `package.json` format with two distinct import modes:
+PORTX uses a standardized `portx.json` format with two distinct import modes:
 
 ### Wrap Mode (Default for Most Packages)
 Creates command wrappers for individual executables:
@@ -197,7 +197,7 @@ Tags are critical for tool discovery and must comprehensively describe:
 
 ## Validation
 
-All package.json files are validated against the schema at `/schema/package.schema.json` using the validator at `/scripts/validate-json.sh`.
+All portx.json files are validated against the schema at `/schema/portx.schema.json` using the validator at `/scripts/validate-json.sh`.
 
 **Validation Requirements:**
 - JSON syntax must be valid

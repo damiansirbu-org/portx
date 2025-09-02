@@ -270,7 +270,7 @@ This scientific approach ensures PORTX provides enterprise-grade tool discovery 
 
 **Shell Environment**: Bash 4.4+ with POSIX compatibility layer
 **Home Directory**: Portable user environment with SSH, Git configuration  
-**Package Management**: Industry-standard package.json with tools metadata, importType detection, smart wrapper generation
+**Package Management**: Industry-standard portx.json with tools metadata, importType detection, smart wrapper generation
 **PATH Management**: Intelligent optimization reducing from 100+ to 10+ directories with conflict detection
 **Extension System**: Git Extensions providing 203 additional tools bridging MinGit to full Git functionality
 **SSH Integration**: Seamless Windows OpenSSH service integration with PORTX as source of truth

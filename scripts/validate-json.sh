@@ -106,7 +106,7 @@ validate_portx_schema() {
 # Command line usage
 if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
     if [[ $# -ne 1 ]]; then
-        echo "Usage: $0 <package.json>"
+        echo "Usage: $0 <portx.json>"
         exit 1
     fi
     

@@ -79,28 +79,28 @@ declare -g SCHEMA_INVALID=20
 declare -g SCHEMA_FILE_MISSING=21
 declare -g JSON_SYNTAX_ERROR=22
 
-# Method: Validate package.json against portx schema
-validate_package_json() {
-	local package_json_path="$1"
+# Method: Validate portx.json against portx schema
+validate_portx_json() {
+	local portx_json_path="$1"
 
-	debug_log "Validating: $package_json_path"
+	debug_log "Validating: $portx_json_path"
 
-	# Check if package.json exists
-	if [[ ! -f "$package_json_path" ]]; then
-		debug_log "ERROR: package.json not found: $package_json_path"
+	# Check if portx.json exists
+	if [[ ! -f "$portx_json_path" ]]; then
+		debug_log "ERROR: portx.json not found: $portx_json_path"
 		return $SCHEMA_FILE_MISSING
 	fi
 
 	# Use native portx validator (no external dependencies)
 	local validator_script="$GIT_BASH_ROOT_POSIX/home/portx/scripts/validate-json.sh"
 	if [[ -f "$validator_script" ]]; then
-		if "$validator_script" "$package_json_path" >/dev/null 2>&1; then
-			debug_log "SUCCESS: Schema validation passed: $package_json_path"
+		if "$validator_script" "$portx_json_path" >/dev/null 2>&1; then
+			debug_log "SUCCESS: Schema validation passed: $portx_json_path"
 			return $SCHEMA_VALID
 		else
-			debug_log "ERROR: Schema validation failed: $package_json_path"
+			debug_log "ERROR: Schema validation failed: $portx_json_path"
 			# Show detailed validation errors
-			"$validator_script" "$package_json_path" 2>&1 | while read -r line; do
+			"$validator_script" "$portx_json_path" 2>&1 | while read -r line; do
 				debug_log "  $line"
 			done
 			return $SCHEMA_INVALID
@@ -108,8 +108,8 @@ validate_package_json() {
 	else
 		debug_log "WARNING: Native validator not found, using basic JSON syntax check"
 		# Fallback to basic JSON syntax validation
-		if ! cat "$package_json_path" | jq empty >/dev/null 2>&1; then
-			debug_log "ERROR: Invalid JSON syntax in: $package_json_path"
+		if ! cat "$portx_json_path" | jq empty >/dev/null 2>&1; then
+			debug_log "ERROR: Invalid JSON syntax in: $portx_json_path"
 			return $JSON_SYNTAX_ERROR
 		fi
 		return $SCHEMA_VALID
@@ -123,10 +123,10 @@ test_wrapper_works_REMOVED() {
 	return 1
 }
 
-# Method: Get executables from package.json (preferred) with defaultArgs
+# Method: Get executables from portx.json (preferred) with defaultArgs
 get_executables_from_json() {
 	local pkg_dir="$1"
-	local json_file="$pkg_dir/package.json"
+	local json_file="$pkg_dir/portx.json"
 
 	if [[ -f "$json_file" ]]; then
 		# NEW SCHEMA: Extract executables from bin object: "path|defaultArgs"
@@ -173,7 +173,7 @@ get_scanned_executables() {
 # Method: Parse package JSON for declared tools
 parse_package_manual() {
 	local pkg_dir="$1"
-	local json_file="$pkg_dir/package.json"
+	local json_file="$pkg_dir/portx.json"
 
 	if [[ ! -f "$json_file" ]]; then
 		echo ""
@@ -218,10 +218,10 @@ parse_json_with_comments() {
 
 get_import_type() {
 	local pkg_dir="$1"
-	local json_file="$pkg_dir/package.json"
+	local json_file="$pkg_dir/portx.json"
 
 	if [[ ! -f "$json_file" ]]; then
-		echo "auto" # No package.json, use default behavior
+		echo "auto" # No portx.json, use default behavior
 		return
 	fi
 
@@ -253,23 +253,23 @@ validate_package_REMOVED() {
 validate_package_comprehensive() {
 	local pkg_dir="$1"
 	local pkg_name="$2"
-	local json_file="$pkg_dir/package.json"
+	local json_file="$pkg_dir/portx.json"
 
 	printf "    Validating: %s\n" "$pkg_name"
 	debug_log "=== COMPREHENSIVE VALIDATION: $pkg_name ==="
 	debug_log "Package directory: $pkg_dir"
 	debug_log "JSON file: $json_file"
 
-	# STEP 1: Check package.json exists
+	# STEP 1: Check portx.json exists
 	if [[ ! -f "$json_file" ]]; then
-		printf "%sCRITICAL ERROR: Missing package.json%s\n" "$(color_error)" "$(color_reset)" >&2
+		printf "%sCRITICAL ERROR: Missing portx.json%s\n" "$(color_error)" "$(color_reset)" >&2
 		printf "Package: %s\n" "$pkg_name" >&2
 		printf "Path: %s\n" "$pkg_dir" >&2
-		printf "Cannot proceed - package.json is required for all packages\n" >&2
-		debug_log "FATAL: Missing package.json for $pkg_name"
+		printf "Cannot proceed - portx.json is required for all packages\n" >&2
+		debug_log "FATAL: Missing portx.json for $pkg_name"
 		return 1
 	fi
-	debug_log "✓ package.json exists"
+	debug_log "✓ portx.json exists"
 
 	# STEP 2: Validate JSON schema with comprehensive validation
 	printf "      Checking JSON schema...\n"
@@ -278,7 +278,7 @@ validate_package_comprehensive() {
 		local validation_output
 		validation_output=$(bash "$SCRIPT_DIR/validate-json.sh" "$json_file" 2>&1)
 
-		printf "%sCRITICAL ERROR: Invalid package.json schema%s\n" "$(color_error)" "$(color_reset)" >&2
+		printf "%sCRITICAL ERROR: Invalid portx.json schema%s\n" "$(color_error)" "$(color_reset)" >&2
 		printf "Package: %s\n" "$pkg_name" >&2
 		printf "Path: %s\n" "$json_file" >&2
 		printf "\n" >&2
@@ -297,13 +297,13 @@ validate_package_comprehensive() {
 
 	# STEP 3: Parse executables and verify each one exists
 	printf "      Checking executable files...\n"
-	debug_log "Parsing executables from package.json..."
+	debug_log "Parsing executables from portx.json..."
 
 	local declared_executables
 	declared_executables=$(parse_package_manual "$pkg_dir")
 
 	if [[ -z "$declared_executables" ]]; then
-		debug_log "No executables declared in package.json, checking for any files..."
+		debug_log "No executables declared in portx.json, checking for any files..."
 		local scanned_executables
 		scanned_executables=$(get_scanned_executables "$pkg_dir")
 		if [[ -z "$scanned_executables" ]]; then
@@ -337,7 +337,7 @@ validate_package_comprehensive() {
 				printf "Full path: %s\n" "$full_exe_path" >&2
 				printf "\n" >&2
 				printf "All declared executables MUST exist at their specified paths\n" >&2
-				printf "Check package.json paths and directory structure\n" >&2
+				printf "Check portx.json paths and directory structure\n" >&2
 				debug_log "FATAL: Missing executable $exe_path in package $pkg_name"
 				debug_log "Expected at: $full_exe_path"
 				return 1
@@ -372,12 +372,12 @@ create_bash_wrappers() {
 	local pkg_name="$2"
 	local executables
 
-	# Primary: Use package.json executables with defaultArgs
+	# Primary: Use portx.json executables with defaultArgs
 	executables=$(get_executables_from_json "$pkg_dir")
 
-	# Fallback: If no package.json executables, scan directory (no defaultArgs)
+	# Fallback: If no portx.json executables, scan directory (no defaultArgs)
 	if [[ -z "$executables" ]]; then
-		debug_log "    No executables in package.json, falling back to directory scan"
+		debug_log "    No executables in portx.json, falling back to directory scan"
 		local scanned_exes
 		scanned_exes=$(get_scanned_executables "$pkg_dir")
 		if [[ -n "$scanned_exes" ]]; then
@@ -453,12 +453,12 @@ create_cmd_wrappers() {
 	local pkg_name="$2"
 	local executables
 
-	# Primary: Use package.json executables with defaultArgs
+	# Primary: Use portx.json executables with defaultArgs
 	executables=$(get_executables_from_json "$pkg_dir")
 
-	# Fallback: If no package.json executables, scan directory (no defaultArgs)
+	# Fallback: If no portx.json executables, scan directory (no defaultArgs)
 	if [[ -z "$executables" ]]; then
-		debug_log "    No executables in package.json, falling back to directory scan"
+		debug_log "    No executables in portx.json, falling back to directory scan"
 		local scanned_exes
 		scanned_exes=$(get_scanned_executables "$pkg_dir")
 		if [[ -n "$scanned_exes" ]]; then
@@ -524,12 +524,12 @@ create_wrappers() {
 	local pkg_name="$2"
 	local executables
 
-	# Primary: Use package.json executables with defaultArgs
+	# Primary: Use portx.json executables with defaultArgs
 	executables=$(get_executables_from_json "$pkg_dir")
 
-	# Fallback: If no package.json executables, scan directory (no defaultArgs)
+	# Fallback: If no portx.json executables, scan directory (no defaultArgs)
 	if [[ -z "$executables" ]]; then
-		debug_log "    No executables in package.json, falling back to directory scan"
+		debug_log "    No executables in portx.json, falling back to directory scan"
 		local scanned_exes
 		scanned_exes=$(get_scanned_executables "$pkg_dir")
 		if [[ -n "$scanned_exes" ]]; then
@@ -1135,7 +1135,7 @@ list_tools_flat() {
 	fi
 
 	for pkg_dir in "$PACKAGES_DIR"/*; do
-		if [[ -d "$pkg_dir" && -f "$pkg_dir/package.json" ]]; then
+		if [[ -d "$pkg_dir" && -f "$pkg_dir/portx.json" ]]; then
 			# If filter expression is provided, filter at tool level (checking both tool and package tags)
 			if [[ -n "$filter_expression" ]]; then
 				# Use jq to extract tools with combined package+tool tags, then filter in bash
@@ -1181,7 +1181,7 @@ list_tools_flat() {
 							fi
 						fi
 					fi
-				done < <($JQ_CMD -r '. as $root | .tools[]? | select(.executable) | "\(.executable)|\(((.tags // []) + ($root.tags // [])) | unique | join(","))"' "$pkg_dir/package.json" 2>/dev/null)
+				done < <($JQ_CMD -r '. as $root | .tools[]? | select(.executable) | "\(.executable)|\(((.tags // []) + ($root.tags // [])) | unique | join(","))"' "$pkg_dir/portx.json" 2>/dev/null)
 			else
 				# No filter - extract all executables
 				while IFS= read -r exe; do
@@ -1190,7 +1190,7 @@ list_tools_flat() {
 						exe="${exe//$'\r'/}"
 						all_tools+=("$exe")
 					fi
-				done < <($JQ_CMD -r '.tools[]?.executable // empty' "$pkg_dir/package.json" 2>/dev/null)
+				done < <($JQ_CMD -r '.tools[]?.executable // empty' "$pkg_dir/portx.json" 2>/dev/null)
 			fi
 		fi
 	done
@@ -1270,7 +1270,7 @@ _calculate_max_name_width() {
 	fi
 
 	for pkg_dir in "$PACKAGES_DIR"/*; do
-		if [[ -d "$pkg_dir" && -f "$pkg_dir/package.json" ]]; then
+		if [[ -d "$pkg_dir" && -f "$pkg_dir/portx.json" ]]; then
 			# Check package name width (no version)
 			local pkg_name
 			pkg_name=$(basename "$pkg_dir")
@@ -1287,7 +1287,7 @@ _calculate_max_name_width() {
 						max_width=$current_width
 					fi
 				fi
-			done < <($JQ_CMD -r '.tools[]? | "\(.executable // "")|\(.description // "")|\((.tags // []) | join(", "))"' "$pkg_dir/package.json" 2>/dev/null)
+			done < <($JQ_CMD -r '.tools[]? | "\(.executable // "")|\(.description // "")|\((.tags // []) | join(", "))"' "$pkg_dir/portx.json" 2>/dev/null)
 		fi
 	done
 
@@ -1410,7 +1410,7 @@ _generate_packages_list() {
 	elif command -v jq.cmd >/dev/null 2>&1; then
 		JQ_CMD="jq.cmd"
 	else
-		echo "ERROR: jq not found in PATH - required for package.json parsing"
+		echo "ERROR: jq not found in PATH - required for portx.json parsing"
 		return 1
 	fi
 
@@ -1422,7 +1422,7 @@ _generate_packages_list() {
 	IFS=':' read -r name_width desc_width <<<"$column_widths"
 
 	for pkg_dir in "$PACKAGES_DIR"/*; do
-		if [[ -d "$pkg_dir" && -f "$pkg_dir/package.json" ]]; then
+		if [[ -d "$pkg_dir" && -f "$pkg_dir/portx.json" ]]; then
 			local pkg_name
 			pkg_name=$(basename "$pkg_dir")
 
@@ -1430,13 +1430,13 @@ _generate_packages_list() {
 			local pkg_description=""
 			local tool_count=0
 
-			pkg_description=$($JQ_CMD -r '.description // ""' "$pkg_dir/package.json" 2>/dev/null || echo "")
+			pkg_description=$($JQ_CMD -r '.description // ""' "$pkg_dir/portx.json" 2>/dev/null || echo "")
 
 			# Count tools from both new bin format and legacy tools format
 			local bin_count
 			local tools_count
-			bin_count=$($JQ_CMD -r 'if .bin then .bin | keys | length else 0 end' "$pkg_dir/package.json" 2>/dev/null || echo "0")
-			tools_count=$($JQ_CMD -r 'if .tools then .tools | length else 0 end' "$pkg_dir/package.json" 2>/dev/null || echo "0")
+			bin_count=$($JQ_CMD -r 'if .bin then .bin | keys | length else 0 end' "$pkg_dir/portx.json" 2>/dev/null || echo "0")
+			tools_count=$($JQ_CMD -r 'if .tools then .tools | length else 0 end' "$pkg_dir/portx.json" 2>/dev/null || echo "0")
 			tool_count=$((bin_count + tools_count))
 
 			# Skip packages with no executables
@@ -1457,7 +1457,7 @@ _generate_packages_list() {
 					_format_tool_entry "$executable" "$description" "$tags" \
 						"$name_width" "$desc_width"
 				fi
-			done < <($JQ_CMD -r 'if .bin then .bin | to_entries[] | "\(.key)|\(.value.description // "")|\((.value.tags // []) | join(", "))" else empty end' "$pkg_dir/package.json" 2>/dev/null)
+			done < <($JQ_CMD -r 'if .bin then .bin | to_entries[] | "\(.key)|\(.value.description // "")|\((.value.tags // []) | join(", "))" else empty end' "$pkg_dir/portx.json" 2>/dev/null)
 			echo
 		fi
 	done
@@ -1482,12 +1482,12 @@ search_tools() {
 	elif command -v jq.cmd >/dev/null 2>&1; then
 		JQ_CMD="jq.cmd"
 	else
-		echo "ERROR: jq not found in PATH - required for package.json parsing"
+		echo "ERROR: jq not found in PATH - required for portx.json parsing"
 		return 1
 	fi
 
 	for pkg_dir in "$PACKAGES_DIR"/*; do
-		if [[ -d "$pkg_dir" && -f "$pkg_dir/package.json" ]]; then
+		if [[ -d "$pkg_dir" && -f "$pkg_dir/portx.json" ]]; then
 			local pkg_name
 			pkg_name=$(basename "$pkg_dir")
 
@@ -1497,7 +1497,7 @@ search_tools() {
 					printf "%-20s %-25s %s\n" "$executable" "($pkg_name)" "$description"
 					((matches++))
 				fi
-			done < <($JQ_CMD -r '.tools[]? | "\(.executable // "")|\(.description // "")"' "$pkg_dir/package.json" 2>/dev/null)
+			done < <($JQ_CMD -r '.tools[]? | "\(.executable // "")|\(.description // "")"' "$pkg_dir/portx.json" 2>/dev/null)
 		fi
 	done
 
@@ -1518,18 +1518,18 @@ show_tools_count() {
 	elif command -v jq.cmd >/dev/null 2>&1; then
 		JQ_CMD="jq.cmd"
 	else
-		echo "ERROR: jq not found in PATH - required for package.json parsing"
+		echo "ERROR: jq not found in PATH - required for portx.json parsing"
 		return 1
 	fi
 
 	for pkg_dir in "$PACKAGES_DIR"/*; do
-		if [[ -d "$pkg_dir" && -f "$pkg_dir/package.json" ]]; then
+		if [[ -d "$pkg_dir" && -f "$pkg_dir/portx.json" ]]; then
 			((total_packages++))
 			local pkg_name
 			pkg_name=$(basename "$pkg_dir")
 			local package_tool_count=0
 
-			package_tool_count=$($JQ_CMD -r '.tools // [] | length' "$pkg_dir/package.json" 2>/dev/null || echo "0")
+			package_tool_count=$($JQ_CMD -r '.tools // [] | length' "$pkg_dir/portx.json" 2>/dev/null || echo "0")
 			total_tools=$((total_tools + package_tool_count))
 			package_counts["$pkg_name"]=$package_tool_count
 		fi

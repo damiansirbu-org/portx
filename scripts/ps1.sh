@@ -26,7 +26,7 @@ update_git_status() {
     # Also update if in git repo and HEAD/index changed
     if [[ "$should_update" == "false" ]] && git rev-parse --git-dir &>/dev/null 2>&1; then
         local git_dir=$(git rev-parse --git-dir 2>/dev/null)
-        local cache_file="$HOME/.git_prompt_cache"
+        local cache_file="$HOME/.git_prompt_marker"
         if [[ "$git_dir/HEAD" -nt "$cache_file" ]] || 
            [[ "$git_dir/index" -nt "$cache_file" ]] 2>/dev/null; then
             should_update=true
@@ -49,7 +49,7 @@ update_git_status() {
     if [[ "$current_git_dir" != "$LAST_GIT_DIR" ]]; then
         LAST_GIT_DIR="$current_git_dir"
         should_update=true
-        rm -f "$HOME/.git_prompt_cache" 2>/dev/null
+        rm -f "$HOME/.git_prompt_marker" 2>/dev/null
     fi
     
     # Use fast git commands (gitstatusd has timeout issues)
