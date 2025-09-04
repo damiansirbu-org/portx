@@ -389,4 +389,3 @@ source ~/scripts/env-security.sh
 # shellcheck source=/dev/null
 source ~/scripts/ps1.sh
 
-alias gref="LAST_PWD=\"\" && rm -f \/home/portx/.git_prompt_marker"
