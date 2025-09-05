@@ -1,0 +1,15 @@
+{
+  "name": "qrencode",
+  "version": "3.4.0",
+  "description": "QR Code generator - encode data into QR code symbols and save as PNG images",
+  "importType": "wrap",
+  "bin": {
+    "qrencode": {
+      "path": "qrencode.exe",
+      "description": "Fast and compact QR Code encoding library and command-line utility - supports up to 7000 digits or 4000 characters with high robustness",
+      "usage": "qrencode -o qr.png 'Hello World'\\nqrencode -t PNG -o myqr.png 'https://example.com'\\necho 'data' | qrencode -o output.png",
+      "dependencies": "windows"
+    }
+  },
+  "tags": ["qr", "qrcode", "encode", "generator", "png", "image", "barcode", "utility"]
+}

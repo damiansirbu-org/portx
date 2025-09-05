@@ -1,0 +1,15 @@
+{
+  "name": "macchina",
+  "version": "6.4.0",
+  "description": "Fast, minimal and customizable system information frontend written in Rust",
+  "importType": "wrap",
+  "bin": {
+    "macchina": {
+      "path": "macchina.exe",
+      "description": "System information display tool with emphasis on performance - shows kernel, uptime, memory, CPU load",
+      "usage": "macchina\\nmacchina --help\\nmacchina --theme Hydrogen\\nmacchina --ascii-artists",
+      "dependencies": "windows"
+    }
+  },
+  "tags": ["system", "info", "neofetch", "fastfetch", "rust", "performance", "cli", "system-info"]
+}

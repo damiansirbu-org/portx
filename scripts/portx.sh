@@ -1181,7 +1181,8 @@ list_tools_flat() {
 							fi
 						fi
 					fi
-				done < <($JQ_CMD -r '. as $root | .tools[]? | select(.executable) | "\(.executable)|\(((.tags // []) + ($root.tags // [])) | unique | join(","))"' "$pkg_dir/portx.json" 2>/dev/null)
+				# Use new schema (bin object) - no fallback, crash if not compliant  
+				done < <($JQ_CMD -r '. as $root | .bin | to_entries[] | "\(.key)|\(((.value.tags // []) + ($root.tags // [])) | unique | join(","))"' "$pkg_dir/portx.json" 2>/dev/null)
 			else
 				# No filter - extract all executables
 				while IFS= read -r exe; do
@@ -1190,7 +1191,8 @@ list_tools_flat() {
 						exe="${exe//$'\r'/}"
 						all_tools+=("$exe")
 					fi
-				done < <($JQ_CMD -r '.tools[]?.executable // empty' "$pkg_dir/portx.json" 2>/dev/null)
+				# Use new schema (bin object) - no fallback, crash if not compliant
+				done < <($JQ_CMD -r '.bin | keys[]' "$pkg_dir/portx.json" 2>/dev/null)
 			fi
 		fi
 	done
@@ -1287,7 +1289,8 @@ _calculate_max_name_width() {
 						max_width=$current_width
 					fi
 				fi
-			done < <($JQ_CMD -r '.tools[]? | "\(.executable // "")|\(.description // "")|\((.tags // []) | join(", "))"' "$pkg_dir/portx.json" 2>/dev/null)
+			# Use new schema (bin object) - no fallback, crash if not compliant
+			done < <($JQ_CMD -r '.bin | to_entries[] | "\(.key)|\(.value.description // "")|\((.value.tags // []) | join(", "))"' "$pkg_dir/portx.json" 2>/dev/null)
 		fi
 	done
 
@@ -1497,7 +1500,8 @@ search_tools() {
 					printf "%-20s %-25s %s\n" "$executable" "($pkg_name)" "$description"
 					((matches++))
 				fi
-			done < <($JQ_CMD -r '.tools[]? | "\(.executable // "")|\(.description // "")"' "$pkg_dir/portx.json" 2>/dev/null)
+			# Use new schema (bin object) - no fallback, crash if not compliant
+			done < <($JQ_CMD -r '.bin | to_entries[] | "\(.key)|\(.value.description // "")"' "$pkg_dir/portx.json" 2>/dev/null)
 		fi
 	done
 
@@ -1529,7 +1533,8 @@ show_tools_count() {
 			pkg_name=$(basename "$pkg_dir")
 			local package_tool_count=0
 
-			package_tool_count=$($JQ_CMD -r '.tools // [] | length' "$pkg_dir/portx.json" 2>/dev/null || echo "0")
+			# Count from new schema (bin object) - no fallback, crash if not compliant
+			package_tool_count=$($JQ_CMD -r '.bin | keys | length' "$pkg_dir/portx.json" 2>/dev/null || echo "0")
 			total_tools=$((total_tools + package_tool_count))
 			package_counts["$pkg_name"]=$package_tool_count
 		fi

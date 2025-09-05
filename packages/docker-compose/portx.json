@@ -1,0 +1,15 @@
+{
+  "name": "docker-compose",
+  "version": "2.39.2",
+  "description": "Multi-container orchestration with service dependency management",
+  "importType": "wrap",
+  "bin": {
+    "docker-compose": {
+      "path": "docker-compose.exe",
+      "description": "YAML-based multi-container orchestration with networking and volumes",
+      "usage": "docker-compose up -d --build # Build and run in background\\ndocker-compose logs -f webapp # Follow specific service logs\\ndocker-compose exec web bash # Interactive shell in service\\ndocker-compose down --volumes --remove-orphans # Clean shutdown\\ndocker-compose scale worker=3 # Scale service to 3 replicas",
+      "dependencies": "windows"
+    }
+  },
+  "tags": ["docker", "orchestration", "native", "devops", "containers", "yaml", "services", "networking"]
+}

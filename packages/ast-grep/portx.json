@@ -1,0 +1,15 @@
+{
+  "name": "ast-grep",
+  "version": "0.39.4",
+  "description": "AST-based code search and refactoring with tree-sitter parsing",
+  "importType": "wrap",
+  "bin": {
+    "ast-grep": {
+      "path": "ast-grep.exe",
+      "description": "Tree-sitter powered structural code search with pattern matching",
+      "usage": "ast-grep --pattern 'console.log($$$)' src/ # Find all console.log calls\\nast-grep --pattern 'function $NAME($$$) { $$$ }' --rewrite 'const $NAME = ($$$) => { $$$ }' --write # Convert to arrow functions\\nast-grep -l typescript --pattern 'interface $NAME { $$$ }' # Find TypeScript interfaces\\nast-grep --pattern 'useState($INIT)' --rewrite 'useState<typeof $INIT>($INIT)' *.tsx # Add TypeScript generics\\nast-grep --config .ast-grep.yml --fix # Apply configured rules with auto-fix",
+      "dependencies": "windows"
+    }
+  },
+  "tags": ["analyze", "develop", "code", "native"]
+}

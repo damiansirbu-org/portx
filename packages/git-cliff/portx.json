@@ -1,0 +1,15 @@
+{
+  "name": "git-cliff",
+  "version": "2.10.0",
+  "description": "Changelog generator using conventional commits - highly customizable and automated",
+  "importType": "wrap",
+  "bin": {
+    "git-cliff": {
+      "path": "git-cliff.exe",
+      "description": "Smart changelog generator from git history using conventional commits with templating support",
+      "usage": "git-cliff\\ngit-cliff --tag v1.0.0\\ngit-cliff --latest\\ngit-cliff --config cliff.toml",
+      "dependencies": "windows"
+    }
+  },
+  "tags": ["git", "changelog", "conventional-commits", "generator", "versioning", "rust", "automation", "templating"]
+}

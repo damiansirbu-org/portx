@@ -1,0 +1,27 @@
+{
+  "name": "podman",
+  "version": "5.6.1",
+  "description": "Daemonless Docker-compatible container engine with rootless support and OCI compliance",
+  "importType": "wrap",
+  "bin": {
+    "podman": {
+      "path": "podman.exe",
+      "description": "Daemonless container runtime with Docker-compatible CLI and advanced security features",
+      "usage": "podman run -it --rm alpine:latest sh\\npodman build -t myapp .\\npodman images --format json | jq '.[]'\\npodman pod create --name webapp && podman run -d --pod webapp nginx\\npodman machine init && podman machine start",
+      "dependencies": "windows"
+    },
+    "gvproxy": {
+      "path": "gvproxy.exe",
+      "description": "VPN proxy server for Podman machine networking and port forwarding",
+      "usage": "gvproxy -listen unix:///tmp/gvproxy.sock\\ngvproxy -debug -listen tcp://127.0.0.1:8080",
+      "dependencies": "windows"
+    },
+    "win-sshproxy": {
+      "path": "win-sshproxy.exe",
+      "description": "SSH proxy helper for Windows Podman machine communication and tunneling",
+      "usage": "win-sshproxy -logfile proxy.log\\nwin-sshproxy -debug -remote-host podman-machine",
+      "dependencies": "windows"
+    }
+  },
+  "tags": ["container", "docker", "runtime", "daemonless", "security", "rootless", "oci", "virtualization"]
+}

@@ -1,0 +1,15 @@
+{
+  "name": "hck",
+  "version": "0.11.4",
+  "description": "Sharp cut replacement with more features - fast field extraction from delimited text",
+  "importType": "wrap",
+  "bin": {
+    "hck": {
+      "path": "hck.exe",
+      "description": "Fast field extraction tool with regex support - more powerful than cut with better performance",
+      "usage": "hck -f 1,3 file.csv\\nhck -d: -f 2 /etc/passwd\\nhck -F '[,;]' -f 1-3 data.txt\\nhck -D\\n -f 1",
+      "dependencies": "windows"
+    }
+  },
+  "tags": ["cut", "field-extraction", "delimited", "csv", "text-processing", "rust", "fast", "regex"]
+}

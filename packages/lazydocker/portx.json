@@ -1,0 +1,15 @@
+{
+  "name": "lazydocker",
+  "version": "1.0.0",
+  "description": "Terminal UI for Docker and Docker Compose with mouse support",
+  "importType": "wrap",
+  "bin": {
+    "lazydocker": {
+      "path": "lazydocker.exe",
+      "description": "Terminal UI for Docker and Docker Compose with mouse support",
+      "usage": "lazydocker # Launch Docker TUI\\nm - View container logs, e - Execute command in container\\nx - Remove container, r - Restart container\\nTab - Switch between panels, ? - Help",
+      "dependencies": "windows"
+    }
+  },
+  "tags": ["docker", "tui", "terminal", "ui", "containers", "compose", "mouse", "go"]
+}

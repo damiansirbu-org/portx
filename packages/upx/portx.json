@@ -1,0 +1,15 @@
+{
+  "name": "upx",
+  "version": "1.0.0",
+  "description": "Ultimate executable packer with high compression ratios and fast decompression",
+  "importType": "wrap",
+  "bin": {
+    "upx": {
+      "path": "upx.exe",
+      "description": "Compress executables and shared libraries to reduce file size while maintaining functionality",
+      "usage": "upx program.exe\\nupx --best program.exe\\nupx -d packed.exe\\nupx -t packed.exe\\nupx --info packed.exe",
+      "dependencies": "windows"
+    }
+  },
+  "tags": ["packer", "compression", "executable", "binary", "size", "optimization", "decompression", "cpp"]
+}

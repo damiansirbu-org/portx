@@ -1,0 +1,15 @@
+{
+  "name": "lsd",
+  "version": "1.1.5",
+  "description": "Modern ls command with colors, icons, and tree-view - next generation directory listing",
+  "importType": "wrap",
+  "bin": {
+    "lsd": {
+      "path": "lsd.exe",
+      "description": "Rust-based ls replacement with colors, icons, tree view and modern formatting options",
+      "usage": "lsd\\nlsd -la\\nlsd --tree\\nlsd --color=never\\nlsd --icon=never",
+      "dependencies": "windows"
+    }
+  },
+  "tags": ["ls", "directory", "listing", "rust", "colors", "icons", "tree-view", "modern"]
+}

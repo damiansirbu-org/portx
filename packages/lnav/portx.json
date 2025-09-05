@@ -1,0 +1,15 @@
+{
+  "name": "lnav",
+  "version": "0.13.0",
+  "description": "Advanced log file navigator with automatic format detection, SQL queries, timeline view, and multi-file correlation",
+  "importType": "wrap",
+  "bin": {
+    "lnav": {
+      "path": "bin/lnav.exe",
+      "description": "Advanced ncurses-based log file navigator with automatic format detection, SQL querying, timeline visualization, and intelligent multi-file correlation",
+      "usage": "lnav /var/log/*.log | lnav -c \"SELECT * FROM log WHERE level = \\\"ERROR\\\"\" | lnav -t access.log",
+      "dependencies": "native"
+    }
+  },
+  "tags": ["logs", "analysis", "navigator", "sql", "timeline", "ncurses"]
+}

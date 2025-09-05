@@ -1,0 +1,15 @@
+{
+  "name": "tokei",
+  "version": "1.0.0",
+  "description": "Fast and accurate code statistics tool with support for 200+ programming languages",
+  "importType": "wrap",
+  "bin": {
+    "tokei": {
+      "path": "tokei.exe",
+      "description": "Display statistics about code, including lines of code, comments, and blanks by language",
+      "usage": "tokei .\\ntokei --files src/\\ntokei --output json .\\ntokei --exclude '*.test.js' .\\ntokei --sort lines .",
+      "dependencies": "windows"
+    }
+  },
+  "tags": ["code", "statistics", "lines", "counter", "analysis", "programming", "languages", "rust"]
+}

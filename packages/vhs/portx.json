@@ -1,0 +1,15 @@
+{
+  "name": "vhs",
+  "version": "0.10.0",
+  "description": "Terminal session recorder and player - record terminal demos with code",
+  "importType": "wrap",
+  "bin": {
+    "vhs": {
+      "path": "vhs.exe",
+      "description": "Write terminal GIFs as code using a simple scripting language - record, edit and share beautiful terminal demos",
+      "usage": "vhs demo.tape\\nvhs new demo.tape\\nvhs --output demo.gif demo.tape\\nvhs --shell bash demo.tape",
+      "dependencies": "windows"
+    }
+  },
+  "tags": ["terminal", "recorder", "demo", "gif", "video", "scripting", "automation", "charmbracelet"]
+}

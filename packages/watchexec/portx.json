@@ -1,0 +1,15 @@
+{
+  "name": "watchexec",
+  "version": "2.3.2",
+  "description": "Universal file watcher - executes commands on file system changes with smart filtering",
+  "importType": "wrap",
+  "bin": {
+    "watchexec": {
+      "path": "watchexec.exe",
+      "description": "File system watcher that executes commands when files change - supports filters and debouncing",
+      "usage": "watchexec 'echo changed'\\nwatchexec -w src 'cargo build'\\nwatchexec --restart 'python app.py'\\nwatchexec -e js,css 'npm run build'",
+      "dependencies": "windows"
+    }
+  },
+  "tags": ["file-watcher", "automation", "build", "development", "filesystem", "monitor", "rust", "universal"]
+}

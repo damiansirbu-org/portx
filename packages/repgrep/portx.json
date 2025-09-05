@@ -1,0 +1,15 @@
+{
+  "name": "repgrep",
+  "version": "0.16.1",
+  "description": "Interactive replacer for ripgrep - find and replace with live preview",
+  "importType": "wrap",
+  "bin": {
+    "rgr": {
+      "path": "rgr.exe",
+      "description": "Interactive grep-and-replace tool using ripgrep - provides live preview of search and replace operations with confirmation",
+      "usage": "rgr 'pattern' 'replacement'\\nrgr -t py 'old_function' 'new_function'\\nrgr --no-confirm 'bug' 'fix'",
+      "dependencies": "windows"
+    }
+  },
+  "tags": ["search", "replace", "interactive", "ripgrep", "grep", "regex", "find", "refactor"]
+}

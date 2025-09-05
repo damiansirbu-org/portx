@@ -1,0 +1,15 @@
+{
+  "name": "polaris",
+  "version": "10.1.1",
+  "description": "Kubernetes best practices analyzer - validation of cluster configuration",
+  "importType": "wrap",
+  "bin": {
+    "polaris": {
+      "path": "polaris.exe",
+      "description": "Fairwinds Polaris - runs a variety of checks to ensure Kubernetes pods and controllers are configured using best practices",
+      "usage": "polaris audit --audit-path .\\npolaris dashboard\\npolaris webhook --config config.yaml",
+      "dependencies": "windows"
+    }
+  },
+  "tags": ["kubernetes", "k8s", "best-practices", "validation", "security", "policy", "compliance", "fairwinds"]
+}

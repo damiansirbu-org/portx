@@ -1,0 +1,27 @@
+{
+  "name": "detectiteasy",
+  "version": "3.9.0",
+  "description": "PE/ELF packer, compiler, and obfuscation detection toolkit",
+  "importType": "wrap",
+  "bin": {
+    "die": {
+      "path": "die.exe",
+      "description": "GUI packer detector with signature database and entropy analysis",
+      "usage": "die malware.exe # Interactive GUI analysis with detailed results\ndie --scan=all --json suspicious.dll > analysis.json # Full scan with JSON export\ndie --db-path=custom.db sample.bin # Use custom signature database\ndie --scan=entropy,heuristic packed.exe # Multiple scan types\ndie --recursive --mask=*.exe samples/ # Batch recursive scanning",
+      "dependencies": "windows"
+    },
+    "diec": {
+      "path": "diec.exe",
+      "description": "Console packer detector for automated malware analysis pipelines",
+      "usage": "diec --json sample.exe | jq '.detects[].name' # Extract detected packers\ndiec --all --verbose malware.bin # Comprehensive analysis\ndiec --signature-scan --entropy trojan.exe # Combined signature and entropy\ndiec --db-stats # Display signature database statistics\ndiec --scan-time=30 large_binary.exe # Set scan timeout",
+      "dependencies": "windows"
+    },
+    "diel": {
+      "path": "diel.exe",
+      "description": "Lightweight packer detector optimized for speed over completeness",
+      "usage": "diel --fast *.exe # Quick batch scanning mode\ndiel --basic-info --no-scan binary.dll # File info without deep analysis\ndiel --format=csv samples/ > results.csv # CSV output format\ndiel --quick-detect --exit-code packed.exe # Return exit code for scripts\ndiel --minimal-output suspicious.bin # Terse output for automation",
+      "dependencies": "windows"
+    }
+  },
+  "tags": ["security", "analysis", "native", "malware", "reverse-engineering", "forensics"]
+}

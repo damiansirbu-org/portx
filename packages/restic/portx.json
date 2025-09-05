@@ -1,0 +1,15 @@
+{
+  "name": "restic",
+  "version": "0.18.0",
+  "description": "Fast, secure, efficient backup program with cryptographic guarantees",
+  "importType": "wrap",
+  "bin": {
+    "restic": {
+      "path": "restic.exe",
+      "description": "Modern backup program that is fast, efficient and secure - uses cryptography to guarantee confidentiality and integrity of your data with incremental snapshots",
+      "usage": "restic init\\nrestic backup ~/Documents\\nrestic snapshots\\nrestic restore latest ~/restore",
+      "dependencies": "windows"
+    }
+  },
+  "tags": ["backup", "security", "encryption", "snapshots", "sync", "storage", "deduplication", "incremental", "go"]
+}

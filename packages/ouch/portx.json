@@ -1,0 +1,15 @@
+{
+  "name": "ouch",
+  "version": "0.5.1",
+  "description": "Painless compression and decompression tool supporting 20+ formats with automatic format detection and parallel compression",
+  "importType": "wrap",
+  "bin": {
+    "ouch": {
+      "path": "ouch.exe",
+      "description": "Universal compression tool with automatic format detection - supports ZIP, TAR, 7Z, RAR, ZSTD, LZMA, BZIP2, LZ4, and more",
+      "usage": "ouch compress file1.txt file2.txt archive.zip\\nouch decompress archive.zip\\nouch list archive.tar.gz\\nouch compress folder/ backup.tar.xz\\nouch decompress *.zip",
+      "dependencies": "windows"
+    }
+  },
+  "tags": ["compression", "archive", "zip", "tar", "7z", "rar", "extraction", "decompression", "rust"]
+}

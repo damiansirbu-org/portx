@@ -1,0 +1,15 @@
+{
+  "name": "liquibase",
+  "version": "4.29.2",
+  "description": "Database schema change management and version control tool",
+  "importType": "wrap",
+  "bin": {
+    "liquibase": {
+      "path": "liquibase.bat",
+      "description": "Database migration and schema versioning tool",
+      "usage": "liquibase update\\nliquibase --changeLogFile=changelog.xml update\\nliquibase --changeLogFile=changelog.xml rollback --count=1\\nliquibase --changeLogFile=changelog.xml generateChangeLog\\nliquibase --changeLogFile=changelog.xml status",
+      "dependencies": "windows"
+    }
+  },
+  "tags": ["database", "migration", "schema", "java", "devops", "versioning", "changelog", "sql"]
+}

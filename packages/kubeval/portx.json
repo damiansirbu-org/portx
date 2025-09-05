@@ -1,0 +1,15 @@
+{
+  "name": "kubeval",
+  "version": "0.16.1",
+  "description": "Kubernetes YAML validation tool - validate manifests against official schemas",
+  "importType": "wrap",
+  "bin": {
+    "kubeval": {
+      "path": "kubeval.exe",
+      "description": "Validate Kubernetes configuration files against official Kubernetes schemas - supports multiple file formats and strict validation",
+      "usage": "kubeval deployment.yaml\\nkubeval *.yaml\\nkubeval --strict pod.yaml\\nkubeval --kubernetes-version 1.18.0 manifest.yaml",
+      "dependencies": "windows"
+    }
+  },
+  "tags": ["kubernetes", "k8s", "yaml", "validation", "schema", "manifest", "config", "instrumenta"]
+}

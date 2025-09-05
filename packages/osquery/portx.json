@@ -1,0 +1,21 @@
+{
+  "name": "osquery",
+  "version": "1.0.0",
+  "description": "SQL-based operating system instrumentation framework for security monitoring and compliance",
+  "importType": "wrap",
+  "bin": {
+    "osqueryd": {
+      "path": "osqueryd.exe",
+      "description": "Background daemon for continuous system monitoring and log collection using SQL queries",
+      "usage": "osqueryd --config_path=osquery.conf\\nosqueryd --verbose\\nosqueryd --database_path=osquery.db\\nosqueryd --disable_events",
+      "dependencies": "windows"
+    },
+    "osqueryi": {
+      "path": "osqueryi.exe",
+      "description": "Interactive shell for ad-hoc system queries and investigation using SQL syntax",
+      "usage": "osqueryi\\nosqueryi --json 'SELECT * FROM processes;'\\nosqueryi --line 'SELECT name FROM processes;'\\nosqueryi --config_path=config.conf\\nosqueryi '.tables'",
+      "dependencies": "windows"
+    }
+  },
+  "tags": ["sql", "security", "monitoring", "system", "instrumentation", "compliance", "forensics", "cpp"]
+}

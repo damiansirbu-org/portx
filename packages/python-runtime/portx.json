@@ -1,0 +1,21 @@
+{
+  "name": "python-runtime",
+  "version": "3.12.8",
+  "description": "Portable Python 3.12.8 embeddable runtime for PORTX hook execution and scripting",
+  "importType": "wrap",
+  "bin": {
+    "python": {
+      "path": "python.exe",
+      "description": "Python 3.12.8 interpreter with standard library for running scripts and hooks",
+      "usage": "python script.py\\npython -c \"print('Hello World')\"\\npython -m json.tool file.json\\npython --version\\npython -h",
+      "dependencies": "native"
+    },
+    "pythonw": {
+      "path": "pythonw.exe", 
+      "description": "Python 3.12.8 interpreter without console window for GUI applications",
+      "usage": "pythonw gui_script.py\\npythonw -c \"import tkinter; tkinter.Tk().mainloop()\"",
+      "dependencies": "native"
+    }
+  },
+  "tags": ["python", "runtime", "scripting", "hooks", "interpreter", "portable"]
+}

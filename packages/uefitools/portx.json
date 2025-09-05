@@ -1,0 +1,21 @@
+{
+  "name": "uefitools",
+  "version": "1.0.0",
+  "description": "UEFI firmware analysis and manipulation tools for reverse engineering and security research",
+  "importType": "wrap",
+  "bin": {
+    "uefi-extract": {
+      "path": "UEFIExtract.exe",
+      "description": "Extract and analyze UEFI firmware images, modules, and components",
+      "usage": "UEFIExtract firmware.fd\\nUEFIExtract -dump firmware.fd output/\\nUEFIExtract -info firmware.fd\\nUEFIExtract -text firmware.fd",
+      "dependencies": "windows"
+    },
+    "uefi-find": {
+      "path": "UEFIFind.exe",
+      "description": "Search for patterns, strings, and signatures within UEFI firmware images",
+      "usage": "UEFIFind firmware.fd text 'string_to_find'\\nUEFIFind firmware.fd hex '48656C6C6F'\\nUEFIFind firmware.fd guid AAAAAAAA-BBBB-CCCC-DDDD-EEEEEEEEEEEE\\nUEFIFind firmware.fd all",
+      "dependencies": "windows"
+    }
+  },
+  "tags": ["uefi", "firmware", "analysis", "security", "reverse-engineering", "extraction"]
+}

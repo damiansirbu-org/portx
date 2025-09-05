@@ -1,0 +1,15 @@
+{
+  "name": "shellcheck",
+  "version": "1.0.0",
+  "description": "Static analysis tool for shell scripts to find bugs and improve code",
+  "importType": "wrap",
+  "bin": {
+    "shellcheck": {
+      "path": "shellcheck.exe",
+      "description": "Static analysis tool for shell scripts to find bugs and improve code",
+      "usage": "shellcheck script.sh\\nshellcheck -f json script.sh\\nshellcheck -e SC2086 script.sh\\nshellcheck -S style script.sh\\nfind . -name '*.sh' -exec shellcheck {} +",
+      "dependencies": "windows"
+    }
+  },
+  "tags": ["shell", "static", "analysis", "linter", "bash", "scripts", "quality", "haskell"]
+}

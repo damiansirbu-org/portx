@@ -1,0 +1,15 @@
+{
+  "name": "trivy",
+  "version": "0.65.0",
+  "description": "Comprehensive security scanner for vulnerabilities, misconfigurations, secrets, SBOM in containers, Kubernetes, code repositories",
+  "importType": "wrap",
+  "bin": {
+    "trivy": {
+      "path": "trivy.exe",
+      "description": "Security scanner with vulnerability detection, secrets scanning, and misconfiguration analysis for containers and K8s",
+      "usage": "trivy config Dockerfile | trivy image nginx:latest | trivy fs --security-checks vuln,secret .",
+      "dependencies": "native"
+    }
+  },
+  "tags": ["security", "vulnerability", "scanner", "docker", "kubernetes", "secrets"]
+}

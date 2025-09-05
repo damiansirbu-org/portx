@@ -1,0 +1,15 @@
+{
+  "name": "android-utilities",
+  "version": "34.0.5",
+  "description": "Android SDK utility tools for texture compression and heap analysis",
+  "importType": "wrap",
+  "bin": {
+    "etc1tool": {
+      "path": "etc1tool.exe",
+      "description": "ETC1 texture compression for OpenGL ES performance optimization",
+      "usage": "etc1tool texture.png --encode -o compressed.pkm # Compress to ETC1 with header\\netc1tool texture.png --encodeNoHeader -o raw.etc1 # Raw ETC1 data without header\\netc1tool compressed.pkm --decode -o output.png # Decompress to PNG\\netc1tool input.png --encode --showDifference diff.png # Show compression artifacts\\netc1tool batch/*.png --encode # Batch compress all PNG files",
+      "dependencies": "windows"
+    }
+  },
+  "tags": ["android", "profiling", "native", "graphics"]
+}

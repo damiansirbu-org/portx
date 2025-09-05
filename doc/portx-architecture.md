@@ -1160,6 +1160,18 @@ find_tools_on_demand() {
 }
 ```
 
+### Command Resolution Architecture
+
+**Design Decision**: PORTX uses **wrapper-based command resolution** (single directory with 300+ wrappers) instead of extensive PATH modifications (100+ directories), following patterns used by major Linux distributions.
+
+**Performance**:
+```bash
+# Traditional: PATH="/tool1:/tool2:...:tool300+:$PATH"  # 100+ stat() calls
+# PORTX:      PATH="/portx/wrappers:$PATH"              # 1 directory, hash cached
+```
+
+**Shell Optimization**: Modern shells cache command locations after first lookup - subsequent executions use O(1) hash table access, not PATH scanning. Linux `/usr/bin` contains 1000+ executables using this same pattern.
+
 ---
 
 ## Enterprise Deployment Considerations

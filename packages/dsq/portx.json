@@ -1,0 +1,15 @@
+{
+  "name": "dsq",
+  "version": "0.23.0",
+  "description": "Command-line tool for running SQL queries against JSON, CSV, Excel, Parquet, and more",
+  "importType": "wrap",
+  "bin": {
+    "dsq": {
+      "path": "dsq.exe",
+      "description": "DataStation Query - SQL queries against structured data files with automatic schema detection and format conversion",
+      "usage": "dsq data.csv 'SELECT * FROM {} LIMIT 10'\\ndsq data.json 'SELECT COUNT(*) FROM {}'\\ndsq file.xlsx 'SELECT column1, column2 FROM {} WHERE column1 > 100'",
+      "dependencies": "windows"
+    }
+  },
+  "tags": ["sql", "csv", "json", "excel", "parquet", "query", "data", "analysis", "etl"]
+}

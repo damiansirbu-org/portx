@@ -1,0 +1,15 @@
+{
+  "name": "direnv",
+  "version": "2.37.1",
+  "description": "Environment variable management per directory - unclutter your profile",
+  "importType": "wrap",
+  "bin": {
+    "direnv": {
+      "path": "direnv.exe",
+      "description": "Load and unload environment variables depending on current directory - hooks into shell to automatically source .envrc files",
+      "usage": "direnv allow\\ndirenv deny\\ndirenv reload\\ndirenv edit",
+      "dependencies": "windows"
+    }
+  },
+  "tags": ["environment", "variables", "directory", "shell", "configuration", "dotenv", "envrc", "hook"]
+}

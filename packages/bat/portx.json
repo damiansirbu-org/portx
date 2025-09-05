@@ -1,0 +1,15 @@
+{
+  "name": "bat",
+  "version": "0.24.0",
+  "description": "Cat with syntax highlighting, Git integration, and line numbers",
+  "importType": "wrap",
+  "bin": {
+    "bat": {
+      "path": "bat.exe",
+      "description": "Enhanced cat with syntax highlighting and Git change markers",
+      "usage": "bat main.py # Syntax highlighted file display\\nbat -n file.js # Show line numbers only\\nbat -A config.txt # Show all characters including whitespace\\nbat --diff file1.txt file2.txt # Show file differences with highlighting\\nbat --style=plain,header README.md # Minimal style with header only",
+      "dependencies": "windows"
+    }
+  },
+  "tags": ["text", "display", "native", "git", "files", "formatted-output"]
+}

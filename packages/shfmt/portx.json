@@ -1,0 +1,15 @@
+{
+  "name": "shfmt",
+  "version": "1.0.0",
+  "description": "Shell script formatter supporting POSIX sh, Bash, and mksh with customizable styles",
+  "importType": "wrap",
+  "bin": {
+    "shfmt": {
+      "path": "shfmt.exe",
+      "description": "Format and pretty-print shell scripts with consistent style and indentation",
+      "usage": "shfmt script.sh\\nshfmt -w *.sh\\nshfmt -i 4 script.sh\\nshfmt -d script.sh\\nshfmt -ln bash script.sh",
+      "dependencies": "windows"
+    }
+  },
+  "tags": ["formatter", "shell", "bash", "posix", "scripts", "pretty", "print", "go"]
+}

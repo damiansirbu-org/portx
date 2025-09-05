@@ -1,0 +1,15 @@
+{
+  "name": "task",
+  "version": "3.44.1",
+  "description": "Modern task runner and build automation tool with Taskfile.yml support and cross-platform compatibility",
+  "importType": "wrap",
+  "bin": {
+    "task": {
+      "path": "task.exe",
+      "description": "Go-Task - simple task runner and build tool with YAML configuration, parallel execution, and dependency management",
+      "usage": "task --list\\ntask build test deploy\\ntask --parallel build test\\ntask --dry-run deploy\\ntask setup --force",
+      "dependencies": "windows"
+    }
+  },
+  "tags": ["task-runner", "build", "automation", "taskfile", "yaml", "go", "parallel", "ci-cd"]
+}

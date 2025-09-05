@@ -1,0 +1,15 @@
+{
+  "name": "regctl",
+  "version": "0.9.2",
+  "description": "Registry client for copying images and managing container registries with OCI support",
+  "importType": "wrap",
+  "bin": {
+    "regctl": {
+      "path": "regctl.exe",
+      "description": "Registry client for image operations, copying, and registry management with OCI layout support",
+      "usage": "regctl image copy alpine:latest localhost:5000/alpine:latest\\nregctl image export alpine:latest alpine.tar\\nregctl repo ls registry.example.com\\nregctl image manifest alpine:latest\\nregctl image config alpine:latest",
+      "dependencies": "windows"
+    }
+  },
+  "tags": ["container", "registry", "oci", "image", "copy", "client", "docker", "management"]
+}

@@ -1,0 +1,15 @@
+{
+  "name": "hadolint",
+  "version": "2.12.0",
+  "description": "Dockerfile linter, validate inline bash, written in Haskell - Best practices validation and security checks",
+  "importType": "wrap",
+  "bin": {
+    "hadolint": {
+      "path": "hadolint.exe",
+      "description": "Dockerfile linter with best practices validation, security checks, and bash linting support",
+      "usage": "hadolint Dockerfile | hadolint --config .hadolint.yaml Dockerfile | hadolint --ignore DL3008 Dockerfile",
+      "dependencies": "native"
+    }
+  },
+  "tags": ["dockerfile", "linter", "docker", "container", "security", "best-practices"]
+}
