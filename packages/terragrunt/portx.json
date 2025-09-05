@@ -1,0 +1,15 @@
+{
+  "name": "terragrunt",
+  "version": "0.86.2",
+  "description": "Thin wrapper for Terraform that provides extra tools for working with multiple Terraform modules",
+  "importType": "wrap",
+  "bin": {
+    "terragrunt": {
+      "path": "terragrunt.exe",
+      "description": "Keep your Terraform code DRY - provides configuration management, remote state management, and dependency handling for multiple Terraform modules",
+      "usage": "terragrunt init\\nterragrunt plan\\nterragrunt apply\\nterragrunt run-all apply",
+      "dependencies": "windows"
+    }
+  },
+  "tags": ["terraform", "infrastructure", "iac", "devops", "automation", "deployment", "modules", "dry", "gruntwork"]
+}

@@ -1,0 +1,15 @@
+{
+  "name": "aria2",
+  "version": "1.37.0",
+  "description": "Lightweight multi-protocol & multi-source command-line download utility",
+  "importType": "wrap",
+  "bin": {
+    "aria2c": {
+      "path": "aria2c.exe",
+      "description": "Ultra fast download utility with support for HTTP/HTTPS, FTP, SFTP, BitTorrent, and Metalink - supports multi-connection downloads and resuming",
+      "usage": "aria2c https://example.com/file.zip\\naria2c -x 16 -s 16 https://example.com/largefile.zip\\naria2c file.torrent\\naria2c file.metalink",
+      "dependencies": "windows"
+    }
+  },
+  "tags": ["download", "torrent", "http", "ftp", "metalink", "multiconnection", "resume", "cli", "utility"]
+}

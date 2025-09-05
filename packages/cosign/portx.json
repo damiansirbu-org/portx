@@ -1,0 +1,15 @@
+{
+  "name": "cosign",
+  "version": "2.5.3",
+  "description": "Container image signing and verification tool with keyless signing and OIDC support",
+  "importType": "wrap",
+  "bin": {
+    "cosign": {
+      "path": "cosign.exe",
+      "description": "Container signing, verification and storage in OCI registry with keyless authentication and policy enforcement",
+      "usage": "cosign sign --yes myimage:latest\\ncosign verify --key cosign.pub myimage:latest\\ncosign verify-attestation --key cosign.pub --type slsaprovenance myimage:latest\\ncosign generate-key-pair\\ncosign triangulate myimage:latest",
+      "dependencies": "windows"
+    }
+  },
+  "tags": ["container", "signing", "security", "verification", "oci", "attestation", "slsa", "keyless"]
+}

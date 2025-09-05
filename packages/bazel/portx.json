@@ -1,0 +1,15 @@
+{
+  "name": "bazel",
+  "version": "8.4.0",
+  "description": "Google's scalable build system for large codebases with distributed builds and advanced caching",
+  "importType": "wrap",
+  "bin": {
+    "bazel": {
+      "path": "bazel.exe",
+      "description": "Extensible build system supporting multiple languages with hermetic builds, remote execution, and incremental compilation",
+      "usage": "bazel build //... # Build all targets\\nbazel test //... # Run all tests\\nbazel run //main:hello # Run specific target\\nbazel query 'deps(//main:hello)' # Query dependencies\\nbazel clean --expunge # Clean all build artifacts",
+      "dependencies": "windows"
+    }
+  },
+  "tags": ["build", "scalable", "google", "distributed", "caching", "hermetic", "enterprise", "monorepo"]
+}

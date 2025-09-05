@@ -1,0 +1,15 @@
+{
+  "name": "yozefu",
+  "version": "0.0.14",
+  "description": "Interactive terminal user interface (TUI) for exploring Kafka cluster data with real-time access and filtering",
+  "importType": "wrap",
+  "bin": {
+    "yozefu": {
+      "path": "bin/yozefu.exe",
+      "description": "Interactive TUI application for exploring data of a Kafka cluster with SQL-like filtering",
+      "usage": "yozefu --broker localhost:9092 | yozefu --config config.toml | yozefu --headless --query 'SELECT * FROM topic'",
+      "dependencies": "windows"
+    }
+  },
+  "tags": ["kafka", "streaming", "tui", "interactive", "real-time", "filtering", "sql-like", "apache-kafka"]
+}

@@ -1,0 +1,15 @@
+{
+  "name": "bandwhich",
+  "version": "0.22.2",
+  "description": "Real-time network bandwidth monitoring per process and connection",
+  "importType": "wrap",
+  "bin": {
+    "bandwhich": {
+      "path": "bandwhich.exe",
+      "description": "Real-time network monitor with process-level bandwidth tracking",
+      "usage": "bandwhich # Monitor all network interfaces with process details\\nbandwhich -i Wi-Fi # Monitor specific network interface\\nbandwhich -r 500 # Refresh display every 500ms\\nbandwhich --addresses # Show remote IP addresses and ports\\nbandwhich --no-resolve # Skip DNS resolution for faster display",
+      "dependencies": "windows"
+    }
+  },
+  "tags": ["network", "monitor", "native", "system", "real-time", "bandwidth"]
+}

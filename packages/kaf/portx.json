@@ -1,0 +1,15 @@
+{
+  "name": "kaf",
+  "version": "0.2.13",
+  "description": "Modern CLI for Apache Kafka written in Go - kubectl-style interface with context management and interactive features",
+  "importType": "wrap",
+  "bin": {
+    "kaf": {
+      "path": "bin/kaf.exe",
+      "description": "Modern Kafka CLI with context management for multi-environment cluster operations",
+      "usage": "kaf config add-cluster local -b localhost:9092 | kaf topics | kaf consume topic --from-beginning",
+      "dependencies": "windows"
+    }
+  },
+  "tags": ["kafka", "streaming", "consumer", "producer", "context-management", "multi-cluster", "golang", "apache-kafka"]
+}

@@ -1,0 +1,15 @@
+{
+  "name": "nerdctl",
+  "version": "2.1.3",
+  "description": "Docker-compatible CLI for containerd with rootless mode and experimental Windows container support",
+  "importType": "wrap",
+  "bin": {
+    "nerdctl": {
+      "path": "nerdctl.exe",
+      "description": "ContaiNERD CTL - Docker-compatible CLI for containerd with compose, rootless, eStargz, OCIcrypt support",
+      "usage": "nerdctl run -it --rm alpine:latest sh\\nnerdctl build -t myapp .\\nnerdctl compose up -d\\nnerdctl container prune -f\\nnerdctl system info",
+      "dependencies": "windows"
+    }
+  },
+  "tags": ["container", "containerd", "docker", "cli", "rootless", "compose", "oci", "cncf"]
+}

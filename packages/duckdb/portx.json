@@ -1,0 +1,15 @@
+{
+  "name": "duckdb",
+  "version": "1.3.2",
+  "description": "In-process analytical SQL database management system for OLAP workloads",
+  "importType": "wrap",
+  "bin": {
+    "duckdb": {
+      "path": "duckdb.exe",
+      "description": "Fast analytical SQL database with rich SQL syntax - single dependency-free executable for CSV/JSON/Parquet analysis",
+      "usage": "duckdb\\nduckdb database.db\\nduckdb :memory: -c \"SELECT * FROM 'data.csv'\"\\nduckdb -c \"SELECT COUNT(*) FROM 'data.parquet'\"",
+      "dependencies": "windows"
+    }
+  },
+  "tags": ["database", "sql", "analytics", "olap", "csv", "json", "parquet", "embedded", "columnar"]
+}

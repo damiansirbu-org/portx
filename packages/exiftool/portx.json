@@ -1,0 +1,21 @@
+{
+  "name": "exiftool",
+  "version": "1.0.0",
+  "description": "Comprehensive metadata reader/writer for images, videos, and documents",
+  "importType": "wrap",
+  "bin": {
+    "exiftool": {
+      "path": "exiftool.exe",
+      "description": "Comprehensive metadata reader/writer for images, videos, and documents",
+      "usage": "exiftool image.jpg # Read all metadata\\nexiftool -GPS* photo.jpg # Show GPS data\\nexiftool -overwrite_original -all= secure.jpg # Strip metadata\\nexiftool -r -ext jpg -GPSLatitude . # Find geotagged images",
+      "dependencies": "windows"
+    },
+    "exiftool-k": {
+      "path": "exiftool(-k).exe",
+      "description": "ExifTool with -k option to keep console window open on Windows",
+      "usage": "\\\"exiftool(-k).exe\\\" image.jpg # View metadata with persistent window\\n\\\"exiftool(-k).exe\\\" -all= clean_image.jpg # Remove all metadata",
+      "dependencies": "windows"
+    }
+  },
+  "tags": ["metadata", "exif", "images", "videos", "documents", "gps", "forensics", "perl"]
+}

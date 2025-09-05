@@ -1,0 +1,81 @@
+{
+  "name": "qsv",
+  "version": "1.0.0",
+  "description": "Ultra-fast CSV data processing toolkit with 50+ commands and Python integration",
+  "importType": "wrap",
+  "bin": {
+    "qsv": {
+      "path": "qsv.exe",
+      "description": "Ultra-fast CSV toolkit with 50+ commands for data processing",
+      "usage": "qsv stats data.csv\\nqsv select 1,3,5 data.csv\\nqsv filter 'age > 30' data.csv\\nqsv join id file1.csv file2.csv\\nqsv frequency column data.csv",
+      "dependencies": "windows"
+    },
+    "qsvdp": {
+      "path": "qsvdp.exe",
+      "description": "QSV DataPusher version with enhanced data uploading and API integration capabilities",
+      "usage": "qsvdp upload data.csv --api-endpoint https://api.example.com\\nqsvdp validate schema.json data.csv\\nqsvdp transform rules.json data.csv",
+      "dependencies": "windows"
+    },
+    "qsvlite": {
+      "path": "qsvlite.exe",
+      "description": "Lightweight version of QSV with core functionality for basic CSV operations",
+      "usage": "qsvlite stats data.csv\\nqsvlite select 1,3 data.csv\\nqsvlite headers data.csv\\nqsvlite count data.csv",
+      "dependencies": "windows"
+    },
+    "qsvlite-nightly": {
+      "path": "qsvlite_nightly.exe",
+      "description": "Nightly development build of QSV Lite with latest experimental features",
+      "usage": "qsvlite_nightly stats --experimental data.csv\\nqsvlite_nightly beta-command data.csv\\nqsvlite_nightly --version",
+      "dependencies": "windows"
+    },
+    "qsvp": {
+      "path": "qsvp.exe",
+      "description": "QSV Pro version with advanced analytics and enterprise features",
+      "usage": "qsvp analyze --advanced data.csv\\nqsvp ml-predict model.json data.csv\\nqsvp enterprise-export data.csv",
+      "dependencies": "windows"
+    },
+    "qsvpdp": {
+      "path": "qsvpdp.exe",
+      "description": "QSV Pro DataPusher combining enterprise features with API integration",
+      "usage": "qsvpdp enterprise-upload data.csv --secure-api https://enterprise.api.com\\nqsvpdp audit-trail data.csv\\nqsvpdp compliance-check data.csv",
+      "dependencies": "windows"
+    },
+    "qsvplite": {
+      "path": "qsvplite.exe",
+      "description": "QSV Pro Lite version with balanced features and performance",
+      "usage": "qsvplite pro-stats data.csv\\nqsvplite advanced-join file1.csv file2.csv\\nqsvplite optimize data.csv",
+      "dependencies": "windows"
+    },
+    "qsvpy310": {
+      "path": "qsvpy310.exe",
+      "description": "QSV with embedded Python 3.10 for advanced data processing and scripting",
+      "usage": "qsvpy310 py 'df.describe()' data.csv\\nqsvpy310 script analysis.py data.csv\\nqsvpy310 py 'import numpy; df.mean()' data.csv",
+      "dependencies": "windows"
+    },
+    "qsvpy311": {
+      "path": "qsvpy311.exe",
+      "description": "QSV with embedded Python 3.11 offering improved performance for data science workflows",
+      "usage": "qsvpy311 py 'df.groupby(\"category\").sum()' data.csv\\nqsvpy311 ml-train model.py data.csv\\nqsvpy311 py 'df.plot()' data.csv",
+      "dependencies": "windows"
+    },
+    "qsvpy312": {
+      "path": "qsvpy312.exe",
+      "description": "QSV with embedded Python 3.12 featuring latest Python optimizations and syntax",
+      "usage": "qsvpy312 py 'match df.shape[0]: case n if n > 1000: print(\"Large dataset\")' data.csv\\nqsvpy312 py 'df.query(\"age > @threshold\")' data.csv\\nqsvpy312 async-process data.csv",
+      "dependencies": "windows"
+    },
+    "qsvpy313": {
+      "path": "qsvpy313.exe",
+      "description": "QSV with embedded Python 3.13 beta featuring cutting-edge Python developments",
+      "usage": "qsvpy313 py --experimental 'df.new_feature()' data.csv\\nqsvpy313 py 'df.enhanced_typing()' data.csv\\nqsvpy313 beta-analysis data.csv",
+      "dependencies": "windows"
+    },
+    "qsv-nightly": {
+      "path": "qsv_nightly.exe",
+      "description": "Nightly development build of QSV with latest features and experimental commands",
+      "usage": "qsv_nightly experimental-command data.csv\\nqsv_nightly beta-stats data.csv\\nqsv_nightly --nightly-info\\nqsv_nightly bleeding-edge data.csv",
+      "dependencies": "windows"
+    }
+  },
+  "tags": ["csv", "data", "processing", "python", "analytics", "fast", "toolkit", "rust"]
+}

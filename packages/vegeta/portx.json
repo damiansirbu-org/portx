@@ -1,0 +1,15 @@
+{
+  "name": "vegeta",
+  "version": "12.12.0",
+  "description": "HTTP load testing tool and library written in Go - versatile and scriptable",
+  "importType": "wrap",
+  "bin": {
+    "vegeta": {
+      "path": "vegeta.exe",
+      "description": "Versatile HTTP load testing tool with attack/report modes - supports custom headers, bodies, and detailed metrics reporting",
+      "usage": "echo 'GET http://localhost:8080' | vegeta attack -rate=100 -duration=30s | vegeta report\\nvegeta attack -targets=targets.txt -rate=50 -duration=10s | vegeta plot > plot.html",
+      "dependencies": "windows"
+    }
+  },
+  "tags": ["load", "testing", "http", "benchmark", "performance", "go", "attack", "report", "metrics"]
+}

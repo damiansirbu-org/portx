@@ -1,0 +1,15 @@
+{
+  "name": "eza",
+  "version": "1.0.0",
+  "description": "Modern ls replacement with Git awareness, icons, and tree view",
+  "importType": "wrap",
+  "bin": {
+    "eza": {
+      "path": "eza.exe",
+      "description": "Modern ls replacement with Git awareness, icons, and tree view",
+      "usage": "eza -la # Long listing with hidden files\\neza --tree --level=2 # Tree view with depth\\neza --git # Show Git status\\neza --icons --color=always # Colorized with icons",
+      "dependencies": "windows"
+    }
+  },
+  "tags": ["ls", "files", "native", "git", "icons", "tree", "listing", "colorized"]
+}

@@ -1,0 +1,21 @@
+{
+  "name": "python-micromamba",
+  "version": "1.5.8",
+  "description": "Fast, lightweight conda-compatible package manager for Python environments",
+  "importType": "wrap",
+  "bin": {
+    "conda": {
+      "path": "conda.exe",
+      "description": "Cross-platform package manager for Python and R ecosystems, fully self-contained executable",
+      "usage": "conda create -n myenv python=3.11\\nconda install numpy pandas scipy\\nconda list\\nconda env list\\nconda activate myenv\\nconda deactivate\\nconda update --all\\nconda remove package-name",
+      "dependencies": "native"
+    },
+    "micromamba": {
+      "path": "micromamba.exe", 
+      "description": "Fast, lightweight conda-compatible package manager with minimal dependencies",
+      "usage": "micromamba create -n myenv python=3.11\\nmicromamba install -n myenv numpy pandas\\nmicromamba activate myenv\\nmicromamba list\\nmicromamba info\\nmicromamba env list\\nmicromamba update --all\\nmicromamba clean --all",
+      "dependencies": "native"
+    }
+  },
+  "tags": ["python", "packages", "conda", "environment", "development", "mamba"]
+}

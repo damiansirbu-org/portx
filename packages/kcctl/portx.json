@@ -1,0 +1,15 @@
+{
+  "name": "kcctl",
+  "version": "1.0.0",
+  "description": "Modern and intuitive command line client for Kafka Connect with kubectl-inspired interface and native performance",
+  "importType": "wrap",
+  "bin": {
+    "kcctl": {
+      "path": "bin/kcctl.exe",
+      "description": "Streamlined Kafka Connect management tool with kubectl-like experience and Quarkus native performance",
+      "usage": "kcctl get connectors | kcctl describe connector my-connector | kcctl apply -f connector.yaml",
+      "dependencies": "windows"
+    }
+  },
+  "tags": ["kafka", "kafka-connect", "streaming", "connectors", "management", "kubectl", "quarkus", "apache-kafka"]
+}

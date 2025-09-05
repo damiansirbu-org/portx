@@ -1,0 +1,15 @@
+{
+  "name": "tre",
+  "version": "0.4.0",
+  "description": "Enhanced tree command with editor aliases and improved features",
+  "importType": "wrap",
+  "bin": {
+    "tre": {
+      "path": "tre.exe",
+      "description": "Tree command improved with editor aliases, portable paths and deterministic output",
+      "usage": "tre\\ntre -e (editor aliases)\\ntre -p (portable)\\ntre -E pattern (exclude)\\ntre -L 3 (depth limit)",
+      "dependencies": "windows"
+    }
+  },
+  "tags": ["tree", "directory", "editor", "aliases", "rust", "filesystem", "navigation", "improved"]
+}

@@ -1,0 +1,15 @@
+{
+  "name": "mdcat",
+  "version": "2.7.1",
+  "description": "Terminal markdown viewer with syntax highlighting and image support",
+  "importType": "wrap",
+  "bin": {
+    "mdcat": {
+      "path": "mdcat.exe",
+      "description": "Cat for markdown - display markdown files in terminal with syntax highlighting, tables, and images",
+      "usage": "mdcat README.md\\nmdcat --help\\nmdcat --local file.md\\ncat file.md | mdcat",
+      "dependencies": "windows"
+    }
+  },
+  "tags": ["markdown", "viewer", "terminal", "syntax", "highlighting", "images", "rust", "cat"]
+}

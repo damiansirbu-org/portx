@@ -1,0 +1,15 @@
+{
+  "name": "skopeo",
+  "version": "1.0.0",
+  "description": "Container image inspection and manipulation tool without requiring a container runtime",
+  "importType": "wrap",
+  "bin": {
+    "skopeo": {
+      "path": "skopeo.exe",
+      "description": "Inspect, copy, and manage container images across registries without Docker daemon",
+      "usage": "skopeo inspect docker://alpine:latest\\nskopeo copy docker://alpine:latest oci:./alpine\\nskopeo list-tags docker://nginx\\nskopeo delete docker://registry.com/image:tag\\nskopeo sync --src docker --dest dir registry.com/repo ./backup",
+      "dependencies": "windows"
+    }
+  },
+  "tags": ["container", "image", "docker", "registry", "inspection", "manipulation", "oci", "go"]
+}

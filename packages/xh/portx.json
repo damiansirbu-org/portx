@@ -1,0 +1,15 @@
+{
+  "name": "xh",
+  "version": "0.24.1",
+  "description": "Fast and friendly HTTP client written in Rust - HTTPie-compatible with improved performance",
+  "importType": "wrap",
+  "bin": {
+    "xh": {
+      "path": "xh.exe",
+      "description": "Friendly and fast tool for sending HTTP requests with HTTPie-compatible syntax and curl translation",
+      "usage": "xh GET httpbin.org/json\\nxh POST httpbin.org/post name=John age:=25\\nxh --print=HhBb GET httpbin.org/headers\\nxh --curl GET httpbin.org/json",
+      "dependencies": "windows"
+    }
+  },
+  "tags": ["http", "client", "curl", "httpie", "rust", "cli", "rest", "api"]
+}

@@ -1,0 +1,38 @@
+{
+  "name": "treesitter",
+  "version": "1.0.0",
+  "description": "Tree-sitter CLI for parsing and analyzing source code with incremental parsing",
+  "importType": "wrap",
+  "bin": {
+    "treesitter-parse": {
+      "path": "treesitter-parse.cmd",
+      "description": "Self-contained tree-sitter parser with embedded Python + 26 languages (NO external dependencies)",
+      "usage": "treesitter-parse python script.py # Parse Python with structure analysis\\ntreesitter-parse bash script.sh # Parse bash script\\ntreesitter-parse yaml config.yaml # Parse YAML configuration\\ntreesitter-parse rust main.rs # Parse Rust code"
+    },
+    "treesitter-parse-fallback": {
+      "path": "treesitter-parse-fallback.cmd", 
+      "description": "Fallback parser (requires system Python or micromamba)",
+      "usage": "treesitter-parse-fallback python script.py # Use if embedded version fails"
+    }
+  },
+  "tags": [
+    "code",
+    "text", 
+    "files",
+    "syntax-trees",
+    "formatted-output",
+    "analyze",
+    "parse",
+    "extract",
+    "query",
+    "development",
+    "parsing",
+    "ast",
+    "cli",
+    "fast",
+    "cross-platform",
+    "incremental",
+    "language-agnostic",
+    "highlighting"
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "name": "viu",
+  "version": "1.5.1",
+  "description": "Terminal image viewer with support for multiple formats and transparency",
+  "importType": "wrap",
+  "bin": {
+    "viu": {
+      "path": "viu.exe",
+      "description": "Simple terminal image viewer written in Rust - displays images directly in terminal with ANSI colors and Unicode block characters",
+      "usage": "viu image.png\\nviu -t image.png\\nviu --width 80 image.jpg\\nviu --static image.gif",
+      "dependencies": "windows"
+    }
+  },
+  "tags": ["image", "viewer", "terminal", "ansi", "unicode", "rust", "display", "graphics"]
+}

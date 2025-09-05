@@ -1,0 +1,15 @@
+{
+  "name": "miller",
+  "version": "6.15.0",
+  "description": "Swiss Army chainsaw for CSV, TSV, JSON data - like awk, sed, cut, join, sort for name-indexed data with 40+ built-in processing verbs",
+  "importType": "wrap",
+  "bin": {
+    "mlr": {
+      "path": "mlr.exe",
+      "description": "Powerful data processing tool combining awk, sed, cut, join, sort functionality for CSV, TSV, JSON with 40+ built-in verbs",
+      "usage": "mlr --csv cut -f name,age data.csv\\nmlr --icsv --ojson cat data.csv\\nmlr --csv stats1 -a sum -f sales data.csv\\nmlr --csv filter '$age > 25' people.csv\\nmlr --csv put '$bonus = $salary * 0.1' employees.csv",
+      "dependencies": "windows"
+    }
+  },
+  "tags": ["csv", "tsv", "json", "data", "processing", "awk", "sed", "statistics", "converter", "go"]
+}

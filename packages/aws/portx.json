@@ -1,0 +1,15 @@
+{
+  "name": "aws",
+  "version": "2.7.13",
+  "description": "AWS CLI v2 with enhanced performance, security, and SSO support",
+  "importType": "wrap",
+  "bin": {
+    "aws": {
+      "path": "aws.exe",
+      "description": "AWS CLI v2 with improved JSON handling and SSO authentication",
+      "usage": "aws configure sso # Setup SSO authentication\\naws s3 sync ./local s3://bucket/path --delete # Sync with deletion\\naws ec2 describe-instances --filters Name=instance-state-name,Values=running --query 'Reservations[].Instances[].[InstanceId,PublicDnsName]' --output table\\naws cloudformation deploy --template-file template.yaml --stack-name my-stack --capabilities CAPABILITY_IAM\\naws logs tail /aws/lambda/function-name --follow # Real-time log tailing",
+      "dependencies": "windows"
+    }
+  },
+  "tags": ["cloud", "aws", "native", "cli"]
+}

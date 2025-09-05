@@ -1,0 +1,15 @@
+{
+  "name": "yarn",
+  "version": "1.22.22",
+  "description": "Fast, reliable, and secure dependency management for JavaScript projects",
+  "importType": "wrap",
+  "bin": {
+    "yarn": {
+      "path": "yarn.cmd",
+      "description": "JavaScript package manager with improved performance and security",
+      "usage": "yarn add <package>\\nyarn install\\nyarn add express\\nyarn add --dev webpack\\nyarn remove lodash\\nyarn upgrade\\nyarn run build\\nyarn global add create-react-app",
+      "dependencies": "windows"
+    }
+  },
+  "tags": ["package-manager", "javascript", "nodejs", "npm", "dependency", "web", "development", "javascript"]
+}

@@ -1,0 +1,15 @@
+{
+  "name": "jo",
+  "version": "1.9",
+  "description": "JSON output generator from shell - create JSON objects from command line arguments",
+  "importType": "wrap",
+  "bin": {
+    "jo": {
+      "path": "jo.exe",
+      "description": "Simple command-line tool to create JSON objects and arrays from shell arguments",
+      "usage": "jo name=John age:=30 married:=true\\njo -p foo=bar baz:=123\\njo -a apple banana cherry\\necho key=value | jo",
+      "dependencies": "windows"
+    }
+  },
+  "tags": ["json", "generator", "command-line", "shell", "output", "creation", "objects", "arrays"]
+}

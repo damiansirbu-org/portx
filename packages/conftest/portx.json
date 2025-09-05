@@ -1,0 +1,15 @@
+{
+  "name": "conftest",
+  "version": "0.62.0",
+  "description": "Test your configuration files using Open Policy Agent (Rego)",
+  "importType": "wrap",
+  "bin": {
+    "conftest": {
+      "path": "conftest.exe",
+      "description": "Write tests against structured configuration data using Rego - supports Kubernetes manifests, Dockerfiles, Terraform plans, and more",
+      "usage": "conftest test deployment.yaml\\nconftest verify --policy policy/ manifests/\\nconftest test --update git::https://example.com/policy.git",
+      "dependencies": "windows"
+    }
+  },
+  "tags": ["opa", "policy", "testing", "rego", "kubernetes", "docker", "terraform", "configuration", "validation"]
+}

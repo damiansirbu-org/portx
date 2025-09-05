@@ -1,0 +1,15 @@
+{
+  "name": "tealdeer",
+  "version": "1.7.2",
+  "description": "Fast tldr implementation with syntax highlighting - blazingly fast command documentation",
+  "importType": "wrap",
+  "bin": {
+    "tldr": {
+      "path": "tealdeer.exe",
+      "description": "Lightning-fast tldr client in Rust - get quick examples for any command with beautiful syntax highlighting",
+      "usage": "tldr ls\\ntldr --update\\ntldr --list\\ntldr -p linux tar\\ntldr --random",
+      "dependencies": "windows"
+    }
+  },
+  "tags": ["tldr", "documentation", "examples", "help", "rust", "fast", "highlighting", "manual"]
+}

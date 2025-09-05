@@ -1,0 +1,21 @@
+{
+  "name": "pueue",
+  "version": "4.0.1",
+  "description": "Command-line task management for long-running processes with queue system",
+  "importType": "wrap",
+  "bin": {
+    "pueue": {
+      "path": "pueue.exe",
+      "description": "Client for managing command queue - add, pause, remove, and monitor long-running tasks with process management",
+      "usage": "pueue add 'long-running-command'\\npueue status\\npueue log\\npueue pause 1",
+      "dependencies": "windows"
+    },
+    "pueued": {
+      "path": "pueued.exe",
+      "description": "Daemon process that manages the task queue - handles process execution, logging, and state management",
+      "usage": "pueued\\npueued -d",
+      "dependencies": "windows"
+    }
+  },
+  "tags": ["task", "queue", "process", "management", "daemon", "jobs", "scheduler", "background", "rust"]
+}

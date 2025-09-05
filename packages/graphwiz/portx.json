@@ -1,0 +1,27 @@
+{
+  "name": "graphviz",
+  "version": "12.1.2",
+  "description": "Graph visualization software for creating diagrams from textual descriptions",
+  "importType": "wrap",
+  "bin": {
+    "dot": {
+      "path": "bin/dot.exe",
+      "description": "Hierarchical or layered drawings of directed graphs",
+      "usage": "dot -Tpng input.dot -o output.png",
+      "dependencies": "windows"
+    },
+    "neato": {
+      "path": "bin/neato.exe", 
+      "description": "Spring model layouts for undirected graphs",
+      "usage": "neato -Tpng input.dot -o output.png",
+      "dependencies": "windows"
+    },
+    "circo": {
+      "path": "bin/circo.exe",
+      "description": "Circular layout for graphs", 
+      "usage": "circo -Tpng input.dot -o output.png",
+      "dependencies": "windows"
+    }
+  },
+  "tags": ["visualization", "graph", "diagram", "native", "plotting", "dot", "layout", "network"]
+}

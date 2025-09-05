@@ -1,0 +1,21 @@
+{
+  "name": "nircmd",
+  "version": "1.0.0",
+  "description": "Multi-purpose command-line utility for Windows system administration and automation",
+  "importType": "wrap",
+  "bin": {
+    "nircmd": {
+      "path": "nircmd.exe",
+      "description": "Comprehensive command-line tool for Windows operations like window management, system control, and registry manipulation",
+      "usage": "nircmd win hide title \"Calculator\"\\nnircmd setvolume 0.8\\nnircmd cdrom open\\nnircmd monitor off\\nnircmd exitwin shutdown",
+      "dependencies": "windows"
+    },
+    "nircmdc": {
+      "path": "nircmdc.exe",
+      "description": "Console version of NirCmd with enhanced output and scripting capabilities",
+      "usage": "nircmdc win max process \"notepad.exe\"\\nnircmdc setdefaultsounddevice \"Speakers\"\\nnircmdc exec show \"C:\\\\Program Files\"\\nnircmdc killprocess \"process.exe\"",
+      "dependencies": "windows"
+    }
+  },
+  "tags": ["windows", "system", "administration", "automation", "utility", "management", "registry", "c"]
+}

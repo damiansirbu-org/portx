@@ -1,0 +1,15 @@
+{
+  "name": "sd",
+  "version": "1.0.0",
+  "description": "Intuitive find & replace CLI with regex support and safe preview mode",
+  "importType": "wrap",
+  "bin": {
+    "sd": {
+      "path": "sd.exe",
+      "description": "Fast and intuitive find & replace tool with regex support, safer than sed",
+      "usage": "sd 'old_text' 'new_text' file.txt\\nsd '\\d+' 'NUMBER' *.txt\\nsd --preview 'foo' 'bar' file.txt\\nsd -s 'literal.string' 'replacement' file.txt",
+      "dependencies": "windows"
+    }
+  },
+  "tags": ["find", "replace", "regex", "text", "processing", "sed", "utility", "rust"]
+}

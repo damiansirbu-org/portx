@@ -1,0 +1,15 @@
+{
+  "name": "yazi",
+  "version": "25.5.31",
+  "description": "Blazing fast terminal file manager written in Rust, based on async I/O",
+  "importType": "wrap",
+  "bin": {
+    "yazi": {
+      "path": "yazi.exe",
+      "description": "Async terminal file manager with image preview, fuzzy search, and customizable interface",
+      "usage": "yazi\\nyazi --help\\nyazi /path/to/directory\\nyazi --debug",
+      "dependencies": "windows"
+    }
+  },
+  "tags": ["file-manager", "terminal", "async", "rust", "blazing-fast", "TUI", "filesystem", "navigation"]
+}

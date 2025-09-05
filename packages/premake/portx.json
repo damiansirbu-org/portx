@@ -1,0 +1,15 @@
+{
+  "name": "premake",
+  "version": "5.0.0",
+  "description": "Cross-platform build configuration tool that generates project files for multiple IDEs and build systems",
+  "importType": "wrap",
+  "bin": {
+    "premake": {
+      "path": "premake.exe",
+      "description": "Build script generator supporting Visual Studio, Xcode, makefiles, and more from Lua configuration scripts",
+      "usage": "premake5 vs2022 # Generate Visual Studio 2022 solution\npremake5 gmake2 # Generate GNU makefiles\npremake5 --help # Show available actions and options\npremake5 xcode4 # Generate Xcode project\npremake5 clean # Clean generated files",
+      "dependencies": "windows"
+    }
+  },
+  "tags": ["build", "generator", "cross-platform", "visual-studio", "xcode", "makefiles", "lua", "ide"]
+}

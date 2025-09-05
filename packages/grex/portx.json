@@ -1,0 +1,15 @@
+{
+  "name": "grex",
+  "version": "1.4.5",
+  "description": "Generate regular expressions from user examples - intelligent regex pattern creation",
+  "importType": "wrap",
+  "bin": {
+    "grex": {
+      "path": "grex.exe",
+      "description": "Smart regex generator that creates patterns from example strings - no more manual regex writing",
+      "usage": "grex 'hello' 'world'\\ngrex -i 'Hello' 'HELLO' 'hello'\\ngrex --words 'I love' 'You love'\\ngrex --escape 'a.b' 'c.d'",
+      "dependencies": "windows"
+    }
+  },
+  "tags": ["regex", "pattern", "generation", "examples", "text-processing", "rust", "automatic", "intelligent"]
+}

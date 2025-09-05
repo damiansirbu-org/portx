@@ -1,0 +1,15 @@
+{
+  "name": "mage",
+  "version": "1.15.0",
+  "description": "Build tool using Go - like Make but uses Go code instead of scripts",
+  "importType": "wrap",
+  "bin": {
+    "mage": {
+      "path": "mage.exe",
+      "description": "Go-based build tool - write build targets in Go instead of shell scripts with automatic dependency management",
+      "usage": "mage\\nmage -l\\nmage build\\nmage test\\nmage -v clean",
+      "dependencies": "windows"
+    }
+  },
+  "tags": ["build", "automation", "go", "makefile", "tasks", "dependency", "compilation", "development"]
+}

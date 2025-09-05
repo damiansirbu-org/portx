@@ -1,0 +1,21 @@
+{
+  "name": "figlet",
+  "version": "1.0.3",
+  "description": "ASCII art text generator with multiple font styles and text formatting options",
+  "importType": "wrap",
+  "bin": {
+    "figlet": {
+      "path": "figlet.exe",
+      "description": "Display large characters made up of ordinary screen characters - create ASCII art text with various fonts and styles",
+      "usage": "figlet Hello World\\nfiglet -f big 'Big Text'\\nfiglet -f block 'BLOCK TEXT'\\necho 'Text' | figlet",
+      "dependencies": "windows"
+    },
+    "chkfont": {
+      "path": "chkfont.exe",
+      "description": "Check and validate FIGlet font files for compatibility and correctness",
+      "usage": "chkfont fonts/standard.flf\\nchkfont fonts/*.flf",
+      "dependencies": "windows"
+    }
+  },
+  "tags": ["ascii", "art", "text", "generator", "banner", "fonts", "figlet", "display"]
+}

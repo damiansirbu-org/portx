@@ -1,0 +1,15 @@
+{
+  "name": "socat",
+  "version": "1.7.3.2",
+  "description": "Multipurpose relay and network socket tool - universal data connector",
+  "importType": "wrap",
+  "bin": {
+    "socat": {
+      "path": "socat.exe",
+      "description": "Netcat on steroids - establishes two bidirectional byte streams and transfers data between them with support for files, pipes, devices, sockets, SSL, proxy connections",
+      "usage": "socat TCP4-LISTEN:80,fork TCP4:192.168.1.10:80\\nsocat - TCP4:www.example.com:80\\nsocat TCP4-LISTEN:8080,reuseaddr,fork EXEC:cmd.exe,pipes",
+      "dependencies": "windows"
+    }
+  },
+  "tags": ["network", "relay", "socket", "tunnel", "proxy", "tcp", "udp", "ssl", "netcat", "connector"]
+}

@@ -1,0 +1,15 @@
+{
+  "name": "kaskade",
+  "version": "4.0.5",
+  "description": "Interactive terminal UI for Kafka with visual topic management, real-time consumer monitoring, and multi-format deserialization - no mouse clicks needed",
+  "importType": "wrap",
+  "bin": {
+    "kaskade": {
+      "path": "python/Scripts/kaskade.exe",
+      "description": "Visual Kafka TUI that replaces web UIs - create/delete topics, monitor consumers, filter messages with keyboard-only navigation",
+      "usage": "kaskade admin -b kafka:9092 | kaskade consumer -b kafka:9092 -t user.events --deserializer json | kaskade consumer -b kafka:9092 -t orders.stream --filter key=user123",
+      "dependencies": "windows"
+    }
+  },
+  "tags": ["kafka", "streaming", "tui", "admin", "comprehensive", "schema-registry", "management", "apache-kafka"]
+}

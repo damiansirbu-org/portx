@@ -1,0 +1,15 @@
+{
+  "name": "terraform",
+  "version": "1.0.0",
+  "description": "Infrastructure as Code with state management and declarative syntax",
+  "importType": "wrap",
+  "bin": {
+    "terraform": {
+      "path": "terraform.exe",
+      "description": "Infrastructure as Code with state management, preventing configuration drift through declarative syntax",
+      "usage": "terraform plan -out=changes.tfplan\\nterraform apply changes.tfplan\\nterraform import aws_instance.web i-1234567890abcdef0\\nterraform state list | grep aws_instance",
+      "dependencies": "windows"
+    }
+  },
+  "tags": ["infrastructure", "code", "state", "management", "declarative", "cloud", "provisioning", "go"]
+}

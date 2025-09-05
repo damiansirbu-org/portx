@@ -1,0 +1,15 @@
+{
+  "name": "gitleaks",
+  "version": "8.28.0",
+  "description": "Git secret scanner - detect and prevent secrets in git repositories",
+  "importType": "wrap",
+  "bin": {
+    "gitleaks": {
+      "path": "gitleaks.exe",
+      "description": "SAST tool for detecting hardcoded secrets like passwords, api keys, and tokens in git repositories",
+      "usage": "gitleaks detect\\ngitleaks detect --source .\\ngitleaks detect --verbose\\ngitleaks protect --staged",
+      "dependencies": "windows"
+    }
+  },
+  "tags": ["security", "secrets", "scanner", "git", "sast", "detection", "passwords", "api-keys", "tokens"]
+}

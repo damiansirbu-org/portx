@@ -1,0 +1,15 @@
+{
+  "name": "atac",
+  "version": "0.20.2",
+  "description": "Terminal User Interface API client - Rust-powered Postman alternative for command line",
+  "importType": "wrap",
+  "bin": {
+    "atac": {
+      "path": "atac.exe",
+      "description": "TUI API client (Postman alternative) with async requests, authentication, and collection management",
+      "usage": "atac\\natac --help\\natac --version\\natac --directory my-collection",
+      "dependencies": "windows"
+    }
+  },
+  "tags": ["api", "client", "tui", "postman", "http", "rust", "terminal", "async"]
+}

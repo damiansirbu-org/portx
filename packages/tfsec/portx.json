@@ -1,0 +1,15 @@
+{
+  "name": "tfsec",
+  "version": "1.28.14",
+  "description": "Security scanner for Terraform code - detect potential security issues",
+  "importType": "wrap",
+  "bin": {
+    "tfsec": {
+      "path": "tfsec.exe",
+      "description": "Static analysis security scanner for Terraform code - uses static analysis of Terraform templates to spot potential misconfigurations",
+      "usage": "tfsec .\\ntfsec --format json\\ntfsec --exclude AWS001\\ntfsec --config-file tfsec.yml",
+      "dependencies": "windows"
+    }
+  },
+  "tags": ["terraform", "security", "scanner", "infrastructure", "iac", "static-analysis", "aqua", "misconfiguration"]
+}

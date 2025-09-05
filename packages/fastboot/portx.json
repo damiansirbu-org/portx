@@ -1,0 +1,15 @@
+{
+  "name": "fastboot",
+  "version": "1.0.0",
+  "description": "Android fastboot protocol tool for bootloader flashing and device management",
+  "importType": "wrap",
+  "bin": {
+    "fastboot": {
+      "path": "fastboot.exe",
+      "description": "Android fastboot protocol tool for bootloader flashing and device management",
+      "usage": "fastboot devices # List devices in fastboot mode\\nfastboot flash boot boot.img # Flash boot partition\\nfastboot oem unlock # Unlock bootloader\\nfastboot reboot # Reboot device\\nfastboot getvar all # Get device variables",
+      "dependencies": "windows"
+    }
+  },
+  "tags": ["android", "fastboot", "flashing", "bootloader", "native", "mobile", "development", "adb"]
+}

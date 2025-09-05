@@ -1,0 +1,15 @@
+{
+  "name": "act",
+  "version": "0.2.81",
+  "description": "Run GitHub Actions locally - test workflows without pushing to GitHub",
+  "importType": "wrap",
+  "bin": {
+    "act": {
+      "path": "act.exe",
+      "description": "Local GitHub Actions runner - run workflows and actions locally for faster development and testing",
+      "usage": "act\\nact -l\\nact -j test\\nact push\\nact --secret-file .secrets",
+      "dependencies": "windows"
+    }
+  },
+  "tags": ["github", "actions", "workflow", "ci-cd", "testing", "runner", "local", "development"]
+}

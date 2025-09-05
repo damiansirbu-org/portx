@@ -1,0 +1,15 @@
+{
+  "name": "ctop",
+  "version": "0.7.7",
+  "description": "Top-like interface for container metrics - real-time monitoring dashboard",
+  "importType": "wrap",
+  "bin": {
+    "ctop": {
+      "path": "ctop.exe",
+      "description": "Container metrics dashboard with real-time monitoring - provides a concise overview of metrics for multiple containers",
+      "usage": "ctop\\nctop -a\\nctop -scale-cpu\\nctop -sortField=cpu",
+      "dependencies": "windows"
+    }
+  },
+  "tags": ["container", "docker", "monitoring", "dashboard", "metrics", "cpu", "memory", "network", "top"]
+}
