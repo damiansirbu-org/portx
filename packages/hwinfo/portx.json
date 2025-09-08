@@ -1,0 +1,26 @@
+{
+  "name": "hwinfo",
+  "version": "8.30.0",
+  "description": "Comprehensive hardware analysis, monitoring and reporting tool for Windows systems",
+  "importType": "wrap",
+  "bin": {
+    "hwinfo64": {
+      "path": "HWiNFO64.exe",
+      "description": "Hardware information and monitoring tool for detailed system analysis",
+      "usage": "hwinfo64.exe # Launch GUI interface\nhwinfo64.exe /logfile=\"system_report.txt\" # Generate detailed system report\nhwinfo64.exe /hidelog # Run with hidden logging\nhwinfo64.exe /sensors-only # Launch sensors-only monitoring\nhwinfo64.exe /shared-mem # Enable shared memory interface for third-party tools\nhwinfo64.exe /minimal # Launch in minimal interface mode",
+      "dependencies": "windows"
+    }
+  },
+  "tags": [
+    "hardware",
+    "monitoring",
+    "system-info", 
+    "analysis",
+    "diagnostics",
+    "sensors",
+    "benchmarking",
+    "windows",
+    "native",
+    "gui"
+  ]
+}
