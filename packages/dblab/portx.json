@@ -1,0 +1,34 @@
+{
+  "name": "dblab",
+  "version": "0.33.0",
+  "description": "Interactive terminal-based database client for PostgreSQL, MySQL, and Oracle with modern UI and comprehensive features",
+  "importType": "wrap",
+  "bin": {
+    "dblab": {
+      "path": "dblab.exe",
+      "description": "Modern database client TUI supporting PostgreSQL, MySQL, Oracle with SSH tunneling, SSL, and advanced query features",
+      "usage": "dblab --url 'postgres://user:pass@host:port/db' # Connect to PostgreSQL\\ndblab --driver mysql --host localhost --user root --db mydb # MySQL connection\\ndblab --config # Use config file\\ndblab --ssh-host server --ssh-user admin # SSH tunnel\\ndblab --ssl strict --sslcert cert.pem # SSL connection",
+      "dependencies": "native"
+    }
+  },
+  "tags": [
+    "database",
+    "client",
+    "postgresql",
+    "mysql",
+    "oracle",
+    "tui",
+    "sql",
+    "ssh",
+    "ssl",
+    "interactive",
+    "terminal",
+    "admin",
+    "query",
+    "go",
+    "cross-platform",
+    "modern",
+    "connection",
+    "management"
+  ]
+}

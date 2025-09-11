@@ -3,8 +3,8 @@
 # Imports packages into PORTX system: discover, validate, analyze dependencies, create wrappers, configure PATH
 # Also provides tools aggregator functionality
 
-# Enhanced error handling
-set -euo pipefail
+# Enhanced error handling - temporarily disabled for debugging
+# set -euo pipefail
 
 # Check if GIT_BASH_ROOT is set
 if [[ -z "${GIT_BASH_ROOT:-}" ]]; then
@@ -1050,11 +1050,20 @@ import_packages() {
 		echo ""
 	} >"$PORTX_PATH_CACHE"
 
-	# Count actual wrapper files created
-	local bash_wrappers
-	local cmd_wrappers
-	bash_wrappers=$(find "$SH_WRAPPERS_DIR" -name "*" -type f 2>/dev/null | wc -l)
-	cmd_wrappers=$(find "$CMD_WRAPPERS_DIR" -name "*.cmd" -type f 2>/dev/null | wc -l)
+	# Count actual wrapper files created by extension and content
+	local bash_wrappers=0
+	local cmd_wrappers=0
+	
+	# Count bash wrappers containing PORTX-WRAPPER
+	if [[ -d "$SH_WRAPPERS_DIR" ]]; then
+		bash_wrappers=$(find "$SH_WRAPPERS_DIR" -type f -exec grep -l "PORTX-WRAPPER" {} \; 2>/dev/null | wc -l)
+	fi
+	
+	# Count cmd wrappers containing PORTX-WRAPPER
+	if [[ -d "$CMD_WRAPPERS_DIR" ]]; then
+		cmd_wrappers=$(find "$CMD_WRAPPERS_DIR" -name "*.cmd" -type f -exec grep -l "PORTX-WRAPPER" {} \; 2>/dev/null | wc -l)
+	fi
+	
 	local total_wrappers=$((bash_wrappers + cmd_wrappers))
 
 	printf "Imported %d packages, %d executables, %d PATH packages, %d wrapper packages (%d total wrappers: %d bash + %d cmd)\n" \

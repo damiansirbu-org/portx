@@ -1,0 +1,34 @@
+{
+  "name": "presenterm",
+  "version": "0.15.1",
+  "description": "Modern terminal slideshow tool for markdown presentations with themes, image support, and export capabilities",
+  "importType": "wrap",
+  "bin": {
+    "presenterm": {
+      "path": "presenterm.exe",
+      "description": "Terminal slideshow tool with markdown support, themes, image protocols, PDF/HTML export, and speaker notes",
+      "usage": "presenterm presentation.md # Start slideshow\\npresenterm --export-pdf presentation.md # Export to PDF\\npresenterm --theme dark presentation.md # Use specific theme\\npresenterm --list-themes # Show available themes\\npresenterm --present presentation.md # Presentation mode",
+      "dependencies": "native"
+    }
+  },
+  "tags": [
+    "presentation",
+    "slideshow",
+    "markdown",
+    "terminal",
+    "tui",
+    "export",
+    "pdf",
+    "html",
+    "themes",
+    "images",
+    "speaker-notes",
+    "rust",
+    "cross-platform",
+    "slides",
+    "docs",
+    "publishing",
+    "visualization",
+    "education"
+  ]
+}

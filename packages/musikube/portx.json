@@ -1,0 +1,30 @@
+{
+  "name": "musikube",
+  "version": "0.98.0",
+  "description": "Terminal-based music player with curses interface and audio library management",
+  "importType": "wrap",
+  "bin": {
+    "musikcube": {
+      "path": "musikcube.exe",
+      "description": "Terminal-based music player with ncurses interface for audio library management",
+      "usage": "musikcube # Launch terminal music player interface\nmusikube --help # Show command line options\nmusikube --library /path/to/music # Specify music library location\nmusikube --scan # Scan and update music library\nmusikube --play # Start playback automatically",
+      "dependencies": "windows"
+    },
+    "musikcube-gui": {
+      "path": "musikcube-gui.exe", 
+      "description": "Graphical user interface version of musikcube music player",
+      "usage": "musikcube-gui # Launch GUI music player\nmusikube-gui --library /path/to/music # Start with specific library\nmusikube-gui --fullscreen # Start in fullscreen mode\nmusikube-gui --minimized # Start minimized to system tray",
+      "dependencies": "windows"
+    }
+  },
+  "tags": [
+    "audio",
+    "music",
+    "player",
+    "terminal",
+    "gui",
+    "multimedia",
+    "curses",
+    "library"
+  ]
+}

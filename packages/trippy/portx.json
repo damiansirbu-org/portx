@@ -1,0 +1,34 @@
+{
+  "name": "trippy",
+  "version": "0.13.0",
+  "description": "Modern network diagnostic tool with interactive TUI interface, supporting multiple protocols, GeoIP lookup, and comprehensive tracing capabilities",
+  "importType": "wrap",
+  "bin": {
+    "trippy": {
+      "path": "trip.exe",
+      "description": "Advanced network diagnostic tool with TUI, supporting ICMP/UDP/TCP tracing, GeoIP, AS information, and multiple output formats",
+      "usage": "trippy google.com # Interactive TUI trace\\ntrippy --mode stream google.com # Stream output\\ntrippy --protocol udp --target-port 53 8.8.8.8 # UDP trace\\ntrippy --ipv6 ipv6.google.com # IPv6 trace\\ntrippy --mode json google.com # JSON output",
+      "dependencies": "native"
+    }
+  },
+  "tags": [
+    "network",
+    "diagnostic",
+    "traceroute",
+    "ping",
+    "monitoring",
+    "icmp",
+    "udp",
+    "tcp",
+    "geoip",
+    "tui",
+    "interactive",
+    "analysis",
+    "routing",
+    "latency",
+    "ipv4",
+    "ipv6",
+    "multiprotocol",
+    "rust"
+  ]
+}

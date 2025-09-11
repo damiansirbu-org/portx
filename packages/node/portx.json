@@ -1,0 +1,42 @@
+{
+  "name": "node",
+  "version": "22.19.0",
+  "description": "Node.js JavaScript runtime with npm package manager and modern ECMAScript support",
+  "importType": "path",
+  "bin": {
+    "node": {
+      "path": "node.exe",
+      "description": "Node.js JavaScript runtime engine for server-side and command-line applications",
+      "usage": "node app.js # Run JavaScript application\nnode -e \"console.log('Hello World')\" # Execute inline JavaScript\nnode --version # Show Node.js version\nnode --help # Display help information\nnode --inspect app.js # Start with debugging enabled\nnode --experimental-modules app.mjs # Run ES modules",
+      "dependencies": "windows"
+    },
+    "npm": {
+      "path": "npm.cmd",
+      "description": "Node Package Manager for installing and managing JavaScript packages",
+      "usage": "npm install express # Install package locally\nnpm install -g typescript # Install package globally\nnpm init -y # Initialize new package.json\nnpm run build # Run script from package.json\nnpm list # Show installed packages\nnpm update # Update all packages",
+      "dependencies": "windows"
+    },
+    "npx": {
+      "path": "npx.cmd", 
+      "description": "Node Package eXecute - run packages without installing them globally",
+      "usage": "npx create-react-app my-app # Create React application\nnpx typescript --version # Run TypeScript compiler\nnpx eslint . # Run ESLint on current directory\nnpx prettier --write . # Format code with Prettier\nnpx --package=cowsay cowsay hello # Run package temporarily",
+      "dependencies": "windows"
+    },
+    "corepack": {
+      "path": "corepack.cmd",
+      "description": "Package manager manager - enables use of Yarn and pnpm without installation",
+      "usage": "corepack enable # Enable corepack for yarn/pnpm\ncorepack prepare pnpm@latest --activate # Install and activate pnpm\ncorepack prepare yarn@stable --activate # Install and activate yarn\ncorepack --version # Show corepack version",
+      "dependencies": "windows"
+    }
+  },
+  "tags": [
+    "javascript",
+    "runtime", 
+    "development",
+    "package-manager",
+    "server-side",
+    "cli",
+    "native",
+    "cross-platform"
+  ]
+}
