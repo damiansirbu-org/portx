@@ -1,0 +1,34 @@
+{
+  "name": "gdu",
+  "version": "5.25.0",
+  "description": "Pretty fast disk usage analyzer with console interface written in Go, optimized for SSD performance with parallel processing",
+  "importType": "wrap",
+  "bin": {
+    "gdu": {
+      "path": "gdu.exe",
+      "description": "Fast disk usage analyzer with interactive TUI, parallel processing, and comprehensive filesystem analysis capabilities",
+      "usage": "gdu # Analyze current directory\\ngdu /path/to/analyze # Analyze specific path\\ngdu --show-disks # Show all mounted disks\\ngdu --no-hidden # Ignore hidden directories\\ngdu --non-interactive # Non-interactive mode\\ngdu --output-file report.json # Export analysis",
+      "dependencies": "native"
+    }
+  },
+  "tags": [
+    "disk-usage",
+    "analyzer",
+    "filesystem",
+    "space",
+    "storage",
+    "tui",
+    "fast",
+    "parallel",
+    "go",
+    "ssd",
+    "performance",
+    "interactive",
+    "directory",
+    "files",
+    "size",
+    "analysis",
+    "monitoring",
+    "cross-platform"
+  ]
+}

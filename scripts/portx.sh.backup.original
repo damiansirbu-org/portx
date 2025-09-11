@@ -1050,20 +1050,29 @@ import_packages() {
 		echo ""
 	} >"$PORTX_PATH_CACHE"
 
-	# Count actual wrapper files created by extension and content
-	local bash_wrappers=0
-	local cmd_wrappers=0
+	# Count actual wrapper files created
+	local bash_wrappers
+	local cmd_wrappers
+	bash_wrappers=0
+	cmd_wrappers=0
 	
-	# Count bash wrappers containing PORTX-WRAPPER
+	# Count bash wrappers by checking for PORTX-WRAPPER header
 	if [[ -d "$SH_WRAPPERS_DIR" ]]; then
-		bash_wrappers=$(find "$SH_WRAPPERS_DIR" -type f -exec grep -l "PORTX-WRAPPER" {} \; 2>/dev/null | wc -l)
+		for file in "$SH_WRAPPERS_DIR"/*; do
+			if [[ -f "$file" ]] && head -n 3 "$file" 2>/dev/null | grep -q "PORTX-WRAPPER"; then
+				((bash_wrappers++))
+			fi
+		done
 	fi
 	
-	# Count cmd wrappers containing PORTX-WRAPPER
+	# Count cmd wrappers by checking for PORTX-WRAPPER header
 	if [[ -d "$CMD_WRAPPERS_DIR" ]]; then
-		cmd_wrappers=$(find "$CMD_WRAPPERS_DIR" -name "*.cmd" -type f -exec grep -l "PORTX-WRAPPER" {} \; 2>/dev/null | wc -l)
+		for file in "$CMD_WRAPPERS_DIR"/*.cmd; do
+			if [[ -f "$file" ]] && head -n 3 "$file" 2>/dev/null | grep -q "PORTX-WRAPPER"; then
+				((cmd_wrappers++))
+			fi
+		done
 	fi
-	
 	local total_wrappers=$((bash_wrappers + cmd_wrappers))
 
 	printf "Imported %d packages, %d executables, %d PATH packages, %d wrapper packages (%d total wrappers: %d bash + %d cmd)\n" \

@@ -1,0 +1,34 @@
+{
+  "name": "binsider",
+  "version": "0.2.1",
+  "description": "Terminal user interface for analyzing ELF and binary files with static/dynamic analysis capabilities and hexdump visualization",
+  "importType": "wrap",
+  "bin": {
+    "binsider": {
+      "path": "binsider.exe",
+      "description": "Analyze ELF binaries and executables with comprehensive TUI interface featuring static analysis, dynamic analysis, strings extraction, and hexdump",
+      "usage": "binsider binary.exe # Analyze executable\\nbinsider --tab strings binary.exe # Start with strings tab\\nbinsider --min-len 10 binary.exe # Minimum string length 10\\nbinsider --accent-color blue binary.exe # Custom accent color",
+      "dependencies": "native"
+    }
+  },
+  "tags": [
+    "binary",
+    "analysis",
+    "elf",
+    "reverse-engineering",
+    "forensics",
+    "static-analysis",
+    "dynamic-analysis",
+    "strings",
+    "hexdump",
+    "tui",
+    "security",
+    "debugging",
+    "inspection",
+    "executable",
+    "rust",
+    "cross-platform",
+    "disassembly",
+    "malware"
+  ]
+}

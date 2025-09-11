@@ -249,18 +249,114 @@ validate_package_REMOVED() {
 	return 1
 }
 
+# Method: Bulk JSON validation for multiple packages (performance optimization)
+validate_json_bulk() {
+	local json_files=("$@")
+	local validation_results=()
+	local failed_files=()
+	
+	if [[ ${#json_files[@]} -eq 0 ]]; then
+		debug_log "Bulk validation: No files provided"
+		return 0
+	fi
+	
+	debug_log "Starting bulk JSON validation for ${#json_files[@]} files"
+	
+	# Batch syntax validation using jq
+	local syntax_failed=()
+	for json_file in "${json_files[@]}"; do
+		if ! jq empty "$json_file" >/dev/null 2>&1; then
+			syntax_failed+=("$json_file")
+		fi
+	done
+	
+	# Early exit if syntax validation failed for any files
+	if [[ ${#syntax_failed[@]} -gt 0 ]]; then
+		debug_log "Bulk validation: Syntax errors in ${#syntax_failed[@]} files"
+		printf "%sBulk JSON syntax validation failed%s\n" "$(color_error)" "$(color_reset)" >&2
+		for failed_file in "${syntax_failed[@]}"; do
+			printf "  Syntax error: %s\n" "$failed_file" >&2
+			failed_files+=("$failed_file")
+		done
+		return 1
+	fi
+	
+	# Batch schema validation using external validator
+	local validator_script="$SCRIPT_DIR/validate-json.sh"
+	if [[ -f "$validator_script" ]]; then
+		local schema_failed=()
+		for json_file in "${json_files[@]}"; do
+			if ! bash "$validator_script" "$json_file" >/dev/null 2>&1; then
+				schema_failed+=("$json_file")
+			fi
+		done
+		
+		if [[ ${#schema_failed[@]} -gt 0 ]]; then
+			debug_log "Bulk validation: Schema errors in ${#schema_failed[@]} files"
+			printf "%sBulk schema validation failed%s\n" "$(color_error)" "$(color_reset)" >&2
+			for failed_file in "${schema_failed[@]}"; do
+				printf "  Schema error: %s\n" "$failed_file" >&2
+				failed_files+=("$failed_file")
+			done
+			return 1
+		fi
+	else
+		debug_log "Bulk validation: External validator not found, skipping schema validation"
+	fi
+	
+	debug_log "✓ Bulk JSON validation passed for all ${#json_files[@]} files"
+	return 0
+}
+
+# Method: Fast-path validation checks before expensive operations
+validate_package_fast_path() {
+	local pkg_dir="$1"
+	local pkg_name="$2"
+	local json_file="$pkg_dir/portx.json"
+
+	# Fast check 1: Directory exists and is readable
+	[[ ! -d "$pkg_dir" || ! -r "$pkg_dir" ]] && return 1
+
+	# Fast check 2: portx.json exists and is readable
+	[[ ! -f "$json_file" || ! -r "$json_file" ]] && return 1
+
+	# Fast check 3: Basic JSON syntax check (quick parse test)
+	if ! jq empty "$json_file" >/dev/null 2>&1; then
+		return 1
+	fi
+
+	# Fast check 4: Required fields exist (avoids full schema validation)
+	local name version
+	name=$(jq -r '.name // empty' "$json_file" 2>/dev/null)
+	version=$(jq -r '.version // empty' "$json_file" 2>/dev/null)
+	[[ -z "$name" || -z "$version" ]] && return 1
+
+	return 0
+}
+
 # Method: Comprehensive package validation with schema and executable verification
+# Set BULK_JSON_VALIDATED=1 to skip JSON validation (when already done in bulk)
 validate_package_comprehensive() {
 	local pkg_dir="$1"
 	local pkg_name="$2"
 	local json_file="$pkg_dir/portx.json"
+	local skip_json_validation="${BULK_JSON_VALIDATED:-0}"
 
 	printf "    Validating: %s\n" "$pkg_name"
 	debug_log "=== COMPREHENSIVE VALIDATION: $pkg_name ==="
 	debug_log "Package directory: $pkg_dir"
 	debug_log "JSON file: $json_file"
 
-	# STEP 1: Check portx.json exists
+	# FAST-PATH: Quick validation checks before expensive operations
+	if ! validate_package_fast_path "$pkg_dir" "$pkg_name"; then
+		printf "%sFAST-PATH FAIL: Basic validation failed%s\n" "$(color_error)" "$(color_reset)" >&2
+		printf "Package: %s (skipping expensive validation)\n" "$pkg_name" >&2
+		debug_log "FAST-PATH: Basic validation failed for $pkg_name"
+		return 1
+	fi
+	debug_log "✓ Fast-path validation passed"
+
+	# STEP 1: Check portx.json exists (redundant after fast-path, but keeping for clarity)
 	if [[ ! -f "$json_file" ]]; then
 		printf "%sCRITICAL ERROR: Missing portx.json%s\n" "$(color_error)" "$(color_reset)" >&2
 		printf "Package: %s\n" "$pkg_name" >&2
@@ -271,29 +367,33 @@ validate_package_comprehensive() {
 	fi
 	debug_log "✓ portx.json exists"
 
-	# STEP 2: Validate JSON schema with comprehensive validation
-	printf "      Checking JSON schema...\n"
-	debug_log "Running comprehensive schema validation..."
-	if ! bash "$SCRIPT_DIR/validate-json.sh" "$json_file" >/dev/null 2>&1; then
-		local validation_output
-		validation_output=$(bash "$SCRIPT_DIR/validate-json.sh" "$json_file" 2>&1)
+	# STEP 2: Validate JSON schema (skip if already validated in bulk)
+	if [[ "$skip_json_validation" -eq 1 ]]; then
+		debug_log "✓ JSON schema validation skipped (already done in bulk)"
+	else
+		printf "      Checking JSON schema...\n"
+		debug_log "Running comprehensive schema validation..."
+		if ! bash "$SCRIPT_DIR/validate-json.sh" "$json_file" >/dev/null 2>&1; then
+			local validation_output
+			validation_output=$(bash "$SCRIPT_DIR/validate-json.sh" "$json_file" 2>&1)
 
-		printf "%sCRITICAL ERROR: Invalid portx.json schema%s\n" "$(color_error)" "$(color_reset)" >&2
-		printf "Package: %s\n" "$pkg_name" >&2
-		printf "Path: %s\n" "$json_file" >&2
-		printf "\n" >&2
-		printf "Schema validation failed - package MUST be 100%% compliant\n" >&2
-		printf "Validation errors:\n" >&2
-		while IFS= read -r line; do
-			printf "  %s\n" "$line" >&2
-		done <<<"$validation_output"
-		printf "\n" >&2
-		printf "Fix the schema issues and re-run import\n" >&2
-		debug_log "FATAL: Schema validation failed for $pkg_name"
-		debug_log "Validation output: $validation_output"
-		return 1
+			printf "%sCRITICAL ERROR: Invalid portx.json schema%s\n" "$(color_error)" "$(color_reset)" >&2
+			printf "Package: %s\n" "$pkg_name" >&2
+			printf "Path: %s\n" "$json_file" >&2
+			printf "\n" >&2
+			printf "Schema validation failed - package MUST be 100%% compliant\n" >&2
+			printf "Validation errors:\n" >&2
+			while IFS= read -r line; do
+				printf "  %s\n" "$line" >&2
+			done <<<"$validation_output"
+			printf "\n" >&2
+			printf "Fix the schema issues and re-run import\n" >&2
+			debug_log "FATAL: Schema validation failed for $pkg_name"
+			debug_log "Validation output: $validation_output"
+			return 1
+		fi
+		debug_log "✓ JSON schema validation passed"
 	fi
-	debug_log "✓ JSON schema validation passed"
 
 	# STEP 3: Parse executables and verify each one exists
 	printf "      Checking executable files...\n"
@@ -305,7 +405,7 @@ validate_package_comprehensive() {
 	if [[ -z "$declared_executables" ]]; then
 		debug_log "No executables declared in portx.json, checking for any files..."
 		local scanned_executables
-		scanned_executables=$(get_scanned_executables "$pkg_dir")
+		scanned_executables=$(get_scanned_executables_optimized "$pkg_dir")
 		if [[ -z "$scanned_executables" ]]; then
 			warning "Package $pkg_name has no executables (documentation package?)"
 			debug_log "✓ No executables found (acceptable for documentation packages)"
@@ -318,6 +418,31 @@ validate_package_comprehensive() {
 	if [[ -n "$declared_executables" ]]; then
 		local exe_count=0
 		local exe_verified=0
+		
+		# FAST-PATH: Batch check all executables exist before detailed verification
+		local missing_executables=()
+		while IFS= read -r exe_path; do
+			[[ -z "$exe_path" ]] && continue
+			exe_path="${exe_path//$'\r'/}"
+			local full_exe_path="$pkg_dir/$exe_path"
+			if [[ ! -f "$full_exe_path" ]]; then
+				missing_executables+=("$exe_path")
+			fi
+		done <<<"$declared_executables"
+		
+		# Early exit if any executables are missing (fast-path failure)
+		if [[ ${#missing_executables[@]} -gt 0 ]]; then
+			printf "%sFAST-PATH FAIL: Missing executables detected%s\n" "$(color_error)" "$(color_reset)" >&2
+			printf "Package: %s\n" "$pkg_name" >&2
+			for missing_exe in "${missing_executables[@]}"; do
+				printf "  Missing: %s\n" "$missing_exe" >&2
+			done
+			debug_log "FAST-PATH: Missing executables in $pkg_name: ${missing_executables[*]}"
+			return 1
+		fi
+		debug_log "✓ Fast-path: All executables exist"
+		
+		# Detailed verification (since fast-path passed)
 		while IFS= read -r exe_path; do
 			[[ -z "$exe_path" ]] && continue
 			# Strip carriage returns from exe_path (Windows line ending issue)
@@ -329,7 +454,7 @@ validate_package_comprehensive() {
 			printf "        Verifying: %s\n" "$exe_path"
 
 			debug_log "Testing file existence: $full_exe_path"
-
+			# This check is now redundant due to fast-path, but keeping for defensive programming
 			if [[ ! -f "$full_exe_path" ]]; then
 				printf "%sCRITICAL ERROR: Missing executable file%s\n" "$(color_error)" "$(color_reset)" >&2
 				printf "Package: %s\n" "$pkg_name" >&2
@@ -379,7 +504,7 @@ create_bash_wrappers() {
 	if [[ -z "$executables" ]]; then
 		debug_log "    No executables in portx.json, falling back to directory scan"
 		local scanned_exes
-		scanned_exes=$(get_scanned_executables "$pkg_dir")
+		scanned_exes=$(get_scanned_executables_optimized "$pkg_dir")
 		if [[ -n "$scanned_exes" ]]; then
 			# Convert to "executable|" format (no defaultArgs)
 			executables=""
@@ -460,7 +585,7 @@ create_cmd_wrappers() {
 	if [[ -z "$executables" ]]; then
 		debug_log "    No executables in portx.json, falling back to directory scan"
 		local scanned_exes
-		scanned_exes=$(get_scanned_executables "$pkg_dir")
+		scanned_exes=$(get_scanned_executables_optimized "$pkg_dir")
 		if [[ -n "$scanned_exes" ]]; then
 			# Convert to "executable|" format (no defaultArgs)
 			executables=""
@@ -531,7 +656,7 @@ create_wrappers() {
 	if [[ -z "$executables" ]]; then
 		debug_log "    No executables in portx.json, falling back to directory scan"
 		local scanned_exes
-		scanned_exes=$(get_scanned_executables "$pkg_dir")
+		scanned_exes=$(get_scanned_executables_optimized "$pkg_dir")
 		if [[ -n "$scanned_exes" ]]; then
 			# Convert to "executable|" format (no defaultArgs)
 			executables=""
@@ -863,6 +988,96 @@ save_to_cache() {
 	rm -f "$temp_file"
 }
 
+# ===== OPTIMIZED SINGLE-PASS FILESYSTEM SCANNING =====
+
+# Batched filesystem scanning function - collects all needed data in single pass
+# This replaces multiple separate find operations to improve performance
+scan_all_directories_once() {
+	debug_log "Starting optimized single-pass directory scan..."
+	
+	# Global arrays to store scan results
+	declare -g SCAN_PACKAGE_EXECUTABLES=()     # Format: "package_name:executable_name:full_path"
+	declare -g SCAN_GFW_EXECUTABLES=0          # Count of Git for Windows executables
+	declare -g SCAN_EXISTING_WRAPPERS=()       # List of existing PORTX wrapper files
+	declare -g SCAN_PACKAGE_DIRS=()            # List of valid package directories
+	
+	# Single comprehensive find operation for all package executables
+	debug_log "Scanning package directories for executables..."
+	if [[ -d "$PACKAGES_DIR" ]]; then
+		for pkg_path in "$PACKAGES_DIR"/*; do
+			if [[ -d "$pkg_path" ]]; then
+				pkg_name="$(basename "$pkg_path")"
+				SCAN_PACKAGE_DIRS+=("$pkg_path")
+				
+				# Single find for both .exe/.bat/.cmd and extensionless executables
+				# This replaces the dual find operations in get_scanned_executables()
+				while IFS= read -r -d '' exe_file; do
+					exe_name="$(basename "$exe_file")"
+					SCAN_PACKAGE_EXECUTABLES+=("$pkg_name:$exe_name:$exe_file")
+				done < <(find "$pkg_path" \
+					\( -name "*.exe" -o -name "*.bat" -o -name "*.cmd" \) \
+					-type f -print0 2>/dev/null)
+				
+				# Find extensionless executables (like liquibase, az, etc.)
+				while IFS= read -r -d '' exe_file; do
+					exe_name="$(basename "$exe_file")"
+					# Check if it's really executable and not a known non-executable
+					if [[ -x "$exe_file" ]] && [[ ! "$exe_name" =~ \.(txt|md|json|dll|so|conf|config|xml|ini|log|zip|tar|gz)$ ]]; then
+						SCAN_PACKAGE_EXECUTABLES+=("$pkg_name:$exe_name:$exe_file")
+					fi
+				done < <(find "$pkg_path" -type f ! -name "*.exe" ! -name "*.bat" ! -name "*.cmd" \
+					! -name "*.txt" ! -name "*.md" ! -name "*.json" \
+					! -name "*.dll" ! -name "*.so" ! -name "*.conf" ! -name "*.config" ! -name "*.xml" \
+					! -name "*.ini" ! -name "*.log" ! -name "*.zip" ! -name "*.tar*" ! -name "*.gz" \
+					-print0 2>/dev/null)
+			fi
+		done
+	fi
+	
+	# Single find operation for Git for Windows executables (for statistics)
+	debug_log "Counting Git for Windows executables..."
+	if [[ -d "$GIT_BASH_ROOT_POSIX" ]]; then
+		SCAN_GFW_EXECUTABLES=$(find "$GIT_BASH_ROOT_POSIX" -name "*.exe" \
+			-not -path "*/home/portx/packages/*" 2>/dev/null | wc -l)
+	fi
+	
+	# Single scan for existing PORTX wrapper files
+	debug_log "Scanning existing PORTX wrapper files..."
+	for wrapper_dir in "$SH_WRAPPERS_DIR" "$CMD_WRAPPERS_DIR"; do
+		if [[ -d "$wrapper_dir" ]]; then
+			while IFS= read -r -d '' wrapper_file; do
+				if head -n 3 "$wrapper_file" 2>/dev/null | grep -q "PORTX-WRAPPER"; then
+					SCAN_EXISTING_WRAPPERS+=("$wrapper_file")
+				fi
+			done < <(find "$wrapper_dir" -type f -print0 2>/dev/null)
+		fi
+	done
+	
+	debug_log "Single-pass scan completed:"
+	debug_log "  Package directories: ${#SCAN_PACKAGE_DIRS[@]}"
+	debug_log "  Package executables: ${#SCAN_PACKAGE_EXECUTABLES[@]}"
+	debug_log "  GFW executables: $SCAN_GFW_EXECUTABLES"
+	debug_log "  Existing wrappers: ${#SCAN_EXISTING_WRAPPERS[@]}"
+}
+
+# Optimized function to get executables for a specific package from scan results
+get_scanned_executables_optimized() {
+	local pkg_name="$1"
+	local result=""
+	
+	# Extract executables for this package from global scan results
+	for entry in "${SCAN_PACKAGE_EXECUTABLES[@]}"; do
+		if [[ "$entry" == "$pkg_name:"* ]]; then
+			# Extract just the executable name (middle part)
+			exe_name="${entry#*:}"      # Remove "pkg_name:"
+			exe_name="${exe_name%:*}"   # Remove ":full_path"
+			result+="$exe_name"$'\n'
+		fi
+	done
+	
+	echo "$result" | sort -u | grep -v '^$'
+}
+
 # Import packages function (main package processing logic - no verification)
 import_packages() {
 	# Clear the log file at start
@@ -889,8 +1104,46 @@ import_packages() {
 	done
 	mkdir -p "$SH_WRAPPERS_DIR"
 
-	# Main processing loop - comprehensive validation before import
+	# PERFORMANCE OPTIMIZATION: Single-pass directory scan
+	debug_log "Starting optimized single-pass directory scan..."
+	scan_all_directories_once
+
+	# PERFORMANCE OPTIMIZATION: Bulk JSON validation before processing
+	debug_log "Starting bulk JSON validation..."
+	local json_files=()
+	local valid_packages=()
+	
+	# Collect all portx.json files for bulk validation
 	for pkg_path in "$PACKAGES_DIR"/*; do
+		if [[ -d "$pkg_path" ]]; then
+			local json_file="$pkg_path/portx.json"
+			if [[ -f "$json_file" ]]; then
+				json_files+=("$json_file")
+				valid_packages+=("$pkg_path")
+			else
+				pkg_name="$(basename "$pkg_path")"
+				debug_log "BULK SKIP: $pkg_name - no portx.json found"
+			fi
+		fi
+	done
+	
+	# Run bulk validation if we have JSON files
+	if [[ ${#json_files[@]} -gt 0 ]]; then
+		printf "  Bulk validating %d JSON files...\n" "${#json_files[@]}"
+		if ! validate_json_bulk "${json_files[@]}"; then
+			error "Bulk JSON validation failed - see errors above"
+			return 1
+		fi
+		debug_log "✓ Bulk JSON validation completed successfully"
+		# Set flag to skip individual JSON validation in comprehensive validation
+		declare -g BULK_JSON_VALIDATED=1
+	else
+		debug_log "No portx.json files found for bulk validation"
+		declare -g BULK_JSON_VALIDATED=0
+	fi
+
+	# Main processing loop - use pre-validated packages only
+	for pkg_path in "${valid_packages[@]}"; do
 		if [[ -d "$pkg_path" ]]; then
 			pkg_name="$(basename "$pkg_path")"
 			TOTAL_PACKAGES=$((TOTAL_PACKAGES + 1))
@@ -948,11 +1201,11 @@ import_packages() {
 		fi
 	done
 
-	# Count total executables after processing
+	# Count total executables after processing (using optimized scan data)
 	TOTAL_EXECUTABLES=0
 	for pkg_path in "$PACKAGES_DIR"/*; do
 		if [[ -d "$pkg_path" ]]; then
-			pkg_executables=$(get_scanned_executables "$pkg_path" | wc -l)
+			pkg_executables=$(get_scanned_executables_optimized "$pkg_path" | wc -l)
 			TOTAL_EXECUTABLES=$((TOTAL_EXECUTABLES + pkg_executables))
 		fi
 	done
@@ -1050,20 +1303,29 @@ import_packages() {
 		echo ""
 	} >"$PORTX_PATH_CACHE"
 
-	# Count actual wrapper files created by extension and content
-	local bash_wrappers=0
-	local cmd_wrappers=0
+	# Count actual wrapper files created
+	local bash_wrappers
+	local cmd_wrappers
+	bash_wrappers=0
+	cmd_wrappers=0
 	
-	# Count bash wrappers containing PORTX-WRAPPER
+	# Count bash wrappers by checking for PORTX-WRAPPER header
 	if [[ -d "$SH_WRAPPERS_DIR" ]]; then
-		bash_wrappers=$(find "$SH_WRAPPERS_DIR" -type f -exec grep -l "PORTX-WRAPPER" {} \; 2>/dev/null | wc -l)
+		for file in "$SH_WRAPPERS_DIR"/*; do
+			if [[ -f "$file" ]] && head -n 3 "$file" 2>/dev/null | grep -q "PORTX-WRAPPER"; then
+				((bash_wrappers++))
+			fi
+		done
 	fi
 	
-	# Count cmd wrappers containing PORTX-WRAPPER
+	# Count cmd wrappers by checking for PORTX-WRAPPER header
 	if [[ -d "$CMD_WRAPPERS_DIR" ]]; then
-		cmd_wrappers=$(find "$CMD_WRAPPERS_DIR" -name "*.cmd" -type f -exec grep -l "PORTX-WRAPPER" {} \; 2>/dev/null | wc -l)
+		for file in "$CMD_WRAPPERS_DIR"/*.cmd; do
+			if [[ -f "$file" ]] && head -n 3 "$file" 2>/dev/null | grep -q "PORTX-WRAPPER"; then
+				((cmd_wrappers++))
+			fi
+		done
 	fi
-	
 	local total_wrappers=$((bash_wrappers + cmd_wrappers))
 
 	printf "Imported %d packages, %d executables, %d PATH packages, %d wrapper packages (%d total wrappers: %d bash + %d cmd)\n" \
@@ -1518,34 +1780,46 @@ search_tools() {
 	printf "%sFound %d matches%s\n" "$(color_primary)" "$matches" "$(color_reset)"
 }
 
-# Show count statistics
+# Show count statistics (optimized version using pre-collected scan data)
 show_tools_count() {
 	local total_tools=0
 	local total_packages=0
 	declare -A package_counts
 
-	# Check if jq is available
-	local JQ_CMD=""
-	if command -v jq >/dev/null 2>&1; then
-		JQ_CMD="jq"
-	elif command -v jq.cmd >/dev/null 2>&1; then
-		JQ_CMD="jq.cmd"
-	else
-		echo "ERROR: jq not found in PATH - required for portx.json parsing"
-		return 1
+	# Ensure scan data is available - collect if not already done
+	if [[ ${#SCAN_PACKAGE_EXECUTABLES[@]} -eq 0 ]]; then
+		debug_log "Statistics: No scan data available, collecting..."
+		collect_package_scan_data
 	fi
 
-	for pkg_dir in "$PACKAGES_DIR"/*; do
-		if [[ -d "$pkg_dir" && -f "$pkg_dir/portx.json" ]]; then
+	# Use optimized method: count from pre-collected scan data instead of reading each JSON
+	# This is much faster than individual file reads and jq parsing
+	declare -A seen_packages
+	
+	# Count from scan data - each entry is "package_name:executable_name:full_path"
+	for entry in "${SCAN_PACKAGE_EXECUTABLES[@]}"; do
+		local pkg_name="${entry%%:*}"  # Extract package name (before first colon)
+		
+		# Count this package if we haven't seen it yet
+		if [[ -z "${seen_packages[$pkg_name]:-}" ]]; then
+			seen_packages["$pkg_name"]=1
 			((total_packages++))
-			local pkg_name
-			pkg_name=$(basename "$pkg_dir")
-			local package_tool_count=0
+			package_counts["$pkg_name"]=0
+		fi
+		
+		# Count this executable
+		((package_counts["$pkg_name"]++))
+		((total_tools++))
+	done
 
-			# Count from new schema (bin object) - no fallback, crash if not compliant
-			package_tool_count=$($JQ_CMD -r '.bin | keys | length' "$pkg_dir/portx.json" 2>/dev/null || echo "0")
-			total_tools=$((total_tools + package_tool_count))
-			package_counts["$pkg_name"]=$package_tool_count
+	# Also count packages with JSON but no executables (documentation packages)
+	for pkg_dir in "${SCAN_PACKAGE_DIRS[@]}"; do
+		local pkg_name
+		pkg_name=$(basename "$pkg_dir")
+		if [[ -z "${seen_packages[$pkg_name]:-}" ]]; then
+			seen_packages["$pkg_name"]=1
+			((total_packages++))
+			package_counts["$pkg_name"]=0
 		fi
 	done
 
