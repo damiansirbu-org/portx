@@ -38,6 +38,15 @@ PORTX_TOOLS_CACHE="$HOME/.portx_tools_cache"
 PORTX_IMPORT_LOG_FILE="$HOME/portx-packages-import.log"
 # Legacy verify log file variable removed
 
+# Tool path variables - point to real package locations
+ES_EXE="$PACKAGES_DIR/everything/es.exe"
+FD_EXE="$PACKAGES_DIR/fd/fd.exe"
+JQ_EXE="$PACKAGES_DIR/jq/jq.exe"  
+GOJQ_EXE="$PACKAGES_DIR/gojq/gojq.exe"
+RG_EXE="$PACKAGES_DIR/ripgrep/rg.exe"
+BAT_EXE="$PACKAGES_DIR/bat/bat.exe"
+EZA_EXE="$PACKAGES_DIR/eza/eza.exe"
+
 # Function for debug logging (only to file)
 debug_log() {
 	local log_file="${1:-$PORTX_IMPORT_LOG_FILE}"
@@ -116,12 +125,6 @@ validate_portx_json() {
 	fi
 }
 
-# Method: Test wrapper functionality with comprehensive error categorization
-# Legacy test_wrapper_works() function removed - import does not test wrappers
-test_wrapper_works_REMOVED() {
-	# Function removed - import does not test wrappers, only validates executables exist
-	return 1
-}
 
 # Method: Get executables from portx.json (preferred) with defaultArgs
 get_executables_from_json() {
@@ -152,16 +155,11 @@ get_scanned_executables() {
 	# Find executables in package directory and subdirectories
 	# Support Windows executables only: .exe, .bat, .cmd
 	local result
-	result=$(find "$pkg_dir" \
-		\( -name "*.exe" -o -name "*.bat" -o -name "*.cmd" \) \
-		-type f -exec basename {} \; 2>/dev/null | sort -u)
+	result=$("$FD_EXE" "\.(exe|bat|cmd)$" "$pkg_dir" -t f -u -x basename 2>/dev/null | sort -u)
 
 	# Also find extensionless executables (like 'liquibase', 'az')
 	local extensionless
-	extensionless=$(find "$pkg_dir" -type f ! -name "*.txt" ! -name "*.md" ! -name "*.json" \
-		! -name "*.dll" ! -name "*.so" ! -name "*.conf" ! -name "*.config" ! -name "*.xml" \
-		! -name "*.ini" ! -name "*.log" ! -name "*.zip" ! -name "*.tar*" ! -name "*.gz" \
-		! -name "*.*" -executable -exec basename {} \; 2>/dev/null | sort -u)
+	extensionless=$("$FD_EXE" -t f -u -E "*.txt" -E "*.md" -E "*.json" -E "*.dll" -E "*.so" -E "*.conf" -E "*.config" -E "*.xml" -E "*.ini" -E "*.log" -E "*.zip" -E "*.tar*" -E "*.gz" "^[^.]*$" "$pkg_dir" -x basename 2>/dev/null | sort -u)
 
 	# Combine both results and remove duplicates
 	result=$(printf "%s\n%s\n" "$result" "$extensionless" | grep -v "^$" | sort -u)
@@ -212,7 +210,7 @@ parse_json_with_comments() {
 	if [[ "$jq_filter" == '.importType // empty' ]]; then
 		grep '"importType"' "$json_file" | sed 's|.*"importType"[[:space:]]*:[[:space:]]*"||' | sed 's|".*||' | head -1
 	else
-		clean_json_for_jq "$json_file" | "$GIT_BASH_ROOT_POSIX/home/portx/packages/jq/jq.exe" -r "$jq_filter" 2>/dev/null || echo ""
+		clean_json_for_jq "$json_file" | "$JQ_EXE" -r "$jq_filter" 2>/dev/null || echo ""
 	fi
 }
 
@@ -242,12 +240,6 @@ get_import_type() {
 	esac
 }
 
-# Method: Validate package integrity
-# Legacy validate_package() function removed - use validate_package_comprehensive() instead
-validate_package_REMOVED() {
-	# Legacy function removed - use validate_package_comprehensive() instead
-	return 1
-}
 
 # Method: Comprehensive package validation with schema and executable verification
 validate_package_comprehensive() {
@@ -983,10 +975,10 @@ import_packages() {
 		echo "#   Packages Directory: $PACKAGES_DIR"
 		echo "#"
 		echo "# TOOL COUNTS:"
-		echo "#   Git for Windows: $(find "$GIT_BASH_ROOT_POSIX" -name "*.exe" -not -path "*/home/portx/packages/*" 2>/dev/null | wc -l) executables"
-		echo "#   PORTX Wrappers: $(find "$CMD_WRAPPERS_DIR" -name "*.cmd" 2>/dev/null | wc -l) wrappers"
+		echo "#   Git for Windows: $("$ES_EXE" "$GIT_BASH_ROOT" ext:exe 2>/dev/null | grep -v "home.portx.packages" | wc -l) executables"
+		echo "#   PORTX Wrappers: $("$FD_EXE" "\.cmd$" "$CMD_WRAPPERS_DIR" -u 2>/dev/null | wc -l) wrappers"
 		echo "#   PORTX Packages: $TOTAL_PACKAGES directories, $TOTAL_EXECUTABLES executables"
-		echo "#   Total: $(($(find "$GIT_BASH_ROOT_POSIX" -name "*.exe" -not -path "*/home/portx/packages/*" 2>/dev/null | wc -l) + $(find "$CMD_WRAPPERS_DIR" -name "*.cmd" 2>/dev/null | wc -l) + TOTAL_EXECUTABLES)) tools"
+		echo "#   Total: $(($("$ES_EXE" "$GIT_BASH_ROOT" ext:exe 2>/dev/null | grep -v "home.portx.packages" | wc -l) + $("$FD_EXE" "\.cmd$" "$CMD_WRAPPERS_DIR" -u 2>/dev/null | wc -l) + TOTAL_EXECUTABLES)) tools"
 		echo "#"
 		echo "# USAGE: This file is automatically sourced by .bashrc on shell startup."
 		echo "# To regenerate: rm ~/.portx_cache or run 'portx import'"
@@ -1003,7 +995,7 @@ import_packages() {
 		# Add package directories with executable counts
 		for pkg_path in "${PATH_PACKAGE_PATHS[@]}"; do
 			pkg_name="$(basename "$pkg_path")"
-			exe_count=$(find "$pkg_path" -maxdepth 1 -name "*.exe" 2>/dev/null | wc -l)
+			exe_count=$("$FD_EXE" "\.exe$" "$pkg_path" -d 1 -u 2>/dev/null | wc -l)
 			echo "PACKAGES_PATH=\"\$PACKAGES_PATH:$pkg_path\"  # $exe_count executables"
 		done
 
@@ -1014,9 +1006,9 @@ import_packages() {
 		echo "# PORTX PATH statistics"
 
 		# Calculate Git for Windows stats (directories with executables / total executables)
-		GFW_DIRS=$(find "$GIT_BASH_ROOT_POSIX/bin" "$GIT_BASH_ROOT_POSIX/mingw64/bin" "$GIT_BASH_ROOT_POSIX/usr/bin" -name "*.exe" -printf '%h\n' 2>/dev/null | sort -u | wc -l)
-		GFW_EXECUTABLES=$(find "$GIT_BASH_ROOT_POSIX" -name "*.exe" -not -path "*/home/portx/packages/*" 2>/dev/null | wc -l)
-		PORTX_WRAPPERS_COUNT=$(find "$CMD_WRAPPERS_DIR" -name "*.cmd" 2>/dev/null | wc -l)
+		GFW_DIRS=$("$FD_EXE" "\.exe$" "$GIT_BASH_ROOT_POSIX/bin" "$GIT_BASH_ROOT_POSIX/mingw64/bin" "$GIT_BASH_ROOT_POSIX/usr/bin" -u -x dirname 2>/dev/null | sort -u | wc -l)
+		GFW_EXECUTABLES=$("$ES_EXE" "$GIT_BASH_ROOT" ext:exe 2>/dev/null | grep -v "home.portx.packages" | wc -l)
+		PORTX_WRAPPERS_COUNT=$("$FD_EXE" "\.cmd$" "$CMD_WRAPPERS_DIR" -u 2>/dev/null | wc -l)
 		TOTAL_COUNT=$((GFW_EXECUTABLES + PORTX_WRAPPERS_COUNT + TOTAL_EXECUTABLES))
 		TOTAL_DIRS=$((GFW_DIRS + PATH_PACKAGES))
 
@@ -1056,12 +1048,12 @@ import_packages() {
 	
 	# Count bash wrappers containing PORTX-WRAPPER
 	if [[ -d "$SH_WRAPPERS_DIR" ]]; then
-		bash_wrappers=$(find "$SH_WRAPPERS_DIR" -type f -exec grep -l "PORTX-WRAPPER" {} \; 2>/dev/null | wc -l)
+		bash_wrappers=$("$FD_EXE" -t f . "$SH_WRAPPERS_DIR" -u -x grep -l "PORTX-WRAPPER" 2>/dev/null | wc -l)
 	fi
 	
 	# Count cmd wrappers containing PORTX-WRAPPER
 	if [[ -d "$CMD_WRAPPERS_DIR" ]]; then
-		cmd_wrappers=$(find "$CMD_WRAPPERS_DIR" -name "*.cmd" -type f -exec grep -l "PORTX-WRAPPER" {} \; 2>/dev/null | wc -l)
+		cmd_wrappers=$("$FD_EXE" "\.cmd$" "$CMD_WRAPPERS_DIR" -u -x grep -l "PORTX-WRAPPER" 2>/dev/null | wc -l)
 	fi
 	
 	local total_wrappers=$((bash_wrappers + cmd_wrappers))
@@ -1070,13 +1062,6 @@ import_packages() {
 		"$TOTAL_PACKAGES" "$TOTAL_EXECUTABLES" "$PATH_PACKAGES" "$WRAPPER_PACKAGES" "$total_wrappers" "$bash_wrappers" "$cmd_wrappers" >&2
 }
 
-# Verify packages function (validation and wrapper testing)
-# Legacy verify_packages() function removed - use import with validate_package_comprehensive() instead
-verify_packages_REMOVED() {
-	# Legacy verify function removed - use 'portx packages import' instead for validation
-	echo "ERROR: verify command removed. Use 'portx packages import' for package validation." >&2
-	return 1
-}
 
 # ===== TOOLS AGGREGATOR FUNCTIONALITY (from portx.sh backup) =====
 
