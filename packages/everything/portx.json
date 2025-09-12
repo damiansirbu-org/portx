@@ -1,0 +1,27 @@
+{
+  "$schema": "https://portx.io/schema/portx.json",
+  "name": "everything",
+  "version": "1.4.11",
+  "description": "Everything Command Line Interface - blazing fast file search using Everything's instant indexing engine",
+  "importType": "wrap",
+  "bin": {
+    "es": {
+      "path": "es.exe",
+      "description": "Everything Search CLI - instant file search with regex, filters, and export capabilities",
+      "usage": "es \"search term\" | es -r \"regex.*pattern\" | es -folder-only \"dirname\" | es -export results.txt \"query\"",
+      "dependencies": "windows"
+    }
+  },
+  "tags": [
+    "search",
+    "files", 
+    "filesystem",
+    "instant",
+    "indexing",
+    "cli",
+    "windows",
+    "productivity",
+    "file-management",
+    "everything"
+  ]
+}
