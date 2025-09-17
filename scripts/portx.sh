@@ -13,6 +13,9 @@ if [[ -z "${GIT_BASH_ROOT:-}" ]]; then
 	exit 1
 fi
 
+# Ensure GFW tools are in PATH
+export PATH="/c/App/Git/bin:$PATH"
+
 # Get script directory for theme loading
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
@@ -25,6 +28,9 @@ log() { printf "%s%s%s\n" "$(color_primary)" "$1" "$(color_reset)"; }
 error() { printf "%s%s%s\n" "$(color_error)" "$1" "$(color_reset)" >&2; }
 success() { printf "%s%s%s\n" "$(color_success)" "$1" "$(color_reset)"; }
 warning() { printf "%s%s%s\n" "$(color_warning)" "$1" "$(color_reset)"; }
+
+
+
 
 # Configuration
 # Convert Windows paths to MSYS format for bash commands
@@ -1446,7 +1452,7 @@ _generate_packages_list() {
 
 			# Display package header using authoritative left-aligned padding approach
 			pkg_header="$pkg_name"
-			printf "%s%-*s%s %s\n" "$(color_primary)" "$name_width" "$pkg_header" "$(color_reset)" "$pkg_description"
+			printf "%-*s %s\n" "$name_width" "$pkg_header" "$pkg_description"
 
 			# Format tools using the new 2-column layout
 			while IFS='|' read -r executable description tags; do
