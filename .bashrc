@@ -227,14 +227,13 @@ export HISTFILE="$HOME/.bash_history"
 export HISTSIZE=-1                      # Unlimited in-memory history
 export HISTFILESIZE=-1                  # Unlimited on-disk history
 export HISTTIMEFORMAT="[%F %T] "        # Timestamp format: [YYYY-MM-DD HH:MM:SS]
-export HISTCONTROL=ignoredups:erasedups # Remove duplicates
+export HISTCONTROL=ignoredups:erasedups # Remove duplicates and erase existing duplicates
 
 # Shell Options for History Management
 shopt -s histappend # Append to history file, don't overwrite
 
-# Real-time History Persistence
-# Write history immediately after each command for session sharing
-PROMPT_COMMAND="history -a;$PROMPT_COMMAND"
+# Simple History Persistence - Write after each command, period.
+PROMPT_COMMAND="history -a${PROMPT_COMMAND:+; $PROMPT_COMMAND}"
 
 # =============================================================================
 # UNIFIED PATH MANAGEMENT SYSTEM
