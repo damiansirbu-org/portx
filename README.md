@@ -1,14 +1,16 @@
 # PORTX - Enterprise Portable Development Environment
 
-A comprehensive portable development environment solving the fundamental enterprise security vs. portability dilemma through signature-preserving architecture. PORTX delivers 700+ Windows-native CLI tools with planned expansion to 1000+ tools including complete language runtimes (Java, Node.js, .NET, C/C++), build systems (Maven, Gradle), and professional toolchains.
+A comprehensive portable development environment bridging enterprise security requirements with development productivity. PORTX delivers 654 Windows-native CLI tools across 206 packages, with planned expansion to 1000+ tools including complete language runtimes (Java, Node.js, .NET, C/C++), build systems (Maven, Gradle), and professional toolchains.
 
-## The Enterprise Portability Solution
+## Enterprise-Developer Partnership
 
-PORTX addresses what most consider impossible: achieving true portability while maintaining enterprise security compliance. Traditional portable environments break Windows code signing, triggering SmartScreen warnings and corporate security rejections. PORTX preserves Git for Windows digital signatures through profile-based configuration, enabling corporate deployment without security compromise.
+PORTX bridges the gap between enterprise security requirements and developer productivity needs. Instead of compromising either security or functionality, PORTX enables both to coexist harmoniously. Traditional portable environments break Windows code signing, creating friction with IT departments. PORTX preserves Git for Windows digital signatures through profile-based configuration, enabling smooth corporate adoption while maintaining developer autonomy.
 
 **Key Innovation**: Configuration-layer portability instead of executable modification maintains Windows Authenticode integrity, AppLocker compatibility, and Device Guard compliance.
 
-**Technical Architecture**: Detailed analysis available in [PORTX Architecture Documentation](doc/portx-architecture.md) and [Git for Windows Architecture Analysis](doc/git-for-windows-architecture.md).
+**Technical Architecture**: 
+1. Detailed analysis available in [PORTX Architecture Documentation](doc/portx-architecture.md)
+2. Foundation analysis in [Git for Windows Architecture Analysis](doc/git-for-windows-architecture.md)
 
 ## Architecture
 
@@ -49,7 +51,7 @@ PORTX uniquely solves enterprise portability challenges that existing solutions 
 
 | Solution | Enterprise Security | True Portability | Comprehensive Tooling | Windows Integration |
 |----------|-------------------|-----------------|---------------------|--------------------|
-| **PORTX** | ✅ Signature preserved | ✅ Zero installation | ✅ 700+ → 1000+ tools | ✅ Native Windows |
+| **PORTX** | ✅ Signature preserved | ✅ Zero installation | ✅ 654 → 1000+ tools | ✅ Native Windows |
 | Scoop/Chocolatey | ❌ Requires installation | ❌ System-wide changes | ✅ Good ecosystem | ⚠️ Limited integration |
 | MSYS2 | ❌ Installation required | ❌ System conflicts | ✅ Comprehensive | ⚠️ Unix-centric |
 | WSL | ❌ Windows features | ❌ Not portable | ✅ Full Linux | ❌ Linux-only focus |
@@ -72,7 +74,7 @@ PORTX uniquely solves enterprise portability challenges that existing solutions 
 
 **Performance**: Native Windows executables compiled in C and Rust for optimal speed and compatibility. No emulation layers or DLL dependencies.
 
-**Comprehensive Tooling**: 700+ current tools expanding to 1000+ with complete language runtimes, build systems, and professional development toolchains.
+**Comprehensive Tooling**: 654 current tools across 206 packages, expanding to 1000+ with complete language runtimes, build systems, and professional development toolchains.
 
 **Windows-First Design**: Unlike Unix-centric solutions, PORTX understands Windows enterprise reality with proper PATH management and CMD/PowerShell integration.
 
@@ -184,7 +186,9 @@ Development based on authoritative sources:
 
 ## Tool Discovery & Research Methodology
 
-PORTX includes a comprehensive tool discovery system with scientifically curated documentation for all 700+ tools across MinGit foundation, Git Extensions, and professional toolkit:
+PORTX includes a comprehensive tool discovery system with scientifically curated documentation for all 654 tools across MinGit foundation, Git Extensions, and professional toolkit:
+
+**Complete Tool Catalog**: Browse the full inventory of available tools in the [PORTX Tools Database](.portx_packages_cache).
 
 ### Discovery Interface
 
@@ -201,7 +205,7 @@ PORTX includes a comprehensive tool discovery system with scientifically curated
 
 ### Research & Curation Process
 
-**Systematic Tool Analysis**: Each of the 700+ tools underwent individual research:
+**Systematic Tool Analysis**: Each of the 654 tools underwent individual research:
 1. **Source Documentation Review**: Official manuals, GitHub repositories, vendor documentation
 2. **Functional Classification**: Categorization based on primary use case and professional domain
 3. **Usage Pattern Analysis**: Real-world command examples and common workflows
@@ -233,31 +237,6 @@ tool_name|category|full_path|detailed_description|usage_examples
 
 This scientific approach ensures PORTX provides enterprise-grade tool discovery with professional documentation standards comparable to commercial development environments.
 
-## Screenshots
-
-<div align="center">
-
-![screenshot.2](doc-portx/pic/screenshot.2.jpg)
-![screenshot.3](doc-portx/pic/screenshot.3.jpg)
-![screenshot.4](doc-portx/pic/screenshot.4.jpg)
-
-![screenshot.5](doc-portx/pic/screenshot.5.jpg)
-![screenshot.6](doc-portx/pic/screenshot.6.jpg)
-![screenshot.7](doc-portx/pic/screenshot.7.jpg)
-
-![screenshot.9](doc-portx/pic/screenshot.9.jpg)
-![screenshot.10](doc-portx/pic/screenshot.10.jpg)
-![screenshot.11](doc-portx/pic/screenshot.11.jpg)
-
-![screenshot.12](doc-portx/pic/screenshot.12.jpg)
-![screenshot.13](doc-portx/pic/screenshot.13.jpg)
-![screenshot.14](doc-portx/pic/screenshot.14.jpg)
-
-![screenshot.15](doc-portx/pic/screenshot.15.jpg)
-![screenshot.16](doc-portx/pic/screenshot.16.jpg)
-![screenshot.17](doc-portx/pic/screenshot.17.jpg)
-
-</div>
 
 ## Quick Start
 
@@ -291,9 +270,9 @@ This scientific approach ensures PORTX provides enterprise-grade tool discovery 
 
 ## Documentation
 
-- **[PORTX Architecture](doc/portx-architecture.md)** - Comprehensive technical architecture, security model, and design decisions
-- **[Git for Windows Architecture](doc/git-for-windows-architecture.md)** - Foundation analysis and integration patterns  
-- **[Development Standards](doc/standards.md)** - Technical standards and development guidelines
-- **[Project Roadmap](doc/TODO.md)** - Current development status and future enhancement plans
+1. **[PORTX Architecture](doc/portx-architecture.md)** - Comprehensive technical architecture, security model, and design decisions
+2. **[Git for Windows Architecture](doc/git-for-windows-architecture.md)** - Foundation analysis and integration patterns  
+3. **[Development Standards](doc/standards.md)** - Technical standards and development guidelines
+4. **[Project Roadmap](doc/TODO.md)** - Current development status and future enhancement plans
 
-PORTX delivers enterprise-grade Unix functionality on Windows without the complexity or security concerns of traditional emulation approaches.
+PORTX delivers enterprise-grade Unix functionality on Windows, helping organizations adopt modern development practices while maintaining security compliance and operational stability.

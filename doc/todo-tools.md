@@ -1,5 +1,23 @@
 # PORTX Tools TODO - 2025
 
+##
+https://gist.github.com/sts10/daadbc2f403bdffad1b6d33aff016c0a
+
+##
+- miniserve
+
+##
+grex + lemmeknow - Pattern analysis powerhouses
+yazi - The file manager that makes ranger look slow
+qsv - CSV manipulation on steroids
+kalker - Calculator that does calculus
+pier-cli - Command snippet manager
+cargo-geiger - Security auditing for dependencies
+bandwhich - Network monitoring per-process
+silicon - Beautiful code screenshots
+ouch - Compression tool that just works
+htmlq - jq for HTML
+
 ## Security & Analysis
 - **osv-scanner** - Google's vulnerability scanner for dependencies
 - **semgrep** - Static analysis for finding bugs/security issues  
