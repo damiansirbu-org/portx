@@ -102,8 +102,10 @@ find_project_root() {
         search_root="$(dirname "$start_path")"
     fi
     
-    # Return results as JSON
-    echo "{\"search_root\":\"$search_root\",\"project_root_found\":$project_root_found}"
+    # Return results as JSON with proper path escaping
+    local escaped_search_root
+    escaped_search_root=$(printf '%s' "$search_root" | sed 's/\\/\\\\/g; s/"/\\"/g')
+    echo "{\"search_root\":\"$escaped_search_root\",\"project_root_found\":$project_root_found}"
 }
 
 # Simple search root (5 levels up - from original dependency analyzer)

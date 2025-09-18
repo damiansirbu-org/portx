@@ -38,7 +38,7 @@ analyze_helm_chart() {
     done
     
     if [[ -z "$chart_root" ]]; then
-        return_error '{"analyzer":"helm_chart","error":"Chart.yaml not found - not a Helm chart"}'
+        return_error '{"analyzer":"helm_chart","status":"error","error":"Chart.yaml not found - not a Helm chart"}'
         return
     fi
     
@@ -353,13 +353,17 @@ analyze_helm_chart() {
     [[ ${#k8s_analysis[@]} -gt 0 ]] && k8s_json="[$(IFS=,; echo "${k8s_analysis[*]}")]"
     
     # Generate comprehensive architectural analysis
+    local escaped_file_path escaped_chart_root
+    escaped_file_path=$(printf '%s' "$FILE_PATH" | sed 's/\\/\\\\/g; s/"/\\"/g')
+    escaped_chart_root=$(printf '%s' "$chart_root" | sed 's/\\/\\\\/g; s/"/\\"/g')
+    
     local helm_result
     helm_result=$(printf '{"analyzer":"helm_chart","file":"%s","chart_metadata":{"name":"%s","version":"%s","type":"%s","chart_root":"%s"},"architecture":{"services":{"template_services":%s},"dependencies":{"count":%d,"external_deps":%s},"kubernetes":{"analysis":%s},"templates":{"analysis":%s},"configuration":{"values_sections":%d,"values_analysis":%s}},"patterns":{"detected":%s,"complexity":"%s"},"summary":{"values_config_sections":%d,"chart_dependencies":%d,"architecture_type":"%s"},"metadata":{"analyzed_at":"%s","note":"Comprehensive Helm chart analysis: services, dependencies, Kubernetes resources, templates, and configuration"}}' \
-        "$FILE_PATH" \
+        "$escaped_file_path" \
         "$chart_name" \
         "$chart_version" \
         "$chart_type" \
-        "$chart_root" \
+        "$escaped_chart_root" \
         "$services_json" \
         "$total_dependencies" \
         "$deps_json" \

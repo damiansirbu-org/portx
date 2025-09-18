@@ -140,11 +140,15 @@ format_analysis_results() {
         local analyzer_result
         analyzer_result=$($analyzer 2>&1)
         if [[ -n "$analyzer_result" ]]; then
+            # Fix Windows path escaping in JSON before parsing
+            local fixed_json
+            fixed_json=$(echo "$analyzer_result" | sed 's/\\\\/\\\\\\\\/g')
+            
             # Parse the standardized return format
             local return_code
             local output_data
-            return_code=$(echo "$analyzer_result" | "$JSON_GOJQ_PATH" -r '.return_code // "ERROR"' 2>/dev/null)
-            output_data=$(echo "$analyzer_result" | "$JSON_GOJQ_PATH" -r '.output // ""' 2>/dev/null)
+            return_code=$(echo "$fixed_json" | "$JSON_GOJQ_PATH" -r '.return_code // "ERROR"' 2>/dev/null)
+            output_data=$(echo "$fixed_json" | "$JSON_GOJQ_PATH" -r '.output // ""' 2>/dev/null)
             
             if [[ "$return_code" == "SUCCESS" && -n "$output_data" ]]; then
                 # LOG: Show analyzer completed successfully

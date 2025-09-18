@@ -40,6 +40,8 @@ analyze_ast_grep() {
         sh|bash) language="bash" ;;
         rb) language="ruby" ;;
         php) language="php" ;;
+        yaml|yml) language="yaml" ;;
+        json) language="json" ;;
         *) 
             return_error '{"analyzer":"ast_grep","status":"unsupported_language","details":"File extension not supported by ast-grep analyzer"}'
             return 1 
@@ -92,6 +94,48 @@ analyze_ast_grep() {
                 classes_found=0
                 imports_found=0
                 error_messages+=("File not accessible for bash analysis")
+            fi
+            patterns_tried=3
+            ;;
+            
+        yaml)
+            # For YAML, focus on structure analysis
+            if [[ -f "$FILE_PATH" ]]; then
+                # Count YAML key-value pairs
+                variables_found=$(grep -c '^[a-zA-Z][a-zA-Z0-9_-]*:' "$FILE_PATH" 2>/dev/null || echo "0")
+                # Count arrays/lists
+                imports_found=$(grep -c '^[[:space:]]*-[[:space:]]' "$FILE_PATH" 2>/dev/null || echo "0")
+                # Count nested sections (indented keys)
+                classes_found=$(grep -c '^[[:space:]]\+[a-zA-Z][a-zA-Z0-9_-]*:' "$FILE_PATH" 2>/dev/null || echo "0")
+                functions_found=0  # YAML doesn't have functions
+                successful_patterns=3
+            else
+                functions_found=0
+                variables_found=0
+                classes_found=0
+                imports_found=0
+                error_messages+=("File not accessible for YAML analysis")
+            fi
+            patterns_tried=3
+            ;;
+            
+        json)
+            # For JSON, focus on structure analysis
+            if [[ -f "$FILE_PATH" ]]; then
+                # Count JSON keys
+                variables_found=$(grep -c '"[^"]*"[[:space:]]*:' "$FILE_PATH" 2>/dev/null || echo "0")
+                # Count arrays
+                imports_found=$(grep -c '\[' "$FILE_PATH" 2>/dev/null || echo "0")
+                # Count objects
+                classes_found=$(grep -c '{' "$FILE_PATH" 2>/dev/null || echo "0")
+                functions_found=0  # JSON doesn't have functions
+                successful_patterns=3
+            else
+                functions_found=0
+                variables_found=0
+                classes_found=0
+                imports_found=0
+                error_messages+=("File not accessible for JSON analysis")
             fi
             patterns_tried=3
             ;;

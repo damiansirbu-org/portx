@@ -169,6 +169,15 @@ analyze_dependency_reverse() {
             fi
             ;;
             
+        go)
+            # Go files - search for imports of this package
+            local package_path="$1"
+            local patterns=(
+                "import\\s+\".*$(basename "$package_path" .go)\""
+                "\".*$(basename "$package_path" .go)\""
+            )
+            ;;
+            
         *) 
             return_error '{"analyzer":"dependency_reverse","status":"unsupported_file_type","details":"File extension not supported for reverse dependency analysis"}'
             return
@@ -214,11 +223,15 @@ analyze_dependency_reverse() {
     fi
     
     # Output comprehensive JSON structure
+    local escaped_file_path escaped_search_root
+    escaped_file_path=$(printf '%s' "$FILE_PATH" | sed 's/\\/\\\\/g; s/"/\\"/g')
+    escaped_search_root=$(printf '%s' "$search_root" | sed 's/\\/\\\\/g; s/"/\\"/g')
+    
     local result_json
     result_json=$(printf '{"analyzer":"dependency_reverse","file":"%s","language":"%s","search_scope":{"root":"%s","project_root_found":%s,"search_strategy":"%s"},"reverse_analysis":{"importers":{"count":%d,"found":%s},"referrers":{"count":%d,"patterns":%s},"total_reverse_deps":%d},"metadata":{"analyzed_at":"%s","search_timeout":"30s","note":"Shows files that depend ON this file"}}' \
-        "$FILE_PATH" \
+        "$escaped_file_path" \
         "$file_ext" \
-        "$search_root" \
+        "$escaped_search_root" \
         "$project_root_found" \
         "$([[ "$project_root_found" == true ]] && echo "project_tree_search" || echo "local_directory_search")" \
         "$dependency_count" \

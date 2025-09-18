@@ -88,8 +88,10 @@ analyze_ctags() {
         json_array+="]"
         
         # Wrap raw CTags output in our standard format with mode info
+        local escaped_file_path
+        escaped_file_path=$(printf '%s' "$FILE_PATH" | sed 's/\\/\\\\/g; s/"/\\"/g')
         local ctags_json
-        ctags_json='{"analyzer":"ctags","status":"success","file":"'"$FILE_PATH"'","analysis_mode":"'"$analysis_mode"'","line_count":'"$line_count"',"data":'"$json_array"'}'
+        ctags_json='{"analyzer":"ctags","status":"success","file":"'"$escaped_file_path"'","analysis_mode":"'"$analysis_mode"'","line_count":'"$line_count"',"data":'"$json_array"'}'
         
         # Cleanup temp directory
         rm -rf "$temp_dir" 2>/dev/null
@@ -97,6 +99,8 @@ analyze_ctags() {
     else
         # Cleanup temp directory  
         rm -rf "$temp_dir" 2>/dev/null
-        return_error '{"analyzer":"ctags","status":"no_symbols","file":"'"$FILE_PATH"'","analysis_mode":"'"$analysis_mode"'","line_count":'"$line_count"'"}'
+        local escaped_file_path
+        escaped_file_path=$(printf '%s' "$FILE_PATH" | sed 's/\\/\\\\/g; s/"/\\"/g')
+        return_error '{"analyzer":"ctags","status":"no_symbols","file":"'"$escaped_file_path"'","analysis_mode":"'"$analysis_mode"'","line_count":'"$line_count"'"}'
     fi
 }
