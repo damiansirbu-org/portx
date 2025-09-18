@@ -1,0 +1,15 @@
+{
+  "name": "lemmeknow",
+  "version": "0.8.0",
+  "description": "Fast pattern recognition tool that identifies text patterns, formats, and encodings using regex and machine learning algorithms",
+  "importType": "wrap",
+  "bin": {
+    "lemmeknow": {
+      "path": "lemmeknow.exe",
+      "description": "Advanced pattern identification tool for analyzing unknown text formats, encodings, hashes, and data structures with confidence scoring",
+      "usage": "lemmeknow \"base64encodedtext\"\nlemmeknow --json \"hash123456\"\nlemmeknow --verbose \"unknown_pattern\"\nlemmeknow --min 0.5 --max 1.0 \"data\"\nlemmeknow --include hash \"md5string\"\nlemmeknow --exclude email \"mixeddata\"",
+      "dependencies": "windows"
+    }
+  },
+  "tags": ["pattern", "recognition", "identification", "regex", "analysis", "text", "rust", "security"]
+}

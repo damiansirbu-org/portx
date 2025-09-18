@@ -1,0 +1,45 @@
+{{- if and .Values.auth.enabled (eq .Values.auth.reset true)  }}
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: {{ .Values.auth.resetjob.claimname }}
+  labels:
+    app: auth-db
+spec:
+  storageClassName: ebs-sc
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: {{ .Values.auth.resetjob.claimsize }}
+{{- if eq .Values.global.env "prem" }}
+  selector:
+    matchLabels:
+      volume: auth-db-pv
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: {{ .Values.auth.resetjob.claimname }}
+  labels:
+    volume: {{ .Values.auth.resetjob.claimname }}
+spec:
+  accessModes:
+    - ReadWriteOnce
+  capacity:
+    storage: {{ .Values.auth.resetjob.claimsize }}
+  hostPath:
+    path: /var/lib/rancher/k3s/storage/keycloak-reset
+    type: DirectoryOrCreate
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+        - matchExpressions:
+          - key: kubernetes.io/hostname
+            operator: In
+            values:
+            - k3s-worker
+  storageClassName: ebs-sc
+  volumeMode: Filesystem
+{{- end }}
+{{- end }}

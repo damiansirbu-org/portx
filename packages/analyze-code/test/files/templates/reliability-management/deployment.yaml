@@ -1,0 +1,54 @@
+{{- if .Values.reliabilityManagement.enabled -}}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.reliabilityManagement.deploymentName }}
+  labels:
+    app: reliability-management
+    type: oam-service
+spec:
+  selector:
+    matchLabels:
+      app: reliability-management
+  template:
+    metadata:
+      annotations:
+        checksum/config: {{ include (print $.Template.BasePath "/reliability-management/configmap.yaml") . | sha256sum }}
+        checksum/secret: {{ include (print $.Template.BasePath "/reliability-management/secret.yaml") . | sha256sum }}
+      labels:
+        app: reliability-management
+        type: oam-service
+    spec:
+      automountServiceAccountToken: false
+      {{- if eq .Values.tags.aws true }}
+      imagePullSecrets:
+        - name: {{ .Values.harbor.pullsecretname }}
+      {{- end }}
+      containers:
+        - name: reliability-management
+          image: "{{ .Values.image.registry }}/{{ .Values.reliabilityManagement.image.repository }}:{{ .Values.reliabilityManagement.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.reliabilityManagement.image.pullPolicy }}
+          envFrom:
+            - configMapRef:
+                name: oam-reliability-management-configmap
+            - secretRef:
+                name: oam-reliability-management-secret
+          ports:
+            - name: http
+              containerPort: {{ .Values.reliabilityManagement.port }}
+          resources:
+            {{- toYaml .Values.reliabilityManagement.resources | nindent 12 }}
+          {{- with .Values.reliabilityManagement.probes }}
+          {{- toYaml . | nindent 10 }}
+          {{- end }}
+      initContainers:
+        - name: init-service-registry
+          image: "{{ .Values.image.docker }}busybox:1.28"
+          command: [ 'sh', '-c', "until nslookup {{ .Values.serviceRegistry.service.name }}.{{ .Release.Namespace }}.svc.cluster.local; do echo waiting for service-registry; sleep 2; done" ]
+        - name: init-database
+          image: "{{ .Values.image.docker }}busybox:1.28"
+          command: [ 'sh', '-c', "until nslookup {{ .Values.reliabilityManagementDB.fullnameOverride }}.{{ .Release.Namespace }}.svc.cluster.local; do echo waiting for postgres; sleep 2; done" ]
+      securityContext:
+        runAsUser: 1000
+        runAsNonRoot: true
+{{- end -}}

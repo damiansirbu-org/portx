@@ -1,0 +1,15 @@
+{{- if .Values.auth.enabled -}}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: oam-auth-configmap
+  labels:
+    app: auth
+data:
+  KC_HOSTNAME: {{ printf "%s://auth.%s/auth" .Values.global.fe_protocol (ternary .Values.masterAtl.frontendHost .Values.ingress.internet.frontendHost .Values.masterAtl.enabled) | quote }}
+  KC_DB_URL_HOST: {{ .Values.authDB.fullnameOverride | quote }}
+  KC_DB_URL_PORT: {{ .Values.authDB.port  | quote }}
+  {{- range $envName, $value := .Values.auth.env }}
+  {{ $envName }}: {{ $value | quote }}
+  {{- end }}
+{{- end -}}

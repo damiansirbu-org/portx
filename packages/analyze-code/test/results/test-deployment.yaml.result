@@ -1,0 +1,219 @@
+**DEEP ANALYSIS INSIGHTS** - Reference these code structures when working with this file:\n\n{"analyzer":"ctags","status":"success","file":"/c/Users/damian/.claude/hooks/analyze-hook/test/files/test-deployment.yaml","data":{"_type": "tag", "name": "app-config", "path": "C:/Users/damian/.claude/hooks/analyze-hook/test/files/test-deployment.yaml", "pattern": "/^  name: app-config$/", "language": "AnsiblePlaybook", "line": 138, "kind": "play", "end": 142}
+{"_type": "tag", "name": "database-secret", "path": "C:/Users/damian/.claude/hooks/analyze-hook/test/files/test-deployment.yaml", "pattern": "/^  name: database-secret$/", "language": "AnsiblePlaybook", "line": 156, "kind": "play", "end": 160}
+{"_type": "tag", "name": "test-app", "path": "C:/Users/damian/.claude/hooks/analyze-hook/test/files/test-deployment.yaml", "pattern": "/^  name: test-app$/", "language": "AnsiblePlaybook", "line": 4, "kind": "play", "end": 13}
+{"_type": "tag", "name": "test-app-role", "path": "C:/Users/damian/.claude/hooks/analyze-hook/test/files/test-deployment.yaml", "pattern": "/^  name: test-app-role$/", "language": "AnsiblePlaybook", "line": 177, "kind": "play", "end": 180}
+{"_type": "tag", "name": "test-app-role", "path": "C:/Users/damian/.claude/hooks/analyze-hook/test/files/test-deployment.yaml", "pattern": "/^  name: test-app-role$/", "language": "AnsiblePlaybook", "line": 201, "kind": "play", "end": 203}
+{"_type": "tag", "name": "test-app-rolebinding", "path": "C:/Users/damian/.claude/hooks/analyze-hook/test/files/test-deployment.yaml", "pattern": "/^  name: test-app-rolebinding$/", "language": "AnsiblePlaybook", "line": 191, "kind": "play", "end": 195}
+{"_type": "tag", "name": "test-app-service", "path": "C:/Users/damian/.claude/hooks/analyze-hook/test/files/test-deployment.yaml", "pattern": "/^  name: test-app-service$/", "language": "AnsiblePlaybook", "line": 119, "kind": "play", "end": 125}
+{"_type": "tag", "name": "test-deployment.yaml", "path": "C:/Users/damian/.claude/hooks/analyze-hook/test/files/test-deployment.yaml", "pattern": false, "language": "Yaml", "line": 1, "kind": "file", "end": 202, "epoch": 1757493615}
+{"_type": "tag", "name": "test-service-account", "path": "C:/Users/damian/.claude/hooks/analyze-hook/test/files/test-deployment.yaml", "pattern": "/^  name: test-service-account$/", "language": "AnsiblePlaybook", "line": 167, "kind": "play", "end": 171}
+{"_type": "tag", "name": "test-service-account", "path": "C:/Users/damian/.claude/hooks/analyze-hook/test/files/test-deployment.yaml", "pattern": "/^  name: test-service-account$/", "language": "AnsiblePlaybook", "line": 197, "kind": "play", "end": 199}}
+
+{"analyzer":"scc","file":"/c/Users/damian/.claude/hooks/analyze-hook/test/files/test-deployment.yaml","language":"YAML","metrics":{"total_lines":202,"code_lines":202,"total_complexity":0,"function_count":0,"avg_complexity_per_function":0},"raw_scc_data":[{"Name":"YAML","Bytes":4467,"CodeBytes":0,"Lines":202,"Code":202,"Comment":0,"Blank":0,"Complexity":0,"Count":1,"WeightedComplexity":0,"Files":[],"LineLength":null,"ULOC":0}],"function_analysis":[],"analysis_notes":"Enhanced SCC with per-function complexity estimation"}
+
+**FILE CONTENT** (test-deployment.yaml - 4467 bytes):\n\n─────┬─────────────────────────────────────────────────────────────────────────
+     │ File: C:/Users/damian/.claude/hooks/analyze-hook/test/files/test-deployment.yaml
+─────┼─────────────────────────────────────────────────────────────────────────
+   1 │ apiVersion: apps/v1
+   2 │ kind: Deployment
+   3 │ metadata:
+   4 │   name: test-app
+   5 │   namespace: testing
+   6 │   labels:
+   7 │     app: test-app
+   8 │     version: "1.0.0"
+   9 │     environment: staging
+  10 │   annotations:
+  11 │     deployment.kubernetes.io/revision: "1"
+  12 │     analyzer.test/purpose: "comprehensive-validation"
+  13 │ spec:
+  14 │   replicas: 3
+  15 │   strategy:
+  16 │     type: RollingUpdate
+  17 │     rollingUpdate:
+  18 │       maxUnavailable: 1
+  19 │       maxSurge: 1
+  20 │   selector:
+  21 │     matchLabels:
+  22 │       app: test-app
+  23 │   template:
+  24 │     metadata:
+  25 │       labels:
+  26 │         app: test-app
+  27 │         version: "1.0.0"
+  28 │     spec:
+  29 │       serviceAccountName: test-service-account
+  30 │       securityContext:
+  31 │         runAsNonRoot: true
+  32 │         runAsUser: 1001
+  33 │         fsGroup: 1001
+  34 │       containers:
+  35 │       - name: main-app
+  36 │         image: test-app:1.0.0
+  37 │         imagePullPolicy: IfNotPresent
+  38 │         ports:
+  39 │         - containerPort: 8080
+  40 │           name: http
+  41 │         env:
+  42 │         - name: DATABASE_URL
+  43 │           valueFrom:
+  44 │             secretKeyRef:
+  45 │               name: database-secret
+  46 │               key: url
+  47 │         - name: REDIS_URL
+  48 │           valueFrom:
+  49 │             configMapKeyRef:
+  50 │               name: app-config
+  51 │               key: redis_url
+  52 │         resources:
+  53 │           requests:
+  54 │             memory: "128Mi"
+  55 │             cpu: "100m"
+  56 │           limits:
+  57 │             memory: "512Mi"
+  58 │             cpu: "500m"
+  59 │         livenessProbe:
+  60 │           httpGet:
+  61 │             path: /health/live
+  62 │             port: 8080
+  63 │           initialDelaySeconds: 30
+  64 │           periodSeconds: 10
+  65 │           timeoutSeconds: 5
+  66 │           failureThreshold: 3
+  67 │         readinessProbe:
+  68 │           httpGet:
+  69 │             path: /health/ready
+  70 │             port: 8080
+  71 │           initialDelaySeconds: 5
+  72 │           periodSeconds: 5
+  73 │           timeoutSeconds: 3
+  74 │           successThreshold: 1
+  75 │           failureThreshold: 3
+  76 │         startupProbe:
+  77 │           httpGet:
+  78 │             path: /health/startup
+  79 │             port: 8080
+  80 │           initialDelaySeconds: 0
+  81 │           periodSeconds: 10
+  82 │           timeoutSeconds: 3
+  83 │           failureThreshold: 30
+  84 │         volumeMounts:
+  85 │         - name: app-data
+  86 │           mountPath: /data
+  87 │         - name: config-volume
+  88 │           mountPath: /etc/config
+  89 │       volumes:
+  90 │       - name: app-data
+  91 │         persistentVolumeClaim:
+  92 │           claimName: app-data-pvc
+  93 │       - name: config-volume
+  94 │         configMap:
+  95 │           name: app-config
+  96 │       nodeSelector:
+  97 │         kubernetes.io/os: linux
+  98 │       tolerations:
+  99 │       - key: "app-nodes"
+ 100 │         operator: "Equal"
+ 101 │         value: "true"
+ 102 │         effect: "NoSchedule"
+ 103 │       affinity:
+ 104 │         podAntiAffinity:
+ 105 │           preferredDuringSchedulingIgnoredDuringExecution:
+ 106 │           - weight: 100
+ 107 │             podAffinityTerm:
+ 108 │               labelSelector:
+ 109 │                 matchExpressions:
+ 110 │                 - key: app
+ 111 │                   operator: In
+ 112 │                   values:
+ 113 │                   - test-app
+ 114 │               topologyKey: kubernetes.io/hostname
+ 115 │ ---
+ 116 │ apiVersion: v1
+ 117 │ kind: Service
+ 118 │ metadata:
+ 119 │   name: test-app-service
+ 120 │   namespace: testing
+ 121 │   labels:
+ 122 │     app: test-app
+ 123 │   annotations:
+ 124 │     service.beta.kubernetes.io/aws-load-balancer-type: nlb
+ 125 │ spec:
+ 126 │   type: ClusterIP
+ 127 │   ports:
+ 128 │   - port: 80
+ 129 │     targetPort: 8080
+ 130 │     protocol: TCP
+ 131 │     name: http
+ 132 │   selector:
+ 133 │     app: test-app
+ 134 │ ---
+ 135 │ apiVersion: v1
+ 136 │ kind: ConfigMap
+ 137 │ metadata:
+ 138 │   name: app-config
+ 139 │   namespace: testing
+ 140 │   labels:
+ 141 │     app: test-app
+ 142 │ data:
+ 143 │   redis_url: "redis://redis-service:6379"
+ 144 │   log_level: "info"
+ 145 │   debug_mode: "false"
+ 146 │   feature_flags: |
+ 147 │     {
+ 148 │       "new_ui": true,
+ 149 │       "analytics": false,
+ 150 │       "experimental_features": true
+ 151 │     }
+ 152 │ ---
+ 153 │ apiVersion: v1
+ 154 │ kind: Secret
+ 155 │ metadata:
+ 156 │   name: database-secret
+ 157 │   namespace: testing
+ 158 │   labels:
+ 159 │     app: test-app
+ 160 │ type: Opaque
+ 161 │ data:
+ 162 │   url: cG9zdGdyZXNxbDovL3VzZXI6cGFzcUBkYi5leGFtcGxlLmNvbTo1NDMyL2FwcGRi
+ 163 │ ---
+ 164 │ apiVersion: v1
+ 165 │ kind: ServiceAccount
+ 166 │ metadata:
+ 167 │   name: test-service-account
+ 168 │   namespace: testing
+ 169 │   labels:
+ 170 │     app: test-app
+ 171 │ automountServiceAccountToken: false
+ 172 │ ---
+ 173 │ apiVersion: rbac.authorization.k8s.io/v1
+ 174 │ kind: Role
+ 175 │ metadata:
+ 176 │   namespace: testing
+ 177 │   name: test-app-role
+ 178 │   labels:
+ 179 │     app: test-app
+ 180 │ rules:
+ 181 │ - apiGroups: [""]
+ 182 │   resources: ["configmaps", "secrets"]
+ 183 │   verbs: ["get", "list"]
+ 184 │ - apiGroups: [""]
+ 185 │   resources: ["pods"]
+ 186 │   verbs: ["get", "list", "watch"]
+ 187 │ ---
+ 188 │ apiVersion: rbac.authorization.k8s.io/v1
+ 189 │ kind: RoleBinding
+ 190 │ metadata:
+ 191 │   name: test-app-rolebinding
+ 192 │   namespace: testing
+ 193 │   labels:
+ 194 │     app: test-app
+ 195 │ subjects:
+ 196 │ - kind: ServiceAccount
+ 197 │   name: test-service-account
+ 198 │   namespace: testing
+ 199 │ roleRef:
+ 200 │   kind: Role
+ 201 │   name: test-app-role
+ 202 │   apiGroup: rbac.authorization.k8s.io
+─────┴─────────────────────────────────────────────────────────────────────────\n\nCLAUDE WORKFLOW:\n• Comprehensive analysis provided above - review all structural data\n• To view/edit this file, use: $GFW/bat "/c/Users/damian/.claude/hooks/analyze-hook/test/files/test-deployment.yaml"\n• For Write/Edit operations: Use $GFW/bat first, then Write/Edit normally

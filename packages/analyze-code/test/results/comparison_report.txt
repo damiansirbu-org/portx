@@ -1,0 +1,277 @@
+COMPREHENSIVE ANALYZE-CODE vs ORIGINAL HOOK COMPARISON REPORT
+==============================================================
+Generated: Thu, Sep 18, 2025  4:56:17 AM
+Total files tested: 20
+
+SUMMARY STATISTICS:
+===================
+NEW ANALYZER:
+  Inspect mode: 20 success, 0 failed
+  Verify mode:  20 success, 0 failed
+
+ORIGINAL HOOK:
+  Inspect mode: 20 success, 0 failed
+  Verify mode:  0 success, 20 failed
+
+DETAILED COMPARISON BY FILE:
+============================
+
+FILE: c:/Work/Git/.claude/settings.local.json
+--------------------------------------------
+INSPECT MODE:
+  New: 
+SUCCESS|4,1,0
+  Old: 
+SUCCESS|0
+VERIFY MODE:
+  New: 
+SUCCESS|2,0,2
+  Old: 
+FAILED|0,0,0
+
+FILE: c:/Work/Git/damiansirbu/aida/.claude/settings.local.json
+--------------------------------------------
+INSPECT MODE:
+  New: 
+SUCCESS|4,1,0
+  Old: 
+SUCCESS|0
+VERIFY MODE:
+  New: 
+SUCCESS|2,0,2
+  Old: 
+FAILED|0,0,0
+
+FILE: c:/Work/Git/damiansirbu/browser-user-scripts/violentmonkey/.claude/settings.local.json
+--------------------------------------------
+INSPECT MODE:
+  New: 
+SUCCESS|4,1,0
+  Old: 
+SUCCESS|0
+VERIFY MODE:
+  New: 
+SUCCESS|2,0,2
+  Old: 
+FAILED|0,0,0
+
+FILE: c:/Work/Git/damiansirbu/browser-user-scripts/violentmonkey/chess-ad-blocker.js
+--------------------------------------------
+INSPECT MODE:
+  New: 
+SUCCESS|6,1,0
+  Old: 
+SUCCESS|0
+VERIFY MODE:
+  New: 
+SUCCESS|2,0,2
+  Old: 
+FAILED|0,0,0
+
+FILE: c:/Work/Git/damiansirbu/browser-user-scripts/violentmonkey/download-confluence.js
+--------------------------------------------
+INSPECT MODE:
+  New: 
+SUCCESS|6,1,0
+  Old: 
+SUCCESS|0
+VERIFY MODE:
+  New: 
+SUCCESS|2,0,2
+  Old: 
+FAILED|0,0,0
+
+FILE: c:/Work/Git/damiansirbu/browser-user-scripts/violentmonkey/hidroelectrica-tennats.js
+--------------------------------------------
+INSPECT MODE:
+  New: 
+SUCCESS|6,1,0
+  Old: 
+SUCCESS|0
+VERIFY MODE:
+  New: 
+SUCCESS|2,0,2
+  Old: 
+FAILED|0,0,0
+
+FILE: c:/Work/Git/damiansirbu/browser-user-scripts/violentmonkey/youtube-ad-blocker.js
+--------------------------------------------
+INSPECT MODE:
+  New: 
+SUCCESS|6,1,0
+  Old: 
+SUCCESS|0
+VERIFY MODE:
+  New: 
+SUCCESS|2,0,2
+  Old: 
+FAILED|0,0,0
+
+FILE: c:/Work/Git/damiansirbu/claude/.claude/settings.local.json
+--------------------------------------------
+INSPECT MODE:
+  New: 
+SUCCESS|4,1,0
+  Old: 
+SUCCESS|0
+VERIFY MODE:
+  New: 
+SUCCESS|2,0,2
+  Old: 
+FAILED|0,0,0
+
+FILE: c:/Work/Git/damiansirbu/claude/hooks/analyze-hook/analyze-hook.sh
+--------------------------------------------
+INSPECT MODE:
+  New: 
+SUCCESS|0,0,0
+  Old: 
+SUCCESS|0
+VERIFY MODE:
+  New: 
+SUCCESS|2,0,2
+  Old: 
+FAILED|0,0,0
+
+FILE: c:/Work/Git/damiansirbu/claude/hooks/analyze-hook/analyzers/inspect/ast-grep-analyzer.sh
+--------------------------------------------
+INSPECT MODE:
+  New: 
+SUCCESS|0,0,0
+  Old: 
+SUCCESS|0
+VERIFY MODE:
+  New: 
+SUCCESS|2,0,2
+  Old: 
+FAILED|0,0,0
+
+FILE: c:/Work/Git/damiansirbu/claude/hooks/analyze-hook/analyzers/inspect/ctags-analyzer.sh
+--------------------------------------------
+INSPECT MODE:
+  New: 
+SUCCESS|0,0,0
+  Old: 
+SUCCESS|0
+VERIFY MODE:
+  New: 
+SUCCESS|2,0,2
+  Old: 
+FAILED|0,0,0
+
+FILE: c:/Work/Git/damiansirbu/claude/hooks/analyze-hook/analyzers/inspect/dependency-analyzer.sh
+--------------------------------------------
+INSPECT MODE:
+  New: 
+SUCCESS|0,0,0
+  Old: 
+SUCCESS|0
+VERIFY MODE:
+  New: 
+SUCCESS|2,0,2
+  Old: 
+FAILED|0,0,0
+
+FILE: c:/Work/Git/damiansirbu/claude/hooks/analyze-hook/analyzers/inspect/dependency-reverse-analyzer.sh
+--------------------------------------------
+INSPECT MODE:
+  New: 
+SUCCESS|0,0,0
+  Old: 
+SUCCESS|0
+VERIFY MODE:
+  New: 
+SUCCESS|2,0,2
+  Old: 
+FAILED|0,0,0
+
+FILE: c:/Work/Git/damiansirbu/claude/hooks/analyze-hook/analyzers/inspect/helm-chart-analyzer.sh
+--------------------------------------------
+INSPECT MODE:
+  New: 
+SUCCESS|0,0,0
+  Old: 
+SUCCESS|0
+VERIFY MODE:
+  New: 
+SUCCESS|2,0,2
+  Old: 
+FAILED|0,0,0
+
+FILE: c:/Work/Git/damiansirbu/claude/hooks/analyze-hook/analyzers/inspect/scc-analyzer.sh
+--------------------------------------------
+INSPECT MODE:
+  New: 
+SUCCESS|0,0,0
+  Old: 
+SUCCESS|0
+VERIFY MODE:
+  New: 
+SUCCESS|2,0,2
+  Old: 
+FAILED|0,0,0
+
+FILE: c:/Work/Git/damiansirbu/claude/hooks/analyze-hook/analyzers/inspect/shellcheck-analyzer.sh
+--------------------------------------------
+INSPECT MODE:
+  New: 
+SUCCESS|0,0,0
+  Old: 
+SUCCESS|0
+VERIFY MODE:
+  New: 
+SUCCESS|2,0,2
+  Old: 
+FAILED|0,0,0
+
+FILE: c:/Work/Git/damiansirbu/claude/hooks/analyze-hook/analyzers/inspect/treesitter-analyzer.sh
+--------------------------------------------
+INSPECT MODE:
+  New: 
+SUCCESS|0,0,0
+  Old: 
+SUCCESS|0
+VERIFY MODE:
+  New: 
+SUCCESS|2,0,2
+  Old: 
+FAILED|0,0,0
+
+FILE: c:/Work/Git/damiansirbu/claude/hooks/analyze-hook/analyzers/verify/dockerfile-analyzer.sh
+--------------------------------------------
+INSPECT MODE:
+  New: 
+SUCCESS|7,1,1
+  Old: 
+SUCCESS|0
+VERIFY MODE:
+  New: 
+SUCCESS|2,0,2
+  Old: 
+FAILED|0,0,0
+
+FILE: c:/Work/Git/damiansirbu/claude/hooks/analyze-hook/analyzers/verify/dprint-analyzer.sh
+--------------------------------------------
+INSPECT MODE:
+  New: 
+SUCCESS|0,0,0
+  Old: 
+SUCCESS|0
+VERIFY MODE:
+  New: 
+SUCCESS|2,0,2
+  Old: 
+FAILED|0,0,0
+
+FILE: c:/Work/Git/damiansirbu/claude/hooks/analyze-hook/analyzers/verify/hadolint-analyzer.sh
+--------------------------------------------
+INSPECT MODE:
+  New: 
+SUCCESS|7,1,1
+  Old: 
+SUCCESS|0
+VERIFY MODE:
+  New: 
+SUCCESS|2,0,2
+  Old: 
+FAILED|0,0,0

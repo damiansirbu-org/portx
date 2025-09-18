@@ -1,0 +1,15 @@
+{
+  "name": "sonar-scanner",
+  "version": "7.2.0.5079",
+  "description": "Official SonarQube and SonarCloud scanner CLI for static code analysis across 30+ programming languages",
+  "importType": "wrap",
+  "bin": {
+    "sonar-scanner": {
+      "path": "sonar-scanner.cmd",
+      "description": "Multi-language static code analyzer that detects bugs, vulnerabilities, and code smells for SonarQube/SonarCloud integration",
+      "usage": "sonar-scanner -Dsonar.projectKey=myproject -Dsonar.sources=src\nsonar-scanner -Dsonar.host.url=http://localhost:9000 -Dsonar.login=token\nsonar-scanner -Dsonar.projectBaseDir=/path/to/project\nsonar-scanner -X -Dsonar.verbose=true\nsonar-scanner -Dsonar.exclusions=**/*.test.js",
+      "dependencies": "windows"
+    }
+  },
+  "tags": ["sonarqube", "static-analysis", "code-quality", "security", "bugs", "vulnerabilities", "multi-language", "analysis"]
+}

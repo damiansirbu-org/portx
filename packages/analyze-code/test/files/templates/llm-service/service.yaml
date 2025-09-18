@@ -1,0 +1,14 @@
+{{- if .Values.llmService.enabled -}}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.llmService.service.name }}
+spec:
+  type: {{ .Values.llmService.service.type }}
+  ports:
+    - port: {{ .Values.llmService.service.port }}
+      targetPort: {{ .Values.llmService.service.targetport }}
+      protocol: TCP
+  selector:
+    app: llm-service
+{{- end -}}

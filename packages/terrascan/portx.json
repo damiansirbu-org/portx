@@ -1,0 +1,15 @@
+{
+  "name": "terrascan",
+  "version": "1.19.9",
+  "description": "Infrastructure as Code security scanner that detects compliance and security violations in Terraform, CloudFormation, Kubernetes, and more",
+  "importType": "wrap",
+  "bin": {
+    "terrascan": {
+      "path": "terrascan.exe",
+      "description": "Comprehensive IaC security scanner for detecting misconfigurations, compliance violations, and security risks before cloud provisioning",
+      "usage": "terrascan scan -t terraform -d /path/to/terraform\nterrascan scan -t k8s -d /path/to/k8s\nterrascan scan -t terraform --iac-file main.tf\nterrascan scan -t aws-cft --iac-file template.yaml\nterrascan scan -o json --output-file results.json\nterrascan init",
+      "dependencies": "windows"
+    }
+  },
+  "tags": ["iac", "security", "terraform", "kubernetes", "cloudformation", "compliance", "scanning", "devops"]
+}

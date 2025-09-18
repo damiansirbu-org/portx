@@ -1,0 +1,22 @@
+{
+  "name": "analyze-code",
+  "version": "1.0.0",
+  "description": "Comprehensive code analysis tool with modular analyzer architecture supporting multiple programming languages and file types",
+  "importType": "wrap",
+  "bin": {
+    "analyze-code": {
+      "path": "analyze-code.sh",
+      "description": "Main code analysis tool that executes inspect and verify analyzers on source files",
+      "usage": "analyze-code <file_path> [inspect|verify|both] - Analyze source files with configurable analyzer modes",
+      "dependencies": "cross-platform"
+    }
+  },
+  "tags": [
+    "analysis",
+    "code-quality",
+    "static-analysis",
+    "linting",
+    "security",
+    "development"
+  ]
+}

@@ -1,0 +1,14 @@
+{{- if .Values.dataManager.enabled -}}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.dataManager.service.name }}
+spec:
+  type: {{ .Values.dataManager.service.type }}
+  ports:
+    - port: {{ .Values.dataManager.service.port }}
+      targetPort: {{ .Values.dataManager.service.targetport }}
+      protocol: TCP
+  selector:
+    app: data-manager
+{{- end -}}

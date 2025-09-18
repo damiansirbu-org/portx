@@ -1,0 +1,5311 @@
+# Main values file
+image:
+  registry: "harbor.mosaic.siemens-energy.cloud/oam"
+  docker: "harbor.mosaic.siemens-energy.cloud/docker-cache/"
+
+tags:
+  aws: true
+
+ingress:
+  enabled: true
+
+serviceRegistry:
+  enabled: true
+  deploymentName: oam-service-registry
+  replicaCount: 1
+  port: 8080
+  image:
+    repository: omn-prd-fra-service-registry-ecr-repo
+    pullPolicy: IfNotPresent
+  #    tag: "Specified in qa/dev/prod.yaml"
+  env:
+    SERVER_PORT: "8080"
+    SERVICE_NAME: "service-registry"
+    TRACING_ENABLED: "true"
+  service:
+    name: service-registry
+    type: NodePort
+    port: 80
+    targetport: 8080
+  resources:
+    requests:
+      memory: "300Mi"
+      cpu: "50m"
+    limits:
+      memory: "600Mi"
+      cpu: "100m"
+  autoscaling:
+    enabled: false
+#    maxreplica: 1     # maximum replica to scale up
+#    targetMemory: 70  # average % memory usage, calculated from resources.requests, should be removed if memory scale not required, this is default
+#    targetCPU: 70     # average % cpu usage, calculated from resources.requests, should be removed if cpu scale not required
+
+gateway:
+  enabled: true
+  deploymentName: oam-gateway
+  replicaCount: 1
+  port: 8080
+  image:
+    repository: omn-prd-fra-gateway-ecr-repo
+    pullPolicy: IfNotPresent
+  #    tag: "Specified in qa/dev/prod.yaml"
+  env:
+    SERVER_PORT: "8080"
+    SPRING_PROFILES_ACTIVE: "PRD"
+    KIBANA_URL: "http://opensearch-dashboards"
+    LOGSTASH_URL: "http://oam-logstash"
+    SERVICE_NAME: "gateway"
+    TRACING_ENABLED: "true"
+  service:
+    name: gateway
+    type: NodePort
+    port: 80
+    targetport: 8080
+  resources:
+    requests:
+      memory: "500Mi"
+      cpu: "100m"
+    limits:
+      memory: "1000Mi"
+      cpu: "500m"
+#  probes:
+#    livenessProbe:
+#      httpGet:
+#        path: /actuator/health/liveness
+#        port: http
+#      initialDelaySeconds: 80
+#      periodSeconds: 15
+#      timeoutSeconds: 15
+#      failureThreshold: 10
+#    readinessProbe:
+#      httpGet:
+#        path: /actuator/health/readiness
+#        port: http
+#      initialDelaySeconds: 90
+#      periodSeconds: 15
+#      timeoutSeconds: 15
+#      successThreshold: 1
+#      failureThreshold: 10
+  autoscaling:
+    enabled: false
+#    maxreplica: 1     # maximum replica to scale up
+#    targetMemory: 70  # average % memory usage, calculated from resources.requests, should be removed if memory scale not required, this is default
+#    targetCPU: 70     # average % cpu usage, calculated from resources.requests, should be removed if cpu scale not required
+
+userManagement:
+  enabled: true
+  deploymentName: oam-user-management
+  replicaCount: 1
+  port: 8080
+  image:
+    repository: omn-prd-fra-oam-user-mgt-ecr-repo
+    pullPolicy: IfNotPresent
+  #    tag: "Specified in qa/dev/prod.yaml"
+  env:
+    SERVER_PORT: "8080"
+    DB_NAME: "oam_user_management"
+    INITIALIZE_DEFAULT_USERS: "true"
+    ASYNC_DISABLE_EXPIRED_USERS_TASK_CRON: "0 1 0 * * *"
+    MAXIMUM_POOL_SIZE: "10"
+    SERVICE_NAME: "user-management"
+    TRACING_ENABLED: "true"
+    RABBIT_TRACING_ENABLED: "true"
+    REST_TEMPLATE_HEADER_CUSTOMIZER_ENABLED: "true"
+    FEIGN_CLIENT_HEADER_CUSTOMIZER_ENABLED: "true"
+  service:
+    name: user-management
+    type: NodePort
+    port: 80
+    targetport: 8080
+  resources:
+    requests:
+      memory: "600Mi"
+      cpu: "250m"
+    limits:
+      memory: "1200Mi"
+      cpu: "1000m"
+  probes:
+    livenessProbe:
+      httpGet:
+        path: /actuator/health/liveness
+        port: http
+      initialDelaySeconds: 80
+      periodSeconds: 15
+      timeoutSeconds: 15
+      failureThreshold: 30
+    readinessProbe:
+      httpGet:
+        path: /actuator/health/readiness
+        port: http
+      initialDelaySeconds: 90
+      periodSeconds: 15
+      timeoutSeconds: 15
+      successThreshold: 1
+      failureThreshold: 31
+  autoscaling:
+    enabled: true
+
+websocketService:
+  enabled: true
+  deploymentName: oam-websocket-service
+  replicaCount: 1
+  port: 8080
+  image:
+    repository: omn-prd-fra-oam-websocket-service-ecr-repo
+    pullPolicy: IfNotPresent
+  #    tag: "Specified in qa/dev/prod.yaml"
+  env:
+    SERVER_PORT: "8080"
+    SERVICE_NAME: "websocket-service"
+    TRACING_ENABLED: "true"
+    RABBIT_TRACING_ENABLED: "true"
+  service:
+    name: websocket-service
+    type: NodePort
+    port: 80
+    targetport: 8080
+  resources:
+    requests:
+      memory: "400Mi"
+      cpu: "100m"
+    limits:
+      memory: "800Mi"
+      cpu: "600m"
+  probes:
+    livenessProbe:
+      httpGet:
+        path: /actuator/health/liveness
+        port: http
+      initialDelaySeconds: 120
+      periodSeconds: 15
+      timeoutSeconds: 15
+      failureThreshold: 15
+    readinessProbe:
+      httpGet:
+        path: /actuator/health/readiness
+        port: http
+      initialDelaySeconds: 120
+      periodSeconds: 15
+      timeoutSeconds: 15
+      successThreshold: 1
+      failureThreshold: 15
+  autoscaling:
+    enabled: false
+#    maxreplica: 1     # maximum replica to scale up
+#    targetMemory: 70  # average % memory usage, calculated from resources.requests, should be removed if memory scale not required, this is default
+#    targetCPU: 70     # average % cpu usage, calculated from resources.requests, should be removed if cpu scale not required
+
+operationManagement:
+  enabled: true
+  deploymentName: oam-operation-management
+  replicaCount: 1
+  port: 8080
+  image:
+    repository: omn-prd-fra-oam-ops-management-ecr-repo
+    pullPolicy: IfNotPresent
+  #    tag: "Specified in qa/dev/prod.yaml"
+  env:
+    SERVER_PORT: "8080"
+    DB_NAME: "oam_operation_management"
+    SERVICE_NAME: "operation-management"
+    TRACING_ENABLED: "true"
+  service:
+    name: operation-management
+    type: NodePort
+    port: 80
+    targetport: 8080
+  resources:
+    requests:
+      memory: "600Mi"
+      cpu: "200m"
+    limits:
+      memory: "1200Mi"
+      cpu: "1000m"
+  probes:
+    livenessProbe:
+      httpGet:
+        path: /actuator/health/liveness
+        port: http
+      initialDelaySeconds: 80
+      periodSeconds: 15
+      timeoutSeconds: 15
+      failureThreshold: 30
+    readinessProbe:
+      httpGet:
+        path: /actuator/health/readiness
+        port: http
+      initialDelaySeconds: 90
+      periodSeconds: 15
+      timeoutSeconds: 15
+      successThreshold: 1
+      failureThreshold: 31
+  autoscaling:
+    enabled: true
+  #   maxreplica: 1     # maximum replica to scale up
+#    targetMemory: 70  # average % memory usage, calculated from resources.requests, should be removed if memory scale not required, this is default
+#    targetCPU: 70     # average % cpu usage, calculated from resources.requests, should be removed if cpu scale not required
+
+checklistManager:
+  enabled: true
+  deploymentName: oam-checklist-manager
+  replicaCount: 1
+  port: 8080
+  image:
+    repository: omn-prd-fra-oam-checklist-manager-ecr-repo
+    pullPolicy: IfNotPresent
+  #    tag: "Specified in qa/dev/prod.yaml"
+  env:
+    SERVER_PORT: "8080"
+    DB_NAME: "oam_checklist_manager"
+    SERVICE_NAME: "checklist-manager"
+    TRACING_ENABLED: "true"
+  service:
+    name: checklist-manager
+    type: NodePort
+    port: 80
+    targetport: 8080
+  resources:
+    requests:
+      memory: "500Mi"
+      cpu: "300m"
+    limits:
+      memory: "2000Mi"
+      cpu: "800m"
+  probes:
+    livenessProbe:
+      httpGet:
+        path: /actuator/health/liveness
+        port: http
+      initialDelaySeconds: 80
+      periodSeconds: 15
+      timeoutSeconds: 15
+      failureThreshold: 20
+    readinessProbe:
+      httpGet:
+        path: /actuator/health/readiness
+        port: http
+      initialDelaySeconds: 90
+      periodSeconds: 15
+      timeoutSeconds: 15
+      successThreshold: 1
+      failureThreshold: 21
+  autoscaling:
+    enabled: true
+  #   maxreplica: 1     # maximum replica to scale up
+#    targetMemory: 70  # average % memory usage, calculated from resources.requests, should be removed if memory scale not required, this is default
+#    targetCPU: 70     # average % cpu usage, calculated from resources.requests, should be removed if cpu scale not required
+
+assetDataManagement:
+  enabled: true
+  deploymentName: oam-asset-data-management
+  replicaCount: 1
+  port: 8080
+  image:
+    repository: omn-prd-fra-adm-ecr-repo
+    pullPolicy: IfNotPresent
+  #    tag: "Specified in qa/dev/prod.yaml"
+  env:
+    SERVER_PORT: "8080"
+    DB_NAME: "oam_adm"
+    MM_PROTOCOL: "http://"
+    FS_URL: "files-manager"
+    SERVICE_NAME: "asset-data-management"
+    TRACING_ENABLED: "true"
+    RABBIT_TRACING_ENABLED: "true"
+    REST_TEMPLATE_HEADER_CUSTOMIZER_ENABLED: "true"
+    FEIGN_CLIENT_HEADER_CUSTOMIZER_ENABLED: "true"
+  service:
+    name: asset-data-management
+    type: NodePort
+    port: 80
+    targetport: 8080
+  resources:
+    requests:
+      memory: "2Gi"  # Minimum memory the pod will request from the node, ensuring the pod has at least 2Gi of RAM to operate efficiently even under normal load.
+      cpu: "500m"    # Minimum CPU the pod will request from the node. This reserves 0.5 cores of CPU to handle steady workloads and avoid being throttled.
+    limits:
+      memory: "8Gi"  # Maximum memory the pod can use. The container will not exceed 8Gi of RAM, preventing it from consuming too many resources and causing instability in the cluster.
+      cpu: "2000m"   # Maximum CPU the pod can use, allowing it to scale up to 2 full CPU cores during peak usage but not beyond, ensuring that it doesn’t monopolize CPU resources.
+  probes:
+    livenessProbe:
+      httpGet:
+        path: /actuator/health/liveness
+        port: http
+      initialDelaySeconds: 80
+      periodSeconds: 15
+      timeoutSeconds: 15
+      failureThreshold: 20
+    readinessProbe:
+      httpGet:
+        path: /actuator/health/readiness
+        port: http
+      initialDelaySeconds: 90
+      periodSeconds: 15
+      timeoutSeconds: 15
+      successThreshold: 1
+      failureThreshold: 21
+  autoscaling:
+    enabled: false
+    # maxreplica: 1     # maximum replica to scale up
+#    targetMemory: 70  # average % memory usage, calculated from resources.requests, should be removed if memory scale not required, this is default
+#    targetCPU: 70     # average % cpu usage, calculated from resources.requests, should be removed if cpu scale not required
+
+maintenanceManagement:
+  enabled: true
+  deploymentName: oam-maintenance-management
+  replicaCount: 1
+  port: 8080
+  image:
+    repository: omn-prd-fra-mm-ecr-repo
+    pullPolicy: IfNotPresent
+  #    tag: "Specified in qa/dev/prod.yaml"
+  env:
+    SERVER_PORT: "8080"
+    DB_NAME: "oam_mm"
+    ADM_PROTOCOL: "http://"
+    ADM_HOST: "asset-data-management"
+    UM_URL: "user-management"
+    CM_URL: "checklist-manager"
+    MAX_FILES_SIZE: "200MB"
+    MAX_FILES_REQUEST_SIZE: "500MB"
+    ADM_DATA_LOAD_VALUE: false
+    SERVICE_NAME: "maintenance-management"
+    TRACING_ENABLED: "true"
+  service:
+    name: maintenance-management
+    type: NodePort
+    port: 80
+    targetport: 8080
+  resources:
+    requests:
+      memory: "2700Mi"
+      cpu: "500m"
+    limits:
+      memory: "5000Mi"
+      cpu: "2000m"
+  probes:
+    livenessProbe:
+      httpGet:
+        path: /actuator/health/liveness
+        port: http
+      initialDelaySeconds: 80
+      periodSeconds: 15
+      timeoutSeconds: 15
+      failureThreshold: 30
+    readinessProbe:
+      httpGet:
+        path: /actuator/health/readiness
+        port: http
+      initialDelaySeconds: 90
+      periodSeconds: 15
+      timeoutSeconds: 15
+      successThreshold: 1
+      failureThreshold: 31
+  autoscaling:
+    enabled: false
+#    maxreplica: 1     # maximum replica to scale up
+#    targetMemory: 70  # average % memory usage, calculated from resources.requests, should be removed if memory scale not required, this is default
+#    targetCPU: 70     # average % cpu usage, calculated from resources.requests, should be removed if cpu scale not required
+
+inventoryManagement:
+  enabled: true
+  deploymentName: oam-inventory-management
+  replicaCount: 1
+  port: 8080
+  image:
+    repository: omn-prd-fra-oam-im-ecr-repo
+    pullPolicy: IfNotPresent
+  #    tag: "Specified in qa/dev/prod.yaml"
+  env:
+    SERVER_PORT: "8080"
+    DB_NAME: "oam_im"
+    ADM_URL: "http://asset-data-management"
+    MM_URL: "http://maintenance-management"
+    FS_URL: "files-manager"
+    MAX_FILES_SIZE: "200MB"
+    MAX_FILES_REQUEST_SIZE: "500MB"
+    ADM_DATA_LOAD_VALUE: false
+    LOAD_SUBPROJECT_DATA: false
+    LOAD_ACTIVITY_DATA: false
+    LOAD_EMPLOYEE_DATA: false
+    LOAD_COMPANY_DATA: false
+    SERVICE_NAME: "inventory-management"
+    TRACING_ENABLED: "true"
+  service:
+    name: inventory-management
+    type: NodePort
+    port: 80
+    targetport: 8080
+  resources:
+    requests:
+      memory: "750Mi"
+      cpu: "125m"
+    limits:
+      memory: "1500Mi"
+      cpu: "700m"
+  probes:
+    livenessProbe:
+      httpGet:
+        path: /actuator/health/liveness
+        port: http
+      initialDelaySeconds: 300
+      periodSeconds: 15
+      timeoutSeconds: 15
+      failureThreshold: 20
+    readinessProbe:
+      httpGet:
+        path: /actuator/health/readiness
+        port: http
+      initialDelaySeconds: 320
+      periodSeconds: 15
+      timeoutSeconds: 15
+      successThreshold: 1
+      failureThreshold: 21
+  autoscaling:
+    enabled: true
+  #   maxreplica: 1     # maximum replica to scale up
+#    targetMemory: 70  # average % memory usage, calculated from resources.requests, should be removed if memory scale not required, this is default
+#    targetCPU: 70     # average % cpu usage, calculated from resources.requests, should be removed if cpu scale not required
+erpIntegrationService:
+  enabled: true
+  deploymentName: oam-erp-integration-service
+  replicaCount: 1
+  port: 7073
+  image:
+    repository: omn-prd-fra-oam-erp-ecr-repo
+    pullPolicy: IfNotPresent
+  #    tag: "Specified in qa/dev/prod.yaml"
+  env:
+    SERVER_PORT: "7073"
+  service:
+    name: erp-integration-service
+    type: NodePort
+    port: 80
+    targetport: 8080
+  resources:
+    requests:
+      memory: "500Mi"
+      cpu: "100m"
+    limits:
+      memory: "5000Mi"
+      cpu: "500m"
+  probes:
+    livenessProbe:
+      httpGet:
+        path: /actuator/health/liveness
+        port: http
+      initialDelaySeconds: 300
+      periodSeconds: 15
+      timeoutSeconds: 15
+      failureThreshold: 10
+    readinessProbe:
+      httpGet:
+        path: /actuator/health/readiness
+        port: http
+      initialDelaySeconds: 320
+      periodSeconds: 15
+      timeoutSeconds: 15
+      successThreshold: 1
+      failureThreshold: 10
+  autoscaling:
+    enabled: true
+  #   maxreplica: 1     # maximum replica to scale up
+#    targetMemory: 70  # average % memory usage, calculated from resources.requests, should be removed if memory scale not required, this is default
+#    targetCPU: 70     # average % cpu usage, calculated from resources.requests, should be removed if cpu scale not required
+auth:
+  enabled: true
+  reset: false
+  resetjob:
+    claimname: "keycloak-reset"
+    claimsize: "5Gi"
+    mount: "/tmp/keycloak"
+  deploymentName: oam-keycloak
+  replicaCount: 1
+  port: 8080
+  image:
+    repository: harbor.mosaic.siemens-energy.cloud/docker-cache/keycloak/keycloak
+    pullPolicy: IfNotPresent
+    tag: "26.0.7"
+  env:
+    KC_DB: "postgres"
+  service:
+    name: auth
+    type: NodePort
+    port: 80
+    targetport: 8080
+  resources:
+    requests:
+      memory: "500Mi"
+      cpu: "50m"
+    limits:
+      memory: "5000Mi"
+      cpu: "600m"
+  autoscaling:
+    enabled: false
+  profileSetup: |
+    {
+      "id": "OAM",
+      "realm": "OAM",
+      "notBefore": 0,
+      "defaultSignatureAlgorithm": "RS256",
+      "revokeRefreshToken": false,
+      "refreshTokenMaxReuse": 0,
+      "accessTokenLifespan": 7200,
+      "accessTokenLifespanForImplicitFlow": 900,
+      "ssoSessionIdleTimeout": 1800,
+      "ssoSessionMaxLifespan": 36000,
+      "ssoSessionIdleTimeoutRememberMe": 0,
+      "ssoSessionMaxLifespanRememberMe": 0,
+      "offlineSessionIdleTimeout": 2592000,
+      "offlineSessionMaxLifespanEnabled": false,
+      "offlineSessionMaxLifespan": 5184000,
+      "clientSessionIdleTimeout": 0,
+      "clientSessionMaxLifespan": 0,
+      "clientOfflineSessionIdleTimeout": 0,
+      "clientOfflineSessionMaxLifespan": 0,
+      "accessCodeLifespan": 60,
+      "accessCodeLifespanUserAction": 300,
+      "accessCodeLifespanLogin": 1800,
+      "actionTokenGeneratedByAdminLifespan": 43200,
+      "actionTokenGeneratedByUserLifespan": 300,
+      "oauth2DeviceCodeLifespan": 600,
+      "oauth2DevicePollingInterval": 5,
+      "enabled": true,
+      "sslRequired": "external",
+      "registrationAllowed": false,
+      "registrationEmailAsUsername": false,
+      "rememberMe": false,
+      "verifyEmail": false,
+      "loginWithEmailAllowed": true,
+      "duplicateEmailsAllowed": false,
+      "resetPasswordAllowed": false,
+      "editUsernameAllowed": false,
+      "bruteForceProtected": false,
+      "permanentLockout": false,
+      "maxFailureWaitSeconds": 900,
+      "minimumQuickLoginWaitSeconds": 60,
+      "waitIncrementSeconds": 60,
+      "quickLoginCheckMilliSeconds": 1000,
+      "maxDeltaTimeSeconds": 43200,
+      "failureFactor": 30,
+      "roles": {
+        "realm": [
+          {
+            "id": "bdb27ea2-98d0-4c1f-80b4-3f19c8e223ee",
+            "name": "uma_authorization",
+            "description": "${role_uma_authorization}",
+            "composite": false,
+            "clientRole": false,
+            "containerId": "OAM",
+            "attributes": {}
+          },
+          {
+            "id": "f033f055-2d51-4f92-a74f-a773b95bcda2",
+            "name": "default-roles-oam",
+            "description": "${role_default-roles}",
+            "composite": true,
+            "composites": {
+              "realm": [
+                "offline_access",
+                "uma_authorization"
+              ],
+              "client": {
+                "account": [
+                  "view-profile",
+                  "manage-account"
+                ]
+              }
+            },
+            "clientRole": false,
+            "containerId": "OAM",
+            "attributes": {}
+          },
+          {
+            "id": "35c6d63d-2167-4e95-96ce-a58fe9885fd1",
+            "name": "offline_access",
+            "description": "${role_offline-access}",
+            "composite": false,
+            "clientRole": false,
+            "containerId": "OAM",
+            "attributes": {}
+          },
+          {
+            "id": "811e0caf-f350-43a5-ac60-e02698b655c7",
+            "name": "admin",
+            "description": "Admin role that is necessary for user management",
+            "composite": false,
+            "clientRole": false,
+            "containerId": "OAM",
+            "attributes": {}
+          }
+        ],
+        "client": {
+          "realm-management": [
+            {
+              "id": "70080529-c586-4354-84f6-f76c0777254d",
+              "name": "query-groups",
+              "description": "${role_query-groups}",
+              "composite": false,
+              "clientRole": true,
+              "containerId": "2d829b81-cfea-4e16-a8c6-51720b29a83c",
+              "attributes": {}
+            },
+            {
+              "id": "49121294-9be8-4134-bc18-bfa251cf745c",
+              "name": "view-identity-providers",
+              "description": "${role_view-identity-providers}",
+              "composite": false,
+              "clientRole": true,
+              "containerId": "2d829b81-cfea-4e16-a8c6-51720b29a83c",
+              "attributes": {}
+            },
+            {
+              "id": "d2644572-d90b-4fbb-959e-72e39b4230d0",
+              "name": "query-realms",
+              "description": "${role_query-realms}",
+              "composite": false,
+              "clientRole": true,
+              "containerId": "2d829b81-cfea-4e16-a8c6-51720b29a83c",
+              "attributes": {}
+            },
+            {
+              "id": "66871491-2ad8-4dd6-862d-da378d461b5a",
+              "name": "manage-users",
+              "description": "${role_manage-users}",
+              "composite": false,
+              "clientRole": true,
+              "containerId": "2d829b81-cfea-4e16-a8c6-51720b29a83c",
+              "attributes": {}
+            },
+            {
+              "id": "7c088d38-bfd4-453f-8602-52e6f02bba2c",
+              "name": "create-client",
+              "description": "${role_create-client}",
+              "composite": false,
+              "clientRole": true,
+              "containerId": "2d829b81-cfea-4e16-a8c6-51720b29a83c",
+              "attributes": {}
+            },
+            {
+              "id": "3564c102-d814-4e3e-9f42-275080c14b88",
+              "name": "realm-admin",
+              "description": "${role_realm-admin}",
+              "composite": true,
+              "composites": {
+                "client": {
+                  "realm-management": [
+                    "query-groups",
+                    "view-identity-providers",
+                    "query-realms",
+                    "manage-users",
+                    "create-client",
+                    "view-clients",
+                    "view-authorization",
+                    "manage-events",
+                    "manage-realm",
+                    "view-realm",
+                    "manage-authorization",
+                    "view-users",
+                    "manage-identity-providers",
+                    "query-clients",
+                    "query-users",
+                    "manage-clients",
+                    "view-events",
+                    "impersonation"
+                  ]
+                }
+              },
+              "clientRole": true,
+              "containerId": "2d829b81-cfea-4e16-a8c6-51720b29a83c",
+              "attributes": {}
+            },
+            {
+              "id": "4fe196e3-a244-4983-817a-d422acaa4f77",
+              "name": "view-clients",
+              "description": "${role_view-clients}",
+              "composite": true,
+              "composites": {
+                "client": {
+                  "realm-management": [
+                    "query-clients"
+                  ]
+                }
+              },
+              "clientRole": true,
+              "containerId": "2d829b81-cfea-4e16-a8c6-51720b29a83c",
+              "attributes": {}
+            },
+            {
+              "id": "95935b67-d687-4289-8342-30807df9daa9",
+              "name": "view-authorization",
+              "description": "${role_view-authorization}",
+              "composite": false,
+              "clientRole": true,
+              "containerId": "2d829b81-cfea-4e16-a8c6-51720b29a83c",
+              "attributes": {}
+            },
+            {
+              "id": "4cc1449f-48ba-4d9b-9cbb-8e4d9a23cdef",
+              "name": "manage-events",
+              "description": "${role_manage-events}",
+              "composite": false,
+              "clientRole": true,
+              "containerId": "2d829b81-cfea-4e16-a8c6-51720b29a83c",
+              "attributes": {}
+            },
+            {
+              "id": "5a7af782-ce3c-4cf8-b6ba-b2daed151608",
+              "name": "manage-realm",
+              "description": "${role_manage-realm}",
+              "composite": false,
+              "clientRole": true,
+              "containerId": "2d829b81-cfea-4e16-a8c6-51720b29a83c",
+              "attributes": {}
+            },
+            {
+              "id": "010e34f5-d2c8-4237-a31e-35c758530ab2",
+              "name": "view-realm",
+              "description": "${role_view-realm}",
+              "composite": false,
+              "clientRole": true,
+              "containerId": "2d829b81-cfea-4e16-a8c6-51720b29a83c",
+              "attributes": {}
+            },
+            {
+              "id": "514aaf4e-43e4-4e49-95ca-fa12d2df041d",
+              "name": "manage-authorization",
+              "description": "${role_manage-authorization}",
+              "composite": false,
+              "clientRole": true,
+              "containerId": "2d829b81-cfea-4e16-a8c6-51720b29a83c",
+              "attributes": {}
+            },
+            {
+              "id": "ac9c7081-d33a-4d72-8746-501276e8fda3",
+              "name": "view-users",
+              "description": "${role_view-users}",
+              "composite": true,
+              "composites": {
+                "client": {
+                  "realm-management": [
+                    "query-groups",
+                    "query-users"
+                  ]
+                }
+              },
+              "clientRole": true,
+              "containerId": "2d829b81-cfea-4e16-a8c6-51720b29a83c",
+              "attributes": {}
+            },
+            {
+              "id": "ea1cc269-d863-49a5-86c1-b715841def34",
+              "name": "manage-identity-providers",
+              "description": "${role_manage-identity-providers}",
+              "composite": false,
+              "clientRole": true,
+              "containerId": "2d829b81-cfea-4e16-a8c6-51720b29a83c",
+              "attributes": {}
+            },
+            {
+              "id": "c562f451-442e-4ff6-9643-1e7fb2926e03",
+              "name": "query-clients",
+              "description": "${role_query-clients}",
+              "composite": false,
+              "clientRole": true,
+              "containerId": "2d829b81-cfea-4e16-a8c6-51720b29a83c",
+              "attributes": {}
+            },
+            {
+              "id": "2f5d4945-76fd-4870-afa9-d664fc1e7ea0",
+              "name": "query-users",
+              "description": "${role_query-users}",
+              "composite": false,
+              "clientRole": true,
+              "containerId": "2d829b81-cfea-4e16-a8c6-51720b29a83c",
+              "attributes": {}
+            },
+            {
+              "id": "18e23712-b374-4435-b6cc-d7ae26161828",
+              "name": "manage-clients",
+              "description": "${role_manage-clients}",
+              "composite": false,
+              "clientRole": true,
+              "containerId": "2d829b81-cfea-4e16-a8c6-51720b29a83c",
+              "attributes": {}
+            },
+            {
+              "id": "23b30c39-a062-49d3-903e-51f463250dcd",
+              "name": "view-events",
+              "description": "${role_view-events}",
+              "composite": false,
+              "clientRole": true,
+              "containerId": "2d829b81-cfea-4e16-a8c6-51720b29a83c",
+              "attributes": {}
+            },
+            {
+              "id": "f1534ce0-f4e6-4fd5-ac73-27148865069b",
+              "name": "impersonation",
+              "description": "${role_impersonation}",
+              "composite": false,
+              "clientRole": true,
+              "containerId": "2d829b81-cfea-4e16-a8c6-51720b29a83c",
+              "attributes": {}
+            }
+          ],
+          "oam-mobile": [],
+          "oam-frontend": [],
+          "security-admin-console": [],
+          "admin-cli": [],
+          "account-console": [],
+          "broker": [
+            {
+              "id": "4be7f5a9-cd9b-4c1a-a42c-b954d7b97b27",
+              "name": "read-token",
+              "description": "${role_read-token}",
+              "composite": false,
+              "clientRole": true,
+              "containerId": "97ff27ea-07ab-4cb4-83e8-cc7fa9ec70fc",
+              "attributes": {}
+            }
+          ],
+          "account": [
+            {
+              "id": "4231135c-dd21-43e2-a6c3-65bd95c48516",
+              "name": "manage-consent",
+              "description": "${role_manage-consent}",
+              "composite": true,
+              "composites": {
+                "client": {
+                  "account": [
+                    "view-consent"
+                  ]
+                }
+              },
+              "clientRole": true,
+              "containerId": "9b3765db-907d-4d86-811e-647f09fda427",
+              "attributes": {}
+            },
+            {
+              "id": "d12b9609-2ac0-4e68-8bec-1ca42a36cc9c",
+              "name": "view-applications",
+              "description": "${role_view-applications}",
+              "composite": false,
+              "clientRole": true,
+              "containerId": "9b3765db-907d-4d86-811e-647f09fda427",
+              "attributes": {}
+            },
+            {
+              "id": "00e3a474-b09f-48e5-a6e1-e362772d93c0",
+              "name": "view-profile",
+              "description": "${role_view-profile}",
+              "composite": false,
+              "clientRole": true,
+              "containerId": "9b3765db-907d-4d86-811e-647f09fda427",
+              "attributes": {}
+            },
+            {
+              "id": "0b6c7a26-8390-47ac-b4ae-2fc9a0166220",
+              "name": "view-consent",
+              "description": "${role_view-consent}",
+              "composite": false,
+              "clientRole": true,
+              "containerId": "9b3765db-907d-4d86-811e-647f09fda427",
+              "attributes": {}
+            },
+            {
+              "id": "1ad82d01-7c11-4076-8047-a90599ecf52f",
+              "name": "manage-account",
+              "description": "${role_manage-account}",
+              "composite": true,
+              "composites": {
+                "client": {
+                  "account": [
+                    "manage-account-links"
+                  ]
+                }
+              },
+              "clientRole": true,
+              "containerId": "9b3765db-907d-4d86-811e-647f09fda427",
+              "attributes": {}
+            },
+            {
+              "id": "6b524c92-9b6f-49aa-a9d8-035ff4bdcd40",
+              "name": "view-groups",
+              "description": "${role_view-groups}",
+              "composite": false,
+              "clientRole": true,
+              "containerId": "9b3765db-907d-4d86-811e-647f09fda427",
+              "attributes": {}
+            },
+            {
+              "id": "582ca7e0-56f7-4f47-9d92-ce4fb88d6634",
+              "name": "delete-account",
+              "description": "${role_delete-account}",
+              "composite": false,
+              "clientRole": true,
+              "containerId": "9b3765db-907d-4d86-811e-647f09fda427",
+              "attributes": {}
+            },
+            {
+              "id": "9725feaf-5851-49c6-92ea-0eeca578f173",
+              "name": "manage-account-links",
+              "description": "${role_manage-account-links}",
+              "composite": false,
+              "clientRole": true,
+              "containerId": "9b3765db-907d-4d86-811e-647f09fda427",
+              "attributes": {}
+            }
+          ],
+          "gateway": []
+        }
+      },
+      "groups": [],
+      "defaultRole": {
+        "id": "f033f055-2d51-4f92-a74f-a773b95bcda2",
+        "name": "default-roles-oam",
+        "description": "${role_default-roles}",
+        "composite": true,
+        "clientRole": false,
+        "containerId": "OAM"
+      },
+      "requiredCredentials": [
+        "password"
+      ],
+      "passwordPolicy": "length(12) and upperCase(1) and lowerCase(1) and specialChars(1) and digits(1) and passwordHistory(1)",
+      "otpPolicyType": "totp",
+      "otpPolicyAlgorithm": "HmacSHA1",
+      "otpPolicyInitialCounter": 0,
+      "otpPolicyDigits": 6,
+      "otpPolicyLookAheadWindow": 1,
+      "otpPolicyPeriod": 30,
+      "otpPolicyCodeReusable": false,
+      "otpSupportedApplications": [
+        "totpAppGoogleName",
+        "totpAppMicrosoftAuthenticatorName",
+        "totpAppFreeOTPName"
+      ],
+      "webAuthnPolicyRpEntityName": "keycloak",
+      "webAuthnPolicySignatureAlgorithms": [
+        "ES256"
+      ],
+      "webAuthnPolicyRpId": "",
+      "webAuthnPolicyAttestationConveyancePreference": "not specified",
+      "webAuthnPolicyAuthenticatorAttachment": "not specified",
+      "webAuthnPolicyRequireResidentKey": "not specified",
+      "webAuthnPolicyUserVerificationRequirement": "not specified",
+      "webAuthnPolicyCreateTimeout": 0,
+      "webAuthnPolicyAvoidSameAuthenticatorRegister": false,
+      "webAuthnPolicyAcceptableAaguids": [],
+      "webAuthnPolicyPasswordlessRpEntityName": "keycloak",
+      "webAuthnPolicyPasswordlessSignatureAlgorithms": [
+        "ES256"
+      ],
+      "webAuthnPolicyPasswordlessRpId": "",
+      "webAuthnPolicyPasswordlessAttestationConveyancePreference": "not specified",
+      "webAuthnPolicyPasswordlessAuthenticatorAttachment": "not specified",
+      "webAuthnPolicyPasswordlessRequireResidentKey": "not specified",
+      "webAuthnPolicyPasswordlessUserVerificationRequirement": "not specified",
+      "webAuthnPolicyPasswordlessCreateTimeout": 0,
+      "webAuthnPolicyPasswordlessAvoidSameAuthenticatorRegister": false,
+      "webAuthnPolicyPasswordlessAcceptableAaguids": [],
+      "scopeMappings": [
+        {
+          "clientScope": "offline_access",
+          "roles": [
+            "offline_access"
+          ]
+        }
+      ],
+      "clientScopeMappings": {
+        "account": [
+          {
+            "client": "account-console",
+            "roles": [
+              "manage-account",
+              "view-groups"
+            ]
+          }
+        ]
+      },
+      "clients": [
+        {
+          "id": "9b3765db-907d-4d86-811e-647f09fda427",
+          "clientId": "account",
+          "name": "${client_account}",
+          "rootUrl": "${authBaseUrl}",
+          "baseUrl": "/realms/OAM/account/",
+          "surrogateAuthRequired": false,
+          "enabled": true,
+          "alwaysDisplayInConsole": false,
+          "clientAuthenticatorType": "client-secret",
+          "redirectUris": [
+            "/realms/OAM/account/*"
+          ],
+          "webOrigins": [],
+          "notBefore": 0,
+          "bearerOnly": false,
+          "consentRequired": false,
+          "standardFlowEnabled": true,
+          "implicitFlowEnabled": false,
+          "directAccessGrantsEnabled": false,
+          "serviceAccountsEnabled": false,
+          "publicClient": true,
+          "frontchannelLogout": false,
+          "protocol": "openid-connect",
+          "attributes": {
+            "post.logout.redirect.uris": "+"
+          },
+          "authenticationFlowBindingOverrides": {},
+          "fullScopeAllowed": false,
+          "nodeReRegistrationTimeout": 0,
+          "defaultClientScopes": [
+            "web-origins",
+            "profile",
+            "roles",
+            "email"
+          ],
+          "optionalClientScopes": [
+            "address",
+            "phone",
+            "offline_access",
+            "microprofile-jwt"
+          ]
+        },
+        {
+          "id": "7e015842-606f-442e-b866-3936541594be",
+          "clientId": "account-console",
+          "name": "${client_account-console}",
+          "rootUrl": "${authBaseUrl}",
+          "baseUrl": "/realms/OAM/account/",
+          "surrogateAuthRequired": false,
+          "enabled": true,
+          "alwaysDisplayInConsole": false,
+          "clientAuthenticatorType": "client-secret",
+          "redirectUris": [
+            "/realms/OAM/account/*"
+          ],
+          "webOrigins": [],
+          "notBefore": 0,
+          "bearerOnly": false,
+          "consentRequired": false,
+          "standardFlowEnabled": true,
+          "implicitFlowEnabled": false,
+          "directAccessGrantsEnabled": false,
+          "serviceAccountsEnabled": false,
+          "publicClient": true,
+          "frontchannelLogout": false,
+          "protocol": "openid-connect",
+          "attributes": {
+            "post.logout.redirect.uris": "+",
+            "pkce.code.challenge.method": "S256"
+          },
+          "authenticationFlowBindingOverrides": {},
+          "fullScopeAllowed": false,
+          "nodeReRegistrationTimeout": 0,
+          "protocolMappers": [
+            {
+              "id": "d05cae84-3285-4229-b461-ed5637ae1e50",
+              "name": "audience resolve",
+              "protocol": "openid-connect",
+              "protocolMapper": "oidc-audience-resolve-mapper",
+              "consentRequired": false,
+              "config": {}
+            }
+          ],
+          "defaultClientScopes": [
+            "web-origins",
+            "profile",
+            "roles",
+            "email"
+          ],
+          "optionalClientScopes": [
+            "address",
+            "phone",
+            "offline_access",
+            "microprofile-jwt"
+          ]
+        },
+        {
+          "id": "71d72d56-a904-49ff-98cc-e363b92d8f7d",
+          "clientId": "admin-cli",
+          "name": "${client_admin-cli}",
+          "surrogateAuthRequired": false,
+          "enabled": true,
+          "alwaysDisplayInConsole": false,
+          "clientAuthenticatorType": "client-secret",
+          "redirectUris": [],
+          "webOrigins": [],
+          "notBefore": 0,
+          "bearerOnly": false,
+          "consentRequired": false,
+          "standardFlowEnabled": false,
+          "implicitFlowEnabled": false,
+          "directAccessGrantsEnabled": true,
+          "serviceAccountsEnabled": false,
+          "publicClient": true,
+          "frontchannelLogout": false,
+          "protocol": "openid-connect",
+          "attributes": {},
+          "authenticationFlowBindingOverrides": {},
+          "fullScopeAllowed": false,
+          "nodeReRegistrationTimeout": 0,
+          "defaultClientScopes": [
+            "web-origins",
+            "profile",
+            "roles",
+            "email"
+          ],
+          "optionalClientScopes": [
+            "address",
+            "phone",
+            "offline_access",
+            "microprofile-jwt"
+          ]
+        },
+        {
+          "id": "97ff27ea-07ab-4cb4-83e8-cc7fa9ec70fc",
+          "clientId": "broker",
+          "name": "${client_broker}",
+          "surrogateAuthRequired": false,
+          "enabled": true,
+          "alwaysDisplayInConsole": false,
+          "clientAuthenticatorType": "client-secret",
+          "redirectUris": [],
+          "webOrigins": [],
+          "notBefore": 0,
+          "bearerOnly": true,
+          "consentRequired": false,
+          "standardFlowEnabled": true,
+          "implicitFlowEnabled": false,
+          "directAccessGrantsEnabled": false,
+          "serviceAccountsEnabled": false,
+          "publicClient": false,
+          "frontchannelLogout": false,
+          "protocol": "openid-connect",
+          "attributes": {},
+          "authenticationFlowBindingOverrides": {},
+          "fullScopeAllowed": false,
+          "nodeReRegistrationTimeout": 0,
+          "defaultClientScopes": [
+            "web-origins",
+            "profile",
+            "roles",
+            "email"
+          ],
+          "optionalClientScopes": [
+            "address",
+            "phone",
+            "offline_access",
+            "microprofile-jwt"
+          ]
+        },
+        {
+          "id": "12b503d2-3848-49b3-bc02-4bf062a408e9",
+          "clientId": "gateway",
+          "surrogateAuthRequired": false,
+          "enabled": true,
+          "alwaysDisplayInConsole": false,
+          "clientAuthenticatorType": "client-secret",
+          "redirectUris": [
+            {{ printf "%s://gateway.%s/*" .Values.global.fe_protocol (ternary .Values.masterAtl.frontendHost .Values.ingress.internet.frontendHost .Values.masterAtl.enabled) | quote }}
+          ],
+          "webOrigins": [
+            {{ printf "%s://gateway.%s" .Values.global.fe_protocol (ternary .Values.masterAtl.frontendHost .Values.ingress.internet.frontendHost .Values.masterAtl.enabled) | quote }}
+          ],
+          "notBefore": 0,
+          "bearerOnly": false,
+          "consentRequired": false,
+          "standardFlowEnabled": true,
+          "implicitFlowEnabled": false,
+          "directAccessGrantsEnabled": true,
+          "serviceAccountsEnabled": false,
+          "publicClient": true,
+          "frontchannelLogout": false,
+          "protocol": "openid-connect",
+          "attributes": {
+            "id.token.as.detached.signature": "false",
+            "saml.assertion.signature": "false",
+            "saml.force.post.binding": "false",
+            "saml.multivalued.roles": "false",
+            "saml.encrypt": "false",
+            "post.logout.redirect.uris": "+",
+            "oauth2.device.authorization.grant.enabled": "false",
+            "backchannel.logout.revoke.offline.tokens": "false",
+            "saml.server.signature": "false",
+            "saml.server.signature.keyinfo.ext": "false",
+            "use.refresh.tokens": "true",
+            "exclude.session.state.from.auth.response": "false",
+            "oidc.ciba.grant.enabled": "false",
+            "saml.artifact.binding": "false",
+            "backchannel.logout.session.required": "true",
+            "client_credentials.use_refresh_token": "false",
+            "saml_force_name_id_format": "false",
+            "require.pushed.authorization.requests": "false",
+            "saml.client.signature": "false",
+            "tls.client.certificate.bound.access.tokens": "false",
+            "saml.authnstatement": "false",
+            "display.on.consent.screen": "false",
+            "saml.onetimeuse.condition": "false"
+          },
+          "authenticationFlowBindingOverrides": {},
+          "fullScopeAllowed": true,
+          "nodeReRegistrationTimeout": -1,
+          "defaultClientScopes": [
+            "web-origins",
+            "profile",
+            "roles",
+            "email"
+          ],
+          "optionalClientScopes": [
+            "address",
+            "phone",
+            "offline_access",
+            "microprofile-jwt"
+          ]
+        },
+        {
+          "id": "22a67b4c-5c91-4bcd-a14c-7636fa2b8dc8",
+          "clientId": "oam-mobile",
+          "name": "Client for mobile application",
+          "description": "A client for keycloak integration with our mobile application",
+          "rootUrl": {{ printf "%s://%s" .Values.global.fe_protocol (ternary .Values.masterAtl.frontendHost .Values.ingress.internet.frontendHost .Values.masterAtl.enabled) | quote }},
+          "adminUrl": "",
+          "baseUrl": {{ printf "%s://%s" .Values.global.fe_protocol (ternary .Values.masterAtl.frontendHost .Values.ingress.internet.frontendHost .Values.masterAtl.enabled) | quote }},
+          "surrogateAuthRequired": false,
+          "enabled": true,
+          "alwaysDisplayInConsole": false,
+          "clientAuthenticatorType": "client-secret",
+          "redirectUris": [
+            {{ printf "%s://%s/*" .Values.global.fe_protocol (ternary .Values.masterAtl.frontendHost .Values.ingress.internet.frontendHost .Values.masterAtl.enabled) | quote  }}
+          ],
+          "webOrigins": [
+            {{ printf "%s://%s" .Values.global.fe_protocol (ternary .Values.masterAtl.frontendHost .Values.ingress.internet.frontendHost .Values.masterAtl.enabled) | quote }}
+          ],
+          "notBefore": 0,
+          "bearerOnly": false,
+          "consentRequired": false,
+          "standardFlowEnabled": true,
+          "implicitFlowEnabled": false,
+          "directAccessGrantsEnabled": false,
+          "serviceAccountsEnabled": false,
+          "publicClient": true,
+          "frontchannelLogout": true,
+          "protocol": "openid-connect",
+          "attributes": {
+            "oidc.ciba.grant.enabled": "false",
+            "oauth2.device.authorization.grant.enabled": "false",
+            "backchannel.logout.session.required": "true",
+            "backchannel.logout.revoke.offline.tokens": "false"
+          },
+          "authenticationFlowBindingOverrides": {},
+          "fullScopeAllowed": true,
+          "nodeReRegistrationTimeout": -1,
+          "defaultClientScopes": [
+            "web-origins",
+            "acr",
+            "profile",
+            "roles",
+            "email"
+          ],
+          "optionalClientScopes": [
+            "address",
+            "phone",
+            "offline_access",
+            "microprofile-jwt"
+          ]
+        },
+        {
+          "id": "1c5051fd-b853-4b01-b623-be13e40dc911",
+          "clientId": "oam-frontend",
+          "rootUrl": {{ printf "%s://%s" .Values.global.fe_protocol (ternary .Values.masterAtl.frontendHost .Values.ingress.internet.frontendHost .Values.masterAtl.enabled) | quote }},
+          "adminUrl": "",
+          "baseUrl": {{ printf "%s://%s" .Values.global.fe_protocol (ternary .Values.masterAtl.frontendHost .Values.ingress.internet.frontendHost .Values.masterAtl.enabled) | quote }},
+          "surrogateAuthRequired": false,
+          "enabled": true,
+          "alwaysDisplayInConsole": false,
+          "clientAuthenticatorType": "client-secret",
+          "redirectUris": [
+            {{ printf "%s://%s/*" .Values.global.fe_protocol (ternary .Values.masterAtl.frontendHost .Values.ingress.internet.frontendHost .Values.masterAtl.enabled) | quote  }},
+            "http://localhost:4200/*"
+          ],
+          "webOrigins": [
+            {{ printf "%s://%s" .Values.global.fe_protocol (ternary .Values.masterAtl.frontendHost .Values.ingress.internet.frontendHost .Values.masterAtl.enabled) | quote }},
+            "http://localhost:4200"
+          ],
+          "notBefore": 0,
+          "bearerOnly": false,
+          "consentRequired": false,
+          "standardFlowEnabled": true,
+          "implicitFlowEnabled": false,
+          "directAccessGrantsEnabled": true,
+          "serviceAccountsEnabled": false,
+          "publicClient": true,
+          "frontchannelLogout": false,
+          "protocol": "openid-connect",
+          "attributes": {
+            "id.token.as.detached.signature": "false",
+            "saml.assertion.signature": "false",
+            "saml.force.post.binding": "false",
+            "saml.multivalued.roles": "false",
+            "saml.encrypt": "false",
+            "post.logout.redirect.uris": "+",
+            "oauth2.device.authorization.grant.enabled": "false",
+            "saml.server.signature": "false",
+            "backchannel.logout.revoke.offline.tokens": "false",
+            "saml.server.signature.keyinfo.ext": "false",
+            "use.refresh.tokens": "true",
+            "exclude.session.state.from.auth.response": "false",
+            "oidc.ciba.grant.enabled": "false",
+            "saml.artifact.binding": "false",
+            "backchannel.logout.session.required": "true",
+            "client_credentials.use_refresh_token": "false",
+            "saml_force_name_id_format": "false",
+            "saml.client.signature": "false",
+            "tls.client.certificate.bound.access.tokens": "false",
+            "require.pushed.authorization.requests": "false",
+            "saml.authnstatement": "false",
+            "display.on.consent.screen": "false",
+            "saml.onetimeuse.condition": "false"
+          },
+          "authenticationFlowBindingOverrides": {},
+          "fullScopeAllowed": true,
+          "nodeReRegistrationTimeout": -1,
+          "defaultClientScopes": [
+            "web-origins",
+            "profile",
+            "roles",
+            "email"
+          ],
+          "optionalClientScopes": [
+            "address",
+            "phone",
+            "offline_access",
+            "microprofile-jwt"
+          ]
+        },
+        {
+          "id": "2d829b81-cfea-4e16-a8c6-51720b29a83c",
+          "clientId": "realm-management",
+          "name": "${client_realm-management}",
+          "surrogateAuthRequired": false,
+          "enabled": true,
+          "alwaysDisplayInConsole": false,
+          "clientAuthenticatorType": "client-secret",
+          "redirectUris": [],
+          "webOrigins": [],
+          "notBefore": 0,
+          "bearerOnly": true,
+          "consentRequired": false,
+          "standardFlowEnabled": true,
+          "implicitFlowEnabled": false,
+          "directAccessGrantsEnabled": false,
+          "serviceAccountsEnabled": false,
+          "publicClient": false,
+          "frontchannelLogout": false,
+          "protocol": "openid-connect",
+          "attributes": {},
+          "authenticationFlowBindingOverrides": {},
+          "fullScopeAllowed": false,
+          "nodeReRegistrationTimeout": 0,
+          "defaultClientScopes": [
+            "web-origins",
+            "profile",
+            "roles",
+            "email"
+          ],
+          "optionalClientScopes": [
+            "address",
+            "phone",
+            "offline_access",
+            "microprofile-jwt"
+          ]
+        },
+        {
+          "id": "8cdc4dbb-fa03-49db-90e3-1254befc6446",
+          "clientId": "security-admin-console",
+          "name": "${client_security-admin-console}",
+          "rootUrl": "${authAdminUrl}",
+          "baseUrl": "/admin/OAM/console/",
+          "surrogateAuthRequired": false,
+          "enabled": true,
+          "alwaysDisplayInConsole": false,
+          "clientAuthenticatorType": "client-secret",
+          "redirectUris": [
+            "/admin/OAM/console/*"
+          ],
+          "webOrigins": [
+            "+"
+          ],
+          "notBefore": 0,
+          "bearerOnly": false,
+          "consentRequired": false,
+          "standardFlowEnabled": true,
+          "implicitFlowEnabled": false,
+          "directAccessGrantsEnabled": false,
+          "serviceAccountsEnabled": false,
+          "publicClient": true,
+          "frontchannelLogout": false,
+          "protocol": "openid-connect",
+          "attributes": {
+            "post.logout.redirect.uris": "+",
+            "pkce.code.challenge.method": "S256"
+          },
+          "authenticationFlowBindingOverrides": {},
+          "fullScopeAllowed": false,
+          "nodeReRegistrationTimeout": 0,
+          "protocolMappers": [
+            {
+              "id": "dec12055-c679-4b76-b9e4-7f629d8b780a",
+              "name": "locale",
+              "protocol": "openid-connect",
+              "protocolMapper": "oidc-usermodel-attribute-mapper",
+              "consentRequired": false,
+              "config": {
+                "userinfo.token.claim": "true",
+                "user.attribute": "locale",
+                "id.token.claim": "true",
+                "access.token.claim": "true",
+                "claim.name": "locale",
+                "jsonType.label": "String"
+              }
+            }
+          ],
+          "defaultClientScopes": [
+            "web-origins",
+            "profile",
+            "roles",
+            "email"
+          ],
+          "optionalClientScopes": [
+            "address",
+            "phone",
+            "offline_access",
+            "microprofile-jwt"
+          ]
+        }
+      ],
+      "clientScopes": [
+        {
+          "id": "eba0bb39-7dfc-40b5-9f75-dd85d5c2d18a",
+          "name": "web-origins",
+          "description": "OpenID Connect scope for add allowed web origins to the access token",
+          "protocol": "openid-connect",
+          "attributes": {
+            "include.in.token.scope": "false",
+            "display.on.consent.screen": "false",
+            "consent.screen.text": ""
+          },
+          "protocolMappers": [
+            {
+              "id": "f688fdd4-625e-4f2f-869a-e88fb816eec5",
+              "name": "allowed web origins",
+              "protocol": "openid-connect",
+              "protocolMapper": "oidc-allowed-origins-mapper",
+              "consentRequired": false,
+              "config": {}
+            }
+          ]
+        },
+        {
+          "id": "e3c82088-a364-4f60-9dc6-b8262a8da3da",
+          "name": "profile",
+          "description": "OpenID Connect built-in scope: profile",
+          "protocol": "openid-connect",
+          "attributes": {
+            "include.in.token.scope": "true",
+            "display.on.consent.screen": "true",
+            "consent.screen.text": "${profileScopeConsentText}"
+          },
+          "protocolMappers": [
+            {
+              "id": "5c01c924-9ed5-4244-be9b-63c99c5c6721",
+              "name": "middle name",
+              "protocol": "openid-connect",
+              "protocolMapper": "oidc-usermodel-attribute-mapper",
+              "consentRequired": false,
+              "config": {
+                "userinfo.token.claim": "true",
+                "user.attribute": "middleName",
+                "id.token.claim": "true",
+                "access.token.claim": "true",
+                "claim.name": "middle_name",
+                "jsonType.label": "String"
+              }
+            },
+            {
+              "id": "8cbcfa05-dd11-488f-967d-90b9a0e2de8d",
+              "name": "family name",
+              "protocol": "openid-connect",
+              "protocolMapper": "oidc-usermodel-property-mapper",
+              "consentRequired": false,
+              "config": {
+                "userinfo.token.claim": "true",
+                "user.attribute": "lastName",
+                "id.token.claim": "true",
+                "access.token.claim": "true",
+                "claim.name": "family_name",
+                "jsonType.label": "String"
+              }
+            },
+            {
+              "id": "b60df582-9a87-4701-903b-512951d2e547",
+              "name": "username",
+              "protocol": "openid-connect",
+              "protocolMapper": "oidc-usermodel-property-mapper",
+              "consentRequired": false,
+              "config": {
+                "userinfo.token.claim": "true",
+                "user.attribute": "username",
+                "id.token.claim": "true",
+                "access.token.claim": "true",
+                "claim.name": "preferred_username",
+                "jsonType.label": "String"
+              }
+            },
+            {
+              "id": "680cd82c-7c34-488b-af0e-d33de7e4c018",
+              "name": "gender",
+              "protocol": "openid-connect",
+              "protocolMapper": "oidc-usermodel-attribute-mapper",
+              "consentRequired": false,
+              "config": {
+                "userinfo.token.claim": "true",
+                "user.attribute": "gender",
+                "id.token.claim": "true",
+                "access.token.claim": "true",
+                "claim.name": "gender",
+                "jsonType.label": "String"
+              }
+            },
+            {
+              "id": "a6841fe0-e43a-499f-9a76-538ba7c2eaac",
+              "name": "updated at",
+              "protocol": "openid-connect",
+              "protocolMapper": "oidc-usermodel-attribute-mapper",
+              "consentRequired": false,
+              "config": {
+                "userinfo.token.claim": "true",
+                "user.attribute": "updatedAt",
+                "id.token.claim": "true",
+                "access.token.claim": "true",
+                "claim.name": "updated_at",
+                "jsonType.label": "String"
+              }
+            },
+            {
+              "id": "9b00a8e9-571c-4435-a3c5-f02856475059",
+              "name": "profile",
+              "protocol": "openid-connect",
+              "protocolMapper": "oidc-usermodel-attribute-mapper",
+              "consentRequired": false,
+              "config": {
+                "userinfo.token.claim": "true",
+                "user.attribute": "profile",
+                "id.token.claim": "true",
+                "access.token.claim": "true",
+                "claim.name": "profile",
+                "jsonType.label": "String"
+              }
+            },
+            {
+              "id": "648a43e4-66a8-479a-8bb4-40970242bad8",
+              "name": "locale",
+              "protocol": "openid-connect",
+              "protocolMapper": "oidc-usermodel-attribute-mapper",
+              "consentRequired": false,
+              "config": {
+                "userinfo.token.claim": "true",
+                "user.attribute": "locale",
+                "id.token.claim": "true",
+                "access.token.claim": "true",
+                "claim.name": "locale",
+                "jsonType.label": "String"
+              }
+            },
+            {
+              "id": "ef253288-c63b-4f7d-b991-b7ae8073aa7a",
+              "name": "website",
+              "protocol": "openid-connect",
+              "protocolMapper": "oidc-usermodel-attribute-mapper",
+              "consentRequired": false,
+              "config": {
+                "userinfo.token.claim": "true",
+                "user.attribute": "website",
+                "id.token.claim": "true",
+                "access.token.claim": "true",
+                "claim.name": "website",
+                "jsonType.label": "String"
+              }
+            },
+            {
+              "id": "d6f61933-3b60-450c-84ec-c2e19273a5d8",
+              "name": "picture",
+              "protocol": "openid-connect",
+              "protocolMapper": "oidc-usermodel-attribute-mapper",
+              "consentRequired": false,
+              "config": {
+                "userinfo.token.claim": "true",
+                "user.attribute": "picture",
+                "id.token.claim": "true",
+                "access.token.claim": "true",
+                "claim.name": "picture",
+                "jsonType.label": "String"
+              }
+            },
+            {
+              "id": "b2a7d4ae-d001-428b-be37-8e022b0909c9",
+              "name": "zoneinfo",
+              "protocol": "openid-connect",
+              "protocolMapper": "oidc-usermodel-attribute-mapper",
+              "consentRequired": false,
+              "config": {
+                "userinfo.token.claim": "true",
+                "user.attribute": "zoneinfo",
+                "id.token.claim": "true",
+                "access.token.claim": "true",
+                "claim.name": "zoneinfo",
+                "jsonType.label": "String"
+              }
+            },
+            {
+              "id": "35e8f93f-0338-4435-a24f-df884df4d2dc",
+              "name": "birthdate",
+              "protocol": "openid-connect",
+              "protocolMapper": "oidc-usermodel-attribute-mapper",
+              "consentRequired": false,
+              "config": {
+                "userinfo.token.claim": "true",
+                "user.attribute": "birthdate",
+                "id.token.claim": "true",
+                "access.token.claim": "true",
+                "claim.name": "birthdate",
+                "jsonType.label": "String"
+              }
+            },
+            {
+              "id": "b4cac4ee-337c-42a0-9806-ebfb8f380c22",
+              "name": "full name",
+              "protocol": "openid-connect",
+              "protocolMapper": "oidc-full-name-mapper",
+              "consentRequired": false,
+              "config": {
+                "id.token.claim": "true",
+                "access.token.claim": "true",
+                "userinfo.token.claim": "true"
+              }
+            },
+            {
+              "id": "1ef3aecc-945e-4072-a455-ed42754c8361",
+              "name": "nickname",
+              "protocol": "openid-connect",
+              "protocolMapper": "oidc-usermodel-attribute-mapper",
+              "consentRequired": false,
+              "config": {
+                "userinfo.token.claim": "true",
+                "user.attribute": "nickname",
+                "id.token.claim": "true",
+                "access.token.claim": "true",
+                "claim.name": "nickname",
+                "jsonType.label": "String"
+              }
+            },
+            {
+              "id": "92dcbf91-00ec-4381-8c8a-734592cda950",
+              "name": "given name",
+              "protocol": "openid-connect",
+              "protocolMapper": "oidc-usermodel-property-mapper",
+              "consentRequired": false,
+              "config": {
+                "userinfo.token.claim": "true",
+                "user.attribute": "firstName",
+                "id.token.claim": "true",
+                "access.token.claim": "true",
+                "claim.name": "given_name",
+                "jsonType.label": "String"
+              }
+            }
+          ]
+        },
+        {
+          "id": "125373da-1ddb-437c-89ce-628f9fd7cb8d",
+          "name": "microprofile-jwt",
+          "description": "Microprofile - JWT built-in scope",
+          "protocol": "openid-connect",
+          "attributes": {
+            "include.in.token.scope": "true",
+            "display.on.consent.screen": "false"
+          },
+          "protocolMappers": [
+            {
+              "id": "c2c2d1e1-2eb1-4e0d-9b60-82cf1eb87cca",
+              "name": "upn",
+              "protocol": "openid-connect",
+              "protocolMapper": "oidc-usermodel-property-mapper",
+              "consentRequired": false,
+              "config": {
+                "userinfo.token.claim": "true",
+                "user.attribute": "username",
+                "id.token.claim": "true",
+                "access.token.claim": "true",
+                "claim.name": "upn",
+                "jsonType.label": "String"
+              }
+            },
+            {
+              "id": "44695215-156b-477e-ba85-ead2a2e1b735",
+              "name": "groups",
+              "protocol": "openid-connect",
+              "protocolMapper": "oidc-usermodel-realm-role-mapper",
+              "consentRequired": false,
+              "config": {
+                "multivalued": "true",
+                "userinfo.token.claim": "true",
+                "user.attribute": "foo",
+                "id.token.claim": "true",
+                "access.token.claim": "true",
+                "claim.name": "groups",
+                "jsonType.label": "String"
+              }
+            }
+          ]
+        },
+        {
+          "id": "ab7cc909-221c-4a79-8c0b-08eacc20a111",
+          "name": "offline_access",
+          "description": "OpenID Connect built-in scope: offline_access",
+          "protocol": "openid-connect",
+          "attributes": {
+            "consent.screen.text": "${offlineAccessScopeConsentText}",
+            "display.on.consent.screen": "true"
+          }
+        },
+        {
+          "id": "204513ac-526e-43ec-99cb-7a21ba0f2aaa",
+          "name": "email",
+          "description": "OpenID Connect built-in scope: email",
+          "protocol": "openid-connect",
+          "attributes": {
+            "include.in.token.scope": "true",
+            "display.on.consent.screen": "true",
+            "consent.screen.text": "${emailScopeConsentText}"
+          },
+          "protocolMappers": [
+            {
+              "id": "50c2ab99-62b1-4bc1-b859-862eda9f7550",
+              "name": "email verified",
+              "protocol": "openid-connect",
+              "protocolMapper": "oidc-usermodel-property-mapper",
+              "consentRequired": false,
+              "config": {
+                "userinfo.token.claim": "true",
+                "user.attribute": "emailVerified",
+                "id.token.claim": "true",
+                "access.token.claim": "true",
+                "claim.name": "email_verified",
+                "jsonType.label": "boolean"
+              }
+            },
+            {
+              "id": "d856f941-6f79-4a77-a6e7-a22aa80b4f10",
+              "name": "email",
+              "protocol": "openid-connect",
+              "protocolMapper": "oidc-usermodel-property-mapper",
+              "consentRequired": false,
+              "config": {
+                "userinfo.token.claim": "true",
+                "user.attribute": "email",
+                "id.token.claim": "true",
+                "access.token.claim": "true",
+                "claim.name": "email",
+                "jsonType.label": "String"
+              }
+            }
+          ]
+        },
+        {
+          "id": "a96483e0-fa69-40d3-80bd-74d9adc708b4",
+          "name": "acr",
+          "description": "OpenID Connect scope for add acr (authentication context class reference) to the token",
+          "protocol": "openid-connect",
+          "attributes": {
+            "include.in.token.scope": "false",
+            "display.on.consent.screen": "false"
+          },
+          "protocolMappers": [
+            {
+              "id": "e1129389-83da-4faf-811e-6535f2052921",
+              "name": "acr loa level",
+              "protocol": "openid-connect",
+              "protocolMapper": "oidc-acr-mapper",
+              "consentRequired": false,
+              "config": {
+                "id.token.claim": "true",
+                "access.token.claim": "true"
+              }
+            }
+          ]
+        },
+        {
+          "id": "51776929-e108-4588-a99e-77ad45a9a13c",
+          "name": "role_list",
+          "description": "SAML role list",
+          "protocol": "saml",
+          "attributes": {
+            "consent.screen.text": "${samlRoleListScopeConsentText}",
+            "display.on.consent.screen": "true"
+          },
+          "protocolMappers": [
+            {
+              "id": "5be75cec-4842-4987-beb2-c09aa144b485",
+              "name": "role list",
+              "protocol": "saml",
+              "protocolMapper": "saml-role-list-mapper",
+              "consentRequired": false,
+              "config": {
+                "single": "false",
+                "attribute.nameformat": "Basic",
+                "attribute.name": "Role"
+              }
+            }
+          ]
+        },
+        {
+          "id": "31fea7e4-0255-4d00-bdea-4862d3e58f21",
+          "name": "roles",
+          "description": "OpenID Connect scope for add user roles to the access token",
+          "protocol": "openid-connect",
+          "attributes": {
+            "include.in.token.scope": "false",
+            "display.on.consent.screen": "true",
+            "consent.screen.text": "${rolesScopeConsentText}"
+          },
+          "protocolMappers": [
+            {
+              "id": "afbcb25b-4854-43cc-8762-88a8e3a8e181",
+              "name": "audience resolve",
+              "protocol": "openid-connect",
+              "protocolMapper": "oidc-audience-resolve-mapper",
+              "consentRequired": false,
+              "config": {}
+            },
+            {
+              "id": "a9e14827-fa20-4d83-a4a7-2bd27c432e50",
+              "name": "client roles",
+              "protocol": "openid-connect",
+              "protocolMapper": "oidc-usermodel-client-role-mapper",
+              "consentRequired": false,
+              "config": {
+                "user.attribute": "foo",
+                "access.token.claim": "true",
+                "claim.name": "resource_access.${client_id}.roles",
+                "jsonType.label": "String",
+                "multivalued": "true"
+              }
+            },
+            {
+              "id": "b2eb7125-62cf-4ecd-9389-2e9b79979141",
+              "name": "realm roles",
+              "protocol": "openid-connect",
+              "protocolMapper": "oidc-usermodel-realm-role-mapper",
+              "consentRequired": false,
+              "config": {
+                "user.attribute": "foo",
+                "access.token.claim": "true",
+                "claim.name": "realm_access.roles",
+                "jsonType.label": "String",
+                "multivalued": "true"
+              }
+            }
+          ]
+        },
+        {
+          "id": "7259f0ad-899f-457d-8227-a1667b2ce2ad",
+          "name": "address",
+          "description": "OpenID Connect built-in scope: address",
+          "protocol": "openid-connect",
+          "attributes": {
+            "include.in.token.scope": "true",
+            "display.on.consent.screen": "true",
+            "consent.screen.text": "${addressScopeConsentText}"
+          },
+          "protocolMappers": [
+            {
+              "id": "7d41e27a-a5cb-477d-93fd-bc294aa8d8a1",
+              "name": "address",
+              "protocol": "openid-connect",
+              "protocolMapper": "oidc-address-mapper",
+              "consentRequired": false,
+              "config": {
+                "user.attribute.formatted": "formatted",
+                "user.attribute.country": "country",
+                "user.attribute.postal_code": "postal_code",
+                "userinfo.token.claim": "true",
+                "user.attribute.street": "street",
+                "id.token.claim": "true",
+                "user.attribute.region": "region",
+                "access.token.claim": "true",
+                "user.attribute.locality": "locality"
+              }
+            }
+          ]
+        },
+        {
+          "id": "da93a740-e5fc-438a-8ed1-cda5f3b7a7af",
+          "name": "phone",
+          "description": "OpenID Connect built-in scope: phone",
+          "protocol": "openid-connect",
+          "attributes": {
+            "include.in.token.scope": "true",
+            "display.on.consent.screen": "true",
+            "consent.screen.text": "${phoneScopeConsentText}"
+          },
+          "protocolMappers": [
+            {
+              "id": "2b84ee58-c566-451a-94a1-8059ea82d1e3",
+              "name": "phone number verified",
+              "protocol": "openid-connect",
+              "protocolMapper": "oidc-usermodel-attribute-mapper",
+              "consentRequired": false,
+              "config": {
+                "userinfo.token.claim": "true",
+                "user.attribute": "phoneNumberVerified",
+                "id.token.claim": "true",
+                "access.token.claim": "true",
+                "claim.name": "phone_number_verified",
+                "jsonType.label": "boolean"
+              }
+            },
+            {
+              "id": "af0d84a7-975e-4842-bbcf-54c705a360d8",
+              "name": "phone number",
+              "protocol": "openid-connect",
+              "protocolMapper": "oidc-usermodel-attribute-mapper",
+              "consentRequired": false,
+              "config": {
+                "userinfo.token.claim": "true",
+                "user.attribute": "phoneNumber",
+                "id.token.claim": "true",
+                "access.token.claim": "true",
+                "claim.name": "phone_number",
+                "jsonType.label": "String"
+              }
+            }
+          ]
+        }
+      ],
+      "defaultDefaultClientScopes": [
+        "role_list",
+        "profile",
+        "email",
+        "roles",
+        "web-origins",
+        "acr"
+      ],
+      "defaultOptionalClientScopes": [
+        "offline_access",
+        "address",
+        "phone",
+        "microprofile-jwt"
+      ],
+      "browserSecurityHeaders": {
+        "contentSecurityPolicyReportOnly": "",
+        "xContentTypeOptions": "nosniff",
+        "xRobotsTag": "none",
+        "xFrameOptions": "SAMEORIGIN",
+        "contentSecurityPolicy": "frame-src 'self' {{ ternary .Values.masterAtl.frontendHost .Values.ingress.internet.frontendHost .Values.masterAtl.enabled }} http://localhost http://localhost:4200; frame-ancestors 'self' {{ ternary .Values.masterAtl.frontendHost .Values.ingress.internet.frontendHost .Values.masterAtl.enabled }} http://localhost http://localhost:4200; object-src 'none';",
+        "xXSSProtection": "1; mode=block",
+        "strictTransportSecurity": "max-age=31536000; includeSubDomains"
+      },
+      "smtpServer": {},
+      "eventsEnabled": false,
+      "eventsListeners": [
+        "jboss-logging"
+      ],
+      "enabledEventTypes": [],
+      "adminEventsEnabled": false,
+      "adminEventsDetailsEnabled": false,
+      "identityProviders": [],
+      "identityProviderMappers": [],
+      "components": {
+        "org.keycloak.services.clientregistration.policy.ClientRegistrationPolicy": [
+          {
+            "id": "f7eb18e7-a656-40f2-ae09-f8c2f2694db9",
+            "name": "Allowed Protocol Mapper Types",
+            "providerId": "allowed-protocol-mappers",
+            "subType": "authenticated",
+            "subComponents": {},
+            "config": {
+              "allowed-protocol-mapper-types": [
+                "oidc-sha256-pairwise-sub-mapper",
+                "saml-user-attribute-mapper",
+                "oidc-usermodel-property-mapper",
+                "saml-role-list-mapper",
+                "saml-user-property-mapper",
+                "oidc-address-mapper",
+                "oidc-full-name-mapper",
+                "oidc-usermodel-attribute-mapper"
+              ]
+            }
+          },
+          {
+            "id": "bc63ef14-8438-4e1c-bb72-afbc0dea3a00",
+            "name": "Full Scope Disabled",
+            "providerId": "scope",
+            "subType": "anonymous",
+            "subComponents": {},
+            "config": {}
+          },
+          {
+            "id": "d51c15c2-8522-4ec8-ab3a-d5b9b5494fa0",
+            "name": "Allowed Client Scopes",
+            "providerId": "allowed-client-templates",
+            "subType": "anonymous",
+            "subComponents": {},
+            "config": {
+              "allow-default-scopes": [
+                "true"
+              ]
+            }
+          },
+          {
+            "id": "4bcf9239-a037-43b0-9efe-8858cdab3002",
+            "name": "Trusted Hosts",
+            "providerId": "trusted-hosts",
+            "subType": "anonymous",
+            "subComponents": {},
+            "config": {
+              "host-sending-registration-request-must-match": [
+                "true"
+              ],
+              "client-uris-must-match": [
+                "true"
+              ]
+            }
+          },
+          {
+            "id": "9ce6b17b-7c5c-44b1-8b1b-c68694e8be55",
+            "name": "Allowed Client Scopes",
+            "providerId": "allowed-client-templates",
+            "subType": "authenticated",
+            "subComponents": {},
+            "config": {
+              "allow-default-scopes": [
+                "true"
+              ]
+            }
+          },
+          {
+            "id": "1f162057-ccc2-498e-aeff-3fd299078d88",
+            "name": "Allowed Protocol Mapper Types",
+            "providerId": "allowed-protocol-mappers",
+            "subType": "anonymous",
+            "subComponents": {},
+            "config": {
+              "allowed-protocol-mapper-types": [
+                "oidc-usermodel-attribute-mapper",
+                "oidc-address-mapper",
+                "oidc-sha256-pairwise-sub-mapper",
+                "saml-user-attribute-mapper",
+                "oidc-usermodel-property-mapper",
+                "oidc-full-name-mapper",
+                "saml-user-property-mapper",
+                "saml-role-list-mapper"
+              ]
+            }
+          },
+          {
+            "id": "943b2821-b56f-4e07-aab0-2672915249cc",
+            "name": "Max Clients Limit",
+            "providerId": "max-clients",
+            "subType": "anonymous",
+            "subComponents": {},
+            "config": {
+              "max-clients": [
+                "200"
+              ]
+            }
+          },
+          {
+            "id": "36b127b2-101f-4328-9813-8776a185b8d0",
+            "name": "Consent Required",
+            "providerId": "consent-required",
+            "subType": "anonymous",
+            "subComponents": {},
+            "config": {}
+          }
+        ],
+        "org.keycloak.userprofile.UserProfileProvider": [
+          {
+            "id": "c29f3cd9-9c67-4ef2-bf25-bf5fd16d9090",
+            "providerId": "declarative-user-profile",
+            "subComponents": {},
+            "config": {}
+          }
+        ],
+        "org.keycloak.keys.KeyProvider": [
+          {
+            "id": "7fa90a88-fa59-4281-8669-2efb5bf7c523",
+            "name": "rsa-enc-generated",
+            "providerId": "rsa-enc-generated",
+            "subComponents": {},
+            "config": {
+              "priority": [
+                "100"
+              ],
+              "algorithm": [
+                "RSA-OAEP"
+              ]
+            }
+          },
+          {
+            "id": "cdcfd17b-34d6-4541-ac41-59ff0915d37c",
+            "name": "rsa-generated",
+            "providerId": "rsa-generated",
+            "subComponents": {},
+            "config": {
+              "priority": [
+                "100"
+              ]
+            }
+          },
+          {
+            "id": "e75efd8c-5253-42c6-84d8-533c46ae8d6b",
+            "name": "hmac-generated",
+            "providerId": "hmac-generated",
+            "subComponents": {},
+            "config": {
+              "priority": [
+                "100"
+              ],
+              "algorithm": [
+                "HS256"
+              ]
+            }
+          },
+          {
+            "id": "304cd3f5-d95a-4caa-b654-eab3f27f3de9",
+            "name": "aes-generated",
+            "providerId": "aes-generated",
+            "subComponents": {},
+            "config": {
+              "priority": [
+                "100"
+              ]
+            }
+          }
+        ]
+      },
+      "internationalizationEnabled": false,
+      "supportedLocales": [],
+      "authenticationFlows": [
+        {
+          "id": "f569547b-905c-4f37-8eb9-18dc4775a43f",
+          "alias": "Account verification options",
+          "description": "Method with which to verity the existing account",
+          "providerId": "basic-flow",
+          "topLevel": false,
+          "builtIn": true,
+          "authenticationExecutions": [
+            {
+              "authenticator": "idp-email-verification",
+              "authenticatorFlow": false,
+              "requirement": "ALTERNATIVE",
+              "priority": 10,
+              "autheticatorFlow": false,
+              "userSetupAllowed": false
+            },
+            {
+              "authenticatorFlow": true,
+              "requirement": "ALTERNATIVE",
+              "priority": 20,
+              "autheticatorFlow": true,
+              "flowAlias": "Verify Existing Account by Re-authentication",
+              "userSetupAllowed": false
+            }
+          ]
+        },
+        {
+          "id": "82c7ab18-0b9e-4f4a-8f80-deb52e932a9b",
+          "alias": "Browser - Conditional OTP",
+          "description": "Flow to determine if the OTP is required for the authentication",
+          "providerId": "basic-flow",
+          "topLevel": false,
+          "builtIn": true,
+          "authenticationExecutions": [
+            {
+              "authenticator": "conditional-user-configured",
+              "authenticatorFlow": false,
+              "requirement": "REQUIRED",
+              "priority": 10,
+              "autheticatorFlow": false,
+              "userSetupAllowed": false
+            },
+            {
+              "authenticator": "auth-otp-form",
+              "authenticatorFlow": false,
+              "requirement": "REQUIRED",
+              "priority": 20,
+              "autheticatorFlow": false,
+              "userSetupAllowed": false
+            }
+          ]
+        },
+        {
+          "id": "7c9eac34-b187-42de-86c1-225ad27d5d89",
+          "alias": "Direct Grant - Conditional OTP",
+          "description": "Flow to determine if the OTP is required for the authentication",
+          "providerId": "basic-flow",
+          "topLevel": false,
+          "builtIn": true,
+          "authenticationExecutions": [
+            {
+              "authenticator": "conditional-user-configured",
+              "authenticatorFlow": false,
+              "requirement": "REQUIRED",
+              "priority": 10,
+              "autheticatorFlow": false,
+              "userSetupAllowed": false
+            },
+            {
+              "authenticator": "direct-grant-validate-otp",
+              "authenticatorFlow": false,
+              "requirement": "REQUIRED",
+              "priority": 20,
+              "autheticatorFlow": false,
+              "userSetupAllowed": false
+            }
+          ]
+        },
+        {
+          "id": "3c052f45-fe08-45bc-a434-5eca69dc76a8",
+          "alias": "First broker login - Conditional OTP",
+          "description": "Flow to determine if the OTP is required for the authentication",
+          "providerId": "basic-flow",
+          "topLevel": false,
+          "builtIn": true,
+          "authenticationExecutions": [
+            {
+              "authenticator": "conditional-user-configured",
+              "authenticatorFlow": false,
+              "requirement": "REQUIRED",
+              "priority": 10,
+              "autheticatorFlow": false,
+              "userSetupAllowed": false
+            },
+            {
+              "authenticator": "auth-otp-form",
+              "authenticatorFlow": false,
+              "requirement": "REQUIRED",
+              "priority": 20,
+              "autheticatorFlow": false,
+              "userSetupAllowed": false
+            }
+          ]
+        },
+        {
+          "id": "af53b3ee-7a4c-4ffc-915e-435e95917fcf",
+          "alias": "Handle Existing Account",
+          "description": "Handle what to do if there is existing account with same email/username like authenticated identity provider",
+          "providerId": "basic-flow",
+          "topLevel": false,
+          "builtIn": true,
+          "authenticationExecutions": [
+            {
+              "authenticator": "idp-confirm-link",
+              "authenticatorFlow": false,
+              "requirement": "REQUIRED",
+              "priority": 10,
+              "autheticatorFlow": false,
+              "userSetupAllowed": false
+            },
+            {
+              "authenticatorFlow": true,
+              "requirement": "REQUIRED",
+              "priority": 20,
+              "autheticatorFlow": true,
+              "flowAlias": "Account verification options",
+              "userSetupAllowed": false
+            }
+          ]
+        },
+        {
+          "id": "3af58d86-a41d-456a-9129-f5ecd0f33397",
+          "alias": "Reset - Conditional OTP",
+          "description": "Flow to determine if the OTP should be reset or not. Set to REQUIRED to force.",
+          "providerId": "basic-flow",
+          "topLevel": false,
+          "builtIn": true,
+          "authenticationExecutions": [
+            {
+              "authenticator": "conditional-user-configured",
+              "authenticatorFlow": false,
+              "requirement": "REQUIRED",
+              "priority": 10,
+              "autheticatorFlow": false,
+              "userSetupAllowed": false
+            },
+            {
+              "authenticator": "reset-otp",
+              "authenticatorFlow": false,
+              "requirement": "REQUIRED",
+              "priority": 20,
+              "autheticatorFlow": false,
+              "userSetupAllowed": false
+            }
+          ]
+        },
+        {
+          "id": "0cb78fe7-7cb8-4510-a76d-f43ca4195706",
+          "alias": "User creation or linking",
+          "description": "Flow for the existing/non-existing user alternatives",
+          "providerId": "basic-flow",
+          "topLevel": false,
+          "builtIn": true,
+          "authenticationExecutions": [
+            {
+              "authenticatorConfig": "create unique user config",
+              "authenticator": "idp-create-user-if-unique",
+              "authenticatorFlow": false,
+              "requirement": "ALTERNATIVE",
+              "priority": 10,
+              "autheticatorFlow": false,
+              "userSetupAllowed": false
+            },
+            {
+              "authenticatorFlow": true,
+              "requirement": "ALTERNATIVE",
+              "priority": 20,
+              "autheticatorFlow": true,
+              "flowAlias": "Handle Existing Account",
+              "userSetupAllowed": false
+            }
+          ]
+        },
+        {
+          "id": "f32a1793-363a-4ee9-a88e-f968b0d70b3b",
+          "alias": "Verify Existing Account by Re-authentication",
+          "description": "Reauthentication of existing account",
+          "providerId": "basic-flow",
+          "topLevel": false,
+          "builtIn": true,
+          "authenticationExecutions": [
+            {
+              "authenticator": "idp-username-password-form",
+              "authenticatorFlow": false,
+              "requirement": "REQUIRED",
+              "priority": 10,
+              "autheticatorFlow": false,
+              "userSetupAllowed": false
+            },
+            {
+              "authenticatorFlow": true,
+              "requirement": "CONDITIONAL",
+              "priority": 20,
+              "autheticatorFlow": true,
+              "flowAlias": "First broker login - Conditional OTP",
+              "userSetupAllowed": false
+            }
+          ]
+        },
+        {
+          "id": "a40a95d2-0f6f-4c07-93da-08aa8b6322c4",
+          "alias": "browser",
+          "description": "browser based authentication",
+          "providerId": "basic-flow",
+          "topLevel": true,
+          "builtIn": true,
+          "authenticationExecutions": [
+            {
+              "authenticator": "auth-cookie",
+              "authenticatorFlow": false,
+              "requirement": "ALTERNATIVE",
+              "priority": 10,
+              "autheticatorFlow": false,
+              "userSetupAllowed": false
+            },
+            {
+              "authenticator": "auth-spnego",
+              "authenticatorFlow": false,
+              "requirement": "DISABLED",
+              "priority": 20,
+              "autheticatorFlow": false,
+              "userSetupAllowed": false
+            },
+            {
+              "authenticator": "identity-provider-redirector",
+              "authenticatorFlow": false,
+              "requirement": "ALTERNATIVE",
+              "priority": 25,
+              "autheticatorFlow": false,
+              "userSetupAllowed": false
+            },
+            {
+              "authenticatorFlow": true,
+              "requirement": "ALTERNATIVE",
+              "priority": 30,
+              "autheticatorFlow": true,
+              "flowAlias": "forms",
+              "userSetupAllowed": false
+            }
+          ]
+        },
+        {
+          "id": "24fe837b-fc1b-4229-8c15-978f31f90ce9",
+          "alias": "clients",
+          "description": "Base authentication for clients",
+          "providerId": "client-flow",
+          "topLevel": true,
+          "builtIn": true,
+          "authenticationExecutions": [
+            {
+              "authenticator": "client-secret",
+              "authenticatorFlow": false,
+              "requirement": "ALTERNATIVE",
+              "priority": 10,
+              "autheticatorFlow": false,
+              "userSetupAllowed": false
+            },
+            {
+              "authenticator": "client-jwt",
+              "authenticatorFlow": false,
+              "requirement": "ALTERNATIVE",
+              "priority": 20,
+              "autheticatorFlow": false,
+              "userSetupAllowed": false
+            },
+            {
+              "authenticator": "client-secret-jwt",
+              "authenticatorFlow": false,
+              "requirement": "ALTERNATIVE",
+              "priority": 30,
+              "autheticatorFlow": false,
+              "userSetupAllowed": false
+            },
+            {
+              "authenticator": "client-x509",
+              "authenticatorFlow": false,
+              "requirement": "ALTERNATIVE",
+              "priority": 40,
+              "autheticatorFlow": false,
+              "userSetupAllowed": false
+            }
+          ]
+        },
+        {
+          "id": "2712c43e-6d57-4693-9087-7ff7fc329a06",
+          "alias": "direct grant",
+          "description": "OpenID Connect Resource Owner Grant",
+          "providerId": "basic-flow",
+          "topLevel": true,
+          "builtIn": true,
+          "authenticationExecutions": [
+            {
+              "authenticator": "direct-grant-validate-username",
+              "authenticatorFlow": false,
+              "requirement": "REQUIRED",
+              "priority": 10,
+              "autheticatorFlow": false,
+              "userSetupAllowed": false
+            },
+            {
+              "authenticator": "direct-grant-validate-password",
+              "authenticatorFlow": false,
+              "requirement": "REQUIRED",
+              "priority": 20,
+              "autheticatorFlow": false,
+              "userSetupAllowed": false
+            },
+            {
+              "authenticatorFlow": true,
+              "requirement": "CONDITIONAL",
+              "priority": 30,
+              "autheticatorFlow": true,
+              "flowAlias": "Direct Grant - Conditional OTP",
+              "userSetupAllowed": false
+            }
+          ]
+        },
+        {
+          "id": "94732ddf-ad6c-4189-b57f-7c3fd51f9176",
+          "alias": "docker auth",
+          "description": "Used by Docker clients to authenticate against the IDP",
+          "providerId": "basic-flow",
+          "topLevel": true,
+          "builtIn": true,
+          "authenticationExecutions": [
+            {
+              "authenticator": "docker-http-basic-authenticator",
+              "authenticatorFlow": false,
+              "requirement": "REQUIRED",
+              "priority": 10,
+              "autheticatorFlow": false,
+              "userSetupAllowed": false
+            }
+          ]
+        },
+        {
+          "id": "d87fafd8-c478-4d76-b523-5b34f6e86cf4",
+          "alias": "first broker login",
+          "description": "Actions taken after first broker login with identity provider account, which is not yet linked to any Keycloak account",
+          "providerId": "basic-flow",
+          "topLevel": true,
+          "builtIn": true,
+          "authenticationExecutions": [
+            {
+              "authenticatorConfig": "review profile config",
+              "authenticator": "idp-review-profile",
+              "authenticatorFlow": false,
+              "requirement": "REQUIRED",
+              "priority": 10,
+              "autheticatorFlow": false,
+              "userSetupAllowed": false
+            },
+            {
+              "authenticatorFlow": true,
+              "requirement": "REQUIRED",
+              "priority": 20,
+              "autheticatorFlow": true,
+              "flowAlias": "User creation or linking",
+              "userSetupAllowed": false
+            }
+          ]
+        },
+        {
+          "id": "ff34af92-b3d5-42f1-977b-471d058f85bf",
+          "alias": "forms",
+          "description": "Username, password, otp and other auth forms.",
+          "providerId": "basic-flow",
+          "topLevel": false,
+          "builtIn": true,
+          "authenticationExecutions": [
+            {
+              "authenticator": "auth-username-password-form",
+              "authenticatorFlow": false,
+              "requirement": "REQUIRED",
+              "priority": 10,
+              "autheticatorFlow": false,
+              "userSetupAllowed": false
+            },
+            {
+              "authenticatorFlow": true,
+              "requirement": "CONDITIONAL",
+              "priority": 20,
+              "autheticatorFlow": true,
+              "flowAlias": "Browser - Conditional OTP",
+              "userSetupAllowed": false
+            }
+          ]
+        },
+        {
+          "id": "2acb9d31-4431-451e-bd48-0396c271da2a",
+          "alias": "registration",
+          "description": "registration flow",
+          "providerId": "basic-flow",
+          "topLevel": true,
+          "builtIn": true,
+          "authenticationExecutions": [
+            {
+              "authenticator": "registration-page-form",
+              "authenticatorFlow": true,
+              "requirement": "REQUIRED",
+              "priority": 10,
+              "autheticatorFlow": true,
+              "flowAlias": "registration form",
+              "userSetupAllowed": false
+            }
+          ]
+        },
+        {
+          "id": "b64af332-c035-4446-a6ac-9608eb211505",
+          "alias": "registration form",
+          "description": "registration form",
+          "providerId": "form-flow",
+          "topLevel": false,
+          "builtIn": true,
+          "authenticationExecutions": [
+            {
+              "authenticator": "registration-user-creation",
+              "authenticatorFlow": false,
+              "requirement": "REQUIRED",
+              "priority": 20,
+              "autheticatorFlow": false,
+              "userSetupAllowed": false
+            },
+            {
+              "authenticator": "registration-profile-action",
+              "authenticatorFlow": false,
+              "requirement": "REQUIRED",
+              "priority": 40,
+              "autheticatorFlow": false,
+              "userSetupAllowed": false
+            },
+            {
+              "authenticator": "registration-password-action",
+              "authenticatorFlow": false,
+              "requirement": "REQUIRED",
+              "priority": 50,
+              "autheticatorFlow": false,
+              "userSetupAllowed": false
+            },
+            {
+              "authenticator": "registration-recaptcha-action",
+              "authenticatorFlow": false,
+              "requirement": "DISABLED",
+              "priority": 60,
+              "autheticatorFlow": false,
+              "userSetupAllowed": false
+            }
+          ]
+        },
+        {
+          "id": "b04d0c5d-b748-4498-b23f-fe0cf5d51745",
+          "alias": "reset credentials",
+          "description": "Reset credentials for a user if they forgot their password or something",
+          "providerId": "basic-flow",
+          "topLevel": true,
+          "builtIn": true,
+          "authenticationExecutions": [
+            {
+              "authenticator": "reset-credentials-choose-user",
+              "authenticatorFlow": false,
+              "requirement": "REQUIRED",
+              "priority": 10,
+              "autheticatorFlow": false,
+              "userSetupAllowed": false
+            },
+            {
+              "authenticator": "reset-credential-email",
+              "authenticatorFlow": false,
+              "requirement": "REQUIRED",
+              "priority": 20,
+              "autheticatorFlow": false,
+              "userSetupAllowed": false
+            },
+            {
+              "authenticator": "reset-password",
+              "authenticatorFlow": false,
+              "requirement": "REQUIRED",
+              "priority": 30,
+              "autheticatorFlow": false,
+              "userSetupAllowed": false
+            },
+            {
+              "authenticatorFlow": true,
+              "requirement": "CONDITIONAL",
+              "priority": 40,
+              "autheticatorFlow": true,
+              "flowAlias": "Reset - Conditional OTP",
+              "userSetupAllowed": false
+            }
+          ]
+        },
+        {
+          "id": "c1dfc0af-c89b-4330-85ca-5931c829f80e",
+          "alias": "saml ecp",
+          "description": "SAML ECP Profile Authentication Flow",
+          "providerId": "basic-flow",
+          "topLevel": true,
+          "builtIn": true,
+          "authenticationExecutions": [
+            {
+              "authenticator": "http-basic-authenticator",
+              "authenticatorFlow": false,
+              "requirement": "REQUIRED",
+              "priority": 10,
+              "autheticatorFlow": false,
+              "userSetupAllowed": false
+            }
+          ]
+        }
+      ],
+      "authenticatorConfig": [
+        {
+          "id": "039b6229-33b4-44b5-b5f4-ec66fff2863c",
+          "alias": "create unique user config",
+          "config": {
+            "require.password.update.after.registration": "false"
+          }
+        },
+        {
+          "id": "38a0238a-38cc-4721-a7ce-800e7084b6f6",
+          "alias": "review profile config",
+          "config": {
+            "update.profile.on.first.login": "missing"
+          }
+        }
+      ],
+      "requiredActions": [
+        {
+          "alias": "CONFIGURE_TOTP",
+          "name": "Configure OTP",
+          "providerId": "CONFIGURE_TOTP",
+          "enabled": true,
+          "defaultAction": false,
+          "priority": 10,
+          "config": {}
+        },
+        {
+          "alias": "TERMS_AND_CONDITIONS",
+          "name": "Terms and Conditions",
+          "providerId": "TERMS_AND_CONDITIONS",
+          "enabled": false,
+          "defaultAction": false,
+          "priority": 20,
+          "config": {}
+        },
+        {
+          "alias": "UPDATE_PASSWORD",
+          "name": "Update Password",
+          "providerId": "UPDATE_PASSWORD",
+          "enabled": true,
+          "defaultAction": false,
+          "priority": 30,
+          "config": {}
+        },
+        {
+          "alias": "UPDATE_PROFILE",
+          "name": "Update Profile",
+          "providerId": "UPDATE_PROFILE",
+          "enabled": true,
+          "defaultAction": false,
+          "priority": 40,
+          "config": {}
+        },
+        {
+          "alias": "VERIFY_EMAIL",
+          "name": "Verify Email",
+          "providerId": "VERIFY_EMAIL",
+          "enabled": true,
+          "defaultAction": false,
+          "priority": 50,
+          "config": {}
+        },
+        {
+          "alias": "delete_account",
+          "name": "Delete Account",
+          "providerId": "delete_account",
+          "enabled": false,
+          "defaultAction": false,
+          "priority": 60,
+          "config": {}
+        },
+        {
+          "alias": "update_user_locale",
+          "name": "Update User Locale",
+          "providerId": "update_user_locale",
+          "enabled": true,
+          "defaultAction": false,
+          "priority": 1000,
+          "config": {}
+        }
+      ],
+      "browserFlow": "browser",
+      "registrationFlow": "registration",
+      "directGrantFlow": "direct grant",
+      "resetCredentialsFlow": "reset credentials",
+      "clientAuthenticationFlow": "clients",
+      "dockerAuthenticationFlow": "docker auth",
+      "attributes": {
+        "cibaBackchannelTokenDeliveryMode": "poll",
+        "cibaExpiresIn": "120",
+        "cibaAuthRequestedUserHint": "login_hint",
+        "oauth2DeviceCodeLifespan": "600",
+        "oauth2DevicePollingInterval": "5",
+        "clientOfflineSessionMaxLifespan": "0",
+        "clientSessionIdleTimeout": "0",
+        "parRequestUriLifespan": "60",
+        "clientSessionMaxLifespan": "0",
+        "clientOfflineSessionIdleTimeout": "0",
+        "cibaInterval": "5",
+        "realmReusableOtpCode": "false"
+      },
+      "keycloakVersion": "22.0.5",
+      "userManagedAccessAllowed": false,
+      "clientProfiles": {
+        "profiles": []
+      },
+      "clientPolicies": {
+        "policies": []
+      }
+    }
+#    maxreplica: 1     # maximum replica to scale up
+#    targetMemory: 70  # average % memory usage, calculated from resources.requests, should be removed if memory scale not required, this is default
+#    targetCPU: 70     # average % cpu usage, calculated from resources.requests, should be removed if cpu scale not required
+
+rabbit:
+  enabled: true
+  replicaCount: 1
+  fullnameOverride: "rabbit"
+  volumePermissions:
+    enabled: true
+  automountServiceAccountToken: true
+  extraPlugins: "rabbitmq_federation"
+  disksize: "15Gi"
+  global:
+    imageRegistry: "harbor.mosaic.siemens-energy.cloud/docker-cache"
+  image:
+    repository: bitnamilegacy/rabbitmq  
+    pullPolicy: IfNotPresent
+  persistence:
+    existingClaim: "rabbit-pv-claim"
+  service:
+    ports:
+      amqp: 5672
+  resources:
+    requests:
+      memory: "500Mi"
+      cpu: "250m"
+    limits:
+      memory: "5000Mi"
+      cpu: "1000m"
+
+assetDiagnostics:
+  enabled: true
+  deploymentName: oam-asset-diagnostics
+  replicaCount: 1
+  port: 8080
+  image:
+    repository: omn-prd-fra-asset-diagnostics-backend-ecr-repo
+    pullPolicy: IfNotPresent
+  #    tag: "Specified in qa/dev/prod.yaml"
+  env:
+    SERVER_PORT: "8080"
+    DB_NAME: "oam_asset_diagnostics"
+    ADM_URL: "http://asset-data-management/api/v1/assets/"
+    ADM_PATH_TREE: "getAllAssets"
+    ADM_PATH_PARENT_ASSET: "getAssetsByParentId"
+    ADM_PATH_ASSETS: "getAssetsByAssetIds"
+    CE_URL: "http://calculation-engine"
+    CE_TASK_CREATE_PATH: "/calculation-engine/v1/api/tasks"
+    CE_TASK_DISABLE_PATH: "/calculation-engine/v1/api/tasks/disable"
+    LOGGING_LEVEL: "INFO"
+    SERVICE_NAME: "asset-diagnostics"
+    TRACING_ENABLED: "true"
+    TIME_WINDOWS_GRACE: 10
+  service:
+    name: asset-diagnostics
+    type: NodePort
+    port: 80
+    targetport: 8080
+  resources:
+    requests:
+      memory: "1000Mi"
+      cpu: "500m"
+    limits:
+      memory: "1300Mi"
+      cpu: "1000m"
+  probes:
+    livenessProbe:
+      httpGet:
+        path: /actuator/health/liveness
+        port: http
+      initialDelaySeconds: 100
+      periodSeconds: 15
+      timeoutSeconds: 15
+      failureThreshold: 20
+    readinessProbe:
+      httpGet:
+        path: /actuator/health/readiness
+        port: http
+      initialDelaySeconds: 110
+      periodSeconds: 15
+      timeoutSeconds: 15
+      successThreshold: 1
+      failureThreshold: 21
+  autoscaling:
+    enabled: true
+  #   maxreplica: 1     # maximum replica to scale up
+#    targetMemory: 70  # average % memory usage, calculated from resources.requests, should be removed if memory scale not required, this is default
+#    targetCPU: 70     # average % cpu usage, calculated from resources.requests, should be removed if cpu scale not required
+
+reliabilityManagement:
+  enabled: true
+  deploymentName: oam-reliability-management
+  replicaCount: 1
+  port: 8080
+  image:
+    repository: omn-prd-fra-oam-reliability-mgt-ecr-repo
+    pullPolicy: IfNotPresent
+  #    tag: "Specified in qa/dev/prod.yaml"
+  env:
+    SERVER_PORT: "8080"
+    LIQUIBASE_CONTEXTS: "prd"
+    ATL_URL: "https://atl-api.mosaic-dev.siemens-energy.cloud"
+    MAX_FILES_SIZE: "100MB"
+    MAX_FILES_REQUEST_SIZE: "500MB"
+    SERVICE_NAME: "reliability-management"
+    TRACING_ENABLED: "true"
+    RABBIT_TRACING_ENABLED: "true"
+    REST_TEMPLATE_HEADER_CUSTOMIZER_ENABLED: "true"
+    FEIGN_CLIENT_HEADER_CUSTOMIZER_ENABLED: "true"
+    CODE_EXPRESSION_PROTECTION_ENABLED: "false"
+  service:
+    name: reliability-management
+    type: NodePort
+    port: 80
+    targetport: 8080
+  resources:
+    requests:
+      memory: "1700Mi"
+      cpu: "250m"
+    limits:
+      memory: "3400Mi"
+      cpu: "1500m"
+  probes:
+    livenessProbe:
+      httpGet:
+        path: /actuator/health/liveness
+        port: http
+      initialDelaySeconds: 80
+      periodSeconds: 15
+      timeoutSeconds: 15
+      failureThreshold: 20
+    readinessProbe:
+      httpGet:
+        path: /actuator/health/readiness
+        port: http
+      initialDelaySeconds: 90
+      periodSeconds: 15
+      timeoutSeconds: 15
+      successThreshold: 1
+      failureThreshold: 21
+  autoscaling:
+    enabled: true
+  #   maxreplica: 1     # maximum replica to scale up
+#    targetMemory: 70  # average % memory usage, calculated from resources.requests, should be removed if memory scale not required, this is default
+#    targetCPU: 70     # average % cpu usage, calculated from resources.requests, should be removed if cpu scale not required
+
+reliabilityManagementDB:
+  enabled: true
+  global:
+    imageRegistry: harbor.mosaic.siemens-energy.cloud/docker-cache
+  fullnameOverride: "oam-reliability-management-db"
+  volumePermissions:
+    enabled: true
+    image:
+      repository: "bitnami/os-shell"
+  serviceAccount:
+    automountServiceAccountToken: false
+  port: 5432
+  image:
+    pullPolicy: IfNotPresent
+    tag: "14.1.0"
+  primary:
+    persistence:
+      existingClaim: "reliability-management-db-pv-claim"
+    service:
+      type: ClusterIP
+    resources:
+      requests:
+        memory: "64Mi"
+        cpu: "50m"
+      limits:
+        memory: "5000Mi"
+        cpu: "1000m"
+
+masterAtlFrontend:
+  enabled: true
+  deploymentName: master-atl-frontend
+  configmap: master-atl-frontend-configmap
+  replicaCount: 1
+  port: 8080
+  image:
+    repository: omn-prd-fra-oam-master-atl-frontend-ecr-repo
+    pullPolicy: IfNotPresent
+  #    tag: "Specified in qa/dev/prod.yaml"
+  env:
+    SERVER_PORT: "8080"
+    GATEWAY_URL_PLACEHOLDER: "http://localhost:7999"
+    KEYCLOAK_URL_PLACEHOLDER: "http://host.docker.internal:8080"
+    KEYCLOAK_CLIENT_ID: "oam-frontend"
+    KEYCLOAK_CLIENT_ID_PLACEHOLDER: "oam-frontend-local"
+  service:
+    name: master-atl-frontend
+    type: NodePort
+    port: 80
+    targetport: 8080
+  resources:
+    requests:
+      memory: "50Mi"
+      cpu: "10m"
+    limits:
+      memory: "80Mi"
+      cpu: "500m"
+  autoscaling:
+    enabled: false
+
+oamFrontend:
+  enabled: true
+  deploymentName: oam-frontend
+  replicaCount: 1
+  port: 8080
+  image:
+    repository: omn-prd-fra-oam-frontend-ecr-repo
+    pullPolicy: IfNotPresent
+  #    tag: "Specified in qa/dev/prod.yaml"
+  env:
+    SERVER_PORT: "8080"
+    GATEWAY_URL_PLACEHOLDER: "http://localhost:7999"
+    KEYCLOAK_URL_PLACEHOLDER: "http://host.docker.internal:8080"
+    KEYCLOAK_CLIENT_ID: "oam-frontend"
+    KEYCLOAK_CLIENT_ID_PLACEHOLDER: "oam-frontend-local"
+  service:
+    name: oam-frontend
+    type: NodePort
+    port: 80
+    targetport: 8080
+  resources:
+    requests:
+      memory: "50Mi"
+      cpu: "10m"
+    limits:
+      memory: "80Mi"
+      cpu: "500m"
+  autoscaling:
+    enabled: false
+  #   maxreplica: 1     # maximum replica to scale up
+#    targetMemory: 70  # average % memory usage, calculated from resources.requests, should be removed if memory scale not required, this is default
+#    targetCPU: 70     # average % cpu usage, calculated from resources.requests, should be removed if cpu scale not required
+
+calculationEngine:
+  enabled: true
+  deploymentName: oam-calculation-engine
+  replicaCount: 1
+  port: 8080
+  image:
+    repository: omn-prd-fra-oam-calculation-engine-ecr-repo
+    pullPolicy: IfNotPresent
+  #    tag: "Specified in qa/dev/prod.yaml"
+  env:
+    SERVER_PORT: "8080"
+    DB_NAME: "oam_calculation_engine"
+    MAXIMUM_POOL_SIZE: 30
+    SERVICE_NAME: "calculation-engine"
+    TRACING_ENABLED: "true"
+    RABBIT_TRACING_ENABLED: "true"
+    REST_TEMPLATE_HEADER_CUSTOMIZER_ENABLED: "true"
+    FEIGN_CLIENT_HEADER_CUSTOMIZER_ENABLED: "true"
+  service:
+    name: calculation-engine
+    type: NodePort
+    port: 80
+    targetport: 8080
+  resources:
+    requests:
+      memory: "600Mi"
+      cpu: "100m"
+    limits:
+      memory: "1200Mi"
+      cpu: "500m"
+  probes:
+    livenessProbe:
+      httpGet:
+        path: /actuator/health/liveness
+        port: http
+      initialDelaySeconds: 300
+      periodSeconds: 15
+      timeoutSeconds: 15
+      failureThreshold: 20
+    readinessProbe:
+      httpGet:
+        path: /actuator/health/readiness
+        port: http
+      initialDelaySeconds: 320
+      periodSeconds: 15
+      timeoutSeconds: 15
+      successThreshold: 1
+      failureThreshold: 21
+  autoscaling:
+    enabled: true
+#    maxreplica: 1     # maximum replica to scale up
+#    targetMemory: 70  # average % memory usage, calculated from resources.requests, should be removed if memory scale not required, this is default
+#    targetCPU: 70     # average % cpu usage, calculated from resources.requests, should be removed if cpu scale not required
+
+filesManager:
+  enabled: true
+  deploymentName: oam-files-manager
+  replicaCount: 1
+  port: 8080
+  image:
+    repository: omn-prd-fra-oam-files-manager-ecr-repo
+    pullPolicy: IfNotPresent
+  #    tag: "Specified in qa/dev/prod.yaml"
+  env:
+    SERVER_PORT: "8080"
+    DB_NAME: "oam_files_manager"
+    MAX_FILES_SIZE: "200MB"
+    MAX_FILES_REQUEST_SIZE: "500MB"
+    FILES_LOCATION: "/files-manager"
+    MAX_FILES_PER_FOLDER: "2000"
+    storageName: "oam-storage-files-manager"
+    storageClaimName: "oam-files-manager-pv-claim"
+    storageSize: "10Gi"
+    SERVICE_NAME: "files-manager"
+    TRACING_ENABLED: "true"
+    RABBIT_TRACING_ENABLED: "true"
+  service:
+    name: files-manager
+    type: NodePort
+    port: 80
+    targetport: 8080
+  resources:
+    requests:
+      memory: "500Mi"
+      cpu: "10m"
+    limits:
+      memory: "1000Mi"
+      cpu: "500m"
+  autoscaling:
+    enabled: false
+  #   maxreplica: 1     # maximum replica to scale up
+#    targetMemory: 70  # average % memory usage, calculated from resources.requests, should be removed if memory scale not required, this is default
+#    targetCPU: 70     # average % cpu usage, calculated from resources.requests, should be removed if cpu scale not required
+
+pythonScriptEvalEngine:
+  enabled: true
+  deploymentName: oam-python-script-eval-engine
+  replicaCount: 1
+  port: 8080
+  image:
+    repository: omn-prd-fra-oam-python-script-eval-engine-ecr-repo
+    pullPolicy: IfNotPresent
+  #    tag: "Specified in qa/dev/prod.yaml"
+  env:
+    QUEUE_NAME: "calculation-engine-scripts"
+    QUEUE_KEY: "python.runtime.results"
+    QUEUE_EXCHANGE: "calculation-engine"
+    DM_BASE_URL: "http://data-manager/v1/data-manager/sensor/"
+    DM_BASE_URL_V2: "http://data-manager/api/v2/sensors/"
+    DATA_PREVIEW_EXCHANGE: "DataPreviewExchange"
+    PREVIEW_INPUT_QUEUE: "DataPreviewInputs"
+    PREVIEW_INPUT_QUEUE_KEY: "DataPreviewInputsKey"
+    PREVIEW_OUTPUT_QUEUE: "DataPreviewOutputs"
+    PREVIEW_OUTPUT_QUEUE_KEY: "DataPreviewOutputsKey"
+    VAL_INP_QUEUE_NAME: "CALCULATION_ENGINE_EVALUATION_ENGINE_SCRIPT_VALIDATION_V1"
+    VAL_INP_QUEUE_KEY: "EVALUATION_ENGINE_SCRIPT_VALIDATION_V1"
+    EUREKA_SERVER: "service-registry"
+    EXEC_TIMEOUT_SECONDS: "600"
+    OTEL_EXPORTER_OTLP_ENDPOINT: "http://oam-jaeger-collector:4318"
+    OTEL_EXPORTER_OTLP_PROTOCOL: "http/json"
+    TRACING_ENABLED: "true"
+    SERVICE_NAME: "python-script-eval-engine"
+    METHOD_NAME_PATTERNS: "[\".\"]"
+    NUM_WORKERS: "2"
+    NUM_WORKERS_DP: "1"
+    PREFETCH_COUNT: "1"
+    MEMORY_PER_SCRIPT_GB: "2"
+    KAFKA_CONSUME_TOPIC: "CE_TO_EE"
+    KAFKA_PUBLISH_TOPIC: "EE_TO_AD"
+    KAFKA_HOST: "oam-kafka-kraft:9092"
+  service:
+    name: python-script-eval-engine
+    type: NodePort
+    port: 80
+    targetport: 8080
+  resources:
+    requests:
+      memory: "1200Mi"
+      cpu: "200m"
+    limits:
+      memory: "5000Mi"
+      cpu: "900m"
+#  probes:
+#    livenessProbe:
+#      exec:
+#        command:
+#          - sh
+#          - liveness.sh
+#      initialDelaySeconds: 80
+#      periodSeconds: 20
+#      timeoutSeconds: 15
+#      failureThreshold: 10
+#    readinessProbe:
+#      exec:
+#        command:
+#          - sh
+#          - readiness.sh
+#      initialDelaySeconds: 100
+#      periodSeconds: 15
+#      timeoutSeconds: 15
+#      successThreshold: 1
+#      failureThreshold: 10
+  autoscaling:
+    enabled: true
+#    maxreplica: 1     # maximum replica to scale up
+#    targetMemory: 70  # average % memory usage, calculated from resources.requests, should be removed if memory scale not required, this is default
+#    targetCPU: 70     # average % cpu usage, calculated from resources.requests, should be removed if cpu scale not required
+
+pythonScriptGenEngine:
+  enabled: true
+  deploymentName: oam-python-script-generator-engine
+  replicaCount: 1
+  port: 8080
+  image:
+    repository: omn-prd-fra-oam-python-script-generator-engine-ecr-repo
+    pullPolicy: IfNotPresent
+  #    tag: "Specified in qa/dev/prod.yaml"
+  env:
+    QUEUE_EXCHANGE: "python-code-generator"
+    QUEUE_NAME: "code-generator-models"
+    QUEUE_KEY: "model-queue"
+    RES_QUEUE_NAME: "python-code-queue"
+    RES_QUEUE_KEY: "code-queue"
+    ATL_QUEUE_NAME: "atl-code-supply-queue"
+    ATL_QUEUE_KEY: "supply-atl-code"
+    ATL_RES_QUEUE_NAME: "atl-code-return-queue"
+    ATL_RES_QUEUE_KEY: "return-atl-code"
+    CONVERTER_REQ_Q: "AD_PSG_CONVERT_SCRIPT_REQ"
+    CONVERTER_REQ_Q_KEY: "AD_PSG_CONVERT_SCRIPT_REQ_KEY"
+    CONVERTER_RESP_Q: "AD_PSG_CONVERT_SCRIPT_RESP"
+    CONVERTER_RESP_Q_KEY: "AD_PSG_CONVERT_SCRIPT_RESP_KEY"
+    OTEL_EXPORTER_OTLP_ENDPOINT: "http://oam-jaeger-collector:4318"
+    OTEL_EXPORTER_OTLP_PROTOCOL: "http/json"
+    TRACING_ENABLED: "true"
+    SERVICE_NAME: "python-script-generator"
+    METHOD_NAME_PATTERNS: "[\".\"]"
+  service:
+    name: python-script-generator-engine
+    type: NodePort
+    port: 80
+    targetport: 8080
+  resources:
+    requests:
+      memory: "25Mi"
+      cpu: "10m"
+    limits:
+      memory: "5000Mi"
+      cpu: "500m"
+#  probes:
+#    livenessProbe:
+#      exec:
+#        command:
+#          - sh
+#          - liveness.sh
+#      initialDelaySeconds: 80
+#      periodSeconds: 20
+#      timeoutSeconds: 15
+#      failureThreshold: 10
+#    readinessProbe:
+#      exec:
+#        command:
+#          - sh
+#          - readiness.sh
+#      initialDelaySeconds: 100
+#      periodSeconds: 15
+#      timeoutSeconds: 15
+#      successThreshold: 1
+#      failureThreshold: 10
+  autoscaling:
+    enabled: true
+  #   maxreplica: 1     # maximum replica to scale up
+#    targetMemory: 70  # average % memory usage, calculated from resources.requests, should be removed if memory scale not required, this is default
+#    targetCPU: 70     # average % cpu usage, calculated from resources.requests, should be removed if cpu scale not required
+
+dataManager:
+  enabled: true
+  deploymentName: oam-data-manager
+  replicaCount: 1
+  port: 8080
+  image:
+    repository: omn-prd-fra-oam-data-mgr-ecr-repo
+    pullPolicy: IfNotPresent
+  #    tag: "Specified in qa/dev/prod.yaml"
+  env:
+    SERVER_PORT: "8080"
+    DB_NAME: "oam_data_manager"
+    MEP_PROTOCOL: "https"
+    MEP_REST_IP: "10.143.101.32"
+    MEP_REST_PORT: "50049"
+    MEP_GRPC_IP: "10.143.101.32"
+    MEP_GRPC_PORT: "50051"
+    MAXIMUM_POOL_SIZE: "10"
+    LOGGING_LEVEL_RESILIENCE: "INFO"
+    SERVICE_NAME: "data-manager"
+    TRACING_ENABLED: "true"
+    RABBIT_TRACING_ENABLED: "true"
+    REST_TEMPLATE_HEADER_CUSTOMIZER_ENABLED: "true"
+    FEIGN_CLIENT_HEADER_CUSTOMIZER_ENABLED: "true"
+  service:
+    name: data-manager
+    type: NodePort
+    port: 80
+    targetport: 8080
+  resources:
+    requests:
+      memory: "700Mi"
+      cpu: "500m"
+    limits:
+      memory: "1400Mi"
+      cpu: "600m"
+  probes:
+    livenessProbe:
+      httpGet:
+        path: /actuator/health/liveness
+        port: http
+      initialDelaySeconds: 80
+      periodSeconds: 15
+      timeoutSeconds: 15
+      failureThreshold: 20
+    readinessProbe:
+      httpGet:
+        path: /actuator/health/readiness
+        port: http
+      initialDelaySeconds: 90
+      periodSeconds: 15
+      timeoutSeconds: 15
+      successThreshold: 1
+      failureThreshold: 21
+  autoscaling:
+    enabled: true
+  #   maxreplica: 1     # maximum replica to scale up
+#    targetMemory: 70  # average % memory usage, calculated from resources.requests, should be removed if memory scale not required, this is default
+#    targetCPU: 70     # average % cpu usage, calculated from resources.requests, should be removed if cpu scale not required
+
+managementService:
+  enabled: true
+  deploymentName: oam-management-service
+  replicaCount: 1
+  port: 8080
+  image:
+    repository: omn-prd-fra-oam-management-service-ecr-repo
+    pullPolicy: IfNotPresent
+  #    tag: "Specified in qa/dev/prod.yaml"
+  env:
+    SERVER_PORT: "8080"
+  service:
+    name: management-service
+    type: NodePort
+    port: 80
+    targetport: 8080
+  resources:
+    requests:
+      memory: "400Mi"
+      cpu: "10m"
+    limits:
+      memory: "600Mi"
+      cpu: "500m"
+  probes:
+    livenessProbe:
+      httpGet:
+        path: /actuator/health/liveness
+        port: http
+      initialDelaySeconds: 80
+      periodSeconds: 15
+      timeoutSeconds: 15
+      failureThreshold: 30
+    readinessProbe:
+      httpGet:
+        path: /actuator/health/readiness
+        port: http
+      initialDelaySeconds: 90
+      periodSeconds: 15
+      timeoutSeconds: 15
+      successThreshold: 1
+      failureThreshold: 31
+  autoscaling:
+    enabled: true
+  #   maxreplica: 1     # maximum replica to scale up
+#    targetMemory: 70  # average % memory usage, calculated from resources.requests, should be removed if memory scale not required, this is default
+#    targetCPU: 70     # average % cpu usage, calculated from resources.requests, should be removed if cpu scale not required
+
+powerGenius:
+  enabled: true
+  deploymentName: oam-pg-task-manager
+  manager:
+    replicaCount: 1
+    image:
+      repository: omn-prd-fra-oam-power-genius-task-manager-ecr-repo
+      pullPolicy: IfNotPresent
+    #    tag: "Specified in qa/dev/prod.yaml"
+    env: {}
+    port: 5001
+    service:
+      name: pg-task-manager
+      type: NodePort
+      port: 80
+      targetport: 5001
+    resources:
+      requests:
+        memory: "1Gi"
+        cpu: "500m"
+      limits:
+        memory: "6Gi"
+        cpu: "1000m"
+  runner:
+    replicaCount: 1
+    image:
+      repository: omn-prd-fra-oam-power-genius-task-runner-ecr-repo
+      pullPolicy: IfNotPresent
+    #    tag: "Specified in qa/dev/prod.yaml"
+    env: {}
+    port: 5002
+    service:
+      name: pg-task-runner
+      type: NodePort
+      port: 80
+      targetport: 5002
+    resources:
+      requests:
+        memory: "1Gi"
+        cpu: "500m"
+      limits:
+        memory: "6Gi"
+        cpu: "1000m"
+  algoRunner:
+    enabled: false
+    replicaCount: 1
+    image:
+      repository: omn-prd-fra-oam-power-genius-algorithm-runner-ecr-repo
+      pullPolicy: IfNotPresent
+    #    tag: "Specified in qa/dev/prod.yaml"
+    env:
+      SERVICE_NAME: "power-genius-algorithm-runner"
+    port: 5003
+    service:
+      name: pg-algorithm-runner
+      type: NodePort
+      port: 80
+      targetport: 5003
+    resources:
+      requests:
+        memory: "1Gi"
+        cpu: "500m"
+      limits:
+        memory: "6Gi"
+        cpu: "1000m"
+  autoscaling:
+    enabled: true
+    maxreplica: 1 # maximum replica to scale up
+#    targetMemory: 70  # average % memory usage, calculated from resources.requests, should be removed if memory scale not required, this is default
+#    targetCPU: 70     # average % cpu usage, calculated from resources.requests, should be removed if cpu scale not required
+
+telerikService:
+  enabled: true
+  deploymentName: telerik-reporting
+  replicaCount: 1
+  port: 8080
+  image:
+    repository: omn-prd-fra-oam-telerik-service-ecr-repo
+    pullPolicy: IfNotPresent
+  env: {}
+  service:
+    name: telerik-service
+    type: NodePort
+    port: 80
+    targetport: 8080
+  resources:
+    requests:
+      memory: "300Mi"
+      cpu: "20m"
+    limits:
+      memory: "600Mi"
+      cpu: "500m"
+  autoscaling:
+    maxreplica: 1
+    enabled: true
+
+telerikServiceDB:
+  enabled: true
+  global:
+    imageRegistry: harbor.mosaic.siemens-energy.cloud/docker-cache
+  fullnameOverride: "telerik-service-db"
+  volumePermissions:
+    enabled: true
+    image:
+      repository: "bitnami/os-shell"
+  serviceAccount:
+    automountServiceAccountToken: false
+  auth:
+    database: "oam_reporting"
+  port: 5432
+  image:
+    pullPolicy: IfNotPresent
+    tag: "14.1.0"
+  primary:
+    persistence:
+      existingClaim: "telerik-service-db-pv-claim"
+    service:
+      type: ClusterIP
+    resources:
+      requests:
+        memory: "64Mi"
+        cpu: "50m"
+      limits:
+        memory: "5000Mi"
+        cpu: "1000m"
+
+licenseService:
+  enabled: true
+  deploymentName: oam-license-service
+  replicaCount: 1
+  port: 8080
+  image:
+    repository: omn-prd-fra-oam-license-service-ecr-repo
+    pullPolicy: IfNotPresent
+    #    tag: "Specified in qa/dev/prod.yaml"
+  env:
+    SERVER_PORT: "8080"
+    SERVICE_NAME: "license-service"
+    TRACING_ENABLED: "true"
+  service:
+    name: license-service
+    type: NodePort
+    port: 80
+    targetport: 8080
+  resources:
+    requests:
+      memory: "350Mi"
+      cpu: "20m"
+    limits:
+      memory: "700Mi"
+      cpu: "500m"
+  probes:
+    livenessProbe:
+      httpGet:
+        path: /actuator/health/liveness
+        port: http
+      initialDelaySeconds: 80
+      periodSeconds: 15
+      timeoutSeconds: 15
+      failureThreshold: 10
+    readinessProbe:
+      httpGet:
+        path: /actuator/health/readiness
+        port: http
+      initialDelaySeconds: 90
+      periodSeconds: 15
+      timeoutSeconds: 15
+      successThreshold: 1
+      failureThreshold: 10
+  autoscaling:
+    enabled: false
+
+masterAtl:
+  enabled: true
+  deploymentName: oam-master-atl
+  namespace: "master-atl"
+  frontendHost: "ma.oam.mosaic-dev.siemens-energy.cloud"
+  replicaCount: 1
+  port: 8080
+  image:
+    repository: omn-prd-fra-oam-master-atl-ecr-repo
+    pullPolicy: IfNotPresent
+  #    tag: "Specified in qa/dev/prod.yaml"
+  env:
+    SERVER_PORT: "8080"
+    METRICS_ENABLED: "false"
+  service:
+    name: master-atl
+    type: NodePort
+    port: 80
+    targetport: 8080
+  resources:
+    requests:
+      memory: "500Mi"
+      cpu: "250m"
+    limits:
+      memory: "2000Mi"
+      cpu: "1000m"
+  probes:
+    livenessProbe:
+      httpGet:
+        path: /actuator/health/liveness
+        port: http
+      initialDelaySeconds: 80
+      periodSeconds: 15
+      timeoutSeconds: 15
+      failureThreshold: 10
+    readinessProbe:
+      httpGet:
+        path: /actuator/health/readiness
+        port: http
+      initialDelaySeconds: 90
+      periodSeconds: 15
+      timeoutSeconds: 15
+      successThreshold: 1
+      failureThreshold: 10
+  autoscaling:
+    enabled: true
+  #   maxreplica: 1     # maximum replica to scale up
+#    targetMemory: 70  # average % memory usage, calculated from resources.requests, should be removed if memory scale not required, this is default
+#    targetCPU: 70     # average % cpu usage, calculated from resources.requests, should be removed if cpu scale not required
+
+dataLoader:
+  enabled: true
+  deploymentName: oam-data-loader
+  replicaCount: 1
+  port: 8080
+  image:
+    repository: omn-prd-fra-data-loader-ecr-repo
+    pullPolicy: IfNotPresent
+  #    tag: "Specified in qa/dev/prod.yaml"
+  env:
+    SERVER_PORT: "8080"
+    DB_NAME: "oam_data_loader"
+    MAXIMUM_POOL_SIZE: "10"
+    SERVICE_NAME: "data-loader"
+    TRACING_ENABLED: "true"
+    EXPORT_RM_REQUIRED: "true"
+    RABBIT_TRACING_ENABLED: "true"
+  service:
+    name: data-loader
+    type: NodePort
+    port: 80
+    targetport: 8080
+  resources:
+    requests:
+      memory: "2Gi"  # Minimum memory the pod will request from the node, ensuring the pod has at least 2Gi of RAM to operate efficiently even under normal load.
+      cpu: "500m"    # Minimum CPU the pod will request from the node. This reserves 0.5 cores of CPU to handle steady workloads and avoid being throttled.
+    limits:
+      memory: "8Gi"  # Maximum memory the pod can use. The container will not exceed 8Gi of RAM, preventing it from consuming too many resources and causing instability in the cluster.
+      cpu: "2000m"   # Maximum CPU the pod can use, allowing it to scale up to 2 full CPU cores during peak usage but not beyond, ensuring that it doesn’t monopolize CPU resources.
+  probes:
+    livenessProbe:
+      httpGet:
+        path: /actuator/health/liveness
+        port: http
+      initialDelaySeconds: 80
+      periodSeconds: 15
+      timeoutSeconds: 15
+      failureThreshold: 10
+    readinessProbe:
+      httpGet:
+        path: /actuator/health/readiness
+        port: http
+      initialDelaySeconds: 90
+      periodSeconds: 15
+      timeoutSeconds: 15
+      successThreshold: 1
+      failureThreshold: 10
+  autoscaling:
+    enabled: true
+  #   maxreplica: 1     # maximum replica to scale up
+#    targetMemory: 70  # average % memory usage, calculated from resources.requests, should be removed if memory scale not required, this is default
+#    targetCPU: 70     # average % cpu usage, calculated from resources.requests, should be removed if cpu scale not required
+
+dataLoaderDB:
+  enabled: true
+  global:
+    imageRegistry: harbor.mosaic.siemens-energy.cloud/docker-cache
+  fullnameOverride: "oam-data-loader-db"
+  volumePermissions:
+    enabled: true
+    image:
+      repository: "bitnami/os-shell"
+  serviceAccount:
+    automountServiceAccountToken: false
+  auth:
+    database: "oam_data_loader"
+  port: 5432
+  image:
+    pullPolicy: IfNotPresent
+    tag: "14.1.0"
+  primary:
+    persistence:
+      existingClaim: "data-loader-db-pv-claim"
+    service:
+      type: ClusterIP
+    resources:
+      requests:
+        memory: "64Mi"
+        cpu: "50m"
+      limits:
+        memory: "5000Mi"
+        cpu: "1000m"
+
+llmService:
+  enabled: true
+  deploymentName: oam-llm-service
+  replicaCount: 1
+  port: 8080
+  image:
+    repository: omn-prd-fra-oam-llm-service-ecr-repo
+    pullPolicy: IfNotPresent
+  #    tag: "Specified in qa/dev/prod.yaml"
+  env:
+    SERVER_PORT: "8080"
+  service:
+    name: llm-service
+    type: NodePort
+    port: 80
+    targetport: 8080
+  resources:
+    requests:
+      memory: "600Mi"
+      cpu: "100m"
+    limits:
+      memory: "1200Mi"
+      cpu: "500m"
+#  probes:
+#    livenessProbe:
+#      httpGet:
+#        path: /actuator/health/liveness
+#        port: http
+#      initialDelaySeconds: 80
+#      periodSeconds: 15
+#      timeoutSeconds: 15
+#      failureThreshold: 10
+#    readinessProbe:
+#      httpGet:
+#        path: /actuator/health/readiness
+#        port: http
+#      initialDelaySeconds: 90
+#      periodSeconds: 15
+#      timeoutSeconds: 15
+#      successThreshold: 1
+#      failureThreshold: 10
+  autoscaling:
+    enabled: true
+#    maxreplica: 1     # maximum replica to scale up
+#    targetMemory: 70  # average % memory usage, calculated from resources.requests, should be removed if memory scale not required, this is default
+#    targetCPU: 70     # average % cpu usage, calculated from resources.requests, should be removed if cpu scale not required
+
+
+llmServiceDB:
+  enabled: true
+  global:
+    imageRegistry: harbor.mosaic.siemens-energy.cloud/docker-cache
+  fullnameOverride: "oam-llm-service-db"
+  volumePermissions:
+    enabled: true
+    image:
+      repository: "bitnami/os-shell"
+  serviceAccount:
+    automountServiceAccountToken: false
+  auth:
+    database: "oam_llm_service"
+  port: 5432
+  image:
+    pullPolicy: IfNotPresent
+    tag: "14.1.0"
+  primary:
+    persistence:
+      existingClaim: "llm-service-db-pv-claim"
+    service:
+      type: ClusterIP
+    resources:
+      requests:
+        memory: "120Mi"
+        cpu: "20m"
+      limits:
+        memory: "240Mi"
+        cpu: "600m"
+
+dmsIntegrationService:
+  enabled: true
+  deploymentName: oam-dms-integration-service
+  replicaCount: 1
+  port: 8080
+  image:
+    repository: omn-prd-fra-oam-dms-integration-service-ecr-repo
+    pullPolicy: IfNotPresent
+  #    tag: "Specified in qa/dev/prod.yaml"
+  env:
+    SERVER_PORT: "8080"
+    MAXIMUM_POOL_SIZE: 30
+    SERVICE_NAME: "dms-integration-service"
+    TRACING_ENABLED: "true"
+  service:
+    name: dms-integration-service
+    type: NodePort
+    port: 80
+    targetport: 8080
+  resources:
+    requests:
+      memory: "600Mi"
+      cpu: "500m"
+    limits:
+      memory: "2000Mi"
+      cpu: "1000m"
+  probes:
+    livenessProbe:
+      httpGet:
+        path: /actuator/health/liveness
+        port: http
+      initialDelaySeconds: 80
+      periodSeconds: 15
+      timeoutSeconds: 15
+      failureThreshold: 10
+    readinessProbe:
+      httpGet:
+        path: /actuator/health/readiness
+        port: http
+      initialDelaySeconds: 90
+      periodSeconds: 15
+      timeoutSeconds: 15
+      successThreshold: 1
+      failureThreshold: 10
+  autoscaling:
+    enabled: true
+#    maxreplica: 1     # maximum replica to scale up
+#    targetMemory: 70  # average % memory usage, calculated from resources.requests, should be removed if memory scale not required, this is default
+#    targetCPU: 70     # average % cpu usage, calculated from resources.requests, should be removed if cpu scale not required
+
+schedulingService:
+  enabled: true
+  deploymentName: oam-scheduling-service
+  replicaCount: 1
+  port: 8080
+  image:
+    repository: omn-prd-fra-oam-scheduling-service-ecr-repo
+    pullPolicy: IfNotPresent
+  #    tag: "Specified in qa/dev/prod.yaml"
+  env:
+    SERVER_PORT: "8080"
+    DB_NAME: "oam_scheduling_service"
+    SERVICE_NAME: "scheduling-service"
+    TRACING_ENABLED: "true"
+    RABBIT_TRACING_ENABLED: "true"
+  service:
+    name: scheduling-service
+    type: NodePort
+    port: 80
+    targetport: 8080
+  resources:
+    requests:
+      memory: "400Mi"
+      cpu: "10m"
+    limits:
+      memory: "800Mi"
+      cpu: "800m"
+  probes:
+    livenessProbe:
+      httpGet:
+        path: /actuator/health/liveness
+        port: http
+      initialDelaySeconds: 80
+      periodSeconds: 15
+      timeoutSeconds: 15
+      failureThreshold: 40
+    readinessProbe:
+      httpGet:
+        path: /actuator/health/readiness
+        port: http
+      initialDelaySeconds: 90
+      periodSeconds: 15
+      timeoutSeconds: 15
+      successThreshold: 1
+      failureThreshold: 41
+  autoscaling:
+    enabled: false
+#    maxreplica: 1     # maximum replica to scale up
+#    targetMemory: 70  # average % memory usage, calculated from resources.requests, should be removed if memory scale not required, this is default
+#    targetCPU: 70     # average % cpu usage, calculated from resources.requests, should be removed if cpu scale not required
+
+mailService:
+  enabled: true
+  deploymentName: oam-mail-service
+  replicaCount: 1
+  port: 8080
+  image:
+    repository: omn-prd-fra-oam-mail-service-ecr-repo
+    pullPolicy: IfNotPresent
+  #    tag: "Specified in qa/dev/prod.yaml"
+  env:
+    SERVER_PORT: "8080"
+    DB_NAME: "oam_mail_service"
+    SERVICE_NAME: "mail-service"
+    TRACING_ENABLED: "true"
+    RABBIT_TRACING_ENABLED: "true"
+  service:
+    name: mail-service
+    type: NodePort
+    port: 80
+    targetport: 8080
+  resources:
+    requests:
+      memory: "400Mi"
+      cpu: "10m"
+    limits:
+      memory: "800Mi"
+      cpu: "800m"
+  probes:
+    livenessProbe:
+      httpGet:
+        path: /actuator/health/liveness
+        port: http
+      initialDelaySeconds: 80
+      periodSeconds: 15
+      timeoutSeconds: 15
+      failureThreshold: 30
+    readinessProbe:
+      httpGet:
+        path: /actuator/health/readiness
+        port: http
+      initialDelaySeconds: 90
+      periodSeconds: 15
+      timeoutSeconds: 15
+      successThreshold: 1
+      failureThreshold: 31
+  autoscaling:
+    enabled: true
+#    maxreplica: 1     # maximum replica to scale up
+#    targetMemory: 70  # average % memory usage, calculated from resources.requests, should be removed if memory scale not required, this is default
+#    targetCPU: 70     # average % cpu usage, calculated from resources.requests, should be removed if cpu scale not required
+
+
+metricbeat:
+  enabled: true
+  imageTag: 7.10.2
+  image: docker.elastic.co/beats/metricbeat-oss
+  fullnameOverride: "metricbeat"
+  secretMounts: []
+  extraEnvs: []
+  deployment:
+    enabled: true
+    extraEnvs: []
+    secretMounts: []
+    metricbeatConfig:
+      metricbeat.yml: |
+        metricbeat.modules:  
+        - module: rabbitmq
+          metricsets: ["queue"]
+          enabled: true
+          period: 55s
+          hosts: ["rabbit:15672"]
+          username: "defaultusr" 
+          password: "21312sda123"
+        - module: kubernetes  
+          enabled: true  
+          period: 55s
+          metricsets:  
+            - state_container  
+          hosts: ["oam-kube-state-metrics:8080"]  
+          add_metadata: true  
+        output.elasticsearch:  
+          hosts: ["http://oam-opensearch.default.svc.cluster.local:9200"]  
+          ssl.enabled: false
+  daemonset:
+    extraEnvs: []
+    secretMounts: []
+    metricbeatConfig:
+      metricbeat.yml: |
+        processors:  
+        - drop_fields:  
+            fields: ["agent.name", "agent.type", "agent.version", "agent.ephemeral_id", "agent.hostname", "agent.id", "ecs.version", "host.name"]  
+            ignore_missing: true  
+        metricbeat.modules:  
+        - module: kubernetes  
+          enabled: true  
+          metricsets:  
+            - container  
+            - node  
+            - pod  
+            - volume  
+          period: 55s  
+          host: "${NODE_NAME}"  
+          hosts: ["https://${NODE_NAME}:10250"]  
+          bearer_token_file: /var/run/secrets/kubernetes.io/serviceaccount/token  
+          ssl.verification_mode: "none"  
+          add_metadata: true  
+          processors:  
+            - add_kubernetes_metadata: ~  
+        - module: system  
+          enabled: true  
+          metricsets:  
+            - cpu             # CPU usage  
+            - load            # CPU load averages  
+            - memory          # Memory usage  
+            - network         # Network IO  
+          period: 60s  
+          processes: ['.*']  
+          processors:  
+            - add_fields:  
+                target: agent  
+                fields:  
+                  vmhostname: "${NODE_NAME}"  
+        output.elasticsearch:  
+          hosts: ["http://oam-opensearch.default.svc.cluster.local:9200"]  
+          ssl.enabled: false
+
+operationsDashboard:
+  enabled: true
+  deploymentName: oam-operations-dashboard
+  replicaCount: 1
+  port: 8080
+  image:
+    repository: omn-prd-fra-oam-operations-dashboard-ecr-repo
+    pullPolicy: IfNotPresent
+  #    tag: "Specified in qa/dev/prod.yaml"
+  env:
+    SERVER_PORT: "8080"
+    DB_NAME: "oam_operations_dashboard"
+    SERVICE_NAME: "operations-dashboard"
+    TRACING_ENABLED: "true"
+  service:
+    name: operations-dashboard
+    type: NodePort
+    port: 80
+    targetPort: 8080
+  resources:
+    requests:
+      memory: "550Mi"
+      cpu: "100m"
+    limits:
+      memory: "1000Mi"
+      cpu: "600m"
+  probes:
+    livenessProbe:
+      httpGet:
+        path: /actuator/health/liveness
+        port: http
+      initialDelaySeconds: 500
+      periodSeconds: 15
+      timeoutSeconds: 15
+      failureThreshold: 20
+    readinessProbe:
+      httpGet:
+        path: /actuator/health/readiness
+        port: http
+      initialDelaySeconds: 530
+      periodSeconds: 15
+      timeoutSeconds: 15
+      successThreshold: 1
+      failureThreshold: 21
+  autoscaling:
+    enabled: true
+  #   maxreplica: 1     # maximum replica to scale up
+#    targetMemory: 70  # average % memory usage, calculated from resources.requests, should be removed if memory scale not required, this is default
+#    targetCPU: 70     # average % cpu usage, calculated from resources.requests, should be removed if cpu scale not required
+
+metrics-server:
+  enabled: true
+  containerPort: 10255
+  hostNetwork:
+    enabled: true
+  fullnameOverride: "metrics-server"
+  metrics:
+    enabled: true
+
+authDB:
+  enabled: true
+  global:
+    imageRegistry: harbor.mosaic.siemens-energy.cloud/docker-cache
+  fullnameOverride: "keycloak-db"
+  volumePermissions:
+    enabled: true
+    image:
+      repository: "bitnami/os-shell"
+  serviceAccount:
+    automountServiceAccountToken: false
+  auth:
+    database: "keycloak"
+  port: 5432
+  image:
+    pullPolicy: IfNotPresent
+    tag: "14.1.0"
+  primary:
+    persistence:
+      existingClaim: "auth-db-pv-claim"
+    service:
+      type: ClusterIP
+    resources:
+      requests:
+        memory: "30Mi"
+        cpu: "10m"
+      limits:
+        memory: "60Mi"
+        cpu: "500m"
+
+admDB:
+  enabled: true
+  global:
+    imageRegistry: harbor.mosaic.siemens-energy.cloud/docker-cache
+  fullnameOverride: "oam-adm-db"
+  volumePermissions:
+    enabled: true
+    image:
+      repository: "bitnami/os-shell"
+  serviceAccount:
+    automountServiceAccountToken: false
+  auth:
+    database: "oam_adm"
+  port: 5432
+  image:
+    pullPolicy: IfNotPresent
+    tag: "14.1.0"
+  primary:
+    persistence:
+      existingClaim: "adm-db-pv-claim"
+    service:
+      type: ClusterIP
+    resources:
+      requests:
+        memory: "400Mi"
+        cpu: "250m"
+      limits:
+        memory: "5000Mi"
+        cpu: "2000m"
+
+assetDiagnosticsDB:
+  enabled: true
+  global:
+    imageRegistry: harbor.mosaic.siemens-energy.cloud/docker-cache
+  fullnameOverride: "oam-asset-diagnostics-db"
+  volumePermissions:
+    enabled: true
+    image:
+      repository: "bitnami/os-shell"
+  serviceAccount:
+    automountServiceAccountToken: false
+  auth:
+    database: "oam_asset_diagnostics"
+  port: 5432
+  image:
+    pullPolicy: IfNotPresent
+    tag: "14.1.0"
+  primary:
+    persistence:
+      existingClaim: "asset-diagnostics-db-pv-claim"
+    service:
+      type: ClusterIP
+    resources:
+      requests:
+        memory: "100Mi"
+        cpu: "50m"
+      limits:
+        memory: "5000Mi"
+        cpu: "700m"
+
+checklistManagerDB:
+  enabled: true
+  global:
+    imageRegistry: harbor.mosaic.siemens-energy.cloud/docker-cache
+  fullnameOverride: "oam-checklist-manager-db"
+  volumePermissions:
+    enabled: true
+    image:
+      repository: "bitnami/os-shell"
+  serviceAccount:
+    automountServiceAccountToken: false
+  auth:
+    database: "oam_checklist_manager"
+  port: 5432
+  image:
+    pullPolicy: IfNotPresent
+    tag: "14.1.0"
+  primary:
+    persistence:
+      existingClaim: "checklist-manager-db-pv-claim"
+    service:
+      type: ClusterIP
+    resources:
+      requests:
+        memory: "200Mi"
+        cpu: "100m"
+      limits:
+        memory: "1Gi"
+        cpu: "700m"
+
+calculationEngineDB:
+  enabled: true
+  global:
+    imageRegistry: harbor.mosaic.siemens-energy.cloud/docker-cache
+  fullnameOverride: "oam-calculation-engine-db"
+  volumePermissions:
+    enabled: true
+    image:
+      repository: "bitnami/os-shell"
+  serviceAccount:
+    automountServiceAccountToken: false
+  auth:
+    database: "oam_calculation_engine"
+  port: 5432
+  image:
+    pullPolicy: IfNotPresent
+    tag: "14.1.0"
+  primary:
+    persistence:
+      existingClaim: "calculation-engine-db-pv-claim"
+    service:
+      type: ClusterIP
+    resources:
+      requests:
+        memory: "120Mi"
+        cpu: "20m"
+      limits:
+        memory: "240Mi"
+        cpu: "600m"
+
+dataManagerDB:
+  enabled: true
+  global:
+    imageRegistry: harbor.mosaic.siemens-energy.cloud/docker-cache
+  fullnameOverride: "oam-data-manager-db"
+  volumePermissions:
+    enabled: true
+    image:
+      repository: "bitnami/os-shell"
+  serviceAccount:
+    automountServiceAccountToken: false
+  auth:
+    database: "oam_data_manager"
+  port: 5432
+  image:
+    pullPolicy: IfNotPresent
+    tag: "14.1.0"
+  primary:
+    persistence:
+      existingClaim: "data-manager-db-pv-claim"
+    service:
+      type: ClusterIP
+    resources:
+      requests:
+        memory: "80Mi"
+        cpu: "15m"
+      limits:
+        memory: "160Mi"
+        cpu: "500m"
+
+filesManagerDB:
+  enabled: true
+  global:
+    imageRegistry: harbor.mosaic.siemens-energy.cloud/docker-cache
+  fullnameOverride: "oam-files-manager-db"
+  volumePermissions:
+    enabled: true
+    image:
+      repository: "bitnami/os-shell"
+  serviceAccount:
+    automountServiceAccountToken: false
+  auth:
+    database: "oam_files_manager"
+  port: 5432
+  image:
+    pullPolicy: IfNotPresent
+    tag: "14.1.0"
+  primary:
+    persistence:
+      existingClaim: "files-manager-db-pv-claim"
+    service:
+      type: ClusterIP
+    resources:
+      requests:
+        memory: "50Mi"
+        cpu: "10m"
+      limits:
+        memory: "100Mi"
+        cpu: "500m"
+
+maintenanceManagementDB:
+  enabled: true
+  global:
+    imageRegistry: harbor.mosaic.siemens-energy.cloud/docker-cache
+  fullnameOverride: "oam-maintenance-management-db"
+  volumePermissions:
+    enabled: true
+    image:
+      repository: "bitnami/os-shell"
+  serviceAccount:
+    automountServiceAccountToken: false
+  auth:
+    database: "oam_mm"
+  port: 5432
+  image:
+    pullPolicy: IfNotPresent
+    tag: "14.1.0"
+  primary:
+    persistence:
+      existingClaim: "maintenance-management-db-pv-claim"
+    service:
+      type: ClusterIP
+    resources:
+      requests:
+        memory: "380Mi"
+        cpu: "100m"
+      limits:
+        memory: "750Mi"
+        cpu: "1000m"
+
+userManagementDB:
+  enabled: true
+  global:
+    imageRegistry: harbor.mosaic.siemens-energy.cloud/docker-cache
+  fullnameOverride: "oam-user-management-db"
+  volumePermissions:
+    enabled: true
+    image:
+      repository: "bitnami/os-shell"
+  serviceAccount:
+    automountServiceAccountToken: false
+  auth:
+    database: "oam_user_management"
+  port: 5432
+  image:
+    pullPolicy: IfNotPresent
+    tag: "14.1.0"
+  primary:
+    persistence:
+      existingClaim: "user-management-db-pv-claim"
+    service:
+      type: ClusterIP
+    resources:
+      requests:
+        memory: "100Mi"
+        cpu: "100m"
+      limits:
+        memory: "200Mi"
+        cpu: "2000m"
+
+inventoryManagementDB:
+  enabled: true
+  fullnameOverride: "oam-inventory-management-db"
+  volumePermissions:
+    enabled: true
+    image:
+      repository: "bitnami/os-shell"
+  serviceAccount:
+    automountServiceAccountToken: false
+  auth:
+    database: "oam_im"
+  port: 5432
+  image:
+    pullPolicy: IfNotPresent
+    tag: "14.1.0"
+  primary:
+    extendedConfiguration: |-
+      zdb.default_elasticsearch_url = 'http://opensearch-app:9200/'
+    persistence:
+      existingClaim: "inventory-management-db-pv-claim"
+    service:
+      type: ClusterIP
+    resources:
+      requests:
+        memory: "64Mi"
+        cpu: "20m"
+      limits:
+        memory: "260Mi"
+        cpu: "500m"
+
+schedulingServiceDB:
+  enabled: true
+  global:
+    imageRegistry: harbor.mosaic.siemens-energy.cloud/docker-cache
+  fullnameOverride: "oam-scheduling-service-db"
+  volumePermissions:
+    enabled: true
+    image:
+      repository: "bitnami/os-shell"
+  serviceAccount:
+    automountServiceAccountToken: false
+  auth:
+    database: "oam_scheduling_service"
+  port: 5432
+  image:
+    pullPolicy: IfNotPresent
+    tag: "14.1.0"
+  primary:
+    persistence:
+      existingClaim: "scheduling-service-db-pv-claim"
+    service:
+      type: ClusterIP
+    resources:
+      requests:
+        memory: "50Mi"
+        cpu: "20m"
+      limits:
+        memory: "100Mi"
+        cpu: "500m"
+
+mailServiceDB:
+  enabled: true
+  global:
+    imageRegistry: harbor.mosaic.siemens-energy.cloud/docker-cache
+  fullnameOverride: "oam-mail-service-db"
+  volumePermissions:
+    enabled: true
+    image:
+      repository: "bitnami/os-shell"
+  serviceAccount:
+    automountServiceAccountToken: false
+  auth:
+    database: "oam_mail_service"
+  port: 5432
+  image:
+    pullPolicy: IfNotPresent
+    tag: "14.1.0"
+  primary:
+    persistence:
+      existingClaim: "mail-service-db-pv-claim"
+    service:
+      type: ClusterIP
+    resources:
+      requests:
+        memory: "50Mi"
+        cpu: "20m"
+      limits:
+        memory: "100Mi"
+        cpu: "500m"
+
+masterAtlDB:
+  enabled: true
+  global:
+    imageRegistry: harbor.mosaic.siemens-energy.cloud/docker-cache
+  fullnameOverride: "oam-master-atl-db"
+  volumePermissions:
+    enabled: true
+    image:
+      repository: "bitnami/os-shell"
+  serviceAccount:
+    automountServiceAccountToken: false
+  auth:
+    database: "oam_master_atl"
+  port: 5432
+  image:
+    pullPolicy: IfNotPresent
+    tag: "14.1.0"
+  storage: "15Gi"
+  primary:
+    persistence:
+      existingClaim: "master-atl-db-pv-claim"
+    service:
+      type: ClusterIP
+    resources:
+      requests:
+        memory: "30Mi"
+        cpu: "50m"
+      limits:
+        memory: "60Mi"
+        cpu: "1000m"
+
+operationsDashboardDb:
+  enabled: true
+  global:
+    imageRegistry: harbor.mosaic.siemens-energy.cloud/docker-cache
+  fullnameOverride: "oam-operations-dashboard-db"
+  volumePermissions:
+    enabled: true
+    image:
+      repository: "bitnami/os-shell"
+  serviceAccount:
+    automountServiceAccountToken: false
+  auth:
+    database: "oam_operations_dashboard"
+  port: 5432
+  image:
+    pullPolicy: IfNotPresent
+    tag: "14.1.0"
+  primary:
+    persistence:
+      existingClaim: "operations-dashboard-db-pv-claim"
+    service:
+      type: ClusterIP
+    resources:
+      requests:
+        memory: "200Mi"
+        cpu: "100m"
+      limits:
+        memory: "1Gi"
+        cpu: "700m"
+
+operationManagementDb:
+  enabled: true
+  global:
+    imageRegistry: harbor.mosaic.siemens-energy.cloud/docker-cache
+  fullnameOverride: "oam-operation-management-db"
+  volumePermissions:
+    enabled: true
+    image:
+      repository: "bitnami/os-shell"
+  serviceAccount:
+    automountServiceAccountToken: false
+  auth:
+    database: "oam_operation_management"
+  port: 5432
+  image:
+    pullPolicy: IfNotPresent
+    tag: "14.1.0"
+  primary:
+    persistence:
+      existingClaim: "operation-management-db-pv-claim"
+    service:
+      type: ClusterIP
+    resources:
+      requests:
+        memory: "200Mi"
+        cpu: "100m"
+      limits:
+        memory: "1Gi"
+        cpu: "700m"
+
+prometheus:
+  enabled: false
+  replicaCount: 1
+  image:
+    repository: harbor.mosaic.siemens-energy.cloud/docker-cache/prom/prometheus
+    tag: v2.38.0
+    pullPolicy: IfNotPresent
+  service:
+    name: prometheus
+    type: ClusterIP
+    port: 9090
+  resources:
+    requests:
+      memory: "500Mi"
+      cpu: "100m"
+    limits:
+      memory: "5000Mi"
+      cpu: "1000m"
+
+grafana:
+  enabled: false
+  replicaCount: 1
+  image:
+    repository: harbor.mosaic.siemens-energy.cloud/docker-cache/grafana/grafana
+    tag: 9.4.7
+    pullPolicy: IfNotPresent
+  service:
+    name: grafana
+    type: ClusterIP
+    port: 3000
+  resources:
+    requests:
+      memory: "500Mi"
+      cpu: "10m"
+    limits:
+      memory: "5000Mi"
+      cpu: "1000m"
+
+memCache:
+  enabled: true
+  global:
+    imageRegistry: "harbor.mosaic.siemens-energy.cloud/docker-cache"
+  fullnameOverride: "memcache"
+  service:
+    ports:
+      memcached: 11211
+  auth:
+    username: "admin"
+
+global:
+  #  env: "Specified in qa/dev/prod.yaml"
+  #  cluster: "Specified in qa/dev/prod.yaml"
+  fe_protocol: "https"
+  worker:
+    ip: ""
+
+# Current policy is scaling only by processor usage
+defaults:
+  autoscaling:
+    maxreplica: 1 # maximum replica to scale up
+#    targetMemory: 99 # average % memory usage, calculated from resources.requests, should be removed if memory scale not required, this is default
+    targetCPU: 98 # average % cpu usage, calculated from resources.requests, should be removed if cpu scale not required
+
+CronBackup:
+  enabled: true
+  retentiondays: 10
+  schedule: "00 16 * * *"
+  accountName: "data-backup"
+  scriptvolume: "bck-script"
+  scriptCM: "script-cm"
+  replicaCount: 0
+  restore: false
+  restore_ts: 1970-01-01_00-00
+  nfs_ip: "harbor.mosaic.siemens-energy.cloud"
+  nfs_dir: "/"
+  nfs_size: 10Gi
+  image:
+    repository: omn-prd-fra-oam-database-tools-repo
+    pullPolicy: IfNotPresent
+    tag: "1.0.9"
+
+DBConfig:
+  CMVolume: "db-config"
+  CMName: "db-config-cm"
+  syncCreds:
+    enabled: false
+    image:
+      repository: omn-prd-fra-oam-database-tools-repo
+      pullPolicy: IfNotPresent
+      tag: "1.0.9"
+
+traefikController:
+  enabled: false
+  fullnameOverride: "traefik"
+
+certificates:
+  oam.omnivise.crt: |-
+    -----BEGIN CERTIFICATE-----
+    MIIFtTCCA52gAwIBAgIUOTC2KDyCdIEwuEO6EiCXyrols4EwDQYJKoZIhvcNAQEL
+    BQAwajELMAkGA1UEBhMCREUxEDAOBgNVBAgMB0JhdmFyaWExEDAOBgNVBAcMB011
+    bmNoZW4xFzAVBgNVBAoMDlNpZW1lbnMgRW5lcmd5MR4wHAYDVQQDDBUqLm9hbS5v
+    bW5pdmlzZS5zZS5jb20wHhcNMjIwNjI4MTMzMTUwWhcNMzIwNjI1MTMzMTUwWjBq
+    MQswCQYDVQQGEwJERTEQMA4GA1UECAwHQmF2YXJpYTEQMA4GA1UEBwwHTXVuY2hl
+    bjEXMBUGA1UECgwOU2llbWVucyBFbmVyZ3kxHjAcBgNVBAMMFSoub2FtLm9tbml2
+    aXNlLnNlLmNvbTCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBAK0ME9+A
+    rho/dsMBWwcIz8wnFpGX4+7toAfY+8PUtFrAUVqVWZqxAXRZ2wuuSekgtxz2Bbi6
+    62K2N22Y9OgZKGTk/+i7N+qMRZVqb+aK1lBwImyeahF92VoKdhDe/5Pfa5SkHOT4
+    NU0r+cY308Opk7ETqf/m+598ZEKOoMw0K+AovnCHUbH+0ZIYds4Nmmw6ZgWa/yn5
+    h2fV/jA0FDDtvBwTidrWoiFA/rPUvcH/kD/RJu/ZR3aZn3pP8NNRrAxSVwzpv0QI
+    LTKd8E8F3uIDPVgscA3vfrjo2SWNGn4EA0Ypy4kDuRprLr7ccZFR1YfTroRuyKjA
+    VEFcaWUUO2t6ZEozow39vwqztlF5QxQT2Y/4RrgfK8b2FH02+mjb7CvCRNfMXwkK
+    m2twaHA7qLheIRQ64aCJJluK1sbKrewF53LxwOnYJ6CRZ4aeBYXX9OWo9YpMADtP
+    LH0nTWc7T51xdxflf6psFndYKwiHEiRa/uT2Jtf5OYKusD9sWltmB8Zi3j/1WZr5
+    zABymzg0FzqE0bnM0dtRTFhADh+MR+Vy8ki2MZul8ub6HUj8TkepMeeW1ogOJ2or
+    iqiGaiBHjhzwSJSHq5NQUs/Hlu+RIg+rj4bso8ljOMPSvZr5SZEoA6AT0i1u3BV0
+    rjc8yIfL0YwTJkA3r8l20+TjkB50hQT+J6erAgMBAAGjUzBRMB0GA1UdDgQWBBT1
+    GKGFUYYMRngEuGrO4NDnphLZsjAfBgNVHSMEGDAWgBT1GKGFUYYMRngEuGrO4NDn
+    phLZsjAPBgNVHRMBAf8EBTADAQH/MA0GCSqGSIb3DQEBCwUAA4ICAQBlEG5cctI2
+    dsetXreOiiFkEdAGDAGG2FN9+bWIb5bggXHmxFYL60cpgb6Kc3gwcpCK0+O8x5o7
+    SXV6L0Tzuum6xdqPHGyn8+1ymQrdJBLLgO8GOQGO4jDEJVaeGw6mbsB2SApltzUH
+    3psTEPlMIGd9nmsY6EimG5+Ko837WctZ3ivR07OT8W/cSY/dtKKDr8GuSKcYxz68
+    xiSU3RaPpbA5NgRm2PYPZUydJUQbN9keMvCQgEgQx547Kq1+EPNj+8nBkGc1Po1s
+    iseZ0Nf+7BtWd4QP4LdfjKYqb4NiY96hxEwJTNLAY3y3UuAvGJosM8PWkkxLTDxZ
+    aHvwDQbAeJPEcqRTQPIUuYpuJ8UPxtfJ+yw1+zJwjN/6wBnqNpHAwTyD/w1dOHLy
+    nT67cBJdppdN7xOM6phwBV2fQM+LEdjszBRU4+M3KJtEzEWIS16pX7a7QmDjS0gh
+    WlyMjQ5FKeKlNB/+5N/gM5BcE1r4vYMtGD7Kunf4jfrSp27nno7QEs5MqahYojGx
+    OmlMxonIDzMWHQWtlbx8j9iT29fG2q4wHv5vVIox7baKavSJ2gkQa41mRObxfLgb
+    xk1LZAaxcbC5AcQz60/yj7XzjWUgZPi2HpmewKFwlciSwDNYYAxYXjvRmMzma17P
+    HUurtXc4QvdrPP64FdjYW6T7DKLFOdjoBg==
+    -----END CERTIFICATE-----
+
+  nonprodomnidiagnostic.uk.ssegroup.net.crt: |-
+    subject=C = GB, ST = Berkshire, L = Reading, O = SSE Services plc, OU = Thermal, CN = *.nonprodomnidiagnostic.uk.ssegroup.net
+
+    issuer=DC = net, DC = ssegroup, CN = SSE Issuing CA1
+
+    -----BEGIN CERTIFICATE-----
+    MIIGZjCCBE6gAwIBAgITTQAAl5yf66AyLHTVIAAAAACXnDANBgkqhkiG9w0BAQsF
+    ADBJMRMwEQYKCZImiZPyLGQBGRYDbmV0MRgwFgYKCZImiZPyLGQBGRYIc3NlZ3Jv
+    dXAxGDAWBgNVBAMTD1NTRSBJc3N1aW5nIENBMTAeFw0yMzA2MjExNDQyMDhaFw0y
+    NTA2MjAxNDQyMDhaMIGSMQswCQYDVQQGEwJHQjESMBAGA1UECBMJQmVya3NoaXJl
+    MRAwDgYDVQQHEwdSZWFkaW5nMRkwFwYDVQQKExBTU0UgU2VydmljZXMgcGxjMRAw
+    DgYDVQQLEwdUaGVybWFsMTAwLgYDVQQDDCcqLm5vbnByb2RvbW5pZGlhZ25vc3Rp
+    Yy51ay5zc2Vncm91cC5uZXQwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIB
+    AQCwtPie3UWdMAT3xDoOP/iqVyqa8sohicWnVAS6MmdDaGprFg5WdVJafqJ8LAKO
+    Y+CEuXJOriOgaAx1oQzUSR3Uhf+iu+UJUml82Thzj8vbuqs60J+y1ptqt46VQWK8
+    oeL83mN4Jkpx22hKCvigS1y+W2/0i8W1HEBEK9NhuRL+WN0stjfK+xH3WmI5LX28
+    P20V85gP08X4FvTe9QT4b5xJxmys/83l2M9aYS943ubSbAGhHPi8FFUksTpJKHQi
+    6xePMNrOqN63fGVYoBqWAaazVYZmlq0Pl50F/8jeSqG/zsbo/az0ZJs7zxN+Vs/G
+    ARG2FJ1n6nprXqVYN18Nwx4hAgMBAAGjggH7MIIB9zCBjQYDVR0RBIGFMIGCgiVu
+    b25wcm9kb21uaWRpYWdub3N0aWMudWsuc3NlZ3JvdXAubmV0giphdXRoLm5vbnBy
+    b2RvbW5pZGlhZ25vc3RpYy51ay5zc2Vncm91cC5uZXSCLWdhdGV3YXkubm9ucHJv
+    ZG9tbmlkaWFnbm9zdGljLnVrLnNzZWdyb3VwLm5ldDAdBgNVHQ4EFgQUJuvbSyII
+    7w+aNZbBZBsLk4iHfbwwHwYDVR0jBBgwFoAUZMDj57P4NjzAPR67dTZ7Ulv7Wvkw
+    PQYDVR0fBDYwNDAyoDCgLoYsaHR0cDovL3BraS5zc2Vncm91cC5uZXQvcGtpL1NT
+    RUdST1VQLUNBMS5jcmwwTwYIKwYBBQUHAQEEQzBBMD8GCCsGAQUFBzAChjNodHRw
+    Oi8vcGtpLnNzZWdyb3VwLm5ldC9wa2kvU1NFJTIwSXNzdWluZyUyMENBMS5jZXIw
+    DgYDVR0PAQH/BAQDAgWgMD0GCSsGAQQBgjcVBwQwMC4GJisGAQQBgjcVCIWyhhWC
+    2b5bhK2NCIGmrwGF4ohoS4fJxH+ExIQnAgFkAgEKMB0GA1UdJQQWMBQGCCsGAQUF
+    BwMCBggrBgEFBQcDATAnBgkrBgEEAYI3FQoEGjAYMAoGCCsGAQUFBwMCMAoGCCsG
+    AQUFBwMBMA0GCSqGSIb3DQEBCwUAA4ICAQCCEq5fNSyq9Y2oIinXJVVXL9fouUR+
+    JaJw4oxa6eMc+qNIyHtq+IP3aBwc/FCqeGDvRJSSx6wPiD5l6vWURUtjiONIk/ol
+    7706OIitzLP+Rp/RhWYmx1ufxiIkvWo/ge+t/LiPQHkvfojIdtp+YKcC4ZFkPQGp
+    WQnRyjw9dz+38rQ+ZQ4zWvmTjNxgj25xRsbhRrOm1ugELENzmztKDhg7LZKVrzfY
+    4YI5G+SqxyQ/SFHxX01xa1XuWBEn6T+qSYfuwoXqIMQyplg8XPgpzxSKNLgqze5K
+    WDcWR4nQBecHyE5bfB4Lj3oeODMjPwF8Up31KyTw7JEeBgJdtHfOVTXxssjwofJu
+    zQzw6N1Ty6EE0a26M7e05e1cJxXWYEfoYSPrviE9Itruz9DWq5PfJm81epbaIeOM
+    dkytQwWGvs2Du/vDVMDt/l/rp74xi/dTTwly8gQd6KgvzkNoE9ASVuMKq4JqIxaZ
+    e+WH62zWwxXBssXM1b9x4+Wv23t2GGwEXNQM585LyHm3K945kboexy/gYpDuJZdu
+    KSaUvEpIs7T1I1c3AMZjuoEZMdPkkc6rKsWOq7Bel7QbOBJiiP6za3xLxGWBSOQh
+    6KMkcLLB1BEn/X/mshf93eeAI1B2D6VK4SAnHTE+3kauOCSP6r24cmPc35GY0/97
+    JxKYHZV7NIa7ag==
+    -----END CERTIFICATE-----
+
+    subject=DC = net, DC = ssegroup, CN = SSE Issuing CA1
+
+    issuer=CN = SSE RootCA v2
+
+    -----BEGIN CERTIFICATE-----
+    MIIGGzCCBAOgAwIBAgITQgAAAAJukizyFCazpQAAAAAAAjANBgkqhkiG9w0BAQsF
+    ADAYMRYwFAYDVQQDEw1TU0UgUm9vdENBIHYyMB4XDTE4MDIyNjA5MDEwNVoXDTI4
+    MDIyNjA5MTEwNVowSTETMBEGCgmSJomT8ixkARkWA25ldDEYMBYGCgmSJomT8ixk
+    ARkWCHNzZWdyb3VwMRgwFgYDVQQDEw9TU0UgSXNzdWluZyBDQTEwggIiMA0GCSqG
+    SIb3DQEBAQUAA4ICDwAwggIKAoICAQDUHOkTpHLPC8PJYir45RsGB4d3EOITZJRG
+    0ghEFGyTw14s54wvl0nUDk87cqEZN6x7p2lRD7VhIyQz4qT+KTBOvj/FnPvyZmw2
+    7kVUpm+it6U/EUlA4XbBu1dz6GbCuHgJ+YG47llsDKGFC5ylGye0FOelMFCRfN/u
+    9NgtTveERqBODk9cZ5gKjDaBONWYw4isDK6whA4XsMRMw4mLoX8eZzG/y4hAAWh1
+    80j1poswAsHsfX24e3x/nT9P3/K6Xg4g4FU6LDwTpBMi+/Mlc/tCbHxtHpVUI7TK
+    fJosMBke66yXXjQnhcdjxtknBsw6PesImELr4efXJ62OW6bk36kSl4z6YFASVUzg
+    wuVVfVjwtrmwsRRYLR7XzAb8uxPjpOys6kO8Q6er0g52M95HTloWYhPqveQDFKaa
+    Aejx1+Z8IGc/3gHvEosfTxj+UCdejhkVYG7a3COzY2mnjxpItl/Hvq8q0XlN3Wxa
+    EJoK81ydlA3djxzTBwunRBPKUHk1yfPGZ/T8LyDwMyPMC7eH+wqsiUYtjY6wgPrr
+    SwYQBBubBYoZPgMCDyVEIz+trzRS8r0E98WCevcrZMa5AKmjvlbheoeN67t2uftM
+    dl5ZU44ExCrshTYn4aSmJ6PzqxEn+0ZI3p7IezdSqH14d+NkG7t+DR+nAiS9SR2n
+    eHpWsYt/vQIDAQABo4IBKzCCAScwEAYJKwYBBAGCNxUBBAMCAQAwHQYDVR0OBBYE
+    FGTA4+ez+DY8wD0eu3U2e1Jb+1r5MBkGCSsGAQQBgjcUAgQMHgoAUwB1AGIAQwBB
+    MAsGA1UdDwQEAwIBhjAPBgNVHRMBAf8EBTADAQH/MB8GA1UdIwQYMBaAFNzBGmmu
+    iW+opbYhmm9/pmFEnzBBMD4GA1UdHwQ3MDUwM6AxoC+GLWh0dHA6Ly9wa2kuc3Nl
+    Z3JvdXAubmV0L3BraS9TU0VHUk9VUC1ST09ULmNybDBaBggrBgEFBQcBAQROMEww
+    SgYIKwYBBQUHMAKGPmh0dHA6Ly9wa2kuc3NlZ3JvdXAubmV0L3BraS9TU0VHUk9V
+    UC1ST09UU1NFJTIwUm9vdENBJTIwdjIuY3J0MA0GCSqGSIb3DQEBCwUAA4ICAQBK
+    lAF3yc3DTab+jGgS4kiIi7x0HjDZ78TetMlXLka8pMRjpWz+I2N3OtcfJi8k8VqE
+    PCd7f7Ox0zdd1rzrBaPwUIzwsFQ/nQ2gmhDBXefrxrOLbZUPZMqAEjHjd3B/Reb3
+    4F+E0C5wuCpAJL4cn600WF5muZW+LCjWsQpUfJtfu3mMwtUUJx/H3GH4Gr5VXOYj
+    4AFf4DSddL7z5uo9n9kHqrVYoFI4OU7M7EEeZ1zhV9P/fXH4E9w0u65VeFZAjHia
+    uT//X0B2jcsBhz3YPs0Q+0un4P9fIXKorRKEWtjujd9kSOlPxchROk5XVlo+yQUd
+    WLA+zFvpzspNeimejSevWtZJO1NuDHq0d8Nyo9AWkvUEza4aP50NK8dVBHxtf8QF
+    4JJW8EIe5vDRbrxmv3jljLjGVw69pBPN/d8ZcAO1mgI5rCcnNWrejjerYFG0WGFe
+    wYUNT5AEBBapg0ublNdBmg8ZVRlW/tJdzcVJVwRnDCiIsGUR93MUAano2RUGpX+S
+    UhWgAGmaVQFR/CnSHm99bDiwpN86ObJEoRkiDf5RCbqlIrUoLSl3WEL76Ruhjj3G
+    aTBAST36JZQcS9yDFuWBzhpE2ycZCy5D4h/XiN0E/IRO9ZnyTkSPARSlMFgqMumj
+    NtDRW86+5aGimApJJnIyMXALvSrQA0whWV8r/hp59w==
+    -----END CERTIFICATE-----
+
+    subject=CN = SSE RootCA v2
+
+    issuer=CN = SSE RootCA v2
+
+    -----BEGIN CERTIFICATE-----
+    MIIFCzCCAvOgAwIBAgIQE+JsGCjVSJpBytphhKR9oTANBgkqhkiG9w0BAQsFADAY
+    MRYwFAYDVQQDEw1TU0UgUm9vdENBIHYyMB4XDTE4MDIyMjEzNTEzNVoXDTM4MDIy
+    MjE0MDEzNFowGDEWMBQGA1UEAxMNU1NFIFJvb3RDQSB2MjCCAiIwDQYJKoZIhvcN
+    AQEBBQADggIPADCCAgoCggIBAKxMHzxCX3G86/XwiZPTgmcene9pQjJqnWK9Lmpr
+    yPBEdfH/PgWndxSEEZHfshlczMfYROVzjvK5/VAxXnp6t+/Ju7IxGdDW1VRx7LW5
+    Hg0K9+bPnfMcd6JsTXfpbt5pDMk8F+yO6NfIWeQ0patEoP/CzizJtbz/i1+9uxld
+    E7c9bT/XEguVzCfxJCb5NjLDeRiXiyq/RDTpaK84y2zYmHgEY0v8qckYAKM3Nsgf
+    OSDLdVsPzP9HjAaWO40cC8MyhMRHU/AD+2Q8XZ+wEEgVwVdKB22OaHHLES2inSWF
+    D5RNS9etqrZ7Vykyv6Ede2ZdYwnkhOAzBZSzpGHyIlCAe4+CFfbwmt2fbC6CEGMo
+    SsipK2rupgRYuAUITL3yVQgjSJheFeA2pb01zxIBCF27TRzz2g1fUj+iaAOr3Z+r
+    MmB3JmjB4TAR47h+ZEcnXFN8vBhDyU7A1U9tCdxMwYo0nR8QQmofro9XbPnR8IYl
+    UbBZy3s7iqQn/rgVa6/M3zUsuFf4UowA28/H0rfT5EiGMqR7fugJs7ZFX+AyCVzz
+    nix76A1vLx+lkMK3JQZCHDaIjuvR6v82RH0hRc/8gMi8dzV2bXjtRoY2Nsx81TkK
+    jb2wZ3EIgsJ1Ceu7pyXR3OXYVtvZPdFmC8lobZBkdIjIZ9QCVPWVwJFy8j+FGvRG
+    +bczAgMBAAGjUTBPMAsGA1UdDwQEAwIBhjAPBgNVHRMBAf8EBTADAQH/MB0GA1Ud
+    DgQWBBTcwRpprolvqKW2IZpvf6ZhRJ8wQTAQBgkrBgEEAYI3FQEEAwIBADANBgkq
+    hkiG9w0BAQsFAAOCAgEAXdRHrq0JlqMm+OATp+99/VvmXtdGzxIUQDBShZSElMDF
+    p3ggjZw7TyVfcp2EtZ+1Yaz9ZDf6H5rPf5Lg77xzPnpt/JgenrYUaD6OXeju79cD
+    CF2DvOelS+KZQyMCz/nb9UuYKlGuYI7wpvCv3AG/vJVgaKuisbuzOP74FmjCOKmY
+    Yk3iDRzbeHHGf42bigHSDDjcFhsEG195g3jls4TC5S4N//Xnj6+kcnsPjyTiKCly
+    WPa/xZkgHtDA6GIA4Wvhms5fWKhBdkR9oycwo1dZ6qH6Fhwz81f8E4jqlXq1b/A1
+    EaXHEwnu+pN77PV4MonmxH/U7p/7THKoaYiaKZVXnOy2dapzHFmZzs68ddb/eekk
+    uRuedI6H5wNuLjVDvroeZhz2Y48l+02EFHSv2XBGtpHoI7H13FF1WKckEnPHCRAB
+    ZBRB4LZPCw73Wr4Dr7CZ+PP4TSiDudSmQ54sYK7EhzthBoTvdQXcEupM8EyU43/p
+    Z3VMUdOVcOlbLrKHh5d5bk4TLqPgru9revbd924HsVJ01tVeLE1b03NhHTieuTgS
+    hwwG8mFh8OoksPEOfn9/Sb5WbENMf0IICoA4JEzj/+zHVDcPLoR0wJ1LJftzJpiT
+    UyZxAKMjAsXV+DNwhuZ8N4+59a+zvmx3DgFMaVnrib98kDFNv78KDw7SVVM4SZI=
+    -----END CERTIFICATE-----
+
+# Fluentbit values
+fluentbit:
+  enabled: true
+  image:
+    repository: harbor.mosaic.siemens-energy.cloud/docker-cache/fluent/fluent-bit
+    pullPolicy: IfNotPresent
+  testFramework:
+    image:
+      repository: harbor.mosaic.siemens-energy.cloud/docker-cache/busybox
+  hostNetwork: true
+  dnsPolicy: ClusterFirstWithHostNet
+  nameOverride: "fluentbit"
+  fullnameOverride: "fluentbit"
+  extraVolumes:
+    - name: fluentbitstate
+      hostPath:
+        path: /var/fluent-bit/state
+  extraVolumeMounts:
+    - name: fluentbitstate
+      mountPath: /var/fluent-bit/state
+  config:
+    service: |
+      [SERVICE]
+          Daemon                    Off
+          Grace                     30
+          Flush                     5
+          Log_Level                 info
+          Parsers_File              parsers.conf
+          HTTP_Server               true
+          HTTP_Listen               0.0.0.0
+          HTTP_Port                 2020
+          storage.path              /var/fluent-bit/state/flb-storage/
+          storage.sync              normal
+          storage.checksum          off
+          storage.backlog.mem_limit 5M
+    ## https://docs.fluentbit.io/manual/pipeline/inputs
+    inputs: |
+      [INPUT]
+          Name             tail
+          Path             /var/log/containers/*.log
+          Exclude_Path     /var/log/containers/fluentbit*, /var/log/containers/coredns*.log, /var/log/containers/opensearch*.log, /var/log/containers/oam-opensearch*.log, /var/log/containers/etcd*.log, /var/log/containers/traefik*.log, /var/log/containers/storage-provisioner*.log, /var/log/containers/kube*.log, /var/log/containers/calico*.log, /var/log/containers/grafana*.log, /var/log/containers/rabbitmq*.log, /var/log/containers/tigera*.log
+          multiline.parser cri
+          Parser           cri
+          Tag kube.*
+          Mem_Buf_Limit    50MB
+          Skip_Long_Lines  On
+          DB               /var/fluent-bit/state/flb_container.db
+          Refresh_Interval 10
+          Rotate_Wait      30
+          storage.type     filesystem
+    ## https://docs.fluentbit.io/manual/pipeline/filters
+    filters: |
+      [FILTER]
+          Name                kubernetes
+          Match               kube.*
+          Kube_URL            https://kubernetes.default.svc:443
+          tls.verify          Off
+          Kube_Tag_Prefix     kube.var.log.containers.
+          Merge_Log           On
+          Merge_Log_Key       log_processed
+          K8S-Logging.Parser  On
+          K8S-Logging.Exclude Off
+          Labels              Off
+          Annotations         Off
+          Use_Kubelet         Off
+          Kubelet_Port        10250
+          Buffer_Size         0
+      [FILTER]
+          Name            nest
+          Match           kube.*
+          Operation       lift
+          Nested_under    kubernetes
+          Add_prefix      kubernetes.
+      [FILTER]
+          Name            record_modifier
+          Match           kube.*
+          Remove_key      kubernetes.container_hash
+          Remove_key      kubernetes.pod_id
+          Remove_key      kubernetes.docker_id
+          Remove_key      _id
+          Remove_key      _p
+          Remove_key      _score
+    ## https://docs.fluentbit.io/manual/pipeline/outputs
+    outputs: |
+      [OUTPUT]
+          Name opensearch
+          Match kube.*
+          Host oam-opensearch.default.svc.cluster.local
+          Port 9200
+          Trace_Error Off
+          Trace_Output Off
+          Logstash_Format On
+          Logstash_Prefix oam
+          Logstash_DateFormat %Y%m%d
+          Suppress_Type_Name On
+          Compress gzip
+
+aws-ebs-csi-driver:
+  useOldCSIDriver: true
+  enabled: true
+  controller:
+    createPDB: true  # Set to false to disable the PDB
+
+opensearch:
+  enabled: true
+  extraConfig:
+    compatibility.override_main_response_version: true
+  global:
+    imageRegistry: harbor.mosaic.siemens-energy.cloud/docker-cache
+  image:
+    pullPolicy: IfNotPresent
+    repository: bitnamilegacy/opensearch
+  useIstioLabels: false
+  volumePermissions:
+    enabled: true
+  master:
+    masterOnly: false
+    replicaCount: 1
+    resourcesPreset: large
+    heapSize: "3000m" ## it should be 1/2 of requests memory
+    persistence:
+      storageClass: "ebs-sc"
+      size: 100Gi
+      existingClaim: "opensearch-claim"
+      accessModes:
+        - ReadWriteOnce
+    resources:
+      requests:
+        cpu: 1
+        ephemeral-storage: 50Mi
+        memory: "3Gi" ## when changing this value, heapsize should be updated also
+      limits:
+        cpu: 1500m
+        ephemeral-storage: 1Gi
+        memory: 4Gi
+    pdb:
+      create: false
+      minAvailable: 0
+      maxUnavailable: 0
+  data:
+    replicaCount: 0
+    pdb:
+      create: false
+      minAvailable: 0
+      maxUnavailable: 0
+  coordinating:
+    replicaCount: 0
+  ingest:
+    enabled: false
+    pdb:
+      create: false
+      minAvailable: 0
+      maxUnavailable: 0
+  dashboards:
+    enabled: true
+    pdb:
+      create: false
+      minAvailable: 0
+      maxUnavailable: 0
+    service:
+      type: NodePort
+    image:
+      registry: harbor.mosaic.siemens-energy.cloud/docker-cache
+      repository: bitnamilegacy/opensearch-dashboards
+    initContainers:
+      - name: volume-permissions
+        image: harbor.mosaic.siemens-energy.cloud/docker-cache/bitnami/os-shell:12-debian-12-r18
+        imagePullPolicy: IfNotPresent
+        command:
+          - /bin/bash
+          - -ec
+          - |
+            mkdir -p /bitnami/opensearch-dashboards
+            chown 1001:1001 /bitnami/opensearch-dashboards
+            find /bitnami/opensearch-dashboards -mindepth 1 -maxdepth 1 -not -name ".snapshot" -not -name "lost+found" | xargs -r chown -R 1001:1001
+        securityContext:
+          runAsUser: 0
+        resources:
+          limits:
+            cpu: 150m
+            ephemeral-storage: 1Gi
+            memory: 192Mi
+          requests:
+            cpu: 100m
+            ephemeral-storage: 50Mi
+            memory: 128Mi
+        volumeMounts:
+          - name: empty-dir
+            mountPath: /tmp
+            subPath: tmp-dir
+          - name: dashboards-data
+            mountPath: /bitnami/opensearch-dashboards
+    persistence:
+      enabled: true
+      storageClass: "ebs-sc"
+      size: 10Gi
+      existingClaim: "opensearch-dashboards-claim"
+      accessModes:
+        - ReadWriteOnce
+    extraVolumeMounts:
+      - name: dashboards-config
+        mountPath: /opt/bitnami/opensearch-dashboards/config.default
+    extraVolumes:
+      - name: dashboards-config
+        configMap:
+          name: opensearch-dasboards-conf
+    updateStrategy:
+      type: Recreate
+    customLivenessProbe:
+      httpGet:
+        path: /opensearch-dashboards
+        port: 5601
+        scheme: HTTP
+      initialDelaySeconds: 180
+      timeoutSeconds: 5
+      periodSeconds: 20
+      successThreshold: 1
+      failureThreshold: 8
+    customReadinessProbe:
+      httpGet:
+        path: /opensearch-dashboards
+        port: 5601
+        scheme: HTTP
+      initialDelaySeconds: 120
+      timeoutSeconds: 5
+      periodSeconds: 10
+      successThreshold: 1
+      failureThreshold: 5
+  curator:
+    cm_name: "opensearch-curator-config"
+    image: harbor.mosaic.siemens-energy.cloud/ghcr-cache/links2004/curator-opensearch:v0.1.1
+    schedule: "0 */6 * * *"
+    spacelimit:
+      logs: 28
+      traces: 38
+      metrics: 28
+  script:
+    cm_name: "os-metricbeat-script-config"
+    archive_name: "dashboards.tar.gz"
+    script_name: "configure_od.sh"
+    od_url: "http://oam-opensearch-dashboards:5601/opensearch-dashboards"
+    schedule: "0 13 * * 3"
+
+jaeger:
+  enabled: true
+  fullnameOverride: oam-jaeger
+  provisionDataStore:
+    cassandra: false
+    elasticsearch: false
+  query:
+    image:
+      pullSecrets: ["docker-cfg"]
+  collector:
+    image:
+      pullSecrets: ["docker-cfg"]
+    service:
+      otlp:
+        grpc:
+          name: "otlp-grpc"
+          port: 4317
+        http:
+          name: "otlp-http"
+          port: 4318
+  agent:
+    enabled: false
+  storage:
+    type: "elasticsearch"
+    elasticsearch:
+      host: "oam-opensearch"
+      port: 9200
+      scheme: http
+
+kafka_kraft:
+  existingKraftSecret: "oam-kafka-kraft-secret"
+  enabled: true
+  image:
+    debug: false
+    repository: bitnamilegacy/kafka
+  provisioning:
+    enabled: true
+    topics:
+      - name: DM_TO_AD
+        partitions: 1
+        replicationFactor: 1
+        config:
+          max.message.bytes: 64000
+          flush.messages: 1
+      - name: MS_UPDATES
+        partitions: 1
+        replicationFactor: 1
+        config:
+          max.message.bytes: 64000
+          flush.messages: 1
+      - name: OMR_UPDATES
+        partitions: 1
+        replicationFactor: 1
+        config:
+          max.message.bytes: 64000
+          flush.messages: 1
+      - name: AD_LIMITS
+        partitions: 1
+        replicationFactor: 1
+        config:
+          max.message.bytes: 64000
+          flush.messages: 1
+      - name: DM_STREAMING_ADD
+        partitions: 1
+        replicationFactor: 1
+        config:
+          max.message.bytes: 64000
+          flush.messages: 1
+      - name: DM_STREAMING_INIT
+        partitions: 1
+        replicationFactor: 1
+        config:
+          max.message.bytes: 64000
+          flush.messages: 1
+      - name: DM_STREAMING_RESET
+        partitions: 1
+        replicationFactor: 1
+        config:
+          max.message.bytes: 64000
+          flush.messages: 1
+      - name: AD_TO_DM_VALUES
+        partitions: 1
+        replicationFactor: 1
+        config:
+          max.message.bytes: 64000
+          flush.messages: 1
+      - name: MEP_TO_DM_STREAMING_SUBSCRIBE
+        partitions: 1
+        replicationFactor: 1
+        config:
+          max.message.bytes: 64000
+          flush.messages: 1
+      - name: MEP_TO_DM_STREAMING_RECEIVE
+        partitions: 1
+        replicationFactor: 1
+        config:
+          max.message.bytes: 64000
+          flush.messages: 1
+      - name: CE_TO_EE
+        partitions: 1
+        replicationFactor: 1
+        config:
+          max.message.bytes: 64000
+          flush.messages: 1
+      - name: EE_TO_AD
+        partitions: 1
+        replicationFactor: 1
+        config:
+          max.message.bytes: 64000
+          flush.messages: 1
+  disksize: "15Gi"
+  global:
+    imageRegistry: harbor.mosaic.siemens-energy.cloud/docker-cache
+    security:
+      allowInsecureImages: true
+  listeners:
+    securityProtocolMap: "CLIENT:PLAINTEXT,EXTERNAL:PLAINTEXT,INTERNAL:PLAINTEXT,CONTROLLER:PLAINTEXT"
+    client:
+      name: CLIENT
+      protocol: PLAINTEXT
+      port: 9092
+    external:
+      name: EXTERNAL
+      protocol: PLAINTEXT
+      port: 9093  # Used for port-forwarding from localhost:9093
+    interbroker:
+      name: INTERNAL
+      protocol: PLAINTEXT
+      port: 9094
+    controller:
+      name: CONTROLLER
+      protocol: PLAINTEXT
+      port: 9095
+    localhost:
+      name: LOCALHOST
+      protocol: PLAINTEXT
+      port: 29092  
+  interBrokerListenerName: INTERNAL
+  controllerListenerName: CONTROLLER
+  overrideConfiguration:
+    offsets.topic.replication.factor: 1
+    transaction.state.log.replication.factor: 1
+  defaultInitContainers:
+    volumePermissions:
+      enabled: true
+      containerSecurityContext:
+        capabilities:
+          add: ["CHOWN"]
+          drop: ["ALL"]
+  fullnameOverride: "oam-kafka-kraft"
+  commonLabels: {}
+  serviceAccount:
+    automountServiceAccountToken: false
+  port: 9092
+  controller:
+    controller0Id: "100"
+    enabled: true
+    replicaCount: 1
+    persistence:
+      enabled: true
+      existingClaim: "data-oam-kafka-controller-pv"
+    extraEnvVars:
+      - name: KAFKA_CFG_NODE_ID
+        value: "100"
+      - name: KAFKA_CFG_ADVERTISED_LISTENERS
+        value: "CONTROLLER://oam-kafka-kraft-controller-headless:9095,INTERNAL://oam-kafka-kraft-controller-headless:9094,CLIENT://oam-kafka-kraft:9092"
+    resources:
+      requests:
+        memory: 1Gi
+        cpu: 500m
+      limits:
+        memory: 2Gi
+        cpu: 1
+    livenessProbe:
+      timeoutSeconds: 15
+    readinessProbe:
+      timeoutSeconds: 15
+    configurationOverrides:
+      socket.request.max.bytes: 209715200
+      max.request.size: 209715200
+      auto.create.topics.enable: "false"
+  sasl:
+    enabledMechanisms: PLAIN,SCRAM-SHA-256,SCRAM-SHA-512
+    interBrokerMechanism: PLAIN
+    controllerMechanism: PLAIN
+    interbroker:
+      user: "oam_inter_broker_user"
+      password: "hhfdkjag@672637676"
+      clientId: "oam_inter_broker_client"
+      clientSecret: ""
+    controller:
+      user: "oam_controller_user"
+      password: "jugtjhd@878365536gsghjd6yn"
+      clientId: "oam_controller_broker_client"
+      clientSecret: ""
+    client:
+      users:
+        - user1
+      passwords:
+        - userp
+    external:
+      users:
+        - user1
+      passwords: 
+        - bB2JZSZsal  
+    existingSecret: ""
+  auth:
+    enabled: false
+    create: false
+    existingSecret: ""
+  primary:
+    service:
+      type: ClusterIP
+    resources:
+      requests:
+        memory: "4Gi"
+        cpu: "500m"
+      limits:
+        memory: "8Gi"
+        cpu: "2000m"
+      ports:
+      - name: client
+        port: 9092
+        targetPort: 9092
+      - name: localhost
+        port: 29092
+        targetPort: 29092  
+  kraft:
+    enabled: true
+  broker:
+    replicaCount: 1
+    minId: 101
+    persistence:
+      enabled: true
+      existingClaim: "data-oam-kafka-broker-pv"
+    livenessProbe:
+      enabled: true
+      initialDelaySeconds: 60
+      timeoutSeconds: 15
+      failureThreshold: 8
+      periodSeconds: 30
+      successThreshold: 1
+    readinessProbe:
+      enabled: true
+      initialDelaySeconds: 45
+      failureThreshold: 8
+      timeoutSeconds: 15
+      periodSeconds: 30
+      successThreshold: 1
+    resources:
+      requests:
+        memory: "4Gi"
+        cpu: "500m"
+      limits:
+        memory: "8Gi"
+        cpu: "2000m"
+    extraEnvVars:
+      - name: KAFKA_CFG_NODE_ID
+        value: "101"
+      - name: KAFKA_CFG_ADVERTISED_LISTENERS
+        value: "EXTERNAL://kafka.oam.mosaic-dev.siemens-energy.cloud:9093,INTERNAL://oam-kafka-kraft-broker-headless:9094,CLIENT://oam-kafka-kraft:9092,LOCALHOST://localhost:29092"
+      - name: KAFKA_CFG_LISTENERS
+        value: EXTERNAL://:9093,INTERNAL://:9094,CLIENT://:9092,LOCALHOST://:29092  
+  extraConfig:
+    offsets.topic.replication.factor: 1
+    transaction.state.log.replication.factor: 1
+    transaction.state.log.min.isr: 1
+    default.replication.factor: 1
+    auto.create.topics.enable: true
+    num.network.threads: 3
+    num.io.threads: 8
+    socket.send.buffer.bytes: 102400
+    socket.receive.buffer.bytes: 102400
+    socket.request.max.bytes: 104857600
+    num.partitions: 1
+    num.recovery.threads.per.data.dir: 1
+    log.retention.hours: 168
+    log.segment.bytes: 134217728
+    log.retention.check.interval.ms: 300000
+    replica.fetch.max.bytes: 1048576
+    message.max.bytes: 1000000
+
+
+clamav:
+  enabled: true
+
+
+harbor:
+  pullsecretname: 'harbor-registry'
+  pullsecretvalue: 'eyJhdXRocyI6eyJoYXJib3IubW9zYWljLnNpZW1lbnMtZW5lcmd5LmNsb3VkIjp7InVzZXJuYW1lIjoicm9ib3Qkb2FtK29hbS1ybyIsInBhc3N3b3JkIjoiaXhQZUhOekRub085U1hzSGdmMkQzdE01RHpPZkhMYUkiLCJlbWFpbCI6ImFuZHJlaS1sYXVyZW50aXUuY29tYW5Ac2llbWVucy1lbmVyZ3kuY29tIiwiYXV0aCI6ImNtOWliM1FrYjJGdEsyOWhiUzF5YnpwcGVGQmxTRTU2Ukc1dlR6bFRXSE5JWjJZeVJETjBUVFZFZWs5bVNFeGhTUT09In19fQ=='

@@ -1,0 +1,175 @@
+{
+  "name": "test-analyzer-validation",
+  "version": "1.0.0",
+  "description": "Test package for analyzer validation with cross-references",
+  "main": "tests.js",
+  "scripts": {
+    "test": "node tests.js",
+    "build": "echo 'Build process for analyzer testing'",
+    "lint": "echo 'Linting process'",
+    "validate": "bash execute_tests.sh",
+    "cross-ref": "python3 json_helper.py",
+    "java-compile": "javac TestService.java",
+    "dotnet-build": "dotnet build UserService.cs",
+    "full-test": "npm run validate && npm run test"
+  },
+  "keywords": [
+    "testing",
+    "analyzer",
+    "validation",
+    "cross-reference",
+    "multi-language",
+    "static-analysis"
+  ],
+  "author": "Test Framework",
+  "license": "MIT",
+  "dependencies": {
+    "js-yaml": "^4.1.0",
+    "lodash": "^4.17.21",
+    "axios": "^1.4.0",
+    "moment": "^2.29.4"
+  },
+  "devDependencies": {
+    "jest": "^29.5.0",
+    "@types/node": "^18.16.3",
+    "eslint": "^8.39.0",
+    "prettier": "^2.8.8",
+    "nodemon": "^2.0.22"
+  },
+  "engines": {
+    "node": ">=16.0.0",
+    "npm": ">=8.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/example/test-analyzer-validation.git"
+  },
+  "bugs": {
+    "url": "https://github.com/example/test-analyzer-validation/issues"
+  },
+  "homepage": "https://github.com/example/test-analyzer-validation#readme",
+  "config": {
+    "port": 3000,
+    "database": {
+      "host": "localhost",
+      "port": 5432,
+      "name": "testdb"
+    },
+    "api": {
+      "timeout": 60000,
+      "retries": 3
+    }
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "collectCoverage": true,
+    "coverageDirectory": "coverage",
+    "testMatch": [
+      "**/*.test.js",
+      "**/*.spec.js"
+    ]
+  },
+  "eslintConfig": {
+    "extends": ["eslint:recommended"],
+    "parserOptions": {
+      "ecmaVersion": 2022,
+      "sourceType": "module"
+    },
+    "env": {
+      "node": true,
+      "es6": true
+    },
+    "rules": {
+      "semi": ["error", "always"],
+      "quotes": ["error", "single"],
+      "no-unused-vars": "warn",
+      "no-console": "off"
+    }
+  },
+  "nodemonConfig": {
+    "watch": ["*.js"],
+    "ext": "js,json",
+    "ignore": ["node_modules/*", "coverage/*"],
+    "exec": "node tests.js"
+  },
+  "cross-references": {
+    "files": {
+      "TestService.java": "Java service implementation with database connections",
+      "json_helper.py": "Python utility for JSON/YAML processing",
+      "UserService.cs": "C# service with async operations and DI",
+      "execute_tests.sh": "Bash script for cross-platform testing",
+      "config.yaml": "Main configuration file for all services",
+      "chart/Chart.yaml": "Helm chart metadata",
+      "chart/values.yaml": "Helm chart configuration values"
+    },
+    "integrations": {
+      "database": {
+        "postgresql": "Primary database for user data",
+        "redis": "Caching layer for sessions and temporary data"
+      },
+      "services": {
+        "api": "REST API endpoints for user management",
+        "workers": "Background job processing",
+        "monitoring": "Metrics collection and alerting"
+      },
+      "platforms": {
+        "docker": "Containerized deployment",
+        "kubernetes": "Orchestrated container management",
+        "helm": "Package management for Kubernetes"
+      }
+    }
+  },
+  "validation-rules": {
+    "required-analyzers": [
+      "ctags",
+      "scc", 
+      "treesitter",
+      "ast_grep",
+      "shellcheck",
+      "dependency",
+      "dependency_reverse"
+    ],
+    "expected-outputs": {
+      "ctags": {
+        "required-fields": ["_type", "name", "path", "language", "line", "kind"],
+        "minimum-entries": 1
+      },
+      "scc": {
+        "required-fields": ["analyzer", "file", "language", "metrics"],
+        "metrics-fields": ["total_lines", "code_lines", "total_complexity"]
+      },
+      "treesitter": {
+        "required-fields": ["analyzer", "language", "file", "ast_available"],
+        "code-elements": ["functions", "variable_assignments"]
+      },
+      "ast_grep": {
+        "required-fields": ["analyzer", "language", "file", "analysis_summary"],
+        "summary-fields": ["patterns_tried", "successful_patterns"]
+      },
+      "shellcheck": {
+        "required-fields": ["analyzer", "file", "status"],
+        "valid-statuses": ["analyzed", "no_issues", "issues_found"]
+      },
+      "dependency": {
+        "required-fields": ["analyzer", "file", "language", "dependencies"],
+        "dependencies-fields": ["imports_in_this_file", "resolved_dependencies"]
+      },
+      "dependency_reverse": {
+        "required-fields": ["analyzer", "file", "language", "reverse_analysis"],
+        "analysis-fields": ["importers", "referrers", "total_reverse_deps"]
+      }
+    },
+    "failure-patterns": [
+      "no parser",
+      "not found",
+      "unavailable",
+      "failed to analyze",
+      "empty result",
+      "timeout",
+      "error:",
+      "exception:",
+      "null",
+      "undefined"
+    ]
+  }
+}

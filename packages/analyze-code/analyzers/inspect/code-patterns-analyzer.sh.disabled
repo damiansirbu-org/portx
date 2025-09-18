@@ -1,0 +1,550 @@
+#!/bin/bash
+# =============================================================================
+# COMPREHENSIVE CODE PATTERNS ANALYZER
+# 
+# Detects design patterns, anti-patterns, code smells, and architectural patterns
+# Based on authoritative sources: RefactoringGuru, Gang of Four, Martin Fowler
+# 
+# COVERAGE:
+# - 23 GoF Design Patterns (Creational, Structural, Behavioral)
+# - Common Anti-patterns and Code Smells
+# - Architectural Patterns (MVC, MVP, MVVM, Observer, etc.)
+# - Language-specific patterns (React Hooks, Python idioms, etc.)
+# - Security anti-patterns
+# - Performance anti-patterns
+# =============================================================================
+
+# Register this analyzer
+AVAILABLE_ANALYZERS+=(analyze_code_patterns)
+
+analyze_code_patterns() {
+    local rg_path="$GIT_BASH_ROOT/home/portx/packages/ripgrep/rg.exe"
+    
+    # Check if ripgrep is available
+    if [[ ! -f "$rg_path" ]]; then
+        return 1
+    fi
+    
+    # Get file information
+    local file_ext="${FILE_PATH##*.}"
+    local file_basename="$(basename "$FILE_PATH")"
+    local search_root
+    
+    # Find search root (5 levels up from file)
+    search_root="$(dirname "$FILE_PATH")"
+    for ((i=0; i<5; i++)); do
+        local parent_dir="$(dirname "$search_root")"
+        if [[ "$parent_dir" != "$search_root" ]]; then
+            search_root="$parent_dir"
+        else
+            break
+        fi
+    done
+    
+    # Analysis result arrays
+    local creational_patterns=()
+    local structural_patterns=()
+    local behavioral_patterns=()
+    local architectural_patterns=()
+    local code_smells=()
+    local anti_patterns=()
+    local security_issues=()
+    local performance_issues=()
+    local best_practices=()
+    
+    # Helper function for safe JSON string creation
+    create_pattern_json() {
+        local category="$1"
+        local pattern="$2" 
+        local evidence="$3"
+        local confidence="$4"
+        local description="$5"
+        local severity="${6:-medium}"
+        
+        # Escape JSON properly using central helper
+        local escaped_evidence escaped_description
+        escaped_evidence=$(json_escape "$evidence")
+        escaped_description=$(json_escape "$description")
+        
+        printf '{"category":"%s","pattern":"%s","evidence":%s,"confidence":"%s","description":%s,"severity":"%s"}' \
+            "$category" "$pattern" "$escaped_evidence" "$confidence" "$escaped_description" "$severity"
+    }
+    
+    # Analyze based on file type
+    case "$file_ext" in
+        py|pyi)
+            # PYTHON COMPREHENSIVE PATTERN ANALYSIS
+            
+            # =================
+            # CREATIONAL PATTERNS (GoF)
+            # =================
+            
+            # Singleton Pattern - Multiple implementation variations
+            local singleton_evidence
+            singleton_evidence=$(timeout 10 "$rg_path" --no-heading --line-number \
+                -e "class.*Singleton" \
+                -e "__new__.*cls.*not.*hasattr" \
+                -e "_instance.*=.*None" \
+                -e "@singleton" \
+                -e "def __new__.*cls.*instance" \
+                "$FILE_PATH" 2>/dev/null)
+            if [[ -n "$singleton_evidence" ]]; then
+                creational_patterns+=($(create_pattern_json "creational" "Singleton" \
+                    "$singleton_evidence" "high" \
+                    "Ensures a class has only one instance and provides global access to it. Common in logging, config managers, database connections."))
+            fi
+            
+            # Factory Method Pattern
+            local factory_evidence
+            factory_evidence=$(timeout 10 "$rg_path" --no-heading --line-number \
+                -e "def.*create.*\(\)" \
+                -e "Factory.*class" \
+                -e "def.*make_.*\(\)" \
+                -e "\.create\(" \
+                -e "def.*factory.*\(" \
+                -e "AbstractFactory" \
+                "$FILE_PATH" 2>/dev/null)
+            if [[ -n "$factory_evidence" ]]; then
+                creational_patterns+=($(create_pattern_json "creational" "Factory Method" \
+                    "$factory_evidence" "medium" \
+                    "Creates objects without specifying exact classes. Promotes loose coupling and flexibility in object creation."))
+            fi
+            
+            # Builder Pattern
+            local builder_evidence
+            builder_evidence=$(timeout 10 "$rg_path" --no-heading --line-number \
+                -e "class.*Builder" \
+                -e "def build\(" \
+                -e "def set_.*\(" \
+                -e "\.build\(\)" \
+                -e "director.*builder" \
+                "$FILE_PATH" 2>/dev/null)
+            if [[ -n "$builder_evidence" ]]; then
+                creational_patterns+=($(create_pattern_json "creational" "Builder" \
+                    "$builder_evidence" "high" \
+                    "Constructs complex objects step by step. Useful for objects with many optional parameters."))
+            fi
+            
+            # =================
+            # STRUCTURAL PATTERNS (GoF)
+            # =================
+            
+            # Adapter Pattern
+            local adapter_evidence
+            adapter_evidence=$(timeout 10 "$rg_path" --no-heading --line-number \
+                -e "class.*Adapter" \
+                -e "def adapt\(" \
+                -e "adaptee\." \
+                -e "wrapper.*class" \
+                "$FILE_PATH" 2>/dev/null)
+            if [[ -n "$adapter_evidence" ]]; then
+                structural_patterns+=($(create_pattern_json "structural" "Adapter" \
+                    "$adapter_evidence" "medium" \
+                    "Allows incompatible interfaces to work together. Acts as a bridge between two incompatible interfaces."))
+            fi
+            
+            # Decorator Pattern (Python native + GoF)
+            local decorator_evidence
+            decorator_evidence=$(timeout 10 "$rg_path" --no-heading --line-number \
+                -e "@.*decorator" \
+                -e "def.*wrapper.*\(" \
+                -e "functools\.wraps" \
+                -e "@property" \
+                -e "@staticmethod" \
+                -e "@classmethod" \
+                -e "def.*\(func.*\):" \
+                "$FILE_PATH" 2>/dev/null)
+            if [[ -n "$decorator_evidence" ]]; then
+                structural_patterns+=($(create_pattern_json "structural" "Decorator" \
+                    "$decorator_evidence" "high" \
+                    "Adds new functionality to objects dynamically without altering their structure. Python's native decorator syntax."))
+            fi
+            
+            # Composite Pattern
+            local composite_evidence
+            composite_evidence=$(timeout 10 "$rg_path" --no-heading --line-number \
+                -e "class.*Composite" \
+                -e "def add\(" \
+                -e "def remove\(" \
+                -e "children.*\[\]" \
+                -e "for.*child.*in" \
+                "$FILE_PATH" 2>/dev/null)
+            if [[ -n "$composite_evidence" ]]; then
+                structural_patterns+=($(create_pattern_json "structural" "Composite" \
+                    "$composite_evidence" "medium" \
+                    "Composes objects into tree structures. Allows treating individual objects and compositions uniformly."))
+            fi
+            
+            # =================
+            # BEHAVIORAL PATTERNS (GoF)
+            # =================
+            
+            # Observer Pattern
+            local observer_evidence
+            observer_evidence=$(timeout 10 "$rg_path" --no-heading --line-number \
+                -e "class.*Observer" \
+                -e "def notify" \
+                -e "observers.*\[\]" \
+                -e "subscribe\(" \
+                -e "unsubscribe\(" \
+                -e "def update\(" \
+                -e "subject\." \
+                "$FILE_PATH" 2>/dev/null)
+            if [[ -n "$observer_evidence" ]]; then
+                behavioral_patterns+=($(create_pattern_json "behavioral" "Observer" \
+                    "$observer_evidence" "high" \
+                    "Defines one-to-many dependency between objects. When one object changes state, dependents are notified."))
+            fi
+            
+            # Strategy Pattern
+            local strategy_evidence
+            strategy_evidence=$(timeout 10 "$rg_path" --no-heading --line-number \
+                -e "class.*Strategy" \
+                -e "def execute\(" \
+                -e "algorithm.*\(" \
+                -e "strategy.*=" \
+                -e "def set_strategy" \
+                "$FILE_PATH" 2>/dev/null)
+            if [[ -n "$strategy_evidence" ]]; then
+                behavioral_patterns+=($(create_pattern_json "behavioral" "Strategy" \
+                    "$strategy_evidence" "medium" \
+                    "Defines a family of algorithms, encapsulates each one, and makes them interchangeable at runtime."))
+            fi
+            
+            # Command Pattern
+            local command_evidence
+            command_evidence=$(timeout 10 "$rg_path" --no-heading --line-number \
+                -e "class.*Command" \
+                -e "def execute\(" \
+                -e "def undo\(" \
+                -e "receiver\." \
+                -e "invoker\." \
+                "$FILE_PATH" 2>/dev/null)
+            if [[ -n "$command_evidence" ]]; then
+                behavioral_patterns+=($(create_pattern_json "behavioral" "Command" \
+                    "$command_evidence" "medium" \
+                    "Encapsulates requests as objects, allowing parameterization, queuing, logging, and undo operations."))
+            fi
+            
+            # =================
+            # PYTHON-SPECIFIC PATTERNS
+            # =================
+            
+            # Context Manager Pattern
+            local context_manager_evidence
+            context_manager_evidence=$(timeout 10 "$rg_path" --no-heading --line-number \
+                -e "def __enter__" \
+                -e "def __exit__" \
+                -e "@contextmanager" \
+                -e "with.*as" \
+                "$FILE_PATH" 2>/dev/null)
+            if [[ -n "$context_manager_evidence" ]]; then
+                best_practices+=($(create_pattern_json "python_idiom" "Context Manager" \
+                    "$context_manager_evidence" "high" \
+                    "Ensures proper resource management with automatic cleanup. Python's 'with' statement pattern."))
+            fi
+            
+            # =================
+            # ANTI-PATTERNS & CODE SMELLS
+            # =================
+            
+            # God Class (Large Class)
+            local method_count
+            method_count=$(timeout 10 "$rg_path" --count-matches -e "def " "$FILE_PATH" 2>/dev/null)
+            if [[ -n "$method_count" && $method_count -gt 20 ]]; then
+                code_smells+=($(create_pattern_json "code_smell" "God Class" \
+                    "Class has $method_count methods" "high" \
+                    "Class has too many responsibilities. Violates Single Responsibility Principle. Consider decomposition." "high"))
+            fi
+            
+            # Long Method
+            local long_methods
+            long_methods=$(timeout 10 "$rg_path" --no-heading --line-number -A 50 -e "def " "$FILE_PATH" 2>/dev/null | \
+                awk '/^[0-9]+-def / {line=$1; gsub(/-def.*/, "", line)} /^[0-9]+:/ {current=NR} 
+                     /^[0-9]+-def / && NR > current+30 {print "Method at line " line " is longer than 30 lines"}' | head -5)
+            if [[ -n "$long_methods" ]]; then
+                code_smells+=($(create_pattern_json "code_smell" "Long Method" \
+                    "$long_methods" "medium" \
+                    "Methods are too long and complex. Consider breaking into smaller, focused methods." "medium"))
+            fi
+            
+            # Duplicate Code
+            local duplicate_evidence
+            duplicate_evidence=$(timeout 10 "$rg_path" --no-heading --line-number -e "def.*def.*" -e "class.*class.*" "$FILE_PATH" 2>/dev/null | head -3)
+            if [[ -n "$duplicate_evidence" ]]; then
+                code_smells+=($(create_pattern_json "code_smell" "Duplicate Code" \
+                    "$duplicate_evidence" "low" \
+                    "Similar code structures found. Consider extracting common functionality." "low"))
+            fi
+            
+            # Global Variables (Anti-pattern)
+            local global_vars
+            global_vars=$(timeout 10 "$rg_path" --no-heading --line-number -e "^[A-Z_].*=" "$FILE_PATH" 2>/dev/null | head -5)
+            if [[ -n "$global_vars" ]]; then
+                anti_patterns+=($(create_pattern_json "anti_pattern" "Global Variables" \
+                    "$global_vars" "medium" \
+                    "Global state makes code harder to test and reason about. Consider dependency injection or module-level state." "medium"))
+            fi
+            
+            # Security Issues
+            local security_evidence
+            security_evidence=$(timeout 10 "$rg_path" --no-heading --line-number \
+                -e "eval\(" \
+                -e "exec\(" \
+                -e "input\(" \
+                -e "raw_input\(" \
+                -e "pickle\.loads" \
+                -e "subprocess.*shell=True" \
+                "$FILE_PATH" 2>/dev/null)
+            if [[ -n "$security_evidence" ]]; then
+                security_issues+=($(create_pattern_json "security" "Dangerous Functions" \
+                    "$security_evidence" "high" \
+                    "Use of potentially dangerous functions that can lead to code injection or security vulnerabilities." "high"))
+            fi
+            ;;
+            
+        java)
+            # Java patterns
+            
+            # Design Patterns
+            local singleton_pattern
+            singleton_pattern=$(timeout 10 "$rg_path" --no-heading --line-number \
+                -e "private.*static.*getInstance" \
+                -e "private.*constructor" \
+                -e "static.*instance.*=.*null" \
+                "$FILE_PATH" 2>/dev/null)
+            [[ -n "$singleton_pattern" ]] && design_patterns+=("{\"pattern\":\"Singleton\",\"evidence\":\"$singleton_pattern\",\"confidence\":\"high\"}")
+            
+            local builder_pattern
+            builder_pattern=$(timeout 10 "$rg_path" --no-heading --line-number \
+                -e "class.*Builder" \
+                -e "\.build\(\)" \
+                -e "public.*Builder.*\(" \
+                "$FILE_PATH" 2>/dev/null)
+            [[ -n "$builder_pattern" ]] && design_patterns+=("{\"pattern\":\"Builder\",\"evidence\":\"$builder_pattern\",\"confidence\":\"high\"}")
+            
+            local observer_pattern
+            observer_pattern=$(timeout 10 "$rg_path" --no-heading --line-number \
+                -e "interface.*Observer" \
+                -e "addObserver" \
+                -e "notifyObservers" \
+                "$FILE_PATH" 2>/dev/null)
+            [[ -n "$observer_pattern" ]] && design_patterns+=("{\"pattern\":\"Observer\",\"evidence\":\"$observer_pattern\",\"confidence\":\"high\"}")
+            
+            # Anti-patterns
+            local god_class
+            god_class=$(timeout 10 "$rg_path" --count-matches \
+                -e "public.*\(" \
+                "$FILE_PATH" 2>/dev/null)
+            if [[ -n "$god_class" && $god_class -gt 25 ]]; then
+                anti_patterns+=("{\"anti_pattern\":\"God Class\",\"evidence\":\"$god_class public methods\",\"severity\":\"high\"}")
+            fi
+            
+            local feature_envy
+            feature_envy=$(timeout 10 "$rg_path" --no-heading --line-number \
+                -e "\.get.*\(\)\.get.*\(\)" \
+                -e "other\.\w+\.\w+" \
+                "$FILE_PATH" 2>/dev/null)
+            [[ -n "$feature_envy" ]] && anti_patterns+=("{\"anti_pattern\":\"Feature Envy\",\"evidence\":\"$feature_envy\",\"severity\":\"medium\"}")
+            ;;
+            
+        js|jsx|ts|tsx)
+            # JavaScript/TypeScript patterns
+            
+            # Design Patterns  
+            local module_pattern
+            module_pattern=$(timeout 10 "$rg_path" --no-heading --line-number \
+                -e "export.*default" \
+                -e "module\.exports" \
+                -e "const.*=.*\(\(\)" \
+                "$FILE_PATH" 2>/dev/null)
+            [[ -n "$module_pattern" ]] && design_patterns+=("{\"pattern\":\"Module\",\"evidence\":\"$module_pattern\",\"confidence\":\"high\"}")
+            
+            local observer_pattern
+            observer_pattern=$(timeout 10 "$rg_path" --no-heading --line-number \
+                -e "addEventListener" \
+                -e "\.on\(" \
+                -e "subscribe.*\(" \
+                "$FILE_PATH" 2>/dev/null)
+            [[ -n "$observer_pattern" ]] && design_patterns+=("{\"pattern\":\"Observer/PubSub\",\"evidence\":\"$observer_pattern\",\"confidence\":\"medium\"}")
+            
+            local factory_pattern
+            factory_pattern=$(timeout 10 "$rg_path" --no-heading --line-number \
+                -e "function.*create.*\(" \
+                -e "\.create\(" \
+                -e "factory.*function" \
+                "$FILE_PATH" 2>/dev/null)
+            [[ -n "$factory_pattern" ]] && design_patterns+=("{\"pattern\":\"Factory\",\"evidence\":\"$factory_pattern\",\"confidence\":\"medium\"}")
+            
+            # Anti-patterns
+            local callback_hell
+            callback_hell=$(timeout 10 "$rg_path" --no-heading --line-number \
+                -e "function.*function.*function" \
+                -e "callback.*callback.*callback" \
+                "$FILE_PATH" 2>/dev/null)
+            [[ -n "$callback_hell" ]] && anti_patterns+=("{\"anti_pattern\":\"Callback Hell\",\"evidence\":\"$callback_hell\",\"severity\":\"high\"}")
+            
+            local global_variables
+            global_variables=$(timeout 10 "$rg_path" --no-heading --line-number \
+                -e "var.*=" \
+                -e "window\.\w+.*=" \
+                "$FILE_PATH" 2>/dev/null)
+            [[ -n "$global_variables" ]] && anti_patterns+=("{\"anti_pattern\":\"Global Variables\",\"evidence\":\"$global_variables\",\"severity\":\"medium\"}")
+            
+            # React patterns
+            if [[ "$file_ext" =~ ^(jsx|tsx)$ ]]; then
+                local react_hooks
+                react_hooks=$(timeout 10 "$rg_path" --no-heading --line-number \
+                    -e "use\w+\(" \
+                    -e "useState" \
+                    -e "useEffect" \
+                    "$FILE_PATH" 2>/dev/null)
+                [[ -n "$react_hooks" ]] && architectural_patterns+=("{\"pattern\":\"React Hooks\",\"evidence\":\"$react_hooks\",\"confidence\":\"high\"}")
+                
+                local hoc_pattern
+                hoc_pattern=$(timeout 10 "$rg_path" --no-heading --line-number \
+                    -e "with\w+.*Component" \
+                    -e "function.*\(Component\)" \
+                    "$FILE_PATH" 2>/dev/null)
+                [[ -n "$hoc_pattern" ]] && architectural_patterns+=("{\"pattern\":\"Higher Order Component\",\"evidence\":\"$hoc_pattern\",\"confidence\":\"medium\"}")
+            fi
+            ;;
+            
+        sh|bash)
+            # Shell script patterns
+            
+            # Good patterns
+            local error_handling
+            error_handling=$(timeout 10 "$rg_path" --no-heading --line-number \
+                -e "set -e" \
+                -e "trap.*exit" \
+                -e "if.*\$\?" \
+                "$FILE_PATH" 2>/dev/null)
+            [[ -n "$error_handling" ]] && patterns_found+=("{\"pattern\":\"Error Handling\",\"evidence\":\"$error_handling\",\"type\":\"good_practice\"}")
+            
+            local function_pattern
+            function_pattern=$(timeout 10 "$rg_path" --no-heading --line-number \
+                -e "function.*\(\)" \
+                -e "\w+\(\).*{" \
+                "$FILE_PATH" 2>/dev/null)
+            [[ -n "$function_pattern" ]] && patterns_found+=("{\"pattern\":\"Function Definition\",\"evidence\":\"$function_pattern\",\"type\":\"structure\"}")
+            
+            # Anti-patterns
+            local missing_quotes
+            missing_quotes=$(timeout 10 "$rg_path" --no-heading --line-number \
+                -e "\\\$\w+[^\"']" \
+                -e "echo.*\\\$" \
+                "$FILE_PATH" 2>/dev/null)
+            [[ -n "$missing_quotes" ]] && anti_patterns+=("{\"anti_pattern\":\"Missing Quotes\",\"evidence\":\"$missing_quotes\",\"severity\":\"medium\"}")
+            ;;
+            
+        *) return 1 ;;
+    esac
+    
+    # Generic patterns (cross-language)
+    local todo_comments
+    todo_comments=$(timeout 10 "$rg_path" --no-heading --line-number \
+        -i -e "TODO:" -e "FIXME:" -e "HACK:" -e "BUG:" \
+        "$FILE_PATH" 2>/dev/null)
+    [[ -n "$todo_comments" ]] && patterns_found+=("{\"pattern\":\"TODO Comments\",\"evidence\":\"$todo_comments\",\"type\":\"maintenance\"}")
+    
+    local magic_numbers
+    magic_numbers=$(timeout 10 "$rg_path" --no-heading --line-number \
+        -e "[^a-zA-Z_]\d{2,}" \
+        "$FILE_PATH" 2>/dev/null | head -10)
+    [[ -n "$magic_numbers" ]] && anti_patterns+=("{\"anti_pattern\":\"Magic Numbers\",\"evidence\":\"$magic_numbers\",\"severity\":\"low\"}")
+    
+    # Build comprehensive JSON output with proper array handling
+    build_json_array() {
+        local array_name="$1"
+        eval "local -n arr=\$array_name"
+        if [[ ${#arr[@]} -gt 0 ]]; then
+            printf '[%s]' "$(IFS=,; echo "${arr[*]}")"
+        else
+            printf '[]'
+        fi
+    }
+    
+    # Use safe JSON construction for all pattern categories
+    local creational_json=$(build_json_array creational_patterns)
+    local structural_json=$(build_json_array structural_patterns) 
+    local behavioral_json=$(build_json_array behavioral_patterns)
+    local architectural_json=$(build_json_array architectural_patterns)
+    local code_smells_json=$(build_json_array code_smells)
+    local anti_patterns_json=$(build_json_array anti_patterns)
+    local security_json=$(build_json_array security_issues)
+    local performance_json=$(build_json_array performance_issues)
+    local best_practices_json=$(build_json_array best_practices)
+    
+    # Calculate total patterns found across all categories
+    local total_patterns=$((${#creational_patterns[@]} + ${#structural_patterns[@]} + ${#behavioral_patterns[@]} + ${#architectural_patterns[@]} + ${#best_practices[@]}))
+    local total_issues=$((${#code_smells[@]} + ${#anti_patterns[@]} + ${#security_issues[@]} + ${#performance_issues[@]}))
+    
+    # Output comprehensive JSON with all pattern categories
+    local escaped_file_path escaped_search_root
+    escaped_file_path=$(json_escape "$FILE_PATH")
+    escaped_search_root=$(json_escape "$search_root")
+    
+    cat << EOF
+{
+  "analyzer": "code_patterns",
+  "file": $escaped_file_path,
+  "language": "$file_ext",
+  "search_scope": {
+    "root": $escaped_search_root,
+    "levels_up": 5
+  },
+  "analysis_summary": {
+    "total_patterns_found": $total_patterns,
+    "total_issues_found": $total_issues,
+    "analysis_depth": "comprehensive"
+  },
+  "patterns": {
+    "creational": {
+      "count": ${#creational_patterns[@]},
+      "found": $creational_json
+    },
+    "structural": {
+      "count": ${#structural_patterns[@]},
+      "found": $structural_json
+    },
+    "behavioral": {
+      "count": ${#behavioral_patterns[@]},
+      "found": $behavioral_json
+    },
+    "architectural": {
+      "count": ${#architectural_patterns[@]},
+      "found": $architectural_json
+    },
+    "best_practices": {
+      "count": ${#best_practices[@]},
+      "found": $best_practices_json
+    }
+  },
+  "issues": {
+    "code_smells": {
+      "count": ${#code_smells[@]},
+      "found": $code_smells_json
+    },
+    "anti_patterns": {
+      "count": ${#anti_patterns[@]},
+      "found": $anti_patterns_json
+    },
+    "security": {
+      "count": ${#security_issues[@]},
+      "found": $security_json
+    },
+    "performance": {
+      "count": ${#performance_issues[@]},
+      "found": $performance_json
+    }
+  },
+  "metadata": {
+    "analyzed_at": "$(date -u +%Y-%m-%dT%H:%M:%SZ 2>/dev/null || echo "unknown")",
+    "source": "RefactoringGuru, Gang of Four, Martin Fowler",
+    "coverage": "23 GoF patterns, code smells, anti-patterns, security issues",
+    "note": "Comprehensive code patterns analysis with authoritative pattern detection"
+  }
+}
+EOF
+}

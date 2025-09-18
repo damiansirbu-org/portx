@@ -8,6 +8,10 @@ packages/**
 !packages/*/portx.json
 !packages/*/README.md
 
+# Exception: analyze-code package should be fully version controlled
+!packages/analyze-code/
+!packages/analyze-code/**
+
 # SSH certificates and keys (keep config, ignore sensitive files)
 .ssh/*.pem
 .ssh/*.key  

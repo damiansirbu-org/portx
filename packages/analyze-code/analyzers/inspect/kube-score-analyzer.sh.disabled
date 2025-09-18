@@ -1,0 +1,482 @@
+#!/bin/bash
+# =============================================================================
+# KUBE-SCORE ANALYZER - Deep Kubernetes configuration understanding and pattern analysis
+# Provides comprehensive insights into K8s manifest quality, relationships, and architectural patterns
+# Uses kube-score if available, with extensive built-in analysis for Claude's understanding
+# =============================================================================
+
+# Register this analyzer
+AVAILABLE_ANALYZERS+=(analyze_kube_score)
+
+# Helper function for consistent scoring finding JSON output
+create_score_finding() {
+    local category="$1"
+    local finding="$2" 
+    local evidence="$3"
+    local score_impact="$4"
+    local pattern_type="$5"
+    local recommendation="$6"
+    
+    # Escape JSON strings properly
+    local safe_category="${category//\"/\\\"}"
+    local safe_finding="${finding//\"/\\\"}"
+    local safe_evidence="${evidence//\"/\\\"}"
+    local safe_pattern="${pattern_type//\"/\\\"}"
+    local safe_recommendation="${recommendation//\"/\\\"}"
+    
+    # Remove newlines and normalize whitespace
+    safe_evidence=$(echo "$safe_evidence" | tr '\n' ' ' | tr -s ' ')
+    
+    printf '{"category":"%s","finding":"%s","evidence":"%s","score_impact":"%s","pattern_type":"%s","recommendation":"%s"}' \
+        "$safe_category" "$safe_finding" "$safe_evidence" "$score_impact" "$safe_pattern" "$safe_recommendation"
+}
+
+# Helper function to analyze configuration maturity patterns
+analyze_config_maturity() {
+    local file_path="$1"
+    local rg_path="$2"
+    
+    local maturity_indicators=()
+    local maturity_score=0
+    
+    # Check for advanced configuration patterns
+    if timeout 10 "$rg_path" --quiet -e "strategy:" -e "rollingUpdate:" "$file_path" 2>/dev/null; then
+        maturity_indicators+=("deployment_strategy")
+        maturity_score=$((maturity_score + 5))
+    fi
+    
+    if timeout 10 "$rg_path" --quiet -e "affinity:" -e "nodeSelector:" "$file_path" 2>/dev/null; then
+        maturity_indicators+=("pod_placement")
+        maturity_score=$((maturity_score + 3))
+    fi
+    
+    if timeout 10 "$rg_path" --quiet -e "tolerations:" "$file_path" 2>/dev/null; then
+        maturity_indicators+=("taint_tolerance")
+        maturity_score=$((maturity_score + 3))
+    fi
+    
+    if timeout 10 "$rg_path" --quiet -e "initContainers:" "$file_path" 2>/dev/null; then
+        maturity_indicators+=("init_containers")
+        maturity_score=$((maturity_score + 4))
+    fi
+    
+    if timeout 10 "$rg_path" --quiet -e "volumeMounts:" -e "volumes:" "$file_path" 2>/dev/null; then
+        maturity_indicators+=("volume_management")
+        maturity_score=$((maturity_score + 2))
+    fi
+    
+    echo "$maturity_score:$(IFS=,; echo "${maturity_indicators[*]}")"
+}
+
+# Helper function to analyze resource relationships
+analyze_resource_relationships() {
+    local file_path="$1"
+    local rg_path="$2"
+    
+    local relationships=()
+    
+    # Service to Deployment relationships
+    local services=$(timeout 10 "$rg_path" --no-heading -o -e "kind:\s*(Service)" -r '$1' "$file_path" 2>/dev/null)
+    local deployments=$(timeout 10 "$rg_path" --no-heading -o -e "kind:\s*(Deployment)" -r '$1' "$file_path" 2>/dev/null)
+    
+    if [[ -n "$services" && -n "$deployments" ]]; then
+        relationships+=("service_deployment_binding")
+    fi
+    
+    # ConfigMap/Secret references
+    local configmap_refs=$(timeout 10 "$rg_path" --no-heading --line-number -e "configMapRef:" -e "configMapKeyRef:" "$file_path" 2>/dev/null)
+    if [[ -n "$configmap_refs" ]]; then
+        relationships+=("configmap_references")
+    fi
+    
+    local secret_refs=$(timeout 10 "$rg_path" --no-heading --line-number -e "secretRef:" -e "secretKeyRef:" "$file_path" 2>/dev/null)
+    if [[ -n "$secret_refs" ]]; then
+        relationships+=("secret_references")
+    fi
+    
+    # PVC relationships  
+    local pvc_refs=$(timeout 10 "$rg_path" --no-heading --line-number -e "claimName:" "$file_path" 2>/dev/null)
+    if [[ -n "$pvc_refs" ]]; then
+        relationships+=("persistent_volume_claims")
+    fi
+    
+    echo "$(IFS=,; echo "${relationships[*]}")"
+}
+
+analyze_kube_score() {
+    local rg_path="$GIT_BASH_ROOT/home/portx/packages/ripgrep/rg.exe"
+    local kube_score_path="$GIT_BASH_ROOT/home/portx/packages/kube-score/kube-score.exe"
+    
+    # Check if ripgrep is available (required for fallback)
+    if [[ ! -f "$rg_path" ]]; then
+        return 1
+    fi
+    
+    # Get file information
+    local file_ext="${FILE_PATH##*.}"
+    local file_basename="$(basename "$FILE_PATH")"
+    
+    # Only analyze YAML files
+    case "$file_ext" in
+        yaml|yml) ;;
+        *) return 1 ;;
+    esac
+    
+    # Check if this is likely a Kubernetes manifest
+    local has_k8s_content
+    has_k8s_content=$(timeout 5 "$rg_path" --quiet \
+        -e "apiVersion:" -e "kind:" -e "metadata:" \
+        "$FILE_PATH" 2>/dev/null)
+    if [[ $? -ne 0 ]]; then
+        # Not a Kubernetes manifest
+        return 1
+    fi
+    
+    # Initialize analysis arrays focusing on understanding and patterns
+    local score_results=()
+    local recommendations=()
+    local critical_issues=()
+    local warnings=()
+    local pattern_analysis=()
+    local relationship_analysis=()
+    local maturity_analysis=()
+    local architectural_insights=()
+    local configuration_patterns=()
+    local overall_score=0
+    
+    # =============================================================================
+    # KUBE-SCORE INTEGRATION
+    # =============================================================================
+    
+    # Try using kube-score first
+    if [[ -f "$kube_score_path" ]]; then
+        # Use actual kube-score tool
+        local kube_score_output
+        kube_score_output=$(timeout 30 "$kube_score_path" score "$FILE_PATH" --output-format json 2>/dev/null)
+        
+        if [[ $? -eq 0 && -n "$kube_score_output" ]]; then
+            # Parse kube-score JSON output
+            score_results+=($(create_score_finding "tool_integration" "kube-score available" "$kube_score_output" "info" "external_validation" "kube-score provides authoritative scoring"))
+            
+            # Extract key findings from kube-score output
+            local score_lines
+            score_lines=$(echo "$kube_score_output" | grep -E "(CRITICAL|WARNING|OK)" | head -10)
+            if [[ -n "$score_lines" ]]; then
+                score_results+=($(create_score_finding "tool_findings" "kube-score results" "$score_lines" "info" "validation_patterns" "External validation insights"))
+            fi
+        else
+            score_results+=($(create_score_finding "tool_integration" "kube-score execution failed" "" "warning" "tool_availability" "Falling back to built-in analysis"))
+        fi
+    else
+        score_results+=($(create_score_finding "tool_integration" "kube-score not available" "" "info" "fallback_analysis" "Using comprehensive built-in pattern analysis"))
+    fi
+    
+    # =============================================================================
+    # CONFIGURATION PATTERN ANALYSIS
+    # =============================================================================
+    
+    # Identify resource types and their patterns
+    local resource_types
+    resource_types=$(timeout 10 "$rg_path" --no-heading -o -e "^kind:\s*(\w+)" -r '$1' "$FILE_PATH" 2>/dev/null | sort -u)
+    
+    if [[ -n "$resource_types" ]]; then
+        pattern_analysis+=($(create_score_finding "resource_patterns" "Resource type diversity" "$resource_types" "+0" "architectural_complexity" "Multiple resource types indicate complex deployment patterns"))
+        
+        # Multi-resource manifests indicate higher architectural sophistication
+        local resource_count=$(echo "$resource_types" | wc -l)
+        if [[ $resource_count -gt 3 ]]; then
+            architectural_insights+=($(create_score_finding "architecture" "Complex multi-resource deployment" "$resource_count resources" "+15" "sophisticated_architecture" "Well-structured multi-component application"))
+        elif [[ $resource_count -gt 1 ]]; then
+            architectural_insights+=($(create_score_finding "architecture" "Multi-resource deployment" "$resource_count resources" "+5" "standard_architecture" "Standard multi-component setup"))
+        fi
+    fi
+    
+    # =============================================================================
+    # RESOURCE RELATIONSHIP ANALYSIS
+    # =============================================================================
+    
+    # Analyze relationships between resources
+    local relationships
+    relationships=$(analyze_resource_relationships "$FILE_PATH" "$rg_path")
+    
+    if [[ -n "$relationships" ]]; then
+        relationship_analysis+=($(create_score_finding "relationships" "Resource interconnections identified" "$relationships" "+10" "integration_patterns" "Well-connected resource architecture"))
+        
+        # Service mesh or advanced networking patterns
+        if echo "$relationships" | grep -q "service_deployment_binding"; then
+            architectural_insights+=($(create_score_finding "networking" "Service-Deployment binding pattern" "Service exposes Deployment" "+8" "microservice_pattern" "Proper service abstraction layer"))
+        fi
+        
+        # Configuration management patterns
+        if echo "$relationships" | grep -qE "(configmap|secret)_references"; then
+            configuration_patterns+=($(create_score_finding "config_management" "External configuration pattern" "ConfigMap/Secret references" "+6" "separation_of_concerns" "Configuration externalized from application"))
+        fi
+        
+        # Storage patterns
+        if echo "$relationships" | grep -q "persistent_volume_claims"; then
+            architectural_insights+=($(create_score_finding "storage" "Persistent storage pattern" "PVC relationships" "+4" "stateful_architecture" "Stateful application with persistent data"))
+        fi
+    fi
+    
+    # =============================================================================
+    # CONFIGURATION MATURITY ANALYSIS  
+    # =============================================================================
+    
+    local maturity_result
+    maturity_result=$(analyze_config_maturity "$FILE_PATH" "$rg_path")
+    local maturity_score=$(echo "$maturity_result" | cut -d: -f1)
+    local maturity_patterns=$(echo "$maturity_result" | cut -d: -f2)
+    
+    if [[ $maturity_score -gt 0 ]]; then
+        maturity_analysis+=($(create_score_finding "maturity" "Advanced configuration patterns detected" "$maturity_patterns" "+$maturity_score" "operational_maturity" "Shows understanding of advanced Kubernetes concepts"))
+        
+        # Specific maturity pattern insights
+        if echo "$maturity_patterns" | grep -q "deployment_strategy"; then
+            configuration_patterns+=($(create_score_finding "deployment" "Rolling update strategy" "Strategic deployment updates" "+5" "zero_downtime_pattern" "Zero-downtime deployment capability"))
+        fi
+        
+        if echo "$maturity_patterns" | grep -q "pod_placement"; then
+            configuration_patterns+=($(create_score_finding "scheduling" "Pod placement controls" "Affinity/NodeSelector" "+3" "workload_optimization" "Optimized pod scheduling"))
+        fi
+        
+        if echo "$maturity_patterns" | grep -q "init_containers"; then
+            configuration_patterns+=($(create_score_finding "initialization" "Initialization pattern" "Init containers" "+4" "startup_orchestration" "Proper application startup sequencing"))
+        fi
+    fi
+    
+    # =============================================================================
+    # QUALITY SCORING WITH UNDERSTANDING FOCUS
+    # =============================================================================
+    
+    local scoring_details=()
+    
+    # 1. Architectural sophistication scoring (30 points max)
+    local architecture_score=10  # Base score
+    
+    # Multi-container pods show container orchestration understanding
+    local multi_container=$(timeout 10 "$rg_path" --no-heading --count -e "- name:" "$FILE_PATH" 2>/dev/null)
+    if [[ $multi_container -gt 1 ]]; then
+        architecture_score=$((architecture_score + 5))
+        architectural_insights+=($(create_score_finding "containers" "Multi-container pod architecture" "$multi_container containers" "+5" "container_orchestration" "Complex container relationships"))
+    fi
+    
+    # Resource limits show capacity planning understanding
+    if timeout 10 "$rg_path" --quiet -e "resources:" "$FILE_PATH" 2>/dev/null; then
+        if timeout 10 "$rg_path" --quiet -e "limits:" "$FILE_PATH" 2>/dev/null; then
+            architecture_score=$((architecture_score + 8))
+            configuration_patterns+=($(create_score_finding "resource_planning" "Resource limits configured" "Capacity planning" "+8" "resource_governance" "Proper resource boundaries defined"))
+        fi
+        
+        if timeout 10 "$rg_path" --quiet -e "requests:" "$FILE_PATH" 2>/dev/null; then
+            architecture_score=$((architecture_score + 7))
+            configuration_patterns+=($(create_score_finding "resource_planning" "Resource requests configured" "Resource requirements" "+7" "qos_awareness" "Quality of Service planning"))
+        fi
+    fi
+    
+    scoring_details+=($(create_score_finding "architecture" "Architectural sophistication score" "$architecture_score/30" "$architecture_score" "complexity_measurement" "Measures understanding of Kubernetes architecture"))
+    
+    # 2. Operational readiness scoring (25 points max)
+    local operations_score=0
+    
+    # Health monitoring patterns
+    local probe_types=()
+    if timeout 10 "$rg_path" --quiet -e "livenessProbe:" "$FILE_PATH" 2>/dev/null; then
+        probe_types+=("liveness")
+        operations_score=$((operations_score + 8))
+    fi
+    if timeout 10 "$rg_path" --quiet -e "readinessProbe:" "$FILE_PATH" 2>/dev/null; then
+        probe_types+=("readiness") 
+        operations_score=$((operations_score + 7))
+    fi
+    if timeout 10 "$rg_path" --quiet -e "startupProbe:" "$FILE_PATH" 2>/dev/null; then
+        probe_types+=("startup")
+        operations_score=$((operations_score + 5))
+    fi
+    
+    if [[ ${#probe_types[@]} -gt 0 ]]; then
+        local probe_pattern=$(IFS=,; echo "${probe_types[*]}")
+        configuration_patterns+=($(create_score_finding "health_monitoring" "Health probe patterns" "$probe_pattern" "+$operations_score" "observability_pattern" "Comprehensive application health monitoring"))
+    fi
+    
+    # High availability patterns
+    if timeout 10 "$rg_path" --quiet -e "kind:.*Deployment" "$FILE_PATH" 2>/dev/null; then
+        local replicas
+        replicas=$(timeout 10 "$rg_path" -o -e "replicas:\s*([0-9]+)" -r '$1' "$FILE_PATH" 2>/dev/null | head -1)
+        if [[ -n "$replicas" && $replicas -gt 1 ]]; then
+            operations_score=$((operations_score + 10))
+            architectural_insights+=($(create_score_finding "availability" "High availability pattern" "$replicas replicas" "+10" "resilience_pattern" "Multiple instances for fault tolerance"))
+        fi
+    fi
+    
+    scoring_details+=($(create_score_finding "operations" "Operational readiness score" "$operations_score/25" "$operations_score" "ops_maturity" "Measures production-readiness understanding"))
+    
+    # 3. Configuration sophistication scoring (25 points max)
+    local config_score=5  # Base score
+    
+    # Environment configuration patterns
+    local env_patterns=()
+    if timeout 10 "$rg_path" --quiet -e "env:" "$FILE_PATH" 2>/dev/null; then
+        env_patterns+=("environment_variables")
+        config_score=$((config_score + 3))
+    fi
+    
+    if timeout 10 "$rg_path" --quiet -e "envFrom:" "$FILE_PATH" 2>/dev/null; then
+        env_patterns+=("bulk_environment")
+        config_score=$((config_score + 5))
+    fi
+    
+    # Service account configuration shows RBAC understanding
+    if timeout 10 "$rg_path" --quiet -e "serviceAccountName:" "$FILE_PATH" 2>/dev/null; then
+        config_score=$((config_score + 4))
+        configuration_patterns+=($(create_score_finding "security" "Service account pattern" "Custom service account" "+4" "rbac_awareness" "Understanding of Kubernetes RBAC"))
+    fi
+    
+    # Image pull policy shows container lifecycle understanding
+    if timeout 10 "$rg_path" --quiet -e "imagePullPolicy:" "$FILE_PATH" 2>/dev/null; then
+        config_score=$((config_score + 2))
+        configuration_patterns+=($(create_score_finding "container_lifecycle" "Image pull policy specified" "Container image management" "+2" "lifecycle_control" "Understanding of container image lifecycle"))
+    fi
+    
+    # Security context shows security understanding
+    if timeout 10 "$rg_path" --quiet -e "securityContext:" "$FILE_PATH" 2>/dev/null; then
+        config_score=$((config_score + 6))
+        configuration_patterns+=($(create_score_finding "security" "Security context pattern" "Security constraints" "+6" "security_awareness" "Understanding of container security"))
+    fi
+    
+    scoring_details+=($(create_score_finding "configuration" "Configuration sophistication score" "$config_score/25" "$config_score" "config_complexity" "Measures configuration pattern understanding"))
+    
+    # 4. Best practices adherence scoring (20 points max)
+    local practices_score=0
+    
+    # Metadata patterns
+    if timeout 10 "$rg_path" --quiet -e "labels:" "$FILE_PATH" 2>/dev/null; then
+        practices_score=$((practices_score + 5))
+        configuration_patterns+=($(create_score_finding "metadata" "Labeling strategy" "Resource labels" "+5" "organization_pattern" "Resource organization and selection"))
+    fi
+    
+    if timeout 10 "$rg_path" --quiet -e "annotations:" "$FILE_PATH" 2>/dev/null; then
+        practices_score=$((practices_score + 3))
+    fi
+    
+    # Namespace organization
+    if timeout 10 "$rg_path" --quiet -e "namespace:" "$FILE_PATH" 2>/dev/null; then
+        practices_score=$((practices_score + 4))
+        configuration_patterns+=($(create_score_finding "organization" "Namespace organization" "Explicit namespace" "+4" "multi_tenancy_pattern" "Understanding of namespace isolation"))
+    fi
+    
+    # Image versioning patterns
+    local image_pattern
+    if timeout 10 "$rg_path" --quiet -e "image:.*:" "$FILE_PATH" 2>/dev/null; then
+        if ! timeout 10 "$rg_path" --quiet -e "image:.*:latest" "$FILE_PATH" 2>/dev/null; then
+            practices_score=$((practices_score + 8))
+            configuration_patterns+=($(create_score_finding "versioning" "Specific image tags" "Version control" "+8" "immutable_deployments" "Understanding of immutable deployment patterns"))
+        else
+            warnings+=($(create_score_finding "versioning" "Latest tag usage detected" "Mutable deployment" "-2" "anti_pattern" "Latest tags create deployment inconsistencies"))
+            practices_score=$((practices_score - 2))
+        fi
+    fi
+    
+    scoring_details+=($(create_score_finding "practices" "Best practices adherence score" "$practices_score/20" "$practices_score" "standards_compliance" "Measures adherence to Kubernetes best practices"))
+    
+    # =============================================================================
+    # OVERALL ANALYSIS AND INSIGHTS
+    # =============================================================================
+    
+    # Calculate overall understanding score
+    overall_score=$((architecture_score + operations_score + config_score + practices_score + maturity_score))
+    
+    # Pattern-based insights for Claude's understanding
+    local deployment_complexity="basic"
+    local architectural_maturity="developing"
+    local operational_readiness="partial"
+    
+    if [[ $overall_score -ge 80 ]]; then
+        deployment_complexity="sophisticated"
+        architectural_maturity="advanced" 
+        operational_readiness="production_ready"
+    elif [[ $overall_score -ge 60 ]]; then
+        deployment_complexity="intermediate"
+        architectural_maturity="competent"
+        operational_readiness="staging_ready"
+    elif [[ $overall_score -ge 40 ]]; then
+        deployment_complexity="developing"
+        architectural_maturity="learning"
+        operational_readiness="development_ready"
+    fi
+    
+    # Add comprehensive understanding summary
+    architectural_insights+=($(create_score_finding "overall_assessment" "Deployment complexity level" "$deployment_complexity" "$overall_score" "complexity_classification" "Overall architectural sophistication classification"))
+    architectural_insights+=($(create_score_finding "overall_assessment" "Architectural maturity" "$architectural_maturity" "$overall_score" "maturity_classification" "Understanding of Kubernetes architectural concepts"))
+    architectural_insights+=($(create_score_finding "overall_assessment" "Operational readiness" "$operational_readiness" "$overall_score" "readiness_classification" "Production deployment readiness level"))
+    
+    # =============================================================================
+    # JSON OUTPUT FORMATTING FOR CLAUDE UNDERSTANDING
+    # =============================================================================
+    
+    # Build JSON arrays for comprehensive analysis
+    build_json_array() {
+        local -n arr=$1
+        if [[ ${#arr[@]} -gt 0 ]]; then
+            printf "[%s]" "$(IFS=,; echo "${arr[*]}")"
+        else
+            printf "[]"
+        fi
+    }
+    
+    local score_json=$(build_json_array score_results)
+    local recommendations_json=$(build_json_array recommendations)
+    local critical_json=$(build_json_array critical_issues)
+    local warnings_json=$(build_json_array warnings)
+    local patterns_json=$(build_json_array pattern_analysis)
+    local relationships_json=$(build_json_array relationship_analysis)
+    local maturity_json=$(build_json_array maturity_analysis)
+    local architecture_json=$(build_json_array architectural_insights)
+    local config_patterns_json=$(build_json_array configuration_patterns)
+    local scoring_json=$(build_json_array scoring_details)
+    
+    # Output comprehensive JSON focused on understanding and patterns
+    printf '{
+        "analyzer": "kube_score",
+        "file": "%s",
+        "understanding_analysis": {
+            "overall_score": %d,
+            "max_possible": 100,
+            "complexity_level": "%s",
+            "maturity_level": "%s",
+            "readiness_level": "%s"
+        },
+        "pattern_analysis": {
+            "configuration_patterns": {"count": %d, "found": %s},
+            "architectural_insights": {"count": %d, "found": %s},
+            "relationship_patterns": {"count": %d, "found": %s},
+            "maturity_indicators": {"count": %d, "found": %s},
+            "detected_patterns": {"count": %d, "found": %s}
+        },
+        "quality_assessment": {
+            "scoring_breakdown": {"count": %d, "details": %s},
+            "recommendations": {"count": %d, "found": %s},
+            "warnings": {"count": %d, "found": %s},
+            "critical_issues": {"count": %d, "found": %s}
+        },
+        "tool_integration": {
+            "kube_score_results": {"count": %d, "details": %s}
+        },
+        "metadata": {
+            "analyzed_at": "%s",
+            "note": "Deep Kubernetes configuration understanding and pattern analysis for enhanced Claude comprehension"
+        }
+    }\n' \
+        "$FILE_PATH" \
+        "$overall_score" "$deployment_complexity" "$architectural_maturity" "$operational_readiness" \
+        "${#configuration_patterns[@]}" "$config_patterns_json" \
+        "${#architectural_insights[@]}" "$architecture_json" \
+        "${#relationship_analysis[@]}" "$relationships_json" \
+        "${#maturity_analysis[@]}" "$maturity_json" \
+        "${#pattern_analysis[@]}" "$patterns_json" \
+        "${#scoring_details[@]}" "$scoring_json" \
+        "${#recommendations[@]}" "$recommendations_json" \
+        "${#warnings[@]}" "$warnings_json" \
+        "${#critical_issues[@]}" "$critical_json" \
+        "${#score_results[@]}" "$score_json" \
+        "$(date -u +%Y-%m-%dT%H:%M:%SZ 2>/dev/null || echo "unknown")"
+}
