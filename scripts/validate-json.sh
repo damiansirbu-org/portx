@@ -85,8 +85,8 @@ validate_portx_schema() {
                     ((errors++))
                 fi
                 
-                if [[ ! "$tool_path" =~ \.(exe|cmd|bat)$ ]]; then
-                    echo "ERROR: Tool path must end with .exe, .cmd, or .bat: $tool_path"
+                if [[ ! "$tool_path" =~ \.(exe|cmd|bat|sh)$ ]]; then
+                    echo "ERROR: Tool path must end with .exe, .cmd, .bat, or .sh: $tool_path"
                     ((errors++))
                 fi
             fi

@@ -420,18 +420,36 @@ create_bash_wrappers() {
 			# Create shell wrapper for Git Bash with defaultArgs
 			mkdir -p "$SH_WRAPPERS_DIR"
 			local posix_exe_path="$GIT_BASH_ROOT_POSIX/home/portx/packages/$pkg_name/$exe_name"
-			if [[ -n "$default_args" && "$default_args" != "" ]]; then
-				cat >"$wrapper_sh" <<WRAPPER_EOF
+			
+			# For .sh files, use bash explicitly; for others, use exec directly
+			if [[ "$exe_name" == *.sh ]]; then
+				if [[ -n "$default_args" && "$default_args" != "" ]]; then
+					cat >"$wrapper_sh" <<WRAPPER_EOF
+#!/bin/bash
+# PORTX-WRAPPER: Auto-generated wrapper for $pkg_name with defaultArgs
+exec bash "$posix_exe_path" $default_args "\$@"
+WRAPPER_EOF
+				else
+					cat >"$wrapper_sh" <<WRAPPER_EOF
+#!/bin/bash
+# PORTX-WRAPPER: Auto-generated wrapper for $pkg_name
+exec bash "$posix_exe_path" "\$@"
+WRAPPER_EOF
+				fi
+			else
+				if [[ -n "$default_args" && "$default_args" != "" ]]; then
+					cat >"$wrapper_sh" <<WRAPPER_EOF
 #!/bin/bash
 # PORTX-WRAPPER: Auto-generated wrapper for $pkg_name with defaultArgs
 exec "$posix_exe_path" $default_args "\$@"
 WRAPPER_EOF
-			else
-				cat >"$wrapper_sh" <<WRAPPER_EOF
+				else
+					cat >"$wrapper_sh" <<WRAPPER_EOF
 #!/bin/bash
 # PORTX-WRAPPER: Auto-generated wrapper for $pkg_name
 exec "$posix_exe_path" "\$@"
 WRAPPER_EOF
+				fi
 			fi
 			chmod +x "$wrapper_sh"
 			printf "    BASH: %s -> %s\n" "$cmd_name" "$wrapper_sh" >&2
@@ -500,10 +518,20 @@ create_cmd_wrappers() {
 
 			# Create .cmd wrapper for Windows with defaultArgs
 			mkdir -p "$CMD_WRAPPERS_DIR"
-			if [[ -n "$default_args" && "$default_args" != "" ]]; then
-				printf '@echo off\nrem PORTX-WRAPPER: Auto-generated wrapper for %s with defaultArgs\n"C:\\App\\Git\\home\\portx\\packages\\%s\\%s" %s %%*\n' "$pkg_name" "$pkg_name" "$exe_name" "$default_args" >"$wrapper_cmd"
+			
+			# For .sh files, use Git Bash; for others, call directly
+			if [[ "$exe_name" == *.sh ]]; then
+				if [[ -n "$default_args" && "$default_args" != "" ]]; then
+					printf '@echo off\nrem PORTX-WRAPPER: Auto-generated wrapper for %s with defaultArgs\n"C:\\App\\Git\\bin\\bash.exe" "C:\\App\\Git\\home\\portx\\packages\\%s\\%s" %s %%*\n' "$pkg_name" "$pkg_name" "$exe_name" "$default_args" >"$wrapper_cmd"
+				else
+					printf '@echo off\nrem PORTX-WRAPPER: Auto-generated wrapper for %s\n"C:\\App\\Git\\bin\\bash.exe" "C:\\App\\Git\\home\\portx\\packages\\%s\\%s" %%*\n' "$pkg_name" "$pkg_name" "$exe_name" >"$wrapper_cmd"
+				fi
 			else
-				printf '@echo off\nrem PORTX-WRAPPER: Auto-generated wrapper for %s\n"C:\\App\\Git\\home\\portx\\packages\\%s\\%s" %%*\n' "$pkg_name" "$pkg_name" "$exe_name" >"$wrapper_cmd"
+				if [[ -n "$default_args" && "$default_args" != "" ]]; then
+					printf '@echo off\nrem PORTX-WRAPPER: Auto-generated wrapper for %s with defaultArgs\n"C:\\App\\Git\\home\\portx\\packages\\%s\\%s" %s %%*\n' "$pkg_name" "$pkg_name" "$exe_name" "$default_args" >"$wrapper_cmd"
+				else
+					printf '@echo off\nrem PORTX-WRAPPER: Auto-generated wrapper for %s\n"C:\\App\\Git\\home\\portx\\packages\\%s\\%s" %%*\n' "$pkg_name" "$pkg_name" "$exe_name" >"$wrapper_cmd"
+				fi
 			fi
 			printf "    CMD:  %s -> %s\n" "$cmd_name" "$wrapper_cmd" >&2
 			debug_log "      Created cmd wrapper for: $cmd_name"
@@ -859,6 +887,111 @@ save_to_cache() {
 	} >"$cache_file"
 
 	rm -f "$temp_file"
+}
+
+# Import single package function (process just one specific package)
+import_package() {
+	local target_package="$1"
+	
+	if [[ -z "$target_package" ]]; then
+		error "Package name required"
+		echo "Usage: portx packages import-package <package_name>"
+		exit 1
+	fi
+	
+	local pkg_path="$PACKAGES_DIR/$target_package"
+	
+	if [[ ! -d "$pkg_path" ]]; then
+		error "Package not found: $target_package"
+		echo "Available packages:"
+		ls "$PACKAGES_DIR" | grep -v "^\." | head -10
+		exit 1
+	fi
+	
+	printf "Importing single package: %s\n" "$target_package" >&2
+	
+	# Process the specific package
+	local pkg_name="$target_package"
+	local json_file="$pkg_path/portx.json"
+	
+	if [[ ! -f "$json_file" ]]; then
+		error "Missing portx.json for package: $pkg_name"
+		return 1
+	fi
+	
+	printf "  Processing: %s\n" "$pkg_name" >&2
+	printf "    Validating: %s\n" "$pkg_name" >&2
+	
+	# Validate JSON schema
+	printf "      Checking JSON schema...\n" >&2
+	if ! "$SCRIPT_DIR/validate-json.sh" "$json_file" >/dev/null 2>&1; then
+		printf "\n[1;31mCRITICAL ERROR: Invalid portx.json schema[0m\n" >&2
+		printf "Package: %s\n" "$pkg_name" >&2
+		printf "Path: %s\n\n" "$json_file" >&2
+		printf "Schema validation failed - package MUST be 100%% compliant\n" >&2
+		printf "Validation errors:\n" >&2
+		"$SCRIPT_DIR/validate-json.sh" "$json_file" 2>&1 | sed 's/^/  /' >&2
+		printf "\nFix the schema issues and re-run import\n" >&2
+		return 1
+	fi
+	
+	# Get import type
+	local import_type
+	import_type=$(get_import_type "$pkg_path")
+	
+	printf "      Import type: %s\n" "$import_type" >&2
+	
+	case "$import_type" in
+	"wrap" | "auto")
+		# Validate and create wrappers
+		printf "      Checking executable files...\n" >&2
+		
+		# Verify all executables exist
+		local executables_exist=true
+		local verified_count=0
+		local total_executables
+		total_executables=$(get_executables_from_json "$pkg_path" | wc -l)
+		
+		if [[ "$total_executables" -gt 0 ]]; then
+			while IFS='|' read -r exe_name _; do
+				if [[ -n "$exe_name" ]]; then
+					local exe_file="$pkg_path/$exe_name"
+					if [[ -f "$exe_file" ]]; then
+						printf "        Verifying: %s\n" "$exe_name" >&2
+						verified_count=$((verified_count + 1))
+					else
+						printf "        [1;31mMISSING: %s[0m\n" "$exe_name" >&2
+						executables_exist=false
+					fi
+				fi
+			done <<<"$(get_executables_from_json "$pkg_path")"
+		fi
+		
+		if [[ "$executables_exist" == true ]] && [[ "$verified_count" -gt 0 ]]; then
+			printf "      [92mAll %d executables verified[0m\n" "$verified_count" >&2
+		elif [[ "$verified_count" -eq 0 ]]; then
+			printf "[93mPackage %s has no executables (documentation package?)[0m\n" "$pkg_name" >&2
+			return 0
+		else
+			printf "[1;31mSome executables missing for %s[0m\n" "$pkg_name" >&2
+			return 1
+		fi
+		
+		# Create wrappers
+		create_bash_wrappers "$pkg_path" "$pkg_name"
+		create_cmd_wrappers "$pkg_path" "$pkg_name"
+		;;
+		
+	"path")
+		printf "  PATH: %s\n" "$pkg_name" >&2
+		;;
+		
+	"none")
+		printf "  SKIP: %s (documentation only)\n" "$pkg_name" >&2
+		;;
+	esac
+	
+	printf "Successfully imported package: %s\n" "$target_package" >&2
 }
 
 # Import packages function (main package processing logic - no verification)
@@ -1562,6 +1695,9 @@ handle_packages_command() {
 	import)
 		import_packages
 		;;
+	import-package)
+		import_package "$2"
+		;;
 	# verify command removed - use import instead
 	list | ls)
 		list_packages
@@ -1584,6 +1720,7 @@ handle_packages_command() {
 		echo
 		echo "Commands:"
 		echo "  import            Import and configure all packages"
+		echo "  import-package    Import a specific package by name"
 		# verify command removed
 		echo "  list              List all available tools"
 		echo "  search PATTERN    Search tools by name or description"
@@ -1592,6 +1729,7 @@ handle_packages_command() {
 		echo
 		echo "Examples:"
 		echo "  portx packages import"
+		echo "  portx packages import-package analyze-code"
 		# verify command removed
 		echo "  portx packages list"
 		echo "  portx packages search git"

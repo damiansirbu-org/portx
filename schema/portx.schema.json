@@ -35,7 +35,7 @@
           "properties": {
             "path": {
               "type": "string",
-              "pattern": "^[^/].*\\.(exe|cmd|bat)$",
+              "pattern": "^[^/].*\\.(exe|cmd|bat|sh)$",
               "description": "Executable path from package root (e.g., bin/tool.exe or tool.exe)"
             },
             "description": {

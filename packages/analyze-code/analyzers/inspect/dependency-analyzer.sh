@@ -238,6 +238,40 @@ analyze_dependency() {
             fi
             ;;
             
+        go)
+            # Find what THIS file imports (Go import statements)
+            local raw_imports
+            raw_imports=$(timeout 10 "$RIPGREP_PATH" --no-heading --line-number \
+                -e "^import\s+\"([^\"]+)\"" \
+                -e "^import\s+([a-zA-Z_][a-zA-Z0-9_]*)\s+\"([^\"]+)\"" \
+                -e "^\s+\"([^\"]+)\"" \
+                "$FILE_PATH" 2>/dev/null)
+            
+            if [[ -n "$raw_imports" ]]; then
+                while IFS= read -r import_line; do
+                    local line_num import_path import_detail
+                    if [[ "$import_line" =~ ([0-9]+):.* ]]; then
+                        line_num="${BASH_REMATCH[1]}"
+                        
+                        # Extract Go import path
+                        if [[ "$import_line" =~ \"([^\"]+)\" ]]; then
+                            import_path="${BASH_REMATCH[1]}"
+                            import_detail=$(echo "$import_line" | sed 's/^[0-9]*://' | sed 's/^[[:space:]]*//')
+                            
+                            # Use safe JSON construction with proper escaping
+                            local import_json
+                            import_json=$(json_object \
+                                "line" "$line_num" \
+                                "package" "$import_path" \
+                                "statement" "$import_detail" \
+                                "type" "import")
+                            imports_this_file+=("$import_json")
+                        fi
+                    fi
+                done <<< "$raw_imports"
+            fi
+            ;;
+            
         *) 
             return_error '{"analyzer":"dependency","status":"unsupported_file_type","details":"File extension not supported for dependency analysis"}'
             return
@@ -257,11 +291,15 @@ analyze_dependency() {
     fi
     
     # Output clear JSON with actual files and relationships
+    local escaped_file_path escaped_search_root
+    escaped_file_path=$(printf '%s' "$FILE_PATH" | sed 's/\\/\\\\/g; s/"/\\"/g')
+    escaped_search_root=$(printf '%s' "$search_root" | sed 's/\\/\\\\/g; s/"/\\"/g')
+    
     local result_json
     result_json=$(printf '{"analyzer":"dependency","file":"%s","language":"%s","search_scope":{"root":"%s","project_root_found":%s},"dependencies":{"imports_in_this_file":{"count":%d,"details":%s},"resolved_dependencies":{"count":%d,"files":%s}},"metadata":{"analyzed_at":"%s","note":"Shows what THIS file depends ON"}}' \
-        "$FILE_PATH" \
+        "$escaped_file_path" \
         "$FILE_EXT" \
-        "$search_root" \
+        "$escaped_search_root" \
         "$project_root_found" \
         "${#imports_this_file[@]}" \
         "$imports_json" \

@@ -154,8 +154,12 @@ setup_environment() {
         return 1
     fi
     
-    FILE_EXT="${FILE_PATH##*.}"
     BASENAME="$(basename "$FILE_PATH")"
+    if [[ "$BASENAME" == *"."* ]]; then
+        FILE_EXT="${BASENAME##*.}"
+    else
+        FILE_EXT=""  # No extension
+    fi
     
     # No cache setup needed for standalone tool
     LOG_FILE=""  # Disable file logging for standalone tool
@@ -256,7 +260,7 @@ get_inspect_analyzers() {
         "")
             case "$basename" in
                 Chart|values|helmfile) potential_analyzers+=(helm_chart) ;;
-                Dockerfile*|dockerfile*) potential_analyzers+=(dockerfile) ;;
+                Dockerfile*|dockerfile*) potential_analyzers+=(treesitter ast_grep) ;;
                 *) ;;
             esac ;;
     esac
