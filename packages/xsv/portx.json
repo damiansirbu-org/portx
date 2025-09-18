@@ -1,0 +1,15 @@
+{
+  "name": "xsv",
+  "version": "0.13.0",
+  "description": "Fast CSV command line toolkit written in Rust for indexing, slicing, analyzing, splitting and joining CSV files",
+  "importType": "wrap",
+  "bin": {
+    "xsv": {
+      "path": "xsv.exe",
+      "description": "High-performance CSV toolkit for processing large CSV files with commands for stats, search, join, split, and format conversion",
+      "usage": "xsv stats data.csv\nxsv select 1,3,5 data.csv\nxsv search 'pattern' data.csv\nxsv join id file1.csv file2.csv\nxsv split 1000 largefile.csv\nxsv fmt --delimiter=; data.csv",
+      "dependencies": "windows"
+    }
+  },
+  "tags": ["csv", "data", "processing", "toolkit", "indexing", "analysis", "rust", "performance"]
+}

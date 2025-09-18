@@ -3,34 +3,24 @@
 ##
 https://gist.github.com/sts10/daadbc2f403bdffad1b6d33aff016c0a
 
-##
-- miniserve
+## NEEDS FIXING
+- kalker - PACKAGE EXISTS but no .exe found (has .cmd/.msi)
+- bandwhich - PACKAGE EXISTS but .exe errors
 
-##
-grex + lemmeknow - Pattern analysis powerhouses
-yazi - The file manager that makes ranger look slow
-qsv - CSV manipulation on steroids
-kalker - Calculator that does calculus
-pier-cli - Command snippet manager
-cargo-geiger - Security auditing for dependencies
-bandwhich - Network monitoring per-process
-silicon - Beautiful code screenshots
-ouch - Compression tool that just works
-htmlq - jq for HTML
+## TODO
+- pier-cli - Command snippet manager (no Windows support)
+- cargo-geiger - Security auditing for dependencies
+- silicon - Beautiful code screenshots (no Windows binary)
 
 ## Security & Analysis
-- **osv-scanner** - Google's vulnerability scanner for dependencies
-- **semgrep** - Static analysis for finding bugs/security issues  
 - **bandit** - Python security linter
 - **safety** - Python package vulnerability scanner
 - **clair** - Container vulnerability scanner
 - **bearer** - Static application security testing
 
 ## Network & Infrastructure
-- **naabu** - Fast port scanner (complements nmap)
-- **wrk** - Modern HTTP benchmarking tool
 - **bombardier** - Fast HTTP(S) load testing
-- **subfinder** - Subdomain discovery tool   (already have?)
+- **subfinder** - Subdomain discovery tool ï¿½ (already have?)
 
 ## System Monitoring & Performance
 - **parca** - Continuous profiling platform
@@ -45,7 +35,6 @@ htmlq - jq for HTML
 - **cyclonedx** - Software Bill of Materials (SBOM) generator
 
 ## Data & File Processing (HIGH PRIORITY - Rust tools you'd love)
-- **xsv** - Fast CSV toolkit (Rust-based) =%
 - **pq** - jq for Parquet files
 - **visidata** - Terminal spreadsheet tool
 - **reckon** - CSV to ledger converter
@@ -63,14 +52,11 @@ htmlq - jq for HTML
 - **windirstat** - Disk usage analyzer
 
 ## Emerging/Trending 2025 Tools (Rust-based - HIGH PRIORITY) =%
-- **mise** - Runtime version manager (replaces asdf)
-- **atuin** - Shell history with sync
-- **zoxide** - Smarter cd command  
-- **starship** - Cross-shell prompt
-- **bottom** - System monitor (alternative to btop)
+- **mise** - Runtime version manager (replaces asdf) (no Windows support)
+- **atuin** - Shell history with sync (no Windows support)
 
 ## Notes
 - =% = High priority Rust tools that align with current collection (rg, fd, bat, dust, eza)
--   = Check if already installed
+- ï¿½ = Check if already installed
 - Focus on tools that provide Windows executables
 - Prioritize performance-oriented tools

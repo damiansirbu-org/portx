@@ -1,0 +1,11 @@
+{{- if .Values.auth.enabled -}}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: oam-auth-config
+  labels:
+    app: auth
+data:
+  profile-setup.json: |-
+{{ tpl  .Values.auth.profileSetup . | indent 4 }}
+{{- end -}}

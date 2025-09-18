@@ -1,0 +1,16 @@
+{
+    "test_summary": {
+        "timestamp": "2025-09-10T09:49:52Z",
+        "total_tests": 42,
+        "passed_tests": 0,
+        "failed_tests": 42,
+        "pass_rate": 0,
+        "status": "PARTIAL"
+    },
+    "test_environment": {
+        "script_dir": "/c/Users/damian/.claude/hooks/analyze-hook/test",
+        "test_files_dir": "/c/Users/damian/.claude/hooks/analyze-hook/test/files",
+        "analyzer_script": "/c/Users/damian/.claude/hooks/analyze-hook/test/analyzer_test_adapter.sh",
+        "report_dir": "/c/Users/damian/.claude/hooks/analyze-hook/test/reports"
+    }
+}

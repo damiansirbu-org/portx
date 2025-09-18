@@ -1,0 +1,41 @@
+{{- if .Values.paymentService.enabled -}}
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ .Values.paymentService.name }}
+  labels:
+    app: payment-service
+    type: stateful-microservice
+spec:
+  serviceName: {{ .Values.paymentService.name }}
+  selector:
+    matchLabels:
+      app: payment-service
+  replicas: {{ .Values.paymentService.replicas | default 3 }}
+  template:
+    metadata:
+      labels:
+        app: payment-service
+    spec:
+      containers:
+      - name: payment-service
+        image: "{{ .Values.paymentService.image.repository }}:{{ .Values.paymentService.image.tag }}"
+        ports:
+        - containerPort: 9090
+        volumeMounts:
+        - name: payment-data
+          mountPath: /var/lib/payment
+        env:
+        - name: NODE_ID
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+  volumeClaimTemplates:
+  - metadata:
+      name: payment-data
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: {{ .Values.paymentService.persistence.size | default "10Gi" }}
+{{- end -}}

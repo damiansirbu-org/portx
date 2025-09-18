@@ -1,0 +1,20 @@
+{{- if .Values.llmService.enabled -}}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: oam-llm-service-configmap
+  labels:
+    app: llm-service
+data:
+  LOG4J_FORMAT_MSG_NO_LOOKUPS: "true"
+  DB_HOST: {{ .Values.llmServiceDB.fullnameOverride | quote }}
+  DB_NAME: {{ .Values.llmServiceDB.auth.database | quote }}
+  DB_PORT: {{ .Values.llmServiceDB.port  | quote }}
+  MSGBROKER_HOST: {{ .Values.rabbit.fullnameOverride | quote }}
+  MSGBROKER_PORT: {{ .Values.rabbit.service.ports.amqp | quote }}
+  EUREKA_URI: {{ printf "http://%s/eureka" .Values.serviceRegistry.service.name | quote }}
+  CORS_URLS: {{ printf "%s://%s,http://localhost,http://localhost:4200" .Values.global.fe_protocol .Values.ingress.internet.frontendHost | quote }}
+  {{- range $envName, $value := .Values.llmService.env }}
+  {{ $envName }}: {{ $value | quote }}
+  {{- end }}
+{{- end -}}

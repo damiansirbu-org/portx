@@ -1,0 +1,32 @@
+{{- if and (.Values.auth.enabled) (.Values.auth.autoscaling.enabled) -}}
+apiVersion: {{ ternary "autoscaling/v2" "autoscaling/v2beta2" (.Capabilities.APIVersions.Has "autoscaling/v2") }}
+kind: HorizontalPodAutoscaler
+metadata:
+  name: {{ printf "%s-hpa" .Values.auth.deploymentName | quote }}
+  labels:
+    type: oam-service
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: {{ .Values.auth.deploymentName }}
+  minReplicas: 1
+  maxReplicas: {{ default .Values.defaults.autoscaling.maxreplica .Values.auth.autoscaling.maxreplica }}
+  metrics:
+    {{- if or (.Values.defaults.autoscaling.targetMemory) (.Values.auth.autoscaling.targetMemory) }}
+    - type: Resource
+      resource:
+        name: memory
+        target:
+          type: Utilization
+          averageUtilization: {{ default .Values.defaults.autoscaling.targetMemory .Values.auth.autoscaling.targetMemory }}
+    {{- end }}
+    {{- if or (.Values.defaults.autoscaling.targetCPU) (.Values.auth.autoscaling.targetCPU) }}
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: {{ default .Values.defaults.autoscaling.targetCPU .Values.auth.autoscaling.targetCPU }}
+    {{- end }}
+{{- end }}

@@ -1,0 +1,638 @@
+#!/bin/bash
+# =============================================================================
+# KUBERNETES MANIFEST ANALYZER - Deep K8s YAML security and compliance analysis
+# Comprehensive analysis aligned with Pod Security Standards, CIS benchmarks, and CNCF best practices
+# Analyzes deployments, services, pods, ingress, RBAC, network policies, and all K8s resources
+# =============================================================================
+
+# Register this analyzer
+AVAILABLE_ANALYZERS+=(analyze_k8s_manifest)
+
+# Helper function for consistent K8s finding JSON output with proper escaping
+create_k8s_finding() {
+    local category="$1"
+    local finding="$2"
+    local evidence="$3"
+    local severity="${4:-medium}"
+    local recommendation="$5"
+    local pss_level="$6"
+    local cis_control="$7"
+    
+    # Escape JSON strings properly
+    local safe_category="${category//\"/\\\"}"
+    local safe_finding="${finding//\"/\\\"}"
+    local safe_evidence="${evidence//\"/\\\"}"
+    local safe_recommendation="${recommendation//\"/\\\"}"
+    local safe_pss="${pss_level//\"/\\\"}"
+    local safe_cis="${cis_control//\"/\\\"}"
+    
+    # Remove newlines and normalize whitespace
+    safe_evidence=$(echo "$safe_evidence" | tr '\n' ' ' | tr -s ' ')
+    
+    printf '{"category":"%s","finding":"%s","evidence":"%s","severity":"%s","recommendation":"%s","pod_security_standard":"%s","cis_benchmark":"%s"}' \
+        "$safe_category" "$safe_finding" "$safe_evidence" "$severity" "$safe_recommendation" "$safe_pss" "$safe_cis"
+}
+
+# Helper function to evaluate Pod Security Standards compliance level
+evaluate_pss_compliance() {
+    local violations_file="$1"
+    
+    # Check for Privileged level violations (most permissive)
+    if [[ -f "$violations_file" ]]; then
+        local privileged_violations=$(wc -l < "$violations_file" 2>/dev/null || echo "0")
+        if [[ "$privileged_violations" -eq 0 ]]; then
+            echo "privileged"
+        elif [[ "$privileged_violations" -lt 5 ]]; then
+            echo "baseline"  
+        else
+            echo "restricted"
+        fi
+    else
+        echo "unknown"
+    fi
+}
+
+analyze_k8s_manifest() {
+    local rg_path="$GIT_BASH_ROOT/home/portx/packages/ripgrep/rg.exe"
+    local yq_path="$GIT_BASH_ROOT/home/portx/packages/yq/yq.exe"
+    
+    # Check if tools are available
+    if [[ ! -f "$rg_path" ]]; then
+        return 1
+    fi
+    
+    # Get file information
+    local file_ext="${FILE_PATH##*.}"
+    local file_basename="$(basename "$FILE_PATH")"
+    
+    # Only analyze YAML files
+    case "$file_ext" in
+        yaml|yml) ;;
+        *) return 1 ;;
+    esac
+    
+    # Check if this is likely a Kubernetes manifest
+    local has_k8s_content
+    has_k8s_content=$(timeout 5 "$rg_path" --quiet \
+        -e "apiVersion:" -e "kind:" -e "metadata:" \
+        "$FILE_PATH" 2>/dev/null)
+    if [[ $? -ne 0 ]]; then
+        # Not a Kubernetes manifest
+        return 1
+    fi
+    
+    # Initialize analysis arrays
+    local security_issues=()
+    local compliance_issues=()
+    local best_practices=()
+    local resource_analysis=()
+    local performance_issues=()
+    local rbac_analysis=()
+    local network_analysis=()
+    local pss_analysis=()
+    local cis_checks=()
+    local secrets_analysis=()
+    local admission_analysis=()
+    
+    # =============================================================================
+    # RESOURCE TYPE IDENTIFICATION
+    # =============================================================================
+    
+    local resource_kinds
+    resource_kinds=$(timeout 10 "$rg_path" --no-heading -o \
+        -e "^kind:\s*(\w+)" -r '$1' \
+        "$FILE_PATH" 2>/dev/null)
+    
+    local api_versions  
+    api_versions=$(timeout 10 "$rg_path" --no-heading -o \
+        -e "^apiVersion:\s*(.+)" -r '$1' \
+        "$FILE_PATH" 2>/dev/null)
+    
+    if [[ -n "$resource_kinds" ]]; then
+        resource_analysis+=($(create_k8s_finding "resource_discovery" "Kubernetes resource types identified" "$resource_kinds" "info" "Verify resource types are appropriate for intended use"))
+    fi
+    
+    if [[ -n "$api_versions" ]]; then
+        # Check for deprecated API versions
+        local deprecated_apis
+        deprecated_apis=$(echo "$api_versions" | grep -E "(extensions/v1beta1|apps/v1beta[12]|policy/v1beta1)")
+        if [[ -n "$deprecated_apis" ]]; then
+            security_issues+=($(create_k8s_finding "api_deprecation" "Deprecated API versions detected" "$deprecated_apis" "high" "Update to current stable API versions" "" "CIS-5.1.3"))
+        fi
+    fi
+    
+    # =============================================================================
+    # COMPREHENSIVE SECURITY CONTEXT ANALYSIS
+    # =============================================================================
+    
+    # 1. Privileged containers (PSS Baseline violation)
+    local privileged_containers
+    privileged_containers=$(timeout 10 "$rg_path" --no-heading --line-number \
+        -e "privileged:\s*true" -e "allowPrivilegeEscalation:\s*true" \
+        "$FILE_PATH" 2>/dev/null)
+    [[ -n "$privileged_containers" ]] && security_issues+=($(create_k8s_finding "security_context" "Privileged containers detected" "$privileged_containers" "critical" "Set privileged: false and allowPrivilegeEscalation: false" "baseline" "CIS-5.2.1"))
+    
+    # 2. Root user execution (PSS Baseline violation)  
+    local root_user
+    root_user=$(timeout 10 "$rg_path" --no-heading --line-number \
+        -e "runAsUser:\s*0" -e "runAsGroup:\s*0" -e "fsGroup:\s*0" \
+        "$FILE_PATH" 2>/dev/null)
+    [[ -n "$root_user" ]] && security_issues+=($(create_k8s_finding "security_context" "Running as root user" "$root_user" "high" "Set runAsUser to non-zero value, enforce runAsNonRoot: true" "baseline" "CIS-5.2.6"))
+    
+    # 3. Host access violations (PSS Baseline violation)
+    local host_access
+    host_access=$(timeout 10 "$rg_path" --no-heading --line-number \
+        -e "hostNetwork:\s*true" -e "hostPID:\s*true" -e "hostIPC:\s*true" \
+        "$FILE_PATH" 2>/dev/null)
+    [[ -n "$host_access" ]] && security_issues+=($(create_k8s_finding "security_context" "Host namespace access enabled" "$host_access" "critical" "Set hostNetwork, hostPID, hostIPC to false" "baseline" "CIS-5.2.2"))
+    
+    # 4. Dangerous capabilities (PSS Restricted violation)
+    local dangerous_caps
+    dangerous_caps=$(timeout 10 "$rg_path" --no-heading --line-number \
+        -e "SYS_ADMIN" -e "NET_ADMIN" -e "SYS_TIME" -e "SYS_MODULE" -e "SYS_RAWIO" -e "SYS_PTRACE" \
+        -e "DAC_OVERRIDE" -e "SETUID" -e "SETGID" -e "NET_RAW" -e "SYS_CHROOT" \
+        "$FILE_PATH" 2>/dev/null)
+    [[ -n "$dangerous_caps" ]] && security_issues+=($(create_k8s_finding "security_context" "Dangerous capabilities granted" "$dangerous_caps" "high" "Remove dangerous capabilities, use minimal required capabilities only" "restricted" "CIS-5.2.8"))
+    
+    # 5. Security context analysis
+    local has_security_context
+    has_security_context=$(timeout 10 "$rg_path" --quiet -e "securityContext:" "$FILE_PATH" 2>/dev/null)
+    if [[ $? -ne 0 ]]; then
+        security_issues+=($(create_k8s_finding "security_context" "No security context defined" "" "medium" "Define securityContext with appropriate restrictions" "baseline" "CIS-5.2.3"))
+    else
+        # Check for runAsNonRoot
+        local run_as_non_root
+        run_as_non_root=$(timeout 10 "$rg_path" --no-heading --line-number \
+            -e "runAsNonRoot:\s*true" \
+            "$FILE_PATH" 2>/dev/null)
+        [[ -n "$run_as_non_root" ]] && best_practices+=($(create_k8s_finding "security_context" "runAsNonRoot enforced" "$run_as_non_root" "info" "Good practice - continues to enforce non-root execution" "restricted"))
+        
+        # Check for readOnlyRootFilesystem
+        local readonly_root
+        readonly_root=$(timeout 10 "$rg_path" --no-heading --line-number \
+            -e "readOnlyRootFilesystem:\s*true" \
+            "$FILE_PATH" 2>/dev/null)
+        [[ -n "$readonly_root" ]] && best_practices+=($(create_k8s_finding "security_context" "Read-only root filesystem" "$readonly_root" "info" "Excellent security practice - prevents runtime modifications" "restricted"))
+    fi
+    
+    # 6. seccomp profiles (PSS Restricted requirement)
+    local seccomp_profiles
+    seccomp_profiles=$(timeout 10 "$rg_path" --no-heading --line-number \
+        -e "seccompProfile:" -e "RuntimeDefault" -e "Localhost" \
+        "$FILE_PATH" 2>/dev/null)
+    if [[ -n "$seccomp_profiles" ]]; then
+        best_practices+=($(create_k8s_finding "security_context" "seccomp profiles configured" "$seccomp_profiles" "info" "Good practice - restricts system calls" "restricted"))
+    else
+        compliance_issues+=($(create_k8s_finding "security_context" "No seccomp profile specified" "" "medium" "Set seccompProfile.type to RuntimeDefault or Localhost" "restricted" "CIS-5.2.10"))
+    fi
+    
+    # 7. AppArmor profiles
+    local apparmor_profiles
+    apparmor_profiles=$(timeout 10 "$rg_path" --no-heading --line-number \
+        -e "container.apparmor.security.beta.kubernetes.io" \
+        "$FILE_PATH" 2>/dev/null)
+    [[ -n "$apparmor_profiles" ]] && best_practices+=($(create_k8s_finding "security_context" "AppArmor profiles configured" "$apparmor_profiles" "info" "Good practice - MAC security enhancement"))
+    
+    # 8. SELinux options
+    local selinux_options
+    selinux_options=$(timeout 10 "$rg_path" --no-heading --line-number \
+        -e "seLinuxOptions:" \
+        "$FILE_PATH" 2>/dev/null)
+    [[ -n "$selinux_options" ]] && best_practices+=($(create_k8s_finding "security_context" "SELinux options configured" "$selinux_options" "info" "Good practice - MAC security enhancement"))
+    
+    # =============================================================================
+    # RBAC ANALYSIS
+    # =============================================================================
+    
+    # Check for RBAC resources
+    if echo "$resource_kinds" | grep -qE "(Role|ClusterRole|RoleBinding|ClusterRoleBinding)"; then
+        # 1. Overly permissive RBAC
+        local wildcard_permissions
+        wildcard_permissions=$(timeout 10 "$rg_path" --no-heading --line-number \
+            -e "resources:\s*\[\s*['\"]?\*['\"]?" -e "verbs:\s*\[\s*['\"]?\*['\"]?" \
+            "$FILE_PATH" 2>/dev/null)
+        [[ -n "$wildcard_permissions" ]] && security_issues+=($(create_k8s_finding "rbac" "Overly permissive RBAC - wildcard permissions" "$wildcard_permissions" "high" "Use specific resources and verbs instead of wildcards" "" "CIS-5.1.1"))
+        
+        # 2. Dangerous RBAC verbs
+        local dangerous_verbs
+        dangerous_verbs=$(timeout 10 "$rg_path" --no-heading --line-number \
+            -e "create.*pods/exec" -e "create.*pods/attach" -e "get.*secrets" \
+            -e "list.*secrets" -e "create.*persistentvolumes" \
+            "$FILE_PATH" 2>/dev/null)
+        [[ -n "$dangerous_verbs" ]] && security_issues+=($(create_k8s_finding "rbac" "Dangerous RBAC permissions detected" "$dangerous_verbs" "high" "Review and minimize dangerous permissions like pod exec/attach and secret access" "" "CIS-5.1.2"))
+        
+        # 3. ClusterAdmin usage
+        local cluster_admin
+        cluster_admin=$(timeout 10 "$rg_path" --no-heading --line-number \
+            -e "roleRef:\s*.*cluster-admin" \
+            "$FILE_PATH" 2>/dev/null)
+        [[ -n "$cluster_admin" ]] && security_issues+=($(create_k8s_finding "rbac" "cluster-admin role binding detected" "$cluster_admin" "critical" "Avoid cluster-admin, create specific roles with minimal required permissions" "" "CIS-5.1.1"))
+        
+        rbac_analysis+=($(create_k8s_finding "rbac" "RBAC resources present" "$resource_kinds" "info" "Review RBAC configurations for principle of least privilege"))
+    else
+        if echo "$resource_kinds" | grep -qE "(Deployment|Pod|StatefulSet|DaemonSet)"; then
+            compliance_issues+=($(create_k8s_finding "rbac" "No RBAC resources defined" "" "medium" "Define appropriate RBAC roles and bindings for workloads" "" "CIS-5.1.1"))
+        fi
+    fi
+    
+    # =============================================================================
+    # SERVICE ACCOUNT ANALYSIS  
+    # =============================================================================
+    
+    # Check for service account configuration
+    local service_accounts
+    service_accounts=$(timeout 10 "$rg_path" --no-heading --line-number \
+        -e "serviceAccountName:" -e "serviceAccount:" \
+        "$FILE_PATH" 2>/dev/null)
+    
+    if [[ -n "$service_accounts" ]]; then
+        # Check if using default service account
+        local default_sa
+        default_sa=$(timeout 10 "$rg_path" --no-heading --line-number \
+            -e "serviceAccountName:\s*default" -e "serviceAccount:\s*default" \
+            "$FILE_PATH" 2>/dev/null)
+        [[ -n "$default_sa" ]] && compliance_issues+=($(create_k8s_finding "service_account" "Using default service account" "$default_sa" "medium" "Create dedicated service account for workloads" "" "CIS-5.1.5"))
+        
+        best_practices+=($(create_k8s_finding "service_account" "Service account specified" "$service_accounts" "info" "Good practice - explicit service account assignment"))
+    else
+        compliance_issues+=($(create_k8s_finding "service_account" "No service account specified" "" "medium" "Specify dedicated service account to avoid using default" "" "CIS-5.1.5"))
+    fi
+    
+    # Check for automountServiceAccountToken
+    local automount_token
+    automount_token=$(timeout 10 "$rg_path" --no-heading --line-number \
+        -e "automountServiceAccountToken:\s*false" \
+        "$FILE_PATH" 2>/dev/null)
+    if [[ -n "$automount_token" ]]; then
+        best_practices+=($(create_k8s_finding "service_account" "Service account token automount disabled" "$automount_token" "info" "Good security practice - prevents unnecessary token mounting"))
+    else
+        compliance_issues+=($(create_k8s_finding "service_account" "Service account token automounting not disabled" "" "medium" "Set automountServiceAccountToken: false if not needed" "" "CIS-5.1.6"))
+    fi
+    
+    # =============================================================================
+    # NETWORK POLICY ANALYSIS
+    # =============================================================================
+    
+    if echo "$resource_kinds" | grep -q "NetworkPolicy"; then
+        # Analyze network policy configuration
+        local ingress_rules
+        ingress_rules=$(timeout 10 "$rg_path" --no-heading --line-number \
+            -e "ingress:" \
+            "$FILE_PATH" 2>/dev/null)
+        
+        local egress_rules  
+        egress_rules=$(timeout 10 "$rg_path" --no-heading --line-number \
+            -e "egress:" \
+            "$FILE_PATH" 2>/dev/null)
+        
+        if [[ -n "$ingress_rules" ]] || [[ -n "$egress_rules" ]]; then
+            network_analysis+=($(create_k8s_finding "network_policy" "Network policies configured" "${ingress_rules} ${egress_rules}" "info" "Good practice - network segmentation implemented"))
+        else
+            compliance_issues+=($(create_k8s_finding "network_policy" "Empty network policy" "" "medium" "Define specific ingress/egress rules for network segmentation"))
+        fi
+        
+        # Check for deny-all policies
+        local policy_types
+        policy_types=$(timeout 10 "$rg_path" --no-heading \
+            -e "policyTypes:" \
+            "$FILE_PATH" 2>/dev/null)
+        [[ -n "$policy_types" ]] && network_analysis+=($(create_k8s_finding "network_policy" "Network policy types defined" "$policy_types" "info" "Policy types help define traffic direction controls"))
+        
+    else
+        if echo "$resource_kinds" | grep -qE "(Deployment|Pod|StatefulSet|DaemonSet)"; then
+            compliance_issues+=($(create_k8s_finding "network_policy" "No network policies defined" "" "medium" "Implement network policies for traffic segmentation and zero-trust networking" "" "CIS-5.3.2"))
+        fi
+    fi
+    
+    # =============================================================================
+    # SECRETS MANAGEMENT ANALYSIS
+    # =============================================================================
+    
+    if echo "$resource_kinds" | grep -q "Secret"; then
+        # Check secret types
+        local secret_types
+        secret_types=$(timeout 10 "$rg_path" --no-heading -o \
+            -e "type:\s*(\S+)" -r '$1' \
+            "$FILE_PATH" 2>/dev/null)
+        [[ -n "$secret_types" ]] && secrets_analysis+=($(create_k8s_finding "secrets" "Secret types identified" "$secret_types" "info" "Review secret types for appropriate usage"))
+        
+        # Check for base64 encoded data (potential plaintext exposure)
+        local secret_data
+        secret_data=$(timeout 10 "$rg_path" --no-heading --line-number \
+            -e "data:" \
+            "$FILE_PATH" 2>/dev/null)
+        [[ -n "$secret_data" ]] && compliance_issues+=($(create_k8s_finding "secrets" "Secret data present in manifest" "$secret_data" "high" "Avoid storing secret data in manifests, use external secret management" "" "CIS-5.4.1"))
+    fi
+    
+    # Check for hardcoded secrets in environment variables
+    local env_secrets
+    env_secrets=$(timeout 10 "$rg_path" --no-heading --line-number \
+        -i -e "password.*:" -e "token.*:" -e "key.*:" -e "secret.*:" \
+        "$FILE_PATH" 2>/dev/null | head -20)
+    [[ -n "$env_secrets" ]] && security_issues+=($(create_k8s_finding "secrets" "Potential hardcoded secrets in environment" "$env_secrets" "high" "Use Kubernetes secrets or external secret management instead of hardcoded values"))
+    
+    # =============================================================================
+    # RESOURCE MANAGEMENT ANALYSIS
+    # =============================================================================
+    
+    # Resource limits and requests analysis
+    local has_resources
+    has_resources=$(timeout 10 "$rg_path" --quiet -e "resources:" "$FILE_PATH" 2>/dev/null)
+    if [[ $? -ne 0 ]]; then
+        compliance_issues+=($(create_k8s_finding "resource_management" "No resource limits defined" "" "medium" "Define CPU and memory limits/requests to prevent resource exhaustion" "" "CIS-5.2.5"))
+    else
+        # Check for specific limits
+        local cpu_limits
+        cpu_limits=$(timeout 10 "$rg_path" --no-heading --line-number \
+            -e "cpu:" "$FILE_PATH" 2>/dev/null)
+        local memory_limits  
+        memory_limits=$(timeout 10 "$rg_path" --no-heading --line-number \
+            -e "memory:" "$FILE_PATH" 2>/dev/null)
+        
+        if [[ -n "$cpu_limits" ]] && [[ -n "$memory_limits" ]]; then
+            best_practices+=($(create_k8s_finding "resource_management" "Resource limits configured" "${cpu_limits} ${memory_limits}" "info" "Good practice - prevents resource exhaustion"))
+        fi
+        
+        # Check for unlimited resources
+        local unlimited_resources
+        unlimited_resources=$(timeout 10 "$rg_path" --no-heading --line-number \
+            -e "cpu:\s*\"0\"" -e "memory:\s*\"0\"" \
+            "$FILE_PATH" 2>/dev/null)
+        [[ -n "$unlimited_resources" ]] && performance_issues+=($(create_k8s_finding "resource_management" "Unlimited resources specified" "$unlimited_resources" "medium" "Set appropriate resource limits"))
+    fi
+    
+    # =============================================================================
+    # HEALTH CHECKS AND PROBES
+    # =============================================================================
+    
+    local liveness_probes
+    liveness_probes=$(timeout 10 "$rg_path" --no-heading --line-number \
+        -e "livenessProbe:" "$FILE_PATH" 2>/dev/null)
+    local readiness_probes
+    readiness_probes=$(timeout 10 "$rg_path" --no-heading --line-number \
+        -e "readinessProbe:" "$FILE_PATH" 2>/dev/null)
+    local startup_probes
+    startup_probes=$(timeout 10 "$rg_path" --no-heading --line-number \
+        -e "startupProbe:" "$FILE_PATH" 2>/dev/null)
+    
+    if [[ -n "$liveness_probes" ]] || [[ -n "$readiness_probes" ]] || [[ -n "$startup_probes" ]]; then
+        best_practices+=($(create_k8s_finding "health_checks" "Health probes configured" "${liveness_probes} ${readiness_probes} ${startup_probes}" "info" "Good practice - enables proper health monitoring"))
+    else
+        compliance_issues+=($(create_k8s_finding "health_checks" "No health probes defined" "" "medium" "Configure liveness and readiness probes for better reliability"))
+    fi
+    
+    # =============================================================================
+    # IMAGE SECURITY ANALYSIS
+    # =============================================================================
+    
+    # Latest tag usage
+    local latest_images
+    latest_images=$(timeout 10 "$rg_path" --no-heading --line-number \
+        -e "image:.*:latest" -e "image:\s*[^:]+$" \
+        "$FILE_PATH" 2>/dev/null)
+    [[ -n "$latest_images" ]] && security_issues+=($(create_k8s_finding "image_security" "Using 'latest' or untagged images" "$latest_images" "medium" "Use specific image tags for reproducible deployments" "" "CIS-5.2.4"))
+    
+    # Image pull policy
+    local pull_policy_always
+    pull_policy_always=$(timeout 10 "$rg_path" --no-heading --line-number \
+        -e "imagePullPolicy:\s*Always" \
+        "$FILE_PATH" 2>/dev/null)
+    [[ -n "$pull_policy_always" ]] && best_practices+=($(create_k8s_finding "image_security" "Always pull policy specified" "$pull_policy_always" "info" "Good practice for latest tag usage"))
+    
+    # Check for private registries
+    local private_images
+    private_images=$(timeout 10 "$rg_path" --no-heading --line-number \
+        -e "image:\s*[^/]*\.[^/]*/.*" \
+        "$FILE_PATH" 2>/dev/null)
+    [[ -n "$private_images" ]] && best_practices+=($(create_k8s_finding "image_security" "Private registry images" "$private_images" "info" "Using private registries - ensure proper access controls"))
+    
+    # =============================================================================
+    # POD SECURITY STANDARDS COMPREHENSIVE ANALYSIS
+    # =============================================================================
+    
+    # Initialize PSS violation tracking
+    local pss_violations=()
+    local pss_level="privileged"  # Start with most permissive
+    
+    # PSS Baseline level checks
+    [[ -n "$privileged_containers" ]] && pss_violations+=("privileged:true")
+    [[ -n "$host_access" ]] && pss_violations+=("host_access")
+    
+    # Host port usage
+    local host_ports
+    host_ports=$(timeout 10 "$rg_path" --no-heading --line-number \
+        -e "hostPort:" \
+        "$FILE_PATH" 2>/dev/null)
+    [[ -n "$host_ports" ]] && pss_violations+=("hostPort")
+    
+    # Host path volumes
+    local host_path_volumes
+    host_path_volumes=$(timeout 10 "$rg_path" --no-heading --line-number \
+        -e "hostPath:" \
+        "$FILE_PATH" 2>/dev/null)
+    [[ -n "$host_path_volumes" ]] && pss_violations+=("hostPath_volumes")
+    
+    # Volume types (PSS Restricted)
+    local restricted_volumes
+    restricted_volumes=$(timeout 10 "$rg_path" --no-heading --line-number \
+        -e "gcePersistentDisk:" -e "awsElasticBlockStore:" -e "gitRepo:" \
+        -e "nfs:" -e "iscsi:" -e "glusterfs:" -e "rbd:" -e "flexVolume:" \
+        -e "cinder:" -e "cephfs:" -e "flocker:" -e "fc:" -e "azureFile:" \
+        -e "vsphereVolume:" -e "quobyte:" -e "azureDisk:" -e "portworxVolume:" \
+        -e "scaleIO:" -e "storageos:" \
+        "$FILE_PATH" 2>/dev/null)
+    [[ -n "$restricted_volumes" ]] && pss_violations+=("restricted_volume_types")
+    
+    # Determine PSS compliance level
+    if [[ ${#pss_violations[@]} -eq 0 ]]; then
+        pss_level="restricted"
+    elif [[ ${#pss_violations[@]} -lt 3 ]]; then
+        pss_level="baseline"
+    else
+        pss_level="privileged"
+    fi
+    
+    if [[ ${#pss_violations[@]} -gt 0 ]]; then
+        local violations_str=$(IFS=,; echo "${pss_violations[*]}")
+        pss_analysis+=($(create_k8s_finding "pod_security_standards" "PSS violations detected" "$violations_str" "high" "Address violations to achieve higher PSS compliance level" "$pss_level"))
+    else
+        pss_analysis+=($(create_k8s_finding "pod_security_standards" "PSS compliant" "No violations found" "info" "Meets Pod Security Standards requirements" "$pss_level"))
+    fi
+    
+    # =============================================================================
+    # SERVICE AND INGRESS ANALYSIS
+    # =============================================================================
+    
+    # Service security analysis
+    if echo "$resource_kinds" | grep -q "Service"; then
+        # External service exposure
+        local nodeport_services
+        nodeport_services=$(timeout 10 "$rg_path" --no-heading --line-number \
+            -e "type:\s*NodePort" \
+            "$FILE_PATH" 2>/dev/null)
+        [[ -n "$nodeport_services" ]] && security_issues+=($(create_k8s_finding "service_security" "NodePort service exposure" "$nodeport_services" "medium" "Consider using LoadBalancer or Ingress for external access"))
+        
+        local loadbalancer_services
+        loadbalancer_services=$(timeout 10 "$rg_path" --no-heading --line-number \
+            -e "type:\s*LoadBalancer" \
+            "$FILE_PATH" 2>/dev/null)
+        [[ -n "$loadbalancer_services" ]] && network_analysis+=($(create_k8s_finding "service_security" "LoadBalancer service configured" "$loadbalancer_services" "info" "External load balancer access - ensure proper security controls"))
+    fi
+    
+    # Ingress security analysis
+    if echo "$resource_kinds" | grep -q "Ingress"; then
+        # TLS configuration
+        local tls_config
+        tls_config=$(timeout 10 "$rg_path" --no-heading --line-number \
+            -e "tls:" -e "secretName:" \
+            "$FILE_PATH" 2>/dev/null)
+        if [[ -n "$tls_config" ]]; then
+            best_practices+=($(create_k8s_finding "ingress_security" "TLS configured for Ingress" "$tls_config" "info" "Good practice - encrypted traffic"))
+        else
+            security_issues+=($(create_k8s_finding "ingress_security" "Ingress without TLS configuration" "" "medium" "Configure TLS for encrypted traffic" "" "CIS-5.3.1"))
+        fi
+        
+        # Check for annotations
+        local ingress_annotations
+        ingress_annotations=$(timeout 10 "$rg_path" --no-heading --line-number \
+            -e "nginx.ingress.kubernetes.io" -e "traefik.ingress.kubernetes.io" \
+            "$FILE_PATH" 2>/dev/null)
+        [[ -n "$ingress_annotations" ]] && network_analysis+=($(create_k8s_finding "ingress_security" "Ingress controller annotations" "$ingress_annotations" "info" "Review annotations for security implications"))
+    fi
+    
+    # =============================================================================
+    # ADMISSION CONTROLLER COMPATIBILITY
+    # =============================================================================
+    
+    # Check for PodSecurityPolicy usage (deprecated)
+    local psp_usage
+    psp_usage=$(timeout 10 "$rg_path" --no-heading --line-number \
+        -e "PodSecurityPolicy" \
+        "$FILE_PATH" 2>/dev/null)
+    [[ -n "$psp_usage" ]] && admission_analysis+=($(create_k8s_finding "admission_controllers" "PodSecurityPolicy detected (deprecated)" "$psp_usage" "high" "Migrate to Pod Security Standards" "" "CIS-5.2.1"))
+    
+    # Check for Pod Security admission labels
+    local psa_labels
+    psa_labels=$(timeout 10 "$rg_path" --no-heading --line-number \
+        -e "pod-security.kubernetes.io/" \
+        "$FILE_PATH" 2>/dev/null)
+    [[ -n "$psa_labels" ]] && admission_analysis+=($(create_k8s_finding "admission_controllers" "Pod Security admission labels" "$psa_labels" "info" "Using Pod Security Standards enforcement"))
+    
+    # =============================================================================
+    # CIS KUBERNETES BENCHMARK CHECKS
+    # =============================================================================
+    
+    # CIS 5.2.9 - Minimize the admission of containers with allowPrivilegeEscalation
+    if [[ -z "$privileged_containers" ]]; then
+        cis_checks+=($(create_k8s_finding "cis_benchmark" "CIS 5.2.9 - No privilege escalation" "" "info" "Compliant - no allowPrivilegeEscalation detected" "" "CIS-5.2.9"))
+    fi
+    
+    # Additional namespace and metadata analysis
+    local namespace_specified
+    namespace_specified=$(timeout 10 "$rg_path" --no-heading --line-number \
+        -e "namespace:" \
+        "$FILE_PATH" 2>/dev/null)
+    if [[ -n "$namespace_specified" ]]; then
+        best_practices+=($(create_k8s_finding "metadata" "Namespace specified" "$namespace_specified" "info" "Good practice - explicit namespace assignment"))
+    else
+        compliance_issues+=($(create_k8s_finding "metadata" "No namespace specified" "" "low" "Will use default namespace - consider explicit assignment"))
+    fi
+    
+    # Resource naming and labels
+    local labels
+    labels=$(timeout 10 "$rg_path" --no-heading --line-number \
+        -e "labels:" \
+        "$FILE_PATH" 2>/dev/null)
+    [[ -n "$labels" ]] && best_practices+=($(create_k8s_finding "metadata" "Labels defined" "$labels" "info" "Good practice - resource organization"))
+    
+    local annotations  
+    annotations=$(timeout 10 "$rg_path" --no-heading --line-number \
+        -e "annotations:" \
+        "$FILE_PATH" 2>/dev/null)
+    [[ -n "$annotations" ]] && best_practices+=($(create_k8s_finding "metadata" "Annotations defined" "$annotations" "info" "Good practice - additional metadata"))
+    
+    # =============================================================================
+    # JSON OUTPUT FORMATTING
+    # =============================================================================
+    
+    # Build JSON arrays for each category
+    build_json_array() {
+        local -n arr=$1
+        if [[ ${#arr[@]} -gt 0 ]]; then
+            printf "[%s]" "$(IFS=,; echo "${arr[*]}")"
+        else
+            printf "[]"
+        fi
+    }
+    
+    local security_json=$(build_json_array security_issues)
+    local compliance_json=$(build_json_array compliance_issues)
+    local practices_json=$(build_json_array best_practices)
+    local resource_json=$(build_json_array resource_analysis)
+    local performance_json=$(build_json_array performance_issues)
+    local rbac_json=$(build_json_array rbac_analysis)
+    local network_json=$(build_json_array network_analysis)
+    local pss_json=$(build_json_array pss_analysis)
+    local cis_json=$(build_json_array cis_checks)
+    local secrets_json=$(build_json_array secrets_analysis)
+    local admission_json=$(build_json_array admission_analysis)
+    
+    # Calculate risk score
+    local critical_count=$(echo "$security_json" | grep -o '"severity":"critical"' | wc -l 2>/dev/null || echo 0)
+    local high_count=$(echo "$security_json" | grep -o '"severity":"high"' | wc -l 2>/dev/null || echo 0)
+    local medium_count=$(echo "$security_json" | grep -o '"severity":"medium"' | wc -l 2>/dev/null || echo 0)
+    
+    local risk_score=$((critical_count * 10 + high_count * 5 + medium_count * 2))
+    local risk_level="low"
+    if [[ $risk_score -gt 20 ]]; then
+        risk_level="critical"
+    elif [[ $risk_score -gt 10 ]]; then
+        risk_level="high"
+    elif [[ $risk_score -gt 5 ]]; then
+        risk_level="medium"
+    fi
+    
+    # Output comprehensive JSON with Kubernetes security analysis
+    printf '{
+        "analyzer": "k8s_manifest",
+        "file": "%s",
+        "analysis": {
+            "resource_analysis": {"count": %d, "details": %s},
+            "security_issues": {"count": %d, "found": %s},
+            "compliance_issues": {"count": %d, "found": %s},
+            "performance_issues": {"count": %d, "found": %s},
+            "best_practices": {"count": %d, "found": %s},
+            "rbac_analysis": {"count": %d, "found": %s},
+            "network_analysis": {"count": %d, "found": %s},
+            "pod_security_standards": {"count": %d, "found": %s, "compliance_level": "%s"},
+            "cis_benchmark": {"count": %d, "found": %s},
+            "secrets_analysis": {"count": %d, "found": %s},
+            "admission_controllers": {"count": %d, "found": %s}
+        },
+        "risk_assessment": {
+            "score": %d,
+            "level": "%s",
+            "critical_issues": %d,
+            "high_issues": %d,
+            "medium_issues": %d
+        },
+        "metadata": {
+            "analyzed_at": "%s",
+            "note": "Comprehensive Kubernetes manifest security analysis aligned with Pod Security Standards, CIS benchmarks, and CNCF best practices"
+        }
+    }\n' \
+        "$FILE_PATH" \
+        "${#resource_analysis[@]}" "$resource_json" \
+        "${#security_issues[@]}" "$security_json" \
+        "${#compliance_issues[@]}" "$compliance_json" \
+        "${#performance_issues[@]}" "$performance_json" \
+        "${#best_practices[@]}" "$practices_json" \
+        "${#rbac_analysis[@]}" "$rbac_json" \
+        "${#network_analysis[@]}" "$network_json" \
+        "${#pss_analysis[@]}" "$pss_json" "$pss_level" \
+        "${#cis_checks[@]}" "$cis_json" \
+        "${#secrets_analysis[@]}" "$secrets_json" \
+        "${#admission_analysis[@]}" "$admission_json" \
+        "$risk_score" "$risk_level" "$critical_count" "$high_count" "$medium_count" \
+        "$(date -u +%Y-%m-%dT%H:%M:%SZ 2>/dev/null || echo "unknown")"
+}

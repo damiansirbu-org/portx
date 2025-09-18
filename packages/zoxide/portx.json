@@ -1,0 +1,15 @@
+{
+  "name": "zoxide",
+  "version": "0.9.8",
+  "description": "A smarter cd command that learns your habits and lets you jump to any directory in just a few keystrokes",
+  "importType": "wrap",
+  "bin": {
+    "zoxide": {
+      "path": "zoxide.exe",
+      "description": "Smart directory navigation that remembers frequently used directories for instant jumping with fuzzy matching",
+      "usage": "zoxide add /path/to/dir\nzoxide query foo\nzoxide remove /path/to/dir\nzoxide init bash\nz foo\nzi foo",
+      "dependencies": "windows"
+    }
+  },
+  "tags": ["navigation", "directory", "cd", "smart", "fuzzy", "jump", "rust", "productivity"]
+}

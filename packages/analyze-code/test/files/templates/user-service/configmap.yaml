@@ -1,0 +1,13 @@
+{{- if .Values.userService.enabled -}}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: user-service-config
+  labels:
+    app: user-service
+data:
+  db_host: {{ .Values.userService.database.host | quote }}
+  db_port: {{ .Values.userService.database.port | quote }}
+  db_name: {{ .Values.userService.database.name | quote }}
+  log_level: {{ .Values.userService.logging.level | default "INFO" | quote }}
+{{- end -}}
