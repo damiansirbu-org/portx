@@ -153,8 +153,8 @@ export GIT_BASH_ROOT
 export USER="portx"
 export PORTX_HOME="$GIT_BASH_ROOT/home/$USER"
 # Java Development Environment
-export JAVA_HOME="$PORTX_HOME/packages/java"
-export PATH="$JAVA_HOME/bin:$PATH"
+#export JAVA_HOME="$PORTX_HOME/packages/java"
+#export PATH="$JAVA_HOME/bin:$PATH"
 
 # Configure Claude Code Git Bash integration with dynamic path
 # Transform Unix path (/c/App/Git) to Windows path (C:\App\Git)
@@ -254,12 +254,12 @@ PROMPT_COMMAND="history -a${PROMPT_COMMAND:+; $PROMPT_COMMAND}"
 configure_portx_path() {
     # Java Development Environment
     # Add Java binaries to PATH if JAVA_HOME is set
-    [[ -n "$JAVA_HOME" && -d "$JAVA_HOME/bin" ]] && export PATH="$JAVA_HOME/bin:$PATH"
+    # [[ -n "$JAVA_HOME" && -d "$JAVA_HOME/bin" ]] && export PATH="$JAVA_HOME/bin:$PATH"
     
     # Local Development PATH Extensions
     # Add user-specific binary directories to PATH if they exist
-    [[ -d "$HOME/bin" ]] && export PATH="$HOME/bin:$PATH"
-    [[ -d "$HOME/.local/bin" ]] && export PATH="$HOME/.local/bin:$PATH"
+    # [[ -d "$HOME/bin" ]] && export PATH="$HOME/bin:$PATH"
+    # [[ -d "$HOME/.local/bin" ]] && export PATH="$HOME/.local/bin:$PATH"
     [[ -d "$HOME/scripts" ]] && export PATH="$HOME/scripts:$PATH"
     
     # PORTX Package Integration

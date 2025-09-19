@@ -33,11 +33,17 @@ warning() { printf "%s%s%s\n" "$(color_warning)" "$1" "$(color_reset)"; }
 
 
 # Configuration
+# Wrapper creation control flags
+CREATE_SHELL_WRAPPERS=false  # Set to true to enable bash/shell wrapper creation
+CREATE_CMD_WRAPPERS=false    # Set to true to enable CMD wrapper creation  
+CREATE_EXE_WRAPPERS=true     # Set to true to enable Go executable wrapper creation
+
 # Convert Windows paths to MSYS format for bash commands
 GIT_BASH_ROOT_POSIX="${GIT_BASH_ROOT//C:/\/c}"
 PACKAGES_DIR="$GIT_BASH_ROOT_POSIX/home/portx/packages"
 SH_WRAPPERS_DIR="$GIT_BASH_ROOT_POSIX/bin"
 CMD_WRAPPERS_DIR="$GIT_BASH_ROOT_POSIX/cmd"
+GO_WRAPPERS_DIR="$GIT_BASH_ROOT_POSIX/zig"
 PORTX_PATH_CACHE="$HOME/.portx_path_cache"
 PORTX_PACKAGES_CACHE="$HOME/.portx_packages_cache"
 PORTX_TOOLS_CACHE="$HOME/.portx_tools_cache"
@@ -52,6 +58,8 @@ GOJQ_EXE="$PACKAGES_DIR/gojq/gojq.exe"
 RG_EXE="$PACKAGES_DIR/ripgrep/rg.exe"
 BAT_EXE="$PACKAGES_DIR/bat/bat.exe"
 EZA_EXE="$PACKAGES_DIR/eza/eza.exe"
+GO_EXE="$PACKAGES_DIR/go/bin/go.exe"
+GO_WRAPPER_GENERATOR="$GIT_BASH_ROOT_POSIX/zig/build_wrappers.sh"
 
 # Function for debug logging (only to file)
 debug_log() {
@@ -153,27 +161,6 @@ get_executables_from_json() {
 	fi
 }
 
-# Method: Get executables by scanning directory (for validation)
-get_scanned_executables() {
-	local pkg_dir="$1"
-	debug_log "Scanning for executables in: $pkg_dir"
-
-	# Find executables in package directory and subdirectories
-	# Support Windows executables only: .exe, .bat, .cmd
-	local result
-	result=$("$FD_EXE" "\.(exe|bat|cmd)$" "$pkg_dir" -t f -u -x basename 2>/dev/null | sort -u)
-
-	# Also find extensionless executables (like 'liquibase', 'az')
-	local extensionless
-	extensionless=$("$FD_EXE" -t f -u -E "*.txt" -E "*.md" -E "*.json" -E "*.dll" -E "*.so" -E "*.conf" -E "*.config" -E "*.xml" -E "*.ini" -E "*.log" -E "*.zip" -E "*.tar*" -E "*.gz" "^[^.]*$" "$pkg_dir" -x basename 2>/dev/null | sort -u)
-
-	# Combine both results and remove duplicates
-	result=$(printf "%s\n%s\n" "$result" "$extensionless" | grep -v "^$" | sort -u)
-
-	debug_log "Found executables: $result"
-	echo "$result"
-}
-
 # Method: Parse package JSON for declared tools
 parse_package_manual() {
 	local pkg_dir="$1"
@@ -202,8 +189,9 @@ parse_package_manual() {
 # Research-based solution: Stack Overflow + GNU sed + Unix tr best practices
 clean_json_for_jq() {
 	local json_file="$1"
-	# Stack Overflow proven pattern + GNU sed multi-line comments + tr control chars
-	sed -e '/^[[:blank:]]*#/d' -e 's|//.*||' -e 's|/\*.*\*/||g' "$json_file" |
+	# FIXED: Only remove lines that start with comment markers, not inline comments
+	# This preserves URLs like s3://bucket and # characters in strings
+	sed -e '/^[[:blank:]]*#/d' -e '/^[[:blank:]]*\/\//d' "$json_file" |
 		tr -d '\000-\011\013-\037\177'
 }
 
@@ -216,7 +204,8 @@ parse_json_with_comments() {
 	if [[ "$jq_filter" == '.importType // empty' ]]; then
 		grep '"importType"' "$json_file" | sed 's|.*"importType"[[:space:]]*:[[:space:]]*"||' | sed 's|".*||' | head -1
 	else
-		clean_json_for_jq "$json_file" | "$JQ_EXE" -r "$jq_filter" 2>/dev/null || echo ""
+		# FIXED: No longer mask jq errors - let them fail properly
+		clean_json_for_jq "$json_file" | "$JQ_EXE" -r "$jq_filter" 2>/dev/null
 	fi
 }
 
@@ -239,6 +228,9 @@ get_import_type() {
 		;;
 	"wrap")
 		echo "wrap"
+		;;
+	"none")
+		echo "none"
 		;;
 	*)
 		echo "auto" # Default behavior: try wrappers, fallback to path
@@ -293,7 +285,19 @@ validate_package_comprehensive() {
 	fi
 	debug_log "✓ JSON schema validation passed"
 
-	# STEP 3: Parse executables and verify each one exists
+	# STEP 3: Check importType and skip executable validation for PATH/NONE packages
+	local import_type
+	import_type=$(get_import_type "$pkg_dir")
+	debug_log "Package import type: '$import_type'"
+
+	if [[ "$import_type" == "path" || "$import_type" == "none" ]]; then
+		debug_log "✓ Skipping executable validation for $import_type package"
+		printf "      Skipping executable validation for %s package\n" "$import_type"
+		debug_log "✓ COMPREHENSIVE VALIDATION PASSED: $pkg_name"
+		return 0
+	fi
+
+	# STEP 4: Parse executables and verify each one exists (for wrap/auto packages only)
 	printf "      Checking executable files...\n"
 	debug_log "Parsing executables from portx.json..."
 
@@ -301,18 +305,12 @@ validate_package_comprehensive() {
 	declared_executables=$(parse_package_manual "$pkg_dir")
 
 	if [[ -z "$declared_executables" ]]; then
-		debug_log "No executables declared in portx.json, checking for any files..."
-		local scanned_executables
-		scanned_executables=$(get_scanned_executables "$pkg_dir")
-		if [[ -z "$scanned_executables" ]]; then
-			warning "Package $pkg_name has no executables (documentation package?)"
-			debug_log "✓ No executables found (acceptable for documentation packages)"
-			return 0
-		fi
-		debug_log "Found undeclared executables: $scanned_executables"
+		error "No executables declared in portx.json for package $pkg_name"
+		debug_log "✗ Package validation failed: no executables found in portx.json"
+		return 1
 	fi
 
-	# STEP 4: Verify each declared executable exists at specified path
+	# STEP 5: Verify each declared executable exists at specified path
 	if [[ -n "$declared_executables" ]]; then
 		local exe_count=0
 		local exe_verified=0
@@ -370,25 +368,12 @@ create_bash_wrappers() {
 	local pkg_name="$2"
 	local executables
 
-	# Primary: Use portx.json executables with defaultArgs
+	# Use ONLY portx.json declared executables
 	executables=$(get_executables_from_json "$pkg_dir")
 
-	# Fallback: If no portx.json executables, scan directory (no defaultArgs)
 	if [[ -z "$executables" ]]; then
-		debug_log "    No executables in portx.json, falling back to directory scan"
-		local scanned_exes
-		scanned_exes=$(get_scanned_executables "$pkg_dir")
-		if [[ -n "$scanned_exes" ]]; then
-			# Convert to "executable|" format (no defaultArgs)
-			executables=""
-			while IFS= read -r exe; do
-				executables+="${exe}|"$'\n'
-			done <<<"$scanned_exes"
-			debug_log "    Found $(echo "$scanned_exes" | wc -l) executables by scanning"
-		else
-			debug_log "    No executables found by scanning, skipping package"
-			return 1
-		fi
+		debug_log "    No executables declared in portx.json, skipping package"
+		return 1
 	fi
 
 	debug_log "    Found executables in $pkg_name: $(echo "$executables" | wc -l) files"
@@ -469,25 +454,12 @@ create_cmd_wrappers() {
 	local pkg_name="$2"
 	local executables
 
-	# Primary: Use portx.json executables with defaultArgs
+	# Use ONLY portx.json declared executables
 	executables=$(get_executables_from_json "$pkg_dir")
 
-	# Fallback: If no portx.json executables, scan directory (no defaultArgs)
 	if [[ -z "$executables" ]]; then
-		debug_log "    No executables in portx.json, falling back to directory scan"
-		local scanned_exes
-		scanned_exes=$(get_scanned_executables "$pkg_dir")
-		if [[ -n "$scanned_exes" ]]; then
-			# Convert to "executable|" format (no defaultArgs)
-			executables=""
-			while IFS= read -r exe; do
-				executables+="${exe}|"$'\n'
-			done <<<"$scanned_exes"
-			debug_log "    Found $(echo "$scanned_exes" | wc -l) executables by scanning"
-		else
-			debug_log "    No executables found by scanning, skipping package"
-			return 1
-		fi
+		debug_log "    No executables declared in portx.json, skipping package"
+		return 1
 	fi
 
 	debug_log "    Found executables in $pkg_name: $(echo "$executables" | wc -l) files"
@@ -544,31 +516,197 @@ create_cmd_wrappers() {
 	[[ $created_wrappers -gt 0 ]]
 }
 
+# Method: Create Go executable wrappers
+create_exe_wrappers() {
+	local pkg_dir="$1"
+	local pkg_name="$2"
+	local executables
+
+	# Use ONLY portx.json declared executables
+	executables=$(get_executables_from_json "$pkg_dir")
+
+	if [[ -z "$executables" ]]; then
+		debug_log "    No executables declared in portx.json, skipping package"
+		return 1
+	fi
+
+	if [[ -z "$executables" ]]; then
+		return 1
+	fi
+
+	local created_wrappers=0
+	mkdir -p "$GO_WRAPPERS_DIR"
+
+	# Create exe wrappers - parse executable|defaultArgs format
+	while IFS='|' read -r exe_name default_args; do
+		if [[ -n "$exe_name" ]]; then
+			local cmd_name
+			cmd_name="$(basename "${exe_name%.*}")"
+			
+			# Clean up empty default_args
+			[[ -z "$default_args" ]] && default_args=""
+
+			local wrapper_exe="$GO_WRAPPERS_DIR/$cmd_name.exe"
+			
+			# Determine execution type
+			local execution_type="direct_exe"
+			if [[ "$exe_name" == *.sh ]]; then
+				if [[ -n "$default_args" && "$default_args" != "" ]]; then
+					execution_type="shell_script_with_args"
+				else
+					execution_type="shell_script"
+				fi
+			else
+				if [[ -n "$default_args" && "$default_args" != "" ]]; then
+					execution_type="direct_exe_with_args"
+				else
+					execution_type="direct_exe"
+				fi
+			fi
+			
+			# Create temporary directory for Go build - use Windows-compatible approach
+			local temp_base="/tmp/portx_go_build"
+			local temp_dir="$temp_base/${cmd_name}_$$_$(date +%s)"
+			mkdir -p "$temp_dir" || {
+				debug_log "      FAILED: Could not create temp directory for $cmd_name"
+				continue
+			}
+			
+			# Sanitize cmd_name for filename safety
+			local safe_cmd_name
+			safe_cmd_name=$(echo "$cmd_name" | tr -cd '[:alnum:]_-')
+			[[ -z "$safe_cmd_name" ]] && safe_cmd_name="wrapper_${RANDOM}"
+			
+			local temp_go_file="$temp_dir/${safe_cmd_name}.go"
+			
+			# Create Go file with substitutions - escape special chars in sed
+			local escaped_pkg_name escaped_exe_name escaped_default_args
+			escaped_pkg_name=$(printf '%s\n' "$pkg_name" | sed 's/[[\.*^$()+?{|\/]/\\&/g')
+			escaped_exe_name=$(printf '%s\n' "$exe_name" | sed 's/[[\.*^$()+?{|\/]/\\&/g')
+			escaped_default_args=$(printf '%s\n' "$default_args" | sed 's/[[\.*^$()+?{|\/]/\\&/g')
+			
+			sed -e "s/{{PACKAGE_NAME}}/$escaped_pkg_name/g" \
+				-e "s/{{EXECUTABLE_NAME}}/$escaped_exe_name/g" \
+				-e "s/{{EXECUTION_TYPE}}/$execution_type/g" \
+				-e "s/{{DEFAULT_ARGS}}/$escaped_default_args/g" \
+				"$SCRIPT_DIR/wrapper_template.go" > "$temp_go_file" 2>/dev/null || {
+				debug_log "      FAILED: Could not create Go source for $cmd_name"
+				rm -rf "$temp_dir" 2>/dev/null
+				continue
+			}
+			
+			# Build the executable with explicit output name and better error handling
+			local temp_exe="$temp_dir/${safe_cmd_name}.exe"
+			debug_log "      Building Go wrapper: $safe_cmd_name.go -> $safe_cmd_name.exe"
+			
+			if (cd "$temp_dir" && \
+				PATH="/c/App/Git/home/portx/packages/go/bin:$PATH" \
+				GOOS=windows GOARCH=amd64 \
+				go build -o "${safe_cmd_name}.exe" "${safe_cmd_name}.go") 2>&1 | while read -r line; do
+					debug_log "      GO-BUILD: $line"
+				done; then
+				
+				# Verify the build output exists
+				if [[ -f "$temp_exe" ]]; then
+					# Move to final location with error checking
+					if mv "$temp_exe" "$wrapper_exe" 2>/dev/null; then
+						debug_log "      SUCCESS: Created Go executable wrapper: $cmd_name.exe"
+						printf "    EXE:  %s -> %s\n" "$cmd_name" "$wrapper_exe" >&2
+						created_wrappers=$((created_wrappers + 1))
+					else
+						debug_log "      FAILED: Could not move $temp_exe to $wrapper_exe"
+					fi
+				else
+					debug_log "      FAILED: Go build did not produce expected output: $temp_exe"
+				fi
+			else
+				debug_log "      FAILED: Go build failed for $cmd_name"
+			fi
+			
+			# Clean up temp directory with verification
+			if [[ -d "$temp_dir" ]]; then
+				rm -rf "$temp_dir" 2>/dev/null || {
+					debug_log "      WARNING: Could not clean up temp directory: $temp_dir"
+				}
+			fi
+		fi
+	done <<<"$executables"
+
+	# Return 0 if any wrappers created, 1 if none created
+	[[ $created_wrappers -gt 0 ]]
+}
+
+create_go_wrappers() {
+	local specific_packages=("$@")
+	
+	debug_log "Creating Go executable wrappers..."
+	
+	# Ensure Go wrapper directories exist
+	mkdir -p "$GO_WRAPPERS_DIR"
+	
+	local total_created=0
+	
+	if [[ ${#specific_packages[@]} -gt 0 ]]; then
+		debug_log "Generating Go wrappers for specific packages: ${specific_packages[*]}"
+		
+		# Create wrappers for each specified package
+		for pkg_name in "${specific_packages[@]}"; do
+			local pkg_path="$PACKAGES_DIR/$pkg_name"
+			if [[ -d "$pkg_path" && -f "$pkg_path/portx.json" ]]; then
+				debug_log "Creating Go wrappers for package: $pkg_name"
+				if create_exe_wrappers "$pkg_path" "$pkg_name"; then
+					debug_log "Successfully created Go wrappers for: $pkg_name"
+					((total_created++))
+				else
+					debug_log "Failed to create Go wrappers for: $pkg_name"
+				fi
+			else
+				debug_log "Package not found or missing portx.json: $pkg_name"
+			fi
+		done
+	else
+		debug_log "Generating Go wrappers for common packages"
+		local common_packages=("ag" "ripgrep" "gojq" "analyze-code")
+		
+		for pkg_name in "${common_packages[@]}"; do
+			local pkg_path="$PACKAGES_DIR/$pkg_name"
+			if [[ -d "$pkg_path" && -f "$pkg_path/portx.json" ]]; then
+				debug_log "Creating Go wrappers for package: $pkg_name"
+				if create_exe_wrappers "$pkg_path" "$pkg_name"; then
+					debug_log "Successfully created Go wrappers for: $pkg_name"
+					((total_created++))
+				else
+					debug_log "Failed to create Go wrappers for: $pkg_name"
+				fi
+			else
+				debug_log "Package not found or missing portx.json: $pkg_name"
+			fi
+		done
+	fi
+	
+	# Count final wrapper files
+	local go_wrapper_count=0
+	if [[ -d "$GO_WRAPPERS_DIR" ]]; then
+		go_wrapper_count=$(find "$GO_WRAPPERS_DIR" -name "*.exe" 2>/dev/null | wc -l)
+	fi
+	
+	debug_log "Created Go wrappers for $total_created packages, total .exe files: $go_wrapper_count"
+	
+	return $([[ $total_created -gt 0 ]] && echo 0 || echo 1)
+}
+
 # Method: Create wrapper scripts (import only - no testing) - LEGACY FUNCTION
 create_wrappers() {
 	local pkg_dir="$1"
 	local pkg_name="$2"
 	local executables
 
-	# Primary: Use portx.json executables with defaultArgs
+	# Use ONLY portx.json declared executables
 	executables=$(get_executables_from_json "$pkg_dir")
 
-	# Fallback: If no portx.json executables, scan directory (no defaultArgs)
 	if [[ -z "$executables" ]]; then
-		debug_log "    No executables in portx.json, falling back to directory scan"
-		local scanned_exes
-		scanned_exes=$(get_scanned_executables "$pkg_dir")
-		if [[ -n "$scanned_exes" ]]; then
-			# Convert to "executable|" format (no defaultArgs)
-			executables=""
-			while IFS= read -r exe; do
-				executables+="${exe}|"$'\n'
-			done <<<"$scanned_exes"
-			debug_log "    Found $(echo "$scanned_exes" | wc -l) executables by scanning"
-		else
-			debug_log "    No executables found by scanning, skipping package"
-			return 1
-		fi
+		debug_log "    No executables declared in portx.json, skipping package"
+		return 1
 	fi
 
 	debug_log "    Found executables in $pkg_name: $(echo "$executables" | wc -l) files"
@@ -624,10 +762,11 @@ WRAPPER_EOF
 			fi
 			chmod +x "$wrapper_sh"
 
+
 			debug_log "      Created wrappers for: $cmd_name"
 			debug_log "      Target exe: $exe_file"
 
-			created_wrappers=$((created_wrappers + 2)) # 1 sh + 1 cmd file
+			created_wrappers=$((created_wrappers + 2)) # 1 sh + 1 cmd file (+ maybe 1 exe)
 		fi
 	done <<<"$executables"
 
@@ -977,9 +1116,13 @@ import_package() {
 			return 1
 		fi
 		
-		# Create wrappers
-		create_bash_wrappers "$pkg_path" "$pkg_name"
-		create_cmd_wrappers "$pkg_path" "$pkg_name"
+		# Create wrappers (controlled by feature flags)
+		if [[ "$CREATE_SHELL_WRAPPERS" == "true" ]]; then
+			create_bash_wrappers "$pkg_path" "$pkg_name"
+		fi
+		if [[ "$CREATE_CMD_WRAPPERS" == "true" ]]; then
+			create_cmd_wrappers "$pkg_path" "$pkg_name"
+		fi
 		;;
 		
 	"path")
@@ -1018,6 +1161,12 @@ import_packages() {
 			done
 		fi
 	done
+	
+	# Also clean up Go executable wrappers in zig directory
+	if [[ -d "$GO_WRAPPERS_DIR" ]]; then
+		debug_log "      Cleaning Go executable wrappers in: $GO_WRAPPERS_DIR"
+		rm -f "$GO_WRAPPERS_DIR"/*.exe 2>/dev/null || true
+	fi
 	mkdir -p "$SH_WRAPPERS_DIR"
 
 	# Main processing loop - comprehensive validation before import
@@ -1057,22 +1206,46 @@ import_packages() {
 				# Default wrapper creation logic
 				debug_log "Creating wrappers for $pkg_name"
 
-				# Create bash wrapper (always)
-				debug_log "About to create bash wrappers for $pkg_name"
-				if create_bash_wrappers "$pkg_path" "$pkg_name"; then
-					debug_log "Created bash wrappers for $pkg_name"
-					WRAPPER_PACKAGES=$((WRAPPER_PACKAGES + 1))
-					WRAPPER_PACKAGE_NAMES+=("$pkg_name")
+				# Create bash wrapper (controlled by flag)
+				if [[ "$CREATE_SHELL_WRAPPERS" == "true" ]]; then
+					debug_log "About to create bash wrappers for $pkg_name"
+					if create_bash_wrappers "$pkg_path" "$pkg_name"; then
+						debug_log "Created bash wrappers for $pkg_name"
+						WRAPPER_PACKAGES=$((WRAPPER_PACKAGES + 1))
+						WRAPPER_PACKAGE_NAMES+=("$pkg_name")
+					else
+						debug_log "Failed to create bash wrappers for $pkg_name"
+					fi
 				else
-					debug_log "Failed to create bash wrappers for $pkg_name"
+					debug_log "Skipping bash wrapper creation (disabled)"
 				fi
 
-				# Create .cmd wrapper (always)
-				debug_log "About to create cmd wrappers for $pkg_name"
-				if create_cmd_wrappers "$pkg_path" "$pkg_name"; then
-					debug_log "Created cmd wrappers for $pkg_name"
+				# Create .cmd wrapper (controlled by flag)
+				if [[ "$CREATE_CMD_WRAPPERS" == "true" ]]; then
+					debug_log "About to create cmd wrappers for $pkg_name"
+					if create_cmd_wrappers "$pkg_path" "$pkg_name"; then
+						debug_log "Created cmd wrappers for $pkg_name"
+					else
+						debug_log "Failed to create cmd wrappers for $pkg_name"
+					fi
 				else
-					debug_log "Failed to create cmd wrappers for $pkg_name"
+					debug_log "Skipping cmd wrapper creation (disabled)"
+				fi
+				
+				# Create .exe wrapper using Go (controlled by flag)
+				if [[ "$CREATE_EXE_WRAPPERS" == "true" && -n "$GO_EXE" && -f "$GO_EXE" ]]; then
+					debug_log "About to create Go exe wrappers for $pkg_name"
+					if create_exe_wrappers "$pkg_path" "$pkg_name"; then
+						debug_log "Created Go exe wrappers for $pkg_name"
+					else
+						debug_log "Failed to create Go exe wrappers for $pkg_name"
+					fi
+				else
+					if [[ "$CREATE_EXE_WRAPPERS" != "true" ]]; then
+						debug_log "Skipping exe wrapper creation (disabled)"
+					else
+						debug_log "Skipping exe wrapper creation (Go not available)"
+					fi
 				fi
 				;;
 			esac
@@ -1083,7 +1256,7 @@ import_packages() {
 	TOTAL_EXECUTABLES=0
 	for pkg_path in "$PACKAGES_DIR"/*; do
 		if [[ -d "$pkg_path" ]]; then
-			pkg_executables=$(get_scanned_executables "$pkg_path" | wc -l)
+			pkg_executables=$(get_executables_from_json "$pkg_path" | wc -l)
 			TOTAL_EXECUTABLES=$((TOTAL_EXECUTABLES + pkg_executables))
 		fi
 	done
@@ -1195,10 +1368,16 @@ import_packages() {
 		cmd_wrappers=$("$FD_EXE" "\.cmd$" "$CMD_WRAPPERS_DIR" -u -x grep -l "PORTX-WRAPPER" 2>/dev/null | wc -l)
 	fi
 	
-	local total_wrappers=$((bash_wrappers + cmd_wrappers))
+	# Count Go executable wrappers
+	local go_wrappers=0
+	if [[ -d "$GO_WRAPPERS_DIR" ]]; then
+		go_wrappers=$(find "$GO_WRAPPERS_DIR" -name "*.exe" 2>/dev/null | wc -l)
+	fi
+	
+	local total_wrappers=$((bash_wrappers + cmd_wrappers + go_wrappers))
 
-	printf "Imported %d packages, %d executables, %d PATH packages, %d wrapper packages (%d total wrappers: %d bash + %d cmd)\n" \
-		"$TOTAL_PACKAGES" "$TOTAL_EXECUTABLES" "$PATH_PACKAGES" "$WRAPPER_PACKAGES" "$total_wrappers" "$bash_wrappers" "$cmd_wrappers" >&2
+	printf "Imported %d packages, %d executables, %d PATH packages, %d wrapper packages (%d total wrappers: %d bash + %d cmd + %d exe)\n" \
+		"$TOTAL_PACKAGES" "$TOTAL_EXECUTABLES" "$PATH_PACKAGES" "$WRAPPER_PACKAGES" "$total_wrappers" "$bash_wrappers" "$cmd_wrappers" "$go_wrappers" >&2
 }
 
 
@@ -1698,6 +1877,16 @@ handle_packages_command() {
 	import-package)
 		import_package "$2"
 		;;
+	go-wrappers)
+		shift # Remove 'go-wrappers' from arguments
+		if [[ $# -gt 0 ]]; then
+			printf "Creating Go executable wrappers for: %s\n" "$*" >&2
+			create_go_wrappers "$@"
+		else
+			printf "Creating Go executable wrappers for common packages...\n" >&2
+			create_go_wrappers "ag" "ripgrep" "gojq" "analyze-code"
+		fi
+		;;
 	# verify command removed - use import instead
 	list | ls)
 		list_packages
@@ -1721,6 +1910,7 @@ handle_packages_command() {
 		echo "Commands:"
 		echo "  import            Import and configure all packages"
 		echo "  import-package    Import a specific package by name"
+		echo "  go-wrappers [PKG] Create Go executable wrappers (optional package names)"
 		# verify command removed
 		echo "  list              List all available tools"
 		echo "  search PATTERN    Search tools by name or description"
@@ -1730,6 +1920,8 @@ handle_packages_command() {
 		echo "Examples:"
 		echo "  portx packages import"
 		echo "  portx packages import-package analyze-code"
+		echo "  portx packages go-wrappers"
+		echo "  portx packages go-wrappers ag ripgrep gojq"
 		# verify command removed
 		echo "  portx packages list"
 		echo "  portx packages search git"
