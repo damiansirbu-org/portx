@@ -15,13 +15,33 @@ const (
 	DefaultArgs    = "{{DEFAULT_ARGS}}"
 )
 
+// isWSL checks if the current environment is WSL
+func isWSL() bool {
+	// Check for WSL_DISTRO_NAME environment variable
+	if os.Getenv("WSL_DISTRO_NAME") != "" {
+		return true
+	}
+	
+	// Check /proc/version for "Microsoft" (fallback)
+	if data, err := os.ReadFile("/proc/version"); err == nil {
+		return strings.Contains(strings.ToLower(string(data)), "microsoft")
+	}
+	
+	return false
+}
+
 func main() {
 	// Build the target path based on environment
 	var targetPath string
 	if runtime.GOOS == "windows" {
 		targetPath = fmt.Sprintf("C:\\App\\Git\\home\\portx\\packages\\%s\\%s", PackageName, ExecutableName)
 	} else {
-		targetPath = fmt.Sprintf("/c/App/Git/home/portx/packages/%s/%s", PackageName, ExecutableName)
+		// Check if running in WSL
+		if isWSL() {
+			targetPath = fmt.Sprintf("/mnt/c/App/Git/home/portx/packages/%s/%s", PackageName, ExecutableName)
+		} else {
+			targetPath = fmt.Sprintf("/c/App/Git/home/portx/packages/%s/%s", PackageName, ExecutableName)
+		}
 	}
 
 	// Prepare command and arguments

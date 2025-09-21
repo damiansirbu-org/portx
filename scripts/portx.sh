@@ -34,12 +34,28 @@ warning() { printf "%s%s%s\n" "$(color_warning)" "$1" "$(color_reset)"; }
 
 # Configuration
 # Wrapper creation control flags
-CREATE_SHELL_WRAPPERS=false  # Set to true to enable bash/shell wrapper creation
-CREATE_CMD_WRAPPERS=false    # Set to true to enable CMD wrapper creation  
-CREATE_EXE_WRAPPERS=true     # Set to true to enable Go executable wrapper creation
+CREATE_SHELL_WRAPPERS=true  # Set to true to enable bash/shell wrapper creation
+CREATE_CMD_WRAPPERS=true    # Set to true to enable CMD wrapper creation
+CREATE_EXE_WRAPPERS=false     # Set to true to enable Go executable wrapper creation
 
-# Convert Windows paths to MSYS format for bash commands
-GIT_BASH_ROOT_POSIX="${GIT_BASH_ROOT//C:/\/c}"
+# WSL Environment Detection
+if [[ -n "${WSL_DISTRO_NAME:-}" ]] || grep -qi microsoft /proc/version 2>/dev/null; then
+	IS_WSL=true
+	PATH_PREFIX="/mnt"
+else
+	IS_WSL=false
+	PATH_PREFIX=""
+fi
+
+# Convert Windows paths to appropriate format for bash commands
+if [[ "$IS_WSL" == "true" ]]; then
+	GIT_BASH_ROOT_POSIX="${GIT_BASH_ROOT//C:/\/mnt\/c}"
+else
+	GIT_BASH_ROOT_POSIX="${GIT_BASH_ROOT//C:/\/c}"
+fi
+
+# Windows paths for CMD wrappers (always use Windows format)
+GIT_BASH_ROOT_WINDOWS="${GIT_BASH_ROOT//\//\\\\}"
 PACKAGES_DIR="$GIT_BASH_ROOT_POSIX/home/portx/packages"
 SH_WRAPPERS_DIR="$GIT_BASH_ROOT_POSIX/bin"
 CMD_WRAPPERS_DIR="$GIT_BASH_ROOT_POSIX/cmd"
@@ -53,7 +69,7 @@ PORTX_IMPORT_LOG_FILE="$HOME/portx-packages-import.log"
 # Tool path variables - point to real package locations
 ES_EXE="$PACKAGES_DIR/everything/es.exe"
 FD_EXE="$PACKAGES_DIR/fd/fd.exe"
-JQ_EXE="$PACKAGES_DIR/jq/jq.exe"  
+JQ_EXE="$PACKAGES_DIR/jq/jq.exe"
 GOJQ_EXE="$PACKAGES_DIR/gojq/gojq.exe"
 RG_EXE="$PACKAGES_DIR/ripgrep/rg.exe"
 BAT_EXE="$PACKAGES_DIR/bat/bat.exe"
@@ -232,6 +248,9 @@ get_import_type() {
 	"none")
 		echo "none"
 		;;
+	"wrapAndPath")
+		echo "wrapAndPath"
+		;;
 	*)
 		echo "auto" # Default behavior: try wrappers, fallback to path
 		;;
@@ -295,6 +314,11 @@ validate_package_comprehensive() {
 		printf "      Skipping executable validation for %s package\n" "$import_type"
 		debug_log "✓ COMPREHENSIVE VALIDATION PASSED: $pkg_name"
 		return 0
+	fi
+	
+	# wrapAndPath also needs executable validation
+	if [[ "$import_type" == "wrapAndPath" ]]; then
+		debug_log "wrapAndPath package requires executable validation"
 	fi
 
 	# STEP 4: Parse executables and verify each one exists (for wrap/auto packages only)
@@ -405,20 +429,30 @@ create_bash_wrappers() {
 			# Create shell wrapper for Git Bash with defaultArgs
 			mkdir -p "$SH_WRAPPERS_DIR"
 			local posix_exe_path="$GIT_BASH_ROOT_POSIX/home/portx/packages/$pkg_name/$exe_name"
-			
-			# For .sh files, use bash explicitly; for others, use exec directly
+
+			# Create dynamic wrapper that detects environment at runtime
 			if [[ "$exe_name" == *.sh ]]; then
 				if [[ -n "$default_args" && "$default_args" != "" ]]; then
 					cat >"$wrapper_sh" <<WRAPPER_EOF
 #!/bin/bash
 # PORTX-WRAPPER: Auto-generated wrapper for $pkg_name with defaultArgs
-exec bash "$posix_exe_path" $default_args "\$@"
+if [[ -n "\${WSL_DISTRO_NAME:-}" ]] || grep -qi microsoft /proc/version 2>/dev/null; then
+    PORTX_PATH="/mnt/c/App/Git/home/portx/packages/$pkg_name/$exe_name"
+else
+    PORTX_PATH="/c/App/Git/home/portx/packages/$pkg_name/$exe_name"
+fi
+exec bash "\$PORTX_PATH" ${default_args:+$default_args }"\$@"
 WRAPPER_EOF
 				else
 					cat >"$wrapper_sh" <<WRAPPER_EOF
 #!/bin/bash
 # PORTX-WRAPPER: Auto-generated wrapper for $pkg_name
-exec bash "$posix_exe_path" "\$@"
+if [[ -n "\${WSL_DISTRO_NAME:-}" ]] || grep -qi microsoft /proc/version 2>/dev/null; then
+    PORTX_PATH="/mnt/c/App/Git/home/portx/packages/$pkg_name/$exe_name"
+else
+    PORTX_PATH="/c/App/Git/home/portx/packages/$pkg_name/$exe_name"
+fi
+exec bash "\$PORTX_PATH" "\$@"
 WRAPPER_EOF
 				fi
 			else
@@ -426,13 +460,23 @@ WRAPPER_EOF
 					cat >"$wrapper_sh" <<WRAPPER_EOF
 #!/bin/bash
 # PORTX-WRAPPER: Auto-generated wrapper for $pkg_name with defaultArgs
-exec "$posix_exe_path" $default_args "\$@"
+if [[ -n "\${WSL_DISTRO_NAME:-}" ]] || grep -qi microsoft /proc/version 2>/dev/null; then
+    PORTX_PATH="/mnt/c/App/Git/home/portx/packages/$pkg_name/$exe_name"
+else
+    PORTX_PATH="/c/App/Git/home/portx/packages/$pkg_name/$exe_name"
+fi
+exec "\$PORTX_PATH" ${default_args:+$default_args}"\$@"
 WRAPPER_EOF
 				else
 					cat >"$wrapper_sh" <<WRAPPER_EOF
 #!/bin/bash
 # PORTX-WRAPPER: Auto-generated wrapper for $pkg_name
-exec "$posix_exe_path" "\$@"
+if [[ -n "\${WSL_DISTRO_NAME:-}" ]] || grep -qi microsoft /proc/version 2>/dev/null; then
+    PORTX_PATH="/mnt/c/App/Git/home/portx/packages/$pkg_name/$exe_name"
+else
+    PORTX_PATH="/c/App/Git/home/portx/packages/$pkg_name/$exe_name"
+fi
+exec "\$PORTX_PATH" "\$@"
 WRAPPER_EOF
 				fi
 			fi
@@ -490,7 +534,7 @@ create_cmd_wrappers() {
 
 			# Create .cmd wrapper for Windows with defaultArgs
 			mkdir -p "$CMD_WRAPPERS_DIR"
-			
+
 			# For .sh files, use Git Bash; for others, call directly
 			if [[ "$exe_name" == *.sh ]]; then
 				if [[ -n "$default_args" && "$default_args" != "" ]]; then
@@ -542,12 +586,12 @@ create_exe_wrappers() {
 		if [[ -n "$exe_name" ]]; then
 			local cmd_name
 			cmd_name="$(basename "${exe_name%.*}")"
-			
+
 			# Clean up empty default_args
 			[[ -z "$default_args" ]] && default_args=""
 
 			local wrapper_exe="$GO_WRAPPERS_DIR/$cmd_name.exe"
-			
+
 			# Determine execution type
 			local execution_type="direct_exe"
 			if [[ "$exe_name" == *.sh ]]; then
@@ -563,7 +607,7 @@ create_exe_wrappers() {
 					execution_type="direct_exe"
 				fi
 			fi
-			
+
 			# Create temporary directory for Go build - use Windows-compatible approach
 			local temp_base="/tmp/portx_go_build"
 			local temp_dir="$temp_base/${cmd_name}_$$_$(date +%s)"
@@ -571,20 +615,20 @@ create_exe_wrappers() {
 				debug_log "      FAILED: Could not create temp directory for $cmd_name"
 				continue
 			}
-			
+
 			# Sanitize cmd_name for filename safety
 			local safe_cmd_name
 			safe_cmd_name=$(echo "$cmd_name" | tr -cd '[:alnum:]_-')
 			[[ -z "$safe_cmd_name" ]] && safe_cmd_name="wrapper_${RANDOM}"
-			
+
 			local temp_go_file="$temp_dir/${safe_cmd_name}.go"
-			
+
 			# Create Go file with substitutions - escape special chars in sed
 			local escaped_pkg_name escaped_exe_name escaped_default_args
 			escaped_pkg_name=$(printf '%s\n' "$pkg_name" | sed 's/[[\.*^$()+?{|\/]/\\&/g')
 			escaped_exe_name=$(printf '%s\n' "$exe_name" | sed 's/[[\.*^$()+?{|\/]/\\&/g')
 			escaped_default_args=$(printf '%s\n' "$default_args" | sed 's/[[\.*^$()+?{|\/]/\\&/g')
-			
+
 			sed -e "s/{{PACKAGE_NAME}}/$escaped_pkg_name/g" \
 				-e "s/{{EXECUTABLE_NAME}}/$escaped_exe_name/g" \
 				-e "s/{{EXECUTION_TYPE}}/$execution_type/g" \
@@ -594,18 +638,18 @@ create_exe_wrappers() {
 				rm -rf "$temp_dir" 2>/dev/null
 				continue
 			}
-			
+
 			# Build the executable with explicit output name and better error handling
 			local temp_exe="$temp_dir/${safe_cmd_name}.exe"
 			debug_log "      Building Go wrapper: $safe_cmd_name.go -> $safe_cmd_name.exe"
-			
+
 			if (cd "$temp_dir" && \
 				PATH="/c/App/Git/home/portx/packages/go/bin:$PATH" \
 				GOOS=windows GOARCH=amd64 \
 				go build -o "${safe_cmd_name}.exe" "${safe_cmd_name}.go") 2>&1 | while read -r line; do
 					debug_log "      GO-BUILD: $line"
 				done; then
-				
+
 				# Verify the build output exists
 				if [[ -f "$temp_exe" ]]; then
 					# Move to final location with error checking
@@ -622,7 +666,7 @@ create_exe_wrappers() {
 			else
 				debug_log "      FAILED: Go build failed for $cmd_name"
 			fi
-			
+
 			# Clean up temp directory with verification
 			if [[ -d "$temp_dir" ]]; then
 				rm -rf "$temp_dir" 2>/dev/null || {
@@ -638,17 +682,17 @@ create_exe_wrappers() {
 
 create_go_wrappers() {
 	local specific_packages=("$@")
-	
+
 	debug_log "Creating Go executable wrappers..."
-	
+
 	# Ensure Go wrapper directories exist
 	mkdir -p "$GO_WRAPPERS_DIR"
-	
+
 	local total_created=0
-	
+
 	if [[ ${#specific_packages[@]} -gt 0 ]]; then
 		debug_log "Generating Go wrappers for specific packages: ${specific_packages[*]}"
-		
+
 		# Create wrappers for each specified package
 		for pkg_name in "${specific_packages[@]}"; do
 			local pkg_path="$PACKAGES_DIR/$pkg_name"
@@ -667,7 +711,7 @@ create_go_wrappers() {
 	else
 		debug_log "Generating Go wrappers for common packages"
 		local common_packages=("ag" "ripgrep" "gojq" "analyze-code")
-		
+
 		for pkg_name in "${common_packages[@]}"; do
 			local pkg_path="$PACKAGES_DIR/$pkg_name"
 			if [[ -d "$pkg_path" && -f "$pkg_path/portx.json" ]]; then
@@ -683,15 +727,15 @@ create_go_wrappers() {
 			fi
 		done
 	fi
-	
+
 	# Count final wrapper files
 	local go_wrapper_count=0
 	if [[ -d "$GO_WRAPPERS_DIR" ]]; then
 		go_wrapper_count=$(find "$GO_WRAPPERS_DIR" -name "*.exe" 2>/dev/null | wc -l)
 	fi
-	
+
 	debug_log "Created Go wrappers for $total_created packages, total .exe files: $go_wrapper_count"
-	
+
 	return $([[ $total_created -gt 0 ]] && echo 0 || echo 1)
 }
 
@@ -751,7 +795,7 @@ create_wrappers() {
 				cat >"$wrapper_sh" <<WRAPPER_EOF
 #!/bin/bash
 # PORTX-WRAPPER: Auto-generated wrapper for $pkg_name with defaultArgs
-exec "$posix_exe_path" $default_args "\$@"
+exec "$posix_exe_path" ${default_args:+$default_args }"\$@"
 WRAPPER_EOF
 			else
 				cat >"$wrapper_sh" <<WRAPPER_EOF
@@ -1031,36 +1075,36 @@ save_to_cache() {
 # Import single package function (process just one specific package)
 import_package() {
 	local target_package="$1"
-	
+
 	if [[ -z "$target_package" ]]; then
 		error "Package name required"
 		echo "Usage: portx packages import-package <package_name>"
 		exit 1
 	fi
-	
+
 	local pkg_path="$PACKAGES_DIR/$target_package"
-	
+
 	if [[ ! -d "$pkg_path" ]]; then
 		error "Package not found: $target_package"
 		echo "Available packages:"
 		ls "$PACKAGES_DIR" | grep -v "^\." | head -10
 		exit 1
 	fi
-	
+
 	printf "Importing single package: %s\n" "$target_package" >&2
-	
+
 	# Process the specific package
 	local pkg_name="$target_package"
 	local json_file="$pkg_path/portx.json"
-	
+
 	if [[ ! -f "$json_file" ]]; then
 		error "Missing portx.json for package: $pkg_name"
 		return 1
 	fi
-	
+
 	printf "  Processing: %s\n" "$pkg_name" >&2
 	printf "    Validating: %s\n" "$pkg_name" >&2
-	
+
 	# Validate JSON schema
 	printf "      Checking JSON schema...\n" >&2
 	if ! "$SCRIPT_DIR/validate-json.sh" "$json_file" >/dev/null 2>&1; then
@@ -1073,24 +1117,24 @@ import_package() {
 		printf "\nFix the schema issues and re-run import\n" >&2
 		return 1
 	fi
-	
+
 	# Get import type
 	local import_type
 	import_type=$(get_import_type "$pkg_path")
-	
+
 	printf "      Import type: %s\n" "$import_type" >&2
-	
+
 	case "$import_type" in
-	"wrap" | "auto")
+	"wrap" | "auto" | "wrapAndPath")
 		# Validate and create wrappers
 		printf "      Checking executable files...\n" >&2
-		
+
 		# Verify all executables exist
 		local executables_exist=true
 		local verified_count=0
 		local total_executables
 		total_executables=$(get_executables_from_json "$pkg_path" | wc -l)
-		
+
 		if [[ "$total_executables" -gt 0 ]]; then
 			while IFS='|' read -r exe_name _; do
 				if [[ -n "$exe_name" ]]; then
@@ -1105,7 +1149,7 @@ import_package() {
 				fi
 			done <<<"$(get_executables_from_json "$pkg_path")"
 		fi
-		
+
 		if [[ "$executables_exist" == true ]] && [[ "$verified_count" -gt 0 ]]; then
 			printf "      [92mAll %d executables verified[0m\n" "$verified_count" >&2
 		elif [[ "$verified_count" -eq 0 ]]; then
@@ -1115,7 +1159,7 @@ import_package() {
 			printf "[1;31mSome executables missing for %s[0m\n" "$pkg_name" >&2
 			return 1
 		fi
-		
+
 		# Create wrappers (controlled by feature flags)
 		if [[ "$CREATE_SHELL_WRAPPERS" == "true" ]]; then
 			create_bash_wrappers "$pkg_path" "$pkg_name"
@@ -1124,16 +1168,16 @@ import_package() {
 			create_cmd_wrappers "$pkg_path" "$pkg_name"
 		fi
 		;;
-		
+
 	"path")
 		printf "  PATH: %s\n" "$pkg_name" >&2
 		;;
-		
+
 	"none")
 		printf "  SKIP: %s (documentation only)\n" "$pkg_name" >&2
 		;;
 	esac
-	
+
 	printf "Successfully imported package: %s\n" "$target_package" >&2
 }
 
@@ -1161,7 +1205,7 @@ import_packages() {
 			done
 		fi
 	done
-	
+
 	# Also clean up Go executable wrappers in zig directory
 	if [[ -d "$GO_WRAPPERS_DIR" ]]; then
 		debug_log "      Cleaning Go executable wrappers in: $GO_WRAPPERS_DIR"
@@ -1202,6 +1246,39 @@ import_packages() {
 				printf "  SKIP: %s (documentation only)\n" "$pkg_name" >&2
 				debug_log "Skipping documentation package $pkg_name"
 				;;
+			"wrapAndPath")
+				# Create wrappers AND add to PATH for maximum compatibility
+				printf "  WRAP+PATH: %s\n" "$pkg_name" >&2
+				debug_log "Creating wrappers AND adding to PATH for $pkg_name"
+				
+				# Create wrappers first
+				local wrapper_created=false
+				if [[ "$CREATE_SHELL_WRAPPERS" == "true" ]]; then
+					if create_bash_wrappers "$pkg_path" "$pkg_name"; then
+						debug_log "Created bash wrappers for $pkg_name"
+						wrapper_created=true
+						WRAPPER_PACKAGES=$((WRAPPER_PACKAGES + 1))
+						WRAPPER_PACKAGE_NAMES+=("$pkg_name")
+					fi
+				fi
+				if [[ "$CREATE_CMD_WRAPPERS" == "true" ]]; then
+					if create_cmd_wrappers "$pkg_path" "$pkg_name"; then
+						debug_log "Created cmd wrappers for $pkg_name"
+						wrapper_created=true
+					fi
+				fi
+				if [[ "$CREATE_EXE_WRAPPERS" == "true" && -n "$GO_EXE" && -f "$GO_EXE" ]]; then
+					if create_exe_wrappers "$pkg_path" "$pkg_name"; then
+						debug_log "Created Go exe wrappers for $pkg_name"
+						wrapper_created=true
+					fi
+				fi
+				
+				# Also add to PATH
+				add_to_path "$pkg_path" "$pkg_name"
+				PATH_PACKAGES=$((PATH_PACKAGES + 1))
+				debug_log "Added $pkg_name to PATH (wrapAndPath mode)"
+				;;
 			*)
 				# Default wrapper creation logic
 				debug_log "Creating wrappers for $pkg_name"
@@ -1231,7 +1308,7 @@ import_packages() {
 				else
 					debug_log "Skipping cmd wrapper creation (disabled)"
 				fi
-				
+
 				# Create .exe wrapper using Go (controlled by flag)
 				if [[ "$CREATE_EXE_WRAPPERS" == "true" && -n "$GO_EXE" && -f "$GO_EXE" ]]; then
 					debug_log "About to create Go exe wrappers for $pkg_name"
@@ -1319,7 +1396,7 @@ import_packages() {
 
 		# Calculate Git for Windows stats (directories with executables / total executables)
 		GFW_DIRS=$("$FD_EXE" "\.exe$" "$GIT_BASH_ROOT_POSIX/bin" "$GIT_BASH_ROOT_POSIX/mingw64/bin" "$GIT_BASH_ROOT_POSIX/usr/bin" -u -x dirname 2>/dev/null | sort -u | wc -l)
-		GFW_EXECUTABLES=$("$ES_EXE" "$GIT_BASH_ROOT" ext:exe 2>/dev/null | grep -v "home.portx.packages" | wc -l)
+		GFW_EXECUTABLES=$("$ES_EXE" "C:\\App\\Git" 2>/dev/null | grep "\.exe$" | grep -v "home.portx.packages" | wc -l)
 		PORTX_WRAPPERS_COUNT=$("$FD_EXE" "\.cmd$" "$CMD_WRAPPERS_DIR" -u 2>/dev/null | wc -l)
 		TOTAL_COUNT=$((GFW_EXECUTABLES + PORTX_WRAPPERS_COUNT + TOTAL_EXECUTABLES))
 		TOTAL_DIRS=$((GFW_DIRS + PATH_PACKAGES))
@@ -1357,23 +1434,23 @@ import_packages() {
 	# Count actual wrapper files created by extension and content
 	local bash_wrappers=0
 	local cmd_wrappers=0
-	
+
 	# Count bash wrappers containing PORTX-WRAPPER
 	if [[ -d "$SH_WRAPPERS_DIR" ]]; then
 		bash_wrappers=$("$FD_EXE" -t f . "$SH_WRAPPERS_DIR" -u -x grep -l "PORTX-WRAPPER" 2>/dev/null | wc -l)
 	fi
-	
+
 	# Count cmd wrappers containing PORTX-WRAPPER
 	if [[ -d "$CMD_WRAPPERS_DIR" ]]; then
 		cmd_wrappers=$("$FD_EXE" "\.cmd$" "$CMD_WRAPPERS_DIR" -u -x grep -l "PORTX-WRAPPER" 2>/dev/null | wc -l)
 	fi
-	
+
 	# Count Go executable wrappers
 	local go_wrappers=0
 	if [[ -d "$GO_WRAPPERS_DIR" ]]; then
 		go_wrappers=$(find "$GO_WRAPPERS_DIR" -name "*.exe" 2>/dev/null | wc -l)
 	fi
-	
+
 	local total_wrappers=$((bash_wrappers + cmd_wrappers + go_wrappers))
 
 	printf "Imported %d packages, %d executables, %d PATH packages, %d wrapper packages (%d total wrappers: %d bash + %d cmd + %d exe)\n" \
@@ -1493,7 +1570,7 @@ list_tools_flat() {
 							fi
 						fi
 					fi
-				# Use new schema (bin object) - no fallback, crash if not compliant  
+				# Use new schema (bin object) - no fallback, crash if not compliant
 				done < <($JQ_CMD -r '. as $root | .bin | to_entries[] | "\(.key)|\(((.value.tags // []) + ($root.tags // [])) | unique | join(","))"' "$pkg_dir/portx.json" 2>/dev/null)
 			else
 				# No filter - extract all executables

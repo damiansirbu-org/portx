@@ -23,8 +23,8 @@
     },
     "importType": {
       "type": "string",
-      "enum": ["wrap", "path", "none"],
-      "description": "Import strategy: wrap (create wrappers with intelligent PATH detection), path (add package root to PATH), none (documentation only, no imports)"
+      "enum": ["wrap", "path", "none", "wrapAndPath"],
+      "description": "Import strategy: wrap (create wrappers with intelligent PATH detection), path (add package root to PATH), none (documentation only, no imports), wrapAndPath (create wrappers AND add to PATH for maximum compatibility)"
     },
     "bin": {
       "type": "object",
@@ -72,17 +72,37 @@
     }
   },
   "additionalProperties": false,
-  "if": {
-    "properties": {
-      "importType": {"const": "wrap"}
-    }
-  },
-  "then": {
-    "required": ["bin"],
-    "properties": {
-      "bin": {
-        "minProperties": 1
+  "anyOf": [
+    {
+      "if": {
+        "properties": {
+          "importType": {"const": "wrap"}
+        }
+      },
+      "then": {
+        "required": ["bin"],
+        "properties": {
+          "bin": {
+            "minProperties": 1
+          }
+        }
       }
-    }
-  }
+    },
+    {
+      "if": {
+        "properties": {
+          "importType": {"const": "wrapAndPath"}
+        }
+      },
+      "then": {
+        "required": ["bin"],
+        "properties": {
+          "bin": {
+            "minProperties": 1
+          }
+        }
+      }
+    },
+    true
+  ]
 }

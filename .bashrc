@@ -387,4 +387,3 @@ source ~/scripts/env-security.sh
 # Load custom prompt configuration (PS1 setup)
 # shellcheck source=/dev/null
 source ~/scripts/ps1.sh
-

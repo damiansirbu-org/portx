@@ -46,8 +46,8 @@ validate_portx_schema() {
     if [[ -z "$import_type" ]]; then
         echo "ERROR: Missing required field: importType"
         ((errors++))
-    elif [[ ! "$import_type" =~ ^(wrap|path|none)$ ]]; then
-        echo "ERROR: Invalid importType: $import_type (must be: wrap, path, or none)"
+    elif [[ ! "$import_type" =~ ^(wrap|path|none|wrapAndPath)$ ]]; then
+        echo "ERROR: Invalid importType: $import_type (must be: wrap, path, none, or wrapAndPath)"
         ((errors++))
     fi
     
@@ -55,6 +55,11 @@ validate_portx_schema() {
     if [[ "$import_type" == "wrap" ]]; then
         if ! cat "$json_file" | "$JQ_CMD" -e '.bin' >/dev/null 2>&1; then
             echo "ERROR: bin required when importType is 'wrap'"
+            ((errors++))
+        fi
+    elif [[ "$import_type" == "wrapAndPath" ]]; then
+        if ! cat "$json_file" | "$JQ_CMD" -e '.bin' >/dev/null 2>&1; then
+            echo "ERROR: bin required when importType is 'wrapAndPath'"
             ((errors++))
         fi
     fi
