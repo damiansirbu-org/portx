@@ -6,10 +6,23 @@
 # Enhanced error handling - temporarily disabled for debugging
 # set -euo pipefail
 
+# Universal logging system - ALWAYS logs everything
+LOG_FILE="$GIT_BASH_ROOT/home/portx/portx-packages-import.log"
+
+# Initialize log file - delete existing on script start
+if [[ -f "$LOG_FILE" ]]; then
+	rm -f "$LOG_FILE"
+fi
+
+# Debug logging - only to file
+debug() {
+	command printf "[%s] %s\n" "$(date '+%Y-%m-%d %H:%M:%S')" "$*" >> "$LOG_FILE"
+}
+
 # Check if GIT_BASH_ROOT is set
 if [[ -z "${GIT_BASH_ROOT:-}" ]]; then
-	echo "ERROR: GIT_BASH_ROOT environment variable not set" >&2
-	echo "This variable should be set by .bashrc" >&2
+	error "GIT_BASH_ROOT environment variable not set"
+	info "This variable should be set by .bashrc"
 	exit 1
 fi
 
@@ -23,28 +36,22 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=/dev/null
 source "$SCRIPT_DIR/theme.sh"
 
-# Logging functions using theme.sh color functions
-log() { printf "%s%s%s\n" "$(color_primary)" "$1" "$(color_reset)"; }
-error() { printf "%s%s%s\n" "$(color_error)" "$1" "$(color_reset)" >&2; }
-success() { printf "%s%s%s\n" "$(color_success)" "$1" "$(color_reset)"; }
-warning() { printf "%s%s%s\n" "$(color_warning)" "$1" "$(color_reset)"; }
-
-
-
+# Semantic logging functions - plain text to log file + colored console output
+info() { command printf "%s\n" "$1" >> "$LOG_FILE"; command printf "%s%s%s\n" "$(color_primary)" "$1" "$(color_reset)"; }
+error() { command printf "%s\n" "$1" >> "$LOG_FILE"; command printf "%s%s%s\n" "$(color_error)" "$1" "$(color_reset)" >&2; }
+success() { command printf "%s\n" "$1" >> "$LOG_FILE"; command printf "%s%s%s\n" "$(color_pale_green)" "$1" "$(color_reset)"; }
+warning() { command printf "%s\n" "$1" >> "$LOG_FILE"; command printf "%s%s%s\n" "$(color_warning)" "$1" "$(color_reset)"; }
 
 # Configuration
 # Wrapper creation control flags
-CREATE_SHELL_WRAPPERS=true  # Set to true to enable bash/shell wrapper creation
-CREATE_CMD_WRAPPERS=true    # Set to true to enable CMD wrapper creation
-CREATE_EXE_WRAPPERS=false     # Set to true to enable Go executable wrapper creation
+CREATE_SHELL_WRAPPERS=true # Set to true to enable bash/shell wrapper creation
+CREATE_CMD_WRAPPERS=true   # Set to true to enable CMD wrapper creation
 
 # WSL Environment Detection
 if [[ -n "${WSL_DISTRO_NAME:-}" ]] || grep -qi microsoft /proc/version 2>/dev/null; then
 	IS_WSL=true
-	PATH_PREFIX="/mnt"
 else
 	IS_WSL=false
-	PATH_PREFIX=""
 fi
 
 # Convert Windows paths to appropriate format for bash commands
@@ -59,45 +66,15 @@ GIT_BASH_ROOT_WINDOWS="${GIT_BASH_ROOT//\//\\\\}"
 PACKAGES_DIR="$GIT_BASH_ROOT_POSIX/home/portx/packages"
 SH_WRAPPERS_DIR="$GIT_BASH_ROOT_POSIX/bin"
 CMD_WRAPPERS_DIR="$GIT_BASH_ROOT_POSIX/cmd"
-GO_WRAPPERS_DIR="$GIT_BASH_ROOT_POSIX/zig"
 PORTX_PATH_CACHE="$HOME/.portx_path_cache"
 PORTX_PACKAGES_CACHE="$HOME/.portx_packages_cache"
 PORTX_TOOLS_CACHE="$HOME/.portx_tools_cache"
-PORTX_IMPORT_LOG_FILE="$HOME/portx-packages-import.log"
-# Legacy verify log file variable removed
 
 # Tool path variables - point to real package locations
 ES_EXE="$PACKAGES_DIR/everything/es.exe"
 FD_EXE="$PACKAGES_DIR/fd/fd.exe"
 JQ_EXE="$PACKAGES_DIR/jq/jq.exe"
-GOJQ_EXE="$PACKAGES_DIR/gojq/gojq.exe"
-RG_EXE="$PACKAGES_DIR/ripgrep/rg.exe"
-BAT_EXE="$PACKAGES_DIR/bat/bat.exe"
-EZA_EXE="$PACKAGES_DIR/eza/eza.exe"
-GO_EXE="$PACKAGES_DIR/go/bin/go.exe"
-GO_WRAPPER_GENERATOR="$GIT_BASH_ROOT_POSIX/zig/build_wrappers.sh"
 
-# Function for debug logging (only to file)
-debug_log() {
-	local log_file="${1:-$PORTX_IMPORT_LOG_FILE}"
-	local message="${2:-}"
-	if [[ -z "$message" ]]; then
-		message="$1"
-		log_file="$PORTX_IMPORT_LOG_FILE"
-	fi
-	printf "[DEBUG] %s\n" "$message" >>"$log_file"
-}
-
-# Function for regular logging (to both screen and file)
-info_log() {
-	local log_file="${1:-$PORTX_IMPORT_LOG_FILE}"
-	local message="$2"
-	if [[ -z "$message" ]]; then
-		message="$1"
-		log_file="$PORTX_IMPORT_LOG_FILE"
-	fi
-	printf "%s\n" "$message" | tee -a "$log_file"
-}
 
 # Counters
 TOTAL_PACKAGES=0
@@ -110,7 +87,6 @@ PATH_PACKAGES=0
 WRAPPER_PACKAGE_NAMES=()
 PATH_PACKAGE_PATHS=()
 
-# Legacy wrapper testing constants removed
 
 # Schema validation error codes
 declare -g SCHEMA_VALID=0
@@ -122,11 +98,11 @@ declare -g JSON_SYNTAX_ERROR=22
 validate_portx_json() {
 	local portx_json_path="$1"
 
-	debug_log "Validating: $portx_json_path"
+	debug "Validating: $portx_json_path"
 
 	# Check if portx.json exists
 	if [[ ! -f "$portx_json_path" ]]; then
-		debug_log "ERROR: portx.json not found: $portx_json_path"
+		debug "ERROR: portx.json not found: $portx_json_path"
 		return $SCHEMA_FILE_MISSING
 	fi
 
@@ -134,46 +110,61 @@ validate_portx_json() {
 	local validator_script="$GIT_BASH_ROOT_POSIX/home/portx/scripts/validate-json.sh"
 	if [[ -f "$validator_script" ]]; then
 		if "$validator_script" "$portx_json_path" >/dev/null 2>&1; then
-			debug_log "SUCCESS: Schema validation passed: $portx_json_path"
+			debug "SUCCESS: Schema validation passed: $portx_json_path"
 			return $SCHEMA_VALID
 		else
-			debug_log "ERROR: Schema validation failed: $portx_json_path"
+			debug "ERROR: Schema validation failed: $portx_json_path"
 			# Show detailed validation errors
 			"$validator_script" "$portx_json_path" 2>&1 | while read -r line; do
-				debug_log "  $line"
+				debug "  $line"
 			done
 			return $SCHEMA_INVALID
 		fi
 	else
-		debug_log "WARNING: Native validator not found, using basic JSON syntax check"
+		debug "WARNING: Native validator not found, using basic JSON syntax check"
 		# Fallback to basic JSON syntax validation
 		if ! cat "$portx_json_path" | jq empty >/dev/null 2>&1; then
-			debug_log "ERROR: Invalid JSON syntax in: $portx_json_path"
+			debug "ERROR: Invalid JSON syntax in: $portx_json_path"
 			return $JSON_SYNTAX_ERROR
 		fi
 		return $SCHEMA_VALID
 	fi
 }
 
-
 # Method: Get executables from portx.json (preferred) with defaultArgs
 get_executables_from_json() {
 	local pkg_dir="$1"
 	local json_file="$pkg_dir/portx.json"
 
+	debug "=== GET_EXECUTABLES_FROM_JSON START ==="
+	debug "Package dir: $pkg_dir"
+	debug "JSON file: $json_file"
+
 	if [[ -f "$json_file" ]]; then
+		debug "JSON file exists, parsing"
 		# NEW SCHEMA: Extract executables from bin object: "path|defaultArgs"
 		# First try new schema (bin object)
 		local bin_executables
 		bin_executables=$(parse_json_with_comments "$json_file" '.bin // {} | to_entries[]? | "\(.value.path)|\(.value.defaultArgs // "")"')
+		debug "New schema result: '$bin_executables'"
 
 		if [[ -n "$bin_executables" ]]; then
-			echo "$bin_executables"
+			debug "Using new schema result"
+			command echo "$bin_executables"
+			debug "=== GET_EXECUTABLES_FROM_JSON END ==="
 			return
 		fi
 
+		debug "New schema empty, trying legacy fallback"
 		# LEGACY FALLBACK: Extract from old tools array for backward compatibility
-		parse_json_with_comments "$json_file" '.tools[]? | select(.executable) | "\(.executable)|\(.defaultArgs // "")"'
+		local legacy_result
+		legacy_result=$(parse_json_with_comments "$json_file" '.tools[]? | select(.executable) | "\(.executable)|\(.defaultArgs // "")"')
+		debug "Legacy schema result: '$legacy_result'"
+		command echo "$legacy_result"
+		debug "=== GET_EXECUTABLES_FROM_JSON END ==="
+	else
+		debug "JSON file does not exist"
+		debug "=== GET_EXECUTABLES_FROM_JSON END ==="
 	fi
 }
 
@@ -183,7 +174,7 @@ parse_package_manual() {
 	local json_file="$pkg_dir/portx.json"
 
 	if [[ ! -f "$json_file" ]]; then
-		echo ""
+		command echo ""
 		return
 	fi
 
@@ -192,7 +183,7 @@ parse_package_manual() {
 	bin_executables=$(parse_json_with_comments "$json_file" '.bin // {} | to_entries[]? | .value.path' | sort -u)
 
 	if [[ -n "$bin_executables" ]]; then
-		echo "$bin_executables"
+		command echo "$bin_executables"
 		return
 	fi
 
@@ -230,7 +221,7 @@ get_import_type() {
 	local json_file="$pkg_dir/portx.json"
 
 	if [[ ! -f "$json_file" ]]; then
-		echo "auto" # No portx.json, use default behavior
+		command echo "auto" # No portx.json, use default behavior
 		return
 	fi
 
@@ -240,23 +231,22 @@ get_import_type() {
 
 	case "$import_type" in
 	"path")
-		echo "path"
+		command echo "path"
 		;;
 	"wrap")
-		echo "wrap"
+		command echo "wrap"
 		;;
 	"none")
-		echo "none"
+		command echo "none"
 		;;
 	"wrapAndPath")
-		echo "wrapAndPath"
+		command echo "wrapAndPath"
 		;;
 	*)
-		echo "auto" # Default behavior: try wrappers, fallback to path
+		command echo "auto" # Default behavior: try wrappers, fallback to path
 		;;
 	esac
 }
-
 
 # Method: Comprehensive package validation with schema and executable verification
 validate_package_comprehensive() {
@@ -264,73 +254,81 @@ validate_package_comprehensive() {
 	local pkg_name="$2"
 	local json_file="$pkg_dir/portx.json"
 
-	printf "    Validating: %s\n" "$pkg_name"
-	debug_log "=== COMPREHENSIVE VALIDATION: $pkg_name ==="
-	debug_log "Package directory: $pkg_dir"
-	debug_log "JSON file: $json_file"
+	info "    Validating: $pkg_name"
+	debug "=== COMPREHENSIVE VALIDATION: $pkg_name ==="
+	debug "Package directory: $pkg_dir"
+	debug "JSON file: $json_file"
 
 	# STEP 1: Check portx.json exists
 	if [[ ! -f "$json_file" ]]; then
-		printf "%sCRITICAL ERROR: Missing portx.json%s\n" "$(color_error)" "$(color_reset)" >&2
-		printf "Package: %s\n" "$pkg_name" >&2
-		printf "Path: %s\n" "$pkg_dir" >&2
-		printf "Cannot proceed - portx.json is required for all packages\n" >&2
-		debug_log "FATAL: Missing portx.json for $pkg_name"
+		debug "Validation error: Missing portx.json for package $pkg_name at $pkg_dir"
+		error "Missing portx.json file"
+		info "Package: $pkg_name"
+		info "Expected file: $json_file"
+		info "Error: portx.json configuration file not found"
+		info "Cannot proceed - portx.json is required for all packages"
+		debug "Validation failed: Missing portx.json for $pkg_name"
 		return 1
 	fi
-	debug_log "✓ portx.json exists"
+	debug "portx.json exists"
 
 	# STEP 2: Validate JSON schema with comprehensive validation
-	printf "      Checking JSON schema...\n"
-	debug_log "Running comprehensive schema validation..."
+	info "      Verifying JSON schema"
+	debug "Running comprehensive schema validation"
 	if ! bash "$SCRIPT_DIR/validate-json.sh" "$json_file" >/dev/null 2>&1; then
 		local validation_output
 		validation_output=$(bash "$SCRIPT_DIR/validate-json.sh" "$json_file" 2>&1)
 
-		printf "%sCRITICAL ERROR: Invalid portx.json schema%s\n" "$(color_error)" "$(color_reset)" >&2
-		printf "Package: %s\n" "$pkg_name" >&2
-		printf "Path: %s\n" "$json_file" >&2
-		printf "\n" >&2
-		printf "Schema validation failed - package MUST be 100%% compliant\n" >&2
+		debug "Validation error: Invalid portx.json schema for package $pkg_name at $json_file"
+		debug "Schema validation errors: $validation_output"
+		error "Invalid portx.json schema"
+		info "Package: $pkg_name"
+		info "Path: $json_file"
+		info ""
+		info "Schema validation failed - package MUST be 100%% compliant"
 		printf "Validation errors:\n" >&2
 		while IFS= read -r line; do
-			printf "  %s\n" "$line" >&2
+			info "  $line"
 		done <<<"$validation_output"
-		printf "\n" >&2
-		printf "Fix the schema issues and re-run import\n" >&2
-		debug_log "FATAL: Schema validation failed for $pkg_name"
-		debug_log "Validation output: $validation_output"
+		info ""
+		info "Fix the schema issues and re-run import"
+		debug "Validation failed: Schema validation failed for $pkg_name"
+		debug "Validation output: $validation_output"
 		return 1
 	fi
-	debug_log "✓ JSON schema validation passed"
+	debug "JSON schema validation passed"
+	success "      JSON schema validated successfully"
 
 	# STEP 3: Check importType and skip executable validation for PATH/NONE packages
 	local import_type
 	import_type=$(get_import_type "$pkg_dir")
-	debug_log "Package import type: '$import_type'"
+	debug "Package import type: '$import_type'"
 
 	if [[ "$import_type" == "path" || "$import_type" == "none" ]]; then
-		debug_log "✓ Skipping executable validation for $import_type package"
-		printf "      Skipping executable validation for %s package\n" "$import_type"
-		debug_log "✓ COMPREHENSIVE VALIDATION PASSED: $pkg_name"
+		debug "Skipping executable validation for $import_type importType"
+		info "      Skipping executable validation for $import_type importType"
+		debug "COMPREHENSIVE VALIDATION PASSED: $pkg_name"
 		return 0
 	fi
-	
+
 	# wrapAndPath also needs executable validation
 	if [[ "$import_type" == "wrapAndPath" ]]; then
-		debug_log "wrapAndPath package requires executable validation"
+		debug "wrapAndPath package requires executable validation"
 	fi
 
 	# STEP 4: Parse executables and verify each one exists (for wrap/auto packages only)
-	printf "      Checking executable files...\n"
-	debug_log "Parsing executables from portx.json..."
+	info "      Verifying executable file paths"
+	debug "Parsing executables from portx.json"
 
 	local declared_executables
 	declared_executables=$(parse_package_manual "$pkg_dir")
 
 	if [[ -z "$declared_executables" ]]; then
-		error "No executables declared in portx.json for package $pkg_name"
-		debug_log "✗ Package validation failed: no executables found in portx.json"
+		error "No executables declared for package $pkg_name"
+		info "Error: portx.json contains no executable declarations"
+		info "Expected: .bin object with executable definitions"
+		info "Package cannot be imported without executable declarations"
+		debug "Package validation failed: no executables found in portx.json"
 		return 1
 	fi
 
@@ -345,32 +343,32 @@ validate_package_comprehensive() {
 			exe_count=$((exe_count + 1))
 
 			local full_exe_path="$pkg_dir/$exe_path"
-			debug_log "Checking executable: $exe_path -> $full_exe_path"
-			printf "        Verifying: %s\n" "$exe_path"
+			debug "Checking executable: $exe_path -> $full_exe_path"
+			info "        Verifying: $exe_path"
 
-			debug_log "Testing file existence: $full_exe_path"
+			debug "Testing file existence: $full_exe_path"
 
 			if [[ ! -f "$full_exe_path" ]]; then
-				printf "%sCRITICAL ERROR: Missing executable file%s\n" "$(color_error)" "$(color_reset)" >&2
-				printf "Package: %s\n" "$pkg_name" >&2
-				printf "Declared path: %s\n" "$exe_path" >&2
-				printf "Full path: %s\n" "$full_exe_path" >&2
-				printf "\n" >&2
-				printf "All declared executables MUST exist at their specified paths\n" >&2
-				printf "Check portx.json paths and directory structure\n" >&2
-				debug_log "FATAL: Missing executable $exe_path in package $pkg_name"
-				debug_log "Expected at: $full_exe_path"
+				error "Missing executable file: $exe_path"
+				info "Package: $pkg_name"
+				info "Expected path: $full_exe_path"
+				info "Error: File does not exist at declared location"
+				info ""
+				info "All declared executables MUST exist at their specified paths"
+				info "Check portx.json paths and directory structure"
+				debug "Validation failed: Missing executable $exe_path in package $pkg_name"
+				debug "Expected at: $full_exe_path"
 				return 1
 			fi
 			exe_verified=$((exe_verified + 1))
-			debug_log "✓ Verified executable: $exe_path"
+			debug "Verified executable: $exe_path"
 		done <<<"$declared_executables"
 
-		printf "      %sAll %d executables verified%s\n" "$(color_pale_green)" "$exe_verified" "$(color_reset)"
-		debug_log "✓ All $exe_verified/$exe_count executables verified successfully"
+		success "      All $exe_verified executables found at correct paths"
+		debug "All $exe_verified/$exe_count executables verified successfully"
 	fi
 
-	debug_log "✓ COMPREHENSIVE VALIDATION PASSED: $pkg_name"
+	debug "COMPREHENSIVE VALIDATION PASSED: $pkg_name"
 	return 0
 }
 
@@ -392,101 +390,207 @@ create_bash_wrappers() {
 	local pkg_name="$2"
 	local executables
 
+	debug "=== CREATE_BASH_WRAPPERS START ==="
+	debug "Package dir: $pkg_dir"
+	debug "Package name: $pkg_name"
+
 	# Use ONLY portx.json declared executables
 	executables=$(get_executables_from_json "$pkg_dir")
+	debug "Raw executables from JSON: '$executables'"
 
 	if [[ -z "$executables" ]]; then
-		debug_log "    No executables declared in portx.json, skipping package"
+		debug "    No executables declared in portx.json, skipping package"
 		return 1
 	fi
 
-	debug_log "    Found executables in $pkg_name: $(echo "$executables" | wc -l) files"
+	debug "    Found executables in $pkg_name: $(echo "$executables" | wc -l) files"
 	if [[ -z "$executables" ]]; then
-		debug_log "    No executables found in package"
+		debug "    No executables found in package"
 		return 1
 	fi
 
 	local created_wrappers=0
 
 	# Create bash wrappers - parse executable|defaultArgs format
+	debug "Processing executables line by line"
 	while IFS='|' read -r exe_name default_args; do
+		# Sanitize default_args - remove any newlines or whitespace
+		default_args=$(echo "$default_args" | tr -d '\n\r' | xargs)
+		debug "--- Processing line: exe_name='$exe_name' default_args='$default_args' (sanitized) ---"
 		if [[ -n "$exe_name" ]]; then
 			local cmd_name
 			cmd_name="$(basename "${exe_name%.*}")"
+			debug "Command name: $cmd_name"
 			local exe_file="$pkg_dir/$exe_name"
+			debug "Executable file path: $exe_file"
 
 			if [[ ! -f "$exe_file" ]]; then
-				debug_log "      SKIPPED: Executable does not exist: $exe_file"
+				debug "      SKIPPED: Executable does not exist: $exe_file"
 				continue
 			fi
 
 			if has_command_conflict "$cmd_name"; then
-				debug_log "      WARNING: $cmd_name conflicts with existing command, but creating wrapper anyway"
+				debug "      WARNING: $cmd_name conflicts with existing command, but creating wrapper anyway"
 			fi
 
 			local wrapper_sh="$SH_WRAPPERS_DIR/$cmd_name"
+			debug "Wrapper path: $wrapper_sh"
 
 			# Create shell wrapper for Git Bash with defaultArgs
 			mkdir -p "$SH_WRAPPERS_DIR"
 			local posix_exe_path="$GIT_BASH_ROOT_POSIX/home/portx/packages/$pkg_name/$exe_name"
 
 			# Create dynamic wrapper that detects environment at runtime
+			debug "Creating wrapper template"
+			debug "=== COMPREHENSIVE WRAPPER GENERATION LOG ==="
+			debug "GIT_BASH_ROOT: '$GIT_BASH_ROOT'"
+			debug "WSL_DETECTED: $([[ -n "${WSL_DISTRO_NAME:-}" ]] || grep -qi microsoft /proc/version 2>/dev/null && echo "YES" || echo "NO")"
+			debug "PACKAGES_ROOT_PATH_WSL: '/mnt$GIT_BASH_ROOT/home/portx/packages'"
+			debug "PACKAGES_ROOT_PATH_GITBASH: '$GIT_BASH_ROOT/home/portx/packages'"
+			debug "PACKAGE_NAME: '$pkg_name'"
+			debug "EXE_RELATIVE_PATH: '$exe_name'"
+			debug "COMMAND_NAME: '$cmd_name'"
+			debug "DEFAULT_ARGS_RAW: '$default_args'"
+			debug "WRAPPER_OUTPUT_PATH: '$wrapper_sh'"
+			debug "IS_SHELL_SCRIPT: $([[ "$exe_name" == *.sh ]] && echo "YES" || echo "NO")"
+			debug "HAS_ARGUMENTS: $([[ -n "$default_args" && "$default_args" != "" ]] && echo "YES" || echo "NO")"
+			debug "EXPECTED_EXECUTABLE_WSL: '/mnt$GIT_BASH_ROOT/home/portx/packages/$pkg_name/$exe_name'"
+			debug "EXPECTED_EXECUTABLE_GITBASH: '$GIT_BASH_ROOT/home/portx/packages/$pkg_name/$exe_name'"
+			debug "=== END COMPREHENSIVE LOG ==="
+
 			if [[ "$exe_name" == *.sh ]]; then
 				if [[ -n "$default_args" && "$default_args" != "" ]]; then
+					debug "Using shell template WITH default args"
 					cat >"$wrapper_sh" <<WRAPPER_EOF
 #!/bin/bash
-# PORTX-WRAPPER: Auto-generated wrapper for $pkg_name with defaultArgs
+# PORTX-WRAPPER: Auto-generated wrapper for $pkg_name/$cmd_name
 if [[ -n "\${WSL_DISTRO_NAME:-}" ]] || grep -qi microsoft /proc/version 2>/dev/null; then
-    PORTX_PATH="/mnt/c/App/Git/home/portx/packages/$pkg_name/$exe_name"
+    PACKAGES_ROOT_PATH="/mnt$GIT_BASH_ROOT/home/portx/packages"
 else
-    PORTX_PATH="/c/App/Git/home/portx/packages/$pkg_name/$exe_name"
+    PACKAGES_ROOT_PATH="$GIT_BASH_ROOT/home/portx/packages"
 fi
-exec bash "\$PORTX_PATH" ${default_args:+$default_args }"\$@"
+PACKAGE_NAME="$pkg_name"
+EXE_RELATIVE_PATH="$exe_name"
+ARGS="$default_args"
+EXECUTABLE_PATH="\$PACKAGES_ROOT_PATH/\$PACKAGE_NAME/\$EXE_RELATIVE_PATH"
+exec bash "\$EXECUTABLE_PATH" \${ARGS:+\$ARGS }"\$@"
 WRAPPER_EOF
 				else
+					debug "Using shell template WITHOUT default args"
 					cat >"$wrapper_sh" <<WRAPPER_EOF
 #!/bin/bash
-# PORTX-WRAPPER: Auto-generated wrapper for $pkg_name
+# PORTX-WRAPPER: Auto-generated wrapper for $pkg_name/$cmd_name
 if [[ -n "\${WSL_DISTRO_NAME:-}" ]] || grep -qi microsoft /proc/version 2>/dev/null; then
-    PORTX_PATH="/mnt/c/App/Git/home/portx/packages/$pkg_name/$exe_name"
+    PACKAGES_ROOT_PATH="/mnt$GIT_BASH_ROOT/home/portx/packages"
 else
-    PORTX_PATH="/c/App/Git/home/portx/packages/$pkg_name/$exe_name"
+    PACKAGES_ROOT_PATH="$GIT_BASH_ROOT/home/portx/packages"
 fi
-exec bash "\$PORTX_PATH" "\$@"
+PACKAGE_NAME="$pkg_name"
+EXE_RELATIVE_PATH="$exe_name"
+EXECUTABLE_PATH="\$PACKAGES_ROOT_PATH/\$PACKAGE_NAME/\$EXE_RELATIVE_PATH"
+exec bash "\$EXECUTABLE_PATH" "\$@"
 WRAPPER_EOF
 				fi
 			else
 				if [[ -n "$default_args" && "$default_args" != "" ]]; then
+					debug "Using clean wrapper template WITH arguments"
+					debug "=== CLEAN WRAPPER CONSTRUCTION ==="
+					debug "PACKAGES_ROOT_PATH: /mnt$GIT_BASH_ROOT/home/portx/packages OR $GIT_BASH_ROOT/home/portx/packages"
+					debug "PACKAGE_NAME: '$pkg_name'"
+					debug "EXE_RELATIVE_PATH: '$exe_name'"
+					debug "ARGS: '$default_args'"
+					debug "=== WRITING CLEAN TEMPLATE ==="
 					cat >"$wrapper_sh" <<WRAPPER_EOF
 #!/bin/bash
-# PORTX-WRAPPER: Auto-generated wrapper for $pkg_name with defaultArgs
+# PORTX-WRAPPER: Auto-generated wrapper for $pkg_name/$cmd_name
 if [[ -n "\${WSL_DISTRO_NAME:-}" ]] || grep -qi microsoft /proc/version 2>/dev/null; then
-    PORTX_PATH="/mnt/c/App/Git/home/portx/packages/$pkg_name/$exe_name"
+    PACKAGES_ROOT_PATH="/mnt$GIT_BASH_ROOT/home/portx/packages"
 else
-    PORTX_PATH="/c/App/Git/home/portx/packages/$pkg_name/$exe_name"
+    PACKAGES_ROOT_PATH="$GIT_BASH_ROOT/home/portx/packages"
 fi
-exec "\$PORTX_PATH" ${default_args:+$default_args}"\$@"
+PACKAGE_NAME="$pkg_name"
+EXE_RELATIVE_PATH="$exe_name"
+ARGS="$default_args"
+EXECUTABLE_PATH="\$PACKAGES_ROOT_PATH/\$PACKAGE_NAME/\$EXE_RELATIVE_PATH"
+exec "\$EXECUTABLE_PATH" \${ARGS:+\$ARGS }"\$@"
 WRAPPER_EOF
+					debug "=== TEMPLATE WRITTEN - CHECKING RESULT ==="
+					debug "Actual exec line written: $(tail -1 "$wrapper_sh" | grep "exec")"
 				else
+					debug "Using clean wrapper template WITHOUT arguments"
 					cat >"$wrapper_sh" <<WRAPPER_EOF
 #!/bin/bash
-# PORTX-WRAPPER: Auto-generated wrapper for $pkg_name
+# PORTX-WRAPPER: Auto-generated wrapper for $pkg_name/$cmd_name
 if [[ -n "\${WSL_DISTRO_NAME:-}" ]] || grep -qi microsoft /proc/version 2>/dev/null; then
-    PORTX_PATH="/mnt/c/App/Git/home/portx/packages/$pkg_name/$exe_name"
+    PACKAGES_ROOT_PATH="/mnt$GIT_BASH_ROOT/home/portx/packages"
 else
-    PORTX_PATH="/c/App/Git/home/portx/packages/$pkg_name/$exe_name"
+    PACKAGES_ROOT_PATH="$GIT_BASH_ROOT/home/portx/packages"
 fi
-exec "\$PORTX_PATH" "\$@"
+PACKAGE_NAME="$pkg_name"
+EXE_RELATIVE_PATH="$exe_name"
+EXECUTABLE_PATH="\$PACKAGES_ROOT_PATH/\$PACKAGE_NAME/\$EXE_RELATIVE_PATH"
+exec "\$EXECUTABLE_PATH" "\$@"
 WRAPPER_EOF
 				fi
 			fi
+			debug "=== WRAPPER CREATION COMPLETED ==="
+			debug "Final wrapper file: '$wrapper_sh'"
+			debug "File size: $(wc -c < "$wrapper_sh") bytes"
+			debug "File permissions: $(ls -l "$wrapper_sh" | cut -d' ' -f1)"
+			debug "=== WRAPPER CONTENT VERIFICATION ==="
+			debug "$(cat "$wrapper_sh" | sed 's/^/  /')"
+			debug "=== WRAPPER EXEC LINE ANALYSIS ==="
+			local exec_line=$(grep "exec" "$wrapper_sh")
+			debug "Exec statement: '$exec_line'"
+			debug "Contains EXECUTABLE_PATH: $(echo "$exec_line" | grep -q "EXECUTABLE_PATH" && echo "YES" || echo "NO")"
+			# Check if wrapper has proper argument handling (either with ARGS expansion or direct "$@")
+			local has_args_expansion=$(echo "$exec_line" | grep -q '\${ARGS:+' && echo "YES" || echo "NO")
+			local has_direct_args=$(echo "$exec_line" | grep -q '"$@"' && echo "YES" || echo "NO")
+			debug "Has ARGS expansion: $has_args_expansion"
+			debug "Has direct \$@ handling: $has_direct_args"
+			debug "Proper argument handling: $([[ "$has_args_expansion" == "YES" || "$has_direct_args" == "YES" ]] && echo "YES" || echo "NO")"
+			debug "=== END WRAPPER VERIFICATION ==="
 			chmod +x "$wrapper_sh"
-			printf "    BASH: %s -> %s\n" "$cmd_name" "$wrapper_sh" >&2
-			debug_log "      Created bash wrapper for: $cmd_name"
-			debug_log "      Target exe: $exe_file"
+
+			# Validate wrapper with shellcheck using full path
+			debug "Validating wrapper with shellcheck"
+			debug "=== VALIDATION TOOL PATH CONSTRUCTION ==="
+			local validation_packages_root
+			if [[ -n "${WSL_DISTRO_NAME:-}" ]] || grep -qi microsoft /proc/version 2>/dev/null; then
+				validation_packages_root="/mnt$GIT_BASH_ROOT/home/portx/packages"
+			else
+				validation_packages_root="$GIT_BASH_ROOT/home/portx/packages"
+			fi
+			local shellcheck_path="$validation_packages_root/shellcheck/shellcheck.exe"
+			debug "VALIDATION_PACKAGES_ROOT: '$validation_packages_root'"
+			debug "SHELLCHECK_PATH: '$shellcheck_path'"
+			debug "SHELLCHECK_EXISTS: $([[ -f "$shellcheck_path" ]] && echo "YES" || echo "NO")"
+
+			if [[ -f "$shellcheck_path" ]]; then
+				local shellcheck_output
+				debug "Running shellcheck validation: '$shellcheck_path' '$wrapper_sh'"
+				if shellcheck_output=$("$shellcheck_path" "$wrapper_sh" 2>&1); then
+					debug "Shellcheck PASSED for $cmd_name"
+					success "      Wrapper validated successfully"
+				else
+					debug "Shellcheck FAILED for $cmd_name:"
+					debug "$(color_error)$shellcheck_output$(color_reset)"
+					error "      Wrapper validation failed - see debug log for details"
+				fi
+			else
+				debug "Shellcheck not available at expected path, skipping validation"
+				debug "Expected shellcheck path: '$shellcheck_path'"
+				warning "      Wrapper validation skipped (shellcheck not available)"
+			fi
+
+			info "    BASH: $cmd_name -> $wrapper_sh"
+			debug "      Created bash wrapper for: $cmd_name"
+			debug "      Target exe: $exe_file"
 			created_wrappers=$((created_wrappers + 1))
 		fi
 	done <<<"$executables"
+
+	debug "=== CREATE_BASH_WRAPPERS END ==="
 
 	# Return 0 if any wrappers created, 1 if none created
 	[[ $created_wrappers -gt 0 ]]
@@ -502,13 +606,13 @@ create_cmd_wrappers() {
 	executables=$(get_executables_from_json "$pkg_dir")
 
 	if [[ -z "$executables" ]]; then
-		debug_log "    No executables declared in portx.json, skipping package"
+		debug "    No executables declared in portx.json, skipping package"
 		return 1
 	fi
 
-	debug_log "    Found executables in $pkg_name: $(echo "$executables" | wc -l) files"
+	debug "    Found executables in $pkg_name: $(echo "$executables" | wc -l) files"
 	if [[ -z "$executables" ]]; then
-		debug_log "    No executables found in package"
+		debug "    No executables found in package"
 		return 1
 	fi
 
@@ -522,12 +626,12 @@ create_cmd_wrappers() {
 			local exe_file="$pkg_dir/$exe_name"
 
 			if [[ ! -f "$exe_file" ]]; then
-				debug_log "      SKIPPED: Executable does not exist: $exe_file"
+				debug "      SKIPPED: Executable does not exist: $exe_file"
 				continue
 			fi
 
 			if has_command_conflict "$cmd_name"; then
-				debug_log "      WARNING: $cmd_name conflicts with existing command, but creating wrapper anyway"
+				debug "      WARNING: $cmd_name conflicts with existing command, but creating wrapper anyway"
 			fi
 
 			local wrapper_cmd="$CMD_WRAPPERS_DIR/$cmd_name.cmd"
@@ -538,20 +642,20 @@ create_cmd_wrappers() {
 			# For .sh files, use Git Bash; for others, call directly
 			if [[ "$exe_name" == *.sh ]]; then
 				if [[ -n "$default_args" && "$default_args" != "" ]]; then
-					printf '@echo off\nrem PORTX-WRAPPER: Auto-generated wrapper for %s with defaultArgs\n"C:\\App\\Git\\bin\\bash.exe" "C:\\App\\Git\\home\\portx\\packages\\%s\\%s" %s %%*\n' "$pkg_name" "$pkg_name" "$exe_name" "$default_args" >"$wrapper_cmd"
+					command printf '@echo off\nrem PORTX-WRAPPER: Auto-generated wrapper for %s with defaultArgs\n"%s\\bin\\bash.exe" "%s\\home\\portx\\packages\\%s\\%s" %s %%*\n' "$pkg_name" "$GIT_BASH_ROOT_WINDOWS" "$GIT_BASH_ROOT_WINDOWS" "$pkg_name" "$exe_name" "$default_args" >"$wrapper_cmd"
 				else
-					printf '@echo off\nrem PORTX-WRAPPER: Auto-generated wrapper for %s\n"C:\\App\\Git\\bin\\bash.exe" "C:\\App\\Git\\home\\portx\\packages\\%s\\%s" %%*\n' "$pkg_name" "$pkg_name" "$exe_name" >"$wrapper_cmd"
+					command printf '@echo off\nrem PORTX-WRAPPER: Auto-generated wrapper for %s\n"%s\\bin\\bash.exe" "%s\\home\\portx\\packages\\%s\\%s" %%*\n' "$pkg_name" "$GIT_BASH_ROOT_WINDOWS" "$GIT_BASH_ROOT_WINDOWS" "$pkg_name" "$exe_name" >"$wrapper_cmd"
 				fi
 			else
 				if [[ -n "$default_args" && "$default_args" != "" ]]; then
-					printf '@echo off\nrem PORTX-WRAPPER: Auto-generated wrapper for %s with defaultArgs\n"C:\\App\\Git\\home\\portx\\packages\\%s\\%s" %s %%*\n' "$pkg_name" "$pkg_name" "$exe_name" "$default_args" >"$wrapper_cmd"
+					command printf '@echo off\nrem PORTX-WRAPPER: Auto-generated wrapper for %s with defaultArgs\n"%s\\home\\portx\\packages\\%s\\%s" %s %%*\n' "$pkg_name" "$GIT_BASH_ROOT_WINDOWS" "$pkg_name" "$exe_name" "$default_args" >"$wrapper_cmd"
 				else
-					printf '@echo off\nrem PORTX-WRAPPER: Auto-generated wrapper for %s\n"C:\\App\\Git\\home\\portx\\packages\\%s\\%s" %%*\n' "$pkg_name" "$pkg_name" "$exe_name" >"$wrapper_cmd"
+					command printf '@echo off\nrem PORTX-WRAPPER: Auto-generated wrapper for %s\n"%s\\home\\portx\\packages\\%s\\%s" %%*\n' "$pkg_name" "$GIT_BASH_ROOT_WINDOWS" "$pkg_name" "$exe_name" >"$wrapper_cmd"
 				fi
 			fi
-			printf "    CMD:  %s -> %s\n" "$cmd_name" "$wrapper_cmd" >&2
-			debug_log "      Created cmd wrapper for: $cmd_name"
-			debug_log "      Target exe: $exe_file"
+			info "    CMD:  $cmd_name -> $wrapper_cmd"
+			debug "      Created cmd wrapper for: $cmd_name"
+			debug "      Target exe: $exe_file"
 			created_wrappers=$((created_wrappers + 1))
 		fi
 	done <<<"$executables"
@@ -560,263 +664,6 @@ create_cmd_wrappers() {
 	[[ $created_wrappers -gt 0 ]]
 }
 
-# Method: Create Go executable wrappers
-create_exe_wrappers() {
-	local pkg_dir="$1"
-	local pkg_name="$2"
-	local executables
-
-	# Use ONLY portx.json declared executables
-	executables=$(get_executables_from_json "$pkg_dir")
-
-	if [[ -z "$executables" ]]; then
-		debug_log "    No executables declared in portx.json, skipping package"
-		return 1
-	fi
-
-	if [[ -z "$executables" ]]; then
-		return 1
-	fi
-
-	local created_wrappers=0
-	mkdir -p "$GO_WRAPPERS_DIR"
-
-	# Create exe wrappers - parse executable|defaultArgs format
-	while IFS='|' read -r exe_name default_args; do
-		if [[ -n "$exe_name" ]]; then
-			local cmd_name
-			cmd_name="$(basename "${exe_name%.*}")"
-
-			# Clean up empty default_args
-			[[ -z "$default_args" ]] && default_args=""
-
-			local wrapper_exe="$GO_WRAPPERS_DIR/$cmd_name.exe"
-
-			# Determine execution type
-			local execution_type="direct_exe"
-			if [[ "$exe_name" == *.sh ]]; then
-				if [[ -n "$default_args" && "$default_args" != "" ]]; then
-					execution_type="shell_script_with_args"
-				else
-					execution_type="shell_script"
-				fi
-			else
-				if [[ -n "$default_args" && "$default_args" != "" ]]; then
-					execution_type="direct_exe_with_args"
-				else
-					execution_type="direct_exe"
-				fi
-			fi
-
-			# Create temporary directory for Go build - use Windows-compatible approach
-			local temp_base="/tmp/portx_go_build"
-			local temp_dir="$temp_base/${cmd_name}_$$_$(date +%s)"
-			mkdir -p "$temp_dir" || {
-				debug_log "      FAILED: Could not create temp directory for $cmd_name"
-				continue
-			}
-
-			# Sanitize cmd_name for filename safety
-			local safe_cmd_name
-			safe_cmd_name=$(echo "$cmd_name" | tr -cd '[:alnum:]_-')
-			[[ -z "$safe_cmd_name" ]] && safe_cmd_name="wrapper_${RANDOM}"
-
-			local temp_go_file="$temp_dir/${safe_cmd_name}.go"
-
-			# Create Go file with substitutions - escape special chars in sed
-			local escaped_pkg_name escaped_exe_name escaped_default_args
-			escaped_pkg_name=$(printf '%s\n' "$pkg_name" | sed 's/[[\.*^$()+?{|\/]/\\&/g')
-			escaped_exe_name=$(printf '%s\n' "$exe_name" | sed 's/[[\.*^$()+?{|\/]/\\&/g')
-			escaped_default_args=$(printf '%s\n' "$default_args" | sed 's/[[\.*^$()+?{|\/]/\\&/g')
-
-			sed -e "s/{{PACKAGE_NAME}}/$escaped_pkg_name/g" \
-				-e "s/{{EXECUTABLE_NAME}}/$escaped_exe_name/g" \
-				-e "s/{{EXECUTION_TYPE}}/$execution_type/g" \
-				-e "s/{{DEFAULT_ARGS}}/$escaped_default_args/g" \
-				"$SCRIPT_DIR/wrapper_template.go" > "$temp_go_file" 2>/dev/null || {
-				debug_log "      FAILED: Could not create Go source for $cmd_name"
-				rm -rf "$temp_dir" 2>/dev/null
-				continue
-			}
-
-			# Build the executable with explicit output name and better error handling
-			local temp_exe="$temp_dir/${safe_cmd_name}.exe"
-			debug_log "      Building Go wrapper: $safe_cmd_name.go -> $safe_cmd_name.exe"
-
-			if (cd "$temp_dir" && \
-				PATH="/c/App/Git/home/portx/packages/go/bin:$PATH" \
-				GOOS=windows GOARCH=amd64 \
-				go build -o "${safe_cmd_name}.exe" "${safe_cmd_name}.go") 2>&1 | while read -r line; do
-					debug_log "      GO-BUILD: $line"
-				done; then
-
-				# Verify the build output exists
-				if [[ -f "$temp_exe" ]]; then
-					# Move to final location with error checking
-					if mv "$temp_exe" "$wrapper_exe" 2>/dev/null; then
-						debug_log "      SUCCESS: Created Go executable wrapper: $cmd_name.exe"
-						printf "    EXE:  %s -> %s\n" "$cmd_name" "$wrapper_exe" >&2
-						created_wrappers=$((created_wrappers + 1))
-					else
-						debug_log "      FAILED: Could not move $temp_exe to $wrapper_exe"
-					fi
-				else
-					debug_log "      FAILED: Go build did not produce expected output: $temp_exe"
-				fi
-			else
-				debug_log "      FAILED: Go build failed for $cmd_name"
-			fi
-
-			# Clean up temp directory with verification
-			if [[ -d "$temp_dir" ]]; then
-				rm -rf "$temp_dir" 2>/dev/null || {
-					debug_log "      WARNING: Could not clean up temp directory: $temp_dir"
-				}
-			fi
-		fi
-	done <<<"$executables"
-
-	# Return 0 if any wrappers created, 1 if none created
-	[[ $created_wrappers -gt 0 ]]
-}
-
-create_go_wrappers() {
-	local specific_packages=("$@")
-
-	debug_log "Creating Go executable wrappers..."
-
-	# Ensure Go wrapper directories exist
-	mkdir -p "$GO_WRAPPERS_DIR"
-
-	local total_created=0
-
-	if [[ ${#specific_packages[@]} -gt 0 ]]; then
-		debug_log "Generating Go wrappers for specific packages: ${specific_packages[*]}"
-
-		# Create wrappers for each specified package
-		for pkg_name in "${specific_packages[@]}"; do
-			local pkg_path="$PACKAGES_DIR/$pkg_name"
-			if [[ -d "$pkg_path" && -f "$pkg_path/portx.json" ]]; then
-				debug_log "Creating Go wrappers for package: $pkg_name"
-				if create_exe_wrappers "$pkg_path" "$pkg_name"; then
-					debug_log "Successfully created Go wrappers for: $pkg_name"
-					((total_created++))
-				else
-					debug_log "Failed to create Go wrappers for: $pkg_name"
-				fi
-			else
-				debug_log "Package not found or missing portx.json: $pkg_name"
-			fi
-		done
-	else
-		debug_log "Generating Go wrappers for common packages"
-		local common_packages=("ag" "ripgrep" "gojq" "analyze-code")
-
-		for pkg_name in "${common_packages[@]}"; do
-			local pkg_path="$PACKAGES_DIR/$pkg_name"
-			if [[ -d "$pkg_path" && -f "$pkg_path/portx.json" ]]; then
-				debug_log "Creating Go wrappers for package: $pkg_name"
-				if create_exe_wrappers "$pkg_path" "$pkg_name"; then
-					debug_log "Successfully created Go wrappers for: $pkg_name"
-					((total_created++))
-				else
-					debug_log "Failed to create Go wrappers for: $pkg_name"
-				fi
-			else
-				debug_log "Package not found or missing portx.json: $pkg_name"
-			fi
-		done
-	fi
-
-	# Count final wrapper files
-	local go_wrapper_count=0
-	if [[ -d "$GO_WRAPPERS_DIR" ]]; then
-		go_wrapper_count=$(find "$GO_WRAPPERS_DIR" -name "*.exe" 2>/dev/null | wc -l)
-	fi
-
-	debug_log "Created Go wrappers for $total_created packages, total .exe files: $go_wrapper_count"
-
-	return $([[ $total_created -gt 0 ]] && echo 0 || echo 1)
-}
-
-# Method: Create wrapper scripts (import only - no testing) - LEGACY FUNCTION
-create_wrappers() {
-	local pkg_dir="$1"
-	local pkg_name="$2"
-	local executables
-
-	# Use ONLY portx.json declared executables
-	executables=$(get_executables_from_json "$pkg_dir")
-
-	if [[ -z "$executables" ]]; then
-		debug_log "    No executables declared in portx.json, skipping package"
-		return 1
-	fi
-
-	debug_log "    Found executables in $pkg_name: $(echo "$executables" | wc -l) files"
-	if [[ -z "$executables" ]]; then
-		debug_log "    No executables found in package"
-		return 1
-	fi
-
-	local created_wrappers=0
-
-	# Create wrappers - parse executable|defaultArgs format
-	while IFS='|' read -r exe_name default_args; do
-		if [[ -n "$exe_name" ]]; then
-			local cmd_name
-			cmd_name="$(basename "${exe_name%.*}")"
-			local exe_file="$pkg_dir/$exe_name"
-
-			# Clean up empty default_args
-			[[ -z "$default_args" ]] && default_args=""
-
-			debug_log "      Processing executable: $exe_name -> $cmd_name (args: '$default_args')"
-
-			# Check for command conflicts before creating wrappers
-			if has_command_conflict "$cmd_name"; then
-				debug_log "      WARNING: $cmd_name conflicts with existing command, but creating wrapper anyway"
-			fi
-
-			local wrapper_cmd="$CMD_WRAPPERS_DIR/$cmd_name.cmd"
-			local wrapper_sh="$SH_WRAPPERS_DIR/$cmd_name"
-
-			# Create .cmd wrapper for Windows with defaultArgs
-			mkdir -p "$CMD_WRAPPERS_DIR"
-			if [[ -n "$default_args" && "$default_args" != "" ]]; then
-				printf '@echo off\nrem PORTX-WRAPPER: Auto-generated wrapper for %s with defaultArgs\n"C:\\App\\Git\\home\\portx\\packages\\%s\\%s" %s %%*\n' "$pkg_name" "$pkg_name" "$exe_name" "$default_args" >"$wrapper_cmd"
-			else
-				printf '@echo off\nrem PORTX-WRAPPER: Auto-generated wrapper for %s\n"C:\\App\\Git\\home\\portx\\packages\\%s\\%s" %%*\n' "$pkg_name" "$pkg_name" "$exe_name" >"$wrapper_cmd"
-			fi
-
-			# Create shell wrapper for Git Bash with defaultArgs
-			local posix_exe_path="$GIT_BASH_ROOT_POSIX/home/portx/packages/$pkg_name/$exe_name"
-			if [[ -n "$default_args" && "$default_args" != "" ]]; then
-				cat >"$wrapper_sh" <<WRAPPER_EOF
-#!/bin/bash
-# PORTX-WRAPPER: Auto-generated wrapper for $pkg_name with defaultArgs
-exec "$posix_exe_path" ${default_args:+$default_args }"\$@"
-WRAPPER_EOF
-			else
-				cat >"$wrapper_sh" <<WRAPPER_EOF
-#!/bin/bash
-# PORTX-WRAPPER: Auto-generated wrapper for $pkg_name
-exec "$posix_exe_path" "\$@"
-WRAPPER_EOF
-			fi
-			chmod +x "$wrapper_sh"
-
-
-			debug_log "      Created wrappers for: $cmd_name"
-			debug_log "      Target exe: $exe_file"
-
-			created_wrappers=$((created_wrappers + 2)) # 1 sh + 1 cmd file (+ maybe 1 exe)
-		fi
-	done <<<"$executables"
-
-	# Return 0 if any wrappers created, 1 if none created
-	[[ $created_wrappers -gt 0 ]]
-}
 
 # Method: Add package to PATH configuration
 add_to_path() {
@@ -825,7 +672,7 @@ add_to_path() {
 
 	# Add to PATH_PACKAGE_PATHS array for cache generation
 	PATH_PACKAGE_PATHS+=("$pkg_path")
-	debug_log "Added $pkg_path to PATH_PACKAGE_PATHS array"
+	debug "Added $pkg_path to PATH_PACKAGE_PATHS array"
 	return 0
 }
 
@@ -842,7 +689,7 @@ tokenize_expression() {
 	PARSER_POS=0
 
 	# Remove extra whitespace and normalize
-	expression=$(echo "$expression" | sed 's/[[:space:]]*&[[:space:]]*/\&/g' | sed 's/[[:space:]]*|[[:space:]]*/|/g' | sed 's/[[:space:]]*![[:space:]]*/!/g')
+	expression=$(command echo "$expression" | sed 's/[[:space:]]*&[[:space:]]*/\&/g' | sed 's/[[:space:]]*|[[:space:]]*/|/g' | sed 's/[[:space:]]*![[:space:]]*/!/g')
 
 	local i=0
 	local token=""
@@ -884,9 +731,9 @@ tokenize_expression() {
 # Method: Get current token
 get_current_token() {
 	if [[ $PARSER_POS -lt ${#PARSER_TOKENS[@]} ]]; then
-		echo "${PARSER_TOKENS[$PARSER_POS]}"
+		command echo "${PARSER_TOKENS[$PARSER_POS]}"
 	else
-		echo ""
+		command echo ""
 	fi
 }
 
@@ -1044,7 +891,7 @@ save_to_cache() {
 			touch "$temp_file"
 		fi
 		# Add permanent no_tags entry
-		echo "no_tags:permanent:${result}" >>"$temp_file"
+		command echo "no_tags:permanent:${result}" >>"$temp_file"
 		mv "$temp_file" "$cache_file"
 		return 0
 	fi
@@ -1061,7 +908,7 @@ save_to_cache() {
 	fi
 
 	# Add new entry
-	echo "${query_key}:${timestamp}:${result}" >>"$temp_file"
+	command echo "${query_key}:${timestamp}:${result}" >>"$temp_file"
 
 	# Keep no_tags (permanent) + 10 most recent tagged queries
 	{
@@ -1078,7 +925,7 @@ import_package() {
 
 	if [[ -z "$target_package" ]]; then
 		error "Package name required"
-		echo "Usage: portx packages import-package <package_name>"
+		info "Usage: portx packages import-package <package_name>"
 		exit 1
 	fi
 
@@ -1086,12 +933,13 @@ import_package() {
 
 	if [[ ! -d "$pkg_path" ]]; then
 		error "Package not found: $target_package"
-		echo "Available packages:"
+		info "Error: Package directory does not exist"
+		info "Available packages:"
 		ls "$PACKAGES_DIR" | grep -v "^\." | head -10
 		exit 1
 	fi
 
-	printf "Importing single package: %s\n" "$target_package" >&2
+	info "Importing single package: $target_package"
 
 	# Process the specific package
 	local pkg_name="$target_package"
@@ -1102,32 +950,34 @@ import_package() {
 		return 1
 	fi
 
-	printf "  Processing: %s\n" "$pkg_name" >&2
-	printf "    Validating: %s\n" "$pkg_name" >&2
+	info "  Processing: $pkg_name"
+	info "    Validating: $pkg_name"
 
 	# Validate JSON schema
-	printf "      Checking JSON schema...\n" >&2
+	info "      Verifying JSON schema"
 	if ! "$SCRIPT_DIR/validate-json.sh" "$json_file" >/dev/null 2>&1; then
-		printf "\n[1;31mCRITICAL ERROR: Invalid portx.json schema[0m\n" >&2
-		printf "Package: %s\n" "$pkg_name" >&2
-		printf "Path: %s\n\n" "$json_file" >&2
-		printf "Schema validation failed - package MUST be 100%% compliant\n" >&2
+		error "Invalid portx.json schema"
+		info "Package: $pkg_name"
+		info "Path: $json_file"
+		info ""
+		info "Schema validation failed - package MUST be 100%% compliant"
 		printf "Validation errors:\n" >&2
 		"$SCRIPT_DIR/validate-json.sh" "$json_file" 2>&1 | sed 's/^/  /' >&2
-		printf "\nFix the schema issues and re-run import\n" >&2
+		info "Fix the schema issues and re-run import"
 		return 1
 	fi
+	success "      JSON schema validated successfully"
 
 	# Get import type
 	local import_type
 	import_type=$(get_import_type "$pkg_path")
 
-	printf "      Import type: %s\n" "$import_type" >&2
+	info "      Import type: $import_type"
 
 	case "$import_type" in
 	"wrap" | "auto" | "wrapAndPath")
 		# Validate and create wrappers
-		printf "      Checking executable files...\n" >&2
+		info "      Verifying executable file paths"
 
 		# Verify all executables exist
 		local executables_exist=true
@@ -1140,10 +990,10 @@ import_package() {
 				if [[ -n "$exe_name" ]]; then
 					local exe_file="$pkg_path/$exe_name"
 					if [[ -f "$exe_file" ]]; then
-						printf "        Verifying: %s\n" "$exe_name" >&2
+						info "        Verifying: $exe_name"
 						verified_count=$((verified_count + 1))
 					else
-						printf "        [1;31mMISSING: %s[0m\n" "$exe_name" >&2
+						error "        MISSING: $exe_name"
 						executables_exist=false
 					fi
 				fi
@@ -1151,12 +1001,12 @@ import_package() {
 		fi
 
 		if [[ "$executables_exist" == true ]] && [[ "$verified_count" -gt 0 ]]; then
-			printf "      [92mAll %d executables verified[0m\n" "$verified_count" >&2
+			success "      All $verified_count executables found at correct paths"
 		elif [[ "$verified_count" -eq 0 ]]; then
-			printf "[93mPackage %s has no executables (documentation package?)[0m\n" "$pkg_name" >&2
+			info "Package $pkg_name has no executables (documentation package?)"
 			return 0
 		else
-			printf "[1;31mSome executables missing for %s[0m\n" "$pkg_name" >&2
+			error "Some executables missing for $pkg_name"
 			return 1
 		fi
 
@@ -1170,25 +1020,24 @@ import_package() {
 		;;
 
 	"path")
-		printf "  PATH: %s\n" "$pkg_name" >&2
+		info "  PATH: $pkg_name"
 		;;
 
 	"none")
-		printf "  SKIP: %s (documentation only)\n" "$pkg_name" >&2
+		info "  SKIP: $pkg_name (documentation only)"
 		;;
 	esac
 
-	printf "Successfully imported package: %s\n" "$target_package" >&2
+	success "Successfully imported package: $target_package"
 }
 
 # Import packages function (main package processing logic - no verification)
 import_packages() {
-	# Clear the log file at start
-	echo "PORTX Package Import - $(date)" >"$PORTX_IMPORT_LOG_FILE"
-	debug_log "Starting package import scan..."
+	debug "Starting package import scan"
 
-	printf "Importing portx packages\n" >&2
-	printf "Scanning packages for import types...\n" >&2
+	debug "Starting PORTX package import process"
+	info "Importing portx packages"
+	info "Scanning packages for import types"
 
 	# Cleanup at beginning - remove old cache files and wrappers
 	rm -f "$PORTX_PATH_CACHE" "$PORTX_PACKAGES_CACHE" "$PORTX_TOOLS_CACHE"
@@ -1199,18 +1048,13 @@ import_packages() {
 		if [[ -d "$wrapper_dir" ]]; then
 			for file in "$wrapper_dir"/*; do
 				if [[ -f "$file" ]] && head -n 3 "$file" 2>/dev/null | grep -q "PORTX-WRAPPER"; then
-					debug_log "      Removing PORTX wrapper: $file"
+					debug "      Removing PORTX wrapper: $file"
 					rm -f "$file"
 				fi
 			done
 		fi
 	done
 
-	# Also clean up Go executable wrappers in zig directory
-	if [[ -d "$GO_WRAPPERS_DIR" ]]; then
-		debug_log "      Cleaning Go executable wrappers in: $GO_WRAPPERS_DIR"
-		rm -f "$GO_WRAPPERS_DIR"/*.exe 2>/dev/null || true
-	fi
 	mkdir -p "$SH_WRAPPERS_DIR"
 
 	# Main processing loop - comprehensive validation before import
@@ -1219,111 +1063,91 @@ import_packages() {
 			pkg_name="$(basename "$pkg_path")"
 			TOTAL_PACKAGES=$((TOTAL_PACKAGES + 1))
 
-			printf "  Processing: %s\n" "$pkg_name"
-			debug_log "=== PROCESSING PACKAGE: $pkg_name ==="
-			debug_log "Package path: $pkg_path"
+			info "  Processing: $pkg_name"
+			debug "=== PROCESSING PACKAGE: $pkg_name ==="
+			debug "Package path: $pkg_path"
 
 			# COMPREHENSIVE VALIDATION: Schema + executable verification
 			if ! validate_package_comprehensive "$pkg_path" "$pkg_name"; then
-				debug_log "Package $pkg_name failed comprehensive validation - SKIPPING"
+				debug "Package $pkg_name failed comprehensive validation - SKIPPING"
 				continue
 			fi
 
 			VALID_PACKAGES=$((VALID_PACKAGES + 1))
-			import_type=$(get_import_type "$pkg_path" 2>/dev/null || echo "auto")
-			debug_log "Package $pkg_name validated successfully, importType: $import_type"
+			import_type=$(get_import_type "$pkg_path" 2>/dev/null || command echo "auto")
+			debug "Package $pkg_name validated successfully, importType: $import_type"
 
 			case "$import_type" in
 			"path")
 				# Force PATH mode - skip wrapper creation entirely
-				printf "  PATH: %s\n" "$pkg_name" >&2
-				debug_log "Forcing PATH mode for $pkg_name"
+				info "  PATH: $pkg_name"
+				debug "Adding package $pkg_name to PATH mode"
+				debug "Forcing PATH mode for $pkg_name"
 				add_to_path "$pkg_path" "$pkg_name"
 				PATH_PACKAGES=$((PATH_PACKAGES + 1))
 				;;
 			"none")
 				# Documentation package - skip import entirely
-				printf "  SKIP: %s (documentation only)\n" "$pkg_name" >&2
-				debug_log "Skipping documentation package $pkg_name"
+				info "  SKIP: $pkg_name (documentation only)"
+				debug "Skipping documentation-only package: $pkg_name"
+				debug "Skipping documentation package $pkg_name"
 				;;
 			"wrapAndPath")
 				# Create wrappers AND add to PATH for maximum compatibility
-				printf "  WRAP+PATH: %s\n" "$pkg_name" >&2
-				debug_log "Creating wrappers AND adding to PATH for $pkg_name"
-				
+				info "  WRAP+PATH: $pkg_name"
+				debug "Creating wrappers AND adding to PATH for: $pkg_name"
+				debug "Creating wrappers AND adding to PATH for $pkg_name"
+
 				# Create wrappers first
-				local wrapper_created=false
 				if [[ "$CREATE_SHELL_WRAPPERS" == "true" ]]; then
 					if create_bash_wrappers "$pkg_path" "$pkg_name"; then
-						debug_log "Created bash wrappers for $pkg_name"
-						wrapper_created=true
+						debug "Created bash wrappers for $pkg_name"
 						WRAPPER_PACKAGES=$((WRAPPER_PACKAGES + 1))
 						WRAPPER_PACKAGE_NAMES+=("$pkg_name")
 					fi
 				fi
 				if [[ "$CREATE_CMD_WRAPPERS" == "true" ]]; then
 					if create_cmd_wrappers "$pkg_path" "$pkg_name"; then
-						debug_log "Created cmd wrappers for $pkg_name"
-						wrapper_created=true
+						debug "Created cmd wrappers for $pkg_name"
 					fi
 				fi
-				if [[ "$CREATE_EXE_WRAPPERS" == "true" && -n "$GO_EXE" && -f "$GO_EXE" ]]; then
-					if create_exe_wrappers "$pkg_path" "$pkg_name"; then
-						debug_log "Created Go exe wrappers for $pkg_name"
-						wrapper_created=true
-					fi
-				fi
-				
+
 				# Also add to PATH
 				add_to_path "$pkg_path" "$pkg_name"
 				PATH_PACKAGES=$((PATH_PACKAGES + 1))
-				debug_log "Added $pkg_name to PATH (wrapAndPath mode)"
+				debug "Added $pkg_name to PATH (wrapAndPath mode)"
 				;;
 			*)
 				# Default wrapper creation logic
-				debug_log "Creating wrappers for $pkg_name"
+				debug "Creating wrappers for $pkg_name"
+				info "      Generating wrapper scripts"
 
 				# Create bash wrapper (controlled by flag)
 				if [[ "$CREATE_SHELL_WRAPPERS" == "true" ]]; then
-					debug_log "About to create bash wrappers for $pkg_name"
+					debug "About to create bash wrappers for $pkg_name"
 					if create_bash_wrappers "$pkg_path" "$pkg_name"; then
-						debug_log "Created bash wrappers for $pkg_name"
+						debug "Created bash wrappers for $pkg_name"
 						WRAPPER_PACKAGES=$((WRAPPER_PACKAGES + 1))
 						WRAPPER_PACKAGE_NAMES+=("$pkg_name")
 					else
-						debug_log "Failed to create bash wrappers for $pkg_name"
+						debug "Failed to create bash wrappers for $pkg_name"
 					fi
 				else
-					debug_log "Skipping bash wrapper creation (disabled)"
+					debug "Skipping bash wrapper creation (disabled)"
 				fi
 
 				# Create .cmd wrapper (controlled by flag)
 				if [[ "$CREATE_CMD_WRAPPERS" == "true" ]]; then
-					debug_log "About to create cmd wrappers for $pkg_name"
+					debug "About to create cmd wrappers for $pkg_name"
 					if create_cmd_wrappers "$pkg_path" "$pkg_name"; then
-						debug_log "Created cmd wrappers for $pkg_name"
+						debug "Created cmd wrappers for $pkg_name"
 					else
-						debug_log "Failed to create cmd wrappers for $pkg_name"
+						debug "Failed to create cmd wrappers for $pkg_name"
 					fi
 				else
-					debug_log "Skipping cmd wrapper creation (disabled)"
+					debug "Skipping cmd wrapper creation (disabled)"
 				fi
 
-				# Create .exe wrapper using Go (controlled by flag)
-				if [[ "$CREATE_EXE_WRAPPERS" == "true" && -n "$GO_EXE" && -f "$GO_EXE" ]]; then
-					debug_log "About to create Go exe wrappers for $pkg_name"
-					if create_exe_wrappers "$pkg_path" "$pkg_name"; then
-						debug_log "Created Go exe wrappers for $pkg_name"
-					else
-						debug_log "Failed to create Go exe wrappers for $pkg_name"
-					fi
-				else
-					if [[ "$CREATE_EXE_WRAPPERS" != "true" ]]; then
-						debug_log "Skipping exe wrapper creation (disabled)"
-					else
-						debug_log "Skipping exe wrapper creation (Go not available)"
-					fi
-				fi
 				;;
 			esac
 		fi
@@ -1338,65 +1162,55 @@ import_packages() {
 		fi
 	done
 
-	# Build PATH configuration silently
-	path_config=""
-
-	# Add cmd (our wrappers)
-	path_config="$CMD_WRAPPERS_DIR"
-
-	# Add package directories for packages with dependencies
-	for pkg_path in "${PATH_PACKAGE_PATHS[@]}"; do
-		path_config="$path_config:$pkg_path"
-	done
 
 	# Save configuration with comprehensive header
 	{
-		echo "#!/bin/bash"
-		echo "# PORTX PATH Cache"
-		echo "# =========================="
-		echo "#"
-		echo "# PURPOSE: PORTX tools PATH integration"
-		echo "# This provides fast access to all PORTX tools and packages"
-		echo "#"
-		echo "# GENERATION INFO:"
-		echo "#   Generated: $(date '+%a, %b %d, %Y %l:%M:%S %p')"
-		echo "#   Git Bash Directory: $GIT_BASH_ROOT"
-		echo "#   Packages Directory: $PACKAGES_DIR"
-		echo "#"
-		echo "# TOOL COUNTS:"
-		echo "#   Git for Windows: $("$ES_EXE" "$GIT_BASH_ROOT" ext:exe 2>/dev/null | grep -v "home.portx.packages" | wc -l) executables"
-		echo "#   PORTX Wrappers: $("$FD_EXE" "\.cmd$" "$CMD_WRAPPERS_DIR" -u 2>/dev/null | wc -l) wrappers"
-		echo "#   PORTX Packages: $TOTAL_PACKAGES directories, $TOTAL_EXECUTABLES executables"
-		echo "#   Total: $(($("$ES_EXE" "$GIT_BASH_ROOT" ext:exe 2>/dev/null | grep -v "home.portx.packages" | wc -l) + $("$FD_EXE" "\.cmd$" "$CMD_WRAPPERS_DIR" -u 2>/dev/null | wc -l) + TOTAL_EXECUTABLES)) tools"
-		echo "#"
-		echo "# USAGE: This file is automatically sourced by .bashrc on shell startup."
-		echo "# To regenerate: rm ~/.portx_cache or run 'portx import'"
-		echo "#"
-		echo "# CACHE INVALIDATION: Delete this file if any of the following change:"
-		echo "#   - PORTX packages are added/removed/updated"
-		echo "#   - PORTX installation is moved or modified"
-		echo ""
-		echo "# Git Bash Home: $GIT_BASH_ROOT"
-		echo ""
-		echo "# Build PORTX PACKAGES PATH"
-		echo "PACKAGES_PATH=\"\""
+		command echo "#!/bin/bash"
+		command echo "# PORTX PATH Cache"
+		command echo "# =========================="
+		command echo "#"
+		command echo "# PURPOSE: PORTX tools PATH integration"
+		command echo "# This provides fast access to all PORTX tools and packages"
+		command echo "#"
+		command echo "# GENERATION INFO:"
+		command echo "#   Generated: $(date '+%a, %b %d, %Y %l:%M:%S %p')"
+		command echo "#   Git Bash Directory: $GIT_BASH_ROOT"
+		command echo "#   Packages Directory: $PACKAGES_DIR"
+		command echo "#"
+		command echo "# TOOL COUNTS:"
+		command echo "#   Git for Windows: $("$ES_EXE" "$GIT_BASH_ROOT" ext:exe 2>/dev/null | grep -v "home.portx.packages" | wc -l) executables"
+		command echo "#   PORTX Wrappers: $("$FD_EXE" "\.cmd$" "$CMD_WRAPPERS_DIR" -u 2>/dev/null | wc -l) wrappers"
+		command echo "#   PORTX Packages: $TOTAL_PACKAGES directories, $TOTAL_EXECUTABLES executables"
+		command echo "#   Total: $(($("$ES_EXE" "$GIT_BASH_ROOT" ext:exe 2>/dev/null | grep -v "home.portx.packages" | wc -l) + $("$FD_EXE" "\.cmd$" "$CMD_WRAPPERS_DIR" -u 2>/dev/null | wc -l) + TOTAL_EXECUTABLES)) tools"
+		command echo "#"
+		command echo "# USAGE: This file is automatically sourced by .bashrc on shell startup."
+		command echo "# To regenerate: rm ~/.portx_cache or run 'portx import'"
+		command echo "#"
+		command echo "# CACHE INVALIDATION: Delete this file if any of the following change:"
+		command echo "#   - PORTX packages are added/removed/updated"
+		command echo "#   - PORTX installation is moved or modified"
+		command echo ""
+		command echo "# Git Bash Home: $GIT_BASH_ROOT"
+		command echo ""
+		command echo "# Build PORTX PACKAGES PATH"
+		command echo "PACKAGES_PATH=\"\""
 
 		# Add package directories with executable counts
 		for pkg_path in "${PATH_PACKAGE_PATHS[@]}"; do
 			pkg_name="$(basename "$pkg_path")"
 			exe_count=$("$FD_EXE" "\.exe$" "$pkg_path" -d 1 -u 2>/dev/null | wc -l)
-			echo "PACKAGES_PATH=\"\$PACKAGES_PATH:$pkg_path\"  # $exe_count executables"
+			command echo "PACKAGES_PATH=\"\$PACKAGES_PATH:$pkg_path\"  # $exe_count executables"
 		done
 
-		echo "# PORTX packages added: $PATH_PACKAGES directories"
-		echo ""
-		echo "# NOTE: .bashrc controls PATH integration using PACKAGES_PATH"
-		echo ""
-		echo "# PORTX PATH statistics"
+		command echo "# PORTX packages added: $PATH_PACKAGES directories"
+		command echo ""
+		command echo "# NOTE: .bashrc controls PATH integration using PACKAGES_PATH"
+		command echo ""
+		command echo "# PORTX PATH statistics"
 
 		# Calculate Git for Windows stats (directories with executables / total executables)
 		GFW_DIRS=$("$FD_EXE" "\.exe$" "$GIT_BASH_ROOT_POSIX/bin" "$GIT_BASH_ROOT_POSIX/mingw64/bin" "$GIT_BASH_ROOT_POSIX/usr/bin" -u -x dirname 2>/dev/null | sort -u | wc -l)
-		GFW_EXECUTABLES=$("$ES_EXE" "C:\\App\\Git" 2>/dev/null | grep "\.exe$" | grep -v "home.portx.packages" | wc -l)
+		GFW_EXECUTABLES=$("$ES_EXE" "$GIT_BASH_ROOT" 2>/dev/null | grep "\.exe$" | grep -v "home.portx.packages" | wc -l)
 		PORTX_WRAPPERS_COUNT=$("$FD_EXE" "\.cmd$" "$CMD_WRAPPERS_DIR" -u 2>/dev/null | wc -l)
 		TOTAL_COUNT=$((GFW_EXECUTABLES + PORTX_WRAPPERS_COUNT + TOTAL_EXECUTABLES))
 		TOTAL_DIRS=$((GFW_DIRS + PATH_PACKAGES))
@@ -1419,16 +1233,16 @@ import_packages() {
 		if [[ -n "$TERM" ]]; then
 			env_info="$env_info/$TERM"
 		fi
-		echo "export PORTX_ENV_TYPE=\"$env_info\""
-		echo "export GFW_DIRS=$GFW_DIRS"
-		echo "export GFW_EXECUTABLES=$GFW_EXECUTABLES"
-		echo "export PORTX_PKG_DIRS=$TOTAL_PACKAGES"
-		echo "export PORTX_PKG_EXECUTABLES=$TOTAL_EXECUTABLES"
-		echo "export PORTX_TOTAL_EXECUTABLES=$TOTAL_COUNT"
-		echo "export PORTX_TOTAL_DIRS=$TOTAL_DIRS"
-		echo "export PORTX_LAST_SCAN=\"$(date '+%Y-%m-%d %H:%M')\""
-		echo "export PATH_LAST_SCAN=\"$(date '+%Y-%m-%d %H:%M')\""
-		echo ""
+		command echo "export PORTX_ENV_TYPE=\"$env_info\""
+		command echo "export GFW_DIRS=$GFW_DIRS"
+		command echo "export GFW_EXECUTABLES=$GFW_EXECUTABLES"
+		command echo "export PORTX_PKG_DIRS=$TOTAL_PACKAGES"
+		command echo "export PORTX_PKG_EXECUTABLES=$TOTAL_EXECUTABLES"
+		command echo "export PORTX_TOTAL_EXECUTABLES=$TOTAL_COUNT"
+		command echo "export PORTX_TOTAL_DIRS=$TOTAL_DIRS"
+		command echo "export PORTX_LAST_SCAN=\"$(date '+%Y-%m-%d %H:%M')\""
+		command echo "export PATH_LAST_SCAN=\"$(date '+%Y-%m-%d %H:%M')\""
+		command echo ""
 	} >"$PORTX_PATH_CACHE"
 
 	# Count actual wrapper files created by extension and content
@@ -1445,18 +1259,10 @@ import_packages() {
 		cmd_wrappers=$("$FD_EXE" "\.cmd$" "$CMD_WRAPPERS_DIR" -u -x grep -l "PORTX-WRAPPER" 2>/dev/null | wc -l)
 	fi
 
-	# Count Go executable wrappers
-	local go_wrappers=0
-	if [[ -d "$GO_WRAPPERS_DIR" ]]; then
-		go_wrappers=$(find "$GO_WRAPPERS_DIR" -name "*.exe" 2>/dev/null | wc -l)
-	fi
+	local total_wrappers=$((bash_wrappers + cmd_wrappers))
 
-	local total_wrappers=$((bash_wrappers + cmd_wrappers + go_wrappers))
-
-	printf "Imported %d packages, %d executables, %d PATH packages, %d wrapper packages (%d total wrappers: %d bash + %d cmd + %d exe)\n" \
-		"$TOTAL_PACKAGES" "$TOTAL_EXECUTABLES" "$PATH_PACKAGES" "$WRAPPER_PACKAGES" "$total_wrappers" "$bash_wrappers" "$cmd_wrappers" "$go_wrappers" >&2
+	success "Imported $TOTAL_PACKAGES packages, $TOTAL_EXECUTABLES executables, $PATH_PACKAGES PATH packages, $WRAPPER_PACKAGES wrapper packages ($total_wrappers total wrappers: $bash_wrappers bash + $cmd_wrappers cmd)"
 }
-
 
 # ===== TOOLS AGGREGATOR FUNCTIONALITY (from portx.sh backup) =====
 
@@ -1466,7 +1272,7 @@ show_manual() {
 
 	if [[ -z "$package_name" ]]; then
 		error "Package name required"
-		echo "Usage: portx man <package_name>"
+		info "Usage: portx man <package_name>"
 		exit 1
 	fi
 
@@ -1474,13 +1280,13 @@ show_manual() {
 
 	if [[ ! -f "$manual_file" ]]; then
 		error "Manual not found for package: $package_name"
-		echo "Package may not be installed or manual file is missing."
-		echo "Try: portx packages list"
+		info "Package may not be installed or manual file is missing."
+		info "Try: portx packages list"
 		exit 1
 	fi
 
-	log "Showing manual for package: $package_name"
-	echo
+	info "Showing manual for package: $package_name"
+	info ""
 
 	# Use appropriate pager/viewer
 	if command -v less >/dev/null 2>&1; then
@@ -1501,7 +1307,7 @@ list_tools_flat() {
 	local cached_result
 	cached_result=$(get_cached_result "$cache_key")
 	if [[ -n "$cached_result" ]]; then
-		echo "$cached_result"
+		command echo "$cached_result"
 		return 0
 	fi
 
@@ -1538,7 +1344,7 @@ list_tools_flat() {
 							for tag in "${tag_array[@]}"; do
 								# Remove carriage returns and whitespace
 								tag="${tag//$'\r'/}"
-								tag=$(echo "$tag" | xargs)
+								tag=$(command echo "$tag" | xargs)
 								if [[ -n "$tag" ]]; then
 									combined_tags+=("$tag")
 								fi
@@ -1570,7 +1376,7 @@ list_tools_flat() {
 							fi
 						fi
 					fi
-				# Use new schema (bin object) - no fallback, crash if not compliant
+					# Use new schema (bin object) - no fallback, crash if not compliant
 				done < <($JQ_CMD -r '. as $root | .bin | to_entries[] | "\(.key)|\(((.value.tags // []) + ($root.tags // [])) | unique | join(","))"' "$pkg_dir/portx.json" 2>/dev/null)
 			else
 				# No filter - extract all executables
@@ -1580,7 +1386,7 @@ list_tools_flat() {
 						exe="${exe//$'\r'/}"
 						all_tools+=("$exe")
 					fi
-				# Use new schema (bin object) - no fallback, crash if not compliant
+					# Use new schema (bin object) - no fallback, crash if not compliant
 				done < <($JQ_CMD -r '.bin | keys[]' "$pkg_dir/portx.json" 2>/dev/null)
 			fi
 		fi
@@ -1589,7 +1395,7 @@ list_tools_flat() {
 	# Sort and output tools with comma delimiter
 	local temp_file
 	temp_file=$(mktemp)
-	printf '%s\n' "${all_tools[@]}" >"$temp_file"
+	command printf '%s\n' "${all_tools[@]}" >"$temp_file"
 
 	# Use dos2unix to clean line endings, then sort and deduplicate
 	dos2unix "$temp_file" 2>/dev/null || true
@@ -1600,7 +1406,7 @@ list_tools_flat() {
 	save_to_cache "$cache_key" "$result"
 
 	# Output result
-	echo "$result"
+	command echo "$result"
 
 	rm -f "$temp_file"
 }
@@ -1629,7 +1435,7 @@ _detect_terminal_width() {
 	local width
 	# Try to detect terminal width
 	if [[ -t 1 ]] && command -v tput >/dev/null 2>&1; then
-		width=$(tput cols 2>/dev/null || echo "$DEFAULT_TERMINAL_WIDTH")
+		width=$(tput cols 2>/dev/null || command echo "$DEFAULT_TERMINAL_WIDTH")
 	elif [[ -n "${COLUMNS:-}" ]]; then
 		width="$COLUMNS"
 	else
@@ -1641,7 +1447,7 @@ _detect_terminal_width() {
 		width="$MIN_TERMINAL_WIDTH"
 	fi
 
-	echo "$width"
+	command echo "$width"
 }
 
 # Helper function to calculate actual maximum width needed for tool names
@@ -1656,7 +1462,7 @@ _calculate_max_name_width() {
 	elif command -v jq.cmd >/dev/null 2>&1; then
 		JQ_CMD="jq.cmd"
 	else
-		echo "30" # fallback to reasonable width
+		command echo "30" # fallback to reasonable width
 		return
 	fi
 
@@ -1678,7 +1484,7 @@ _calculate_max_name_width() {
 						max_width=$current_width
 					fi
 				fi
-			# Use new schema (bin object) - no fallback, crash if not compliant
+				# Use new schema (bin object) - no fallback, crash if not compliant
 			done < <($JQ_CMD -r '.bin | to_entries[] | "\(.key)|\(.value.description // "")|\((.value.tags // []) | join(", "))"' "$pkg_dir/portx.json" 2>/dev/null)
 		fi
 	done
@@ -1688,7 +1494,7 @@ _calculate_max_name_width() {
 	if [[ $result -lt 25 ]]; then
 		result=25
 	fi
-	echo "$result"
+	command echo "$result"
 }
 
 # Helper function to return 2-column widths based on actual data
@@ -1696,7 +1502,7 @@ _get_column_widths() {
 	local actual_name_width
 	actual_name_width=$(_calculate_max_name_width)
 	local desc_width=$((120 - actual_name_width - 1))
-	echo "$actual_name_width:$desc_width"
+	command echo "$actual_name_width:$desc_width"
 }
 
 # Helper function to wrap text with color escape sequence handling
@@ -1708,7 +1514,7 @@ _wrap_text() {
 
 	# If text fits within content width, return it (hashtag coloring disabled for now)
 	if [[ ${#text} -le $content_width ]]; then
-		printf "%s%s\n" "$first_line_prefix" "$text"
+		command printf "%s%s\n" "$first_line_prefix" "$text"
 		return
 	fi
 
@@ -1733,10 +1539,10 @@ _wrap_text() {
 			# Output current line (hashtag coloring disabled for now)
 			if [[ -n "$current_line" ]]; then
 				if $is_first_line; then
-					printf "%s%s\n" "$first_line_prefix" "$current_line"
+					info "$first_line_prefix$current_line"
 					is_first_line=false
 				else
-					printf "%s%s\n" "$continuation_prefix" "$current_line"
+					command printf "%s%s\n" "$continuation_prefix" "$current_line"
 				fi
 			fi
 			current_line="$word"
@@ -1746,9 +1552,9 @@ _wrap_text() {
 	# Output final line (hashtag coloring disabled for now)
 	if [[ -n "$current_line" ]]; then
 		if $is_first_line; then
-			printf "%s%s\n" "$first_line_prefix" "$current_line"
+			info "$first_line_prefix$current_line"
 		else
-			printf "%s%s\n" "$continuation_prefix" "$current_line"
+			command printf "%s%s\n" "$continuation_prefix" "$current_line"
 		fi
 	fi
 }
@@ -1767,7 +1573,7 @@ _format_tool_entry() {
 	# Concatenate description + tags in brackets: description [tag1, tag2, tag3]
 	local combined_content="$description"
 	# Strip carriage returns and whitespace from tags
-	tags=$(echo "$tags" | tr -d '\r' | sed 's/^[[:space:]]*//;s/[[:space:]]*$//')
+	tags=$(command echo "$tags" | tr -d '\r' | sed 's/^[[:space:]]*//;s/[[:space:]]*$//')
 	if [[ -n "$tags" && "$tags" != "" ]]; then
 		combined_content="$description [$tags]"
 	fi
@@ -1776,8 +1582,8 @@ _format_tool_entry() {
 	local first_line_prefix
 	local continuation_prefix
 
-	printf -v first_line_prefix "%-*s " "$name_width" "$display_name"
-	printf -v continuation_prefix "%*s " "$name_width" ""
+	command printf -v first_line_prefix "%-*s " "$name_width" "$display_name"
+	command printf -v continuation_prefix "%*s " "$name_width" ""
 
 	# Use wrapping function to format the combined content
 	_wrap_text "$combined_content" "$desc_width" "$first_line_prefix" "$continuation_prefix"
@@ -1791,7 +1597,7 @@ _generate_packages_list() {
 
 	# Check if packages directory exists
 	if [[ ! -d "$PACKAGES_DIR" ]]; then
-		echo "ERROR: Packages directory not found: $PACKAGES_DIR"
+		error "Packages directory not found: $PACKAGES_DIR"
 		return 1
 	fi
 
@@ -1802,7 +1608,7 @@ _generate_packages_list() {
 	elif command -v jq.cmd >/dev/null 2>&1; then
 		JQ_CMD="jq.cmd"
 	else
-		echo "ERROR: jq not found in PATH - required for portx.json parsing"
+		error "jq not found in PATH - required for portx.json parsing"
 		return 1
 	fi
 
@@ -1822,13 +1628,13 @@ _generate_packages_list() {
 			local pkg_description=""
 			local tool_count=0
 
-			pkg_description=$($JQ_CMD -r '.description // ""' "$pkg_dir/portx.json" 2>/dev/null || echo "")
+			pkg_description=$($JQ_CMD -r '.description // ""' "$pkg_dir/portx.json" 2>/dev/null || command echo "")
 
 			# Count tools from both new bin format and legacy tools format
 			local bin_count
 			local tools_count
-			bin_count=$($JQ_CMD -r 'if .bin then .bin | keys | length else 0 end' "$pkg_dir/portx.json" 2>/dev/null || echo "0")
-			tools_count=$($JQ_CMD -r 'if .tools then .tools | length else 0 end' "$pkg_dir/portx.json" 2>/dev/null || echo "0")
+			bin_count=$($JQ_CMD -r 'if .bin then .bin | keys | length else 0 end' "$pkg_dir/portx.json" 2>/dev/null || command echo "0")
+			tools_count=$($JQ_CMD -r 'if .tools then .tools | length else 0 end' "$pkg_dir/portx.json" 2>/dev/null || command echo "0")
 			tool_count=$((bin_count + tools_count))
 
 			# Skip packages with no executables
@@ -1841,7 +1647,7 @@ _generate_packages_list() {
 
 			# Display package header using authoritative left-aligned padding approach
 			pkg_header="$pkg_name"
-			printf "%-*s %s\n" "$name_width" "$pkg_header" "$pkg_description"
+			info "$(command printf "%-*s %s" "$name_width" "$pkg_header" "$pkg_description")"
 
 			# Format tools using the new 2-column layout
 			while IFS='|' read -r executable description tags; do
@@ -1850,11 +1656,11 @@ _generate_packages_list() {
 						"$name_width" "$desc_width"
 				fi
 			done < <($JQ_CMD -r 'if .bin then .bin | to_entries[] | "\(.key)|\(.value.description // "")|\((.value.tags // []) | join(", "))" else empty end' "$pkg_dir/portx.json" 2>/dev/null)
-			echo
+			info ""
 		fi
 	done
 
-	echo "Summary: $total_packages packages, $total_tools total tools"
+	info "Summary: $total_packages packages, $total_tools total tools"
 }
 
 # Search tools by pattern (simplified version - manual parsing removed)
@@ -1862,10 +1668,10 @@ search_tools() {
 	local pattern="$1"
 	local matches=0
 
-	printf "%sSearching for '%s'...%s\n" "$(color_primary)" "$pattern" "$(color_reset)" >&2
+	info "Searching for '$pattern'..."
 
-	printf "\n%sSearch Results for '%s'%s\n" "$(color_success)" "$pattern" "$(color_reset)"
-	echo
+	info "Search Results for '$pattern'"
+	info ""
 
 	# Check if jq is available
 	local JQ_CMD=""
@@ -1874,7 +1680,7 @@ search_tools() {
 	elif command -v jq.cmd >/dev/null 2>&1; then
 		JQ_CMD="jq.cmd"
 	else
-		echo "ERROR: jq not found in PATH - required for portx.json parsing"
+		error "jq not found in PATH - required for portx.json parsing"
 		return 1
 	fi
 
@@ -1885,17 +1691,17 @@ search_tools() {
 
 			# Search in tools using jq
 			while IFS='|' read -r executable description; do
-				if [[ -n "$executable" ]] && echo "$executable $description" | grep -qi "$pattern"; then
-					printf "%-20s %-25s %s\n" "$executable" "($pkg_name)" "$description"
+				if [[ -n "$executable" ]] && command echo "$executable $description" | grep -qi "$pattern"; then
+					info "$(command printf "%-20s %-25s %s" "$executable" "($pkg_name)" "$description")"
 					((matches++))
 				fi
-			# Use new schema (bin object) - no fallback, crash if not compliant
+				# Use new schema (bin object) - no fallback, crash if not compliant
 			done < <($JQ_CMD -r '.bin | to_entries[] | "\(.key)|\(.value.description // "")"' "$pkg_dir/portx.json" 2>/dev/null)
 		fi
 	done
 
-	echo
-	printf "%sFound %d matches%s\n" "$(color_primary)" "$matches" "$(color_reset)"
+	info ""
+	info "Found $matches matches"
 }
 
 # Show count statistics
@@ -1911,7 +1717,7 @@ show_tools_count() {
 	elif command -v jq.cmd >/dev/null 2>&1; then
 		JQ_CMD="jq.cmd"
 	else
-		echo "ERROR: jq not found in PATH - required for portx.json parsing"
+		error "jq not found in PATH - required for portx.json parsing"
 		return 1
 	fi
 
@@ -1923,22 +1729,22 @@ show_tools_count() {
 			local package_tool_count=0
 
 			# Count from new schema (bin object) - no fallback, crash if not compliant
-			package_tool_count=$($JQ_CMD -r '.bin | keys | length' "$pkg_dir/portx.json" 2>/dev/null || echo "0")
+			package_tool_count=$($JQ_CMD -r '.bin | keys | length' "$pkg_dir/portx.json" 2>/dev/null || command echo "0")
 			total_tools=$((total_tools + package_tool_count))
 			package_counts["$pkg_name"]=$package_tool_count
 		fi
 	done
 
 	printf "\n%sPORTX Tools Statistics%s\n" "$(color_success)" "$(color_reset)"
-	printf "%sTotal Packages: %d%s\n" "$(color_primary)" "$total_packages" "$(color_reset)"
-	printf "%sTotal Tools: %d%s\n" "$(color_primary)" "$total_tools" "$(color_reset)"
-	echo
+	info "Total Packages: $total_packages"
+	info "Total Tools: $total_tools"
+	info ""
 
-	echo
-	printf "%sTop Packages by Tool Count:%s\n" "$(color_warning)" "$(color_reset)"
+	info ""
+	info "Top Packages by Tool Count:"
 	for package in "${!package_counts[@]}"; do
 		if [[ ${package_counts[$package]} -gt 0 ]]; then
-			printf "  %-20s %d tools\n" "$package" "${package_counts[$package]}"
+			info "$(command printf "  %-20s %d tools" "$package" "${package_counts[$package]}")"
 		fi
 	done | sort -k3 -nr | head -10
 }
@@ -1954,16 +1760,6 @@ handle_packages_command() {
 	import-package)
 		import_package "$2"
 		;;
-	go-wrappers)
-		shift # Remove 'go-wrappers' from arguments
-		if [[ $# -gt 0 ]]; then
-			printf "Creating Go executable wrappers for: %s\n" "$*" >&2
-			create_go_wrappers "$@"
-		else
-			printf "Creating Go executable wrappers for common packages...\n" >&2
-			create_go_wrappers "ag" "ripgrep" "gojq" "analyze-code"
-		fi
-		;;
 	# verify command removed - use import instead
 	list | ls)
 		list_packages
@@ -1971,7 +1767,7 @@ handle_packages_command() {
 	search | find)
 		if [[ -z "$2" ]]; then
 			error "Search pattern required"
-			echo "Usage: portx packages search <pattern>"
+			info "Usage: portx packages search <pattern>"
 			exit 1
 		fi
 		search_tools "$2"
@@ -1980,33 +1776,28 @@ handle_packages_command() {
 		show_tools_count
 		;;
 	help | --help | -h)
-		echo "PORTX Package Manager"
-		echo
-		echo "Usage: portx packages <command> [options]"
-		echo
-		echo "Commands:"
-		echo "  import            Import and configure all packages"
-		echo "  import-package    Import a specific package by name"
-		echo "  go-wrappers [PKG] Create Go executable wrappers (optional package names)"
-		# verify command removed
-		echo "  list              List all available tools"
-		echo "  search PATTERN    Search tools by name or description"
-		echo "  count             Show tool count statistics"
-		echo "  help              Show this help message"
-		echo
-		echo "Examples:"
-		echo "  portx packages import"
-		echo "  portx packages import-package analyze-code"
-		echo "  portx packages go-wrappers"
-		echo "  portx packages go-wrappers ag ripgrep gojq"
-		# verify command removed
-		echo "  portx packages list"
-		echo "  portx packages search git"
-		echo "  portx packages count"
+		info "PORTX Package Manager"
+		info ""
+		info "Usage: portx packages <command> [options]"
+		info ""
+		info "Commands:"
+		info "  import            Import and configure all packages"
+		info "  import-package    Import a specific package by name"
+		info "  list              List all available tools"
+		info "  search PATTERN    Search tools by name or description"
+		info "  count             Show tool count statistics"
+		info "  help              Show this help message"
+		info ""
+		info "Examples:"
+		info "  portx packages import"
+		info "  portx packages import-package analyze-code"
+		info "  portx packages list"
+		info "  portx packages search git"
+		info "  portx packages count"
 		;;
 	*)
 		error "Unknown packages command: $command"
-		echo "Try: portx packages help"
+		info "Try: portx packages help"
 		exit 1
 		;;
 	esac
@@ -2014,31 +1805,32 @@ handle_packages_command() {
 
 # Show help
 show_help() {
-	echo "PORTX Package Manager"
-	echo
-	echo "Usage: portx <command> [arguments]"
-	echo
-	echo "Commands:"
-	echo "  packages [command]  Access PORTX tools aggregator"
-	echo "  tools [--tags=...]  List all tools (flat, space-separated), optionally filter by tags"
-	echo "  man <package>       Show package manual"
-	echo "  help               Show this help"
-	echo
-	echo "Examples:"
-	echo "  portx packages import"
-	echo "  portx packages verify"
-	echo "  portx packages list"
-	echo "  portx packages search git"
-	echo "  portx tools"
-	echo "  portx tools --tags=bash"
-	echo "  portx tools --tags=bash,security"
-	echo "  portx man ag"
+	info "PORTX Package Manager"
+	info ""
+	info "Usage: portx <command> [arguments]"
+	info ""
+	info "Commands:"
+	info "  packages [command]  Access PORTX tools aggregator"
+	info "  tools [--tags=...]  List all tools (flat, space-separated), optionally filter by tags"
+	info "  man <package>       Show package manual"
+	info "  help               Show this help"
+	info ""
+	info "Examples:"
+	info "  portx packages import"
+	info "  portx packages verify"
+	info "  portx packages list"
+	info "  portx packages search git"
+	info "  portx tools"
+	info "  portx tools --tags=bash"
+	info "  portx tools --tags=bash,security"
+	info "  portx man ag"
 }
 
 # Main script logic
 main() {
 	# Parse command
 	local command="${1:-help}"
+	debug "Starting portx.sh with command: $command"
 
 	case "$command" in
 	"packages")
@@ -2065,7 +1857,7 @@ main() {
 		;;
 	*)
 		error "Unknown command: $command"
-		echo
+		info ""
 		show_help
 		exit 1
 		;;
