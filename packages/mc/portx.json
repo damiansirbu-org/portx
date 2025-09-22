@@ -1,0 +1,42 @@
+{
+  "name": "mc",
+  "version": "4.8.33",
+  "description": "Midnight Commander - powerful dual-pane file manager with built-in editor and viewer",
+  "importType": "wrap",
+  "bin": {
+    "mc": {
+      "path": "mc.exe",
+      "description": "Midnight Commander dual-pane file manager with Norton Commander interface and advanced file operations",
+      "usage": "mc\\nmc -b # Black and white mode\\nmc -c # Color mode\\nmc -d # Debug mode\\nmc -f # Display compiled-in search paths\\nmc -u # Disable mouse support",
+      "dependencies": "windows"
+    },
+    "mcedit": {
+      "path": "mcedit.exe",
+      "description": "Midnight Commander integrated text editor with syntax highlighting and macro support",
+      "usage": "mcedit filename.txt\\nmcedit +25 file.c # Open file at line 25\\nmcedit -b # Disable syntax highlighting",
+      "dependencies": "windows"
+    },
+    "mcview": {
+      "path": "mcview.exe",
+      "description": "Midnight Commander file viewer with hex mode and search capabilities",
+      "usage": "mcview filename.txt\\nmcview -b # Disable syntax highlighting\\nmcview -h # Hex mode",
+      "dependencies": "windows"
+    },
+    "mcdiff": {
+      "path": "mcdiff.exe",
+      "description": "Midnight Commander visual diff tool for comparing files side by side",
+      "usage": "mcdiff file1.txt file2.txt\\nmcdiff -b file1 file2 # Ignore whitespace differences",
+      "dependencies": "windows"
+    }
+  },
+  "tags": [
+    "file-manager",
+    "commander",
+    "editor",
+    "viewer",
+    "diff",
+    "dual-pane",
+    "norton-commander",
+    "terminal"
+  ]
+}

@@ -6,15 +6,15 @@
 # This provides fast access to all PORTX tools and packages
 #
 # GENERATION INFO:
-#   Generated: Sun, Sep 21, 2025  6:31:25 PM
-#   Git Bash Directory: C:/App/Git
+#   Generated: Mon, Sep 22, 2025  7:45:35 PM
+#   Git Bash Directory: /c/App/Git
 #   Packages Directory: /c/App/Git/home/portx/packages
 #
 # TOOL COUNTS:
 #   Git for Windows: 0 executables
-#   PORTX Wrappers: 339 wrappers
-#   PORTX Packages: 440 directories, 667 executables
-#   Total: 1006 tools
+#   PORTX Wrappers: 343 wrappers
+#   PORTX Packages: 221 directories, 672 executables
+#   Total: 1015 tools
 #
 # USAGE: This file is automatically sourced by .bashrc on shell startup.
 # To regenerate: rm ~/.portx_cache or run 'portx import'
@@ -23,26 +23,24 @@
 #   - PORTX packages are added/removed/updated
 #   - PORTX installation is moved or modified
 
-# Git Bash Home: C:/App/Git
+# Git Bash Home: /c/App/Git
 
 # Build PORTX PACKAGES PATH
 PACKAGES_PATH=""
 PACKAGES_PATH="$PACKAGES_PATH:/c/App/Git/home/portx/packages/gitsdk-mingw64-bin"  # 37 executables
 PACKAGES_PATH="$PACKAGES_PATH:/c/App/Git/home/portx/packages/node"  # 1 executables
-PACKAGES_PATH="$PACKAGES_PATH:/c/App/Git/home/portx/packages/gitsdk-mingw64-bin"  # 37 executables
-PACKAGES_PATH="$PACKAGES_PATH:/c/App/Git/home/portx/packages/node"  # 1 executables
-# PORTX packages added: 4 directories
+# PORTX packages added: 2 directories
 
 # NOTE: .bashrc controls PATH integration using PACKAGES_PATH
 
 # PORTX PATH statistics
-export PORTX_ENV_TYPE="MSYS2-MINGW64/xterm-256color"
+export PORTX_ENV_TYPE="MSYS2-UCRT64/xterm-256color"
 export GFW_DIRS=3
 export GFW_EXECUTABLES=0
-export PORTX_PKG_DIRS=440
-export PORTX_PKG_EXECUTABLES=667
-export PORTX_TOTAL_EXECUTABLES=1006
-export PORTX_TOTAL_DIRS=7
-export PORTX_LAST_SCAN="2025-09-21 18:31"
-export PATH_LAST_SCAN="2025-09-21 18:31"
+export PORTX_PKG_DIRS=221
+export PORTX_PKG_EXECUTABLES=672
+export PORTX_TOTAL_EXECUTABLES=1015
+export PORTX_TOTAL_DIRS=5
+export PORTX_LAST_SCAN="2025-09-22 19:45"
+export PATH_LAST_SCAN="2025-09-22 19:45"
 
