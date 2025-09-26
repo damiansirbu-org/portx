@@ -1,0 +1,129 @@
+{
+  "name": "git-extras",
+  "version": "0.18.2",
+  "description": "Collection of Git utilities including delta, difft, GitHub CLI, tig, and git-lfs",
+  "importType": "wrap",
+  "bin": {
+    "delta": {
+      "path": "delta.exe",
+      "description": "A syntax-highlighting pager for git, diff, grep, and blame output with themes and customizable colors",
+      "usage": "git config --global core.pager delta # Set as git pager\\ndelta --theme=gruvbox-dark file1.txt file2.txt # Compare files with theme\\ngit diff | delta --side-by-side # Side-by-side view\\ndelta --plus-style='bold green' --minus-style='bold red' # Custom colors",
+      "dependencies": "windows"
+    },
+    "difft": {
+      "path": "difft.exe",
+      "description": "Structural diff tool that understands programming language syntax for better comparisons",
+      "usage": "difft file1.py file2.py # Compare Python files with syntax awareness\\ngit difftool --tool=difft # Use as git difftool\\ndifft --language=javascript old.js new.js # Specify language\\ndifft --display=side-by-side src/ dest/ # Directory comparison",
+      "dependencies": "windows"
+    },
+    "gh": {
+      "path": "gh.exe",
+      "description": "GitHub CLI for repository management, issues, pull requests, and GitHub Actions",
+      "usage": "gh repo create myproject --public # Create repository\\ngh pr create --title 'Fix bug' --body 'Description' # Create pull request\\ngh issue list --label bug # List issues with label\\ngh workflow run ci.yml # Trigger GitHub Actions workflow",
+      "dependencies": "windows"
+    },
+    "gitstatusd": {
+      "path": "gitstatusd.exe",
+      "description": "High-performance git status daemon for responsive terminal prompts",
+      "usage": "gitstatusd # Run status daemon\\nexport GITSTATUS_DAEMON=$PWD/gitstatusd.exe # Set daemon path\\n# Used internally by powerlevel10k and other prompt themes\\n# Provides sub-second git status for large repositories",
+      "dependencies": "windows"
+    },
+    "tig": {
+      "path": "tig.exe",
+      "description": "Text-mode interface for Git with powerful browsing, searching, and commit visualization",
+      "usage": "tig # Browse repository history\\ntig status # Interactive staging area\\ntig blame file.txt # Blame view with navigation\\ntig show HEAD~5 # Show specific commit\\ntig --all # View all branches",
+      "dependencies": "windows"
+    },
+    "git-lfs": {
+      "path": "git-lfs.exe",
+      "description": "Git Large File Storage extension for versioning large binary files efficiently",
+      "usage": "git lfs install # Initialize LFS in repository\\ngit lfs track '*.psd' '*.zip' # Track large file types\\ngit lfs ls-files # List tracked files\\ngit lfs pull # Download LFS objects\\ngit lfs migrate import --include='*.bin' # Migrate existing files",
+      "dependencies": "windows"
+    },
+    "git": {
+      "path": "git.exe",
+      "description": "Git distributed version control system for tracking changes in source code",
+      "usage": "git init # Initialize repository\\ngit add . # Stage all changes\\ngit commit -m 'message' # Commit changes\\ngit push origin main # Push to remote\\ngit pull # Pull latest changes",
+      "dependencies": "windows"
+    },
+    "git-credential-wincred": {
+      "path": "git-credential-wincred.exe",
+      "description": "Windows Credential Manager integration for Git authentication",
+      "usage": "git config --global credential.helper wincred # Enable Windows credential storage\\n# Automatically stores and retrieves Git credentials\\n# Used internally by Git for HTTPS authentication",
+      "dependencies": "windows"
+    },
+    "git-remote-http": {
+      "path": "git-remote-http.exe",
+      "description": "Git HTTP/HTTPS protocol handler for remote repository access",
+      "usage": "# Used internally by Git for HTTP remote operations\\ngit clone https://github.com/user/repo.git # Clone over HTTPS\\ngit push origin main # Push over HTTPS\\n# Handles HTTP authentication and transport",
+      "dependencies": "windows"
+    },
+    "git-remote-https": {
+      "path": "git-remote-https.exe",
+      "description": "Git HTTPS protocol handler with SSL/TLS support for secure remote access",
+      "usage": "# Used internally by Git for HTTPS remote operations\\n# Provides secure transport layer for Git operations\\n# Handles SSL certificate validation and encryption\\n# Automatically invoked for https:// URLs",
+      "dependencies": "windows"
+    },
+    "gpg": {
+      "path": "gpg.exe",
+      "description": "GNU Privacy Guard for Git commit and tag signing with cryptographic verification",
+      "usage": "git config --global user.signingkey KEY_ID # Set GPG signing key\\ngit config --global commit.gpgsign true # Enable commit signing\\ngit commit -S -m 'Signed commit' # Sign specific commit\\ngpg --list-secret-keys --keyid-format LONG # List GPG keys",
+      "dependencies": "windows"
+    },
+    "gzip": {
+      "path": "gzip.exe",
+      "description": "GNU compression utility used by Git for efficient object storage and transfer",
+      "usage": "gzip file.txt # Compress file\\ngzip -d file.txt.gz # Decompress file\\n# Used internally by Git for object compression\\n# Optimizes repository storage and network transfers",
+      "dependencies": "windows"
+    },
+    "scp": {
+      "path": "scp.exe",
+      "description": "Secure Copy Protocol for encrypted file transfers over SSH",
+      "usage": "scp file.txt user@server:/path/ # Copy file to remote\\nscp user@server:/path/file.txt . # Copy from remote\\nscp -r directory/ user@server:/path/ # Copy directory recursively\\nscp -P 2222 file.txt user@server:/path/ # Use custom SSH port",
+      "dependencies": "windows"
+    },
+    "ssh": {
+      "path": "ssh.exe",
+      "description": "OpenSSH client for secure shell connections and Git SSH transport",
+      "usage": "ssh user@server # Connect to remote server\\nssh -i ~/.ssh/id_rsa user@server # Use specific key\\nssh -p 2222 user@server # Use custom port\\n# Used by Git for SSH-based repository access",
+      "dependencies": "windows"
+    },
+    "ssh-add": {
+      "path": "ssh-add.exe",
+      "description": "SSH authentication agent for managing private keys in memory",
+      "usage": "ssh-add ~/.ssh/id_rsa # Add private key to agent\\nssh-add -l # List loaded keys\\nssh-add -D # Remove all keys from agent\\neval $(ssh-agent -s); ssh-add ~/.ssh/id_rsa # Start agent and add key",
+      "dependencies": "windows"
+    },
+    "ssh-agent": {
+      "path": "ssh-agent.exe",
+      "description": "SSH authentication agent daemon for secure key management",
+      "usage": "eval $(ssh-agent -s) # Start SSH agent\\nssh-agent -k # Kill SSH agent\\n# Runs in background to manage SSH keys\\n# Eliminates need to re-enter passphrases",
+      "dependencies": "windows"
+    },
+    "ssh-keygen": {
+      "path": "ssh-keygen.exe",
+      "description": "SSH key generation utility for creating authentication key pairs",
+      "usage": "ssh-keygen -t rsa -b 4096 -C 'email@example.com' # Generate RSA key\\nssh-keygen -t ed25519 -C 'email@example.com' # Generate Ed25519 key\\nssh-keygen -f ~/.ssh/id_rsa -p # Change passphrase\\nssh-keygen -y -f ~/.ssh/id_rsa # Extract public key",
+      "dependencies": "windows"
+    },
+    "ssh-keyscan": {
+      "path": "ssh-keyscan.exe",
+      "description": "SSH host key scanner for collecting and verifying server fingerprints",
+      "usage": "ssh-keyscan github.com >> ~/.ssh/known_hosts # Add GitHub host key\\nssh-keyscan -H github.com # Hash hostname in output\\nssh-keyscan -t rsa,ecdsa github.com # Scan specific key types\\nssh-keyscan -p 2222 server.com # Scan custom port",
+      "dependencies": "windows"
+    },
+    "ssh-pageant": {
+      "path": "ssh-pageant.exe",
+      "description": "Bridge between OpenSSH and PuTTY Pageant for Windows SSH key management",
+      "usage": "ssh-pageant # Start pageant bridge\\n# Allows OpenSSH to use PuTTY Pageant keys\\n# Enables single sign-on with PuTTY key storage\\n# Integrates Windows SSH workflows",
+      "dependencies": "windows"
+    },
+    "tar": {
+      "path": "tar.exe",
+      "description": "Archive utility used by Git for creating and extracting compressed archives",
+      "usage": "tar -czf archive.tar.gz directory/ # Create compressed archive\\ntar -xzf archive.tar.gz # Extract archive\\ntar -tf archive.tar.gz # List archive contents\\n# Used internally by Git for pack file operations",
+      "dependencies": "windows"
+    }
+  },
+  "tags": ["git", "version-control", "github", "diff", "pager", "cli", "lfs", "utilities"]
+}

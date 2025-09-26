@@ -1,0 +1,52 @@
+{
+  "name": "nushell",
+  "version": "0.99.1",
+  "description": "A new type of shell - structured data handling with cross-platform compatibility",
+  "homepage": "https://www.nushell.sh/",
+  "license": "MIT",
+  "importType": "wrap",
+  "bin": {
+    "nu": {
+      "path": "nu.exe",
+      "description": "Nushell - main shell executable with structured data pipeline"
+    },
+    "nu_plugin_custom_values": {
+      "path": "nu_plugin_custom_values.exe",
+      "description": "Nushell plugin for custom value types"
+    },
+    "nu_plugin_example": {
+      "path": "nu_plugin_example.exe",
+      "description": "Nushell example plugin for development reference"
+    },
+    "nu_plugin_formats": {
+      "path": "nu_plugin_formats.exe",
+      "description": "Nushell plugin for additional data format support"
+    },
+    "nu_plugin_gstat": {
+      "path": "nu_plugin_gstat.exe",
+      "description": "Nushell plugin for Git statistics"
+    },
+    "nu_plugin_inc": {
+      "path": "nu_plugin_inc.exe",
+      "description": "Nushell plugin for incrementing values"
+    },
+    "nu_plugin_polars": {
+      "path": "nu_plugin_polars.exe",
+      "description": "Nushell plugin for Polars dataframe operations"
+    },
+    "nu_plugin_query": {
+      "path": "nu_plugin_query.exe",
+      "description": "Nushell plugin for web scraping and data extraction"
+    },
+    "nu_plugin_stress_internals": {
+      "path": "nu_plugin_stress_internals.exe",
+      "description": "Nushell plugin for stress testing internals"
+    },
+    "less": {
+      "path": "less.exe",
+      "description": "Less pager included with Nushell distribution"
+    }
+  },
+  "tags": ["shell", "rust", "cross-platform", "structured-data", "modern", "scripting"],
+  "notes": "Modern shell with object-oriented pipeline, 25x faster than PowerShell, excellent for data processing and automation scripts"
+}
