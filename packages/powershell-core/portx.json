@@ -1,0 +1,24 @@
+{
+  "name": "powershell-core",
+  "version": "7.4.6",
+  "description": "PowerShell 7+ - Cross-platform automation and configuration tool built on .NET Core",
+  "importType": "wrap",
+  "bin": {
+    "pwsh": {
+      "path": "pwsh.exe",
+      "description": "PowerShell 7+ - Modern cross-platform shell and scripting language with object pipeline",
+      "usage": "pwsh # Start interactive PowerShell session\npwsh -Command \"Get-Process | Where-Object {$_.CPU -gt 100}\" # Run command\npwsh -File script.ps1 # Execute script\npwsh -ExecutionPolicy Bypass -File script.ps1 # Bypass execution policy\npwsh -NoProfile -Command \"1..10 | ForEach-Object {Write-Host $_}\" # No profile load\npwsh -EncodedCommand <base64> # Execute base64 encoded command",
+      "dependencies": "cross-platform"
+    }
+  },
+  "tags": [
+    "shell",
+    "scripting",
+    "automation",
+    "microsoft",
+    "dotnet-core",
+    "cross-platform",
+    "command-line",
+    "pipeline"
+  ]
+}
