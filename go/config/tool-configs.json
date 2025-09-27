@@ -1,0 +1,136 @@
+{
+  "_global_": {
+    "exclusions": {
+      "beforeFlag": [],
+      "afterFlag": ["--regexp", "--regex", "--pattern", "--glob", "--exclude", "--ignore", "--grep", "--author", "--committer", "--since", "--until", "--pretty", "--format"],
+      "atPosition": [],
+      "pattern": ["^--[a-zA-Z-]+=['\"].*['\"]$", "^-[a-zA-Z]=['\"].*['\"]$"]
+    }
+  },
+  "git": {
+    "name": "git",
+    "windows_path": "C:\\\\App\\\\PORTX\\\\packages\\\\git\\\\git.exe",
+    "exclusions": {
+      "beforeFlag": [],
+      "afterFlag": ["--grep", "--author", "--committer", "--since", "--until", "--pretty", "--format"],
+      "atPosition": [],
+      "pattern": []
+    },
+    "output_conversion": {
+      "enabled": true,
+      "type": "selective",
+      "patterns": ["relative_paths"]
+    },
+    "env": {
+      "supports_streaming": true,
+      "requires_shell": false,
+      "environment_vars": ["GIT_CONFIG_NOSYSTEM=1"],
+      "working_directory": ""
+    }
+  },
+  "rg": {
+    "name": "rg",
+    "windows_path": "C:\\\\App\\\\PORTX\\\\packages\\\\ripgrep\\\\rg.exe",
+    "exclusions": {
+      "beforeFlag": [],
+      "afterFlag": ["--regexp", "--file", "--glob", "--iglob", "--type-add"],
+      "atPosition": [0],
+      "pattern": []
+    },
+    "output_conversion": {
+      "enabled": true,
+      "type": "path_in_results",
+      "patterns": ["filepath:line:content"]
+    },
+    "env": {
+      "supports_streaming": true,
+      "requires_shell": false,
+      "environment_vars": [],
+      "working_directory": ""
+    }
+  },
+  "fd": {
+    "name": "fd",
+    "windows_path": "C:\\\\App\\\\PORTX\\\\packages\\\\fd\\\\fd.exe",
+    "exclusions": {
+      "beforeFlag": [],
+      "afterFlag": ["--exclude", "--glob", "--regex"],
+      "atPosition": [],
+      "pattern": []
+    },
+    "output_conversion": {
+      "enabled": true,
+      "type": "pure_file_paths",
+      "patterns": ["windows_absolute_paths"]
+    },
+    "env": {
+      "supports_streaming": true,
+      "requires_shell": false,
+      "environment_vars": [],
+      "working_directory": ""
+    }
+  },
+  "7za": {
+    "name": "7za",
+    "windows_path": "C:\\\\App\\\\PORTX\\\\packages\\\\7zip\\\\7za.exe",
+    "exclusions": {
+      "beforeFlag": [],
+      "afterFlag": [],
+      "atPosition": [1, 2],
+      "pattern": []
+    },
+    "output_conversion": {
+      "enabled": true,
+      "type": "archive_operations",
+      "patterns": ["operation_with_paths"]
+    },
+    "env": {
+      "supports_streaming": true,
+      "requires_shell": false,
+      "environment_vars": [],
+      "working_directory": ""
+    }
+  },
+  "node": {
+    "name": "node",
+    "windows_path": "C:\\\\App\\\\PORTX\\\\packages\\\\node\\\\node.exe",
+    "exclusions": {
+      "beforeFlag": [],
+      "afterFlag": ["--require", "--loader"],
+      "atPosition": [],
+      "pattern": []
+    },
+    "output_conversion": {
+      "enabled": false,
+      "type": "program_output",
+      "patterns": []
+    },
+    "env": {
+      "supports_streaming": true,
+      "requires_shell": false,
+      "environment_vars": [],
+      "working_directory": ""
+    }
+  },
+  "python": {
+    "name": "python",
+    "windows_path": "C:\\\\App\\\\PORTX\\\\packages\\\\python-runtime\\\\python.exe",
+    "exclusions": {
+      "beforeFlag": [],
+      "afterFlag": ["-m", "--module"],
+      "atPosition": [],
+      "pattern": []
+    },
+    "output_conversion": {
+      "enabled": false,
+      "type": "program_output",
+      "patterns": []
+    },
+    "env": {
+      "supports_streaming": true,
+      "requires_shell": false,
+      "environment_vars": [],
+      "working_directory": ""
+    }
+  }
+}

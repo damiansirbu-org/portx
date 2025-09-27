@@ -586,6 +586,363 @@ function New-PowerShellWrapper {
     Write-PortxDebug "Created PowerShell wrapper: $wrapperPath"
 }
 
+function New-GoWrapper {
+    param(
+        [Parameter(Mandatory)]
+        [string]$PackageName,
+        [Parameter(Mandatory)]
+        [string]$ToolName,
+        [Parameter(Mandatory)]
+        [string]$ExecutablePath,
+        [string]$DefaultArgs = ""
+    )
+
+    Write-PortxDebug "New-GoWrapper called with PackageName='$PackageName', ToolName='$ToolName', ExecutablePath='$ExecutablePath', DefaultArgs='$DefaultArgs'"
+
+    $goWrapperDir = Join-Path -Path $Script:WrappersDir -ChildPath "go"
+    $wrapperExePath = Join-Path $goWrapperDir "$ToolName.exe"
+    $goSourcePath = Join-Path $goWrapperDir "$ToolName.go"
+
+    if (-not (Test-Path -Path $goWrapperDir)) {
+        New-Item -ItemType Directory -Path $goWrapperDir -Force | Out-Null
+    }
+
+    # Generate Go source for individual tool wrapper
+    $goSource = @"
+package main
+
+import (
+    "fmt"
+    "os"
+    "os/exec"
+    "path/filepath"
+    "runtime"
+    "strings"
+)
+
+func main() {
+    // Package configuration
+    packageName := "$PackageName"
+    toolName := "$ToolName"
+    executablePath := "$ExecutablePath"
+    defaultArgs := "$DefaultArgs"
+
+    // Environment detection
+    var portxRoot string
+    if runtime.GOOS == "windows" {
+        portxRoot = "C:\\App\\PORTX"
+    } else {
+        // WSL/Unix environments
+        portxRoot = "/mnt/c/App/PORTX"
+    }
+
+    // Build full executable path
+    fullExePath := filepath.Join(portxRoot, "packages", packageName, executablePath)
+
+    // Process arguments
+    args := os.Args[1:]
+    debugMode := false
+
+    // Extract --portxDebug
+    filteredArgs := make([]string, 0, len(args))
+    for _, arg := range args {
+        if arg == "--portxDebug" {
+            debugMode = true
+        } else {
+            filteredArgs = append(filteredArgs, arg)
+        }
+    }
+
+    // Add default args if specified
+    var finalArgs []string
+    if defaultArgs != "" {
+        defaultArgsList := strings.Fields(defaultArgs)
+        finalArgs = append(defaultArgsList, filteredArgs...)
+    } else {
+        finalArgs = filteredArgs
+    }
+
+    // Debug output
+    if debugMode {
+        fmt.Fprintf(os.Stderr, "[PORTX DEBUG] Tool: %s\n", toolName)
+        fmt.Fprintf(os.Stderr, "[PORTX DEBUG] Package: %s\n", packageName)
+        fmt.Fprintf(os.Stderr, "[PORTX DEBUG] Executable: %s\n", fullExePath)
+        fmt.Fprintf(os.Stderr, "[PORTX DEBUG] Arguments: %v\n", finalArgs)
+        fmt.Fprintf(os.Stderr, "[PORTX DEBUG] GOOS: %s\n", runtime.GOOS)
+        fmt.Fprintf(os.Stderr, "[PORTX DEBUG] GOARCH: %s\n", runtime.GOARCH)
+    }
+
+    // Execute the tool
+    cmd := exec.Command(fullExePath, finalArgs...)
+    cmd.Stdin = os.Stdin
+    cmd.Stdout = os.Stdout
+    cmd.Stderr = os.Stderr
+
+    if err := cmd.Run(); err != nil {
+        if exitError, ok := err.(*exec.ExitError); ok {
+            os.Exit(exitError.ExitCode())
+        }
+        fmt.Fprintf(os.Stderr, "Error executing %s: %v\n", toolName, err)
+        os.Exit(1)
+    }
+}
+"@
+
+    # Write Go source
+    Write-SanitizedFile -FilePath $goSourcePath -Content $goSource
+
+    # Build the Go executable
+    $goExe = Join-Path $Script:PortxRoot "packages\go\bin\go.exe"
+    if (-not (Test-Path $goExe)) {
+        Write-PortxError "Go compiler not found at $goExe"
+        return $false
+    }
+
+    try {
+        $buildArgs = @("build", "-o", $wrapperExePath, $goSourcePath)
+        Write-PortxDebug "Building Go wrapper: $goExe $($buildArgs -join ' ')"
+
+        $process = Start-Process -FilePath $goExe -ArgumentList $buildArgs -Wait -PassThru -WindowStyle Hidden
+        if ($process.ExitCode -ne 0) {
+            Write-PortxError "Go build failed for $ToolName with exit code $($process.ExitCode)"
+            return $false
+        }
+
+        # Remove source file after successful build
+        Remove-Item $goSourcePath -Force
+
+        # Also create no-extension version for WSL/Unix
+        $noExtensionPath = Join-Path $goWrapperDir $ToolName
+        try {
+            Copy-Item $wrapperExePath $noExtensionPath -Force
+            Write-PortxDebug "Created Go wrapper (no extension): $noExtensionPath"
+        }
+        catch {
+            Write-PortxWarn "Failed to create no-extension wrapper for $ToolName`: $($_.Exception.Message)"
+        }
+
+        Write-PortxDebug "Created Go wrapper: $wrapperExePath"
+        return $true
+    }
+    catch {
+        Write-PortxError "Failed to build Go wrapper for $ToolName`: $($_.Exception.Message)"
+        return $false
+    }
+}
+
+# ============================================================================
+# UNIVERSAL GO WRAPPER FUNCTIONS
+# ============================================================================
+
+# Global variable to track if universal wrapper is built
+$Script:UniversalWrapperBuilt = $false
+
+function Build-UniversalGoWrapper {
+    param()
+
+    if ($Script:UniversalWrapperBuilt) {
+        return $true
+    }
+
+    Write-PortxInfo "Building universal PORTX Go wrapper..."
+
+    $goDir = Join-Path $Script:PortxRoot "go"
+    $goExe = Join-Path $Script:PortxRoot "packages\go\bin\go.exe"
+    $goWrapperDir = Join-Path $Script:WrappersDir "go"
+    $universalWrapperPath = Join-Path $goDir "target\portx-wrap.exe"
+
+    # Ensure go wrapper directory exists
+    if (-not (Test-Path $goWrapperDir)) {
+        New-Item -ItemType Directory -Path $goWrapperDir -Force | Out-Null
+    }
+
+    if (-not (Test-Path $goExe)) {
+        Write-PortxError "Go compiler not found at $goExe"
+        return $false
+    }
+
+    if (-not (Test-Path $goDir)) {
+        Write-PortxError "Go source directory not found at $goDir"
+        return $false
+    }
+
+    try {
+        # Build the universal wrapper directly with Go
+        $buildArgs = @("build", "-o", $universalWrapperPath, ".")
+        Write-PortxDebug "Building universal wrapper: $goExe with args: $($buildArgs -join ', ') (from directory: $goDir)"
+
+        # Capture stdout and stderr for better error reporting
+        $processInfo = New-Object System.Diagnostics.ProcessStartInfo
+        $processInfo.FileName = $goExe
+        foreach ($arg in $buildArgs) {
+            $processInfo.ArgumentList.Add($arg)
+        }
+        $processInfo.WorkingDirectory = $goDir
+        $processInfo.RedirectStandardOutput = $true
+        $processInfo.RedirectStandardError = $true
+        $processInfo.UseShellExecute = $false
+        $processInfo.CreateNoWindow = $true
+
+        $process = New-Object System.Diagnostics.Process
+        $process.StartInfo = $processInfo
+        $process.Start() | Out-Null
+
+        $stdout = $process.StandardOutput.ReadToEnd()
+        $stderr = $process.StandardError.ReadToEnd()
+        $process.WaitForExit()
+
+        if ($process.ExitCode -ne 0) {
+            Write-PortxError "Universal wrapper build failed with exit code $($process.ExitCode)"
+            if ($stderr) { Write-PortxError "Build stderr: $stderr" }
+            if ($stdout) { Write-PortxError "Build stdout: $stdout" }
+            return $false
+        }
+
+        if ($stdout -and $Script:VerboseLogging) {
+            Write-PortxDebug "Build stdout: $stdout"
+        }
+
+        # Copy config directory to wrapper location
+        $sourceConfigDir = Join-Path $goDir "config"
+        $targetConfigDir = Join-Path $goWrapperDir "config"
+
+        if (Test-Path $sourceConfigDir) {
+            if (Test-Path $targetConfigDir) {
+                Remove-Item $targetConfigDir -Recurse -Force
+            }
+            Copy-Item $sourceConfigDir $targetConfigDir -Recurse -Force
+            Write-PortxDebug "Copied config directory to wrapper location"
+        }
+
+        $Script:UniversalWrapperBuilt = $true
+        Write-PortxSuccess "Universal Go wrapper built successfully: $universalWrapperPath"
+        return $true
+    }
+    catch {
+        Write-PortxError "Failed to build universal wrapper: $($_.Exception.Message)"
+        return $false
+    }
+}
+
+function New-UniversalBashWrapper {
+    param(
+        [Parameter(Mandatory)]
+        [string]$PackageName,
+        [Parameter(Mandatory)]
+        [string]$ToolName,
+        [Parameter(Mandatory)]
+        [string]$ExecutablePath,
+        [string]$DefaultArgs = ""
+    )
+
+    Write-PortxDebug "New-UniversalBashWrapper called with PackageName='$PackageName', ToolName='$ToolName'"
+
+    # Build universal wrapper if not already built
+    if (-not (Build-UniversalGoWrapper)) {
+        Write-PortxError "Failed to build universal wrapper"
+        return $false
+    }
+
+    $wrapperPath = Join-Path -Path $Script:WrappersDir -ChildPath "posix" | Join-Path -ChildPath $ToolName
+    $wrapperDir = Split-Path -Path $wrapperPath -Parent
+
+    if (-not (Test-Path -Path $wrapperDir)) {
+        New-Item -ItemType Directory -Path $wrapperDir -Force | Out-Null
+    }
+
+    # Generate lightweight bash wrapper that calls universal Go wrapper
+    $wrapperContent = @"
+#!/bin/bash
+# PORTX Universal Wrapper for $PackageName/$ToolName
+# Calls universal portx-wrap.exe with intelligent path conversion
+
+# Universal environment detection
+if [[ -n "`${WSL_DISTRO_NAME:-}" ]] || grep -qi microsoft /proc/version 2>/dev/null; then
+    PORTX_ROOT="/mnt/c/App/PORTX"
+elif [[ "`$OSTYPE" == "cygwin" ]]; then
+    PORTX_ROOT="/cygdrive/c/App/PORTX"
+else
+    PORTX_ROOT="/c/App/PORTX"
+fi
+
+# Execute universal wrapper with tool name and all arguments
+exec "`$PORTX_ROOT/go/target/portx-wrap.exe" "$ToolName" "`$@"
+"@
+
+    # Use sanitized file writing to ensure proper line endings
+    Write-SanitizedFile -FilePath $wrapperPath -Content $wrapperContent
+
+    # Make executable on Unix systems
+    if (-not $Script:IsWindowsPlatform) {
+        try {
+            & chmod +x $wrapperPath
+        } catch {
+            Write-PortxWarn "Could not set executable permission on $wrapperPath"
+        }
+    }
+
+    Write-PortxDebug "Created universal bash wrapper: $wrapperPath"
+    return $true
+}
+
+function New-UniversalCmdWrapper {
+    param(
+        [Parameter(Mandatory)]
+        [string]$PackageName,
+        [Parameter(Mandatory)]
+        [string]$ToolName,
+        [Parameter(Mandatory)]
+        [string]$ExecutablePath,
+        [string]$DefaultArgs = ""
+    )
+
+    Write-PortxDebug "New-UniversalCmdWrapper called with PackageName='$PackageName', ToolName='$ToolName'"
+
+    # Build universal wrapper if not already built
+    if (-not (Build-UniversalGoWrapper)) {
+        Write-PortxError "Failed to build universal wrapper"
+        return $false
+    }
+
+    $wrapperPath = Join-Path -Path $Script:WrappersDir -ChildPath "windows" | Join-Path -ChildPath "$ToolName.cmd"
+    $wrapperDir = Split-Path -Path $wrapperPath -Parent
+
+    if (-not (Test-Path -Path $wrapperDir)) {
+        New-Item -ItemType Directory -Path $wrapperDir -Force | Out-Null
+    }
+
+    # Generate lightweight CMD wrapper that calls universal Go wrapper
+    $wrapperContent = @"
+@echo off
+rem PORTX Universal Wrapper for $PackageName/$ToolName
+rem Calls universal portx-wrap.exe with intelligent path conversion
+
+set PORTX_ROOT=C:\App\PORTX
+
+"%PORTX_ROOT%\go\target\portx-wrap.exe" "$ToolName" %*
+"@
+
+    Set-Content -Path $wrapperPath -Value $wrapperContent -Encoding ASCII
+    Write-PortxDebug "Created universal CMD wrapper: $wrapperPath"
+    return $true
+}
+
+function New-UniversalGoWrapper {
+    param(
+        [Parameter(Mandatory)]
+        [string]$PackageName,
+        [Parameter(Mandatory)]
+        [string]$ToolName,
+        [Parameter(Mandatory)]
+        [string]$ExecutablePath,
+        [string]$DefaultArgs = ""
+    )
+
+    # This function ensures the universal wrapper is built (called once per import)
+    # Individual tools don't need separate Go wrappers - they all use the universal one
+    return (Build-UniversalGoWrapper)
+}
+
 # ============================================================================
 # PACKAGE IMPORT LOGIC
 # ============================================================================
@@ -642,14 +999,18 @@ function Import-PortxPackage {
                         # Ensure defaultArgs is never null
                         $defaultArgs = if ($toolConfig.defaultArgs) { $toolConfig.defaultArgs } else { "" }
 
-                        # Create bash wrapper
+                        # Create bash wrapper that calls universal Go wrapper
                         Write-PortxDebug "About to create bash wrapper with: PackageName=$packageName, ToolName=$toolName, ExecutablePath=$($toolConfig.path), DefaultArgs='$defaultArgs'"
-                        New-BashWrapper -PackageName $packageName -ToolName $toolName -ExecutablePath $toolConfig.path -DefaultArgs $defaultArgs
+                        New-UniversalBashWrapper -PackageName $packageName -ToolName $toolName -ExecutablePath $toolConfig.path -DefaultArgs $defaultArgs
 
-                        # Create CMD wrapper (Windows only)
+                        # Create CMD wrapper that calls universal Go wrapper (Windows only)
                         if ($Script:IsWindowsPlatform) {
-                            New-CmdWrapper -PackageName $packageName -ToolName $toolName -ExecutablePath $toolConfig.path -DefaultArgs $defaultArgs
+                            New-UniversalCmdWrapper -PackageName $packageName -ToolName $toolName -ExecutablePath $toolConfig.path -DefaultArgs $defaultArgs
                         }
+
+                        # Create Go wrapper (build universal wrapper once, then create lightweight wrappers)
+                        Write-PortxDebug "About to create Go wrapper with: PackageName=$packageName, ToolName=$toolName, ExecutablePath=$($toolConfig.path), DefaultArgs='$defaultArgs'"
+                        New-UniversalGoWrapper -PackageName $packageName -ToolName $toolName -ExecutablePath $toolConfig.path -DefaultArgs $defaultArgs
 
                         $wrapperCount++
                     }
@@ -718,7 +1079,7 @@ function Invoke-PortxImport {
     }
 
     # Create wrapper directories
-    @("posix", "windows") | ForEach-Object {
+    @("posix", "windows", "go") | ForEach-Object {
         $dir = Join-Path $Script:WrappersDir $_
         if (-not (Test-Path $dir)) {
             New-Item -ItemType Directory -Path $dir -Force | Out-Null
@@ -802,8 +1163,8 @@ else
     PORTX_ROOT="/c/App/PORTX"
 fi
 
-# Add PORTX wrappers to PATH (posix wrappers for all Unix-like environments)
-export PATH="`$PATH:`$PORTX_ROOT/wrappers/posix"
+# Add PORTX Go wrappers to PATH (universal wrappers for all environments)
+export PATH="`$PATH:`$PORTX_ROOT/wrappers/go"
 
 # Build PORTX PACKAGES PATH
 PACKAGES_PATH=""

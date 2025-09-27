@@ -1,0 +1,125 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "PORTX Tool Configuration Schema",
+  "description": "Schema for PORTX Universal Wrapper tool configurations",
+  "type": "object",
+  "properties": {
+    "_global_": {
+      "description": "Global rules applied to all tools",
+      "type": "object",
+      "properties": {
+        "exclusions": {
+          "$ref": "#/definitions/exclusions"
+        }
+      },
+      "required": ["exclusions"],
+      "additionalProperties": false
+    }
+  },
+  "patternProperties": {
+    "^[a-zA-Z][a-zA-Z0-9_-]*$": {
+      "description": "Tool-specific configuration",
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Tool name identifier"
+        },
+        "windows_path": {
+          "type": "string",
+          "description": "Absolute Windows path to executable"
+        },
+        "exclusions": {
+          "$ref": "#/definitions/exclusions"
+        },
+        "output_conversion": {
+          "$ref": "#/definitions/output_conversion"
+        },
+        "env": {
+          "$ref": "#/definitions/env"
+        }
+      },
+      "required": ["name", "windows_path", "exclusions", "output_conversion", "env"],
+      "additionalProperties": false
+    }
+  },
+  "required": ["_global_"],
+  "additionalProperties": false,
+  "definitions": {
+    "exclusions": {
+      "description": "Rules for excluding arguments from path conversion",
+      "type": "object",
+      "properties": {
+        "beforeFlag": {
+          "type": "array",
+          "items": {"type": "string"},
+          "description": "Arguments that come before these flags are excluded"
+        },
+        "afterFlag": {
+          "type": "array",
+          "items": {"type": "string"},
+          "description": "Arguments that come after these flags are excluded"
+        },
+        "atPosition": {
+          "type": "array",
+          "items": {"type": "integer"},
+          "description": "Arguments at these positions are excluded (0-indexed)"
+        },
+        "pattern": {
+          "type": "array",
+          "items": {"type": "string"},
+          "description": "Regular expressions - matching arguments are always excluded"
+        }
+      },
+      "required": ["beforeFlag", "afterFlag", "atPosition", "pattern"],
+      "additionalProperties": false
+    },
+    "output_conversion": {
+      "description": "Output path conversion settings",
+      "type": "object",
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "description": "Whether to convert paths in tool output"
+        },
+        "type": {
+          "type": "string",
+          "enum": ["selective", "path_in_results", "pure_file_paths", "archive_operations", "program_output"],
+          "description": "Type of output conversion to apply"
+        },
+        "patterns": {
+          "type": "array",
+          "items": {"type": "string"},
+          "description": "Output patterns to match for conversion"
+        }
+      },
+      "required": ["enabled", "type", "patterns"],
+      "additionalProperties": false
+    },
+    "env": {
+      "description": "Environment and execution settings",
+      "type": "object",
+      "properties": {
+        "supports_streaming": {
+          "type": "boolean",
+          "description": "Whether tool supports streaming output"
+        },
+        "requires_shell": {
+          "type": "boolean",
+          "description": "Whether tool requires shell execution"
+        },
+        "environment_vars": {
+          "type": "array",
+          "items": {"type": "string"},
+          "description": "Environment variables to set"
+        },
+        "working_directory": {
+          "type": "string",
+          "description": "Working directory override"
+        }
+      },
+      "required": ["supports_streaming", "requires_shell", "environment_vars", "working_directory"],
+      "additionalProperties": false
+    }
+  }
+}
