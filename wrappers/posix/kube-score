@@ -1,0 +1,15 @@
+#!/bin/bash
+# PORTX Universal Wrapper for kube-score/kube-score
+# Calls universal portx-wrap.exe with intelligent path conversion
+
+# Universal environment detection
+if [[ -n "${WSL_DISTRO_NAME:-}" ]] || grep -qi microsoft /proc/version 2>/dev/null; then
+    PORTX_ROOT="/mnt/c/App/PORTX"
+elif [[ "$OSTYPE" == "cygwin" ]]; then
+    PORTX_ROOT="/cygdrive/c/App/PORTX"
+else
+    PORTX_ROOT="/c/App/PORTX"
+fi
+
+# Execute universal wrapper with tool name and all arguments
+exec "$PORTX_ROOT/go/target/portx-wrap.exe" "kube-score" "$@"

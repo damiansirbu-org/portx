@@ -1,6 +1,6 @@
 #!/bin/bash
 # PORTX 2.0 Packages Path
-# Generated: 2025-09-26 17:18:43
+# Generated: 2025-09-27 06:38:39
 # This file is automatically sourced to add PORTX packages to PATH
 
 # Detect environment and set package root
@@ -12,8 +12,8 @@ else
     PORTX_ROOT="/c/App/PORTX"
 fi
 
-# Add PORTX wrappers to PATH (posix wrappers for all Unix-like environments)
-export PATH="$PATH:$PORTX_ROOT/wrappers/posix"
+# Add PORTX Go wrappers to PATH (universal wrappers for all environments)
+export PATH="$PATH:$PORTX_ROOT/wrappers/go"
 
 # Build PORTX PACKAGES PATH
 PACKAGES_PATH=""
@@ -30,7 +30,7 @@ fi  # node
 
 # PORTX packages path statistics
 export PORTX_PATH_PACKAGES="2"
-export PORTX_LAST_IMPORT="2025-09-26 17:18:43"
+export PORTX_LAST_IMPORT="2025-09-27 06:38:39"
 
 # Export PACKAGES_PATH for shell integration
 export PORTX_PACKAGES_PATH="$PACKAGES_PATH"

@@ -1,19 +1,82 @@
-# PORTX Package Binaries
-# Exclude all package contents except directories and portx.json files
+# PORTX Universal Wrapper System .gitignore
 
-# Exclude everything in packages/* except what we explicitly allow
-packages/**/*
+# Exclude Claude configuration
+.claude/
 
-# Allow first-level directories in packages/
-!packages/*/
-
-# Allow portx.json files
-!packages/**/portx.json
-
-# But exclude subdirectories and their contents (except portx.json)
-packages/*/*/
+# Exclude packages directory except specific included items
+packages/
 !packages/*/portx.json
+!packages/node/
 
-# PORTX Generated Wrappers
-# Exclude all generated wrapper scripts
-wrappers/*
+# Include packages directory structure but exclude binaries and large files
+packages/*/
+!packages/*/portx.json
+!packages/node/
+
+# Node package specific excludes
+packages/node/node_modules/
+packages/node/*.exe
+packages/node/*.cmd
+packages/node/*.dll
+packages/node/*.pdb
+packages/node/*.lib
+packages/node/*.exp
+
+# Keep only the essential node package files
+!packages/node/portx.json
+!packages/node/claude
+!packages/node/node
+!packages/node/npm
+!packages/node/npx
+!packages/node/corepack
+
+# Build artifacts
+go/target/*.exe
+go/target/*.obj
+go/target/*.pdb
+!go/target/portx-wrap.exe
+
+# Logs
+logs/
+*.log
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+*.temp
+
+# OS specific
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE/Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Go specific
+go/vendor/
+go/*.exe
+go/*.dll
+go/*.so
+go/*.dylib
+
+# Test files
+*_test.go
+test/
+tests/
+
+# Documentation generation
+doc/generated/
+
+# Backup files
+*.bak
+*.backup
+*~
+
+# Lock files
+*.lock
