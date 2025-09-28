@@ -8,8 +8,6 @@ import (
 	"os/exec"
 	"regexp"
 	"strings"
-
-	"github.com/creack/pty"
 )
 
 // OutputConverter handles output stream processing and path conversion
@@ -17,44 +15,115 @@ type OutputConverter struct {
 	platform       Platform
 	windowsPathRegex *regexp.Regexp
 	debug          bool
+	configManager  *ConfigManager
+	toolPath       string
+	skipConversion bool
 }
 
 // NewOutputConverter creates an output converter for the specified platform
 func NewOutputConverter(platform Platform, debug bool) *OutputConverter {
+	configManager := NewConfigManager()
+	if err := configManager.LoadConfig(); err != nil && debug {
+		fmt.Fprintf(os.Stderr, "PathX: Failed to load config: %v\n", err)
+	}
+
 	return &OutputConverter{
 		platform:       platform,
 		windowsPathRegex: regexp.MustCompile(`[A-Za-z]:[\\\/][^\s]*`),
 		debug:          debug,
+		configManager:  configManager,
 	}
 }
 
-// executeWithOutput runs a command with PTY and converts output paths
-func (oc *OutputConverter) executeWithOutput(cmd *exec.Cmd) error {
-	// Start command with PTY to preserve TTY detection
-	ptmx, err := pty.Start(cmd)
-	if err != nil {
-		return fmt.Errorf("failed to start command with PTY: %w", err)
-	}
-	defer ptmx.Close()
+// SetTool configures the converter for a specific tool
+func (oc *OutputConverter) SetTool(toolPath string) {
+	oc.toolPath = toolPath
+	oc.skipConversion = oc.configManager.ShouldSkipConversion(toolPath)
 
-	// Handle stdin forwarding in background
+	if oc.debug {
+		fmt.Fprintf(os.Stderr, "PathX: Tool %s skip conversion: %v\n", toolPath, oc.skipConversion)
+	}
+}
+
+// ShouldUseDirectIO returns true if the tool should use direct I/O (no conversion)
+func (oc *OutputConverter) ShouldUseDirectIO() bool {
+	return oc.skipConversion
+}
+
+// ExecuteDirect runs a command with direct I/O (no path conversion)
+func (oc *OutputConverter) ExecuteDirect(cmd *exec.Cmd) error {
+	if oc.debug {
+		fmt.Fprintf(os.Stderr, "PathX: using direct I/O for TTY preservation\n")
+	}
+
+	// Direct I/O inheritance for TTY preservation
+	cmd.Stdin = os.Stdin
+	cmd.Stdout = os.Stdout
+	cmd.Stderr = os.Stderr
+
+	return cmd.Run()
+}
+
+// ExecuteWithOutput runs a command with pipe-based output processing and path conversion
+func (oc *OutputConverter) ExecuteWithOutput(cmd *exec.Cmd) error {
+	if oc.debug {
+		fmt.Fprintf(os.Stderr, "PathX: using pipe-based output conversion\n")
+	}
+
+	// Set up pipes for stdout and stderr
+	stdoutPipe, err := cmd.StdoutPipe()
+	if err != nil {
+		return fmt.Errorf("failed to create stdout pipe: %w", err)
+	}
+
+	stderrPipe, err := cmd.StderrPipe()
+	if err != nil {
+		return fmt.Errorf("failed to create stderr pipe: %w", err)
+	}
+
+	// Connect stdin directly
+	cmd.Stdin = os.Stdin
+
+	// Start the command
+	if err := cmd.Start(); err != nil {
+		return fmt.Errorf("failed to start command: %w", err)
+	}
+
+	// Process stdout and stderr concurrently
+	done := make(chan error, 2)
+
+	// Process stdout with path conversion
 	go func() {
-		io.Copy(ptmx, os.Stdin)
+		done <- oc.processOutputStream(stdoutPipe, os.Stdout)
 	}()
 
-	// Process output with path conversion
-	return oc.processOutput(ptmx)
+	// Process stderr with path conversion
+	go func() {
+		done <- oc.processOutputStream(stderrPipe, os.Stderr)
+	}()
+
+	// Wait for both streams to complete
+	for i := 0; i < 2; i++ {
+		if err := <-done; err != nil {
+			if oc.debug {
+				fmt.Fprintf(os.Stderr, "PathX: stream processing error: %v\n", err)
+			}
+		}
+	}
+
+	// Wait for command to complete
+	return cmd.Wait()
 }
 
-// processOutput reads from PTY and converts Windows paths to Unix paths
-func (oc *OutputConverter) processOutput(ptmx *os.File) error {
-	scanner := bufio.NewScanner(ptmx)
+// processOutputStream reads from input stream and converts Windows paths to Unix paths
+func (oc *OutputConverter) processOutputStream(input io.Reader, output io.Writer) error {
+	scanner := bufio.NewScanner(input)
 	scanner.Buffer(make([]byte, 0, 64*1024), 1024*1024) // Large buffer for performance
 
 	for scanner.Scan() {
 		line := scanner.Text()
 		converted := oc.convertOutputLine(line)
-		fmt.Fprintln(os.Stdout, converted)
+		fmt.Fprintln(output, converted)
 	}
 
 	if err := scanner.Err(); err != nil {
@@ -69,12 +138,22 @@ func (oc *OutputConverter) processOutput(ptmx *os.File) error {
 
 // convertOutputLine converts Windows paths in output line to Unix paths
 func (oc *OutputConverter) convertOutputLine(line string) string {
+	if oc.skipConversion {
+		return line
+	}
+
+	// Default behavior: convert all Windows paths found
+	return oc.convertAllPaths(line)
+}
+
+// convertAllPaths converts all Windows paths found in the line
+func (oc *OutputConverter) convertAllPaths(line string) string {
 	if !oc.containsWindowsPaths(line) {
 		return line
 	}
 
 	if oc.debug {
-		fmt.Fprintf(os.Stderr, "PathX: converting output: %s\n", line)
+		fmt.Fprintf(os.Stderr, "PathX: converting all paths in: %s\n", line)
 	}
 
 	converted := oc.windowsPathRegex.ReplaceAllStringFunc(line, oc.windowsToUnix)
@@ -193,32 +272,4 @@ func (oc *OutputConverter) windowsToCygwin(path string) string {
 	}
 
 	return string(result)
-}
-
-// executeDirect runs a command with direct I/O (no path conversion)
-func (oc *OutputConverter) executeDirect(cmd *exec.Cmd) error {
-	// Direct I/O inheritance for TTY preservation
-	cmd.Stdin = os.Stdin
-	cmd.Stdout = os.Stdout
-	cmd.Stderr = os.Stderr
-
-	return cmd.Run()
-}
-
-// shouldConvertOutput determines if output conversion is needed
-// This is a simple heuristic - we could make it smarter in the future
-func (oc *OutputConverter) shouldConvertOutput(toolPath string) bool {
-	toolName := strings.ToLower(toolPath)
-
-	// Tools that typically output file paths
-	pathOutputTools := []string{"rg", "ripgrep", "fd", "find", "grep", "ag", "es"}
-
-	for _, tool := range pathOutputTools {
-		if strings.Contains(toolName, tool) {
-			return true
-		}
-	}
-
-	// Default to no conversion for maximum TTY compatibility
-	return false
 }

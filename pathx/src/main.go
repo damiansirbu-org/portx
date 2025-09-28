@@ -53,15 +53,6 @@ func runPathX(cmd *cobra.Command, args []string) error {
 		return cmd.Help()
 	}
 
-	for _, arg := range args {
-		if arg == "--help" || arg == "-h" {
-			return cmd.Help()
-		}
-		if arg == "--version" || arg == "-v" {
-			fmt.Printf("PathX %s\n", Version)
-			return nil
-		}
-	}
 
 	// Parse our flags manually
 	pathxArgs, executablePath, execArgs, err := parsePathXArgs(args)
@@ -107,23 +98,31 @@ func runPathX(cmd *cobra.Command, args []string) error {
 		fmt.Fprintf(os.Stderr, "PathX: converted %d args\n", len(convertedArgs))
 	}
 
-	// Create command
-	execCmd := exec.Command(executablePath, convertedArgs...)
+	// Convert executable path from Unix to Windows for execution
+	convertedExecutablePath := pathConverter.convertPath(executablePath)
 
-	// Set up output conversion
+	if debugFlag {
+		fmt.Fprintf(os.Stderr, "PathX: converted executable path: %s -> %s\n", executablePath, convertedExecutablePath)
+	}
+
+	// Create command with converted executable path
+	execCmd := exec.Command(convertedExecutablePath, convertedArgs...)
+
+	if debugFlag {
+		fmt.Fprintf(os.Stderr, "PathX: About to execute: %s with args: %v\n", convertedExecutablePath, convertedArgs)
+	}
+
+	// Set up output conversion with sophisticated tool configuration
 	outputConverter := NewOutputConverter(platform, debugFlag)
+	outputConverter.SetTool(executablePath)
 
-	// Determine if we need output conversion
-	if outputConverter.shouldConvertOutput(executablePath) {
-		if debugFlag {
-			fmt.Fprintf(os.Stderr, "PathX: using PTY for output conversion\n")
-		}
-		return outputConverter.executeWithOutput(execCmd)
+	// Determine execution strategy based on tool configuration
+	if outputConverter.ShouldUseDirectIO() {
+		// Use direct I/O for interactive tools that need TTY preservation
+		return outputConverter.ExecuteDirect(execCmd)
 	} else {
-		if debugFlag {
-			fmt.Fprintf(os.Stderr, "PathX: using direct I/O for TTY preservation\n")
-		}
-		return outputConverter.executeDirect(execCmd)
+		// Use pipe-based output conversion with sophisticated strategies
+		return outputConverter.ExecuteWithOutput(execCmd)
 	}
 }
 
@@ -135,9 +134,7 @@ func parsePathXArgs(args []string) (pathxArgs []string, executable string, execA
 	for i, arg := range args {
 		if !foundExecutable {
 			if strings.HasPrefix(arg, "--platform=") ||
-			   arg == "--debug" ||
-			   arg == "--help" ||
-			   arg == "--version" {
+			   arg == "--debug" {
 				pathxFlags = append(pathxFlags, arg)
 			} else {
 				// First non-PathX argument is the executable
