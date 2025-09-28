@@ -1,7 +1,8 @@
 @echo off
-rem PORTX Universal Wrapper for mc/mcview
-rem Calls universal portx-wrap.exe with intelligent path conversion
-
+rem PORTX-WRAPPER: Auto-generated wrapper for mc/mcview
 set PORTX_ROOT=C:\App\PORTX
+set PACKAGE_NAME=mc
+set EXE_RELATIVE_PATH=mcview.exe
+set EXECUTABLE_PATH=%PORTX_ROOT%\packages\%PACKAGE_NAME%\%EXE_RELATIVE_PATH%
 
-"%PORTX_ROOT%\go\target\portx-wrap.exe" "mcview" %*
+"%EXECUTABLE_PATH%" %*

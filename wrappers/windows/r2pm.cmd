@@ -1,7 +1,8 @@
 @echo off
-rem PORTX Universal Wrapper for radare2/r2pm
-rem Calls universal portx-wrap.exe with intelligent path conversion
-
+rem PORTX-WRAPPER: Auto-generated wrapper for radare2/r2pm
 set PORTX_ROOT=C:\App\PORTX
+set PACKAGE_NAME=radare2
+set EXE_RELATIVE_PATH=bin/r2pm.exe
+set EXECUTABLE_PATH=%PORTX_ROOT%\packages\%PACKAGE_NAME%\%EXE_RELATIVE_PATH%
 
-"%PORTX_ROOT%\go\target\portx-wrap.exe" "r2pm" %*
+"%EXECUTABLE_PATH%" %*

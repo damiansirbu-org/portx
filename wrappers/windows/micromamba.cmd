@@ -1,7 +1,8 @@
 @echo off
-rem PORTX Universal Wrapper for python-micromamba/micromamba
-rem Calls universal portx-wrap.exe with intelligent path conversion
-
+rem PORTX-WRAPPER: Auto-generated wrapper for python-micromamba/micromamba
 set PORTX_ROOT=C:\App\PORTX
+set PACKAGE_NAME=python-micromamba
+set EXE_RELATIVE_PATH=micromamba.exe
+set EXECUTABLE_PATH=%PORTX_ROOT%\packages\%PACKAGE_NAME%\%EXE_RELATIVE_PATH%
 
-"%PORTX_ROOT%\go\target\portx-wrap.exe" "micromamba" %*
+"%EXECUTABLE_PATH%" %*

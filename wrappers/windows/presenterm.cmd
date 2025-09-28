@@ -1,7 +1,8 @@
 @echo off
-rem PORTX Universal Wrapper for presenterm/presenterm
-rem Calls universal portx-wrap.exe with intelligent path conversion
-
+rem PORTX-WRAPPER: Auto-generated wrapper for presenterm/presenterm
 set PORTX_ROOT=C:\App\PORTX
+set PACKAGE_NAME=presenterm
+set EXE_RELATIVE_PATH=presenterm.exe
+set EXECUTABLE_PATH=%PORTX_ROOT%\packages\%PACKAGE_NAME%\%EXE_RELATIVE_PATH%
 
-"%PORTX_ROOT%\go\target\portx-wrap.exe" "presenterm" %*
+"%EXECUTABLE_PATH%" %*

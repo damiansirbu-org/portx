@@ -1,40 +1,52 @@
-# PORTX 2.0 Architecture
+# PORTX Universal Wrapper Architecture
 
 ## System Overview
 
-PORTX 2.0 implements a cross-platform package management system designed to provide seamless access to portable tools across Windows-based environments. The architecture solves fundamental compatibility challenges between Windows executables and Unix-like shells through intelligent wrapper generation and environment detection.
+PORTX implements a high-performance Go-based wrapper system that provides seamless access to Windows tools from Unix-like environments. The architecture solves critical compatibility challenges including path conversion, TTY detection, and real-time I/O handling across WSL, MSYS2, Cygwin, and native Windows.
 
-## Core Components
+## Current Architecture (Go Wrapper Implementation)
 
-### 1. Entry Layer
+### 1. Go Wrapper Core (`portx-wrap.exe`)
 
-#### Multi-Platform Entry Points
-- **`portx.sh`**: Cross-platform bash entry point
-- **`portx.cmd`**: Windows batch entry point
-- **Function**: Environment detection and PowerShell Core delegation
+#### Primary Functions
+- **Universal Tool Execution**: Single executable wraps 369 tools
+- **Path Conversion**: Intelligent Unix↔Windows path transformation
+- **Environment Detection**: Runtime platform identification
+- **I/O Handling**: Direct I/O inheritance for TTY compatibility
+- **Configuration Management**: Tool-specific behavior rules
 
 #### Environment Detection Matrix
-| Environment | Root Path | Detection Method |
-|-------------|-----------|------------------|
-| WSL | `/mnt/c/App/PORTX` | `$WSL_DISTRO_NAME` |
-| Cygwin | `/cygdrive/c/App/PORTX` | `$CYGWIN` or `cygpath` |
-| MSYS2/Git Bash | `/c/App/PORTX` | `$MSYSTEM` |
-| Native Windows | `C:\App\PORTX` | PowerShell execution |
+| Environment | Root Path | Detection Method | Status |
+|-------------|-----------|------------------|---------|
+| WSL | `/mnt/c/App/PORTX` | `$WSL_DISTRO_NAME` | ✅ Working |
+| Cygwin | `/cygdrive/c/App/PORTX` | `$CYGWIN` or `cygpath` | ✅ Working |
+| MSYS2/Git Bash | `/c/App/PORTX` | `$MSYSTEM` | ✅ Working |
+| Native Windows | `C:\App\PORTX` | Go runtime detection | ✅ Working |
 
-### 2. Core Engine
+### 2. Configuration System (`go/config/`)
 
-#### PowerShell Import Manager (`ps/portx-import.ps1`)
-- **Size**: 26,000+ lines of production code
-- **Language**: PowerShell 5.1+ (cross-platform compatible)
-- **Dependencies**: None (self-contained)
-- **Execution**: Via included PowerShell Core (`packages/powershell-core/`)
+#### Tool Configuration (`tool-configs.json`)
+- **Purpose**: Tool-specific behavior rules and exclusions
+- **Format**: JSON configuration per tool
+- **Features**: Parameter exclusion rules, output conversion settings
+- **Management**: Centralized configuration for all 369 tools
 
-#### Key Subsystems
-1. **Package Validation**: JSON schema compliance and integrity checks
-2. **Wrapper Generation**: Cross-platform executable wrapper creation
-3. **Environment Adaptation**: Platform-specific path and execution handling
-4. **Logging System**: Structured logging with file persistence
-5. **PATH Management**: Dynamic environment path construction
+#### Configuration Structure
+```json
+{
+  "git": {
+    "name": "git",
+    "package": "git-extras",
+    "windows_path": "git.exe",
+    "exclusions": {
+      "afterFlag": ["--grep", "--author"],
+      "beforeFlag": [],
+      "atPosition": [],
+      "pattern": [".*\\.git.*"]
+    }
+  }
+}
+```
 
 ### 3. Package System
 
@@ -42,114 +54,151 @@ PORTX 2.0 implements a cross-platform package management system designed to prov
 ```
 packages/
 ├── {package-name}/
-│   ├── portx.json           # Package configuration
-│   ├── {executables}        # Tool binaries
+│   ├── portx.json           # Package metadata (shell wrapper config)
+│   ├── {executables}        # Windows executable binaries
 │   └── {supporting-files}   # Dependencies and assets
 ```
 
-#### Configuration Schema (`portx.json`)
+#### Package Configuration (`portx.json`)
+**Note**: Used by shell wrappers, not the Go wrapper. Go wrapper uses `tool-configs.json`.
+
 ```json
 {
-  "name": "package-name",
-  "version": "semver",
-  "description": "package description",
-  "importType": "wrap|path|wrapAndPath|none",
+  "name": "node",
+  "version": "22.19.0",
+  "description": "Node.js JavaScript runtime",
+  "importType": "path",
   "bin": {
-    "tool-name": {
-      "path": "relative/path/to/executable",
-      "description": "tool description",
-      "usage": "usage examples",
-      "dependencies": "windows|linux|cross-platform"
+    "node": {
+      "path": "node.exe",
+      "description": "Node.js runtime engine",
+      "usage": "node app.js # Run JavaScript application"
     }
-  },
-  "tags": ["category", "keywords"]
+  }
 }
 ```
 
-#### Import Strategies
-1. **`wrap`**: Generate wrappers only (default for most tools)
-2. **`path`**: Add package root to PATH environment
-3. **`wrapAndPath`**: Both wrapper generation and PATH addition
-4. **`none`**: Documentation packages, no executable imports
+#### Import Types (Shell Wrapper Legacy)
+- **`wrap`**: Generate shell wrappers (not used by Go wrapper)
+- **`path`**: Add to PATH (package directory scanning)
+- **`wrapAndPath`**: Both approaches
+- **`none`**: Documentation only
 
-### 4. Wrapper System
+### 4. Go Wrapper Implementation
 
-#### Dual Wrapper Architecture
+#### Core Components
+```go
+// Main execution flow
+func ExecuteTool(wrapper *PortxWrapper, toolName string, args []string) error {
+    // 1. Load tool configuration
+    toolConfig := wrapper.Config.Tools[toolName]
 
-**POSIX Wrapper** (`wrappers/posix/{tool}`):
-- **Target**: bash, zsh, WSL, Cygwin, MSYS2
-- **Features**: Environment detection, path resolution, direct execution
-- **Format**: Executable bash script with shebang
+    // 2. Build executable path
+    executablePath := buildExecutablePath(toolConfig)
 
-**Windows Wrapper** (`wrappers/windows/{tool}.cmd`):
-- **Target**: cmd.exe, PowerShell
-- **Features**: Environment variables, batch execution
-- **Format**: Windows batch file
+    // 3. Process arguments (path conversion)
+    processedArgs := processArguments(args, toolConfig, wrapper.Config.PlatformEnv)
 
-#### Wrapper Generation Logic
-```powershell
-New-BashWrapper -PackageName $pkg -ToolName $tool -ExecutablePath $path
-New-CmdWrapper -PackageName $pkg -ToolName $tool -ExecutablePath $path
+    // 4. Execute with direct I/O inheritance
+    cmd := exec.Command(executablePath, processedArgs...)
+    cmd.Stdin = os.Stdin   // Critical for TTY detection
+    cmd.Stdout = os.Stdout
+    cmd.Stderr = os.Stderr
+
+    return cmd.Run()
+}
 ```
 
-#### Environment-Aware Execution
-```bash
-# Dynamic root detection
-if [[ -n "${WSL_DISTRO_NAME:-}" ]]; then
-    PORTX_ROOT="/mnt/c/App/PORTX"
-elif [[ "$OSTYPE" == "cygwin" ]]; then
-    PORTX_ROOT="/cygdrive/c/App/PORTX"
-else
-    PORTX_ROOT="/c/App/PORTX"
-fi
+#### Critical I/O Handling
+**Fixed Claude Code Bug (2025-09-27)**:
+```go
+// WORKING: Direct I/O inheritance
+cmd.Stdin = os.Stdin
+cmd.Stdout = os.Stdout
+cmd.Stderr = os.Stderr
+cmdErr := cmd.Run()
 
-# Direct executable invocation
-exec "$PORTX_ROOT/packages/$PACKAGE/$EXECUTABLE" "$@"
+// BROKEN: Pipe-based I/O (breaks TTY detection)
+// stdout, _ := cmd.StdoutPipe()
+// stderr, _ := cmd.StderrPipe()
+```
+
+#### Path Conversion Logic
+```go
+func convertPath(arg string, platform PlatformEnvironment) string {
+    if !isUnixAbsolutePath(arg) {
+        return arg // No conversion needed
+    }
+
+    switch platform.Type {
+    case "wsl":
+        return convertWSLPath(arg)    // /mnt/c/... → C:\...
+    case "msys2":
+        return convertMSYS2Path(arg)  // /c/... → C:\...
+    case "cygwin":
+        return convertCygwinPath(arg) // /cygdrive/c/... → C:\...
+    default:
+        return arg
+    }
+}
 ```
 
 ## Advanced Features
 
-### WSL Path Conversion
+### Intelligent Path Conversion
 
 #### Problem Statement
-Windows executables in WSL cannot process Unix-style paths (`/mnt/c/...`), requiring automatic path translation.
+Windows executables cannot process Unix-style paths (`/mnt/c/...`, `/c/...`), requiring automatic path translation while preserving regex patterns and command flags.
 
-#### Solution Implementation
+#### Current Implementation (Go Wrapper)
+```go
+func processArguments(args []string, toolConfig *ToolConfig, platform PlatformEnvironment) []string {
+    processedArgs := make([]string, 0, len(args))
+
+    for i, arg := range args {
+        // Check exclusion rules
+        if shouldExcludeFromConversion(arg, i, toolConfig.Exclusions) {
+            processedArgs = append(processedArgs, arg)
+            continue
+        }
+
+        // Apply path conversion if needed
+        convertedArg := convertPathIfNeeded(arg, platform)
+        processedArgs = append(processedArgs, convertedArg)
+    }
+
+    return processedArgs
+}
+```
+
+#### Tool-Specific Rules
+- **git**: Convert `--git-dir`, `--work-tree` embedded paths
+- **ripgrep**: Convert paths but NEVER regex patterns
+- **fd**: Convert search directories but preserve file patterns
+
+### Structured Logging (Go Implementation)
+
+#### Logging System
+```go
+// Using zap structured logger
+logger.Info("Tool execution details",
+    zap.String("tool", toolName),
+    zap.String("executable", executablePath),
+    zap.Strings("original_args", args),
+    zap.Strings("processed_args", processedArgs),
+    zap.String("platform", platform.Type))
+```
+
+#### Debug Mode
 ```bash
-# WSL path conversion logic
-if [[ "$WSL_ENV" == "true" ]]; then
-    for arg in "$@"; do
-        if [[ "$arg" =~ ^/[^-] ]]; then
-            converted=$(wslpath -w "$arg" 2>/dev/null)
-            args+=("${converted:-$arg}")
-        else
-            args+=("$arg")
-        fi
-    done
-fi
+# Enable detailed logging
+/c/App/PORTX/go/target/portx-wrap.exe --portxDebug node script.js
 ```
 
-#### Deployment Status
-- **Completed**: fd wrapper
-- **Planned**: rg, es, dust, duf, shellcheck, dprint
-
-### Logging Architecture
-
-#### Multi-Level Logging System
-```powershell
-# Structured logging levels
-Write-PortxTrace   # Detailed debug information
-Write-PortxDebug   # Development debugging
-Write-PortxInfo    # General information
-Write-PortxWarn    # Warning conditions
-Write-PortxError   # Error conditions
-Write-PortxFatal   # Fatal errors
+#### Log Output Format
+```json
+{"level":"info","timestamp":"2025-09-27T17:25:17.241+0300","caller":"go/wrapper.go:83","msg":"ExecuteTool called","tool":"node","args":["script.js"]}
 ```
-
-#### Log Destinations
-1. **File Logging**: `logs/portx-import.log` (all levels)
-2. **Console Output**: Filtered for user relevance
-3. **Structured Format**: ISO timestamp, level, category, message
 
 ### Package Validation
 

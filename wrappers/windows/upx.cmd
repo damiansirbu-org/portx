@@ -1,7 +1,8 @@
 @echo off
-rem PORTX Universal Wrapper for upx/upx
-rem Calls universal portx-wrap.exe with intelligent path conversion
-
+rem PORTX-WRAPPER: Auto-generated wrapper for upx/upx
 set PORTX_ROOT=C:\App\PORTX
+set PACKAGE_NAME=upx
+set EXE_RELATIVE_PATH=upx.exe
+set EXECUTABLE_PATH=%PORTX_ROOT%\packages\%PACKAGE_NAME%\%EXE_RELATIVE_PATH%
 
-"%PORTX_ROOT%\go\target\portx-wrap.exe" "upx" %*
+"%EXECUTABLE_PATH%" %*

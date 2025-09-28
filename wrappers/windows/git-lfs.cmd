@@ -1,7 +1,8 @@
 @echo off
-rem PORTX Universal Wrapper for git/git-lfs
-rem Calls universal portx-wrap.exe with intelligent path conversion
-
+rem PORTX-WRAPPER: Auto-generated wrapper for git/git-lfs
 set PORTX_ROOT=C:\App\PORTX
+set PACKAGE_NAME=git
+set EXE_RELATIVE_PATH=git-lfs.exe
+set EXECUTABLE_PATH=%PORTX_ROOT%\packages\%PACKAGE_NAME%\%EXE_RELATIVE_PATH%
 
-"%PORTX_ROOT%\go\target\portx-wrap.exe" "git-lfs" %*
+"%EXECUTABLE_PATH%" %*

@@ -1,15 +1,57 @@
 #!/bin/bash
-# PORTX Universal Wrapper for sysinternals/psinfo64
-# Calls universal portx-wrap.exe with intelligent path conversion
+# PORTX-WRAPPER: Auto-generated wrapper for sysinternals/psinfo64
+# Uses PathX for intelligent path conversion on WSL/Cygwin
 
-# Universal environment detection
-if [[ -n "${WSL_DISTRO_NAME:-}" ]] || grep -qi microsoft /proc/version 2>/dev/null; then
-    PORTX_ROOT="/mnt/c/App/PORTX"
-elif [[ "$OSTYPE" == "cygwin" ]]; then
-    PORTX_ROOT="/cygdrive/c/App/PORTX"
-else
-    PORTX_ROOT="/c/App/PORTX"
+# Universal environment detection using uname -sr (clean and reliable)
+uname_output="$(uname -sr)"
+case "$uname_output" in
+    [Ll]inux*[Mm]icrosoft*)
+        PORTX_ROOT="/mnt/c/App/PORTX"
+        PORTX_ENV="WSL"
+        USE_PATHX=true
+        ;;
+    [Mm][Ii][Nn][Gg][Ww]*|[Mm][Ss][Yy][Ss]*)
+        PORTX_ROOT="/c/App/PORTX"
+        PORTX_ENV="MSYS2"
+        USE_PATHX=false
+        ;;
+    [Cc][Yy][Gg][Ww][Ii][Nn]*)
+        PORTX_ROOT="/cygdrive/c/App/PORTX"
+        PORTX_ENV="CYGWIN"
+        USE_PATHX=true
+        ;;
+    *)
+        PORTX_ROOT="/c/App/PORTX"
+        PORTX_ENV="UNKNOWN"
+        USE_PATHX=false
+        ;;
+esac
+
+# Package configuration
+PORTX_PACKAGE="sysinternals"
+PORTX_TOOL="psinfo64"
+PORTX_EXE_PATH="psinfo64.exe"
+PORTX_EXECUTABLE="$PORTX_ROOT/packages/$PORTX_PACKAGE/$PORTX_EXE_PATH"
+
+# Add default arguments if specified
+FINAL_ARGS=()
+if [[ -n "" ]]; then
+    FINAL_ARGS=()
 fi
+FINAL_ARGS+=("$@")
 
-# Execute universal wrapper with tool name and all arguments
-exec "$PORTX_ROOT/go/target/portx-wrap.exe" "psinfo64" "$@"
+# Use PathX for WSL/Cygwin, direct execution for MSYS2
+if [[ "$USE_PATHX" == "true" ]]; then
+    # Convert environment to PathX platform parameter
+    case "$PORTX_ENV" in
+        "WSL")    PATHX_PLATFORM="wsl" ;;
+        "CYGWIN") PATHX_PLATFORM="cygwin" ;;
+        *)        PATHX_PLATFORM="wsl" ;;  # fallback
+    esac
+
+    # Execute via PathX for intelligent path conversion
+    exec "$PORTX_ROOT/pathx/bin/pathx.exe" --platform="$PATHX_PLATFORM" "$PORTX_EXECUTABLE" "${FINAL_ARGS[@]}"
+else
+    # Direct execution for MSYS2 (no path conversion needed)
+    exec "$PORTX_EXECUTABLE" "${FINAL_ARGS[@]}"
+fi

@@ -1,7 +1,8 @@
 @echo off
-rem PORTX Universal Wrapper for go/go
-rem Calls universal portx-wrap.exe with intelligent path conversion
-
+rem PORTX-WRAPPER: Auto-generated wrapper for go/go
 set PORTX_ROOT=C:\App\PORTX
+set PACKAGE_NAME=go
+set EXE_RELATIVE_PATH=bin/go.exe
+set EXECUTABLE_PATH=%PORTX_ROOT%\packages\%PACKAGE_NAME%\%EXE_RELATIVE_PATH%
 
-"%PORTX_ROOT%\go\target\portx-wrap.exe" "go" %*
+"%EXECUTABLE_PATH%" %*

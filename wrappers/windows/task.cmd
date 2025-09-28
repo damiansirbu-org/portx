@@ -1,7 +1,8 @@
 @echo off
-rem PORTX Universal Wrapper for task/task
-rem Calls universal portx-wrap.exe with intelligent path conversion
-
+rem PORTX-WRAPPER: Auto-generated wrapper for task/task
 set PORTX_ROOT=C:\App\PORTX
+set PACKAGE_NAME=task
+set EXE_RELATIVE_PATH=task.exe
+set EXECUTABLE_PATH=%PORTX_ROOT%\packages\%PACKAGE_NAME%\%EXE_RELATIVE_PATH%
 
-"%PORTX_ROOT%\go\target\portx-wrap.exe" "task" %*
+"%EXECUTABLE_PATH%" %*

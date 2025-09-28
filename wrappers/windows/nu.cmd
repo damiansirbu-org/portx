@@ -1,7 +1,8 @@
 @echo off
-rem PORTX Universal Wrapper for nushell/nu
-rem Calls universal portx-wrap.exe with intelligent path conversion
-
+rem PORTX-WRAPPER: Auto-generated wrapper for nushell/nu
 set PORTX_ROOT=C:\App\PORTX
+set PACKAGE_NAME=nushell
+set EXE_RELATIVE_PATH=nu.exe
+set EXECUTABLE_PATH=%PORTX_ROOT%\packages\%PACKAGE_NAME%\%EXE_RELATIVE_PATH%
 
-"%PORTX_ROOT%\go\target\portx-wrap.exe" "nu" %*
+"%EXECUTABLE_PATH%" %*

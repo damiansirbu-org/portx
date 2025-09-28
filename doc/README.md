@@ -1,59 +1,68 @@
-# PORTX 2.0
+# PORTX Universal Wrapper System
 
-Universal portable package manager for cross-platform tool deployment across Windows, WSL, Cygwin, MSYS2, and Linux containers.
+Cross-platform tool wrapper system providing seamless access to 369 portable tools across Windows, WSL, Cygwin, and MSYS2 environments.
 
 ## Overview
 
-PORTX 2.0 manages 200+ portable development, security, and system tools through sophisticated wrapper generation and environment detection. The system provides seamless cross-platform access to tools while maintaining native performance and compatibility.
+PORTX implements a sophisticated wrapper system that bridges the gap between Windows executables and Unix-like shells. The current implementation features a high-performance Go wrapper (`portx-wrap.exe`) that provides intelligent path conversion, environment detection, and real-time I/O handling for maximum compatibility.
 
 ## Quick Start
 
 ```bash
-# Import all packages
-./portx.sh import
+# Use Go wrapper directly (current working implementation)
+/c/App/PORTX/go/target/portx-wrap.exe node /c/App/PORTX/packages/node/node_modules/@anthropic-ai/claude-code/cli.js
 
-# Import specific package
-./portx.sh import git
-
-# Clean import (remove existing wrappers)
-./portx.sh import --clean
+# Enable debug logging
+/c/App/PORTX/go/target/portx-wrap.exe --portxDebug node /c/App/PORTX/packages/node/node_modules/@anthropic-ai/claude-code/cli.js
 ```
 
-## Key Features
+## Current Architecture
 
-- **Universal Compatibility**: Windows, WSL, Cygwin, MSYS2, Linux containers
-- **Zero Dependencies**: PowerShell Core-based execution engine
-- **Automatic Wrappers**: POSIX and Windows wrappers generated per tool
-- **Environment Detection**: Intelligent path resolution across platforms
-- **Schema Validation**: JSON-validated package configurations
-- **200+ Tools**: Development, security, container, and system utilities
+The system currently operates through:
 
-## Architecture
+- **Go Wrapper**: `portx-wrap.exe` - High-performance universal wrapper
+- **Tool Configuration**: `go/config/tool-configs.json` - Tool-specific settings
+- **Package System**: 220 packages with 369 executables
+- **Path Conversion**: Intelligent Unix↔Windows path transformation
+- **Environment Detection**: WSL, MSYS2, Cygwin, native Windows support
 
-The system consists of:
+## Critical Tools
 
-- **Entry Points**: `portx.sh` (bash) and `portx.cmd` (Windows batch)
-- **Core Engine**: PowerShell-based import manager (`ps/portx-import.ps1`)
-- **Package System**: JSON-configured packages with validation
-- **Wrapper Layer**: Auto-generated cross-platform executable wrappers
-- **PATH Management**: Intelligent environment-aware path construction
+### 🔥 Essential Tools (Fixed)
+- **git**: Git version control with embedded path support (`--git-dir`, `--work-tree`)
+- **node**: Node.js runtime with Claude Code support (TTY detection fixed)
+- **rg**: Ripgrep text search with pattern vs path detection
+- **fd**: File finder with intelligent pattern handling
 
-## Tool Categories
+### ⚡ High Priority Tools
+- **7za**: Archive operations with path conversion
+- **tar/gzip**: Compression tools (git dependencies)
+- **ag**: Silver searcher with output conversion
 
-- **Development**: git, node, go, python, java, helm, terraform
-- **Security**: nmap, nuclei, trivy, rustscan, gitleaks, semgrep
-- **System**: btop, dust, hyperfine, procs, bandwhich
-- **Search/Text**: ripgrep, fd, ast-grep, choose, miller, dasel
-- **Containers**: docker-compose, podman, dive, lazydocker, k9s
+## Recent Fixes
+
+**Critical Claude Code Wrapper Bug (2025-09-27)**:
+- **Issue**: Claude Code failed with "Input must be provided through stdin" error
+- **Root Cause**: Pipe-based I/O broke TTY detection in MSYS2 environments
+- **Solution**: Implemented direct I/O inheritance (`cmd.Stdin = os.Stdin`)
+- **Status**: ✅ RESOLVED - Claude Code now works correctly
+
+## Configuration
+
+**Tool-specific settings** in `go/config/tool-configs.json`:
+- Path exclusion rules for regex patterns
+- Output conversion settings for search tools
+- Environment-specific behavior
 
 ## Documentation
 
-- **[Architecture](architecture.md)**: System design, components, and cross-platform mechanisms
-- **[Implementation](implementation.md)**: Technical details, package structure, and development guide
+- **[Architecture](architecture.md)**: Go wrapper design and cross-platform mechanisms
+- **[Implementation](implementation.md)**: Technical details and development guide
+- **[Tool Parameters Reference](PORTX-TOOLS-PARAMETERS-RETURNS.md)**: Complete tool parameter and return type guide
 
 ## Requirements
 
-- PowerShell Core (included in `packages/powershell-core/`)
+- Go 1.19+ (for building wrapper)
 - Windows-compatible environment (WSL, Cygwin, MSYS2, or native Windows)
 
 ## License

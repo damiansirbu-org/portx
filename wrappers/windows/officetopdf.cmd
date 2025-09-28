@@ -1,7 +1,8 @@
 @echo off
-rem PORTX Universal Wrapper for officetopdf/officetopdf
-rem Calls universal portx-wrap.exe with intelligent path conversion
-
+rem PORTX-WRAPPER: Auto-generated wrapper for officetopdf/officetopdf
 set PORTX_ROOT=C:\App\PORTX
+set PACKAGE_NAME=officetopdf
+set EXE_RELATIVE_PATH=OfficeToPDF.exe
+set EXECUTABLE_PATH=%PORTX_ROOT%\packages\%PACKAGE_NAME%\%EXE_RELATIVE_PATH%
 
-"%PORTX_ROOT%\go\target\portx-wrap.exe" "officetopdf" %*
+"%EXECUTABLE_PATH%" %*

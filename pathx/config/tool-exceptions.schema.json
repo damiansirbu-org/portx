@@ -1,0 +1,178 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://pathx.portx.dev/schemas/tool-exceptions.json",
+  "title": "PathX Tool Exceptions Schema",
+  "description": "Schema for PathX tool-specific path conversion exceptions",
+  "type": "object",
+  "required": ["_schema_version", "input_exceptions", "output_exceptions"],
+  "additionalProperties": false,
+
+  "properties": {
+    "_schema_version": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+$",
+      "description": "Version of the exceptions schema"
+    },
+    "_description": {
+      "type": "string",
+      "description": "Human-readable description of the file purpose"
+    },
+
+    "input_exceptions": {
+      "type": "object",
+      "description": "Tool-specific input argument exceptions to prevent path conversion",
+      "properties": {
+        "_description": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": {
+        "$ref": "#/definitions/InputExceptionRule"
+      }
+    },
+
+    "output_exceptions": {
+      "type": "object",
+      "description": "Tool-specific output handling exceptions and patterns",
+      "properties": {
+        "_description": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": {
+        "$ref": "#/definitions/OutputExceptionRule"
+      }
+    }
+  },
+
+  "definitions": {
+    "InputExceptionRule": {
+      "type": "object",
+      "description": "Rules for preventing path conversion on specific tool arguments",
+      "additionalProperties": false,
+      "properties": {
+        "never_convert_after_flags": {
+          "type": "array",
+          "description": "Never convert arguments that come after these flags",
+          "items": {
+            "type": "string",
+            "pattern": "^(--?[a-zA-Z][a-zA-Z0-9-]*|[a-zA-Z]+)$"
+          },
+          "uniqueItems": true
+        },
+        "never_convert_at_positions": {
+          "type": "array",
+          "description": "Never convert arguments at these positional indices (0-based)",
+          "items": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 100
+          },
+          "uniqueItems": true
+        },
+        "never_convert_patterns": {
+          "type": "array",
+          "description": "Never convert arguments matching these regex patterns",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        }
+      },
+      "required": ["never_convert_after_flags", "never_convert_at_positions", "never_convert_patterns"]
+    },
+
+    "OutputExceptionRule": {
+      "type": "object",
+      "description": "Rules for special output handling beyond default path conversion",
+      "additionalProperties": false,
+      "anyOf": [
+        {
+          "properties": {
+            "_description": {
+              "type": "string"
+            },
+            "tools": {
+              "type": "array",
+              "description": "List of tool names this rule applies to",
+              "items": {
+                "type": "string",
+                "pattern": "^[a-zA-Z][a-zA-Z0-9-_]*$"
+              },
+              "minItems": 1,
+              "uniqueItems": true
+            },
+            "force_direct_io": {
+              "type": "boolean",
+              "description": "Force direct I/O inheritance (no PTY, no conversion)"
+            }
+          },
+          "required": ["tools", "force_direct_io"]
+        },
+        {
+          "properties": {
+            "_description": {
+              "type": "string"
+            },
+            "tools": {
+              "type": "array",
+              "description": "List of tool names this rule applies to",
+              "items": {
+                "type": "string",
+                "pattern": "^[a-zA-Z][a-zA-Z0-9-_]*$"
+              },
+              "minItems": 1,
+              "uniqueItems": true
+            },
+            "convert_all_paths": {
+              "type": "boolean",
+              "description": "Convert all detected Windows paths in output"
+            },
+            "output_patterns": {
+              "type": "array",
+              "description": "Regex patterns to match Windows paths in output",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              },
+              "uniqueItems": true
+            }
+          },
+          "required": ["tools", "convert_all_paths", "output_patterns"]
+        },
+        {
+          "properties": {
+            "_description": {
+              "type": "string"
+            },
+            "tools": {
+              "type": "array",
+              "description": "List of tool names this rule applies to",
+              "items": {
+                "type": "string",
+                "pattern": "^[a-zA-Z][a-zA-Z0-9-_]*$"
+              },
+              "minItems": 1,
+              "uniqueItems": true
+            },
+            "convert_paths_only": {
+              "type": "boolean",
+              "description": "Convert only path portions of structured output"
+            },
+            "output_patterns": {
+              "type": "array",
+              "description": "Regex patterns with capture groups for path extraction",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              },
+              "uniqueItems": true
+            }
+          },
+          "required": ["tools", "convert_paths_only", "output_patterns"]
+        }
+      ]
+    }
+  }
+}

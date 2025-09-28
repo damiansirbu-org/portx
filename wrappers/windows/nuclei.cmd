@@ -1,7 +1,8 @@
 @echo off
-rem PORTX Universal Wrapper for nuclei/nuclei
-rem Calls universal portx-wrap.exe with intelligent path conversion
-
+rem PORTX-WRAPPER: Auto-generated wrapper for nuclei/nuclei
 set PORTX_ROOT=C:\App\PORTX
+set PACKAGE_NAME=nuclei
+set EXE_RELATIVE_PATH=nuclei.exe
+set EXECUTABLE_PATH=%PORTX_ROOT%\packages\%PACKAGE_NAME%\%EXE_RELATIVE_PATH%
 
-"%PORTX_ROOT%\go\target\portx-wrap.exe" "nuclei" %*
+"%EXECUTABLE_PATH%" %*

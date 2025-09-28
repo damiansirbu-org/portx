@@ -1,7 +1,8 @@
 @echo off
-rem PORTX Universal Wrapper for maven/mvnDebug
-rem Calls universal portx-wrap.exe with intelligent path conversion
-
+rem PORTX-WRAPPER: Auto-generated wrapper for maven/mvnDebug
 set PORTX_ROOT=C:\App\PORTX
+set PACKAGE_NAME=maven
+set EXE_RELATIVE_PATH=bin/mvnDebug.cmd
+set EXECUTABLE_PATH=%PORTX_ROOT%\packages\%PACKAGE_NAME%\%EXE_RELATIVE_PATH%
 
-"%PORTX_ROOT%\go\target\portx-wrap.exe" "mvnDebug" %*
+"%EXECUTABLE_PATH%" %*

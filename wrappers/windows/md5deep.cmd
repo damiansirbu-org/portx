@@ -1,7 +1,8 @@
 @echo off
-rem PORTX Universal Wrapper for hashdeep/md5deep
-rem Calls universal portx-wrap.exe with intelligent path conversion
-
+rem PORTX-WRAPPER: Auto-generated wrapper for hashdeep/md5deep
 set PORTX_ROOT=C:\App\PORTX
+set PACKAGE_NAME=hashdeep
+set EXE_RELATIVE_PATH=md5deep.exe
+set EXECUTABLE_PATH=%PORTX_ROOT%\packages\%PACKAGE_NAME%\%EXE_RELATIVE_PATH%
 
-"%PORTX_ROOT%\go\target\portx-wrap.exe" "md5deep" %*
+"%EXECUTABLE_PATH%" %*

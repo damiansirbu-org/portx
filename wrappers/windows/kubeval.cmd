@@ -1,7 +1,8 @@
 @echo off
-rem PORTX Universal Wrapper for kubeval/kubeval
-rem Calls universal portx-wrap.exe with intelligent path conversion
-
+rem PORTX-WRAPPER: Auto-generated wrapper for kubeval/kubeval
 set PORTX_ROOT=C:\App\PORTX
+set PACKAGE_NAME=kubeval
+set EXE_RELATIVE_PATH=kubeval.exe
+set EXECUTABLE_PATH=%PORTX_ROOT%\packages\%PACKAGE_NAME%\%EXE_RELATIVE_PATH%
 
-"%PORTX_ROOT%\go\target\portx-wrap.exe" "kubeval" %*
+"%EXECUTABLE_PATH%" %*
