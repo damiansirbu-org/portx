@@ -124,37 +124,10 @@
     "_description": "Tools that need special output handling beyond the default Windows→Unix path conversion",
 
     "interactive_tools": {
-      "_description": "Tools that should NEVER have output conversion (preserve TTY completely)",
-      "tools": ["python", "node", "npm", "pip", "conda", "docker", "kubectl", "git", "vim", "nano", "less", "more", "top", "htop", "btop", "bash", "powershell", "cmd", "terraform", "helm", "aws", "gitui"],
-      "force_direct_io": true
-    },
-
-    "file_listers": {
-      "_description": "Tools that output pure file paths and need full conversion",
-      "tools": ["fd", "find", "ls", "eza", "tree", "dir"],
-      "convert_all_paths": true,
-      "output_patterns": ["^[A-Za-z]:\\\\.*", "^/[A-Za-z]/.*", "^/mnt/[a-z]/.*", "^/cygdrive/[a-z]/.*"]
-    },
-
-    "search_tools": {
-      "_description": "Tools that output filepath:line:content format",
-      "tools": ["rg", "ripgrep", "ag", "grep", "ack", "gitleaks"],
-      "convert_paths_only": true,
-      "output_patterns": ["^([A-Za-z]:\\\\[^:]+):", "^(/[A-Za-z]/[^:]+):", "^(/mnt/[a-z]/[^:]+):", "^(/cygdrive/[a-z]/[^:]+):"]
-    },
-
-    "archive_tools": {
-      "_description": "Tools that output archive contents with paths",
-      "tools": ["7za", "7z", "tar", "zip", "unzip"],
-      "convert_paths_only": true,
-      "output_patterns": ["Extracting\\s+([A-Za-z]:\\\\.*)", "Creating\\s+([A-Za-z]:\\\\.*)", "\\s+([A-Za-z]:\\\\[^\\s]+)\\s*$"]
-    },
-
-    "development_tools": {
-      "_description": "Development tools that may output file paths in errors/logs",
-      "tools": ["go", "rust", "cargo", "gcc", "clang", "javac", "tsc"],
-      "convert_paths_only": true,
-      "output_patterns": ["^([A-Za-z]:\\\\[^:]+):[0-9]+:", "error:\\s*([A-Za-z]:\\\\[^:]+):", "warning:\\s*([A-Za-z]:\\\\[^:]+):"]
+      "_description": "Tools that should NEVER have output conversion",
+      "tools": [],
+      "conversion_skip": true
     }
+
   }
 }
