@@ -1,7 +1,8 @@
 @echo off
-rem PORTX Universal Wrapper for java/javadoc
-rem Calls universal portx-wrap.exe with intelligent path conversion
-
+rem PORTX-WRAPPER: Auto-generated wrapper for java/javadoc
 set PORTX_ROOT=C:\App\PORTX
+set PACKAGE_NAME=java
+set EXE_RELATIVE_PATH=bin/javadoc.exe
+set EXECUTABLE_PATH=%PORTX_ROOT%\packages\%PACKAGE_NAME%\%EXE_RELATIVE_PATH%
 
-"%PORTX_ROOT%\go\target\portx-wrap.exe" "javadoc" %*
+"%EXECUTABLE_PATH%" %*

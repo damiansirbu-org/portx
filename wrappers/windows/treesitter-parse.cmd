@@ -1,7 +1,8 @@
 @echo off
-rem PORTX Universal Wrapper for treesitter/treesitter-parse
-rem Calls universal portx-wrap.exe with intelligent path conversion
-
+rem PORTX-WRAPPER: Auto-generated wrapper for treesitter/treesitter-parse
 set PORTX_ROOT=C:\App\PORTX
+set PACKAGE_NAME=treesitter
+set EXE_RELATIVE_PATH=treesitter-parse.cmd
+set EXECUTABLE_PATH=%PORTX_ROOT%\packages\%PACKAGE_NAME%\%EXE_RELATIVE_PATH%
 
-"%PORTX_ROOT%\go\target\portx-wrap.exe" "treesitter-parse" %*
+"%EXECUTABLE_PATH%" %*

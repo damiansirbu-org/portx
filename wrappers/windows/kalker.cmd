@@ -1,7 +1,8 @@
 @echo off
-rem PORTX Universal Wrapper for kalker/kalker
-rem Calls universal portx-wrap.exe with intelligent path conversion
-
+rem PORTX-WRAPPER: Auto-generated wrapper for kalker/kalker
 set PORTX_ROOT=C:\App\PORTX
+set PACKAGE_NAME=kalker
+set EXE_RELATIVE_PATH=kalker.cmd
+set EXECUTABLE_PATH=%PORTX_ROOT%\packages\%PACKAGE_NAME%\%EXE_RELATIVE_PATH%
 
-"%PORTX_ROOT%\go\target\portx-wrap.exe" "kalker" %*
+"%EXECUTABLE_PATH%" %*

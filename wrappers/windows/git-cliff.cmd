@@ -1,7 +1,8 @@
 @echo off
-rem PORTX Universal Wrapper for git-cliff/git-cliff
-rem Calls universal portx-wrap.exe with intelligent path conversion
-
+rem PORTX-WRAPPER: Auto-generated wrapper for git-cliff/git-cliff
 set PORTX_ROOT=C:\App\PORTX
+set PACKAGE_NAME=git-cliff
+set EXE_RELATIVE_PATH=git-cliff.exe
+set EXECUTABLE_PATH=%PORTX_ROOT%\packages\%PACKAGE_NAME%\%EXE_RELATIVE_PATH%
 
-"%PORTX_ROOT%\go\target\portx-wrap.exe" "git-cliff" %*
+"%EXECUTABLE_PATH%" %*

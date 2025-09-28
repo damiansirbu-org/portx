@@ -1,7 +1,8 @@
 @echo off
-rem PORTX Universal Wrapper for k6/k6
-rem Calls universal portx-wrap.exe with intelligent path conversion
-
+rem PORTX-WRAPPER: Auto-generated wrapper for k6/k6
 set PORTX_ROOT=C:\App\PORTX
+set PACKAGE_NAME=k6
+set EXE_RELATIVE_PATH=k6.exe
+set EXECUTABLE_PATH=%PORTX_ROOT%\packages\%PACKAGE_NAME%\%EXE_RELATIVE_PATH%
 
-"%PORTX_ROOT%\go\target\portx-wrap.exe" "k6" %*
+"%EXECUTABLE_PATH%" %*

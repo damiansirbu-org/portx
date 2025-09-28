@@ -1,7 +1,8 @@
 @echo off
-rem PORTX Universal Wrapper for lemmeknow/lemmeknow
-rem Calls universal portx-wrap.exe with intelligent path conversion
-
+rem PORTX-WRAPPER: Auto-generated wrapper for lemmeknow/lemmeknow
 set PORTX_ROOT=C:\App\PORTX
+set PACKAGE_NAME=lemmeknow
+set EXE_RELATIVE_PATH=lemmeknow.exe
+set EXECUTABLE_PATH=%PORTX_ROOT%\packages\%PACKAGE_NAME%\%EXE_RELATIVE_PATH%
 
-"%PORTX_ROOT%\go\target\portx-wrap.exe" "lemmeknow" %*
+"%EXECUTABLE_PATH%" %*

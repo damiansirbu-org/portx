@@ -1,7 +1,8 @@
 @echo off
-rem PORTX Universal Wrapper for pnpm/pnpm
-rem Calls universal portx-wrap.exe with intelligent path conversion
-
+rem PORTX-WRAPPER: Auto-generated wrapper for pnpm/pnpm
 set PORTX_ROOT=C:\App\PORTX
+set PACKAGE_NAME=pnpm
+set EXE_RELATIVE_PATH=pnpm.exe
+set EXECUTABLE_PATH=%PORTX_ROOT%\packages\%PACKAGE_NAME%\%EXE_RELATIVE_PATH%
 
-"%PORTX_ROOT%\go\target\portx-wrap.exe" "pnpm" %*
+"%EXECUTABLE_PATH%" %*

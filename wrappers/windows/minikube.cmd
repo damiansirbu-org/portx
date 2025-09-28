@@ -1,7 +1,8 @@
 @echo off
-rem PORTX Universal Wrapper for minikube/minikube
-rem Calls universal portx-wrap.exe with intelligent path conversion
-
+rem PORTX-WRAPPER: Auto-generated wrapper for minikube/minikube
 set PORTX_ROOT=C:\App\PORTX
+set PACKAGE_NAME=minikube
+set EXE_RELATIVE_PATH=minikube.exe
+set EXECUTABLE_PATH=%PORTX_ROOT%\packages\%PACKAGE_NAME%\%EXE_RELATIVE_PATH%
 
-"%PORTX_ROOT%\go\target\portx-wrap.exe" "minikube" %*
+"%EXECUTABLE_PATH%" %*

@@ -1,7 +1,8 @@
 @echo off
-rem PORTX Universal Wrapper for gpg/dirmngr
-rem Calls universal portx-wrap.exe with intelligent path conversion
-
+rem PORTX-WRAPPER: Auto-generated wrapper for gpg/dirmngr
 set PORTX_ROOT=C:\App\PORTX
+set PACKAGE_NAME=gpg
+set EXE_RELATIVE_PATH=dirmngr.exe
+set EXECUTABLE_PATH=%PORTX_ROOT%\packages\%PACKAGE_NAME%\%EXE_RELATIVE_PATH%
 
-"%PORTX_ROOT%\go\target\portx-wrap.exe" "dirmngr" %*
+"%EXECUTABLE_PATH%" %*

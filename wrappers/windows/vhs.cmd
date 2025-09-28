@@ -1,7 +1,8 @@
 @echo off
-rem PORTX Universal Wrapper for vhs/vhs
-rem Calls universal portx-wrap.exe with intelligent path conversion
-
+rem PORTX-WRAPPER: Auto-generated wrapper for vhs/vhs
 set PORTX_ROOT=C:\App\PORTX
+set PACKAGE_NAME=vhs
+set EXE_RELATIVE_PATH=vhs.exe
+set EXECUTABLE_PATH=%PORTX_ROOT%\packages\%PACKAGE_NAME%\%EXE_RELATIVE_PATH%
 
-"%PORTX_ROOT%\go\target\portx-wrap.exe" "vhs" %*
+"%EXECUTABLE_PATH%" %*

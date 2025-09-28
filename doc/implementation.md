@@ -1,163 +1,238 @@
-# PORTX 2.0 Implementation Guide
+# PORTX Go Wrapper Implementation Guide
 
 ## Development Environment Setup
 
 ### Prerequisites
 - Windows 10/11 or Windows Server 2019+
-- PowerShell Core 5.1+ (included in `packages/powershell-core/`)
+- Go 1.19+ for building the wrapper
 - WSL, Cygwin, or MSYS2 for cross-platform testing
 - Git for version control
 
-### Directory Structure
+### Current Directory Structure
 ```
 PORTX/
-├── portx.sh                 # Cross-platform entry point
-├── portx.cmd                # Windows entry point
-├── ps/
-│   └── portx-import.ps1     # Core import engine
-├── packages/                # Package repository
-├── wrappers/               # Generated wrappers
-│   ├── posix/              # Unix-style wrappers
-│   └── windows/            # Windows wrappers
-├── schema/
-│   └── portx.schema.json   # Package validation schema
-├── doc/                    # Documentation
-├── logs/                   # Runtime logs
-└── path/                   # PATH integration scripts
+├── go/
+│   ├── main.go             # Entry point and CLI handling
+│   ├── wrapper.go          # Core wrapper logic
+│   ├── config.go           # Configuration management
+│   ├── platform.go         # Environment detection
+│   ├── paths.go            # Path conversion utilities
+│   ├── config/
+│   │   └── tool-configs.json  # Tool configuration database
+│   └── target/
+│       └── portx-wrap.exe  # Compiled wrapper executable
+├── packages/               # Tool packages (220 packages, 369 tools)
+└── doc/                   # Documentation
 ```
 
-## Package Development
+## Go Wrapper Development
 
-### Creating a New Package
+### Building the Wrapper
 
-1. **Create Package Directory**
 ```bash
-mkdir packages/my-tool
-cd packages/my-tool
+# Build the Go wrapper
+cd go/
+go build -o target/portx-wrap.exe .
+
+# Test the wrapper
+./target/portx-wrap.exe --help
+./target/portx-wrap.exe --portxDebug git --version
 ```
 
-2. **Add Executable(s)**
-```bash
-# Place your tool's executables
-cp /path/to/my-tool.exe .
-```
+### Core Implementation Files
 
-3. **Create Configuration**
-```json
-{
-  "name": "my-tool",
-  "version": "1.0.0",
-  "description": "Description of my tool (minimum 10 characters)",
-  "importType": "wrap",
-  "bin": {
-    "my-tool": {
-      "path": "my-tool.exe",
-      "description": "Main executable description",
-      "usage": "my-tool [options] <args>",
-      "dependencies": "windows"
+#### `main.go` - Entry Point
+```go
+func main() {
+    var portxDebug bool
+    flag.BoolVar(&portxDebug, "portxDebug", false, "Enable debug logging")
+    flag.Parse()
+
+    // Initialize logger
+    logger := initializeLogger(portxDebug)
+
+    // Load configuration
+    config, err := LoadConfig(logger)
+    if err != nil {
+        logger.Fatal("Failed to load configuration", zap.Error(err))
     }
-  },
-  "tags": ["category", "tool", "utility", "portable", "command-line", "development"]
+
+    // Create wrapper and execute tool
+    wrapper := &PortxWrapper{Config: config, Logger: logger}
+    toolName := flag.Arg(0)
+    args := flag.Args()[1:]
+
+    err = ExecuteTool(wrapper, toolName, args)
+    if err != nil {
+        os.Exit(1)
+    }
 }
 ```
 
-### Package Configuration Reference
+#### `wrapper.go` - Core Logic
+```go
+func ExecuteTool(wrapper *PortxWrapper, toolName string, args []string) error {
+    // 1. Get tool configuration
+    toolConfig, exists := wrapper.Config.Tools[toolName]
+    if !exists {
+        return fmt.Errorf("tool not found: %s", toolName)
+    }
 
-#### Required Fields
-- **`name`**: Package identifier (lowercase, alphanumeric with hyphens)
-- **`version`**: Semantic version (major.minor.patch)
-- **`description`**: Package description (minimum 10 characters)
-- **`importType`**: Import strategy (`wrap`, `path`, `wrapAndPath`, `none`)
+    // 2. Build executable path
+    executablePath := filepath.Join(wrapper.Config.PortxRoot, "packages",
+        toolConfig.Package, toolConfig.WindowsPath)
 
-#### Import Types Explained
+    // 3. Process arguments with path conversion
+    processedArgs := processArguments(args, toolConfig, wrapper.Config.PlatformEnv)
 
-**`wrap`** (Recommended)
-- Creates cross-platform wrappers
-- Best for single executables
-- Example: ripgrep, fd, helm
+    // 4. Execute with direct I/O inheritance (CRITICAL for TTY)
+    cmd := exec.Command(executablePath, processedArgs...)
+    cmd.Stdin = os.Stdin
+    cmd.Stdout = os.Stdout
+    cmd.Stderr = os.Stderr
 
-**`path`**
-- Adds package directory to PATH
-- Best for packages with multiple executables
-- Example: node (includes npm, npx, etc.)
+    return cmd.Run()
+}
+```
 
-**`wrapAndPath`**
-- Creates wrappers AND adds to PATH
-- Maximum compatibility approach
-- Example: complex toolchains
+### Tool Configuration Management
 
-**`none`**
-- Documentation packages only
-- No executable imports
-- Example: documentation, templates
+#### Tool Configuration (`go/config/tool-configs.json`)
+The Go wrapper uses a centralized configuration file for all tools:
 
-#### Binary Configuration
 ```json
-"bin": {
-  "tool-name": {
-    "path": "relative/path/from/package/root.exe",
-    "description": "Tool description (minimum 10 chars)",
-    "usage": "Usage examples and patterns",
-    "dependencies": "windows|linux|cross-platform",
-    "defaultArgs": "--option value"  // Optional
+{
+  "git": {
+    "name": "git",
+    "package": "git-extras",
+    "windows_path": "git.exe",
+    "exclusions": {
+      "beforeFlag": [],
+      "afterFlag": ["--grep", "--author", "--committer"],
+      "atPosition": [],
+      "pattern": [".*\\.git.*"]
+    },
+    "output_conversion": {
+      "enabled": false,
+      "type": "none",
+      "patterns": []
+    }
+  },
+  "rg": {
+    "name": "rg",
+    "package": "ripgrep",
+    "windows_path": "rg.exe",
+    "exclusions": {
+      "beforeFlag": [],
+      "afterFlag": ["--regexp", "--glob", "--type-add"],
+      "atPosition": [0],
+      "pattern": ["\\.", "\\*", "\\[", "\\]", "\\+", "\\?"]
+    },
+    "output_conversion": {
+      "enabled": true,
+      "type": "path_in_results",
+      "patterns": ["C:\\\\([^:]+):(\\d+):(.*)"]
+    }
   }
 }
 ```
 
-#### Tags System
-Minimum 6 tags required for categorization:
-```json
-"tags": [
-  "primary-category",    // development, security, system
-  "secondary-category",  // tool-type or functionality
-  "language",           // rust, go, python, etc.
-  "platform",          // windows, cross-platform
-  "interface",          // cli, gui, api
-  "domain"              // search, compression, etc.
-]
+#### Configuration Fields
+- **`name`**: Tool identifier (command name)
+- **`package`**: Package directory name in `packages/`
+- **`windows_path`**: Relative path to Windows executable
+- **`exclusions`**: Rules for preventing path conversion
+- **`output_conversion`**: Rules for converting tool output paths
+
+#### Path Conversion Implementation
+
+```go
+// Path conversion logic in wrapper.go
+func processArguments(args []string, toolConfig *ToolConfig, platform PlatformEnvironment) []string {
+    processedArgs := make([]string, 0, len(args))
+
+    for i, arg := range args {
+        // Check exclusion rules
+        if shouldExcludeFromConversion(arg, i, toolConfig.Exclusions) {
+            processedArgs = append(processedArgs, arg)
+            continue
+        }
+
+        // Apply path conversion if needed
+        convertedArg := convertPathIfNeeded(arg, platform)
+        processedArgs = append(processedArgs, convertedArg)
+    }
+
+    return processedArgs
+}
+
+func shouldExcludeFromConversion(arg string, position int, exclusions Exclusions) bool {
+    // Check position-based exclusions
+    for _, pos := range exclusions.AtPosition {
+        if position == pos {
+            return true
+        }
+    }
+
+    // Check pattern-based exclusions (regex patterns)
+    for _, pattern := range exclusions.Pattern {
+        if matched, _ := regexp.MatchString(pattern, arg); matched {
+            return true
+        }
+    }
+
+    return false
+}
 ```
 
-### Package Validation
+### Testing and Validation
 
-#### JSON Schema Validation
+#### Testing the Go Wrapper
 ```bash
-# Validate package configuration
-powershell -Command "
-  $schema = Get-Content schema/portx.schema.json | ConvertFrom-Json
-  $config = Get-Content packages/my-tool/portx.json | ConvertFrom-Json
-  # Validation logic runs automatically during import
-"
+# Test specific tool
+/c/App/PORTX/go/target/portx-wrap.exe --portxDebug git --version
+
+# Test path conversion
+/c/App/PORTX/go/target/portx-wrap.exe --portxDebug rg "pattern" /mnt/c/src/
+
+# Test Claude Code (fixed TTY issue)
+/c/App/PORTX/go/target/portx-wrap.exe node /c/App/PORTX/packages/node/node_modules/@anthropic-ai/claude-code/cli.js
 ```
 
-#### Manual Validation Steps
-1. **Syntax Check**: Valid JSON structure
-2. **Schema Compliance**: All required fields present
-3. **File References**: All executables exist at specified paths
-4. **Naming Convention**: Package name follows pattern `^[a-z0-9]([a-z0-9-])*[a-z0-9]?$`
+#### Critical Test Cases
+1. **TTY Detection**: Interactive tools (Claude Code, less, vim)
+2. **Path Conversion**: Unix paths in arguments
+3. **Regex Preservation**: Search patterns with metacharacters
+4. **Environment Detection**: WSL, MSYS2, Cygwin compatibility
 
-## Core Engine Implementation
+## Build and Deployment
 
-### PowerShell Module Structure
+### Building the Go Wrapper
 
-#### Main Functions
-```powershell
-# Package Management
-Import-PortxPackage         # Import single package
-Invoke-PortxImport         # Import all packages
-Test-PortxPackage          # Validate package
+#### Build Process
+```bash
+# Standard build
+cd go/
+go build -o target/portx-wrap.exe .
 
-# Wrapper Generation
-New-BashWrapper            # Create POSIX wrapper
-New-CmdWrapper             # Create Windows wrapper
-New-PowerShellWrapper      # Create PS1 wrapper (future)
+# Build with optimizations
+go build -ldflags="-s -w" -o target/portx-wrap.exe .
 
-# Validation
-Test-WrapperIntegrity      # Verify wrapper contents
-Test-WrapperPair           # Check wrapper pair exists
+# Cross-compilation (if needed)
+GOOS=windows GOARCH=amd64 go build -o target/portx-wrap.exe .
+```
 
-# Utilities
-Write-PortxLog            # Structured logging
-Write-SanitizedFile       # Cross-platform file writing
+#### Dependencies
+```go
+// go.mod
+module portx-wrapper
+
+go 1.19
+
+require (
+    go.uber.org/zap v1.24.0
+    github.com/spf13/pflag v1.0.5
+)
 ```
 
 ### Wrapper Generation Implementation

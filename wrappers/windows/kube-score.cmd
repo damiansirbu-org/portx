@@ -1,7 +1,8 @@
 @echo off
-rem PORTX Universal Wrapper for kube-score/kube-score
-rem Calls universal portx-wrap.exe with intelligent path conversion
-
+rem PORTX-WRAPPER: Auto-generated wrapper for kube-score/kube-score
 set PORTX_ROOT=C:\App\PORTX
+set PACKAGE_NAME=kube-score
+set EXE_RELATIVE_PATH=kube-score.exe
+set EXECUTABLE_PATH=%PORTX_ROOT%\packages\%PACKAGE_NAME%\%EXE_RELATIVE_PATH%
 
-"%PORTX_ROOT%\go\target\portx-wrap.exe" "kube-score" %*
+"%EXECUTABLE_PATH%" %*
