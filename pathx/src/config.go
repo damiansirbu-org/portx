@@ -19,6 +19,7 @@ type OutputExceptionConfig struct {
 type OutputExceptions struct {
 	Description       string                       `json:"_description"`
 	InteractiveTools  ToolCategory                `json:"interactive_tools"`
+	PathOutputTools   PathOutputCategory          `json:"path_output_tools"`
 }
 
 // ToolCategory defines behavior for a category of tools
@@ -26,6 +27,13 @@ type ToolCategory struct {
 	Description        string   `json:"_description"`
 	Tools              []string `json:"tools"`
 	ConversionSkip     bool     `json:"conversion_skip,omitempty"`
+}
+
+// PathOutputCategory defines tools that output paths
+type PathOutputCategory struct {
+	Description        string   `json:"_description"`
+	Tools              []string `json:"tools"`
+	ConversionEnable   bool     `json:"conversion_enable,omitempty"`
 }
 
 // ConfigManager handles loading and querying tool configurations
@@ -93,6 +101,23 @@ func (cm *ConfigManager) ShouldSkipConversion(toolPath string) bool {
 	}
 
 	// Default: convert all Windows paths
+	return false
+}
+
+// ShouldConvertOutput returns true if the tool should have output path conversion
+func (cm *ConfigManager) ShouldConvertOutput(toolPath string) bool {
+	if !cm.loaded {
+		return false
+	}
+
+	toolName := cm.extractToolName(toolPath)
+
+	// Check if tool is in the path output tools list
+	if cm.containsTool(cm.config.OutputExceptions.PathOutputTools.Tools, toolName) {
+		return cm.config.OutputExceptions.PathOutputTools.ConversionEnable
+	}
+
+	// Default: NO output conversion
 	return false
 }
 

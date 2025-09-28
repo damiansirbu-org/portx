@@ -1,70 +1,106 @@
-# PORTX Universal Wrapper System
+# PORTX Universal Toolchain
 
-Cross-platform tool wrapper system providing seamless access to 369 portable tools across Windows, WSL, Cygwin, and MSYS2 environments.
-
-## Overview
-
-PORTX implements a sophisticated wrapper system that bridges the gap between Windows executables and Unix-like shells. The current implementation features a high-performance Go wrapper (`portx-wrap.exe`) that provides intelligent path conversion, environment detection, and real-time I/O handling for maximum compatibility.
+Cross-platform wrapper system providing seamless access to 200+ Windows tools from Unix environments using intelligent path conversion.
 
 ## Quick Start
 
 ```bash
-# Use Go wrapper directly (current working implementation)
-/c/App/PORTX/go/target/portx-wrap.exe node /c/App/PORTX/packages/node/node_modules/@anthropic-ai/claude-code/cli.js
+# Tools work automatically via PATH
+git --version
+node --version
+rg "pattern" /mnt/c/code
 
-# Enable debug logging
-/c/App/PORTX/go/target/portx-wrap.exe --portxDebug node /c/App/PORTX/packages/node/node_modules/@anthropic-ai/claude-code/cli.js
+# Direct pathx usage
+pathx --platform=wsl C:\App\PORTX\packages\git\git.exe status
 ```
 
-## Current Architecture
+## Architecture
 
-The system currently operates through:
+```
+User Command → POSIX Wrapper → PathX → Windows Executable
+     ↓              ↓           ↓           ↓
+   git status → /wrappers/posix/git → pathx.exe → git.exe
+```
 
-- **Go Wrapper**: `portx-wrap.exe` - High-performance universal wrapper
-- **Tool Configuration**: `go/config/tool-configs.json` - Tool-specific settings
-- **Package System**: 220 packages with 369 executables
-- **Path Conversion**: Intelligent Unix↔Windows path transformation
-- **Environment Detection**: WSL, MSYS2, Cygwin, native Windows support
+PORTX uses a two-layer approach:
+- **PowerShell Package Import**: Generates cross-platform wrappers
+- **PathX Go Tool**: Handles path conversion and execution
 
-## Critical Tools
+## Components
 
-### 🔥 Essential Tools (Fixed)
-- **git**: Git version control with embedded path support (`--git-dir`, `--work-tree`)
-- **node**: Node.js runtime with Claude Code support (TTY detection fixed)
-- **rg**: Ripgrep text search with pattern vs path detection
-- **fd**: File finder with intelligent pattern handling
+### 1. Package System
+```
+packages/
+├── git/
+│   ├── git.exe           # Windows executable
+│   └── portx.json        # Package metadata
+└── node/
+    ├── node.exe
+    └── portx.json
+```
 
-### ⚡ High Priority Tools
-- **7za**: Archive operations with path conversion
-- **tar/gzip**: Compression tools (git dependencies)
-- **ag**: Silver searcher with output conversion
+### 2. Wrapper Generation
+```
+ps/portx-import.ps1       # PowerShell package importer
+wrappers/
+├── posix/               # Unix-style wrappers
+│   ├── git
+│   └── node
+└── windows/             # Windows CMD wrappers
+    ├── git.cmd
+    └── node.cmd
+```
 
-## Recent Fixes
+### 3. PathX Converter
+```
+pathx/
+├── bin/pathx.exe        # Path conversion tool
+├── src/                 # Go source code
+└── config/tool-exceptions.json  # Conversion rules
+```
 
-**Critical Claude Code Wrapper Bug (2025-09-27)**:
-- **Issue**: Claude Code failed with "Input must be provided through stdin" error
-- **Root Cause**: Pipe-based I/O broke TTY detection in MSYS2 environments
-- **Solution**: Implemented direct I/O inheritance (`cmd.Stdin = os.Stdin`)
-- **Status**: ✅ RESOLVED - Claude Code now works correctly
+## How It Works
 
-## Configuration
+### Input Path Conversion
+- Unix paths → Windows paths for tool execution
+- `/mnt/c/code` → `C:\code` (WSL)
+- `/c/code` → `C:\code` (MSYS2)
+- `/cygdrive/c/code` → `C:\code` (Cygwin)
 
-**Tool-specific settings** in `go/config/tool-configs.json`:
-- Path exclusion rules for regex patterns
-- Output conversion settings for search tools
-- Environment-specific behavior
+### Output Path Conversion
+- **Default**: No conversion (preserves colors/formatting)
+- **Path tools only**: Convert Windows paths back to Unix
+- Tools like `rg`, `fd`, `find` get output conversion
+- Tools like `git`, `node` keep original output
 
-## Documentation
+### Configuration
+Tool-specific rules in `pathx/config/tool-exceptions.json`:
+```json
+{
+  "output_exceptions": {
+    "path_output_tools": {
+      "tools": ["rg", "fd", "find", "grep"],
+      "conversion_enable": true
+    }
+  }
+}
+```
 
-- **[Architecture](architecture.md)**: Go wrapper design and cross-platform mechanisms
-- **[Implementation](implementation.md)**: Technical details and development guide
-- **[Tool Parameters Reference](PORTX-TOOLS-PARAMETERS-RETURNS.md)**: Complete tool parameter and return type guide
+## Key Features
+
+✅ **Preserves TTY/Colors**: Uses direct I/O for compatible tools
+✅ **Smart Path Detection**: Only converts actual paths, not patterns
+✅ **Cross-Platform**: WSL, Cygwin, MSYS2 support
+✅ **Zero Configuration**: Works out of the box
+✅ **High Performance**: Native Go path conversion
 
 ## Requirements
 
-- Go 1.19+ (for building wrapper)
-- Windows-compatible environment (WSL, Cygwin, MSYS2, or native Windows)
+- Windows environment (native, WSL, Cygwin, MSYS2)
+- PowerShell Core 5.1+ (for package import)
+- Go 1.19+ (for building PathX)
 
-## License
+## Documentation
 
-Proprietary - PORTX Universal Toolchain System
+- **[Architecture](architecture.md)**: System design and data flow
+- **[Implementation](implementation.md)**: Development and building guide

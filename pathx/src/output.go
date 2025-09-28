@@ -47,7 +47,15 @@ func (oc *OutputConverter) SetTool(toolPath string) {
 
 // ShouldUseDirectIO returns true if the tool should use direct I/O (no conversion)
 func (oc *OutputConverter) ShouldUseDirectIO() bool {
-	return oc.skipConversion
+	// Use direct I/O if:
+	// 1. Tool is marked to skip conversion (interactive tools), OR
+	// 2. Tool doesn't need output path conversion (preserves colors)
+	return oc.skipConversion || !oc.shouldConvertOutput()
+}
+
+// shouldConvertOutput returns true if the tool should have output path conversion
+func (oc *OutputConverter) shouldConvertOutput() bool {
+	return oc.configManager.ShouldConvertOutput(oc.toolPath)
 }
 
 // ExecuteDirect runs a command with direct I/O (no path conversion)
@@ -142,7 +150,12 @@ func (oc *OutputConverter) convertOutputLine(line string) string {
 		return line
 	}
 
-	// Default behavior: convert all Windows paths found
+	// New default behavior: NO conversion unless explicitly enabled
+	if !oc.shouldConvertOutput() {
+		return line
+	}
+
+	// Only convert paths for tools that actually output paths
 	return oc.convertAllPaths(line)
 }
 

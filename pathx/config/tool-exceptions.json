@@ -121,12 +121,12 @@
   },
 
   "output_exceptions": {
-    "_description": "Tools that need special output handling beyond the default Windows→Unix path conversion",
+    "_description": "Tools that need special output handling beyond the default NO path conversion",
 
-    "interactive_tools": {
-      "_description": "Tools that should NEVER have output conversion",
-      "tools": [],
-      "conversion_skip": true
+    "path_output_tools": {
+      "_description": "Tools that output file paths and need Windows→Unix conversion",
+      "tools": ["rg", "ripgrep", "fd", "find", "grep", "ag", "es", "everything", "ls", "eza", "tree", "locate", "which", "whereis"],
+      "conversion_enable": true
     }
 
   }
