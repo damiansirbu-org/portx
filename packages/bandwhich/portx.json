@@ -8,8 +8,14 @@
       "path": "bandwhich.exe",
       "description": "Real-time network monitor with process-level bandwidth tracking",
       "usage": "bandwhich # Monitor all network interfaces with process details\\nbandwhich -i Wi-Fi # Monitor specific network interface\\nbandwhich -r 500 # Refresh display every 500ms\\nbandwhich --addresses # Show remote IP addresses and ports\\nbandwhich --no-resolve # Skip DNS resolution for faster display",
-      "dependencies": "windows"
+      "dependencies": "windows",
+      "tags": [
+        "tui",
+        "monitor",
+        "formatted-output",
+        "performance",
+        "monitoring"
+      ]
     }
-  },
-  "tags": ["network", "monitor", "native", "system", "real-time", "bandwidth"]
+  }
 }

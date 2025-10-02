@@ -7,28 +7,20 @@
     "gdu": {
       "path": "gdu.exe",
       "description": "Fast disk usage analyzer with interactive TUI, parallel processing, and comprehensive filesystem analysis capabilities",
-      "usage": "gdu # Analyze current directory\\ngdu /path/to/analyze # Analyze specific path\\ngdu --show-disks # Show all mounted disks\\ngdu --no-hidden # Ignore hidden directories\\ngdu --non-interactive # Non-interactive mode\\ngdu --output-file report.json # Export analysis",
-      "dependencies": "native"
+      "usage": "gdu # Analyze current directory\ngdu /path/to/analyze # Analyze specific path\ngdu --show-disks # Show all mounted disks\ngdu --no-hidden # Ignore hidden directories\ngdu --non-interactive # Non-interactive mode\ngdu --output-file report.json # Export analysis",
+      "dependencies": "native",
+      "tags": [
+        "tui",
+        "analyzer",
+        "filesystem",
+        "interactive",
+        "monitor",
+        "file-output",
+        "json-output",
+        "navigation",
+        "performance",
+        "cross-platform"
+      ]
     }
-  },
-  "tags": [
-    "disk-usage",
-    "analyzer",
-    "filesystem",
-    "space",
-    "storage",
-    "tui",
-    "fast",
-    "parallel",
-    "go",
-    "ssd",
-    "performance",
-    "interactive",
-    "directory",
-    "files",
-    "size",
-    "analysis",
-    "monitoring",
-    "cross-platform"
-  ]
+  }
 }

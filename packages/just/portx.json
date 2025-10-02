@@ -7,9 +7,17 @@
     "just": {
       "path": "just.exe",
       "description": "Command runner for project-specific tasks with make-inspired syntax - no .PHONY recipes needed, works from any subdirectory, never breaking backwards compatibility",
-      "usage": "just # Run default recipe\\njust --list # Show available recipes\\njust build # Run build recipe\\njust test --verbose # Run test recipe with arguments\\njust --working-directory /path/to/project build # Run from specific directory",
-      "dependencies": "windows"
+      "usage": "just # Run default recipe\njust --list # Show available recipes\njust build # Run build recipe\njust test --verbose # Run test recipe with arguments\njust --working-directory /path/to/project build # Run from specific directory",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "automation",
+        "file-input",
+        "config-input",
+        "cross-platform",
+        "development",
+        "processor"
+      ]
     }
-  },
-  "tags": ["task", "runner", "make", "alternative", "automation", "justfile", "recipes", "commands"]
+  }
 }

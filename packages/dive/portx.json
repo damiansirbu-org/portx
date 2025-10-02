@@ -1,6 +1,6 @@
 {
   "name": "dive",
-  "version": "0.13.1", 
+  "version": "0.13.1",
   "description": "A tool for exploring each layer in a docker image - Layer analysis and container optimization insights",
   "importType": "wrap",
   "bin": {
@@ -8,8 +8,16 @@
       "path": "dive.exe",
       "description": "Docker image layer analysis tool with file changes visualization and size optimization recommendations",
       "usage": "dive <image-name> | dive nginx:latest | dive --source docker-archive image.tar",
-      "dependencies": "native"
+      "dependencies": "native",
+      "tags": [
+        "tui",
+        "container",
+        "analyzer",
+        "visualization",
+        "file-input",
+        "interactive",
+        "development"
+      ]
     }
-  },
-  "tags": ["docker", "container", "image", "layer", "analysis", "optimization"]
+  }
 }

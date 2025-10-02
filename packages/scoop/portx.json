@@ -7,9 +7,20 @@
     "scoop": {
       "path": "scoop.cmd",
       "description": "Windows package manager for command-line programs",
-      "usage": "scoop install <package>\\nscoop install git\\nscoop search python\\nscoop list\\nscoop update\\nscoop uninstall package-name\\nscoop bucket add extras\\nscoop export > my-apps.json",
-      "dependencies": "windows"
+      "usage": "scoop install <package>\nscoop install git\nscoop search python\nscoop list\nscoop update\nscoop uninstall package-name\nscoop bucket add extras\nscoop export > my-apps.json",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "manager",
+        "installer",
+        "text-input",
+        "network-input",
+        "json-input",
+        "stdout-output",
+        "file-output",
+        "automation",
+        "windows"
+      ]
     }
-  },
-  "tags": ["package", "manager", "installer", "windows", "cli", "portable", "powershell", "automation"]
+  }
 }

@@ -8,8 +8,20 @@
       "path": "semgrep.cmd",
       "description": "Lightweight static analysis tool with pattern-based scanning for security vulnerabilities and code quality issues",
       "usage": "semgrep --help\nsemgrep --config=auto .\nsemgrep --config=p/security-audit .\nsemgrep --config=p/owasp-top-ten .\nsemgrep --config=p/python ./src\nsemgrep --output=results.json --json .\nsemgrep --severity=ERROR .",
-      "dependencies": "windows"
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "scanner",
+        "analyzer",
+        "file-input",
+        "directory-input",
+        "yaml-input",
+        "json-output",
+        "stdout-output",
+        "security",
+        "development",
+        "windows"
+      ]
     }
-  },
-  "tags": ["security", "static-analysis", "vulnerability", "code-quality", "patterns", "scanning", "multiplatform", "development"]
+  }
 }

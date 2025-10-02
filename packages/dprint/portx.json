@@ -7,9 +7,18 @@
     "dprint": {
       "path": "dprint.exe",
       "description": "High-performance code formatter with plugin architecture",
-      "usage": "dprint fmt src/ # Format specific directory\\ndprint check --diff # Show formatting differences without applying\\ndprint fmt --config custom.json *.ts # Use custom configuration\\ndprint init --type typescript # Initialize TypeScript configuration\\ndprint upgrade # Update plugins to latest versions",
-      "dependencies": "windows"
+      "usage": "dprint fmt src/ # Format specific directory\ndprint check --diff # Show formatting differences without applying\ndprint fmt --config custom.json *.ts # Use custom configuration\ndprint init --type typescript # Initialize TypeScript configuration\ndprint upgrade # Update plugins to latest versions",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "development",
+        "manager",
+        "file-input",
+        "file-output",
+        "config-input",
+        "processor",
+        "automation"
+      ]
     }
-  },
-  "tags": ["format", "code", "native", "multi", "typescript", "json", "markdown", "plugins"]
+  }
 }

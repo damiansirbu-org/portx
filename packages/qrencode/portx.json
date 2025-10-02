@@ -7,9 +7,17 @@
     "qrencode": {
       "path": "qrencode.exe",
       "description": "Fast and compact QR Code encoding library and command-line utility - supports up to 7000 digits or 4000 characters with high robustness",
-      "usage": "qrencode -o qr.png 'Hello World'\\nqrencode -t PNG -o myqr.png 'https://example.com'\\necho 'data' | qrencode -o output.png",
-      "dependencies": "windows"
+      "usage": "qrencode -o qr.png 'Hello World'\nqrencode -t PNG -o myqr.png 'https://example.com'\necho 'data' | qrencode -o output.png",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "text-input",
+        "stdin-input",
+        "file-output",
+        "graphics",
+        "automation",
+        "windows"
+      ]
     }
-  },
-  "tags": ["qr", "qrcode", "encode", "generator", "png", "image", "barcode", "utility"]
+  }
 }

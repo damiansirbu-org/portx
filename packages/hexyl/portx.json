@@ -7,9 +7,16 @@
     "hexyl": {
       "path": "hexyl.exe",
       "description": "Modern command-line hex viewer with colorized output for binary file analysis - written in Rust with high performance and intelligent byte categorization",
-      "usage": "hexyl firmware.bin # View binary file with colors\\nhexyl --no-color data.bin # Plain output for scripting\\nhexyl --raw binary.exe # Compact view without addresses\\nhexyl --length 1024 large.bin # View first 1KB only",
-      "dependencies": "windows"
+      "usage": "hexyl firmware.bin # View binary file with colors\nhexyl --no-color data.bin # Plain output for scripting\nhexyl --raw binary.exe # Compact view without addresses\nhexyl --length 1024 large.bin # View first 1KB only",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "viewer",
+        "file-input",
+        "stdout-output",
+        "analyzer",
+        "forensics"
+      ]
     }
-  },
-  "tags": ["hex", "binary", "viewer", "colorized", "rust", "analysis", "debugging", "forensics"]
+  }
 }

@@ -7,9 +7,17 @@
     "minikube": {
       "path": "minikube.exe",
       "description": "Run Kubernetes clusters locally for development with various virtualization drivers",
-      "usage": "minikube start\\nminikube status\\nminikube dashboard\\nminikube docker-env\\nminikube stop\\nminikube delete",
-      "dependencies": "windows"
+      "usage": "minikube start\nminikube status\nminikube dashboard\nminikube docker-env\nminikube stop\nminikube delete",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "container",
+        "development",
+        "testing",
+        "virtualization",
+        "automation",
+        "network-input"
+      ]
     }
-  },
-  "tags": ["kubernetes", "cluster", "development", "local", "testing", "virtualization", "docker", "go"]
+  }
 }

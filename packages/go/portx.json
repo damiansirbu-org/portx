@@ -8,21 +8,33 @@
       "path": "bin/go.exe",
       "description": "Go programming language compiler and build tool with modules support",
       "usage": "go mod init myproject # Initialize new Go module\ngo build -o myapp.exe . # Build executable from current directory\ngo run main.go # Compile and run Go program directly\ngo get -u github.com/user/package # Download and update package\ngo test ./... -v # Run all tests with verbose output\ngo fmt ./... # Format all Go files in project",
-      "dependencies": "windows"
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "compiler",
+        "development",
+        "runner",
+        "manager",
+        "file-input",
+        "file-output",
+        "network-input",
+        "automation"
+      ]
     },
     "gofmt": {
-      "path": "bin/gofmt.exe", 
+      "path": "bin/gofmt.exe",
       "description": "Go source code formatter with automatic code style enforcement",
       "usage": "gofmt -w *.go # Format and write back Go files\ngofmt -d . # Show formatting differences without writing\ngofmt -s -w . # Simplify code while formatting",
-      "dependencies": "windows"
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "development",
+        "file-input",
+        "file-output",
+        "processor",
+        "automation",
+        "analyzer"
+      ]
     }
-  },
-  "tags": [
-    "compiler",
-    "programming",
-    "native",
-    "development",
-    "golang",
-    "toolchain"
-  ]
+  }
 }

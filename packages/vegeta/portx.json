@@ -7,9 +7,26 @@
     "vegeta": {
       "path": "vegeta.exe",
       "description": "Versatile HTTP load testing tool with attack/report modes - supports custom headers, bodies, and detailed metrics reporting",
-      "usage": "echo 'GET http://localhost:8080' | vegeta attack -rate=100 -duration=30s | vegeta report\\nvegeta attack -targets=targets.txt -rate=50 -duration=10s | vegeta plot > plot.html",
-      "dependencies": "windows"
+      "usage": "echo 'GET http://localhost:8080' | vegeta attack -rate=100 -duration=30s | vegeta report\nvegeta attack -targets=targets.txt -rate=50 -duration=10s | vegeta plot > plot.html",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "tester",
+        "client",
+        "benchmarker",
+        "generator",
+        "text-input",
+        "file-input",
+        "http-input",
+        "stdin-input",
+        "stdout-output",
+        "file-output",
+        "html-output",
+        "performance",
+        "testing",
+        "benchmarking",
+        "windows"
+      ]
     }
-  },
-  "tags": ["load", "testing", "http", "benchmark", "performance", "go", "attack", "report", "metrics"]
+  }
 }

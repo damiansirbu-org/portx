@@ -7,9 +7,21 @@
     "grype": {
       "path": "grype.exe",
       "description": "Vulnerability scanner for container images and filesystems with SARIF/JSON output and policy enforcement",
-      "usage": "grype alpine:latest\\ngrype dir:. -o json\\ngrype docker.io/nginx:latest --fail-on high\\ngrype registry:busybox:latest -o sarif\\ngrype . --only-fixed -o table",
-      "dependencies": "windows"
+      "usage": "grype alpine:latest\ngrype dir:. -o json\ngrype docker.io/nginx:latest --fail-on high\ngrype registry:busybox:latest -o sarif\ngrype . --only-fixed -o table",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "vulnerability",
+        "security",
+        "scanner",
+        "container",
+        "filesystem",
+        "json-output",
+        "json-input",
+        "file-input",
+        "compliance",
+        "automation"
+      ]
     }
-  },
-  "tags": ["vulnerability", "security", "scanning", "cve", "anchore", "compliance", "sarif", "policy"]
+  }
 }

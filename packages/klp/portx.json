@@ -7,9 +7,15 @@
     "klp": {
       "path": "klp.bat",
       "description": "Structured log parser with JSON/logfmt/CSV support and advanced time analysis",
-      "usage": "klp file.jsonl # View JSON Lines log file\\nklp --filter 'severity == \"ERROR\"' app.log # Filter by condition\\nklp --time-range '2023-01-01,2023-12-31' logs.json # Filter by date range\\nklp --format json logs.csv # Convert CSV to JSON output\\nklp --grep pattern --context 2 server.log # Search with context lines",
-      "dependencies": "windows"
+      "usage": "klp file.jsonl # View JSON Lines log file\nklp --filter 'severity == \"ERROR\"' app.log # Filter by condition\nklp --time-range '2023-01-01,2023-12-31' logs.json # Filter by date range\nklp --format json logs.csv # Convert CSV to JSON output\nklp --grep pattern --context 2 server.log # Search with context lines",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "analyzer",
+        "processor",
+        "file-input",
+        "viewer"
+      ]
     }
-  },
-  "tags": ["log", "analyze", "json", "parse", "structured", "filter"]
+  }
 }

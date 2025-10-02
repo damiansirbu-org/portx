@@ -7,21 +7,50 @@
     "hashdeep": {
       "path": "hashdeep.exe",
       "description": "Recursive file hashing tool for digital forensics and integrity verification",
-      "usage": "hashdeep -r /path/to/investigate # Recursive hashing\\nhashdeep -c baseline.txt # Compare against baseline",
-      "dependencies": "windows"
+      "usage": "hashdeep -r /path/to/investigate # Recursive hashing\nhashdeep -c baseline.txt # Compare against baseline",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "hasher",
+        "forensics",
+        "security",
+        "file-input",
+        "stdout-output",
+        "processor",
+        "analyzer"
+      ]
     },
     "md5deep": {
       "path": "md5deep.exe",
       "description": "Specialized MD5 hash calculator for forensic analysis and file verification",
-      "usage": "md5deep -r /evidence # Recursive MD5 hashing\\nmd5deep -m known_md5.txt *.bin # Match against known MD5s",
-      "dependencies": "windows"
+      "usage": "md5deep -r /evidence # Recursive MD5 hashing\nmd5deep -m known_md5.txt *.bin # Match against known MD5s",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "hasher",
+        "forensics",
+        "security",
+        "file-input",
+        "stdout-output",
+        "processor",
+        "analyzer"
+      ]
     },
     "sha256deep": {
       "path": "sha256deep.exe",
       "description": "SHA-256 hash calculator for modern cryptographic file verification",
-      "usage": "sha256deep -r /secure/files # Recursive SHA-256 hashing\\nsha256deep -m hashes.sha256 /download # Verify downloads",
-      "dependencies": "windows"
+      "usage": "sha256deep -r /secure/files # Recursive SHA-256 hashing\nsha256deep -m hashes.sha256 /download # Verify downloads",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "hasher",
+        "forensics",
+        "security",
+        "file-input",
+        "stdout-output",
+        "processor",
+        "analyzer"
+      ]
     }
-  },
-  "tags": ["forensics", "hashing", "security", "md5", "sha256", "integrity", "verification", "cryptography"]
+  }
 }

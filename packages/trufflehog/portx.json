@@ -7,9 +7,21 @@
     "trufflehog": {
       "path": "trufflehog.exe",
       "description": "Find and verify secrets across multiple data sources - scans git repositories, filesystems, and cloud storage for exposed credentials",
-      "usage": "trufflehog git https://github.com/user/repo.git\\ntrufflehog filesystem .\\ntrufflehog github --org trufflesecurity",
-      "dependencies": "windows"
+      "usage": "trufflehog git https://github.com/user/repo.git\ntrufflehog filesystem .\ntrufflehog github --org trufflesecurity",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "scanner",
+        "forensics",
+        "file-input",
+        "directory-input",
+        "git-input",
+        "json-output",
+        "stdout-output",
+        "security",
+        "compliance",
+        "windows"
+      ]
     }
-  },
-  "tags": ["security", "secrets", "scanner", "git", "credentials", "detection", "verification", "forensics", "truffle"]
+  }
 }

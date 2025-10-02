@@ -7,9 +7,23 @@
     "usql": {
       "path": "usql.exe",
       "description": "Universal SQL client supporting PostgreSQL, MySQL, SQLite, Oracle, SQL Server and many others",
-      "usage": "usql postgres://user:pass@host/db\\nusql mysql://user:pass@host/db\\nusql sqlite:database.db\\nusql 'SELECT * FROM users;'\\nusql --drivers",
-      "dependencies": "windows"
+      "usage": "usql postgres://user:pass@host/db\nusql mysql://user:pass@host/db\nusql sqlite:database.db\nusql 'SELECT * FROM users;'\nusql --drivers",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "client",
+        "manager",
+        "text-input",
+        "sql-input",
+        "network-input",
+        "file-input",
+        "stdout-output",
+        "formatted-output",
+        "database",
+        "development",
+        "querying",
+        "windows"
+      ]
     }
-  },
-  "tags": ["sql", "database", "universal", "client", "postgresql", "mysql", "sqlite", "go"]
+  }
 }

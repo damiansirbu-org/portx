@@ -8,8 +8,15 @@
       "path": "broot.exe",
       "description": "Navigate directories with tree view, fuzzy search, and file operations - better way to explore filesystem",
       "usage": "broot\\nbroot --help\\nbroot -s (show sizes)\\nbroot -g (show git status)\\nbroot -h (show hidden files)",
-      "dependencies": "windows"
+      "dependencies": "windows",
+      "tags": [
+        "tui",
+        "manager",
+        "interactive",
+        "navigation",
+        "filesystem",
+        "searcher"
+      ]
     }
-  },
-  "tags": ["tree", "file-manager", "interactive", "fuzzy-search", "navigation", "rust", "terminal", "filesystem"]
+  }
 }

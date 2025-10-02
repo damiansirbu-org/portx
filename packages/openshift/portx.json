@@ -1,15 +1,24 @@
 {
   "name": "openshift",
-  "version": "1.0.0", 
+  "version": "1.0.0",
   "description": "OpenShift command-line tools for managing containerized applications on Red Hat OpenShift",
   "importType": "wrap",
   "bin": {
     "oc": {
       "path": "oc.exe",
       "description": "OpenShift CLI for managing applications, builds, deployments, and cluster resources",
-      "usage": "oc login https://api.cluster.com\\noc new-app nodejs~https://github.com/user/app\\noc get pods\\noc logs deployment/myapp\\noc scale --replicas=3 deployment/myapp",
-      "dependencies": "windows"
+      "usage": "oc login https://api.cluster.com\noc new-app nodejs~https://github.com/user/app\noc get pods\noc logs deployment/myapp\noc scale --replicas=3 deployment/myapp",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "container",
+        "yaml-input",
+        "text-input",
+        "network-input",
+        "stdout-output",
+        "automation",
+        "windows"
+      ]
     }
-  },
-  "tags": ["kubernetes", "containers", "cloud", "cluster", "deployment", "redhat"]
+  }
 }

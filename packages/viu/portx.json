@@ -7,9 +7,22 @@
     "viu": {
       "path": "viu.exe",
       "description": "Simple terminal image viewer written in Rust - displays images directly in terminal with ANSI colors and Unicode block characters",
-      "usage": "viu image.png\\nviu -t image.png\\nviu --width 80 image.jpg\\nviu --static image.gif",
-      "dependencies": "windows"
+      "usage": "viu image.png\nviu -t image.png\nviu --width 80 image.jpg\nviu --static image.gif",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "viewer",
+        "file-input",
+        "image-input",
+        "media-input",
+        "terminal-output",
+        "ansi-output",
+        "stdout-output",
+        "media",
+        "graphics",
+        "visualization",
+        "windows"
+      ]
     }
-  },
-  "tags": ["image", "viewer", "terminal", "ansi", "unicode", "rust", "display", "graphics"]
+  }
 }

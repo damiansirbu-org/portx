@@ -8,14 +8,26 @@
       "path": "Capture2Text.exe",
       "description": "GUI OCR tool with hotkey screen capture and multi-language support",
       "usage": "Capture2Text.exe # Launch OCR GUI with hotkey configuration\nWindows Key + Q # Default hotkey for screen text capture\nAlt + Q # Capture text and read aloud with TTS\nConfigure languages and OCR settings in GUI\nSupports Japanese, Chinese, German, French, and 100+ languages",
-      "dependencies": "windows"
+      "dependencies": "windows",
+      "tags": [
+        "gui",
+        "processor",
+        "stdout-output",
+        "image-input"
+      ]
     },
     "capture2text-cli": {
       "path": "Capture2Text_CLI.exe",
       "description": "Command-line OCR for batch text extraction from images",
       "usage": "Capture2Text_CLI.exe -i image.png -o text.txt # Extract text to file\nCapture2Text_CLI.exe --lang jpn -i japanese.jpg # Japanese OCR\nCapture2Text_CLI.exe --whitelist \"0123456789\" -i digits.png # Extract only numbers\nCapture2Text_CLI.exe --scale-factor 2 -i small_text.png # Scale up for better OCR\nCapture2Text_CLI.exe --show-conf -i scan.jpg # Show confidence scores",
-      "dependencies": "windows"
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "processor",
+        "stdout-output",
+        "file-input",
+        "file-output"
+      ]
     }
-  },
-  "tags": ["ocr", "text", "native", "gui", "image-processing", "multilingual"]
+  }
 }

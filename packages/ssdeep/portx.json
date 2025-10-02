@@ -7,9 +7,18 @@
     "ssdeep": {
       "path": "ssdeep.exe",
       "description": "Generate and compare context triggered piecewise hashes (fuzzy hashes) to find similar files",
-      "usage": "ssdeep file.txt\\nssdeep -r /path\\nssdeep -m hashfile.txt -d /suspect\\nssdeep -b -r /samples > baseline.txt\\nssdeep -x hashfile.txt file.exe",
-      "dependencies": "windows"
+      "usage": "ssdeep file.txt\nssdeep -r /path\nssdeep -m hashfile.txt -d /suspect\nssdeep -b -r /samples > baseline.txt\nssdeep -x hashfile.txt file.exe",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "forensics",
+        "file-input",
+        "directory-input",
+        "stdout-output",
+        "security",
+        "analysis",
+        "windows"
+      ]
     }
-  },
-  "tags": ["hashing", "fuzzy", "files", "similarity", "forensics", "matching", "security", "c"]
+  }
 }

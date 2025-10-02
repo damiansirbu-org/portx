@@ -8,8 +8,14 @@
       "path": "csvtk.exe",
       "description": "High-performance CSV processor with filtering, joining, and plotting",
       "usage": "csvtk stats data.csv # Statistical summary of numeric columns\ncsvtk cut -f name,age,salary data.csv # Select specific columns\ncsvtk filter -f 'salary>50000 && age<40' employees.csv # Complex filtering\ncsvtk join -f id users.csv orders.csv # Join tables on ID column\ncsvtk plot hist -f score --title 'Score Distribution' results.csv # Generate histogram",
-      "dependencies": "windows"
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "visualization",
+        "high-performance",
+        "file-input",
+        "file-output"
+      ]
     }
-  },
-  "tags": ["csv", "data", "native", "analysis", "statistics", "visualization"]
+  }
 }

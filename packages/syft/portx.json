@@ -7,9 +7,19 @@
     "syft": {
       "path": "syft.exe",
       "description": "Generate Software Bill of Materials (SBOM) from container images, filesystems, and archives with multi-format output",
-      "usage": "syft alpine:latest -o spdx-json\\nsyft dir:. -o cyclone-json\\nsyft docker.io/nginx:latest --scope all-layers\\nsyft packages registry:busybox:latest -o table\\nsyft . -o syft-json | jq '.artifacts | length'",
-      "dependencies": "windows"
+      "usage": "syft alpine:latest -o spdx-json\nsyft dir:. -o cyclone-json\nsyft docker.io/nginx:latest --scope all-layers\nsyft packages registry:busybox:latest -o table\nsyft . -o syft-json | jq '.artifacts | length'",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "scanner",
+        "file-input",
+        "directory-input",
+        "json-output",
+        "xml-output",
+        "security",
+        "automation",
+        "windows"
+      ]
     }
-  },
-  "tags": ["sbom", "security", "scanning", "compliance", "anchore", "supply-chain", "vulnerability", "packages"]
+  }
 }

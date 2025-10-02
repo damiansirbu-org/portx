@@ -7,9 +7,24 @@
     "zig": {
       "path": "zig.exe",
       "description": "Zig compiler and build system with C/C++ interop, cross-compilation, and compile-time execution",
-      "usage": "zig build # Build project using build.zig\\nzig run main.zig # Compile and run directly\\nzig test src/main.zig # Run unit tests\\nzig cc -o program main.c # Use as C compiler drop-in replacement\\nzig build-exe -O ReleaseFast main.zig # Optimized compilation",
-      "dependencies": "windows"
+      "usage": "zig build # Build project using build.zig\nzig run main.zig # Compile and run directly\nzig test src/main.zig # Run unit tests\nzig cc -o program main.c # Use as C compiler drop-in replacement\nzig build-exe -O ReleaseFast main.zig # Optimized compilation",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "compiler",
+        "runner",
+        "generator",
+        "file-input",
+        "code-input",
+        "project-input",
+        "text-input",
+        "file-output",
+        "binary-output",
+        "executable-output",
+        "development",
+        "compilation",
+        "windows"
+      ]
     }
-  },
-  "tags": ["compiler", "build", "cross-platform", "systems", "c-interop", "fast", "safe", "modern"]
+  }
 }

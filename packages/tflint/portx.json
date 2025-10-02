@@ -7,9 +7,19 @@
     "tflint": {
       "path": "tflint.exe",
       "description": "Pluggable Terraform linter that finds possible errors and enforces best practices for AWS, Azure, GCP providers",
-      "usage": "tflint\\ntflint --init\\ntflint --config=.tflint.hcl\\ntflint --recursive",
-      "dependencies": "windows"
+      "usage": "tflint\ntflint --init\ntflint --config=.tflint.hcl\ntflint --recursive",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "file-input",
+        "directory-input",
+        "config-input",
+        "stdout-output",
+        "formatted-output",
+        "development",
+        "devops",
+        "windows"
+      ]
     }
-  },
-  "tags": ["terraform", "linter", "infrastructure", "iac", "aws", "azure", "gcp", "best-practices", "validation"]
+  }
 }

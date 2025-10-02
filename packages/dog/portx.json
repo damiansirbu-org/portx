@@ -7,9 +7,16 @@
     "dog": {
       "path": "bin/dog.exe",
       "description": "Modern DNS client written in Rust with colorful output, DoT/DoH support, and JSON export - easier to use than dig with intuitive syntax",
-      "usage": "dog example.com # Basic DNS lookup\\ndog example.com MX @1.1.1.1 # MX records via Cloudflare DNS\\ndog --tls @1.1.1.1 example.com # DNS over TLS\\ndog --https @cloudflare-dns.com/dns-query example.com # DNS over HTTPS\\ndog --json example.com A # JSON output format",
-      "dependencies": "windows"
+      "usage": "dog example.com # Basic DNS lookup\ndog example.com MX @1.1.1.1 # MX records via Cloudflare DNS\ndog --tls @1.1.1.1 example.com # DNS over TLS\ndog --https @cloudflare-dns.com/dns-query example.com # DNS over HTTPS\ndog --json example.com A # JSON output format",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "scanner",
+        "json-output",
+        "stdout-output",
+        "interactive-input",
+        "network-input"
+      ]
     }
-  },
-  "tags": ["dns", "dig", "alternative", "colorful", "dot", "doh", "json", "rust", "lookup", "network"]
+  }
 }

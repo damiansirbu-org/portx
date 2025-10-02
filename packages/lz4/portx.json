@@ -7,9 +7,18 @@
     "lz4": {
       "path": "lz4.exe",
       "description": "Ultra-fast compression tool optimized for speed over compression ratio",
-      "usage": "lz4 file.txt\\nlz4 -d file.txt.lz4\\nlz4 -9 file.txt\\nlz4 -c file.txt | process\\nlz4 -f existing.lz4",
-      "dependencies": "windows"
+      "usage": "lz4 file.txt\nlz4 -d file.txt.lz4\nlz4 -9 file.txt\nlz4 -c file.txt | process\nlz4 -f existing.lz4",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "compressor",
+        "file-input",
+        "file-output",
+        "stdout-output",
+        "performance",
+        "processor",
+        "windows"
+      ]
     }
-  },
-  "tags": ["compression", "algorithm", "fast", "performance", "binary", "archive", "utility", "c"]
+  }
 }

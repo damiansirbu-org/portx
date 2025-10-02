@@ -8,27 +8,12 @@
       "path": "chdig.exe",
       "description": "Comprehensive TUI interface for ClickHouse database administration and monitoring with real-time insights",
       "usage": "chdig queries # Show running queries\\nchdig --url clickhouse://localhost:8123 slow-queries # Monitor slow queries\\nchdig --host localhost --user admin merges # Show merges\\nchdig --cluster production replicas # Check replicas status",
-      "dependencies": "native"
+      "dependencies": "native",
+      "tags": [
+        "tui",
+        "database",
+        "monitoring"
+      ]
     }
-  },
-  "tags": [
-    "clickhouse",
-    "database",
-    "monitoring",
-    "tui",
-    "queries",
-    "merges",
-    "mutations",
-    "replication",
-    "admin",
-    "analytics",
-    "real-time",
-    "dashboard",
-    "system",
-    "performance",
-    "logs",
-    "backups",
-    "dictionaries",
-    "cluster"
-  ]
+  }
 }

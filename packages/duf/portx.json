@@ -7,9 +7,16 @@
     "duf": {
       "path": "duf.exe",
       "description": "Modern disk usage analyzer with colorful output and smart color coding - highlights availability and usage columns based on remaining space thresholds",
-      "usage": "duf # Show all mounted filesystems\\nduf /home /var # Show specific paths\\nduf --all # Include pseudo, duplicate, inaccessible filesystems\\nduf --json # JSON output format\\nduf --sort size # Sort by filesystem size",
-      "dependencies": "windows"
+      "usage": "duf # Show all mounted filesystems\nduf /home /var # Show specific paths\nduf --all # Include pseudo, duplicate, inaccessible filesystems\nduf --json # JSON output format\nduf --sort size # Sort by filesystem size",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "analyzer",
+        "filesystem",
+        "monitor",
+        "json-output",
+        "stdout-output"
+      ]
     }
-  },
-  "tags": ["disk", "usage", "df", "alternative", "colorful", "filesystem", "storage", "analyzer"]
+  }
 }

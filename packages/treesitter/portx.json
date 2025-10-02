@@ -7,32 +7,36 @@
     "treesitter-parse": {
       "path": "treesitter-parse.cmd",
       "description": "Self-contained tree-sitter parser with embedded Python + 26 languages (NO external dependencies)",
-      "usage": "treesitter-parse python script.py # Parse Python with structure analysis\\ntreesitter-parse bash script.sh # Parse bash script\\ntreesitter-parse yaml config.yaml # Parse YAML configuration\\ntreesitter-parse rust main.rs # Parse Rust code"
+      "usage": "treesitter-parse python script.py # Parse Python with structure analysis\ntreesitter-parse bash script.sh # Parse bash script\ntreesitter-parse yaml config.yaml # Parse YAML configuration\ntreesitter-parse rust main.rs # Parse Rust code",
+      "tags": [
+        "cli",
+        "file-input",
+        "code-input",
+        "stdout-output",
+        "ast-output",
+        "formatted-output",
+        "parsing",
+        "development",
+        "analysis",
+        "windows"
+      ]
     },
     "treesitter-parse-fallback": {
-      "path": "treesitter-parse-fallback.cmd", 
+      "path": "treesitter-parse-fallback.cmd",
       "description": "Fallback parser (requires system Python or micromamba)",
-      "usage": "treesitter-parse-fallback python script.py # Use if embedded version fails"
+      "usage": "treesitter-parse-fallback python script.py # Use if embedded version fails",
+      "tags": [
+        "cli",
+        "file-input",
+        "code-input",
+        "stdout-output",
+        "ast-output",
+        "formatted-output",
+        "parsing",
+        "development",
+        "analysis",
+        "windows"
+      ]
     }
-  },
-  "tags": [
-    "code",
-    "text", 
-    "files",
-    "syntax-trees",
-    "formatted-output",
-    "analyze",
-    "parse",
-    "extract",
-    "query",
-    "development",
-    "parsing",
-    "ast",
-    "cli",
-    "fast",
-    "cross-platform",
-    "incremental",
-    "language-agnostic",
-    "highlighting"
-  ]
+  }
 }

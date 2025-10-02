@@ -7,9 +7,22 @@
     "rgr": {
       "path": "rgr.exe",
       "description": "Interactive grep-and-replace tool using ripgrep - provides live preview of search and replace operations with confirmation",
-      "usage": "rgr 'pattern' 'replacement'\\nrgr -t py 'old_function' 'new_function'\\nrgr --no-confirm 'bug' 'fix'",
-      "dependencies": "windows"
+      "usage": "rgr 'pattern' 'replacement'\nrgr -t py 'old_function' 'new_function'\nrgr --no-confirm 'bug' 'fix'",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "tui",
+        "processor",
+        "development",
+        "file-input",
+        "directory-input",
+        "text-input",
+        "file-output",
+        "tui-output",
+        "interactive",
+        "automation",
+        "windows"
+      ]
     }
-  },
-  "tags": ["search", "replace", "interactive", "ripgrep", "grep", "regex", "find", "refactor"]
+  }
 }

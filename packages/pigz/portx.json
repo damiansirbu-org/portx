@@ -8,19 +8,19 @@
       "path": "pigz.exe",
       "description": "Parallel gzip compression utility that utilizes multiple cores for faster compression",
       "usage": "pigz file.txt # Compress file.txt to file.txt.gz\npigz -d file.gz # Decompress file.gz (same as unpigz)\npigz -9 file.txt # Maximum compression level\npigz -1 file.txt # Fastest compression\npigz -p 4 file.txt # Use 4 processors/cores\npigz -k file.txt # Keep original file after compression\npigz -c file.txt > compressed.gz # Compress to stdout\npigz -l file.gz # List compressed file information",
-      "dependencies": "windows"
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "compressor",
+        "archiver",
+        "file-input",
+        "stdin-input",
+        "file-output",
+        "stdout-output",
+        "high-performance",
+        "automation",
+        "windows"
+      ]
     }
-  },
-  "tags": [
-    "compression",
-    "gzip",
-    "parallel",
-    "multi-core",
-    "archiving",
-    "command-line",
-    "native",
-    "windows",
-    "console",
-    "file-processing"
-  ]
+  }
 }

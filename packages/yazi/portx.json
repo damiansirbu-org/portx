@@ -7,9 +7,24 @@
     "yazi": {
       "path": "yazi.exe",
       "description": "Async terminal file manager with image preview, fuzzy search, and customizable interface",
-      "usage": "yazi\\nyazi --help\\nyazi /path/to/directory\\nyazi --debug",
-      "dependencies": "windows"
+      "usage": "yazi\nyazi --help\nyazi /path/to/directory\nyazi --debug",
+      "dependencies": "windows",
+      "tags": [
+        "tui",
+        "manager",
+        "viewer",
+        "directory-input",
+        "file-input",
+        "filesystem-input",
+        "keyboard-input",
+        "tui-output",
+        "terminal-output",
+        "interactive-output",
+        "filesystem",
+        "productivity",
+        "navigation",
+        "windows"
+      ]
     }
-  },
-  "tags": ["file-manager", "terminal", "async", "rust", "blazing-fast", "TUI", "filesystem", "navigation"]
+  }
 }

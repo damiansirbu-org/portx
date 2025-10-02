@@ -7,15 +7,30 @@
     "promtool": {
       "path": "promtool.exe",
       "description": "Command-line tooling for Prometheus monitoring system configuration and rule validation",
-      "usage": "promtool check config prometheus.yml\\npromtool check rules rules.yml\\npromtool query instant 'up'\\npromtool test rules test.yml",
-      "dependencies": "windows"
+      "usage": "promtool check config prometheus.yml\npromtool check rules rules.yml\npromtool query instant 'up'\npromtool test rules test.yml",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "monitoring",
+        "file-input",
+        "stdout-output",
+        "testing",
+        "windows"
+      ]
     },
     "telegraf": {
       "path": "telegraf.exe",
       "description": "Agent for collecting and reporting metrics from systems, applications, and sensors",
-      "usage": "telegraf --input-list\\ntelegraf --config telegraf.conf\\ntelegraf --test\\ntelegraf --config-directory /etc/telegraf/conf.d",
-      "dependencies": "windows"
+      "usage": "telegraf --input-list\ntelegraf --config telegraf.conf\ntelegraf --test\ntelegraf --config-directory /etc/telegraf/conf.d",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "monitoring",
+        "config-input",
+        "network-output",
+        "automation",
+        "windows"
+      ]
     }
-  },
-  "tags": ["monitoring", "metrics", "prometheus", "telegraf", "observability", "performance", "system", "go"]
+  }
 }

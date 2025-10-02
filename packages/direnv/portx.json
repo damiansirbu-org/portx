@@ -7,9 +7,16 @@
     "direnv": {
       "path": "direnv.exe",
       "description": "Load and unload environment variables depending on current directory - hooks into shell to automatically source .envrc files",
-      "usage": "direnv allow\\ndirenv deny\\ndirenv reload\\ndirenv edit",
-      "dependencies": "windows"
+      "usage": "direnv allow\ndirenv deny\ndirenv reload\ndirenv edit",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "automation",
+        "manager",
+        "interactive-input",
+        "file-input",
+        "development"
+      ]
     }
-  },
-  "tags": ["environment", "variables", "directory", "shell", "configuration", "dotenv", "envrc", "hook"]
+  }
 }

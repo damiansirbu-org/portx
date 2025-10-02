@@ -8,8 +8,15 @@
       "path": "difft.exe",
       "description": "Syntax-aware structural diff tool - compares files based on their syntax tree rather than line-by-line for more meaningful diffs",
       "usage": "difft file1.js file2.js\\ndifft --display side-by-side old.py new.py\\ndifft --color always before.json after.json",
-      "dependencies": "windows"
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "file-input",
+        "analyzer",
+        "processor",
+        "development",
+        "git"
+      ]
     }
-  },
-  "tags": ["diff", "syntax", "tree", "structural", "comparison", "ast", "code", "programming", "rust"]
+  }
 }

@@ -8,8 +8,24 @@
       "path": "bin/yozefu.exe",
       "description": "Interactive TUI application for exploring data of a Kafka cluster with SQL-like filtering",
       "usage": "yozefu --broker localhost:9092 | yozefu --config config.toml | yozefu --headless --query 'SELECT * FROM topic'",
-      "dependencies": "windows"
+      "dependencies": "windows",
+      "tags": [
+        "tui",
+        "client",
+        "processor",
+        "monitor",
+        "network-input",
+        "config-input",
+        "stream-input",
+        "kafka-input",
+        "tui-output",
+        "interactive-output",
+        "formatted-output",
+        "streaming",
+        "monitoring",
+        "database",
+        "windows"
+      ]
     }
-  },
-  "tags": ["kafka", "streaming", "tui", "interactive", "real-time", "filtering", "sql-like", "apache-kafka"]
+  }
 }

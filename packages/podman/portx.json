@@ -7,21 +7,53 @@
     "podman": {
       "path": "podman.exe",
       "description": "Daemonless container runtime with Docker-compatible CLI and advanced security features",
-      "usage": "podman run -it --rm alpine:latest sh\\npodman build -t myapp .\\npodman images --format json | jq '.[]'\\npodman pod create --name webapp && podman run -d --pod webapp nginx\\npodman machine init && podman machine start",
-      "dependencies": "windows"
+      "usage": "podman run -it --rm alpine:latest sh\npodman build -t myapp .\npodman images --format json | jq '.[]'\npodman pod create --name webapp && podman run -d --pod webapp nginx\npodman machine init && podman machine start",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "virtualization",
+        "file-input",
+        "directory-input",
+        "network-input",
+        "stdout-output",
+        "json-output",
+        "security",
+        "development",
+        "windows"
+      ]
     },
     "gvproxy": {
       "path": "gvproxy.exe",
       "description": "VPN proxy server for Podman machine networking and port forwarding",
-      "usage": "gvproxy -listen unix:///tmp/gvproxy.sock\\ngvproxy -debug -listen tcp://127.0.0.1:8080",
-      "dependencies": "windows"
+      "usage": "gvproxy -listen unix:///tmp/gvproxy.sock\ngvproxy -debug -listen tcp://127.0.0.1:8080",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "network-input",
+        "network-output",
+        "networking",
+        "virtualization",
+        "security",
+        "windows"
+      ]
     },
     "win-sshproxy": {
       "path": "win-sshproxy.exe",
       "description": "SSH proxy helper for Windows Podman machine communication and tunneling",
-      "usage": "win-sshproxy -logfile proxy.log\\nwin-sshproxy -debug -remote-host podman-machine",
-      "dependencies": "windows"
+      "usage": "win-sshproxy -logfile proxy.log\nwin-sshproxy -debug -remote-host podman-machine",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "network-input",
+        "ssh-input",
+        "network-output",
+        "file-output",
+        "networking",
+        "virtualization",
+        "security",
+        "automation",
+        "windows"
+      ]
     }
-  },
-  "tags": ["container", "docker", "runtime", "daemonless", "security", "rootless", "oci", "virtualization"]
+  }
 }

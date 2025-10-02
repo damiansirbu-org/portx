@@ -7,9 +7,22 @@
     "vol": {
       "path": "vol.exe",
       "description": "Extract digital artifacts from volatile memory (RAM) dumps for forensic analysis",
-      "usage": "vol -f memory.dmp imageinfo\\nvol -f memory.dmp --profile=Win10x64 pslist\\nvol -f memory.dmp --profile=Win10x64 netscan\\nvol -f memory.dmp --profile=Win10x64 malfind\\nvol -f memory.dmp --profile=Win10x64 hashdump",
-      "dependencies": "windows"
+      "usage": "vol -f memory.dmp imageinfo\nvol -f memory.dmp --profile=Win10x64 pslist\nvol -f memory.dmp --profile=Win10x64 netscan\nvol -f memory.dmp --profile=Win10x64 malfind\nvol -f memory.dmp --profile=Win10x64 hashdump",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "analyzer",
+        "forensics",
+        "file-input",
+        "binary-input",
+        "memory-input",
+        "stdout-output",
+        "formatted-output",
+        "report-output",
+        "security",
+        "malware",
+        "windows"
+      ]
     }
-  },
-  "tags": ["memory", "forensics", "malware", "analysis", "incident", "response", "ram", "python"]
+  }
 }

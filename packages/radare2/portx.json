@@ -7,93 +7,268 @@
     "r2agent": {
       "path": "bin/r2agent.exe",
       "description": "Remote agent for radare2 allowing network-based reverse engineering sessions",
-      "usage": "r2agent -p 9999\\nr2agent -H 0.0.0.0 -p 8080\\nr2agent -a x86\\nr2agent -s",
-      "dependencies": "windows"
+      "usage": "r2agent -p 9999\nr2agent -H 0.0.0.0 -p 8080\nr2agent -a x86\nr2agent -s",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "reverse-engineering",
+        "file-input",
+        "network-input",
+        "network-output",
+        "security",
+        "analysis",
+        "windows"
+      ]
     },
     "r2pm": {
       "path": "bin/r2pm.exe",
       "description": "Package manager for radare2 plugins and extensions",
-      "usage": "r2pm update\\nr2pm search keyword\\nr2pm install package_name\\nr2pm list\\nr2pm uninstall package_name",
-      "dependencies": "windows"
+      "usage": "r2pm update\nr2pm search keyword\nr2pm install package_name\nr2pm list\nr2pm uninstall package_name",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "manager",
+        "network-input",
+        "text-input",
+        "stdout-output",
+        "file-output",
+        "automation",
+        "development",
+        "reverse-engineering",
+        "windows"
+      ]
     },
     "r2r": {
       "path": "bin/r2r.exe",
       "description": "Test runner for radare2 regression testing and validation",
-      "usage": "r2r test_file.r2\\nr2r -j tests/\\nr2r -v tests/\\nr2r -i",
-      "dependencies": "windows"
+      "usage": "r2r test_file.r2\nr2r -j tests/\nr2r -v tests/\nr2r -i",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "runner",
+        "file-input",
+        "directory-input",
+        "stdout-output",
+        "testing",
+        "automation",
+        "reverse-engineering",
+        "development",
+        "windows"
+      ]
     },
     "rabin2": {
       "path": "bin/rabin2.exe",
       "description": "Binary analysis tool for extracting information from executables",
-      "usage": "rabin2 -I binary.exe\\nrabin2 -i binary.exe\\nrabin2 -E binary.exe\\nrabin2 -S binary.exe\\nrabin2 -z binary.exe",
-      "dependencies": "windows"
+      "usage": "rabin2 -I binary.exe\nrabin2 -i binary.exe\nrabin2 -E binary.exe\nrabin2 -S binary.exe\nrabin2 -z binary.exe",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "analyzer",
+        "reverse-engineering",
+        "file-input",
+        "binary-input",
+        "stdout-output",
+        "formatted-output",
+        "analysis",
+        "security",
+        "forensics",
+        "windows"
+      ]
     },
     "radare2": {
       "path": "bin/radare2.exe",
       "description": "Advanced reverse engineering framework with disassembler and debugger",
-      "usage": "radare2 binary.exe\\nr2 -A binary.exe\\nr2 -d program.exe\\nr2 -w binary.exe\\nr2 -B 0x1000 mem.dump",
-      "dependencies": "windows"
+      "usage": "radare2 binary.exe\nr2 -A binary.exe\nr2 -d program.exe\nr2 -w binary.exe\nr2 -B 0x1000 mem.dump",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "tui",
+        "reverse-engineering",
+        "analyzer",
+        "file-input",
+        "binary-input",
+        "interactive",
+        "tui-output",
+        "analysis",
+        "security",
+        "forensics",
+        "windows"
+      ]
     },
     "radiff2": {
       "path": "bin/radiff2.exe",
       "description": "Binary diffing tool for comparing executables and finding differences between versions",
-      "usage": "radiff2 file1.exe file2.exe\\nradiff2 -g file1.exe file2.exe\\nradiff2 -A file1.exe file2.exe\\nradiff2 -C file1.exe file2.exe",
-      "dependencies": "windows"
+      "usage": "radiff2 file1.exe file2.exe\nradiff2 -g file1.exe file2.exe\nradiff2 -A file1.exe file2.exe\nradiff2 -C file1.exe file2.exe",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "file-input",
+        "binary-input",
+        "stdout-output",
+        "formatted-output",
+        "analysis",
+        "reverse-engineering",
+        "security",
+        "forensics",
+        "windows"
+      ]
     },
     "rafind2": {
       "path": "bin/rafind2.exe",
       "description": "Advanced search tool for finding patterns, strings, and bytes in binary files",
-      "usage": "rafind2 -s 'string' file.bin\\nrafind2 -x 4142434445 file.bin\\nrafind2 -e /regex/i file.bin\\nrafind2 -z file.bin",
-      "dependencies": "windows"
+      "usage": "rafind2 -s 'string' file.bin\nrafind2 -x 4142434445 file.bin\nrafind2 -e /regex/i file.bin\nrafind2 -z file.bin",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "searcher",
+        "file-input",
+        "binary-input",
+        "text-input",
+        "stdout-output",
+        "formatted-output",
+        "analysis",
+        "reverse-engineering",
+        "forensics",
+        "windows"
+      ]
     },
     "ragg2": {
       "path": "bin/ragg2.exe",
       "description": "Shellcode compiler and payload generator for exploit development",
-      "usage": "ragg2 -a x86 -b 64 shellcode.r\\nragg2 -F elf64 -o payload shellcode.r\\nragg2 -P print_shellcode.r\\nragg2 -L",
-      "dependencies": "windows"
+      "usage": "ragg2 -a x86 -b 64 shellcode.r\nragg2 -F elf64 -o payload shellcode.r\nragg2 -P print_shellcode.r\nragg2 -L",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "compiler",
+        "file-input",
+        "text-input",
+        "file-output",
+        "binary-output",
+        "security",
+        "reverse-engineering",
+        "development",
+        "windows"
+      ]
     },
     "rahash2": {
       "path": "bin/rahash2.exe",
       "description": "Cryptographic hash calculator supporting multiple algorithms for file integrity verification",
-      "usage": "rahash2 file.exe\\nrahash2 -a md5 file.exe\\nrahash2 -a sha256 file.exe\\nrahash2 -c hash_to_verify file.exe\\nrahash2 -B 1024 file.exe",
-      "dependencies": "windows"
+      "usage": "rahash2 file.exe\nrahash2 -a md5 file.exe\nrahash2 -a sha256 file.exe\nrahash2 -c hash_to_verify file.exe\nrahash2 -B 1024 file.exe",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "file-input",
+        "binary-input",
+        "text-input",
+        "stdout-output",
+        "security",
+        "forensics",
+        "automation",
+        "windows"
+      ]
     },
     "rapatch2": {
       "path": "bin/rapatch2.exe",
       "description": "Binary patching tool for applying modifications and fixes to executable files",
-      "usage": "rapatch2 -p patch.r2 binary.exe\\nrapatch2 -w 0x1000 \\\"41414141\\\" binary.exe\\nrapatch2 -r 0x1000:10 binary.exe\\nrapatch2 -s old_bytes new_bytes binary.exe",
-      "dependencies": "windows"
+      "usage": "rapatch2 -p patch.r2 binary.exe\nrapatch2 -w 0x1000 \"41414141\" binary.exe\nrapatch2 -r 0x1000:10 binary.exe\nrapatch2 -s old_bytes new_bytes binary.exe",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "reverse-engineering",
+        "file-input",
+        "binary-input",
+        "text-input",
+        "file-output",
+        "binary-output",
+        "security",
+        "development",
+        "windows"
+      ]
     },
     "rarun2": {
       "path": "bin/rarun2.exe",
       "description": "Process launcher and runtime environment controller for debugging and analysis",
-      "usage": "rarun2 program=target.exe\\nrarun2 program=target.exe arg1=value\\nrarun2 stdin=input.txt program=target.exe\\nrarun2 timeout=30 program=target.exe",
-      "dependencies": "windows"
+      "usage": "rarun2 program=target.exe\nrarun2 program=target.exe arg1=value\nrarun2 stdin=input.txt program=target.exe\nrarun2 timeout=30 program=target.exe",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "file-input",
+        "text-input",
+        "stdout-output",
+        "process-output",
+        "reverse-engineering",
+        "automation",
+        "testing",
+        "windows"
+      ]
     },
     "rasign2": {
       "path": "bin/rasign2.exe",
       "description": "Function signature generator and matcher for binary analysis and library identification",
-      "usage": "rasign2 -g signature.sig binary.exe\\nrasign2 -a signature.sig target.exe\\nrasign2 -f function_name binary.exe\\nrasign2 -r",
-      "dependencies": "windows"
+      "usage": "rasign2 -g signature.sig binary.exe\nrasign2 -a signature.sig target.exe\nrasign2 -f function_name binary.exe\nrasign2 -r",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "analyzer",
+        "file-input",
+        "binary-input",
+        "file-output",
+        "stdout-output",
+        "reverse-engineering",
+        "analysis",
+        "automation",
+        "forensics",
+        "windows"
+      ]
     },
     "rasm2": {
       "path": "bin/rasm2.exe",
       "description": "Multi-architecture assembler and disassembler supporting numerous CPU architectures",
-      "usage": "rasm2 -a x86 -b 64 'mov rax, rbx'\\nrasm2 -a arm -d '0x12345678'\\nrasm2 -L\\nrasm2 -f input.asm",
-      "dependencies": "windows"
+      "usage": "rasm2 -a x86 -b 64 'mov rax, rbx'\nrasm2 -a arm -d '0x12345678'\nrasm2 -L\nrasm2 -f input.asm",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "cross-platform",
+        "text-input",
+        "file-input",
+        "stdout-output",
+        "reverse-engineering",
+        "development",
+        "compilation",
+        "analysis",
+        "windows"
+      ]
     },
     "ravc2": {
       "path": "bin/ravc2.exe",
       "description": "Version control system for radare2 projects and analysis session management",
-      "usage": "ravc2 init project_name\\nravc2 save checkpoint1\\nravc2 load checkpoint1\\nravc2 diff checkpoint1 checkpoint2\\nravc2 log",
-      "dependencies": "windows"
+      "usage": "ravc2 init project_name\nravc2 save checkpoint1\nravc2 load checkpoint1\nravc2 diff checkpoint1 checkpoint2\nravc2 log",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "manager",
+        "file-input",
+        "directory-input",
+        "file-output",
+        "stdout-output",
+        "reverse-engineering",
+        "automation",
+        "windows"
+      ]
     },
     "rax2": {
       "path": "bin/rax2.exe",
       "description": "Number base converter and mathematical calculator for various numeric formats",
-      "usage": "rax2 0x1000\\nrax2 -b 4096\\nrax2 -k 10+20*3\\nrax2 -s hello\\nrax2 -S 48656c6c6f",
-      "dependencies": "windows"
+      "usage": "rax2 0x1000\nrax2 -b 4096\nrax2 -k 10+20*3\nrax2 -s hello\nrax2 -S 48656c6c6f",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "text-input",
+        "stdout-output",
+        "reverse-engineering",
+        "analysis",
+        "windows"
+      ]
     }
-  },
-  "tags": ["reverse-engineering", "binary-analysis", "debugging", "disassembly", "security", "analysis"]
+  }
 }

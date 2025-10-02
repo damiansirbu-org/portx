@@ -7,9 +7,19 @@
     "grex": {
       "path": "grex.exe",
       "description": "Smart regex generator that creates patterns from example strings - no more manual regex writing",
-      "usage": "grex 'hello' 'world'\\ngrex -i 'Hello' 'HELLO' 'hello'\\ngrex --words 'I love' 'You love'\\ngrex --escape 'a.b' 'c.d'",
-      "dependencies": "windows"
+      "usage": "grex 'hello' 'world'\ngrex -i 'Hello' 'HELLO' 'hello'\ngrex --words 'I love' 'You love'\ngrex --escape 'a.b' 'c.d'",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "searcher",
+        "processor",
+        "interactive-input",
+        "text-input",
+        "stdout-output",
+        "automation",
+        "development",
+        "generator"
+      ]
     }
-  },
-  "tags": ["regex", "pattern", "generation", "examples", "text-processing", "rust", "automatic", "intelligent"]
+  }
 }

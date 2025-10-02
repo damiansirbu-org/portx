@@ -8,8 +8,18 @@
       "path": "act.exe",
       "description": "Local GitHub Actions runner - run workflows and actions locally for faster development and testing",
       "usage": "act\\nact -l\\nact -j test\\nact push\\nact --secret-file .secrets",
-      "dependencies": "windows"
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "automation",
+        "development",
+        "tester",
+        "file-input",
+        "config-input",
+        "stdout-output",
+        "file-output",
+        "container"
+      ]
     }
-  },
-  "tags": ["github", "actions", "workflow", "ci-cd", "testing", "runner", "local", "development"]
+  }
 }

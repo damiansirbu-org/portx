@@ -7,9 +7,20 @@
     "gosec": {
       "path": "gosec.exe",
       "description": "Go security checker that scans Go AST and SSA for security vulnerabilities - static analysis security testing tool",
-      "usage": "gosec ./...\\ngosec -fmt json -out results.json ./...\\ngosec -exclude G104 ./...\\ngosec -include G401,G501 ./...",
-      "dependencies": "windows"
+      "usage": "gosec ./...\ngosec -fmt json -out results.json ./...\ngosec -exclude G104 ./...\ngosec -include G401,G501 ./...",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "security",
+        "analyzer",
+        "vulnerability",
+        "scanner",
+        "file-input",
+        "json-output",
+        "file-output",
+        "development",
+        "automation"
+      ]
     }
-  },
-  "tags": ["go", "security", "analyzer", "sast", "static-analysis", "vulnerabilities", "ast", "ssa"]
+  }
 }

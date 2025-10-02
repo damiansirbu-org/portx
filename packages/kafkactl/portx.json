@@ -8,8 +8,15 @@
       "path": "bin/kafkactl.exe",
       "description": "Enterprise-grade command line tool for managing Apache Kafka clusters and operations",
       "usage": "kafkactl create topic test --partitions 3 | kafkactl produce topic --value message | kafkactl consume topic",
-      "dependencies": "windows"
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "streaming",
+        "network-input",
+        "stdout-output",
+        "interactive-input",
+        "distributed"
+      ]
     }
-  },
-  "tags": ["kafka", "streaming", "management", "enterprise", "operations", "consumer", "producer", "apache-kafka"]
+  }
 }

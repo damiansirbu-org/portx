@@ -8,15 +8,17 @@
       "path": "ruff.exe",
       "description": "Lightning-fast Python linter with comprehensive rule coverage and auto-fixing",
       "usage": "ruff check . # Lint current directory with default rules\nruff check --fix . # Auto-fix violations where possible\nruff check --select E,F --ignore E501 src/ # Select specific error codes, ignore line length\nruff format . # Format Python code with Black-compatible styling\nruff format --check --diff src/ # Check formatting without writing, show differences\nruff check --output-format=json . # Output violations as JSON for tooling integration\nruff rule E501 # Explain specific rule (line-too-long)\nruff linter # List all supported upstream linters (flake8, pylint, etc.)\nruff check --select ALL --ignore ANN,D . # Enable all rules except type annotations and docstrings\nruff server # Start language server for IDE integration",
-      "dependencies": "windows"
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "file-input",
+        "directory-input",
+        "stdout-output",
+        "json-output",
+        "file-output",
+        "development",
+        "windows"
+      ]
     }
-  },
-  "tags": [
-    "python",
-    "linter", 
-    "formatter",
-    "code-quality",
-    "static-analysis",
-    "native"
-  ]
+  }
 }

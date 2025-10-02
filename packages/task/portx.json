@@ -7,9 +7,22 @@
     "task": {
       "path": "task.exe",
       "description": "Go-Task - simple task runner and build tool with YAML configuration, parallel execution, and dependency management",
-      "usage": "task --list\\ntask build test deploy\\ntask --parallel build test\\ntask --dry-run deploy\\ntask setup --force",
-      "dependencies": "windows"
+      "usage": "task --list\ntask build test deploy\ntask --parallel build test\ntask --dry-run deploy\ntask setup --force",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "builder",
+        "automation",
+        "manager",
+        "file-input",
+        "yaml-input",
+        "directory-input",
+        "stdout-output",
+        "process-output",
+        "development",
+        "productivity",
+        "windows"
+      ]
     }
-  },
-  "tags": ["task-runner", "build", "automation", "taskfile", "yaml", "go", "parallel", "ci-cd"]
+  }
 }

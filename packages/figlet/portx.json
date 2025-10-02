@@ -7,15 +7,28 @@
     "figlet": {
       "path": "figlet.exe",
       "description": "Display large characters made up of ordinary screen characters - create ASCII art text with various fonts and styles",
-      "usage": "figlet Hello World\\nfiglet -f big 'Big Text'\\nfiglet -f block 'BLOCK TEXT'\\necho 'Text' | figlet",
-      "dependencies": "windows"
+      "usage": "figlet Hello World\nfiglet -f big 'Big Text'\nfiglet -f block 'BLOCK TEXT'\necho 'Text' | figlet",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "processor",
+        "stdin-input",
+        "text-input",
+        "stdout-output"
+      ]
     },
     "chkfont": {
       "path": "chkfont.exe",
       "description": "Check and validate FIGlet font files for compatibility and correctness",
-      "usage": "chkfont fonts/standard.flf\\nchkfont fonts/*.flf",
-      "dependencies": "windows"
+      "usage": "chkfont fonts/standard.flf\nchkfont fonts/*.flf",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "validator",
+        "file-input",
+        "stdout-output",
+        "processor"
+      ]
     }
-  },
-  "tags": ["ascii", "art", "text", "generator", "banner", "fonts", "figlet", "display"]
+  }
 }

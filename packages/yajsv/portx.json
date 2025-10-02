@@ -7,9 +7,22 @@
     "yajsv": {
       "path": "yajsv.exe",
       "description": "Yet Another JSON Schema Validator - fast and simple JSON Schema validation tool",
-      "usage": "yajsv -s schema.json data.json\\nyajsv -s schema.json data1.json data2.json\\necho '{\"name\":\"test\"}' | yajsv -s schema.json",
-      "dependencies": "windows"
+      "usage": "yajsv -s schema.json data.json\nyajsv -s schema.json data1.json data2.json\necho '{\"name\":\"test\"}' | yajsv -s schema.json",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "validator",
+        "file-input",
+        "json-input",
+        "schema-input",
+        "stdin-input",
+        "stdout-output",
+        "formatted-output",
+        "validation-output",
+        "compliance",
+        "development",
+        "windows"
+      ]
     }
-  },
-  "tags": ["json", "schema", "validator", "validation", "jsonschema", "go", "cli", "standards"]
+  }
 }

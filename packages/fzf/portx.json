@@ -7,9 +7,19 @@
     "fzf": {
       "path": "fzf.exe",
       "description": "Command-line fuzzy finder with UNIX pipe integration and preview",
-      "usage": "ls | fzf # Fuzzy select from list\\nfzf --preview 'cat {}' # Preview files\\nhistory | fzf # Search command history\\ngit log --oneline | fzf --preview 'git show {1}' # Interactive git log",
-      "dependencies": "windows"
+      "usage": "ls | fzf # Fuzzy select from list\nfzf --preview 'cat {}' # Preview files\nhistory | fzf # Search command history\ngit log --oneline | fzf --preview 'git show {1}' # Interactive git log",
+      "dependencies": "windows",
+      "tags": [
+        "tui",
+        "searcher",
+        "interactive",
+        "stdin-input",
+        "stdout-output",
+        "viewer",
+        "cli",
+        "git",
+        "automation"
+      ]
     }
-  },
-  "tags": ["fuzzy", "finder", "search", "interactive", "pipe", "preview", "terminal", "selection"]
+  }
 }

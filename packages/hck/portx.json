@@ -7,9 +7,16 @@
     "hck": {
       "path": "hck.exe",
       "description": "Fast field extraction tool with regex support - more powerful than cut with better performance",
-      "usage": "hck -f 1,3 file.csv\\nhck -d: -f 2 /etc/passwd\\nhck -F '[,;]' -f 1-3 data.txt\\nhck -D\\n -f 1",
-      "dependencies": "windows"
+      "usage": "hck -f 1,3 file.csv\nhck -d: -f 2 /etc/passwd\nhck -F '[,;]' -f 1-3 data.txt\nhck -D\n -f 1",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "processor",
+        "searcher",
+        "file-input",
+        "stdin-input",
+        "stdout-output"
+      ]
     }
-  },
-  "tags": ["cut", "field-extraction", "delimited", "csv", "text-processing", "rust", "fast", "regex"]
+  }
 }

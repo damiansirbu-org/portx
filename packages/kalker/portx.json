@@ -8,19 +8,14 @@
       "path": "kalker.cmd",
       "description": "Scientific calculator with support for variables, functions, complex numbers, and calculus operations",
       "usage": "kalker # Start interactive calculator\nkalker \"2 + 2\" # Evaluate expression directly\nkalker \"f(x) = x^2; f(5)\" # Define function and use it\nkalker \"x = 5; y = 10; x * y\" # Use variables\nkalker \"derivative(x^2, x)\" # Calculate derivatives\nkalker \"integral(x^2, x, 0, 1)\" # Calculate definite integrals\nkalker \"sqrt(-1)\" # Complex number support\nkalker \"[1, 2, 3] + [4, 5, 6]\" # Vector operations",
-      "dependencies": "windows"
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "interactive",
+        "text-input",
+        "interactive-input",
+        "stdout-output"
+      ]
     }
-  },
-  "tags": [
-    "calculator",
-    "math",
-    "scientific",
-    "algebra",
-    "calculus",
-    "variables",
-    "functions",
-    "complex-numbers",
-    "command-line",
-    "interactive"
-  ]
+  }
 }

@@ -7,9 +7,18 @@
     "shfmt": {
       "path": "shfmt.exe",
       "description": "Format and pretty-print shell scripts with consistent style and indentation",
-      "usage": "shfmt script.sh\\nshfmt -w *.sh\\nshfmt -i 4 script.sh\\nshfmt -d script.sh\\nshfmt -ln bash script.sh",
-      "dependencies": "windows"
+      "usage": "shfmt script.sh\nshfmt -w *.sh\nshfmt -i 4 script.sh\nshfmt -d script.sh\nshfmt -ln bash script.sh",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "file-input",
+        "file-output",
+        "stdout-output",
+        "formatted-output",
+        "development",
+        "automation",
+        "windows"
+      ]
     }
-  },
-  "tags": ["formatter", "shell", "bash", "posix", "scripts", "pretty", "print", "go"]
+  }
 }

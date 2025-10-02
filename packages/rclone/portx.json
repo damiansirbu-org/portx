@@ -7,9 +7,20 @@
     "rclone": {
       "path": "rclone.exe",
       "description": "Sync files and directories to/from cloud storage providers like Google Drive, S3, Dropbox, and 70+ others",
-      "usage": "rclone copy /local/path remote:bucket\\nrclone sync /local remote:folder --dry-run\\nrclone mount remote:bucket /mnt/cloud\\nrclone serve webdav remote: --addr :8080\\nrclone config",
-      "dependencies": "windows"
+      "usage": "rclone copy /local/path remote:bucket\nrclone sync /local remote:folder --dry-run\nrclone mount remote:bucket /mnt/cloud\nrclone serve webdav remote: --addr :8080\nrclone config",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "backup",
+        "manager",
+        "file-input",
+        "directory-input",
+        "network-input",
+        "file-output",
+        "network-output",
+        "automation",
+        "windows"
+      ]
     }
-  },
-  "tags": ["cloud", "storage", "sync", "backup", "files", "mount", "webdav", "go"]
+  }
 }

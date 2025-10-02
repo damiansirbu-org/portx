@@ -8,8 +8,14 @@
       "path": "btm.exe",
       "description": "System monitor with CPU, memory, network, and temperature monitoring - htop alternative",
       "usage": "btm\\nbtm --help\\nbtm --basic\\nbtm --battery\\nbtm --expanded",
-      "dependencies": "windows"
+      "dependencies": "windows",
+      "tags": [
+        "tui",
+        "monitor",
+        "manager",
+        "performance",
+        "formatted-output"
+      ]
     }
-  },
-  "tags": ["system", "monitor", "process", "cpu", "memory", "network", "rust", "tui"]
+  }
 }

@@ -8,8 +8,14 @@
       "path": "cloc.exe",
       "description": "Multi-language source code line counter with complexity metrics",
       "usage": "cloc src/ # Count lines in source directory\ncloc --by-file *.py # Per-file statistics for Python files\ncloc --diff version1/ version2/ # Compare two code versions\ncloc --exclude-dir=node_modules,dist . # Exclude specific directories\ncloc --json --out=stats.json . # Output detailed JSON statistics",
-      "dependencies": "windows"
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "analyzer",
+        "file-input",
+        "json-output",
+        "development"
+      ]
     }
-  },
-  "tags": ["analysis", "metrics", "perl", "development", "statistics", "code-quality"]
+  }
 }

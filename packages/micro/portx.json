@@ -7,9 +7,15 @@
     "micro": {
       "path": "micro.exe",
       "description": "Modern, intuitive terminal text editor with mouse support, syntax highlighting, and common key bindings",
-      "usage": "micro file.txt\\nmicro -colorscheme monokai\\nmicro -plugin install filemanager\\nmicro +10 file.txt\\nmicro -config-dir /path",
-      "dependencies": "windows"
+      "usage": "micro file.txt\nmicro -colorscheme monokai\nmicro -plugin install filemanager\nmicro +10 file.txt\nmicro -config-dir /path",
+      "dependencies": "windows",
+      "tags": [
+        "tui",
+        "editor",
+        "file-input",
+        "file-output",
+        "development"
+      ]
     }
-  },
-  "tags": ["editor", "terminal", "text", "modern", "syntax", "highlighting", "plugins", "go"]
+  }
 }

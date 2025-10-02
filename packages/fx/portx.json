@@ -7,9 +7,19 @@
     "fx": {
       "path": "fx.exe",
       "description": "Interactive JSON viewer and processor with JavaScript expressions and live editing capabilities - perfect for exploring large JSON files with syntax highlighting",
-      "usage": "fx data.json # Interactive JSON browser with syntax highlighting\\ncat data.json | fx '.users[0].name' # Extract specific field\\necho '{\\\"a\\\":1}' | fx 'this.b = 2; this' # Transform JSON with live editing\\nfx data.json '.filter(x => x.age > 30)' # Filter arrays interactively",
-      "dependencies": "windows"
+      "usage": "fx data.json # Interactive JSON browser with syntax highlighting\ncat data.json | fx '.users[0].name' # Extract specific field\necho '{\\\"a\\\":1}' | fx 'this.b = 2; this' # Transform JSON with live editing\nfx data.json '.filter(x => x.age > 30)' # Filter arrays interactively",
+      "dependencies": "windows",
+      "tags": [
+        "tui",
+        "interactive",
+        "viewer",
+        "development",
+        "file-input",
+        "stdin-input",
+        "stdout-output",
+        "processor",
+        "cli"
+      ]
     }
-  },
-  "tags": ["json", "interactive", "viewer", "javascript", "explorer", "syntax-highlighting", "terminal", "processing"]
+  }
 }

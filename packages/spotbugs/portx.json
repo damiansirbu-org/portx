@@ -1,6 +1,6 @@
 {
   "name": "spotbugs",
-  "version": "4.9.6", 
+  "version": "4.9.6",
   "description": "Static analysis tool for Java bytecode that finds bugs, security vulnerabilities, and code quality issues using over 400 detectors",
   "importType": "wrap",
   "bin": {
@@ -8,8 +8,17 @@
       "path": "spotbugs.cmd",
       "description": "Advanced Java bytecode analyzer that detects potential bugs, security vulnerabilities, performance issues and code quality problems",
       "usage": "spotbugs analyze -textui -output results.xml MyProject.jar\nspotbugs gui\nspotbugs -textui -effort:max -priority:high MyProject.jar\nspotbugs analyze -xml:withMessages -output report.xml MyProject.jar\nspotbugs -textui -exclude filter.xml MyProject.jar",
-      "dependencies": "windows,java"
+      "dependencies": "windows,java",
+      "tags": [
+        "cli",
+        "gui",
+        "scanner",
+        "file-input",
+        "xml-input",
+        "xml-output",
+        "development",
+        "windows"
+      ]
     }
-  },
-  "tags": ["java", "static-analysis", "bytecode", "security", "bugs", "quality", "analysis", "development"]
+  }
 }

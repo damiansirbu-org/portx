@@ -7,9 +7,22 @@
     "wget": {
       "path": "wget.exe",
       "description": "Network downloader for retrieving files from web servers using HTTP, HTTPS, and FTP",
-      "usage": "wget https://example.com/file.zip\\nwget -r -np -k https://site.com/\\nwget --user=username --password=pass ftp://server/file\\nwget -c https://large-file.zip\\nwget -O output.html https://example.com",
-      "dependencies": "windows"
+      "usage": "wget https://example.com/file.zip\nwget -r -np -k https://site.com/\nwget --user=username --password=pass ftp://server/file\nwget -c https://large-file.zip\nwget -O output.html https://example.com",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "downloader",
+        "client",
+        "url-input",
+        "network-input",
+        "http-input",
+        "file-output",
+        "stdout-output",
+        "directory-output",
+        "networking",
+        "web",
+        "windows"
+      ]
     }
-  },
-  "tags": ["download", "network", "http", "https", "ftp", "files", "web", "c"]
+  }
 }

@@ -8,8 +8,19 @@
       "path": "pmd.cmd",
       "description": "Advanced source code analyzer that detects bugs, code quality issues, performance problems, and security vulnerabilities across multiple languages",
       "usage": "pmd check -d src/ -R rulesets/java/quickstart.xml -f text\npmd check -d . -R category/java/errorprone.xml -f xml -r report.xml\npmd check -d MyProject.java -R rulesets/java/quickstart.xml --minimum-priority HIGH\npmd check -d src/ -R custom-rules.xml -f json --show-suppressed\npmd cpd --minimum-tokens 100 --language java --files src/",
-      "dependencies": "windows,java"
+      "dependencies": "windows,java",
+      "tags": [
+        "cli",
+        "analyzer",
+        "scanner",
+        "file-input",
+        "directory-input",
+        "xml-output",
+        "json-output",
+        "stdout-output",
+        "development",
+        "windows"
+      ]
     }
-  },
-  "tags": ["java", "static-analysis", "source-code", "quality", "bugs", "security", "multilanguage", "development"]
+  }
 }

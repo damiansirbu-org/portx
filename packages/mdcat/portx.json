@@ -7,9 +7,16 @@
     "mdcat": {
       "path": "mdcat.exe",
       "description": "Cat for markdown - display markdown files in terminal with syntax highlighting, tables, and images",
-      "usage": "mdcat README.md\\nmdcat --help\\nmdcat --local file.md\\ncat file.md | mdcat",
-      "dependencies": "windows"
+      "usage": "mdcat README.md\nmdcat --help\nmdcat --local file.md\ncat file.md | mdcat",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "viewer",
+        "file-input",
+        "stdin-input",
+        "stdout-output",
+        "documentation"
+      ]
     }
-  },
-  "tags": ["markdown", "viewer", "terminal", "syntax", "highlighting", "images", "rust", "cat"]
+  }
 }

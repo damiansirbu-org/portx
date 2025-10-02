@@ -7,9 +7,16 @@
     "mlr": {
       "path": "mlr.exe",
       "description": "Powerful data processing tool combining awk, sed, cut, join, sort functionality for CSV, TSV, JSON with 40+ built-in verbs",
-      "usage": "mlr --csv cut -f name,age data.csv\\nmlr --icsv --ojson cat data.csv\\nmlr --csv stats1 -a sum -f sales data.csv\\nmlr --csv filter '$age > 25' people.csv\\nmlr --csv put '$bonus = $salary * 0.1' employees.csv",
-      "dependencies": "windows"
+      "usage": "mlr --csv cut -f name,age data.csv\nmlr --icsv --ojson cat data.csv\nmlr --csv stats1 -a sum -f sales data.csv\nmlr --csv filter '$age > 25' people.csv\nmlr --csv put '$bonus = $salary * 0.1' employees.csv",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "processor",
+        "converter",
+        "file-input",
+        "file-output",
+        "stdout-output"
+      ]
     }
-  },
-  "tags": ["csv", "tsv", "json", "data", "processing", "awk", "sed", "statistics", "converter", "go"]
+  }
 }
