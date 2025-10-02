@@ -7,9 +7,20 @@
     "peco": {
       "path": "peco.exe",
       "description": "Interactive filtering tool for selecting items from lists with fuzzy matching and real-time search",
-      "usage": "history | peco\\nls | peco\\nps aux | peco\\nfind . -name '*.txt' | peco\\npeco --query 'initial search'",
-      "dependencies": "windows"
+      "usage": "history | peco\nls | peco\nps aux | peco\nfind . -name '*.txt' | peco\npeco --query 'initial search'",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "tui",
+        "processor",
+        "stdin-input",
+        "text-input",
+        "stdout-output",
+        "interactive",
+        "productivity",
+        "automation",
+        "windows"
+      ]
     }
-  },
-  "tags": ["interactive", "filtering", "fuzzy", "search", "selection", "text", "processing", "go"]
+  }
 }

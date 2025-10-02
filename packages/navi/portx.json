@@ -7,9 +7,20 @@
     "navi": {
       "path": "navi.exe",
       "description": "Interactive cheatsheet tool with fuzzy search for discovering and executing command templates",
-      "usage": "navi\\nnavi --print\\nnavi --path /path/to/cheats\\nnavi widget shell\\nnavi search docker",
-      "dependencies": "windows"
+      "usage": "navi\nnavi --print\nnavi --path /path/to/cheats\nnavi widget shell\nnavi search docker",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "tui",
+        "interactive",
+        "file-input",
+        "directory-input",
+        "text-input",
+        "stdout-output",
+        "productivity",
+        "automation",
+        "windows"
+      ]
     }
-  },
-  "tags": ["cheatsheet", "interactive", "fuzzy", "search", "commands", "templates", "terminal", "rust"]
+  }
 }

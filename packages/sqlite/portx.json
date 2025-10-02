@@ -7,27 +7,66 @@
     "sqldiff": {
       "path": "sqldiff.exe",
       "description": "Compare and display differences between two SQLite database files",
-      "usage": "sqldiff database1.db database2.db\\nsqldiff --summary db1.db db2.db\\nsqldiff --changeset changes.db db1.db db2.db\\nsqldiff --table users db1.db db2.db",
-      "dependencies": "windows"
+      "usage": "sqldiff database1.db database2.db\nsqldiff --summary db1.db db2.db\nsqldiff --changeset changes.db db1.db db2.db\nsqldiff --table users db1.db db2.db",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "file-input",
+        "stdout-output",
+        "formatted-output",
+        "database",
+        "analysis",
+        "windows"
+      ]
     },
     "sqlite3": {
       "path": "sqlite3.exe",
       "description": "SQLite command-line shell for database operations and queries",
-      "usage": "sqlite3 database.db\\nsqlite3 -header -csv database.db 'SELECT * FROM users;'\\nsqlite3 database.db < schema.sql\\nsqlite3 -bail database.db '.dump' > backup.sql\\nsqlite3 ':memory:'",
-      "dependencies": "windows"
+      "usage": "sqlite3 database.db\nsqlite3 -header -csv database.db 'SELECT * FROM users;'\nsqlite3 database.db < schema.sql\nsqlite3 -bail database.db '.dump' > backup.sql\nsqlite3 ':memory:'",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "tui",
+        "file-input",
+        "sql-input",
+        "stdout-output",
+        "csv-output",
+        "interactive",
+        "database",
+        "development",
+        "windows"
+      ]
     },
     "sqlite3-analyzer": {
       "path": "sqlite3_analyzer.exe",
       "description": "Analyze SQLite database structure and provide detailed storage statistics",
-      "usage": "sqlite3_analyzer database.db\\nsqlite3_analyzer database.db > report.txt\\nsqlite3_analyzer --help",
-      "dependencies": "windows"
+      "usage": "sqlite3_analyzer database.db\nsqlite3_analyzer database.db > report.txt\nsqlite3_analyzer --help",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "file-input",
+        "stdout-output",
+        "formatted-output",
+        "database",
+        "analysis",
+        "performance",
+        "windows"
+      ]
     },
     "sqlite3-rsync": {
       "path": "sqlite3_rsync.exe",
       "description": "Synchronize SQLite databases over network connections with incremental updates",
-      "usage": "sqlite3_rsync client.db server_url\\nsqlite3_rsync --server database.db\\nsqlite3_rsync --download remote.db local.db\\nsqlite3_rsync --verbose client.db server",
-      "dependencies": "windows"
+      "usage": "sqlite3_rsync client.db server_url\nsqlite3_rsync --server database.db\nsqlite3_rsync --download remote.db local.db\nsqlite3_rsync --verbose client.db server",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "file-input",
+        "network-input",
+        "network-output",
+        "database",
+        "automation",
+        "windows"
+      ]
     }
-  },
-  "tags": ["database", "sqlite", "sql", "analysis", "management", "comparison", "sync", "c"]
+  }
 }

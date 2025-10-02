@@ -7,9 +7,17 @@
     "jql": {
       "path": "jql.exe",
       "description": "JSON Query Language with Lisp-like syntax and streaming support for Docker logs and real-time JSON processing - intuitive token-based queries for complex transformations",
-      "usage": "jql '.[\"users\"].[0].[\"name\"]' data.json\\njql --stream '.[\"message\"]' # Stream processing for Docker logs\\necho '{\"items\":[1,2,3]}' | jql '.[\"items\"] | flatten'\\njql '.[\"logs\"] | select(.[\"level\"] == \"error\") | .[\"message\"]' app.json\\njql --help # Show Lisp-like syntax examples",
-      "dependencies": "windows"
+      "usage": "jql '.[\"users\"].[0].[\"name\"]' data.json\njql --stream '.[\"message\"]' # Stream processing for Docker logs\necho '{\"items\":[1,2,3]}' | jql '.[\"items\"] | flatten'\njql '.[\"logs\"] | select(.[\"level\"] == \"error\") | .[\"message\"]' app.json\njql --help # Show Lisp-like syntax examples",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "processor",
+        "file-input",
+        "stdin-input",
+        "stdout-output",
+        "container",
+        "analyzer"
+      ]
     }
-  },
-  "tags": ["json", "query", "lisp", "streaming", "rust", "docker", "logs", "realtime", "transformation"]
+  }
 }

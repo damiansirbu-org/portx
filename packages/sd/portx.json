@@ -7,9 +7,18 @@
     "sd": {
       "path": "sd.exe",
       "description": "Fast and intuitive find & replace tool with regex support, safer than sed",
-      "usage": "sd 'old_text' 'new_text' file.txt\\nsd '\\d+' 'NUMBER' *.txt\\nsd --preview 'foo' 'bar' file.txt\\nsd -s 'literal.string' 'replacement' file.txt",
-      "dependencies": "windows"
+      "usage": "sd 'old_text' 'new_text' file.txt\nsd '\\d+' 'NUMBER' *.txt\nsd --preview 'foo' 'bar' file.txt\nsd -s 'literal.string' 'replacement' file.txt",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "processor",
+        "file-input",
+        "text-input",
+        "file-output",
+        "stdout-output",
+        "automation",
+        "windows"
+      ]
     }
-  },
-  "tags": ["find", "replace", "regex", "text", "processing", "sed", "utility", "rust"]
+  }
 }

@@ -8,8 +8,14 @@
       "path": "conftest.exe",
       "description": "Write tests against structured configuration data using Rego - supports Kubernetes manifests, Dockerfiles, Terraform plans, and more",
       "usage": "conftest test deployment.yaml\\nconftest verify --policy policy/ manifests/\\nconftest test --update git::https://example.com/policy.git",
-      "dependencies": "windows"
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "runner",
+        "container",
+        "configuration",
+        "file-input"
+      ]
     }
-  },
-  "tags": ["opa", "policy", "testing", "rego", "kubernetes", "docker", "terraform", "configuration", "validation"]
+  }
 }

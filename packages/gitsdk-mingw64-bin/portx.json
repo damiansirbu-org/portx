@@ -5,6 +5,5 @@
   "importType": "path",
   "packagePaths": [
     "./"
-  ],
-  "tags": ["git", "development", "system", "utilities", "compression", "network", "security", "xml"]
+  ]
 }

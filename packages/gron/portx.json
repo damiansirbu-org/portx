@@ -7,9 +7,17 @@
     "gron": {
       "path": "gron.exe",
       "description": "Transform JSON into greppable discrete assignments for easier searching - flattens hierarchical JSON into simple key-value pairs with full path context",
-      "usage": "curl api.com/data | gron # Flatten API response for grepping\\ngron data.json | grep 'user' # Search for user-related fields\\necho '{\\\"users\\\":[{\\\"name\\\":\\\"John\\\"}]}' | gron | grep name # Find name fields\\ngron data.json | grep price | gron --ungron # Extract and reconstruct price data",
-      "dependencies": "windows"
+      "usage": "curl api.com/data | gron # Flatten API response for grepping\ngron data.json | grep 'user' # Search for user-related fields\necho '{\\\"users\\\":[{\\\"name\\\":\\\"John\\\"}]}' | gron | grep name # Find name fields\ngron data.json | grep price | gron --ungron # Extract and reconstruct price data",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "processor",
+        "searcher",
+        "file-input",
+        "stdin-input",
+        "stdout-output",
+        "api"
+      ]
     }
-  },
-  "tags": ["json", "grep", "flatten", "search", "api", "exploration", "key-value", "discrete"]
+  }
 }

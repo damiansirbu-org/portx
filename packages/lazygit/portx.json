@@ -8,8 +8,17 @@
       "path": "lazygit.exe",
       "description": "Terminal UI for Git commands with intuitive keyboard shortcuts",
       "usage": "lazygit # Launch Git TUI\\nSpace - Stage/unstage files, c - Commit\\na - Stage all changes, p - Pull from remote\\nP - Push to remote, m - Merge, r - Rebase",
-      "dependencies": "windows"
+      "dependencies": "windows",
+      "tags": [
+        "tui",
+        "git",
+        "development",
+        "manager",
+        "viewer",
+        "interactive-input",
+        "file-input",
+        "formatted-output"
+      ]
     }
-  },
-  "tags": ["git", "tui", "terminal", "ui", "version-control", "interactive", "go", "keyboard"]
+  }
 }

@@ -7,9 +7,14 @@
     "dsq": {
       "path": "dsq.exe",
       "description": "DataStation Query - SQL queries against structured data files with automatic schema detection and format conversion",
-      "usage": "dsq data.csv 'SELECT * FROM {} LIMIT 10'\\ndsq data.json 'SELECT COUNT(*) FROM {}'\\ndsq file.xlsx 'SELECT column1, column2 FROM {} WHERE column1 > 100'",
-      "dependencies": "windows"
+      "usage": "dsq data.csv 'SELECT * FROM {} LIMIT 10'\ndsq data.json 'SELECT COUNT(*) FROM {}'\ndsq file.xlsx 'SELECT column1, column2 FROM {} WHERE column1 > 100'",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "file-input",
+        "database",
+        "stdout-output"
+      ]
     }
-  },
-  "tags": ["sql", "csv", "json", "excel", "parquet", "query", "data", "analysis", "etl"]
+  }
 }

@@ -7,9 +7,18 @@
     "mage": {
       "path": "mage.exe",
       "description": "Go-based build tool - write build targets in Go instead of shell scripts with automatic dependency management",
-      "usage": "mage\\nmage -l\\nmage build\\nmage test\\nmage -v clean",
-      "dependencies": "windows"
+      "usage": "mage\nmage -l\nmage build\nmage test\nmage -v clean",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "automation",
+        "manager",
+        "development",
+        "compilation",
+        "builder",
+        "stdout-output",
+        "file-input"
+      ]
     }
-  },
-  "tags": ["build", "automation", "go", "makefile", "tasks", "dependency", "compilation", "development"]
+  }
 }

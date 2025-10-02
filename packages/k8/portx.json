@@ -7,15 +7,33 @@
     "kubectl": {
       "path": "kubectl.exe",
       "description": "Kubernetes CLI for cluster management and application deployment",
-      "usage": "kubectl get pods -A # List all pods\\nkubectl apply -f deployment.yaml # Apply configuration\\nkubectl logs -f pod-name # Follow logs\\nkubectl exec -it pod-name -- bash # Interactive shell\\nkubectl port-forward service/app 8080:80 # Port forwarding",
-      "dependencies": "windows"
+      "usage": "kubectl get pods -A # List all pods\nkubectl apply -f deployment.yaml # Apply configuration\nkubectl logs -f pod-name # Follow logs\nkubectl exec -it pod-name -- bash # Interactive shell\nkubectl port-forward service/app 8080:80 # Port forwarding",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "container",
+        "deployment",
+        "file-input",
+        "interactive",
+        "file-output",
+        "automation"
+      ]
     },
     "kustomize": {
       "path": "kustomize.exe",
       "description": "Kubernetes configuration management without templates using overlays",
-      "usage": "kustomize build overlays/production # Build production config\\nkustomize build . | kubectl apply -f - # Apply kustomized config\\nkustomize edit set image app=myapp:v2 # Update image version\\nkustomize create --autodetect # Initialize kustomization",
-      "dependencies": "windows"
+      "usage": "kustomize build overlays/production # Build production config\nkustomize build . | kubectl apply -f - # Apply kustomized config\nkustomize edit set image app=myapp:v2 # Update image version\nkustomize create --autodetect # Initialize kustomization",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "container",
+        "file-input",
+        "file-output",
+        "stdout-output",
+        "automation",
+        "deployment",
+        "configuration"
+      ]
     }
-  },
-  "tags": ["kubernetes", "kubectl", "kustomize", "cluster", "devops", "cloud", "containers", "orchestration"]
+  }
 }

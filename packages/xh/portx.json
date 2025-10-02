@@ -7,9 +7,23 @@
     "xh": {
       "path": "xh.exe",
       "description": "Friendly and fast tool for sending HTTP requests with HTTPie-compatible syntax and curl translation",
-      "usage": "xh GET httpbin.org/json\\nxh POST httpbin.org/post name=John age:=25\\nxh --print=HhBb GET httpbin.org/headers\\nxh --curl GET httpbin.org/json",
-      "dependencies": "windows"
+      "usage": "xh GET httpbin.org/json\nxh POST httpbin.org/post name=John age:=25\nxh --print=HhBb GET httpbin.org/headers\nxh --curl GET httpbin.org/json",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "client",
+        "url-input",
+        "text-input",
+        "json-input",
+        "http-input",
+        "stdout-output",
+        "json-output",
+        "formatted-output",
+        "networking",
+        "api",
+        "development",
+        "windows"
+      ]
     }
-  },
-  "tags": ["http", "client", "curl", "httpie", "rust", "cli", "rest", "api"]
+  }
 }

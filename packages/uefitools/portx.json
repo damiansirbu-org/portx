@@ -7,15 +7,39 @@
     "uefi-extract": {
       "path": "UEFIExtract.exe",
       "description": "Extract and analyze UEFI firmware images, modules, and components",
-      "usage": "UEFIExtract firmware.fd\\nUEFIExtract -dump firmware.fd output/\\nUEFIExtract -info firmware.fd\\nUEFIExtract -text firmware.fd",
-      "dependencies": "windows"
+      "usage": "UEFIExtract firmware.fd\nUEFIExtract -dump firmware.fd output/\nUEFIExtract -info firmware.fd\nUEFIExtract -text firmware.fd",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "analyzer",
+        "reverse-engineering",
+        "file-input",
+        "binary-input",
+        "directory-output",
+        "file-output",
+        "stdout-output",
+        "security",
+        "forensics",
+        "windows"
+      ]
     },
     "uefi-find": {
       "path": "UEFIFind.exe",
       "description": "Search for patterns, strings, and signatures within UEFI firmware images",
-      "usage": "UEFIFind firmware.fd text 'string_to_find'\\nUEFIFind firmware.fd hex '48656C6C6F'\\nUEFIFind firmware.fd guid AAAAAAAA-BBBB-CCCC-DDDD-EEEEEEEEEEEE\\nUEFIFind firmware.fd all",
-      "dependencies": "windows"
+      "usage": "UEFIFind firmware.fd text 'string_to_find'\nUEFIFind firmware.fd hex '48656C6C6F'\nUEFIFind firmware.fd guid AAAAAAAA-BBBB-CCCC-DDDD-EEEEEEEEEEEE\nUEFIFind firmware.fd all",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "searcher",
+        "file-input",
+        "binary-input",
+        "text-input",
+        "stdout-output",
+        "formatted-output",
+        "security",
+        "forensics",
+        "windows"
+      ]
     }
-  },
-  "tags": ["uefi", "firmware", "analysis", "security", "reverse-engineering", "extraction"]
+  }
 }

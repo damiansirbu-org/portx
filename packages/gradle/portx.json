@@ -8,8 +8,18 @@
       "path": "bin/gradle.bat",
       "description": "Gradle build automation tool with dependency management, multi-project builds, and incremental compilation",
       "usage": "gradle build | gradle dependencies | gradle clean test | gradle assemble --parallel",
-      "dependencies": "windows"
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "automation",
+        "compiler",
+        "runner",
+        "manager",
+        "file-input",
+        "config-input",
+        "development",
+        "incremental"
+      ]
     }
-  },
-  "tags": ["gradle", "java", "build", "automation", "kotlin", "groovy"]
+  }
 }

@@ -7,81 +7,190 @@
     "basename": {
       "path": "basename.exe",
       "description": "Extract filename component from file path by removing directory prefix",
-      "usage": "basename /path/to/file.txt\\nbasename /path/to/file.txt .txt\\nbasename $(pwd)",
-      "dependencies": "windows"
+      "usage": "basename /path/to/file.txt\nbasename /path/to/file.txt .txt\nbasename $(pwd)",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "processor",
+        "text-input",
+        "stdout-output",
+        "automation",
+        "portable",
+        "windows"
+      ]
     },
     "convert": {
-      "path": "convert.exe", 
+      "path": "convert.exe",
       "description": "Path format converter between Windows and UNIX-style paths",
-      "usage": "convert -w /c/path\\nconvert -u 'C:\\\\path'",
-      "dependencies": "windows"
+      "usage": "convert -w /c/path\nconvert -u 'C:\\path'",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "converter",
+        "cross-platform",
+        "text-input",
+        "stdout-output",
+        "automation",
+        "windows"
+      ]
     },
     "cygpath": {
       "path": "cygpath.exe",
       "description": "Convert between MSYS2/Cygwin and Windows path formats with comprehensive options",
-      "usage": "cygpath -w /home/user\\ncygpath -u 'C:\\\\Users'\\ncygpath -am /tmp",
-      "dependencies": "windows"
+      "usage": "cygpath -w /home/user\ncygpath -u 'C:\\Users'\ncygpath -am /tmp",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "converter",
+        "cross-platform",
+        "text-input",
+        "stdout-output",
+        "automation",
+        "windows"
+      ]
     },
     "dirname": {
       "path": "dirname.exe",
-      "description": "Extract directory component from file path by removing filename suffix", 
-      "usage": "dirname /path/to/file.txt\\ndirname $(pwd)/script.sh\\ncd $(dirname $0)",
-      "dependencies": "windows"
+      "description": "Extract directory component from file path by removing filename suffix",
+      "usage": "dirname /path/to/file.txt\ndirname $(pwd)/script.sh\ncd $(dirname $0)",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "processor",
+        "text-input",
+        "stdout-output",
+        "automation",
+        "portable",
+        "windows"
+      ]
     },
     "hardlink": {
       "path": "hardlink.exe",
       "description": "Create hard links to files for space-efficient file duplication",
-      "usage": "hardlink source.txt target.txt\\nhardlink -n source.txt\\nhardlink -v source.txt backup.txt",
-      "dependencies": "windows"
+      "usage": "hardlink source.txt target.txt\nhardlink -n source.txt\nhardlink -v source.txt backup.txt",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "file-input",
+        "file-output",
+        "stdout-output",
+        "automation",
+        "windows"
+      ]
     },
     "link": {
       "path": "link.exe",
       "description": "Create file links with extended options and validation",
-      "usage": "link -s source.txt symlink.txt\\nlink -f source.txt hardlink.txt\\nlink -v source.txt target.txt",
-      "dependencies": "windows"
+      "usage": "link -s source.txt symlink.txt\nlink -f source.txt hardlink.txt\nlink -v source.txt target.txt",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "file-input",
+        "file-output",
+        "stdout-output",
+        "automation",
+        "windows"
+      ]
     },
     "ln": {
       "path": "ln.exe",
       "description": "UNIX-style link creator for symbolic and hard links with standard options",
-      "usage": "ln -s /path/to/file symlink\\nln file1.txt file2.txt\\nln -sf new_target existing_link",
-      "dependencies": "windows"
+      "usage": "ln -s /path/to/file symlink\nln file1.txt file2.txt\nln -sf new_target existing_link",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "file-input",
+        "file-output",
+        "stdout-output",
+        "automation",
+        "windows"
+      ]
     },
     "pathchk": {
       "path": "pathchk.exe",
       "description": "Validate file path names for portability and system compatibility",
-      "usage": "pathchk /path/to/file\\npathchk -p /portable/path\\npathchk -P /strict/path",
-      "dependencies": "windows"
+      "usage": "pathchk /path/to/file\npathchk -p /portable/path\npathchk -P /strict/path",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "text-input",
+        "stdout-output",
+        "automation",
+        "cross-platform",
+        "windows"
+      ]
     },
     "readlink": {
       "path": "readlink.exe",
       "description": "Read and resolve symbolic links to display target paths",
-      "usage": "readlink symlink.txt\\nreadlink -f symlink.txt\\nreadlink -e symlink.txt",
-      "dependencies": "windows"
+      "usage": "readlink symlink.txt\nreadlink -f symlink.txt\nreadlink -e symlink.txt",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "file-input",
+        "stdout-output",
+        "windows"
+      ]
     },
     "realpath": {
-      "path": "realpath.exe", 
+      "path": "realpath.exe",
       "description": "Resolve absolute canonical path by following all symbolic links",
-      "usage": "realpath file.txt\\nrealpath -s symlink\\nrealpath --relative-to=/base /path",
-      "dependencies": "windows"
+      "usage": "realpath file.txt\nrealpath -s symlink\nrealpath --relative-to=/base /path",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "text-input",
+        "stdout-output",
+        "windows"
+      ]
     },
     "unlink": {
       "path": "unlink.exe",
       "description": "Remove single file or symbolic link using UNIX-style unlink operation",
-      "usage": "unlink file.txt\\nunlink symlink\\nunlink /tmp/tempfile",
-      "dependencies": "windows"
+      "usage": "unlink file.txt\nunlink symlink\nunlink /tmp/tempfile",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "file-input",
+        "automation",
+        "windows"
+      ]
     },
     "windmc": {
       "path": "windmc.exe",
       "description": "Windows Message Compiler for creating message resource files from text definitions",
-      "usage": "windmc messages.mc\\nwindmc -h include_dir messages.mc\\nwindmc -r res_dir messages.mc",
-      "dependencies": "windows"
+      "usage": "windmc messages.mc\nwindmc -h include_dir messages.mc\nwindmc -r res_dir messages.mc",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "compiler",
+        "file-input",
+        "text-input",
+        "file-output",
+        "compilation",
+        "development",
+        "automation",
+        "builder",
+        "windows"
+      ]
     },
     "windres": {
       "path": "windres.exe",
       "description": "Windows Resource Compiler for converting resource files to object format",
-      "usage": "windres resource.rc resource.o\\nwindres -i input.rc -o output.o\\nwindres --define MACRO=VALUE resource.rc",
-      "dependencies": "windows"
+      "usage": "windres resource.rc resource.o\nwindres -i input.rc -o output.o\nwindres --define MACRO=VALUE resource.rc",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "compiler",
+        "file-input",
+        "text-input",
+        "file-output",
+        "compilation",
+        "development",
+        "automation",
+        "builder",
+        "windows"
+      ]
     }
-  },
-  "tags": ["paths", "files", "links", "conversion", "msys2", "utilities"]
+  }
 }

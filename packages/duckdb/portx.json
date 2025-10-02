@@ -7,9 +7,15 @@
     "duckdb": {
       "path": "duckdb.exe",
       "description": "Fast analytical SQL database with rich SQL syntax - single dependency-free executable for CSV/JSON/Parquet analysis",
-      "usage": "duckdb\\nduckdb database.db\\nduckdb :memory: -c \"SELECT * FROM 'data.csv'\"\\nduckdb -c \"SELECT COUNT(*) FROM 'data.parquet'\"",
-      "dependencies": "windows"
+      "usage": "duckdb\nduckdb database.db\nduckdb :memory: -c \"SELECT * FROM 'data.csv'\"\nduckdb -c \"SELECT COUNT(*) FROM 'data.parquet'\"",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "database",
+        "file-input",
+        "interactive",
+        "client"
+      ]
     }
-  },
-  "tags": ["database", "sql", "analytics", "olap", "csv", "json", "parquet", "embedded", "columnar"]
+  }
 }

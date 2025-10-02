@@ -8,8 +8,17 @@
       "path": "premake.exe",
       "description": "Build script generator supporting Visual Studio, Xcode, makefiles, and more from Lua configuration scripts",
       "usage": "premake5 vs2022 # Generate Visual Studio 2022 solution\npremake5 gmake2 # Generate GNU makefiles\npremake5 --help # Show available actions and options\npremake5 xcode4 # Generate Xcode project\npremake5 clean # Clean generated files",
-      "dependencies": "windows"
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "cross-platform",
+        "file-input",
+        "file-output",
+        "automation",
+        "development",
+        "compilation",
+        "windows"
+      ]
     }
-  },
-  "tags": ["build", "generator", "cross-platform", "visual-studio", "xcode", "makefiles", "lua", "ide"]
+  }
 }

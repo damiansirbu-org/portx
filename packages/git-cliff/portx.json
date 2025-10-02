@@ -7,9 +7,18 @@
     "git-cliff": {
       "path": "git-cliff.exe",
       "description": "Smart changelog generator from git history using conventional commits with templating support",
-      "usage": "git-cliff\\ngit-cliff --tag v1.0.0\\ngit-cliff --latest\\ngit-cliff --config cliff.toml",
-      "dependencies": "windows"
+      "usage": "git-cliff\ngit-cliff --tag v1.0.0\ngit-cliff --latest\ngit-cliff --config cliff.toml",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "git",
+        "automation",
+        "file-output",
+        "config-input",
+        "documentation",
+        "development",
+        "stdout-output"
+      ]
     }
-  },
-  "tags": ["git", "changelog", "conventional-commits", "generator", "versioning", "rust", "automation", "templating"]
+  }
 }

@@ -8,8 +8,15 @@
       "path": "make_f2fs.exe",
       "description": "F2FS formatter with encryption and zoned block device support",
       "usage": "make_f2fs -f -l system /dev/sdX # Format with label and force\\nmake_f2fs -O encrypt -C utf8:strict /dev/sdX # Encrypted with casefolding\\nmake_f2fs -s 1 -z 4 -o 7 /dev/sdX # Custom segments/zones/overprovision\\nmake_f2fs -e mp3,mp4,jpg -E db,log /dev/sdX # Hot/cold file extensions\\nmake_f2fs -T 1234567890 -U $(uuidgen) /dev/sdX # Custom timestamp and UUID",
-      "dependencies": "windows"
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "filesystem",
+        "encryptor",
+        "binary-input",
+        "binary-output",
+        "development"
+      ]
     }
-  },
-  "tags": ["android", "filesystem", "native", "system"]
+  }
 }

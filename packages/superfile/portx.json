@@ -7,28 +7,21 @@
     "superfile": {
       "path": "spf.exe",
       "description": "Modern terminal file manager with advanced navigation, file operations, customizable hotkeys, and beautiful interface",
-      "usage": "superfile # Launch file manager\\nsuperfile /path/to/directory # Open specific directory\\nsuperfile --print-last-dir # Print last directory on exit\\nsuperfile --fix-hotkeys # Fix hotkey configuration\\nsuperfile path-list # Show config paths",
-      "dependencies": "native"
+      "usage": "superfile # Launch file manager\nsuperfile /path/to/directory # Open specific directory\nsuperfile --print-last-dir # Print last directory on exit\nsuperfile --fix-hotkeys # Fix hotkey configuration\nsuperfile path-list # Show config paths",
+      "dependencies": "native",
+      "tags": [
+        "cli",
+        "tui",
+        "manager",
+        "interactive",
+        "directory-input",
+        "file-input",
+        "tui-output",
+        "file-output",
+        "productivity",
+        "navigation",
+        "windows"
+      ]
     }
-  },
-  "tags": [
-    "file-manager",
-    "terminal",
-    "modern",
-    "fancy",
-    "navigation",
-    "filesystem",
-    "directory",
-    "files",
-    "explorer",
-    "tui",
-    "customizable",
-    "hotkeys",
-    "interface",
-    "go",
-    "cross-platform",
-    "beautiful",
-    "advanced",
-    "console"
-  ]
+  }
 }

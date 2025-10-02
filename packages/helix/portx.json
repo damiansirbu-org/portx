@@ -7,9 +7,16 @@
     "hx": {
       "path": "hx.exe",
       "description": "Helix editor with tree-sitter syntax highlighting and LSP support",
-      "usage": "hx file.rs # Edit Rust file with syntax highlighting\\nhx --health # Check LSP server status\\nhx --tutor # Interactive tutorial\\nSpace+f - File picker, Space+b - Buffer picker, Ctrl+c - Command palette",
-      "dependencies": "windows"
+      "usage": "hx file.rs # Edit Rust file with syntax highlighting\nhx --health # Check LSP server status\nhx --tutor # Interactive tutorial\nSpace+f - File picker, Space+b - Buffer picker, Ctrl+c - Command palette",
+      "dependencies": "windows",
+      "tags": [
+        "tui",
+        "editor",
+        "development",
+        "file-input",
+        "file-output",
+        "interactive"
+      ]
     }
-  },
-  "tags": ["editor", "text", "lsp", "tree-sitter", "syntax-highlighting", "rust", "vim-like", "terminal"]
+  }
 }

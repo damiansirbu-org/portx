@@ -7,9 +7,17 @@
     "miniserve": {
       "path": "miniserve.exe",
       "description": "Fast, self-contained HTTP file server written in Rust - perfect for quick file sharing",
-      "usage": "miniserve .\\nminiserve --port 8080 /path/to/files\\nminiserve --upload-files /tmp\\nminiserve --auth user:pass ./docs",
-      "dependencies": "windows"
+      "usage": "miniserve .\nminiserve --port 8080 /path/to/files\nminiserve --upload-files /tmp\nminiserve --auth user:pass ./docs",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "file-input",
+        "network-output",
+        "development",
+        "testing",
+        "portable",
+        "windows"
+      ]
     }
-  },
-  "tags": ["http", "server", "files", "sharing", "rust", "web", "development", "cli"]
+  }
 }

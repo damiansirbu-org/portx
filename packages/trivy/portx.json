@@ -8,8 +8,19 @@
       "path": "trivy.exe",
       "description": "Security scanner with vulnerability detection, secrets scanning, and misconfiguration analysis for containers and K8s",
       "usage": "trivy config Dockerfile | trivy image nginx:latest | trivy fs --security-checks vuln,secret .",
-      "dependencies": "native"
+      "dependencies": "native",
+      "tags": [
+        "cli",
+        "scanner",
+        "file-input",
+        "directory-input",
+        "json-output",
+        "stdout-output",
+        "security",
+        "compliance",
+        "devops",
+        "windows"
+      ]
     }
-  },
-  "tags": ["security", "vulnerability", "scanner", "docker", "kubernetes", "secrets"]
+  }
 }

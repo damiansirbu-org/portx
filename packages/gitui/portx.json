@@ -7,9 +7,16 @@
     "gitui": {
       "path": "gitui.exe",
       "description": "Blazing fast terminal UI for Git with keyboard-driven workflow",
-      "usage": "gitui # Launch Git TUI\\nTab - Switch between panels\\nc - Commit changes\\nf - Fetch from remote\\np - Push to remote\\nh - Help with keybindings",
-      "dependencies": "windows"
+      "usage": "gitui # Launch Git TUI\nTab - Switch between panels\nc - Commit changes\nf - Fetch from remote\np - Push to remote\nh - Help with keybindings",
+      "dependencies": "windows",
+      "tags": [
+        "tui",
+        "git",
+        "interactive",
+        "development",
+        "navigation",
+        "cli"
+      ]
     }
-  },
-  "tags": ["git", "tui", "terminal", "ui", "interactive", "rust", "keyboard", "workflow"]
+  }
 }

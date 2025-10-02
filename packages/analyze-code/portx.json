@@ -8,15 +8,19 @@
       "path": "analyze-code.sh",
       "description": "Main code analysis tool that executes inspect and verify analyzers on source files",
       "usage": "analyze-code <file_path> [inspect|verify|both] - Analyze source files with configurable analyzer modes",
-      "dependencies": "cross-platform"
+      "dependencies": "cross-platform",
+      "tags": [
+        "cli",
+        "analyzer",
+        "file-input",
+        "text-input",
+        "stdout-output",
+        "formatted-output",
+        "file-output",
+        "security",
+        "development",
+        "modular"
+      ]
     }
-  },
-  "tags": [
-    "analysis",
-    "code-quality",
-    "static-analysis",
-    "linting",
-    "security",
-    "development"
-  ]
+  }
 }

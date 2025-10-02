@@ -8,8 +8,17 @@
       "path": "bazel.exe",
       "description": "Extensible build system supporting multiple languages with hermetic builds, remote execution, and incremental compilation",
       "usage": "bazel build //... # Build all targets\\nbazel test //... # Run all tests\\nbazel run //main:hello # Run specific target\\nbazel query 'deps(//main:hello)' # Query dependencies\\nbazel clean --expunge # Clean all build artifacts",
-      "dependencies": "windows"
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "distributed",
+        "incremental",
+        "config-input",
+        "file-input",
+        "stdout-output",
+        "file-output",
+        "development"
+      ]
     }
-  },
-  "tags": ["build", "scalable", "google", "distributed", "caching", "hermetic", "enterprise", "monorepo"]
+  }
 }

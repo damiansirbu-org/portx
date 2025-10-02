@@ -8,8 +8,14 @@
       "path": "curlie.exe",
       "description": "Modern curl frontend combining curl's power with HTTPie's ease of use - supports all curl features with syntax highlighting and intuitive header syntax",
       "usage": "curlie GET httpbin.org/json # Simple GET request\ncurlie POST httpbin.org/post name=John age:=25 # JSON POST with HTTPie syntax\ncurlie -L httpbin.org/redirect/3 # Follow redirects like curl\ncurlie --data '{\"key\":\"value\"}' -H Content-Type:application/json POST api.com/data # Raw JSON with headers",
-      "dependencies": "windows"
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "client",
+        "api",
+        "streaming",
+        "network-input"
+      ]
     }
-  },
-  "tags": ["http", "curl", "httpie", "api", "client", "colorful"]
+  }
 }

@@ -7,9 +7,18 @@
     "kube-score": {
       "path": "kube-score.exe",
       "description": "Kubernetes object analysis for security and reliability best practices",
-      "usage": "kube-score score deployment.yaml # Score single file\\nkube-score score --output-format ci # CI-friendly output\\nkube-score score --ignore-test pod-networkpolicy manifests/ # Ignore specific tests\\nkubectl apply -f - --dry-run=client | kube-score score -",
-      "dependencies": "windows"
+      "usage": "kube-score score deployment.yaml # Score single file\nkube-score score --output-format ci # CI-friendly output\nkube-score score --ignore-test pod-networkpolicy manifests/ # Ignore specific tests\nkubectl apply -f - --dry-run=client | kube-score score -",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "container",
+        "analyzer",
+        "security",
+        "file-input",
+        "stdin-input",
+        "stdout-output",
+        "automation"
+      ]
     }
-  },
-  "tags": ["kubernetes", "analysis", "security", "reliability", "best-practices", "scoring", "go", "devops"]
+  }
 }

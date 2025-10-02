@@ -8,8 +8,15 @@
       "path": "python/Scripts/kaskade.exe",
       "description": "Visual Kafka TUI that replaces web UIs - create/delete topics, monitor consumers, filter messages with keyboard-only navigation",
       "usage": "kaskade admin -b kafka:9092 | kaskade consumer -b kafka:9092 -t user.events --deserializer json | kaskade consumer -b kafka:9092 -t orders.stream --filter key=user123",
-      "dependencies": "windows"
+      "dependencies": "windows",
+      "tags": [
+        "tui",
+        "streaming",
+        "visualization",
+        "monitoring",
+        "network-input",
+        "interactive"
+      ]
     }
-  },
-  "tags": ["kafka", "streaming", "tui", "admin", "comprehensive", "schema-registry", "management", "apache-kafka"]
+  }
 }

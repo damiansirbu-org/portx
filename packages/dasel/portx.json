@@ -8,8 +8,12 @@
       "path": "dasel.exe",
       "description": "Universal data selector supporting JSON, YAML, TOML, XML, CSV with unified query syntax and format conversion - up to 3x faster than jq with zero runtime dependencies",
       "usage": "dasel -f config.yaml '.database.host' # Query any format\ndasel -f data.json '.users.[0].name' # Extract nested values\ndasel -f input.csv -w yaml # Convert CSV to YAML\ndasel -f config.toml '.servers' -w json # Convert TOML to JSON\ndasel -f data.json put '.timestamp' -v '2023-01-01' # Modify data in place",
-      "dependencies": "windows"
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "file-input",
+        "file-output"
+      ]
     }
-  },
-  "tags": ["json", "yaml", "toml", "xml", "csv", "query"]
+  }
 }

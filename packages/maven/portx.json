@@ -8,14 +8,33 @@
       "path": "bin/mvn.cmd",
       "description": "Maven build automation tool for Java projects with dependency management, compilation, testing, and deployment",
       "usage": "mvn clean install | mvn dependency:tree | mvn compile test | mvn package -DskipTests",
-      "dependencies": "windows"
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "automation",
+        "manager",
+        "development",
+        "compilation",
+        "testing",
+        "deployment",
+        "file-input",
+        "stdout-output",
+        "network-input"
+      ]
     },
     "mvnDebug": {
-      "path": "bin/mvnDebug.cmd", 
+      "path": "bin/mvnDebug.cmd",
       "description": "Maven with debug mode enabled for troubleshooting builds and plugin development",
       "usage": "mvnDebug clean compile | mvnDebug test | mvnDebug -X clean install",
-      "dependencies": "windows"
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "development",
+        "compilation",
+        "file-input",
+        "stdout-output",
+        "network-input"
+      ]
     }
-  },
-  "tags": ["maven", "java", "build", "automation", "dependency", "lifecycle"]
+  }
 }

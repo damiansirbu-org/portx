@@ -7,9 +7,20 @@
     "rustscan": {
       "path": "rustscan.exe",
       "description": "Ultra-fast port scanner with Nmap integration for network discovery",
-      "usage": "rustscan -a 192.168.1.1\\nrustscan -p 80,443,22 192.168.1.1\\nrustscan --ulimit 5000 192.168.1.0/24\\nrustscan -a target.com -- -sV",
-      "dependencies": "windows"
+      "usage": "rustscan -a 192.168.1.1\nrustscan -p 80,443,22 192.168.1.1\nrustscan --ulimit 5000 192.168.1.0/24\nrustscan -a target.com -- -sV",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "scanner",
+        "network-input",
+        "text-input",
+        "stdout-output",
+        "formatted-output",
+        "high-performance",
+        "security",
+        "automation",
+        "windows"
+      ]
     }
-  },
-  "tags": ["scanner", "port", "network", "nmap", "fast", "discovery", "security", "rust"]
+  }
 }

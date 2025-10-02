@@ -7,9 +7,15 @@
     "mkcert": {
       "path": "mkcert.exe",
       "description": "Zero-config tool to make locally trusted development certificates with any names - automatically creates and installs local CA",
-      "usage": "mkcert -install\\nmkcert localhost 127.0.0.1 ::1\\nmkcert example.com '*.example.com'\\nmkcert -uninstall",
-      "dependencies": "windows"
+      "usage": "mkcert -install\nmkcert localhost 127.0.0.1 ::1\nmkcert example.com '*.example.com'\nmkcert -uninstall",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "development",
+        "security",
+        "file-output",
+        "windows"
+      ]
     }
-  },
-  "tags": ["certificates", "ssl", "tls", "development", "https", "local", "ca", "security", "crypto"]
+  }
 }

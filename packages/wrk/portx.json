@@ -8,8 +8,24 @@
       "path": "go-wrk.exe",
       "description": "High-performance HTTP load testing tool with goroutine-based concurrency and SSL/TLS support for web application benchmarking",
       "usage": "wrk -c 100 -d 30 http://example.com\nwrk -c 50 -d 10 -M POST -body @data.json http://api.example.com\nwrk -c 200 -d 60 -H \"Authorization: Bearer token\" https://secure.example.com\nwrk -c 10 -d 5 -no-ka http://example.com\nwrk -f playbook.txt -c 50 -d 30",
-      "dependencies": "windows"
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "tester",
+        "client",
+        "benchmarker",
+        "url-input",
+        "file-input",
+        "http-input",
+        "network-input",
+        "stdout-output",
+        "formatted-output",
+        "metrics-output",
+        "performance",
+        "testing",
+        "benchmarking",
+        "windows"
+      ]
     }
-  },
-  "tags": ["http", "benchmarking", "load-testing", "performance", "concurrency", "go", "web", "analytics"]
+  }
 }

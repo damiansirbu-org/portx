@@ -7,9 +7,24 @@
     "watchexec": {
       "path": "watchexec.exe",
       "description": "File system watcher that executes commands when files change - supports filters and debouncing",
-      "usage": "watchexec 'echo changed'\\nwatchexec -w src 'cargo build'\\nwatchexec --restart 'python app.py'\\nwatchexec -e js,css 'npm run build'",
-      "dependencies": "windows"
+      "usage": "watchexec 'echo changed'\nwatchexec -w src 'cargo build'\nwatchexec --restart 'python app.py'\nwatchexec -e js,css 'npm run build'",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "monitor",
+        "processor",
+        "automation",
+        "builder",
+        "directory-input",
+        "filesystem-input",
+        "file-input",
+        "stdout-output",
+        "command-output",
+        "process-output",
+        "development",
+        "monitoring",
+        "windows"
+      ]
     }
-  },
-  "tags": ["file-watcher", "automation", "build", "development", "filesystem", "monitor", "rust", "universal"]
+  }
 }

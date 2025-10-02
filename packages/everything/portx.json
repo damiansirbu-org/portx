@@ -9,19 +9,17 @@
       "path": "es.exe",
       "description": "Everything Search CLI - instant file search with regex, filters, and export capabilities",
       "usage": "es \"search term\" | es -r \"regex.*pattern\" | es -folder-only \"dirname\" | es -export results.txt \"query\"",
-      "dependencies": "windows"
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "searcher",
+        "manager",
+        "windows",
+        "stdout-output",
+        "file-output",
+        "interactive-input",
+        "filesystem"
+      ]
     }
-  },
-  "tags": [
-    "search",
-    "files", 
-    "filesystem",
-    "instant",
-    "indexing",
-    "cli",
-    "windows",
-    "productivity",
-    "file-management",
-    "everything"
-  ]
+  }
 }

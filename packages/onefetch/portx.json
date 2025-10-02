@@ -7,9 +7,20 @@
     "onefetch": {
       "path": "onefetch.exe",
       "description": "Beautiful git repository analyzer showing language stats, contributors, and project details",
-      "usage": "onefetch\\nonefetch --help\\nonefetch --no-art\\nonefetch --languages\\nonefetch --output json",
-      "dependencies": "windows"
+      "usage": "onefetch\nonefetch --help\nonefetch --no-art\nonefetch --languages\nonefetch --output json",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "analyzer",
+        "directory-input",
+        "git-input",
+        "stdout-output",
+        "json-output",
+        "formatted-output",
+        "development",
+        "analysis",
+        "windows"
+      ]
     }
-  },
-  "tags": ["git", "repository", "summary", "statistics", "languages", "rust", "analysis", "project"]
+  }
 }

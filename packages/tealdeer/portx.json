@@ -7,9 +7,19 @@
     "tldr": {
       "path": "tealdeer.exe",
       "description": "Lightning-fast tldr client in Rust - get quick examples for any command with beautiful syntax highlighting",
-      "usage": "tldr ls\\ntldr --update\\ntldr --list\\ntldr -p linux tar\\ntldr --random",
-      "dependencies": "windows"
+      "usage": "tldr ls\ntldr --update\ntldr --list\ntldr -p linux tar\ntldr --random",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "text-input",
+        "network-input",
+        "stdout-output",
+        "formatted-output",
+        "documentation",
+        "productivity",
+        "development",
+        "windows"
+      ]
     }
-  },
-  "tags": ["tldr", "documentation", "examples", "help", "rust", "fast", "highlighting", "manual"]
+  }
 }

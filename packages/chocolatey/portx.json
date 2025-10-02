@@ -8,8 +8,16 @@
       "path": "choco.exe",
       "description": "The Package Manager for Windows - automates installation, upgrade, and removal of Windows software packages",
       "usage": "choco install package\\nchoco upgrade all\\nchoco list --local-only\\nchoco uninstall package\\nchoco search keyword",
-      "dependencies": "windows"
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "manager",
+        "installer",
+        "automation",
+        "stdout-output",
+        "config-input",
+        "network-input"
+      ]
     }
-  },
-  "tags": ["package-manager", "windows", "installer", "automation", "software", "management"]
+  }
 }

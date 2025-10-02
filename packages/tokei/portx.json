@@ -7,9 +7,19 @@
     "tokei": {
       "path": "tokei.exe",
       "description": "Display statistics about code, including lines of code, comments, and blanks by language",
-      "usage": "tokei .\\ntokei --files src/\\ntokei --output json .\\ntokei --exclude '*.test.js' .\\ntokei --sort lines .",
-      "dependencies": "windows"
+      "usage": "tokei .\ntokei --files src/\ntokei --output json .\ntokei --exclude '*.test.js' .\ntokei --sort lines .",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "directory-input",
+        "file-input",
+        "json-output",
+        "stdout-output",
+        "formatted-output",
+        "analysis",
+        "development",
+        "windows"
+      ]
     }
-  },
-  "tags": ["code", "statistics", "lines", "counter", "analysis", "programming", "languages", "rust"]
+  }
 }

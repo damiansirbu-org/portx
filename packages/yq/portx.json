@@ -7,9 +7,24 @@
     "yq": {
       "path": "yq.exe",
       "description": "Portable YAML processor with jq-like syntax supporting multiple formats (YAML, JSON, XML, CSV, TSV, properties)",
-      "usage": "yq '.name' config.yaml\\nyq -i '.version = \"2.0\"' config.yaml\\nyq -o json config.yaml\\nyq '.servers[] | select(.env == \"prod\")' config.yaml\\nyq -P '.databases.*.host' config.yaml",
-      "dependencies": "windows"
+      "usage": "yq '.name' config.yaml\nyq -i '.version = \"2.0\"' config.yaml\nyq -o json config.yaml\nyq '.servers[] | select(.env == \"prod\")' config.yaml\nyq -P '.databases.*.host' config.yaml",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "processor",
+        "converter",
+        "file-input",
+        "yaml-input",
+        "json-input",
+        "xml-input",
+        "csv-input",
+        "stdout-output",
+        "file-output",
+        "formatted-output",
+        "data",
+        "configuration",
+        "windows"
+      ]
     }
-  },
-  "tags": ["yaml", "json", "xml", "csv", "processor", "config", "jq-syntax", "converter"]
+  }
 }

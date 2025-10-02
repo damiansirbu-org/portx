@@ -7,9 +7,16 @@
     "k9s": {
       "path": "k9s.exe",
       "description": "Terminal-based Kubernetes UI with real-time cluster monitoring",
-      "usage": "k9s # Launch Kubernetes TUI\\n:pods # Navigate to pods view\\n:services # Navigate to services\\n:logs # View pod logs\\nd - Describe resource, y - View YAML, Ctrl+d - Delete",
-      "dependencies": "windows"
+      "usage": "k9s # Launch Kubernetes TUI\n:pods # Navigate to pods view\n:services # Navigate to services\n:logs # View pod logs\nd - Describe resource, y - View YAML, Ctrl+d - Delete",
+      "dependencies": "windows",
+      "tags": [
+        "tui",
+        "container",
+        "monitor",
+        "interactive",
+        "navigation",
+        "file-output"
+      ]
     }
-  },
-  "tags": ["kubernetes", "tui", "terminal", "ui", "monitoring", "cluster", "go", "devops"]
+  }
 }

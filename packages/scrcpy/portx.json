@@ -7,15 +7,32 @@
     "adb": {
       "path": "adb.exe",
       "description": "Android Debug Bridge for device communication and debugging",
-      "usage": "adb devices\\nadb shell\\nadb install app.apk\\nadb pull /sdcard/file.txt .\\nadb push file.txt /sdcard/",
-      "dependencies": "windows"
+      "usage": "adb devices\nadb shell\nadb install app.apk\nadb pull /sdcard/file.txt .\nadb push file.txt /sdcard/",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "manager",
+        "network-input",
+        "file-input",
+        "stdout-output",
+        "development",
+        "automation",
+        "windows"
+      ]
     },
     "scrcpy": {
       "path": "scrcpy.exe",
       "description": "Display and control Android devices over USB/WiFi with low latency",
-      "usage": "scrcpy\\nscrcpy -s DEVICE_ID\\nscrcpy --max-size 1024\\nscrcpy --record file.mp4\\nscrcpy --turn-screen-off",
-      "dependencies": "windows"
+      "usage": "scrcpy\nscrcpy -s DEVICE_ID\nscrcpy --max-size 1024\nscrcpy --record file.mp4\nscrcpy --turn-screen-off",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "gui",
+        "network-input",
+        "video-output",
+        "development",
+        "windows"
+      ]
     }
-  },
-  "tags": ["android", "mirroring", "control", "debugging", "mobile", "screen"]
+  }
 }

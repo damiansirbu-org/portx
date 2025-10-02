@@ -7,9 +7,19 @@
     "gitleaks": {
       "path": "gitleaks.exe",
       "description": "SAST tool for detecting hardcoded secrets like passwords, api keys, and tokens in git repositories",
-      "usage": "gitleaks detect\\ngitleaks detect --source .\\ngitleaks detect --verbose\\ngitleaks protect --staged",
-      "dependencies": "windows"
+      "usage": "gitleaks detect\ngitleaks detect --source .\ngitleaks detect --verbose\ngitleaks protect --staged",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "security",
+        "scanner",
+        "git",
+        "file-input",
+        "vulnerability",
+        "automation",
+        "development",
+        "stdout-output"
+      ]
     }
-  },
-  "tags": ["security", "secrets", "scanner", "git", "sast", "detection", "passwords", "api-keys", "tokens"]
+  }
 }

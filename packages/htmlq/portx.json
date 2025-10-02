@@ -8,8 +8,15 @@
       "path": "htmlq.exe",
       "description": "Command-line HTML processor that applies CSS selectors to extract data, manipulate DOM elements, and format output",
       "usage": "htmlq 'title' < index.html\nhtmlq --text 'p' < page.html\nhtmlq --attribute href 'a' < links.html\nhtmlq --pretty 'div.content' < doc.html\nhtmlq --remove-nodes 'script' 'body' < clean.html\ncurl -s https://example.com | htmlq 'h1, h2'",
-      "dependencies": "windows"
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "web",
+        "processor",
+        "file-input",
+        "stdin-input",
+        "stdout-output"
+      ]
     }
-  },
-  "tags": ["html", "css", "selector", "parser", "extraction", "web", "rust", "processing"]
+  }
 }

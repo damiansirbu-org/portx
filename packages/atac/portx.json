@@ -8,8 +8,21 @@
       "path": "atac.exe",
       "description": "TUI API client (Postman alternative) with async requests, authentication, and collection management",
       "usage": "atac\\natac --help\\natac --version\\natac --directory my-collection",
-      "dependencies": "windows"
+      "dependencies": "windows",
+      "tags": [
+        "tui",
+        "api",
+        "client",
+        "interactive-input",
+        "config-input",
+        "file-input",
+        "network-input",
+        "formatted-output",
+        "json-output",
+        "manager",
+        "async",
+        "development"
+      ]
     }
-  },
-  "tags": ["api", "client", "tui", "postman", "http", "rust", "terminal", "async"]
+  }
 }

@@ -7,9 +7,22 @@
     "pnpm": {
       "path": "pnpm.exe",
       "description": "Performant npm alternative with content-addressable storage and strict dependency isolation",
-      "usage": "pnpm install\\npnpm add package-name\\npnpm run build\\npnpm create vite my-app\\npnpm store prune",
-      "dependencies": "windows"
+      "usage": "pnpm install\npnpm add package-name\npnpm run build\npnpm create vite my-app\npnpm store prune",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "manager",
+        "builder",
+        "file-input",
+        "json-input",
+        "network-input",
+        "stdout-output",
+        "file-output",
+        "automation",
+        "development",
+        "performance",
+        "windows"
+      ]
     }
-  },
-  "tags": ["package", "manager", "npm", "performance", "dependency", "isolation", "storage", "javascript"]
+  }
 }

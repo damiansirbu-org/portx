@@ -8,20 +8,52 @@
       "path": "bin/dot.exe",
       "description": "Hierarchical or layered drawings of directed graphs",
       "usage": "dot -Tpng input.dot -o output.png",
-      "dependencies": "windows"
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "generator",
+        "file-input",
+        "file-output",
+        "converter",
+        "text-input",
+        "binary-output",
+        "automation",
+        "documentation"
+      ]
     },
     "neato": {
-      "path": "bin/neato.exe", 
+      "path": "bin/neato.exe",
       "description": "Spring model layouts for undirected graphs",
       "usage": "neato -Tpng input.dot -o output.png",
-      "dependencies": "windows"
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "generator",
+        "file-input",
+        "file-output",
+        "converter",
+        "text-input",
+        "binary-output",
+        "automation",
+        "documentation"
+      ]
     },
     "circo": {
       "path": "bin/circo.exe",
-      "description": "Circular layout for graphs", 
+      "description": "Circular layout for graphs",
       "usage": "circo -Tpng input.dot -o output.png",
-      "dependencies": "windows"
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "generator",
+        "file-input",
+        "file-output",
+        "converter",
+        "text-input",
+        "binary-output",
+        "automation",
+        "documentation"
+      ]
     }
-  },
-  "tags": ["visualization", "graph", "diagram", "native", "plotting", "dot", "layout", "network"]
+  }
 }

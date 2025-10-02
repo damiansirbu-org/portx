@@ -7,9 +7,17 @@
     "gh-dash": {
       "path": "gh-dash.exe",
       "description": "Terminal UI dashboard for GitHub CLI - view and manage pull requests, issues, and repositories in a beautiful interface",
-      "usage": "gh-dash\\ngh-dash --config ~/.config/gh-dash/config.yml\\ngh extension install dlvhdr/gh-dash",
-      "dependencies": "windows"
+      "usage": "gh-dash\ngh-dash --config ~/.config/gh-dash/config.yml\ngh extension install dlvhdr/gh-dash",
+      "dependencies": "windows",
+      "tags": [
+        "tui",
+        "git",
+        "network-input",
+        "interactive",
+        "config-input",
+        "web",
+        "api"
+      ]
     }
-  },
-  "tags": ["github", "dashboard", "cli", "terminal", "ui", "pull-requests", "issues", "repositories", "gh-extension"]
+  }
 }

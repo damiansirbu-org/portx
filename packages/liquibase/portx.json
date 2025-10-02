@@ -7,9 +7,16 @@
     "liquibase": {
       "path": "liquibase.bat",
       "description": "Database migration and schema versioning tool",
-      "usage": "liquibase update\\nliquibase --changeLogFile=changelog.xml update\\nliquibase --changeLogFile=changelog.xml rollback --count=1\\nliquibase --changeLogFile=changelog.xml generateChangeLog\\nliquibase --changeLogFile=changelog.xml status",
-      "dependencies": "windows"
+      "usage": "liquibase update\nliquibase --changeLogFile=changelog.xml update\nliquibase --changeLogFile=changelog.xml rollback --count=1\nliquibase --changeLogFile=changelog.xml generateChangeLog\nliquibase --changeLogFile=changelog.xml status",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "database",
+        "file-input",
+        "config-input",
+        "network-input",
+        "automation"
+      ]
     }
-  },
-  "tags": ["database", "migration", "schema", "java", "devops", "versioning", "changelog", "sql"]
+  }
 }

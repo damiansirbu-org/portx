@@ -7,9 +7,20 @@
     "skopeo": {
       "path": "skopeo.exe",
       "description": "Inspect, copy, and manage container images across registries without Docker daemon",
-      "usage": "skopeo inspect docker://alpine:latest\\nskopeo copy docker://alpine:latest oci:./alpine\\nskopeo list-tags docker://nginx\\nskopeo delete docker://registry.com/image:tag\\nskopeo sync --src docker --dest dir registry.com/repo ./backup",
-      "dependencies": "windows"
+      "usage": "skopeo inspect docker://alpine:latest\nskopeo copy docker://alpine:latest oci:./alpine\nskopeo list-tags docker://nginx\nskopeo delete docker://registry.com/image:tag\nskopeo sync --src docker --dest dir registry.com/repo ./backup",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "text-input",
+        "network-input",
+        "json-output",
+        "directory-output",
+        "stdout-output",
+        "container",
+        "development",
+        "automation",
+        "windows"
+      ]
     }
-  },
-  "tags": ["container", "image", "docker", "registry", "inspection", "manipulation", "oci", "go"]
+  }
 }

@@ -7,15 +7,46 @@
     "yara32": {
       "path": "yara32.exe",
       "description": "Scan files and processes using YARA rules to identify malware and suspicious patterns",
-      "usage": "yara32 rules.yar suspicious_file.exe\\nyara32 -r rules.yar /path/to/scan\\nyara32 -p 1234 rules.yar\\nyara32 -s rules.yar file.exe\\nyara32 -g rules.yar file.exe",
-      "dependencies": "windows"
+      "usage": "yara32 rules.yar suspicious_file.exe\nyara32 -r rules.yar /path/to/scan\nyara32 -p 1234 rules.yar\nyara32 -s rules.yar file.exe\nyara32 -g rules.yar file.exe",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "scanner",
+        "forensics",
+        "processor",
+        "file-input",
+        "rule-input",
+        "directory-input",
+        "process-input",
+        "stdout-output",
+        "formatted-output",
+        "match-output",
+        "security",
+        "malware",
+        "windows"
+      ]
     },
     "yarac32": {
       "path": "yarac32.exe",
       "description": "Compile YARA rules into binary format for faster scanning and distribution",
-      "usage": "yarac32 rules.yar rules.yarc\\nyarac32 -d symbol=value rules.yar\\nyarac32 -n namespace rules.yar\\nyarac32 -w rules.yar",
-      "dependencies": "windows"
+      "usage": "yarac32 rules.yar rules.yarc\nyarac32 -d symbol=value rules.yar\nyarac32 -n namespace rules.yar\nyarac32 -w rules.yar",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "optimizer",
+        "builder",
+        "processor",
+        "file-input",
+        "rule-input",
+        "text-input",
+        "file-output",
+        "binary-output",
+        "compiled-output",
+        "security",
+        "development",
+        "compilation",
+        "windows"
+      ]
     }
-  },
-  "tags": ["malware", "pattern", "matching", "security", "rules", "scanning", "forensics", "c"]
+  }
 }

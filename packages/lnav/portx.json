@@ -8,8 +8,17 @@
       "path": "bin/lnav.exe",
       "description": "Advanced ncurses-based log file navigator with automatic format detection, SQL querying, timeline visualization, and intelligent multi-file correlation",
       "usage": "lnav /var/log/*.log | lnav -c \"SELECT * FROM log WHERE level = \\\"ERROR\\\"\" | lnav -t access.log",
-      "dependencies": "native"
+      "dependencies": "native",
+      "tags": [
+        "tui",
+        "analyzer",
+        "viewer",
+        "file-input",
+        "interactive",
+        "visualization",
+        "navigation",
+        "monitoring"
+      ]
     }
-  },
-  "tags": ["logs", "analysis", "navigator", "sql", "timeline", "ncurses"]
+  }
 }

@@ -7,9 +7,21 @@
     "oha": {
       "path": "oha.exe",
       "description": "Lousy HTTP load generator - fast and efficient load testing tool with colored output and real-time statistics display",
-      "usage": "oha -n 1000 -c 10 https://example.com\\noha -z 10s -c 20 https://api.example.com\\noha --no-tui -n 100 https://example.com",
-      "dependencies": "windows"
+      "usage": "oha -n 1000 -c 10 https://example.com\noha -z 10s -c 20 https://api.example.com\noha --no-tui -n 100 https://example.com",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "tui",
+        "tester",
+        "network-input",
+        "text-input",
+        "tui-output",
+        "stdout-output",
+        "formatted-output",
+        "testing",
+        "performance",
+        "windows"
+      ]
     }
-  },
-  "tags": ["load", "testing", "http", "benchmark", "performance", "rust", "apache-bench", "ab", "stress"]
+  }
 }

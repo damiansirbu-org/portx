@@ -7,9 +7,21 @@
     "tfsec": {
       "path": "tfsec.exe",
       "description": "Static analysis security scanner for Terraform code - uses static analysis of Terraform templates to spot potential misconfigurations",
-      "usage": "tfsec .\\ntfsec --format json\\ntfsec --exclude AWS001\\ntfsec --config-file tfsec.yml",
-      "dependencies": "windows"
+      "usage": "tfsec .\ntfsec --format json\ntfsec --exclude AWS001\ntfsec --config-file tfsec.yml",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "scanner",
+        "file-input",
+        "directory-input",
+        "config-input",
+        "json-output",
+        "stdout-output",
+        "security",
+        "devops",
+        "compliance",
+        "windows"
+      ]
     }
-  },
-  "tags": ["terraform", "security", "scanner", "infrastructure", "iac", "static-analysis", "aqua", "misconfiguration"]
+  }
 }

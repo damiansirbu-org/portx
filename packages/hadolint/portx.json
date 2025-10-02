@@ -8,8 +8,18 @@
       "path": "hadolint.exe",
       "description": "Dockerfile linter with best practices validation, security checks, and bash linting support",
       "usage": "hadolint Dockerfile | hadolint --config .hadolint.yaml Dockerfile | hadolint --ignore DL3008 Dockerfile",
-      "dependencies": "native"
+      "dependencies": "native",
+      "tags": [
+        "cli",
+        "container",
+        "security",
+        "validator",
+        "file-input",
+        "config-input",
+        "stdout-output",
+        "development",
+        "automation"
+      ]
     }
-  },
-  "tags": ["dockerfile", "linter", "docker", "container", "security", "best-practices"]
+  }
 }

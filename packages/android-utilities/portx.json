@@ -8,8 +8,17 @@
       "path": "etc1tool.exe",
       "description": "ETC1 texture compression for OpenGL ES performance optimization",
       "usage": "etc1tool texture.png --encode -o compressed.pkm # Compress to ETC1 with header\\netc1tool texture.png --encodeNoHeader -o raw.etc1 # Raw ETC1 data without header\\netc1tool compressed.pkm --decode -o output.png # Decompress to PNG\\netc1tool input.png --encode --showDifference diff.png # Show compression artifacts\\netc1tool batch/*.png --encode # Batch compress all PNG files",
-      "dependencies": "windows"
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "compressor",
+        "graphics",
+        "file-input",
+        "file-output",
+        "binary-input",
+        "binary-output",
+        "processor"
+      ]
     }
-  },
-  "tags": ["android", "profiling", "native", "graphics"]
+  }
 }

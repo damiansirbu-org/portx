@@ -7,9 +7,20 @@
     "tre": {
       "path": "tre.exe",
       "description": "Tree command improved with editor aliases, portable paths and deterministic output",
-      "usage": "tre\\ntre -e (editor aliases)\\ntre -p (portable)\\ntre -E pattern (exclude)\\ntre -L 3 (depth limit)",
-      "dependencies": "windows"
+      "usage": "tre\ntre -e (editor aliases)\ntre -p (portable)\ntre -E pattern (exclude)\ntre -L 3 (depth limit)",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "viewer",
+        "directory-input",
+        "stdout-output",
+        "formatted-output",
+        "navigation",
+        "filesystem",
+        "productivity",
+        "visualization",
+        "windows"
+      ]
     }
-  },
-  "tags": ["tree", "directory", "editor", "aliases", "rust", "filesystem", "navigation", "improved"]
+  }
 }

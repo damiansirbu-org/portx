@@ -7,9 +7,17 @@
     "jq": {
       "path": "jq.exe",
       "description": "The original and most comprehensive JSON processor with powerful functional programming constructs - industry standard for complex JSON transformations and queries",
-      "usage": "curl api.com/data | jq '.results[] | select(.score > 80)' # Filter API responses\\ncat logs.json | jq -s 'group_by(.level) | map({level: .[0].level, count: length})' # Aggregate log levels\\necho '{}' | jq '.timestamp = now | .uuid = \\\"3caab4e9-9d9d-4b82-8801-558a77004590\\\"' # Generate enriched JSON\\njq -r '.users[] | [.name, .email] | @csv' data.json # Convert to CSV",
-      "dependencies": "windows"
+      "usage": "curl api.com/data | jq '.results[] | select(.score > 80)' # Filter API responses\ncat logs.json | jq -s 'group_by(.level) | map({level: .[0].level, count: length})' # Aggregate log levels\necho '{}' | jq '.timestamp = now | .uuid = \\\"3caab4e9-9d9d-4b82-8801-558a77004590\\\"' # Generate enriched JSON\njq -r '.users[] | [.name, .email] | @csv' data.json # Convert to CSV",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "processor",
+        "file-input",
+        "stdin-input",
+        "stdout-output",
+        "csv-output",
+        "api"
+      ]
     }
-  },
-  "tags": ["json", "processor", "query", "transform", "functional", "standard", "c", "portable"]
+  }
 }

@@ -8,20 +8,39 @@
       "path": "crane.exe",
       "description": "OCI image registry manipulation tool for copying, inspecting, and modifying container images",
       "usage": "crane copy alpine:latest myregistry.com/alpine:latest\\ncrane ls gcr.io/distroless/base\\ncrane config alpine:latest | jq '.'\\ncrane append --new_layer layer.tar --new_tag myapp:v1 base:latest\\ncrane manifest alpine:latest",
-      "dependencies": "windows"
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "container",
+        "processor",
+        "network-input"
+      ]
     },
     "gcrane": {
       "path": "gcrane.exe",
       "description": "Google Container Registry (GCR) specific version of crane with enhanced authentication",
       "usage": "gcrane copy gcr.io/project/image:tag gcr.io/project/image:new\\ngcrane ls gcr.io/project\\ngcrane auth login",
-      "dependencies": "windows"
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "container",
+        "processor",
+        "network-input"
+      ]
     },
     "krane": {
       "path": "krane.exe",
       "description": "Kubernetes-focused crane variant for working with container images in K8s contexts",
       "usage": "krane copy image:latest localhost:5000/image:latest\\nkrane validate image:tag",
-      "dependencies": "windows"
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "container",
+        "validator",
+        "processor",
+        "network-input",
+        "development"
+      ]
     }
-  },
-  "tags": ["container", "registry", "oci", "google", "image", "manipulation", "docker", "ci-cd"]
+  }
 }

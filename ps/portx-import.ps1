@@ -33,6 +33,9 @@ Preview import actions
 
 [CmdletBinding(SupportsShouldProcess)]
 param(
+    [Parameter(Position=0)]
+    [string]$Command,
+    [Parameter(Position=1)]
     [string]$PackageName,
     [switch]$Clean
 )
@@ -323,8 +326,6 @@ function New-BashWrapper {
         [string]$DefaultArgs = ""
     )
 
-    Write-PortxDebug "New-BashWrapper called with PackageName='$PackageName', ToolName='$ToolName', ExecutablePath='$ExecutablePath', DefaultArgs='$DefaultArgs'"
-
     $wrapperPath = Join-Path -Path $Script:WrappersDir -ChildPath "posix" | Join-Path -ChildPath $ToolName
     $wrapperDir = Split-Path -Path $wrapperPath -Parent
 
@@ -332,80 +333,34 @@ function New-BashWrapper {
         New-Item -ItemType Directory -Path $wrapperDir -Force | Out-Null
     }
 
-    # Generate simplified wrapper using PathX for path conversion
-    $wrapperContent = @"
-#!/bin/bash
-# PORTX-WRAPPER: Auto-generated wrapper for $PackageName/$ToolName
-# Uses PathX for intelligent path conversion on WSL/Cygwin
-
-# Universal environment detection using uname -sr (clean and reliable)
-uname_output="`$(uname -sr)"
-case "`$uname_output" in
-    [Ll]inux*[Mm]icrosoft*)
-        PORTX_ROOT="/mnt/c/App/PORTX"
-        PORTX_ENV="WSL"
-        USE_PATHX=true
-        ;;
-    [Mm][Ii][Nn][Gg][Ww]*|[Mm][Ss][Yy][Ss]*)
-        PORTX_ROOT="/c/App/PORTX"
-        PORTX_ENV="MSYS2"
-        USE_PATHX=false
-        ;;
-    [Cc][Yy][Gg][Ww][Ii][Nn]*)
-        PORTX_ROOT="/cygdrive/c/App/PORTX"
-        PORTX_ENV="CYGWIN"
-        USE_PATHX=true
-        ;;
-    *)
-        PORTX_ROOT="/c/App/PORTX"
-        PORTX_ENV="UNKNOWN"
-        USE_PATHX=false
-        ;;
-esac
-
-# Package configuration
-PORTX_PACKAGE="$PackageName"
-PORTX_TOOL="$ToolName"
-PORTX_EXE_PATH="$ExecutablePath"
-PORTX_EXECUTABLE="`$PORTX_ROOT/packages/`$PORTX_PACKAGE/`$PORTX_EXE_PATH"
-
-# Add default arguments if specified
-FINAL_ARGS=()
-if [[ -n "$DefaultArgs" ]]; then
-    FINAL_ARGS=($DefaultArgs)
-fi
-FINAL_ARGS+=("`$@")
-
-# Use PathX for WSL/Cygwin, direct execution for MSYS2
-if [[ "`$USE_PATHX" == "true" ]]; then
-    # Convert environment to PathX platform parameter
-    case "`$PORTX_ENV" in
-        "WSL")    PATHX_PLATFORM="wsl" ;;
-        "CYGWIN") PATHX_PLATFORM="cygwin" ;;
-        *)        PATHX_PLATFORM="wsl" ;;  # fallback
-    esac
-
-    # Execute via PathX for intelligent path conversion
-    exec "`$PORTX_ROOT/pathx/bin/pathx.exe" --platform="`$PATHX_PLATFORM" "`$PORTX_EXECUTABLE" "`${FINAL_ARGS[@]}"
-else
-    # Direct execution for MSYS2 (no path conversion needed)
-    exec "`$PORTX_EXECUTABLE" "`${FINAL_ARGS[@]}"
-fi
-"@
-
-    # Use sanitized file writing to ensure proper line endings
-    Write-SanitizedFile -FilePath $wrapperPath -Content $wrapperContent
-
-    # Make executable on Unix systems
-    if (-not $Script:IsWindowsPlatform) {
-        try {
-            & chmod +x $wrapperPath
-        } catch {
-            Write-PortxWarn "Could not set executable permission on $wrapperPath"
-        }
+    # Determine if we need default args handling
+    $argsHandling = if ($DefaultArgs) {
+        "args=($DefaultArgs `"`$@`")"
+    } else {
+        "args=(`"`$@`")"
     }
 
-    Write-PortxDebug "Created enhanced bash wrapper: $wrapperPath"
+    # Generate compact wrapper
+    $wrapperContent = @"
+#!/bin/bash
+# PORTX: $PackageName/$ToolName
+case "`$(uname -sr)" in
+    [Ll]inux*[Mm]icrosoft*) r="/mnt/c/App/PORTX"; p="false" ;;
+    [Mm][Ii][Nn][Gg][Ww]*|[Mm][Ss][Yy][Ss]*) r="/c/App/PORTX"; p="false" ;;
+    [Cc][Yy][Gg][Ww][Ii][Nn]*) r="/cygdrive/c/App/PORTX"; p="cygwin" ;;
+    *) r="/c/App/PORTX"; p="false" ;;
+esac
+$argsHandling
+[[ "`$p" == "false" ]] && exec "`$r/packages/$PackageName/$ExecutablePath" "`${args[@]}" || exec "`$r/pathx/bin/pathx.exe" --platform="`$p" "`$r/packages/$PackageName/$ExecutablePath" "`${args[@]}"
+"@
+
+    Write-SanitizedFile -FilePath $wrapperPath -Content $wrapperContent
+
+    if (-not $Script:IsWindowsPlatform) {
+        try { & chmod +x $wrapperPath } catch { }
+    }
+
+    Write-PortxDebug "Created compact bash wrapper: $wrapperPath"
 }
 
 function New-CmdWrapper {
@@ -419,8 +374,6 @@ function New-CmdWrapper {
         [string]$DefaultArgs = ""
     )
 
-    Write-PortxDebug "New-CmdWrapper called with PackageName='$PackageName', ToolName='$ToolName', ExecutablePath='$ExecutablePath', DefaultArgs='$DefaultArgs'"
-
     $wrapperPath = Join-Path -Path $Script:WrappersDir -ChildPath "windows" | Join-Path -ChildPath "$ToolName.cmd"
     $wrapperDir = Split-Path -Path $wrapperPath -Parent
 
@@ -428,33 +381,16 @@ function New-CmdWrapper {
         New-Item -ItemType Directory -Path $wrapperDir -Force | Out-Null
     }
 
-    # Generate Windows CMD wrapper with variables (bash style)
-    if ($DefaultArgs) {
-        $wrapperContent = @"
+    # Generate compact CMD wrapper
+    $args = if ($DefaultArgs) { "$DefaultArgs %*" } else { "%*" }
+    $wrapperContent = @"
 @echo off
-rem PORTX-WRAPPER: Auto-generated wrapper for $PackageName/$ToolName with defaultArgs
-set PORTX_ROOT=C:\App\PORTX
-set PACKAGE_NAME=$PackageName
-set EXE_RELATIVE_PATH=$ExecutablePath
-set EXECUTABLE_PATH=%PORTX_ROOT%\packages\%PACKAGE_NAME%\%EXE_RELATIVE_PATH%
-
-"%EXECUTABLE_PATH%" $DefaultArgs %*
+rem PORTX: $PackageName/$ToolName
+"C:\App\PORTX\packages\$PackageName\$ExecutablePath" $args
 "@
-    } else {
-        $wrapperContent = @"
-@echo off
-rem PORTX-WRAPPER: Auto-generated wrapper for $PackageName/$ToolName
-set PORTX_ROOT=C:\App\PORTX
-set PACKAGE_NAME=$PackageName
-set EXE_RELATIVE_PATH=$ExecutablePath
-set EXECUTABLE_PATH=%PORTX_ROOT%\packages\%PACKAGE_NAME%\%EXE_RELATIVE_PATH%
-
-"%EXECUTABLE_PATH%" %*
-"@
-    }
 
     Set-Content -Path $wrapperPath -Value $wrapperContent -Encoding ASCII
-    Write-PortxDebug "Created CMD wrapper: $wrapperPath"
+    Write-PortxDebug "Created compact CMD wrapper: $wrapperPath"
 }
 
 function New-PowerShellWrapper {
@@ -468,8 +404,6 @@ function New-PowerShellWrapper {
         [string]$DefaultArgs = ""
     )
 
-    Write-PortxDebug "New-PowerShellWrapper called with PackageName='$PackageName', ToolName='$ToolName', ExecutablePath='$ExecutablePath', DefaultArgs='$DefaultArgs'"
-
     $wrapperPath = Join-Path -Path $Script:WrappersDir -ChildPath "windows" | Join-Path -ChildPath "$ToolName.ps1"
     $wrapperDir = Split-Path -Path $wrapperPath -Parent
 
@@ -477,27 +411,22 @@ function New-PowerShellWrapper {
         New-Item -ItemType Directory -Path $wrapperDir -Force | Out-Null
     }
 
-    # Generate cross-platform PowerShell wrapper
-    if ($DefaultArgs) {
-        $wrapperContent = @"
-# PORTX-WRAPPER: Auto-generated wrapper for $PackageName/$ToolName
-`$PortxRoot = if (`$env:WSL_DISTRO_NAME) { "/mnt/c/App/PORTX" } elseif (`$env:CYGWIN) { "/cygdrive/c/App/PORTX" } else { "C:\App\PORTX" }
-`$ExecutablePath = Join-Path `$PortxRoot "packages\$PackageName\$ExecutablePath"
-`$DefaultArgs = "$DefaultArgs" -split " "
-& `$ExecutablePath @DefaultArgs @args
-"@
+    # Generate compact PowerShell wrapper
+    $argsHandling = if ($DefaultArgs) {
+        "`$a = @('$($DefaultArgs -split ' ' -join "','")') + @args"
     } else {
-        $wrapperContent = @"
-# PORTX-WRAPPER: Auto-generated wrapper for $PackageName/$ToolName
-`$PortxRoot = if (`$env:WSL_DISTRO_NAME) { "/mnt/c/App/PORTX" } elseif (`$env:CYGWIN) { "/cygdrive/c/App/PORTX" } else { "C:\App\PORTX" }
-`$ExecutablePath = Join-Path `$PortxRoot "packages\$PackageName\$ExecutablePath"
-& `$ExecutablePath @args
-"@
+        "`$a = @args"
     }
 
-    # Use sanitized file writing to ensure proper line endings
+    $wrapperContent = @"
+# PORTX: $PackageName/$ToolName
+`$r = if (`$env:WSL_DISTRO_NAME) { "/mnt/c/App/PORTX" } elseif (`$env:CYGWIN) { "/cygdrive/c/App/PORTX" } else { "C:\App\PORTX" }
+$argsHandling
+& (Join-Path `$r "packages\$PackageName\$ExecutablePath") @a
+"@
+
     Write-SanitizedFile -FilePath $wrapperPath -Content $wrapperContent
-    Write-PortxDebug "Created PowerShell wrapper: $wrapperPath"
+    Write-PortxDebug "Created compact PowerShell wrapper: $wrapperPath"
 }
 
 # ============================================================================
@@ -716,8 +645,8 @@ else
     PORTX_ROOT="/c/App/PORTX"
 fi
 
-# Add PORTX wrappers to PATH (posix wrappers for all Unix-like environments)
-export PATH="`$PATH:`$PORTX_ROOT/wrappers/posix"
+# Add PORTX root and wrappers to PATH (for portx.sh and tool wrappers)
+export PATH="`$PATH:`$PORTX_ROOT:`$PORTX_ROOT/wrappers/posix"
 
 # Build PORTX PACKAGES PATH
 PACKAGES_PATH=""
@@ -745,8 +674,150 @@ export PORTX_PACKAGES_PATH="`$PACKAGES_PATH"
 }
 
 # ============================================================================
+# HELP & LIST FUNCTIONS
+# ============================================================================
+
+function Show-PortxHelp {
+    Write-Host @"
+PORTX 2.0 Universal Package Manager
+
+Usage: portx <command> [options]
+
+Commands:
+  import [package]     Import all packages or specific package
+  list                 List all available packages and tools
+  help                 Show this help message
+
+Options:
+  --clean              Remove all existing wrappers before import
+
+Examples:
+  portx import            Import all packages
+  portx import --clean    Import all packages (clean first)
+  portx import git        Import only git package
+  portx list              Show all packages
+
+Cross-platform compatible: Windows, WSL, Cygwin, MSYS2, Linux containers
+"@
+}
+
+function Show-PortxList {
+    Write-Host "PORTX 2.0 Package & Tool Overview" -ForegroundColor Cyan
+    Write-Host ("=" * 120) -ForegroundColor Cyan
+    Write-Host ""
+
+    if (-not (Test-Path $Script:PackagesDir)) {
+        Write-Host "No packages directory found: $Script:PackagesDir" -ForegroundColor Red
+        return
+    }
+
+    $packages = Get-ChildItem $Script:PackagesDir -Directory | Sort-Object Name
+    $allItems = @()
+
+    foreach ($package in $packages) {
+        $configPath = Join-Path $package.FullName "portx.json"
+
+        if (-not (Test-Path $configPath)) {
+            $allItems += [PSCustomObject]@{
+                Package = $package.Name
+                Tool = ""
+                Description = "No configuration found"
+            }
+            continue
+        }
+
+        try {
+            $config = Get-Content $configPath -Raw | ConvertFrom-Json
+
+            if ($config.bin) {
+                $tools = $config.bin.PSObject.Properties.Name | Sort-Object
+                $isFirstTool = $true
+
+                foreach ($toolName in $tools) {
+                    $tool = $config.bin.$toolName
+
+                    # Get tool-level tags and combine with description
+                    $description = if ($tool.description) { $tool.description } else { "No description" }
+
+                    $toolTags = if ($tool.tags) {
+                        # Simple clean tag formatting
+                        ($tool.tags | Sort-Object | ForEach-Object { "#$_" }) -join " "
+                    } else { "" }
+
+                    # Combine description and tags
+                    $fullDescription = if ($toolTags) {
+                        "$description`n$toolTags"
+                    } else {
+                        $description
+                    }
+
+                    $allItems += [PSCustomObject]@{
+                        Package = if ($isFirstTool) { $package.Name } else { "" }
+                        Tool = $toolName
+                        Description = $fullDescription
+                    }
+                    $isFirstTool = $false
+                }
+            } else {
+                # For packages without tools, check for package-level tags (legacy support)
+                $packageTags = if ($config.tags) { ($config.tags | ForEach-Object { "#$_" }) -join " " } else { "" }
+
+                $allItems += [PSCustomObject]@{
+                    Package = $package.Name
+                    Tool = ""
+                    Description = "No executables defined"
+                }
+            }
+
+        } catch {
+            $allItems += [PSCustomObject]@{
+                Package = $package.Name
+                Tool = ""
+                Description = "Invalid configuration: $($_.Exception.Message)"
+            }
+        }
+    }
+
+    # Clean table format with tags integrated into description
+    $allItems | Format-Table @{Name="Package"; Expression={$_.Package}; Width=18},
+                            @{Name="Tool"; Expression={$_.Tool}; Width=16},
+                            @{Name="Description"; Expression={$_.Description}; Width=80} -Wrap
+
+    # Summary
+    $totalTools = ($allItems | Where-Object { $_.Tool -ne "" }).Count
+    $toolsWithTags = ($allItems | Where-Object { $_.Tool -ne "" -and $_.Description -match "#" }).Count
+    Write-Host ""
+    Write-Host ("=" * 120) -ForegroundColor Cyan
+    Write-Host "Summary: $($packages.Count) packages, $totalTools total tools ($toolsWithTags with tags)" -ForegroundColor Cyan
+}
+
+# ============================================================================
 # SCRIPT ENTRY POINT
 # ============================================================================
+
+# Handle command parsing
+$actualCommand = $Command
+$actualPackage = $PackageName
+
+# If first parameter looks like a command, handle it
+switch ($Command) {
+    "help" { Show-PortxHelp; exit 0 }
+    "list" { Show-PortxList; exit 0 }
+    "import" {
+        # PackageName contains the actual package name
+        $actualPackage = $PackageName
+    }
+    { $_ -and $_ -ne "import" } {
+        # Direct package name (import is default command)
+        $actualPackage = $Command
+    }
+}
+
+# Handle help cases
+if (-not $Command -or $Command -eq "help") {
+    Show-PortxHelp
+    exit 0
+}
 
 # Initialize logging
 if (Test-Path $Script:LogFile) {
@@ -759,7 +830,7 @@ Write-PortxInfo "Platform: $($PSVersionTable.Platform)"
 
 # Execute import
 try {
-    $result = Invoke-PortxImport -SpecificPackage $PackageName -Force:$Force
+    $result = Invoke-PortxImport -SpecificPackage $actualPackage
 
     if ($result) {
         Write-PortxSuccess "Import completed successfully!"

@@ -8,8 +8,12 @@
       "path": "ctop.exe",
       "description": "Container metrics dashboard with real-time monitoring - provides a concise overview of metrics for multiple containers",
       "usage": "ctop\\nctop -a\\nctop -scale-cpu\\nctop -sortField=cpu",
-      "dependencies": "windows"
+      "dependencies": "windows",
+      "tags": [
+        "tui",
+        "container",
+        "monitoring"
+      ]
     }
-  },
-  "tags": ["container", "docker", "monitoring", "dashboard", "metrics", "cpu", "memory", "network", "top"]
+  }
 }

@@ -7,9 +7,19 @@
     "shellspec": {
       "path": "shellspec.exe",
       "description": "Full-featured BDD unit testing framework for POSIX shell scripts",
-      "usage": "shellspec\\nshellspec spec/test_spec.sh\\nshellspec --format tap\\nshellspec --coverage\\nshellspec init",
-      "dependencies": "windows"
+      "usage": "shellspec\nshellspec spec/test_spec.sh\nshellspec --format tap\nshellspec --coverage\nshellspec init",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "tester",
+        "file-input",
+        "directory-input",
+        "stdout-output",
+        "formatted-output",
+        "testing",
+        "development",
+        "windows"
+      ]
     }
-  },
-  "tags": ["testing", "shell", "bdd", "framework", "scripts", "coverage"]
+  }
 }

@@ -7,9 +7,23 @@
     "vhs": {
       "path": "vhs.exe",
       "description": "Write terminal GIFs as code using a simple scripting language - record, edit and share beautiful terminal demos",
-      "usage": "vhs demo.tape\\nvhs new demo.tape\\nvhs --output demo.gif demo.tape\\nvhs --shell bash demo.tape",
-      "dependencies": "windows"
+      "usage": "vhs demo.tape\nvhs new demo.tape\nvhs --output demo.gif demo.tape\nvhs --shell bash demo.tape",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "generator",
+        "processor",
+        "automation",
+        "file-input",
+        "script-input",
+        "terminal-input",
+        "gif-output",
+        "video-output",
+        "file-output",
+        "documentation",
+        "media",
+        "windows"
+      ]
     }
-  },
-  "tags": ["terminal", "recorder", "demo", "gif", "video", "scripting", "automation", "charmbracelet"]
+  }
 }

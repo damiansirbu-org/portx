@@ -8,8 +8,19 @@
       "path": "naabu.exe",
       "description": "High-performance SYN/CONNECT/UDP port scanner optimized for speed and accuracy with support for multiple output formats",
       "usage": "naabu -host example.com\nnaabu -host example.com -port 80,443,8080\nnaabu -list hosts.txt -port 1-1000\nnaabu -host example.com -top-ports 100\nnaabu -host example.com -json -o results.json\nnaabu -host example.com -exclude-ports 22,80",
-      "dependencies": "windows"
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "scanner",
+        "network-input",
+        "file-input",
+        "text-input",
+        "json-output",
+        "formatted-output",
+        "stdout-output",
+        "high-performance",
+        "windows"
+      ]
     }
-  },
-  "tags": ["security", "port-scanner", "network", "reconnaissance", "discovery", "pentesting", "go", "scanning"]
+  }
 }

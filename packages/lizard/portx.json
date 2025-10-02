@@ -8,8 +8,15 @@
       "path": "lizard.bat",
       "description": "Multi-language code complexity analyzer with cyclomatic complexity metrics and detailed reports",
       "usage": "lizard src/ | lizard --xml src/ | lizard --CCN 15 --length 1000 src/",
-      "dependencies": "native"
+      "dependencies": "native",
+      "tags": [
+        "cli",
+        "analyzer",
+        "file-input",
+        "xml-output",
+        "stdout-output",
+        "development"
+      ]
     }
-  },
-  "tags": ["code-analysis", "complexity", "metrics", "cyclomatic", "python", "java"]
+  }
 }

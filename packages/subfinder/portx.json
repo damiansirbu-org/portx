@@ -7,9 +7,19 @@
     "subfinder": {
       "path": "subfinder.exe",
       "description": "Passive subdomain discovery tool using multiple online sources",
-      "usage": "subfinder -d example.com\\nsubfinder -dL domains.txt\\nsubfinder -d example.com -o results.txt\\nsubfinder -d example.com -silent\\nsubfinder -d example.com -recursive",
-      "dependencies": "windows"
+      "usage": "subfinder -d example.com\nsubfinder -dL domains.txt\nsubfinder -d example.com -o results.txt\nsubfinder -d example.com -silent\nsubfinder -d example.com -recursive",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "text-input",
+        "file-input",
+        "network-input",
+        "stdout-output",
+        "file-output",
+        "security",
+        "automation",
+        "windows"
+      ]
     }
-  },
-  "tags": ["subdomain", "discovery", "passive", "reconnaissance", "security", "enumeration", "network", "go"]
+  }
 }

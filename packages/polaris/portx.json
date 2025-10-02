@@ -7,9 +7,18 @@
     "polaris": {
       "path": "polaris.exe",
       "description": "Fairwinds Polaris - runs a variety of checks to ensure Kubernetes pods and controllers are configured using best practices",
-      "usage": "polaris audit --audit-path .\\npolaris dashboard\\npolaris webhook --config config.yaml",
-      "dependencies": "windows"
+      "usage": "polaris audit --audit-path .\npolaris dashboard\npolaris webhook --config config.yaml",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "scanner",
+        "yaml-input",
+        "directory-input",
+        "json-output",
+        "html-output",
+        "stdout-output",
+        "windows"
+      ]
     }
-  },
-  "tags": ["kubernetes", "k8s", "best-practices", "validation", "security", "policy", "compliance", "fairwinds"]
+  }
 }

@@ -7,9 +7,18 @@
     "kubeval": {
       "path": "kubeval.exe",
       "description": "Validate Kubernetes configuration files against official Kubernetes schemas - supports multiple file formats and strict validation",
-      "usage": "kubeval deployment.yaml\\nkubeval *.yaml\\nkubeval --strict pod.yaml\\nkubeval --kubernetes-version 1.18.0 manifest.yaml",
-      "dependencies": "windows"
+      "usage": "kubeval deployment.yaml\nkubeval *.yaml\nkubeval --strict pod.yaml\nkubeval --kubernetes-version 1.18.0 manifest.yaml",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "container",
+        "validator",
+        "file-input",
+        "processor",
+        "stdout-output",
+        "configuration",
+        "automation"
+      ]
     }
-  },
-  "tags": ["kubernetes", "k8s", "yaml", "validation", "schema", "manifest", "config", "instrumenta"]
+  }
 }

@@ -7,9 +7,17 @@
     "lazydocker": {
       "path": "lazydocker.exe",
       "description": "Terminal UI for Docker and Docker Compose with mouse support",
-      "usage": "lazydocker # Launch Docker TUI\\nm - View container logs, e - Execute command in container\\nx - Remove container, r - Restart container\\nTab - Switch between panels, ? - Help",
-      "dependencies": "windows"
+      "usage": "lazydocker # Launch Docker TUI\nm - View container logs, e - Execute command in container\nx - Remove container, r - Restart container\nTab - Switch between panels, ? - Help",
+      "dependencies": "windows",
+      "tags": [
+        "tui",
+        "container",
+        "interactive",
+        "file-output",
+        "navigation",
+        "monitor",
+        "cli"
+      ]
     }
-  },
-  "tags": ["docker", "tui", "terminal", "ui", "containers", "compose", "mouse", "go"]
+  }
 }
