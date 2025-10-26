@@ -351,7 +351,7 @@ case "`$(uname -sr)" in
     *) r="/c/App/PORTX"; p="false" ;;
 esac
 $argsHandling
-[[ "`$p" == "false" ]] && exec "`$r/packages/$PackageName/$ExecutablePath" "`${args[@]}" || exec "`$r/pathx/bin/pathx.exe" --platform="`$p" "`$r/packages/$PackageName/$ExecutablePath" "`${args[@]}"
+exec "`$r/packages/$PackageName/$ExecutablePath" "`${args[@]}"
 "@
 
     Write-SanitizedFile -FilePath $wrapperPath -Content $wrapperContent

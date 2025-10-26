@@ -1,4 +1,4 @@
-# PORTX Universal Wrapper System .gitignore
+# PORTX Multi-Platform Tool Manager .gitignore
 
 # Exclude Claude configuration
 .claude/
@@ -31,10 +31,7 @@ packages/node/*.exp
 !packages/node/corepack
 
 # Build artifacts
-go/target/*.exe
-go/target/*.obj
-go/target/*.pdb
-!go/target/portx-wrap.exe
+build/
 
 # Logs
 logs/
@@ -58,12 +55,12 @@ desktop.ini
 *.swo
 *~
 
-# Go specific
-go/vendor/
-go/*.exe
-go/*.dll
-go/*.so
-go/*.dylib
+# General build artifacts
+vendor/
+*.exe
+*.dll
+*.so
+*.dylib
 
 # Test files
 *_test.go
