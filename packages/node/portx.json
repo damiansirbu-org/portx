@@ -2,7 +2,25 @@
   "name": "node",
   "version": "22.19.0",
   "description": "Node.js JavaScript runtime with npm package manager and modern ECMAScript support",
-  "importType": "path",
+  "importType": "wrapAndPath",
+  "packagePaths": [
+    "."
+  ],
+  "tags": [
+    "cli",
+    "development",
+    "automation",
+    "server",
+    "manager",
+    "downloader",
+    "generator",
+    "file-input",
+    "text-input",
+    "network-input",
+    "config-input",
+    "stdout-output",
+    "file-output"
+  ],
   "bin": {
     "node": {
       "path": "node.exe",

@@ -34,7 +34,7 @@
         "none",
         "wrapAndPath"
       ],
-      "description": "Import strategy: wrap (create wrappers with intelligent PATH detection), path (add package root to PATH), none (documentation only, no imports), wrapAndPath (create wrappers AND add to PATH for maximum compatibility)"
+      "description": "Import strategy: wrap (create wrappers with intelligent PATH detection), path (add paths array directories to PATH), none (documentation only, no imports), wrapAndPath (create wrappers AND add to PATH for maximum compatibility)"
     },
     "bin": {
       "type": "object",
