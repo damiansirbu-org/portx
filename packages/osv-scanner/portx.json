@@ -1,13 +1,13 @@
 {
   "name": "osv-scanner",
-  "version": "1.9.2",
-  "description": "Google's official vulnerability scanner that finds existing vulnerabilities affecting your project's dependencies using the OSV database",
+  "version": "2.3.8",
+  "description": "Google's official vulnerability scanner (v2 with osv-scalibr) that finds existing vulnerabilities affecting your project's dependencies using the OSV database",
   "importType": "wrap",
   "bin": {
     "osv-scanner": {
       "path": "osv-scanner.exe",
-      "description": "Comprehensive vulnerability scanner for open source dependencies with guided remediation and container image scanning",
-      "usage": "osv-scanner --help\nosv-scanner --version\nosv-scanner scan --lockfile package-lock.json\nosv-scanner scan --recursive ./my-project\nosv-scanner scan --docker alpine:latest\nosv-scanner scan --format json --output results.json ./project",
+      "description": "Comprehensive vulnerability scanner for open source dependencies with guided remediation, container image scanning, and osv-scalibr-powered SBOM extraction",
+      "usage": "osv-scanner --help\nosv-scanner --version\nosv-scanner scan source -r ./my-project\nosv-scanner scan source --lockfile=package-lock.json\nosv-scanner scan image alpine:latest\nosv-scanner scan source --format=json --output=results.json ./project\nosv-scanner fix --lockfile=package-lock.json",
       "dependencies": "windows"
     }
   },

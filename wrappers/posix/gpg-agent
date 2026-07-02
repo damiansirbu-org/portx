@@ -1,57 +1,10 @@
 #!/bin/bash
-# PORTX-WRAPPER: Auto-generated wrapper for gpg/gpg-agent
-# Uses PathX for intelligent path conversion on WSL/Cygwin
-
-# Universal environment detection using uname -sr (clean and reliable)
-uname_output="$(uname -sr)"
-case "$uname_output" in
-    [Ll]inux*[Mm]icrosoft*)
-        PORTX_ROOT="/mnt/c/App/PORTX"
-        PORTX_ENV="WSL"
-        USE_PATHX=true
-        ;;
-    [Mm][Ii][Nn][Gg][Ww]*|[Mm][Ss][Yy][Ss]*)
-        PORTX_ROOT="/c/App/PORTX"
-        PORTX_ENV="MSYS2"
-        USE_PATHX=false
-        ;;
-    [Cc][Yy][Gg][Ww][Ii][Nn]*)
-        PORTX_ROOT="/cygdrive/c/App/PORTX"
-        PORTX_ENV="CYGWIN"
-        USE_PATHX=true
-        ;;
-    *)
-        PORTX_ROOT="/c/App/PORTX"
-        PORTX_ENV="UNKNOWN"
-        USE_PATHX=false
-        ;;
+# PORTX: gpg/gpg-agent
+case "$(uname -sr)" in
+    [Ll]inux*[Mm]icrosoft*) r="/mnt/c/App/PORTX"; p="false" ;;
+    [Mm][Ii][Nn][Gg][Ww]*|[Mm][Ss][Yy][Ss]*) r="/c/App/PORTX"; p="false" ;;
+    [Cc][Yy][Gg][Ww][Ii][Nn]*) r="/cygdrive/c/App/PORTX"; p="cygwin" ;;
+    *) r="/c/App/PORTX"; p="false" ;;
 esac
-
-# Package configuration
-PORTX_PACKAGE="gpg"
-PORTX_TOOL="gpg-agent"
-PORTX_EXE_PATH="gpg-agent.exe"
-PORTX_EXECUTABLE="$PORTX_ROOT/packages/$PORTX_PACKAGE/$PORTX_EXE_PATH"
-
-# Add default arguments if specified
-FINAL_ARGS=()
-if [[ -n "" ]]; then
-    FINAL_ARGS=()
-fi
-FINAL_ARGS+=("$@")
-
-# Use PathX for WSL/Cygwin, direct execution for MSYS2
-if [[ "$USE_PATHX" == "true" ]]; then
-    # Convert environment to PathX platform parameter
-    case "$PORTX_ENV" in
-        "WSL")    PATHX_PLATFORM="wsl" ;;
-        "CYGWIN") PATHX_PLATFORM="cygwin" ;;
-        *)        PATHX_PLATFORM="wsl" ;;  # fallback
-    esac
-
-    # Execute via PathX for intelligent path conversion
-    exec "$PORTX_ROOT/pathx/bin/pathx.exe" --platform="$PATHX_PLATFORM" "$PORTX_EXECUTABLE" "${FINAL_ARGS[@]}"
-else
-    # Direct execution for MSYS2 (no path conversion needed)
-    exec "$PORTX_EXECUTABLE" "${FINAL_ARGS[@]}"
-fi
+args=("$@")
+exec "$r/packages/gpg/gpg-agent.exe" "${args[@]}"

@@ -1,8 +1,3 @@
 @echo off
-rem PORTX-WRAPPER: Auto-generated wrapper for pigz/pigz
-set PORTX_ROOT=C:\App\PORTX
-set PACKAGE_NAME=pigz
-set EXE_RELATIVE_PATH=pigz.exe
-set EXECUTABLE_PATH=%PORTX_ROOT%\packages\%PACKAGE_NAME%\%EXE_RELATIVE_PATH%
-
-"%EXECUTABLE_PATH%" %*
+rem PORTX: pigz/pigz
+"C:\App\PORTX\packages\pigz\pigz.exe" %*

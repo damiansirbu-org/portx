@@ -1,6 +1,6 @@
 {
   "name": "pmd",
-  "version": "7.17.0",
+  "version": "7.24.0",
   "description": "Extensible multilanguage static code analyzer for Java, Apex, and 16+ other languages with 400+ built-in rules",
   "importType": "wrap",
   "bin": {

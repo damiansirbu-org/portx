@@ -1,8 +1,3 @@
 @echo off
-rem PORTX-WRAPPER: Auto-generated wrapper for fzf/fzf
-set PORTX_ROOT=C:\App\PORTX
-set PACKAGE_NAME=fzf
-set EXE_RELATIVE_PATH=fzf.exe
-set EXECUTABLE_PATH=%PORTX_ROOT%\packages\%PACKAGE_NAME%\%EXE_RELATIVE_PATH%
-
-"%EXECUTABLE_PATH%" %*
+rem PORTX: fzf/fzf
+"C:\App\PORTX\packages\fzf\fzf.exe" %*

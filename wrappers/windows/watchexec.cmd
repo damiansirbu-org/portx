@@ -1,8 +1,3 @@
 @echo off
-rem PORTX-WRAPPER: Auto-generated wrapper for watchexec/watchexec
-set PORTX_ROOT=C:\App\PORTX
-set PACKAGE_NAME=watchexec
-set EXE_RELATIVE_PATH=watchexec.exe
-set EXECUTABLE_PATH=%PORTX_ROOT%\packages\%PACKAGE_NAME%\%EXE_RELATIVE_PATH%
-
-"%EXECUTABLE_PATH%" %*
+rem PORTX: watchexec/watchexec
+"C:\App\PORTX\packages\watchexec\watchexec.exe" %*

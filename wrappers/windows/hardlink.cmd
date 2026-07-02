@@ -1,8 +1,3 @@
 @echo off
-rem PORTX-WRAPPER: Auto-generated wrapper for path-utils/hardlink
-set PORTX_ROOT=C:\App\PORTX
-set PACKAGE_NAME=path-utils
-set EXE_RELATIVE_PATH=hardlink.exe
-set EXECUTABLE_PATH=%PORTX_ROOT%\packages\%PACKAGE_NAME%\%EXE_RELATIVE_PATH%
-
-"%EXECUTABLE_PATH%" %*
+rem PORTX: path-utils/hardlink
+"C:\App\PORTX\packages\path-utils\hardlink.exe" %*

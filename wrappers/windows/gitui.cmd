@@ -1,8 +1,3 @@
 @echo off
-rem PORTX-WRAPPER: Auto-generated wrapper for gitui/gitui
-set PORTX_ROOT=C:\App\PORTX
-set PACKAGE_NAME=gitui
-set EXE_RELATIVE_PATH=gitui.exe
-set EXECUTABLE_PATH=%PORTX_ROOT%\packages\%PACKAGE_NAME%\%EXE_RELATIVE_PATH%
-
-"%EXECUTABLE_PATH%" %*
+rem PORTX: gitui/gitui
+"C:\App\PORTX\packages\gitui\gitui.exe" %*

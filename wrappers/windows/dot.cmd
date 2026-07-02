@@ -1,8 +1,3 @@
 @echo off
-rem PORTX-WRAPPER: Auto-generated wrapper for graphwiz/dot
-set PORTX_ROOT=C:\App\PORTX
-set PACKAGE_NAME=graphwiz
-set EXE_RELATIVE_PATH=bin/dot.exe
-set EXECUTABLE_PATH=%PORTX_ROOT%\packages\%PACKAGE_NAME%\%EXE_RELATIVE_PATH%
-
-"%EXECUTABLE_PATH%" %*
+rem PORTX: graphwiz/dot
+"C:\App\PORTX\packages\graphwiz\bin/dot.exe" %*

@@ -1,0 +1,10 @@
+#!/bin/bash
+# PORTX: perl/perl
+case "$(uname -sr)" in
+    [Ll]inux*[Mm]icrosoft*) r="/mnt/c/App/PORTX"; p="false" ;;
+    [Mm][Ii][Nn][Gg][Ww]*|[Mm][Ss][Yy][Ss]*) r="/c/App/PORTX"; p="false" ;;
+    [Cc][Yy][Gg][Ww][Ii][Nn]*) r="/cygdrive/c/App/PORTX"; p="cygwin" ;;
+    *) r="/c/App/PORTX"; p="false" ;;
+esac
+args=("$@")
+exec "$r/packages/perl/perl/bin/perl.exe" "${args[@]}"

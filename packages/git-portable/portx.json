@@ -1,0 +1,44 @@
+{
+  "name": "git-portable",
+  "version": "2.51.0",
+  "description": "Self-contained portable Git that carries its own https/libcurl runtime and resolves every DLL from its own tree, so it works identically on MSYS2, Git-for-Windows, and Cygwin with no dependency on the host runtime",
+  "importType": "wrap",
+  "bin": {
+    "git": {
+      "path": "cmd/git.exe",
+      "description": "Git distributed version control system, self-contained with its own bundled runtime (libcurl closure verified via dependency analysis)",
+      "usage": "git clone https://host/repo.git # Clone over https (bundled libcurl)\\ngit init # Initialize repository\\ngit commit -m 'message' # Commit changes\\ngit push origin main # Push to remote\\ngit pull # Pull latest changes",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "git",
+        "development",
+        "manager",
+        "synchronizer",
+        "version-control",
+        "portable",
+        "cross-platform",
+        "stable",
+        "self-contained"
+      ]
+    },
+    "git-lfs": {
+      "path": "mingw64/bin/git-lfs.exe",
+      "description": "Git Large File Storage extension for versioning large binary files efficiently",
+      "usage": "git lfs install # Initialize LFS in repository\\ngit lfs track '*.psd' # Track large file types\\ngit lfs ls-files # List tracked files\\ngit lfs pull # Download LFS objects",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "git",
+        "processor",
+        "downloader",
+        "uploader",
+        "manager",
+        "synchronizer",
+        "large",
+        "storage",
+        "portable"
+      ]
+    }
+  }
+}

@@ -1,8 +1,3 @@
 @echo off
-rem PORTX-WRAPPER: Auto-generated wrapper for dasel/dasel
-set PORTX_ROOT=C:\App\PORTX
-set PACKAGE_NAME=dasel
-set EXE_RELATIVE_PATH=dasel.exe
-set EXECUTABLE_PATH=%PORTX_ROOT%\packages\%PACKAGE_NAME%\%EXE_RELATIVE_PATH%
-
-"%EXECUTABLE_PATH%" %*
+rem PORTX: dasel/dasel
+"C:\App\PORTX\packages\dasel\dasel.exe" %*

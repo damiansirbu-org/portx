@@ -1,8 +1,3 @@
 @echo off
-rem PORTX-WRAPPER: Auto-generated wrapper for python-micromamba/conda
-set PORTX_ROOT=C:\App\PORTX
-set PACKAGE_NAME=python-micromamba
-set EXE_RELATIVE_PATH=conda.exe
-set EXECUTABLE_PATH=%PORTX_ROOT%\packages\%PACKAGE_NAME%\%EXE_RELATIVE_PATH%
-
-"%EXECUTABLE_PATH%" %*
+rem PORTX: python-micromamba/conda
+"C:\App\PORTX\packages\python-micromamba\conda.exe" %*
