@@ -1,24 +1,30 @@
 {
   "name": "gradle",
-  "version": "7.0.2",
-  "description": "Gradle Build Tool - Flexible build automation with Kotlin/Groovy DSL for Java, Android, and multi-language projects",
+  "version": "9.2.0",
+  "description": "Gradle build automation tool for JVM projects with dependency management, multi-project builds, and Kotlin/Groovy DSL support",
   "importType": "wrap",
   "bin": {
     "gradle": {
       "path": "bin/gradle.bat",
-      "description": "Gradle build automation tool with dependency management, multi-project builds, and incremental compilation",
-      "usage": "gradle build | gradle dependencies | gradle clean test | gradle assemble --parallel",
+      "description": "Gradle build automation — task graph execution, dependency resolution, multi-project orchestration, incremental builds, and build cache",
+      "usage": "gradle build # Compile, test, and assemble\ngradle clean build # Clean rebuild\ngradle dependencies # Print dependency tree\ngradle tasks # List available tasks\ngradle test --tests 'com.foo.BarTest' # Run filtered tests\ngradle assemble -x test # Assemble skipping tests\ngradle :module:build # Build a specific subproject\ngradle --refresh-dependencies build # Force re-resolve dependencies\ngradle wrapper --gradle-version 8.14.1 # Pin wrapper version",
       "dependencies": "windows",
       "tags": [
         "cli",
+        "build-tool",
+        "builder",
+        "build",
         "automation",
-        "compiler",
-        "runner",
         "manager",
-        "file-input",
-        "config-input",
+        "dependency-management",
+        "compilation",
+        "compile",
+        "testing",
+        "deployment",
+        "runner",
         "development",
-        "incremental"
+        "file-input",
+        "stdout-output"
       ]
     }
   }

@@ -1,8 +1,3 @@
 @echo off
-rem PORTX-WRAPPER: Auto-generated wrapper for ssdeep/ssdeep
-set PORTX_ROOT=C:\App\PORTX
-set PACKAGE_NAME=ssdeep
-set EXE_RELATIVE_PATH=ssdeep.exe
-set EXECUTABLE_PATH=%PORTX_ROOT%\packages\%PACKAGE_NAME%\%EXE_RELATIVE_PATH%
-
-"%EXECUTABLE_PATH%" %*
+rem PORTX: ssdeep/ssdeep
+"C:\App\PORTX\packages\ssdeep\ssdeep.exe" %*

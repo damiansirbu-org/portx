@@ -1,8 +1,3 @@
 @echo off
-rem PORTX-WRAPPER: Auto-generated wrapper for direnv/direnv
-set PORTX_ROOT=C:\App\PORTX
-set PACKAGE_NAME=direnv
-set EXE_RELATIVE_PATH=direnv.exe
-set EXECUTABLE_PATH=%PORTX_ROOT%\packages\%PACKAGE_NAME%\%EXE_RELATIVE_PATH%
-
-"%EXECUTABLE_PATH%" %*
+rem PORTX: direnv/direnv
+"C:\App\PORTX\packages\direnv\direnv.exe" %*

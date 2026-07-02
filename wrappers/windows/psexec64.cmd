@@ -1,8 +1,3 @@
 @echo off
-rem PORTX-WRAPPER: Auto-generated wrapper for sysinternals/psexec64
-set PORTX_ROOT=C:\App\PORTX
-set PACKAGE_NAME=sysinternals
-set EXE_RELATIVE_PATH=PsExec64.exe
-set EXECUTABLE_PATH=%PORTX_ROOT%\packages\%PACKAGE_NAME%\%EXE_RELATIVE_PATH%
-
-"%EXECUTABLE_PATH%" %*
+rem PORTX: sysinternals/psexec64
+"C:\App\PORTX\packages\sysinternals\PsExec64.exe" %*

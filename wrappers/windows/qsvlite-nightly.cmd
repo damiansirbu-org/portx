@@ -1,8 +1,3 @@
 @echo off
-rem PORTX-WRAPPER: Auto-generated wrapper for qsv/qsvlite-nightly
-set PORTX_ROOT=C:\App\PORTX
-set PACKAGE_NAME=qsv
-set EXE_RELATIVE_PATH=qsvlite_nightly.exe
-set EXECUTABLE_PATH=%PORTX_ROOT%\packages\%PACKAGE_NAME%\%EXE_RELATIVE_PATH%
-
-"%EXECUTABLE_PATH%" %*
+rem PORTX: qsv/qsvlite-nightly
+"C:\App\PORTX\packages\qsv\qsvlite_nightly.exe" %*

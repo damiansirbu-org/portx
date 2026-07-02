@@ -1,8 +1,3 @@
 @echo off
-rem PORTX-WRAPPER: Auto-generated wrapper for musikube/musikcube
-set PORTX_ROOT=C:\App\PORTX
-set PACKAGE_NAME=musikube
-set EXE_RELATIVE_PATH=musikcube.exe
-set EXECUTABLE_PATH=%PORTX_ROOT%\packages\%PACKAGE_NAME%\%EXE_RELATIVE_PATH%
-
-"%EXECUTABLE_PATH%" %*
+rem PORTX: musikube/musikcube
+"C:\App\PORTX\packages\musikube\musikcube.exe" %*

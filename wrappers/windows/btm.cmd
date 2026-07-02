@@ -1,8 +1,3 @@
 @echo off
-rem PORTX-WRAPPER: Auto-generated wrapper for bottom/btm
-set PORTX_ROOT=C:\App\PORTX
-set PACKAGE_NAME=bottom
-set EXE_RELATIVE_PATH=btm.exe
-set EXECUTABLE_PATH=%PORTX_ROOT%\packages\%PACKAGE_NAME%\%EXE_RELATIVE_PATH%
-
-"%EXECUTABLE_PATH%" %*
+rem PORTX: bottom/btm
+"C:\App\PORTX\packages\bottom\btm.exe" %*

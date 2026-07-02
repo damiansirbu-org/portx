@@ -1,0 +1,59 @@
+{
+  "name": "git-tools",
+  "version": "1.0.0",
+  "description": "Git-adjacent terminal tools that Git-for-Windows and MSYS2 do not ship: a diff pager, the GitHub CLI, a git TUI, and a status daemon",
+  "importType": "wrap",
+  "bin": {
+    "delta": {
+      "path": "delta.exe",
+      "description": "A syntax-highlighting pager for git, diff, grep, and blame output with themes and customizable colors",
+      "usage": "git config --global core.pager delta # Set as git pager\\ndelta --side-by-side file1 file2 # Side-by-side view",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "processor",
+        "viewer",
+        "git"
+      ]
+    },
+    "gh": {
+      "path": "gh.exe",
+      "description": "GitHub CLI for repository management, issues, pull requests, and GitHub Actions",
+      "usage": "gh repo create myproject --public # Create repository\\ngh pr create # Create pull request\\ngh issue list # List issues",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "client",
+        "git",
+        "automation",
+        "development",
+        "api"
+      ]
+    },
+    "tig": {
+      "path": "tig.exe",
+      "description": "Text-mode interface for Git with powerful browsing, searching, and commit visualization",
+      "usage": "tig # Browse repository history\\ntig status # Interactive staging\\ntig blame file # Blame view",
+      "dependencies": "windows",
+      "tags": [
+        "tui",
+        "git",
+        "searcher",
+        "development",
+        "viewer"
+      ]
+    },
+    "gitstatusd": {
+      "path": "gitstatusd.exe",
+      "description": "High-performance git status daemon for responsive terminal prompts",
+      "usage": "gitstatusd # Run status daemon\\n# Used internally by powerlevel10k and other prompt themes",
+      "dependencies": "windows",
+      "tags": [
+        "git",
+        "performance",
+        "monitor",
+        "automation"
+      ]
+    }
+  }
+}

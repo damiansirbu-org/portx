@@ -1,36 +1,31 @@
 #!/bin/bash
 # PORTX 2.0 Packages Path
-# Generated: 2025-09-28 04:52:02
+# Generated: 2026-07-02 16:43:30
 # This file is automatically sourced to add PORTX packages to PATH
 
 # Detect environment and set package root
 if [[ -n "${WSL_DISTRO_NAME:-}" ]] || grep -qi microsoft /proc/version 2>/dev/null; then
     PORTX_ROOT="/mnt/c/App/PORTX"
-elif [[ "$OSTYPE" == "cygwin" ]]; then
+elif [[ "$(uname -s)" == CYGWIN* ]]; then
     PORTX_ROOT="/cygdrive/c/App/PORTX"
 else
     PORTX_ROOT="/c/App/PORTX"
 fi
 
-# Add PORTX wrappers to PATH (posix wrappers for all Unix-like environments)
-export PATH="$PATH:$PORTX_ROOT/wrappers/posix"
+# Add PORTX root and wrappers to PATH (for portx.sh and tool wrappers)
+export PATH="$PATH:$PORTX_ROOT:$PORTX_ROOT/wrappers/posix"
 
 # Build PORTX PACKAGES PATH
 PACKAGES_PATH=""
 if [[ -z "$PACKAGES_PATH" ]]; then
-    PACKAGES_PATH="$PORTX_ROOT/packages/gitsdk-mingw64-bin"
+    PACKAGES_PATH="$PORTX_ROOT/packages/node/."
 else
-    PACKAGES_PATH="$PACKAGES_PATH:$PORTX_ROOT/packages/gitsdk-mingw64-bin"
-fi  # gitsdk-mingw64-bin
-if [[ -z "$PACKAGES_PATH" ]]; then
-    PACKAGES_PATH="$PORTX_ROOT/packages/node"
-else
-    PACKAGES_PATH="$PACKAGES_PATH:$PORTX_ROOT/packages/node"
-fi  # node
+    PACKAGES_PATH="$PACKAGES_PATH:$PORTX_ROOT/packages/node/."
+fi  # node_.
 
 # PORTX packages path statistics
-export PORTX_PATH_PACKAGES="2"
-export PORTX_LAST_IMPORT="2025-09-28 04:52:02"
+export PORTX_PATH_PACKAGES="1"
+export PORTX_LAST_IMPORT="2026-07-02 16:43:30"
 
 # Export PACKAGES_PATH for shell integration
 export PORTX_PACKAGES_PATH="$PACKAGES_PATH"

@@ -1,8 +1,3 @@
 @echo off
-rem PORTX-WRAPPER: Auto-generated wrapper for mdcat/mdcat
-set PORTX_ROOT=C:\App\PORTX
-set PACKAGE_NAME=mdcat
-set EXE_RELATIVE_PATH=mdcat.exe
-set EXECUTABLE_PATH=%PORTX_ROOT%\packages\%PACKAGE_NAME%\%EXE_RELATIVE_PATH%
-
-"%EXECUTABLE_PATH%" %*
+rem PORTX: mdcat/mdcat
+"C:\App\PORTX\packages\mdcat\mdcat.exe" %*

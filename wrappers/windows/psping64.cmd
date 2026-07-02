@@ -1,8 +1,3 @@
 @echo off
-rem PORTX-WRAPPER: Auto-generated wrapper for sysinternals/psping64
-set PORTX_ROOT=C:\App\PORTX
-set PACKAGE_NAME=sysinternals
-set EXE_RELATIVE_PATH=psping64.exe
-set EXECUTABLE_PATH=%PORTX_ROOT%\packages\%PACKAGE_NAME%\%EXE_RELATIVE_PATH%
-
-"%EXECUTABLE_PATH%" %*
+rem PORTX: sysinternals/psping64
+"C:\App\PORTX\packages\sysinternals\psping64.exe" %*

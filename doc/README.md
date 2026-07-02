@@ -1,106 +1,50 @@
 # PORTX Universal Toolchain
 
-Cross-platform wrapper system providing seamless access to 200+ Windows tools from Unix environments using intelligent path conversion.
+Portable access to Windows CLI tools from any Unix-style shell on Windows — MSYS2, Git-for-Windows, Cygwin, and WSL. Each tool is a self-contained package; PORTX generates thin wrappers so `git`, `rg`, `fd`, etc. work identically regardless of which shell you launch.
 
-## Quick Start
-
-```bash
-# Tools work automatically via PATH
-git --version
-node --version
-rg "pattern" /mnt/c/code
-
-# Direct pathx usage
-pathx --platform=wsl C:\App\PORTX\packages\git\git.exe status
-```
-
-## Architecture
+## How it works
 
 ```
-User Command → POSIX Wrapper → PathX → Windows Executable
-     ↓              ↓           ↓           ↓
-   git status → /wrappers/posix/git → pathx.exe → git.exe
+you type:   git status
+resolves:   wrappers/posix/git          (a generated bash wrapper on PATH)
+which runs: exec C:\App\PORTX\packages\git-portable\cmd\git.exe status
 ```
 
-PORTX uses a two-layer approach:
-- **PowerShell Package Import**: Generates cross-platform wrappers
-- **PathX Go Tool**: Handles path conversion and execution
+A tool package is a directory under `packages/` containing the executable(s) plus a `portx.json` manifest. A PowerShell importer reads the manifest and generates the wrappers and PATH entries. There is **no** runtime path-conversion engine — the wrappers `exec` the Windows executable directly and pass arguments through; the target tools handle Windows/Unix path styles themselves.
+
+## Import types (`importType` in portx.json)
+
+- `wrap` — generate a wrapper for each named binary; the wrapper `exec`s that one executable. The package directory is NOT added to PATH. Use for a self-contained tool. (Most packages.)
+- `path` — add the package directory (or its `packagePaths`) to PATH; generate no wrapper. Use for a bundle of many executables meant to be discovered together.
+- `wrapAndPath` — both.
+- `none` — documentation-only package; nothing imported.
 
 ## Components
 
-### 1. Package System
 ```
-packages/
-├── git/
-│   ├── git.exe           # Windows executable
-│   └── portx.json        # Package metadata
-└── node/
-    ├── node.exe
-    └── portx.json
+packages/            one directory per tool: <exe(s)> + portx.json
+ps/portx-import.ps1  PowerShell importer: reads manifests, writes wrappers, builds the PATH cache
+wrappers/posix/      generated bash wrappers (Unix shells)
+wrappers/windows/    generated .cmd wrappers (native cmd)
+path/portx_pkg_path  generated PATH fragment, sourced by the shell profile
+schema/portx.schema.json
 ```
 
-### 2. Wrapper Generation
+## Usage
+
 ```
-ps/portx-import.ps1       # PowerShell package importer
-wrappers/
-├── posix/               # Unix-style wrappers
-│   ├── git
-│   └── node
-└── windows/             # Windows CMD wrappers
-    ├── git.cmd
-    └── node.cmd
+portx import          # (re)generate wrappers + PATH for all packages
+portx import <name>   # one package
+portx import -Clean   # wipe wrappers first, then regenerate (drops wrappers of removed packages)
+portx list            # list all packages and tools
 ```
-
-### 3. PathX Converter
-```
-pathx/
-├── bin/pathx.exe        # Path conversion tool
-├── src/                 # Go source code
-└── config/tool-exceptions.json  # Conversion rules
-```
-
-## How It Works
-
-### Input Path Conversion
-- Unix paths → Windows paths for tool execution
-- `/mnt/c/code` → `C:\code` (WSL)
-- `/c/code` → `C:\code` (MSYS2)
-- `/cygdrive/c/code` → `C:\code` (Cygwin)
-
-### Output Path Conversion
-- **Default**: No conversion (preserves colors/formatting)
-- **Path tools only**: Convert Windows paths back to Unix
-- Tools like `rg`, `fd`, `find` get output conversion
-- Tools like `git`, `node` keep original output
-
-### Configuration
-Tool-specific rules in `pathx/config/tool-exceptions.json`:
-```json
-{
-  "output_exceptions": {
-    "path_output_tools": {
-      "tools": ["rg", "fd", "find", "grep"],
-      "conversion_enable": true
-    }
-  }
-}
-```
-
-## Key Features
-
-✅ **Preserves TTY/Colors**: Uses direct I/O for compatible tools
-✅ **Smart Path Detection**: Only converts actual paths, not patterns
-✅ **Cross-Platform**: WSL, Cygwin, MSYS2 support
-✅ **Zero Configuration**: Works out of the box
-✅ **High Performance**: Native Go path conversion
 
 ## Requirements
 
-- Windows environment (native, WSL, Cygwin, MSYS2)
-- PowerShell Core 5.1+ (for package import)
-- Go 1.19+ (for building PathX)
+- A Windows Unix-style shell: MSYS2, Git-for-Windows, Cygwin, or WSL.
+- PowerShell 5.1+ (for the importer).
 
 ## Documentation
 
-- **[Architecture](architecture.md)**: System design and data flow
-- **[Implementation](implementation.md)**: Development and building guide
+- **[Architecture](architecture.md)** — the mechanism: packages, import types, wrapper generation, PATH assembly, conflict model, package portability.
+- **[Implementation](implementation.md)** — using the importer, the manifest schema, adding a package, making a package portable.
