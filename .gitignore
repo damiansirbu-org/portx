@@ -1,8 +1,5 @@
 # PORTX Multi-Platform Tool Manager .gitignore
 
-# Exclude Claude configuration
-.claude/
-
 # Exclude packages directory except specific included items
 packages/
 !packages/*/portx.json
