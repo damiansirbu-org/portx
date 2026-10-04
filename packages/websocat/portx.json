@@ -1,0 +1,31 @@
+{
+  "name": "websocat",
+  "version": "1.13.0",
+  "description": "WebSocket client and server tool for connecting, testing, and debugging WebSocket connections",
+  "importType": "wrap",
+  "bin": {
+    "websocat": {
+      "path": "websocat.exe",
+      "description": "Versatile WebSocket client/server tool with support for various protocols and connection types",
+      "usage": "websocat [FLAGS] [OPTIONS] <ADDR1> [ADDR2]",
+      "dependencies": "cross-platform",
+      "tags": [
+        "websocket",
+        "network-tool",
+        "client",
+        "server",
+        "testing",
+        "debugging",
+        "api-tool",
+        "protocol-analysis",
+        "stream-tool",
+        "realtime",
+        "cli",
+        "cross-platform",
+        "automation",
+        "dev-tool",
+        "communication"
+      ]
+    }
+  }
+}

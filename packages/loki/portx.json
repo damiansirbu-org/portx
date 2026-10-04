@@ -1,0 +1,50 @@
+{
+  "name": "loki",
+  "version": "0.51.0",
+  "description": "Simple IOC and YARA scanner for detecting malware, backdoors, and suspicious artifacts",
+  "importType": "wrap",
+  "bin": {
+    "loki": {
+      "path": "loki/loki.exe",
+      "description": "IOC scanner using YARA rules, hash matching, filename patterns, and C2 detection",
+      "usage": "loki -p C:\\scan_target\nloki --noprocscan\nloki --intense\nloki -l logfile.txt\nloki --csv\nloki --allreasons",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "scanner",
+        "forensics",
+        "processor",
+        "directory-input",
+        "file-input",
+        "rule-input",
+        "stdout-output",
+        "csv-output",
+        "log-output",
+        "security",
+        "malware",
+        "ioc",
+        "windows"
+      ]
+    },
+    "loki-upgrader": {
+      "path": "loki/loki-upgrader.exe",
+      "description": "Update Loki signatures and YARA rules from the official repository",
+      "usage": "loki-upgrader\nloki-upgrader --sigsonly\nloki-upgrader --force",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "updater",
+        "network",
+        "download",
+        "file-output",
+        "security",
+        "signatures",
+        "rules",
+        "maintenance",
+        "windows",
+        "sync",
+        "update"
+      ]
+    }
+  }
+}

@@ -1,0 +1,119 @@
+{
+  "name": "miktex",
+  "version": "24.1.0",
+  "description": "MiKTeX portable LaTeX distribution with PDF compilation, bibliography, and package management tools",
+  "importType": "wrap",
+  "bin": {
+    "pdflatex": {
+      "path": "texmfs\\install\\miktex\\bin\\x64\\pdflatex.exe",
+      "description": "LaTeX to PDF compiler with comprehensive package support",
+      "tags": [
+        "cli",
+        "compiler",
+        "text-input",
+        "file-input",
+        "file-output",
+        "processor",
+        "documentation",
+        "automation",
+        "build",
+        "generator"
+      ]
+    },
+    "lualatex": {
+      "path": "texmfs\\install\\miktex\\bin\\x64\\lualatex.exe",
+      "description": "LuaTeX-based LaTeX compiler with Lua scripting support",
+      "tags": [
+        "cli",
+        "compiler",
+        "text-input",
+        "file-input",
+        "file-output",
+        "processor",
+        "documentation",
+        "automation",
+        "build",
+        "generator"
+      ]
+    },
+    "xelatex": {
+      "path": "texmfs\\install\\miktex\\bin\\x64\\xelatex.exe",
+      "description": "XeTeX-based LaTeX compiler with Unicode and system font support",
+      "tags": [
+        "cli",
+        "compiler",
+        "text-input",
+        "file-input",
+        "file-output",
+        "processor",
+        "documentation",
+        "automation",
+        "build",
+        "generator"
+      ]
+    },
+    "bibtex": {
+      "path": "texmfs\\install\\miktex\\bin\\x64\\bibtex.exe",
+      "description": "Bibliography processor for LaTeX documents",
+      "tags": [
+        "cli",
+        "processor",
+        "text-input",
+        "file-input",
+        "file-output",
+        "documentation",
+        "automation",
+        "build",
+        "generator",
+        "manager"
+      ]
+    },
+    "latexmk": {
+      "path": "texmfs\\install\\miktex\\bin\\x64\\latexmk.exe",
+      "description": "Automated LaTeX document build system with dependency tracking",
+      "tags": [
+        "cli",
+        "automation",
+        "text-input",
+        "file-input",
+        "file-output",
+        "processor",
+        "documentation",
+        "build",
+        "generator",
+        "manager"
+      ]
+    },
+    "chktex": {
+      "path": "texmfs\\install\\miktex\\bin\\x64\\chktex.exe",
+      "description": "LaTeX semantic checker for finding common typographical errors",
+      "tags": [
+        "cli",
+        "validator",
+        "text-input",
+        "file-input",
+        "stdout-output",
+        "processor",
+        "documentation",
+        "analysis",
+        "check",
+        "linting"
+      ]
+    }
+  },
+  "tags": [
+    "cli",
+    "compiler",
+    "development",
+    "documentation",
+    "automation",
+    "build",
+    "generator",
+    "processor",
+    "manager",
+    "file-input",
+    "text-input",
+    "stdout-output",
+    "file-output"
+  ]
+}

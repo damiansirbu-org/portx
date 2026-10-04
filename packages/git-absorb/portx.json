@@ -1,0 +1,31 @@
+{
+  "bin": {
+    "git-absorb": {
+      "dependencies": "cross-platform",
+      "description": "Intelligent git tool that automatically distributes staged changes to the appropriate commits",
+      "path": "git-absorb.exe",
+      "tags": [
+        "git",
+        "git-tool",
+        "version-control",
+        "automation",
+        "workflow-automation",
+        "productivity",
+        "refactoring",
+        "dev-tool",
+        "intelligent",
+        "cli",
+        "cross-platform",
+        "git-input",
+        "change-management",
+        "advanced",
+        "modern"
+      ],
+      "usage": "git-absorb [OPTIONS] [-- <REBASE_OPTIONS>...]"
+    }
+  },
+  "description": "Automatically absorb staged changes into appropriate git commits in the current branch history",
+  "importType": "wrap",
+  "name": "git-absorb",
+  "version": "0.8.0"
+}

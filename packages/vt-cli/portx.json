@@ -1,0 +1,30 @@
+{
+  "name": "vt-cli",
+  "version": "1.2.0",
+  "description": "Official VirusTotal command-line interface for scanning files and querying threat intelligence",
+  "importType": "wrap",
+  "bin": {
+    "vt": {
+      "path": "vt.exe",
+      "description": "VirusTotal CLI - scan files, get reports, and query threat intelligence from command line",
+      "usage": "vt init\nvt file scan malware.exe\nvt file info SHA256_HASH\nvt url scan https://example.com\nvt search 'type:peexe positives:10+'\nvt domain info example.com",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "scanner",
+        "api-client",
+        "processor",
+        "file-input",
+        "url-input",
+        "hash-input",
+        "stdout-output",
+        "json-output",
+        "security",
+        "malware",
+        "threat-intelligence",
+        "cloud",
+        "windows"
+      ]
+    }
+  }
+}

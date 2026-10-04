@@ -1,0 +1,22 @@
+{
+  "name": "lua",
+  "version": "5.4.2",
+  "description": "Lua interpreter and compiler for running and compiling Lua scripts",
+  "importType": "wrap",
+  "bin": {
+    "lua": {
+      "path": "lua54.exe",
+      "description": "Lua interpreter for running Lua scripts interactively or from files",
+      "usage": "lua script.lua # Run script\nlua -e \"print('hello')\" # Execute string\nlua -i script.lua # Interactive after script\nlua # REPL",
+      "dependencies": "windows",
+      "tags": ["cli", "interpreter", "lua-scripting", "repl", "development", "scripting"]
+    },
+    "luac": {
+      "path": "luac54.exe",
+      "description": "Lua compiler to precompile scripts into bytecode",
+      "usage": "luac -o out.luac script.lua # Compile to bytecode\nluac -l script.lua # List bytecode",
+      "dependencies": "windows",
+      "tags": ["cli", "compiler", "lua-scripting", "development", "bytecode"]
+    }
+  }
+}

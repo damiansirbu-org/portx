@@ -1,0 +1,31 @@
+{
+  "name": "vale",
+  "version": "3.17.1",
+  "description": "Markup-aware prose linter that enforces custom writing-style rules from YAML style packages",
+  "importType": "wrap",
+  "bin": {
+    "vale": {
+      "path": "vale.exe",
+      "description": "Configurable prose linter for banned words, punctuation, and AI-tell rules defined in YAML styles",
+      "usage": "vale readme.txt                 # lint a file against .vale.ini styles\nvale doc/                       # lint every supported file in a folder\nvale --output=line file.md      # compact one-line-per-alert output\nvale --no-exit sync             # download configured external styles\nvale ls-config                  # print the resolved configuration",
+      "dependencies": "cross-platform",
+      "tags": [
+        "linting",
+        "text-processing",
+        "quality-assurance",
+        "static-analysis",
+        "validator",
+        "cli",
+        "text-input",
+        "file-input",
+        "stdout-output",
+        "automation",
+        "configurable",
+        "documentation",
+        "cross-platform",
+        "fast",
+        "modern"
+      ]
+    }
+  }
+}

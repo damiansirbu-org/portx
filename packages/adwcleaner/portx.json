@@ -1,0 +1,30 @@
+{
+  "name": "adwcleaner",
+  "version": "8.4.0",
+  "description": "Portable tool to remove adware, PUPs, browser hijackers, and unwanted toolbars",
+  "importType": "wrap",
+  "bin": {
+    "adwcleaner": {
+      "path": "adwcleaner.exe",
+      "description": "Malwarebytes AdwCleaner - scan and remove adware, PUPs, and browser hijackers",
+      "usage": "adwcleaner /eula /scan\nadwcleaner /eula /clean\nadwcleaner /eula /scan /preinstalled\nadwcleaner /eula /path \"C:\\scan\\path\"\nadwcleaner /help",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "scanner",
+        "cleaner",
+        "processor",
+        "system-wide",
+        "file-output",
+        "log-output",
+        "security",
+        "adware",
+        "pup",
+        "browser",
+        "windows",
+        "portable",
+        "admin-required"
+      ]
+    }
+  }
+}

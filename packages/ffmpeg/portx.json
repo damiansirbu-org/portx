@@ -1,0 +1,67 @@
+{
+  "name": "ffmpeg",
+  "version": "8.1.2",
+  "description": "Complete cross-platform solution to record, convert, and stream audio and video",
+  "importType": "wrap",
+  "bin": {
+    "ffmpeg": {
+      "path": "ffmpeg.exe",
+      "description": "Audio/video transcoder and stream processor with extensive codec, filter, and container support",
+      "usage": "ffmpeg -i input.mp4 output.mkv # Remux/convert container\nffmpeg -i input.mov -c:v libx264 -crf 23 -c:a aac out.mp4 # H.264 encode\nffmpeg -i input.mp4 -vf scale=1280:-2 scaled.mp4 # Resize keeping aspect\nffmpeg -i input.wav -c:a libmp3lame -q:a 2 out.mp3 # Extract/convert audio\nffmpeg -ss 00:00:10 -i input.mp4 -t 5 clip.mp4 # Cut a 5s clip from 10s",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "video-input",
+        "audio-input",
+        "video-output",
+        "audio-output",
+        "transcoder",
+        "converter",
+        "encoder",
+        "decoder",
+        "streaming",
+        "format-conversion",
+        "media-processing",
+        "batch",
+        "automation",
+        "windows"
+      ]
+    },
+    "ffprobe": {
+      "path": "ffprobe.exe",
+      "description": "Media stream analyzer that reports format, codec, and metadata details for audio/video files",
+      "usage": "ffprobe input.mp4 # Show format and stream summary\nffprobe -v error -show_format -show_streams input.mkv # Full format/stream info\nffprobe -v error -select_streams v:0 -show_entries stream=width,height -of csv=p=0 input.mp4 # Print resolution\nffprobe -v error -show_entries format=duration -of default=nw=1:nk=1 input.mp4 # Print duration",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "video-input",
+        "audio-input",
+        "text-output",
+        "analyzer",
+        "inspector",
+        "metadata-analysis",
+        "media-tool",
+        "information",
+        "fast",
+        "batch",
+        "windows"
+      ]
+    },
+    "ffplay": {
+      "path": "ffplay.exe",
+      "description": "Minimal media player built on FFmpeg libraries for quick playback and filter previewing",
+      "usage": "ffplay input.mp4 # Play a media file\nffplay -autoexit -loglevel error clip.mkv # Play and exit at end, quiet\nffplay -vf scale=640:-2 input.mp4 # Preview with a scale filter\nffplay -f lavfi testsrc # Play a generated test source",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "video-input",
+        "audio-input",
+        "player",
+        "playback",
+        "preview",
+        "media-tool",
+        "windows"
+      ]
+    }
+  }
+}

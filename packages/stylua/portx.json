@@ -1,0 +1,30 @@
+{
+  "name": "stylua",
+  "version": "2.3.1",
+  "description": "Opinionated Lua code formatter enforcing consistent style across Lua 5.1-5.4, LuaJIT, and Luau codebases",
+  "importType": "wrap",
+  "bin": {
+    "stylua": {
+      "path": "stylua.exe",
+      "description": "Deterministic Lua code formatter that parses and reprints code with consistent style enforcement",
+      "usage": "stylua src/ # Format all Lua files in directory\nstylua script.lua # Format single file\nstylua --check src/ # Check formatting without modifying\nstylua --verify src/ # Verify files are formatted correctly\nstylua --config-path=.stylua.toml src/ # Use custom config\nstylua --column-width=100 script.lua # Set line width",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "formatting",
+        "format-tool",
+        "development",
+        "quality-assurance",
+        "automation",
+        "file-input",
+        "directory-input",
+        "config-input",
+        "file-output",
+        "fast",
+        "modern",
+        "deterministic",
+        "code-analysis"
+      ]
+    }
+  }
+}

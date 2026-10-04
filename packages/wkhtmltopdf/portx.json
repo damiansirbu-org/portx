@@ -1,0 +1,52 @@
+{
+  "name": "wkhtmltopdf",
+  "version": "0.12.6",
+  "description": "Command line HTML to PDF converter using WebKit rendering engine",
+  "importType": "wrap",
+  "bin": {
+    "wkhtmltopdf": {
+      "path": "bin/wkhtmltopdf.exe",
+      "description": "HTML to PDF converter with WebKit engine for high-quality PDF generation",
+      "usage": "wkhtmltopdf input.html output.pdf --margin-top 20mm --page-size A4",
+      "dependencies": "windows",
+      "tags": [
+        "pdf-output",
+        "html-input",
+        "convert-tool",
+        "pdf-engine",
+        "documentation",
+        "webkit-based",
+        "high-quality",
+        "configurable",
+        "automation",
+        "cli",
+        "mature",
+        "reliable",
+        "print-to-pdf",
+        "standalone"
+      ]
+    },
+    "wkhtmltoimage": {
+      "path": "bin/wkhtmltoimage.exe",
+      "description": "HTML to image converter generating PNG, JPG formats from HTML content",
+      "usage": "wkhtmltoimage --format png input.html output.png",
+      "dependencies": "windows",
+      "tags": [
+        "image-output",
+        "html-input",
+        "convert-tool",
+        "png-output",
+        "webkit-based",
+        "screenshot",
+        "automation",
+        "cli",
+        "configurable",
+        "graphics",
+        "mature",
+        "reliable",
+        "standalone",
+        "media-processing"
+      ]
+    }
+  }
+}

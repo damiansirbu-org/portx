@@ -1,0 +1,31 @@
+{
+  "name": "pandoc",
+  "version": "3.8.1",
+  "description": "Universal markup converter supporting markdown, HTML, PDF, and 60+ formats",
+  "importType": "wrap",
+  "bin": {
+    "pandoc": {
+      "path": "pandoc.exe",
+      "description": "Universal document converter supporting markdown to PDF, HTML, docx and 60+ formats",
+      "usage": "pandoc input.md -o output.pdf --pdf-engine=wkhtmltopdf",
+      "dependencies": "windows",
+      "tags": [
+        "convert-tool",
+        "documentation",
+        "text-input",
+        "markdown-input",
+        "pdf-output",
+        "html-output",
+        "format-conversion",
+        "text-processing",
+        "docs-tool",
+        "cross-platform",
+        "cli",
+        "configurable",
+        "automation",
+        "general-purpose",
+        "mature"
+      ]
+    }
+  }
+}

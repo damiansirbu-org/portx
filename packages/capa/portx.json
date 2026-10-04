@@ -1,0 +1,30 @@
+{
+  "name": "capa",
+  "version": "9.3.1",
+  "description": "Identify capabilities in executable files using an extensible rule-based matching system",
+  "importType": "wrap",
+  "bin": {
+    "capa": {
+      "path": "capa.exe",
+      "description": "Mandiant capability detection tool - identify what malware can do based on static analysis",
+      "usage": "capa malware.exe\ncapa -v malware.exe\ncapa -j malware.exe\ncapa -r custom_rules/ malware.exe\ncapa --format json malware.exe",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "scanner",
+        "forensics",
+        "processor",
+        "file-input",
+        "stdout-output",
+        "json-output",
+        "rule-input",
+        "security",
+        "malware",
+        "analysis",
+        "reverse-engineering",
+        "capabilities",
+        "windows"
+      ]
+    }
+  }
+}

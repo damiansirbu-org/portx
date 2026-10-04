@@ -1,0 +1,30 @@
+{
+  "name": "hollows-hunter",
+  "version": "0.4.1",
+  "description": "Scan all running processes for malicious implants, process hollowing, and DLL injection",
+  "importType": "wrap",
+  "bin": {
+    "hollows-hunter": {
+      "path": "hollows_hunter.exe",
+      "description": "System-wide scanner for process injection, hollowing, and malicious implants",
+      "usage": "hollows_hunter\nhollows_hunter /loop\nhollows_hunter /shellc\nhollows_hunter /hooks\nhollows_hunter /dir C:\\output\nhollows_hunter /uniqd",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "scanner",
+        "forensics",
+        "processor",
+        "process-input",
+        "file-output",
+        "stdout-output",
+        "json-output",
+        "security",
+        "malware",
+        "memory",
+        "analysis",
+        "windows",
+        "system-wide"
+      ]
+    }
+  }
+}

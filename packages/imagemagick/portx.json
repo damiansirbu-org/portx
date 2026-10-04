@@ -1,0 +1,184 @@
+{
+  "name": "imagemagick",
+  "version": "7.1.2",
+  "description": "Comprehensive image processing suite for creation, editing, conversion, and analysis of images",
+  "importType": "wrap",
+  "bin": {
+    "magick": {
+      "path": "magick.exe",
+      "description": "Primary ImageMagick tool for image conversion, editing, and manipulation with extensive format support",
+      "usage": "magick input.jpg -resize 50% output.jpg # Resize image to 50%\nmagick input.png -rotate 90 -flip rotated.png # Rotate 90° and flip\nmagick input.jpg -blur 0x3 -enhance blurred.jpg # Apply blur and enhance\nmagick -size 800x600 canvas:white -pointsize 72 -annotate +50+300 'Hello' text.png # Create text image\nmagick *.jpg -append vertical.jpg # Combine images vertically\nmagick input.jpg -colorspace Gray -threshold 50% bw.jpg # Convert to black and white",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "image-input",
+        "image-output",
+        "image-processing",
+        "converter",
+        "editor",
+        "resize",
+        "format-conversion",
+        "graphics-tool",
+        "comprehensive",
+        "professional",
+        "batch",
+        "automation",
+        "cross-platform"
+      ]
+    },
+    "identify": {
+      "path": "identify.exe",
+      "description": "Image format identification and metadata analysis tool with detailed technical information",
+      "usage": "identify image.jpg # Show basic image information\nidentify -verbose image.png # Detailed metadata and properties\nidentify -format '%wx%h %m' *.jpg # Custom format output for multiple files\nidentify -ping large_file.tif # Quick info without loading full image",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "image-input",
+        "text-output",
+        "image-tool",
+        "analyzer",
+        "inspector",
+        "metadata-analysis",
+        "information",
+        "technical",
+        "fast",
+        "batch",
+        "format-detection",
+        "properties",
+        "lightweight"
+      ]
+    },
+    "mogrify": {
+      "path": "mogrify.exe",
+      "description": "Batch image transformation tool that modifies files in-place with powerful processing capabilities",
+      "usage": "mogrify -resize 800x600 *.jpg # Resize all JPEG files in directory\nmogrify -format png *.gif # Convert all GIF files to PNG\nmogrify -quality 85 -strip *.jpg # Optimize JPEG quality and remove metadata\nmogrify -rotate 90 -path ./rotated/ *.png # Rotate and save to different directory",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "image-input",
+        "image-output",
+        "image-processing",
+        "batch",
+        "transformer",
+        "in-place",
+        "automation",
+        "resize",
+        "format-conversion",
+        "optimization",
+        "powerful",
+        "directory",
+        "mass-processing"
+      ]
+    },
+    "compare": {
+      "path": "compare.exe",
+      "description": "Image comparison tool for detecting differences and generating visual comparison reports",
+      "usage": "compare image1.jpg image2.jpg diff.png # Create visual difference image\ncompare -metric RMSE image1.png image2.png null: # Get numerical difference score\ncompare -highlight-color red image1.jpg image2.jpg highlighted.jpg # Highlight differences in red\ncompare -fuzz 10% similar1.jpg similar2.jpg difference.png # Compare with 10% tolerance",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "image-input",
+        "image-output",
+        "image-tool",
+        "compare",
+        "diff-tool",
+        "analysis",
+        "testing",
+        "quality-assurance",
+        "validation",
+        "metrics-output",
+        "visual",
+        "tolerance",
+        "highlight"
+      ]
+    },
+    "composite": {
+      "path": "composite.exe",
+      "description": "Image composition tool for layering, blending, and combining multiple images with various operators",
+      "usage": "composite overlay.png background.jpg result.jpg # Overlay image on background\ncomposite -blend 50 image1.jpg image2.jpg blended.jpg # Blend two images at 50%\ncomposite -gravity center watermark.png photo.jpg marked.jpg # Center watermark on photo\ncomposite -compose multiply mask.png image.jpg masked.jpg # Apply mask with multiply blend",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "image-input",
+        "image-output",
+        "image-processing",
+        "compositor",
+        "layering",
+        "blending",
+        "watermark",
+        "overlay",
+        "masking",
+        "advanced",
+        "creative",
+        "professional",
+        "operators"
+      ]
+    },
+    "montage": {
+      "path": "montage.exe",
+      "description": "Image montage creator for generating collages, contact sheets, and multi-image layouts",
+      "usage": "montage *.jpg -geometry 200x200+5+5 -tile 4x3 collage.jpg # Create 4x3 grid collage\nmontage photos/*.png -background white -geometry +10+10 contact.jpg # Contact sheet with spacing\nmontage -label '%f' *.jpg -frame 5 -geometry 150x150 labeled.jpg # Add filenames as labels\nmontage image*.jpg -mode concatenate strip.jpg # Horizontal strip layout",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "image-input",
+        "image-output",
+        "image-processing",
+        "montage",
+        "collage",
+        "contact-sheet",
+        "layout",
+        "grid",
+        "batch",
+        "organizing",
+        "creative",
+        "presentation",
+        "thumbnails"
+      ]
+    },
+    "conjure": {
+      "path": "conjure.exe",
+      "description": "ImageMagick scripting interpreter for executing MSL (Magick Scripting Language) batch operations",
+      "usage": "conjure script.msl # Execute ImageMagick script file\nconjure -debug all script.msl # Run script with detailed debugging output\nconjure -verbose operations.msl # Execute with verbose progress information",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "script-input",
+        "image-processing",
+        "scripting",
+        "automation",
+        "batch",
+        "interpreter",
+        "msl",
+        "advanced",
+        "programming",
+        "workflow",
+        "complex",
+        "debugging",
+        "enterprise"
+      ]
+    },
+    "stream": {
+      "path": "stream.exe",
+      "description": "Streaming image processor for handling large images and pixel-level operations efficiently",
+      "usage": "stream -map rgb input.jpg output.txt # Extract RGB pixel values as text\nstream -storage-type char input.png rgb.raw # Export raw pixel data\nstream -extract 100x100+50+50 large.tif crop.rgb # Extract region as raw data\nstream -map i input.jpg gray.txt # Extract intensity values",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "image-input",
+        "binary-output",
+        "image-tool",
+        "streaming",
+        "pixel-processing",
+        "raw-data",
+        "extraction",
+        "large-images",
+        "efficient",
+        "memory-optimized",
+        "advanced",
+        "technical",
+        "specialized"
+      ]
+    }
+  }
+}

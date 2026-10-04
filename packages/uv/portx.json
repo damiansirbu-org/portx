@@ -1,0 +1,44 @@
+{
+  "name": "uv",
+  "version": "0.11.23",
+  "description": "An extremely fast Python package and project manager written in Rust (Astral). Drop-in replacement for pip, pip-tools, and virtualenv; runs CLI tools in ephemeral environments via uvx.",
+  "importType": "wrap",
+  "bin": {
+    "uv": {
+      "path": "uv.exe",
+      "description": "Fast Python package and project manager - replaces pip, venv, and pip-tools with a single static binary",
+      "usage": "uv venv # Create a virtual environment\nuv pip install requests # Install into the active venv\nuv run script.py # Run a script in the project environment\nuv tool install ruff # Install a CLI tool onto PATH\nuv sync # Sync project dependencies from the lockfile",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "manager",
+        "downloader",
+        "development",
+        "automation",
+        "network-input",
+        "file-input",
+        "config-input",
+        "stdout-output",
+        "file-output"
+      ]
+    },
+    "uvx": {
+      "path": "uvx.exe",
+      "description": "Run a Python CLI tool in an ephemeral environment without installing it permanently (alias for 'uv tool run')",
+      "usage": "uvx ruff check . # Run ruff without installing it\nuvx --from git+https://github.com/oraios/serena serena start-mcp-server # Run an MCP server straight from git\nuvx --python 3.12 black . # Pin the Python version for the run\nuvx cowsay hello # Run a one-off tool",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "downloader",
+        "development",
+        "automation",
+        "generator",
+        "network-input",
+        "file-input",
+        "config-input",
+        "stdout-output",
+        "file-output"
+      ]
+    }
+  }
+}

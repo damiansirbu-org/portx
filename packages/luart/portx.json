@@ -1,0 +1,97 @@
+{
+  "name": "luart",
+  "version": "1.26.0",
+  "description": "LuaRT framework for Lua programming with Windows desktop runtime, compiler, and validation tools",
+  "importType": "wrap",
+  "bin": {
+    "luart": {
+      "path": "bin/luart.exe",
+      "description": "LuaRT console interpreter for running Lua scripts with Windows desktop framework support",
+      "usage": "luart script.lua # Run Lua script with LuaRT framework\nluart -e \"console.log('Hello')\" # Execute inline Lua code\nluart --version # Show LuaRT version\nluart -i # Interactive REPL mode",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "development",
+        "scripting",
+        "automation",
+        "file-input",
+        "text-input",
+        "stdin-input",
+        "stdout-output",
+        "cross-platform",
+        "lightweight"
+      ]
+    },
+    "wluart": {
+      "path": "bin/wluart.exe",
+      "description": "LuaRT Windows GUI interpreter for running Lua scripts with desktop windowing support",
+      "usage": "wluart gui-app.lua # Run GUI Lua application\nwluart --version # Show wluart version\nwluart desktop-tool.lua # Launch desktop application\nwluart window-script.lua # Create Windows desktop windows",
+      "dependencies": "windows",
+      "tags": [
+        "gui",
+        "development",
+        "scripting",
+        "automation",
+        "windows",
+        "file-input",
+        "text-input",
+        "graphics",
+        "lightweight"
+      ]
+    },
+    "rtc": {
+      "path": "bin/rtc.exe",
+      "description": "LuaRT compiler to convert Lua scripts into standalone Windows console executables",
+      "usage": "rtc script.lua # Compile to console executable\nrtc -o output.exe script.lua # Specify output name\nrtc --icon=app.ico script.lua # Add custom icon\nrtc --static script.lua # Create static executable without DLL",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "compiler",
+        "build-tool",
+        "development",
+        "file-input",
+        "executable-output",
+        "automation",
+        "packaging",
+        "compile",
+        "generator"
+      ]
+    },
+    "wrtc": {
+      "path": "bin/wrtc.exe",
+      "description": "LuaRT Windows GUI compiler to create standalone desktop application executables from Lua",
+      "usage": "wrtc gui-app.lua # Compile to GUI executable\nwrtc -o MyApp.exe app.lua # Specify output name\nwrtc --icon=app.ico --static app.lua # Static build with icon\nwrtc --console app.lua # Build with console window",
+      "dependencies": "windows",
+      "tags": [
+        "gui",
+        "compiler",
+        "build-tool",
+        "development",
+        "windows",
+        "file-input",
+        "executable-output",
+        "packaging",
+        "generator",
+        "graphics"
+      ]
+    },
+    "rtcheck": {
+      "path": "bin/rtcheck.exe",
+      "description": "LuaRT syntax checker and validator for static analysis of Lua code quality",
+      "usage": "rtcheck script.lua # Check Lua syntax and semantics\nrtcheck src/*.lua # Validate multiple files\nrtcheck --strict app.lua # Strict mode validation\nrtcheck --warnings script.lua # Show warnings only",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "linting",
+        "validator",
+        "static-analysis",
+        "development",
+        "quality-assurance",
+        "file-input",
+        "text-input",
+        "stdout-output",
+        "automation"
+      ]
+    }
+  }
+}

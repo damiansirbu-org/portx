@@ -1,0 +1,15 @@
+{
+  "name": "texconv",
+  "version": "2026.5.0",
+  "description": "Microsoft DirectXTex texture converter: resize, block-compress (BC1-BC7), and generate mipmaps for DDS/TGA/PNG textures from the command line",
+  "importType": "wrap",
+  "bin": {
+    "texconv": {
+      "path": "texconv.exe",
+      "description": "DDS texture converter and downscaler with BC block-compression and mipmap generation, scriptable for batch texture optimization",
+      "usage": "texconv -w 2048 -h 2048 -f DXT1 -m 0 -y -o outdir in.dds # Downscale to 2048 as BC1 with full mip chain\ntexconv -f DXT5 -m 0 -y -o outdir normal.dds # Re-encode as BC3 with mips\ntexconv -info in.dds # Print format and dimensions\ntexconv -r -w 2048 -h 2048 -y -o outdir dir\\*.dds # Batch a directory recursively",
+      "dependencies": "windows",
+      "tags": ["cli", "image-processing", "image-input", "image-output", "converter", "optimize", "optimizer", "compression", "format-conversion", "batch", "scriptable", "automation", "graphics-tool", "windows"]
+    }
+  }
+}

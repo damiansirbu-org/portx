@@ -1,0 +1,224 @@
+{
+  "name": "poppler",
+  "version": "25.07.0",
+  "description": "PDF rendering library with comprehensive utilities for text extraction, conversion, and analysis",
+  "importType": "wrap",
+  "bin": {
+    "pdfinfo": {
+      "path": "bin/pdfinfo.exe",
+      "description": "PDF document information extractor showing metadata, structure, and technical details",
+      "usage": "pdfinfo document.pdf # Display basic PDF information and metadata\npdfinfo -meta document.pdf # Show XMP metadata\npdfinfo -struct document.pdf # Display document structure\npdfinfo -rawdates document.pdf # Show creation/modification dates in raw format",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "file-input",
+        "text-output",
+        "pdf-tool",
+        "analyzer",
+        "inspector",
+        "metadata-analysis",
+        "information",
+        "fast",
+        "lightweight"
+      ]
+    },
+    "pdftotext": {
+      "path": "bin/pdftotext.exe",
+      "description": "PDF text extraction utility with layout preservation and encoding options",
+      "usage": "pdftotext document.pdf output.txt # Extract text to file\npdftotext -layout document.pdf - # Preserve layout to stdout\npdftotext -enc UTF-8 document.pdf # Extract with UTF-8 encoding\npdftotext -f 5 -l 10 document.pdf pages.txt # Extract pages 5-10 only",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "file-input",
+        "text-output",
+        "pdf-tool",
+        "extractor",
+        "converter",
+        "text-processing",
+        "fast",
+        "encoding",
+        "layout"
+      ]
+    },
+    "pdftoppm": {
+      "path": "bin/pdftoppm.exe",
+      "description": "PDF to PPM/PNG/JPEG image converter with resolution and quality control",
+      "usage": "pdftoppm -png -r 300 document.pdf output # Convert to PNG at 300 DPI\npdftoppm -jpeg -jpegopt quality=95 document.pdf img # High quality JPEG\npdftoppm -f 1 -l 1 -png document.pdf cover # Convert first page only\npdftoppm -scale-to 1024 -png document.pdf thumb # Scale to 1024px width",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "file-input",
+        "image-output",
+        "pdf-tool",
+        "converter",
+        "renderer",
+        "image-processing",
+        "png-output",
+        "jpeg-output",
+        "high-quality"
+      ]
+    },
+    "pdftohtml": {
+      "path": "bin/pdftohtml.exe",
+      "description": "PDF to HTML converter preserving layout, fonts, and embedded images",
+      "usage": "pdftohtml document.pdf # Convert to HTML with embedded images\npdftohtml -c document.pdf output.html # Complex layout preservation\npdftohtml -s document.pdf simple.html # Simple HTML output\npdftohtml -xml document.pdf data.xml # XML output for data extraction",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "file-input",
+        "html-output",
+        "pdf-tool",
+        "converter",
+        "web-tool",
+        "xml-output",
+        "layout",
+        "fonts",
+        "images"
+      ]
+    },
+    "pdftops": {
+      "path": "bin/pdftops.exe",
+      "description": "PDF to PostScript converter with EPS and font embedding options",
+      "usage": "pdftops document.pdf output.ps # Convert to PostScript\npdftops -eps document.pdf output.eps # Create Encapsulated PostScript\npdftops -level3 document.pdf modern.ps # Use PostScript Level 3\npdftops -f 1 -l 1 document.pdf page1.ps # Convert first page only",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "file-input",
+        "file-output",
+        "pdf-tool",
+        "converter",
+        "postscript-tool",
+        "eps-output",
+        "printing",
+        "fonts",
+        "professional"
+      ]
+    },
+    "pdfimages": {
+      "path": "bin/pdfimages.exe",
+      "description": "PDF image extractor saving embedded images in original format",
+      "usage": "pdfimages document.pdf img # Extract all images as img-000.* files\npdfimages -all document.pdf images # Extract with format preservation\npdfimages -png document.pdf pics # Force PNG output format\npdfimages -f 5 -l 10 document.pdf page5-10 # Extract from pages 5-10",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "file-input",
+        "image-output",
+        "pdf-tool",
+        "extractor",
+        "png-output",
+        "jpeg-output",
+        "format-preservation",
+        "batch",
+        "automated"
+      ]
+    },
+    "pdfunite": {
+      "path": "bin/pdfunite.exe",
+      "description": "PDF merge utility combining multiple PDF files into a single document",
+      "usage": "pdfunite file1.pdf file2.pdf file3.pdf merged.pdf # Merge multiple PDFs\npdfunite chapter*.pdf book.pdf # Merge using wildcards\npdfunite part1.pdf part2.pdf combined.pdf # Simple two-file merge",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "file-input",
+        "file-output",
+        "pdf-tool",
+        "merger",
+        "combine",
+        "batch",
+        "simple",
+        "fast",
+        "automation"
+      ]
+    },
+    "pdfseparate": {
+      "path": "bin/pdfseparate.exe",
+      "description": "PDF page separator extracting individual pages from multi-page documents",
+      "usage": "pdfseparate document.pdf page-%02d.pdf # Split into individual pages\npdfseparate input.pdf output/page-%d.pdf # Split to directory with numbering",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "file-input",
+        "file-output",
+        "pdf-tool",
+        "splitter",
+        "separator",
+        "pages",
+        "batch",
+        "automated",
+        "simple"
+      ]
+    },
+    "pdfattach": {
+      "path": "bin/pdfattach.exe",
+      "description": "PDF file attachment utility for embedding files into PDF documents",
+      "usage": "pdfattach document.pdf attachment.txt output.pdf # Attach file to PDF\npdfattach -replace document.pdf new_file.zip output.pdf # Replace existing attachment",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "file-input",
+        "file-output",
+        "pdf-tool",
+        "attachment",
+        "embed",
+        "documents",
+        "files",
+        "utilities",
+        "modify"
+      ]
+    },
+    "pdfdetach": {
+      "path": "bin/pdfdetach.exe",
+      "description": "PDF attachment extractor for saving embedded files from PDF documents",
+      "usage": "pdfdetach -list document.pdf # List all attachments\npdfdetach -save 1 document.pdf # Save first attachment\npdfdetach -saveall document.pdf # Extract all attachments",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "file-input",
+        "file-output",
+        "pdf-tool",
+        "extractor",
+        "attachment",
+        "embedded",
+        "documents",
+        "files",
+        "utilities"
+      ]
+    },
+    "pdffonts": {
+      "path": "bin/pdffonts.exe",
+      "description": "PDF font analyzer listing font information and embedding status",
+      "usage": "pdffonts document.pdf # List all fonts used in PDF\npdffonts -subst document.pdf # Show font substitutions\npdffonts -loc document.pdf # Show font locations on pages",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "file-input",
+        "text-output",
+        "pdf-tool",
+        "analyzer",
+        "fonts",
+        "typography",
+        "embedding",
+        "information",
+        "technical"
+      ]
+    },
+    "pdftocairo": {
+      "path": "bin/pdftocairo.exe",
+      "description": "PDF to vector graphics converter using Cairo rendering engine for high-quality output",
+      "usage": "pdftocairo -svg document.pdf output.svg # Convert to SVG vector format\npdftocairo -pdf document.pdf optimized.pdf # Re-render PDF with Cairo\npdftocairo -png -r 300 document.pdf image # High-quality PNG rendering\npdftocairo -eps document.pdf vector.eps # Convert to EPS format",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "file-input",
+        "file-output",
+        "pdf-tool",
+        "converter",
+        "renderer",
+        "vector-graphics",
+        "svg-output",
+        "high-quality",
+        "cairo"
+      ]
+    }
+  }
+}

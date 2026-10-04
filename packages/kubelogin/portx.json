@@ -1,0 +1,14 @@
+{
+  "name": "kubelogin",
+  "version": "0.2.19",
+  "description": "kubelogin - client-go credential plugin for Azure AD (Entra) authentication to AKS clusters",
+  "importType": "wrap",
+  "bin": {
+    "kubelogin": {
+      "path": "kubelogin.exe",
+      "description": "kubectl exec credential plugin that retrieves Azure AD tokens for AKS cluster authentication",
+      "dependencies": "windows",
+      "tags": ["cli", "authentication", "k8s-tool", "cloud-tool", "security", "windows"]
+    }
+  }
+}

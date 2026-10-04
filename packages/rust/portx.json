@@ -1,0 +1,47 @@
+{
+  "name": "rust",
+  "version": "1.98.0",
+  "description": "Rust toolchain (stable 1.98.0, x86_64-pc-windows-gnu): cargo, rustc, rustdoc. Relocatable/portable (rustc resolves its sysroot from its own location). Building native binaries needs an external C linker on PATH (MSYS2 mingw gcc for the -gnu target).",
+  "importType": "wrap",
+  "bin": {
+    "cargo": {
+      "path": "bin/cargo.exe",
+      "description": "Rust package manager and build system",
+      "usage": "cargo build --release # Build optimized\\ncargo run # Build and run\\ncargo test # Run tests\\ncargo add <crate> # Add a dependency\\ncargo install <crate> # Install a binary crate",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "rust",
+        "build",
+        "package-manager",
+        "compiler",
+        "development",
+        "automation"
+      ]
+    },
+    "rustc": {
+      "path": "bin/rustc.exe",
+      "description": "The Rust compiler",
+      "usage": "rustc main.rs # Compile to main.exe\\nrustc --release -O main.rs # Optimized build\\nrustc --print sysroot # Show toolchain root\\nrustc --version # Show version",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "rust",
+        "compiler",
+        "development"
+      ]
+    },
+    "rustdoc": {
+      "path": "bin/rustdoc.exe",
+      "description": "Generate HTML documentation from Rust source",
+      "usage": "rustdoc src/lib.rs # Generate docs\\ncargo doc # Preferred: generate docs for a crate",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "rust",
+        "docs",
+        "documentation"
+      ]
+    }
+  }
+}

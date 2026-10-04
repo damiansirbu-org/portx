@@ -1,0 +1,31 @@
+{
+  "name": "pup",
+  "version": "0.4.0",
+  "description": "HTML parser and CSS selector tool for command line processing of HTML documents",
+  "importType": "wrap",
+  "bin": {
+    "pup": {
+      "path": "pup.exe",
+      "description": "Parse HTML and extract data using CSS selectors with support for various output formats",
+      "usage": "pup [flags] [selectors] [display function] < input.html",
+      "dependencies": "cross-platform",
+      "tags": [
+        "html-input",
+        "text-output",
+        "parse",
+        "text-processing",
+        "web-scraping",
+        "css-selector",
+        "filter",
+        "extract",
+        "lightweight",
+        "cli",
+        "cross-platform",
+        "fast",
+        "web-tool",
+        "data-extraction",
+        "stdout-output"
+      ]
+    }
+  }
+}

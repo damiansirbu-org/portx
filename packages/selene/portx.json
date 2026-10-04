@@ -1,0 +1,30 @@
+{
+  "name": "selene",
+  "version": "0.31.0-luajit",
+  "description": "Blazing-fast modern Lua linter written in Rust. Custom build (0.31.0 + PR #666 feature-forwarding, parser forced to LuaJIT) so it parses Lua 5.1 + goto/labels used by STALKER/Anomaly mods. Stock release binaries cannot parse goto.",
+  "importType": "wrap",
+  "bin": {
+    "selene": {
+      "path": "selene.exe",
+      "description": "Modern multithreaded Lua linter with English error names and comprehensive static analysis",
+      "usage": "selene src/ # Lint entire directory\nselene script.lua # Lint single file\nselene --config selene.toml . # Use custom config\nselene --display-style=quiet src/ # Quiet output mode\nselene --num-threads=4 src/ # Set thread count\nselene --luau # Enable Luau syntax support",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "linting",
+        "validator",
+        "static-analysis",
+        "development",
+        "quality-assurance",
+        "file-input",
+        "directory-input",
+        "config-input",
+        "stdout-output",
+        "fast",
+        "modern",
+        "high-performance",
+        "automation"
+      ]
+    }
+  }
+}

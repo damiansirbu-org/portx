@@ -1,0 +1,28 @@
+{
+  "bin": {
+    "typst": {
+      "dependencies": "windows",
+      "description": "Modern typesetting system for technical documents with math, code, and bibliography support",
+      "path": "typst.exe",
+      "tags": [
+        "cli",
+        "typesetting",
+        "documentation",
+        "text-processing",
+        "pdf-output",
+        "format-conversion",
+        "math-typesetting",
+        "academic",
+        "technical-writing",
+        "compiler",
+        "modern",
+        "cross-platform"
+      ],
+      "usage": "typst compile document.typ # Compile Typst document to PDF\ntypst watch document.typ # Watch and auto-compile on changes\ntypst compile document.typ --output output.pdf # Specify output file\ntypst compile --format png document.typ # Export as PNG images\ntypst --help # Show all available commands and options"
+    }
+  },
+  "description": "Modern typesetting system with mathematical typesetting, syntax highlighting, and bibliography support",
+  "importType": "wrap",
+  "name": "typst",
+  "version": "0.14.0"
+}

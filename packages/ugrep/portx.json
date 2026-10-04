@@ -1,0 +1,76 @@
+{
+  "name": "ugrep",
+  "version": "7.8.1",
+  "description": "Universal grep with PCRE2/POSIX regex, archive search, fuzzy matching, multiline, and indexed acceleration",
+  "importType": "wrap",
+  "bin": {
+    "ugrep": {
+      "path": "ugrep.exe",
+      "description": "Universal grep — POSIX/PCRE2 regex, multiline, recursive, archive (.zip/.tar/.gz/.bz2/.xz/.lz4/.zst/.7z) search, fuzzy matching, hex dump, and index acceleration",
+      "usage": "ugrep -r 'TODO|FIXME' --include='*.lua' src/ # Recursive typed search\nugrep -P --multiline 'function\\s+\\w+.*?end' --include='*.lua' # Multiline PCRE2\nugrep -z 'pattern' archive.zip dir.tar.gz # Search inside archives\nugrep --fuzzy=2 'compleet' src/ # Approximate match (edit distance 2)\nugrep --index 'pattern' . # Use ugrep-indexer index for speed\nugrep -wcl 'Anomaly' gamedata/configs/ # Whole-word, count, files-with-matches\nugrep -X --hexdump 'DEADBEEF' binary.bin # Hex dump matches\nugrep --json 'pattern' src/ # JSON output for tooling",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "searcher",
+        "grep",
+        "search-tool",
+        "file-input",
+        "directory-input",
+        "text-input",
+        "stdin-input",
+        "stdout-output",
+        "formatted-output",
+        "match-output",
+        "pattern-matching",
+        "content-search",
+        "high-performance",
+        "development"
+      ]
+    },
+    "ug": {
+      "path": "ug.exe",
+      "description": "Interactive ugrep variant with --smart-case, --pretty, built-in pager, and TUI query mode (-Q)",
+      "usage": "ug 'pattern' src/ # Smart-case, pretty grouped output by default\nug -Q # Interactive TUI search session\nug -Q --include='*.script' gamedata/scripts/ # TUI scoped to .script files\nug --hexdump 'pattern' binary.dat # Hex dump in pretty mode\nug -P 'fn\\s+\\w+' src/ # PCRE2 with smart-case",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "tui",
+        "searcher",
+        "grep",
+        "search-tool",
+        "interactive",
+        "file-input",
+        "directory-input",
+        "text-input",
+        "stdout-output",
+        "tui-output",
+        "formatted-output",
+        "pattern-matching",
+        "content-search",
+        "development"
+      ]
+    },
+    "ugrep-indexer": {
+      "path": "ugrep-indexer.exe",
+      "description": "Pre-builds .ugrep index files in a directory tree to accelerate ugrep --index searches over large repos",
+      "usage": "ugrep-indexer . # Build index for current directory tree\nugrep-indexer -f . # Force rebuild of all index files\nugrep-indexer -X . # Delete all .ugrep index files\nugrep-indexer -I '*.bin' . # Skip binary patterns when indexing\nugrep-indexer -q . # Quiet mode for scripts",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "scanner",
+        "generator",
+        "directory-input",
+        "directory-traversal",
+        "file-output",
+        "file-management",
+        "automation",
+        "batch-processing",
+        "build-tool",
+        "optimizer",
+        "high-performance",
+        "development",
+        "windows"
+      ]
+    }
+  }
+}

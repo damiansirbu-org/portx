@@ -1,0 +1,15 @@
+{
+  "name": "oasdiff",
+  "version": "1.15.2",
+  "description": "OpenAPI 3 spec diff and breaking-change detector — compares two OpenAPI specs (YAML/JSON), reports diffs, breaking changes, and changelog with detailed classification",
+  "importType": "wrap",
+  "bin": {
+    "oasdiff": {
+      "path": "oasdiff.exe",
+      "description": "CLI for diffing OpenAPI 3 specs, detecting breaking changes, and producing markdown/yaml/json/html changelogs for API contract gating",
+      "usage": "oasdiff --version\noasdiff diff old.yaml new.yaml\noasdiff diff old.yaml new.yaml -f text\noasdiff breaking old.yaml new.yaml\noasdiff breaking old.yaml new.yaml --fail-on WARN\noasdiff changelog old.yaml new.yaml\noasdiff changelog old.yaml new.yaml -f markdown\noasdiff summary old.yaml new.yaml",
+      "dependencies": "windows"
+    }
+  },
+  "tags": ["api", "openapi", "swagger", "diff", "breaking-changes", "contract", "validation", "cli", "file-input", "yaml-input", "json-input", "markdown-output", "json-output", "yaml-output"]
+}

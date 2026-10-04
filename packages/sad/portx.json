@@ -1,0 +1,31 @@
+{
+  "bin": {
+    "sad": {
+      "dependencies": "cross-platform",
+      "description": "Modern sed alternative with better defaults, regex support, and batch file processing",
+      "path": "sad.exe",
+      "tags": [
+        "text-processing",
+        "stream-processing",
+        "find",
+        "replace",
+        "regex",
+        "text-input",
+        "file-input",
+        "batch-processing",
+        "fast",
+        "cli",
+        "cross-platform",
+        "automation",
+        "modern",
+        "lightweight",
+        "dev-tool"
+      ],
+      "usage": "sad [FLAGS] [OPTIONS] <PATTERN> <REPLACEMENT> [FILE]..."
+    }
+  },
+  "description": "Space Age seD - a modern stream editor for find and replace with batch processing capabilities",
+  "importType": "wrap",
+  "name": "sad",
+  "version": "0.4.32"
+}

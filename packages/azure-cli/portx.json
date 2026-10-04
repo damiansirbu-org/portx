@@ -1,0 +1,15 @@
+{
+  "name": "azure-cli",
+  "version": "2.89.0",
+  "description": "Azure CLI (az) command-line interface for creating and managing Azure resources",
+  "importType": "wrap",
+  "bin": {
+    "az": {
+      "path": "python.exe",
+      "defaultArgs": "-IBm azure.cli",
+      "description": "Azure command-line interface for creating and managing Azure resources",
+      "dependencies": "windows",
+      "tags": ["cli", "cloud-tool", "cloud-management", "automation", "devops", "windows"]
+    }
+  }
+}

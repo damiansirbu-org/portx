@@ -1,0 +1,31 @@
+{
+  "bin": {
+    "typos": {
+      "dependencies": "cross-platform",
+      "description": "Fast spell checker for source code that understands programming contexts and variable naming",
+      "path": "typos.exe",
+      "tags": [
+        "text-processing",
+        "code-analysis",
+        "spell-checker",
+        "linting",
+        "quality-assurance",
+        "code-input",
+        "text-input",
+        "fast",
+        "cli",
+        "cross-platform",
+        "automation",
+        "dev-tool",
+        "validation",
+        "fix",
+        "modern"
+      ],
+      "usage": "typos [FLAGS] [PATH]..."
+    }
+  },
+  "description": "Source code spell checker that finds and fixes typos in code with context-aware suggestions",
+  "importType": "wrap",
+  "name": "typos",
+  "version": "1.38.1"
+}

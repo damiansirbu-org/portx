@@ -1,0 +1,31 @@
+{
+  "name": "cocogitto",
+  "version": "6.4.0",
+  "description": "Conventional commit tooling with automatic versioning, changelog generation, and commit validation",
+  "importType": "wrap",
+  "bin": {
+    "cog": {
+      "path": "cog.exe",
+      "description": "Enforce conventional commits, generate changelogs, and automate semantic versioning workflows",
+      "usage": "cog [COMMAND] [OPTIONS]",
+      "dependencies": "cross-platform",
+      "tags": [
+        "git",
+        "git-tool",
+        "version-control",
+        "automation",
+        "workflow-automation",
+        "release-management",
+        "conventional-commits",
+        "changelog",
+        "dev-tool",
+        "cli",
+        "cross-platform",
+        "validation",
+        "documentation",
+        "productivity",
+        "modern"
+      ]
+    }
+  }
+}

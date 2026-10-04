@@ -1,0 +1,30 @@
+{
+  "name": "floss",
+  "version": "3.1.1",
+  "description": "Extract obfuscated strings from malware using static analysis and emulation techniques",
+  "importType": "wrap",
+  "bin": {
+    "floss": {
+      "path": "floss.exe",
+      "description": "FireEye Labs Obfuscated String Solver - extract hidden and encoded strings from PE files",
+      "usage": "floss malware.exe\nfloss -n 8 malware.exe\nfloss --no-static-strings malware.exe\nfloss -o results.json malware.exe\nfloss --only tight malware.exe",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "scanner",
+        "forensics",
+        "processor",
+        "file-input",
+        "stdout-output",
+        "json-output",
+        "text-output",
+        "security",
+        "malware",
+        "analysis",
+        "reverse-engineering",
+        "strings",
+        "windows"
+      ]
+    }
+  }
+}

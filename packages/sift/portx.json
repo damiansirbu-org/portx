@@ -1,0 +1,26 @@
+{
+  "name": "sift",
+  "version": "0.9.1",
+  "description": "Fast Go-based grep alternative with regex, multi-line search, and rich file-type filters",
+  "importType": "wrap",
+  "bin": {
+    "sift": {
+      "path": "sift.exe",
+      "description": "Fast and powerful grep alternative; multi-line regex, conditional matching, file-type filters",
+      "usage": "sift 'TODO|FIXME' .                # Recursive regex search\nsift -i -w 'function' --type js   # Case-insensitive whole-word, JS files only\nsift -A 5 -B 2 'panic' --type go  # Context lines around matches\nsift --multiline 'fn\\s+\\w+\\s*\\([^)]*\\)\\s*\\{[^}]*panic' # Multi-line regex (cross-line)\nsift --files-with-matches 'deprecated' # File list only\nsift --conditional-assign 'KEY' --followed-by 'VALUE' # Conditional matching across context\nsift -x .git -x node_modules 'pattern' # Exclude paths\nsift --no-conf --no-ignore 'pattern'   # Disable config/ignore files",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "searcher",
+        "file-input",
+        "directory-input",
+        "text-input",
+        "stdout-output",
+        "formatted-output",
+        "development",
+        "performance",
+        "windows"
+      ]
+    }
+  }
+}

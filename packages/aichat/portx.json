@@ -1,0 +1,31 @@
+{
+  "bin": {
+    "aichat": {
+      "dependencies": "cross-platform",
+      "description": "CLI tool for interacting with various AI models and providers from command line",
+      "path": "aichat.exe",
+      "tags": [
+        "ai",
+        "chat",
+        "api-tool",
+        "text-input",
+        "text-output",
+        "interactive",
+        "automation",
+        "cli",
+        "cross-platform",
+        "communication",
+        "conversation",
+        "modern",
+        "configurable",
+        "productivity",
+        "assistant"
+      ],
+      "usage": "aichat [FLAGS] [OPTIONS] [TEXT]..."
+    }
+  },
+  "description": "Command-line AI chat interface supporting multiple AI providers with conversation management",
+  "importType": "wrap",
+  "name": "aichat",
+  "version": "0.30.0"
+}

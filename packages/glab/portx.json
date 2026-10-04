@@ -1,0 +1,22 @@
+{
+  "name": "glab",
+  "version": "1.112.0",
+  "description": "GitLab CLI - manage repos, merge requests, pipelines, CI/CD variables and releases from the terminal via the GitLab API",
+  "importType": "wrap",
+  "bin": {
+    "glab": {
+      "path": "bin/glab.exe",
+      "description": "GitLab command-line client: API access, merge requests, pipelines, CI/CD variables, releases",
+      "usage": "glab auth login --hostname code.siemens-energy.com --token <PAT>   # authenticate to a self-managed GitLab\nGITLAB_HOST=code.siemens-energy.com GITLAB_TOKEN=$(cat ~/.oam-secrets/code-siemens.pat) glab variable get OAM_SECRETS_prd_OAM_2 -g mosaic-apps/oam/infrastructure/deployments/eks-helm-chart   # read a CI/CD File variable\nglab ci list -R mosaic-apps/oam/infrastructure/deployments/eks-helm-chart   # list recent pipelines\nglab ci run -b develop -R <project> --variables DEPLOY_ENVIRONMENT:qa   # trigger a pipeline\nglab mr list   # list merge requests in the current repo",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "api-tool",
+        "ci-cd",
+        "devops",
+        "client",
+        "processor"
+      ]
+    }
+  }
+}

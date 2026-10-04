@@ -1,0 +1,72 @@
+{
+  "name": "neovim",
+  "version": "0.11.5",
+  "description": "Hyperextensible Vim-based text editor with modern UI and async plugins",
+  "importType": "wrap",
+  "bin": {
+    "nv": {
+      "path": "nvim-portable.sh",
+      "description": "Neovim text editor with extensible architecture and modern features (portable config)",
+      "usage": "nv [options] [file ...]",
+      "dependencies": "cross-platform",
+      "tags": [
+        "editor",
+        "text-processing",
+        "file-input",
+        "file-output",
+        "terminal-ui",
+        "cross-platform",
+        "extensible",
+        "syntax-highlighting",
+        "code-editing",
+        "vim-compatible",
+        "plugin-system",
+        "async",
+        "lua-scripting",
+        "developer-tools"
+      ]
+    },
+    "win32yank": {
+      "path": "bin/win32yank.exe",
+      "description": "Windows clipboard integration utility for Neovim and terminal applications",
+      "usage": "win32yank [-i | -o] [--lf]",
+      "dependencies": "windows",
+      "tags": [
+        "clipboard",
+        "utility",
+        "stdin-input",
+        "stdout-output",
+        "windows-specific",
+        "terminal-integration",
+        "text-processing",
+        "pipe-friendly",
+        "copy-paste",
+        "helper-tool",
+        "fast",
+        "lightweight"
+      ]
+    },
+    "xxd": {
+      "path": "bin/xxd.exe",
+      "description": "Hex dump utility for creating and reversing binary file dumps",
+      "usage": "xxd [options] [infile [outfile]]",
+      "dependencies": "windows",
+      "tags": [
+        "hex-dump",
+        "binary-viewer",
+        "file-input",
+        "file-output",
+        "stdout-output",
+        "stdin-input",
+        "text-processing",
+        "converter",
+        "reverse-engineering",
+        "developer-tools",
+        "debugging",
+        "cross-platform",
+        "pipe-friendly",
+        "lightweight"
+      ]
+    }
+  }
+}

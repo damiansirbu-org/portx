@@ -1,0 +1,26 @@
+{
+  "name": "plantuml",
+  "version": "1.2026.8",
+  "description": "PlantUML diagram renderer - UML and C4 (via C4-PlantUML stdlib) from text to PNG/SVG",
+  "importType": "wrap",
+  "bin": {
+    "plantuml": {
+      "path": "plantuml.jar",
+      "description": "Renders .puml text diagrams to PNG/SVG; pairs with structurizr export -format plantuml/c4plantuml",
+      "usage": "plantuml diagram.puml # Render to PNG next to source\nplantuml -tsvg diagram.puml # Render to SVG\nplantuml -DPLANTUML_LIMIT_SIZE=16384 big.puml # Raise canvas limit\nplantuml -checkonly diagram.puml # Validate only",
+      "dependencies": "java, graphwiz",
+      "tags": [
+        "cli",
+        "text-input",
+        "image-output",
+        "diagram-tool",
+        "code-to-diagram",
+        "uml",
+        "c4-model",
+        "architecture",
+        "documentation",
+        "java"
+      ]
+    }
+  }
+}

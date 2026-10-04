@@ -1,0 +1,31 @@
+{
+  "bin": {
+    "srgn": {
+      "dependencies": "cross-platform",
+      "description": "Advanced grep tool with semantic search capabilities and powerful regex pattern matching",
+      "path": "srgn.exe",
+      "tags": [
+        "search",
+        "grep",
+        "text-processing",
+        "regex",
+        "pattern-matching",
+        "semantic",
+        "text-input",
+        "file-input",
+        "advanced",
+        "cli",
+        "cross-platform",
+        "fast",
+        "dev-tool",
+        "search-tool",
+        "modern"
+      ],
+      "usage": "srgn [FLAGS] [OPTIONS] <PATTERN> [PATH]..."
+    }
+  },
+  "description": "Semantic grep with regex support for advanced text searching and pattern matching",
+  "importType": "wrap",
+  "name": "srgn",
+  "version": "0.14.0"
+}

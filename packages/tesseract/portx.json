@@ -1,0 +1,96 @@
+{
+  "name": "tesseract",
+  "version": "5.4.0",
+  "description": "Open-source OCR engine for text recognition from images with machine learning capabilities",
+  "importType": "wrap",
+  "bin": {
+    "tesseract": {
+      "path": "tesseract.exe",
+      "description": "Optical Character Recognition engine converting images to searchable text with multi-language support",
+      "usage": "tesseract image.png output # Extract text to output.txt\ntesseract document.jpg result -l eng+ron # OCR with English and Romanian\ntesseract scan.tif text -c preserve_interword_spaces=1 # Preserve spacing\ntesseract photo.jpg output --psm 6 # Assume uniform block of text\ntesseract receipt.png data tsv # Output as TSV with coordinates\ntesseract form.jpg output pdf # Create searchable PDF\ntesseract page.png result -c tessedit_char_whitelist=0123456789 # Numbers only\ntesseract --list-langs # Show available languages\ntesseract image.jpg stdout quiet # Output to console, suppress messages\ntesseract complex.png text --psm 3 -c preserve_interword_spaces=1",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "image-input",
+        "text-output",
+        "ocr",
+        "text-recognition",
+        "image-processing",
+        "pdf-output",
+        "machine-learning",
+        "multi-language",
+        "accuracy",
+        "automation",
+        "document-processing",
+        "ai",
+        "open-source"
+      ]
+    },
+    "text2image": {
+      "path": "text2image.exe",
+      "description": "Training data generator creating synthetic images from text for Tesseract model training",
+      "usage": "text2image --text='Sample text' --outputbase=training --font='Arial' # Generate training images\ntext2image --textfile=corpus.txt --outputbase=dataset --fonts_dir=./fonts # Batch generate from file\ntext2image --text='Numbers 123' --outputbase=digits --exposures='0 1' # Multiple exposures",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "text-input",
+        "image-output",
+        "generator",
+        "training",
+        "synthetic",
+        "machine-learning",
+        "dataset",
+        "fonts",
+        "automation",
+        "batch",
+        "development",
+        "ai-training",
+        "specialized"
+      ]
+    },
+    "combine_tessdata": {
+      "path": "combine_tessdata.exe",
+      "description": "Tesseract training data combiner for creating and extracting .traineddata files",
+      "usage": "combine_tessdata -o lang.traineddata lang.* # Combine training components\ncombine_tessdata -e lang.traineddata lang # Extract components from traineddata\ncombine_tessdata -d lang.traineddata # Display traineddata file info\ncombine_tessdata -c lang.traineddata # Check traineddata file integrity",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "file-input",
+        "file-output",
+        "training",
+        "data-tool",
+        "combine",
+        "extract",
+        "tessdata",
+        "machine-learning",
+        "model-management",
+        "development",
+        "advanced",
+        "specialized",
+        "technical"
+      ]
+    },
+    "lstmtraining": {
+      "path": "lstmtraining.exe",
+      "description": "LSTM neural network trainer for creating custom Tesseract recognition models",
+      "usage": "lstmtraining --traineddata=base.traineddata --net_spec='[1,36,0,1 Ct3,3,16 Mp3,3 Lfys48 Lfx96 Lrx96 Lfx256 O1c105]' --model_output=custom # Train LSTM model\nlstmtraining --continue_from=checkpoint.checkpoint --traineddata=lang.traineddata # Resume training\nlstmtraining --stop_training --continue_from=model.checkpoint --traineddata=base.traineddata # Finalize model",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "file-input",
+        "file-output",
+        "machine-learning",
+        "lstm",
+        "neural-network",
+        "training",
+        "ai",
+        "deep-learning",
+        "model-creation",
+        "advanced",
+        "specialized",
+        "technical",
+        "expert"
+      ]
+    }
+  }
+}

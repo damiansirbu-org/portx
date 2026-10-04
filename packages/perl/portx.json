@@ -1,0 +1,26 @@
+{
+  "name": "perl",
+  "version": "5.38.2.2",
+  "description": "Strawberry Perl portable distribution with complete Perl runtime and development tools",
+  "importType": "wrap",
+  "bin": {
+    "perl": {
+      "path": "perl/bin/perl.exe",
+      "description": "Perl programming language interpreter for scripts and applications",
+      "usage": "perl script.pl | perl -e \"print 'Hello World'\" | perl -v | perl -c script.pl",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "development",
+        "automation",
+        "scripting",
+        "interpreter",
+        "file-input",
+        "text-input",
+        "stdin-input",
+        "stdout-output",
+        "file-output"
+      ]
+    }
+  }
+}

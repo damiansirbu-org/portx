@@ -1,0 +1,31 @@
+{
+  "name": "grpcurl",
+  "version": "1.9.3",
+  "description": "Command-line tool for interacting with gRPC servers using curl-like syntax for testing and debugging",
+  "importType": "wrap",
+  "bin": {
+    "grpcurl": {
+      "path": "grpcurl.exe",
+      "description": "Make gRPC requests from command line with service discovery, reflection, and JSON formatting",
+      "usage": "grpcurl [flags] [host:port] [service/method]",
+      "dependencies": "cross-platform",
+      "tags": [
+        "api-tool",
+        "grpc",
+        "network-tool",
+        "client",
+        "json-input",
+        "json-output",
+        "debugging",
+        "testing",
+        "cli",
+        "cross-platform",
+        "protocol-analysis",
+        "reflection",
+        "service-discovery",
+        "automation",
+        "dev-tool"
+      ]
+    }
+  }
+}

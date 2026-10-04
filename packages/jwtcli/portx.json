@@ -1,0 +1,31 @@
+{
+  "bin": {
+    "jwt": {
+      "dependencies": "cross-platform",
+      "description": "Create, decode, verify, and manipulate JWT tokens from command line with multiple algorithm support",
+      "path": "jwt.exe",
+      "tags": [
+        "security",
+        "authentication",
+        "authorization",
+        "crypto-tool",
+        "json-input",
+        "json-output",
+        "api-tool",
+        "dev-tool",
+        "cli",
+        "cross-platform",
+        "validation",
+        "decode",
+        "encode",
+        "testing",
+        "web-tool"
+      ],
+      "usage": "jwt [command] [flags] [token]"
+    }
+  },
+  "description": "Command-line tool for creating, parsing, and validating JSON Web Tokens (JWT) with support for various algorithms",
+  "importType": "wrap",
+  "name": "jwtcli",
+  "version": "6.2.0"
+}

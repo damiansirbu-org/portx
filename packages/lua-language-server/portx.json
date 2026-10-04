@@ -1,0 +1,31 @@
+{
+  "name": "lua-language-server",
+  "version": "3.16.4",
+  "description": "Lua Language Server (LSP) providing completion, diagnostics, hover, go-to-definition, and type checking via JSON-RPC over stdio",
+  "importType": "wrap",
+  "bin": {
+    "lua-language-server": {
+      "path": "bin/lua-language-server.exe",
+      "description": "LuaLS — Language Server Protocol implementation for Lua: diagnostics, completion, hover, references, type inference via EmmyLua/LuaCATS annotations, runs over stdio JSON-RPC",
+      "usage": "lua-language-server # Start LSP server on stdio (invoked by editors, not directly)\nlua-language-server --check ./src # CLI diagnostics over a directory\nlua-language-server --check ./src --checklevel=Warning # Filter severity\nlua-language-server --check ./src --logpath=./logs # Custom log location\nlua-language-server --version # Print version",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "server",
+        "server-tool",
+        "analyzer",
+        "code-analysis",
+        "static-analysis",
+        "linting",
+        "analysis-tool",
+        "editor-tool",
+        "development",
+        "dev-tool",
+        "json-input",
+        "json-output",
+        "stdin-input",
+        "stdout-output"
+      ]
+    }
+  }
+}

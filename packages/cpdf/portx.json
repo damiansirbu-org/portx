@@ -1,0 +1,30 @@
+{
+  "name": "cpdf",
+  "version": "2.8.1",
+  "description": "Professional PDF manipulation tool for merging, splitting, encrypting, and advanced document operations",
+  "importType": "wrap",
+  "bin": {
+    "cpdf": {
+      "path": "cpdf.exe",
+      "description": "Professional PDF manipulation tool with comprehensive document processing and security features",
+      "usage": "cpdf file1.pdf file2.pdf -o merged.pdf # Merge multiple PDF files\ncpdf input.pdf 1-5 -o pages1to5.pdf # Extract pages 1-5\ncpdf input.pdf even -o even_pages.pdf # Extract even pages only\ncpdf input.pdf -encrypt 40bit owner user -o encrypted.pdf # Encrypt PDF with passwords\ncpdf input.pdf -decrypt user -o decrypted.pdf # Decrypt PDF with user password\ncpdf input.pdf -add-text \"CONFIDENTIAL\" -o watermarked.pdf # Add text watermark\ncpdf input.pdf -rotate-contents 90 -o rotated.pdf # Rotate page contents 90 degrees\ncpdf input.pdf -scale-page \"0.8 0.8\" -o scaled.pdf # Scale pages to 80%\ncpdf input.pdf -list-bookmarks # List all PDF bookmarks\ncpdf input.pdf -crop \"72 72 72 72\" -o cropped.pdf # Crop pages with margins",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "file-input",
+        "file-output",
+        "pdf-tool",
+        "merger",
+        "splitter",
+        "encryptor",
+        "processor",
+        "editor",
+        "manipulation",
+        "security-tool",
+        "document-tool",
+        "professional",
+        "commercial"
+      ]
+    }
+  }
+}

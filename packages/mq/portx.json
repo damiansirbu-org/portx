@@ -1,0 +1,40 @@
+{
+  "name": "mq",
+  "version": "0.5.28",
+  "description": "jq-like markdown processor: query and update markdown by AST nodes",
+  "importType": "wrap",
+  "bin": {
+    "mq": {
+      "path": "mq.exe",
+      "description": "jq-like markdown processor: query and update markdown by AST nodes",
+      "usage": "mq '.h3' file.md # List all h3 headings\nmq '.h3 | select(contains(\"n128\"))' file.md # Filter h3 by content\nmq -U 'del(.h3 | select(contains(\"n157\")))' file.md # In-place delete (where supported)\nmq -F json '.h3' file.md # Output as JSON\nmq -M ~/.config/mq/todo.mq 'todo::section(\"n103\")' file.md # Use module\nmq repl # Interactive REPL\nmq fmt --check file.mq # Format/validate mq query files\nmq --list # List builtin + external subcommands",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "markdown",
+        "query",
+        "ast",
+        "file-input",
+        "text-input",
+        "stdout-output",
+        "formatted-output",
+        "development"
+      ]
+    },
+    "mq-todo": {
+      "path": "mq-todo.cmd",
+      "description": "mq with todo module preloaded (-A -L modules -m todo). Operates on markdown todo files (h3 sections, [STATE] nNNN heading format).",
+      "usage": "mq-todo 'todo::tasks(self) | section::titles()' file.md # List task titles\nmq-todo 'todo::drop(self, \"n128\")' -o file.md file.md # Drop section by id\nmq-todo 'todo::drop_all(self, [\"n101\",\"n102\"])' -o file.md file.md # Drop multiple\nmq-todo 'todo::keep_only(self, [\"n103\"])' src.md > excerpt.md # Extract subset\nmq-todo 'todo::get_task(self, \"n103\")' file.md # View one section",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "markdown",
+        "todo",
+        "wrapper",
+        "file-input",
+        "stdout-output",
+        "development"
+      ]
+    }
+  }
+}

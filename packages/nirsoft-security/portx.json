@@ -1,0 +1,57 @@
+{
+  "name": "nirsoft-security",
+  "version": "1.0.0",
+  "description": "NirSoft security and forensic utilities for Windows system analysis and incident response",
+  "importType": "wrap",
+  "bin": {
+    "usbdeview": {
+      "path": "bin/USBDeview.exe",
+      "description": "View all USB devices connected to system with history and details",
+      "usage": "usbdeview\nusbdeview /stext output.txt\nusbdeview /scsv output.csv",
+      "dependencies": "windows",
+      "tags": ["gui", "forensics", "viewer", "usb", "devices", "history", "csv-output", "security", "portable", "windows", "hardware", "analysis"]
+    },
+    "lastactivityview": {
+      "path": "bin/LastActivityView.exe",
+      "description": "Display timeline of user activity and system events for forensic analysis",
+      "usage": "lastactivityview\nlastactivityview /stext output.txt\nlastactivityview /scsv output.csv",
+      "dependencies": "windows",
+      "tags": ["gui", "forensics", "viewer", "timeline", "activity", "history", "csv-output", "security", "portable", "windows", "events", "analysis"]
+    },
+    "browsinghistoryview": {
+      "path": "bin/BrowsingHistoryView.exe",
+      "description": "View browsing history from all installed browsers in unified format",
+      "usage": "browsinghistoryview\nbrowsinghistoryview /stext output.txt\nbrowsinghistoryview /scsv output.csv",
+      "dependencies": "windows",
+      "tags": ["gui", "forensics", "viewer", "browser", "history", "csv-output", "security", "portable", "windows", "web", "analysis"]
+    },
+    "fulleventlogview": {
+      "path": "bin/FullEventLogView.exe",
+      "description": "View and export Windows event logs from all channels in unified interface",
+      "usage": "fulleventlogview\nfulleventlogview /stext output.txt\nfulleventlogview /scsv output.csv",
+      "dependencies": "windows",
+      "tags": ["gui", "forensics", "viewer", "eventlog", "logs", "csv-output", "security", "portable", "windows", "events", "analysis"]
+    },
+    "wifihistoryview": {
+      "path": "bin/WifiHistoryView.exe",
+      "description": "View WiFi connection history including SSIDs, connection times, and adapters",
+      "usage": "wifihistoryview\nwifihistoryview /stext output.txt\nwifihistoryview /scsv output.csv",
+      "dependencies": "windows",
+      "tags": ["gui", "forensics", "viewer", "wifi", "network", "history", "csv-output", "security", "portable", "windows", "wireless", "analysis"]
+    },
+    "cports": {
+      "path": "bin/cports.exe",
+      "description": "View all open TCP/UDP ports and the processes that opened them",
+      "usage": "cports\ncports /stext output.txt\ncports /scsv output.csv\ncports /close <local> <remote>",
+      "dependencies": "windows",
+      "tags": ["gui", "forensics", "viewer", "network", "ports", "tcp", "udp", "csv-output", "security", "portable", "windows", "connections", "analysis"]
+    },
+    "searchmyfiles": {
+      "path": "bin/SearchMyFiles.exe",
+      "description": "Advanced file search utility with duplicate finder and wildcard support",
+      "usage": "searchmyfiles\nsearchmyfiles /stext output.txt\nsearchmyfiles /scsv output.csv",
+      "dependencies": "windows",
+      "tags": ["gui", "utility", "search", "files", "duplicates", "csv-output", "security", "portable", "windows", "finder", "analysis"]
+    }
+  }
+}

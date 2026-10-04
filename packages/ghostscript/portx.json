@@ -1,0 +1,30 @@
+{
+  "name": "ghostscript",
+  "version": "10.06.0",
+  "description": "PostScript and PDF interpreter, renderer, and converter with advanced imaging capabilities",
+  "importType": "wrap",
+  "bin": {
+    "gs": {
+      "path": "gswin64c.exe",
+      "description": "PostScript and PDF interpreter with comprehensive rendering, conversion, and manipulation capabilities",
+      "usage": "gs -dNOPAUSE -dBATCH -sDEVICE=pdfwrite -sOutputFile=output.pdf input.ps # Convert PostScript to PDF\ngs -dNOPAUSE -dBATCH -sDEVICE=pdfwrite -dPDFSETTINGS=/ebook -sOutputFile=compressed.pdf input.pdf # Compress PDF\ngs -dNOPAUSE -dBATCH -sDEVICE=png16m -r300 -sOutputFile=page_%03d.png input.pdf # Convert PDF to PNG images\ngs -dNOPAUSE -dBATCH -sDEVICE=jpeg -r150 -sOutputFile=output.jpg input.pdf # Convert to JPEG\ngs -dNOPAUSE -dBATCH -sDEVICE=txtwrite -sOutputFile=output.txt input.pdf # Extract text from PDF\ngs -dNOPAUSE -dBATCH -sDEVICE=pdfwrite -dColorConversionStrategy=/Gray -sOutputFile=gray.pdf input.pdf # Convert to grayscale\ngs -dNOPAUSE -dBATCH -sDEVICE=pdfwrite -dFirstPage=1 -dLastPage=5 -sOutputFile=pages1-5.pdf input.pdf # Extract specific pages\ngs -dNOPAUSE -dBATCH -sDEVICE=eps2write -sOutputFile=output.eps input.pdf # Convert PDF to EPS\ngs -dNOPAUSE -dBATCH -sDEVICE=pdfwrite -dDetectDuplicateImages=true -sOutputFile=optimized.pdf input.pdf # Optimize PDF size",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "converter",
+        "cross-platform",
+        "file-input",
+        "file-output",
+        "format-conversion",
+        "graphics-tool",
+        "image-output",
+        "image-processing",
+        "interpreter",
+        "pdf-tool",
+        "postscript-tool",
+        "renderer",
+        "text-processing"
+      ]
+    }
+  }
+}

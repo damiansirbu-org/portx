@@ -1,0 +1,31 @@
+{
+  "bin": {
+    "ruplacer": {
+      "dependencies": "cross-platform",
+      "description": "Safe find and replace across multiple files with preview mode and regex support",
+      "path": "ruplacer.exe",
+      "tags": [
+        "text-processing",
+        "find",
+        "replace",
+        "refactoring",
+        "file-input",
+        "text-input",
+        "batch-processing",
+        "safe",
+        "cli",
+        "cross-platform",
+        "automation",
+        "dev-tool",
+        "regex",
+        "preview",
+        "modern"
+      ],
+      "usage": "ruplacer [FLAGS] [OPTIONS] <PATTERN> <REPLACEMENT> [PATH]..."
+    }
+  },
+  "description": "Find and replace tool that can process multiple files with preview and safety features",
+  "importType": "wrap",
+  "name": "ruplacer",
+  "version": "0.10.0"
+}

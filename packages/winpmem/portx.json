@@ -1,0 +1,30 @@
+{
+  "name": "winpmem",
+  "version": "4.0.0",
+  "description": "Acquire physical memory from Windows systems for forensic analysis and incident response",
+  "importType": "wrap",
+  "bin": {
+    "winpmem": {
+      "path": "winpmem.exe",
+      "description": "Memory acquisition tool - dump RAM contents to file for forensic analysis",
+      "usage": "winpmem memdump.raw\nwinpmem --format raw memdump.raw\nwinpmem --output memdump.aff4\nwinpmem --volume_format raw memdump.raw",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "forensics",
+        "memory",
+        "acquisition",
+        "file-output",
+        "binary-output",
+        "security",
+        "incident-response",
+        "analysis",
+        "dump",
+        "windows",
+        "admin-required",
+        "volatile",
+        "raw"
+      ]
+    }
+  }
+}

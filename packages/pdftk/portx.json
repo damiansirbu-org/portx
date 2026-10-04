@@ -1,0 +1,30 @@
+{
+  "name": "pdftk",
+  "version": "2.02.0",
+  "description": "Classic PDF toolkit for merging, splitting, rotating, form filling, and watermarking operations",
+  "importType": "wrap",
+  "bin": {
+    "pdftk": {
+      "path": "pdftk.exe",
+      "description": "Classic PDF toolkit for comprehensive document manipulation, form processing, and security operations",
+      "usage": "pdftk file1.pdf file2.pdf cat output merged.pdf # Merge multiple PDF files\npdftk input.pdf cat 1-5 output pages1to5.pdf # Extract pages 1-5\npdftk input.pdf cat 1-endodd output odd_pages.pdf # Extract odd pages only\npdftk input.pdf rotate 1-endright output rotated.pdf # Rotate all pages 90° clockwise\npdftk form.pdf fill_form data.fdf output filled.pdf # Fill PDF form with FDF data\npdftk input.pdf stamp watermark.pdf output stamped.pdf # Add watermark to all pages\npdftk input.pdf burst # Split into individual pages (pg_0001.pdf, etc.)\npdftk input.pdf dump_data output metadata.txt # Extract PDF metadata\npdftk input.pdf update_info metadata.txt output updated.pdf # Update PDF metadata\npdftk secured.pdf input_pw password cat output unlocked.pdf # Remove password protection",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "file-input",
+        "file-output",
+        "pdf-tool",
+        "merger",
+        "splitter",
+        "form-tool",
+        "watermark",
+        "rotator",
+        "classic",
+        "mature",
+        "free",
+        "stable",
+        "lightweight"
+      ]
+    }
+  }
+}

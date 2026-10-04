@@ -1,0 +1,35 @@
+{
+  "name": "xmlstarlet",
+  "version": "1.6.1",
+  "description": "Command-line XML toolkit: select (XPath/XSLT), edit, validate, transform",
+  "importType": "wrap",
+  "bin": {
+    "xmlstarlet": {
+      "path": "xml.exe",
+      "description": "Command-line XML toolkit: XPath select, edit, validate, XSLT transform",
+      "usage": "xmlstarlet sel -t -v '//book/@id' file.xml # XPath select attribute values\nxmlstarlet sel -t -m '//item' -v 'title' -n file.xml # Iterate matches, print field\nxmlstarlet ed -L -u '//config/@version' -v '2.0' file.xml # In-place edit attribute\nxmlstarlet ed -L -d '//deprecated' file.xml # Delete nodes\nxmlstarlet ed -L -i '//root' -t elem -n 'newchild' -v 'value' file.xml # Insert element\nxmlstarlet val -e file.xml # Validate well-formedness with errors\nxmlstarlet val -s schema.xsd file.xml # Validate against XSD schema\nxmlstarlet tr stylesheet.xsl file.xml # Apply XSLT transform\nxmlstarlet fo file.xml # Format/pretty-print\nxmlstarlet c14n file.xml # Canonicalize XML\nxmlstarlet escape 'value with <special> chars' # Escape XML entities\nxmlstarlet pyx file.xml # Convert to PYX (line-oriented)",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "xml",
+        "xpath",
+        "xslt",
+        "validation",
+        "file-input",
+        "text-input",
+        "stdout-output",
+        "development"
+      ]
+    },
+    "xml": {
+      "path": "xml.exe",
+      "description": "Alias for xmlstarlet (upstream binary name)",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "xml",
+        "alias"
+      ]
+    }
+  }
+}

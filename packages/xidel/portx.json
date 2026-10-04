@@ -1,0 +1,31 @@
+{
+  "name": "xidel",
+  "version": "0.9.8",
+  "description": "Command-line tool for extracting data from HTML/XML/JSON files using XPath, CSS selectors, and JSONiq",
+  "importType": "wrap",
+  "bin": {
+    "xidel": {
+      "path": "xidel.exe",
+      "description": "Powerful data extraction tool supporting HTML, XML, JSON with XPath, CSS selectors, and regex",
+      "usage": "xidel [OPTIONS] [URL/FILE] [QUERY]",
+      "dependencies": "cross-platform",
+      "tags": [
+        "html-input",
+        "xml-input",
+        "json-input",
+        "web-scraping",
+        "data-extraction",
+        "xpath",
+        "css-selector",
+        "parse",
+        "extract",
+        "query",
+        "cli",
+        "cross-platform",
+        "web-tool",
+        "versatile",
+        "powerful"
+      ]
+    }
+  }
+}

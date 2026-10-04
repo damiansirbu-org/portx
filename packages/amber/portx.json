@@ -1,0 +1,54 @@
+{
+  "bin": {
+    "ambr": {
+      "dependencies": "cross-platform",
+      "description": "Amber compiler that compiles Amber language to Bash with modern syntax and features",
+      "path": "ambr.exe",
+      "tags": [
+        "compiler",
+        "template-engine",
+        "script-input",
+        "shell-output",
+        "automation",
+        "programming-language",
+        "build-tool",
+        "cli",
+        "cross-platform",
+        "dev-tool",
+        "compile",
+        "modern",
+        "productivity",
+        "specialized",
+        "experimental"
+      ],
+      "usage": "ambr [FLAGS] [OPTIONS] [FILE]"
+    },
+    "ambs": {
+      "dependencies": "cross-platform",
+      "description": "Amber script runner that executes Amber scripts directly without compilation",
+      "path": "ambs.exe",
+      "tags": [
+        "script-runner",
+        "interpreter",
+        "script-input",
+        "shell-output",
+        "automation",
+        "programming-language",
+        "runtime",
+        "cli",
+        "cross-platform",
+        "dev-tool",
+        "execute",
+        "modern",
+        "productivity",
+        "specialized",
+        "experimental"
+      ],
+      "usage": "ambs [FLAGS] [OPTIONS] [FILE]"
+    }
+  },
+  "description": "Programming language and template engine that compiles to Bash for shell script automation",
+  "importType": "wrap",
+  "name": "amber",
+  "version": "0.6.0"
+}

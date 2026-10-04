@@ -1,0 +1,66 @@
+{
+  "name": "qpdf",
+  "version": "12.2.0",
+  "description": "PDF transformation and inspection library with comprehensive manipulation capabilities",
+  "importType": "wrap",
+  "bin": {
+    "qpdf": {
+      "path": "qpdf.exe",
+      "description": "PDF transformation tool with optimization, encryption, and structural manipulation capabilities",
+      "usage": "qpdf --optimize-images --compress-streams=y input.pdf output.pdf # Optimize and compress PDF\nqpdf --linearize input.pdf output.pdf # Linearize PDF for fast web viewing\nqpdf --decrypt input.pdf output.pdf # Remove password protection\nqpdf --encrypt user owner 256 -- input.pdf output.pdf # Add AES-256 encryption\nqpdf --pages file1.pdf 1-5 file2.pdf 10-15 -- output.pdf # Merge specific pages\nqpdf --split-pages input.pdf output-%d.pdf # Split into individual pages\nqpdf --json input.pdf # Extract PDF structure as JSON\nqpdf --show-pages input.pdf # Display page information\nqpdf --check input.pdf # Validate PDF structure\nqpdf --compression-level=9 --recompress-flate input.pdf output.pdf # Maximum compression",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "file-input",
+        "file-output",
+        "pdf-tool",
+        "transformer",
+        "optimizer",
+        "encryptor",
+        "splitter",
+        "merger",
+        "validator",
+        "inspector",
+        "compressor",
+        "linearizer",
+        "json-output",
+        "cross-platform"
+      ]
+    },
+    "fix-qdf": {
+      "path": "fix-qdf.exe",
+      "description": "Fix QDF (QPDF Data Format) files by repairing structural issues and inconsistencies",
+      "usage": "fix-qdf input.qdf output.qdf # Repair QDF file structure\nfix-qdf --object-streams input.qdf output.qdf # Fix object stream issues",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "file-input",
+        "file-output",
+        "pdf-tool",
+        "repair",
+        "validator",
+        "fixer",
+        "qdf",
+        "structural",
+        "recovery"
+      ]
+    },
+    "zlib-flate": {
+      "path": "zlib-flate.exe",
+      "description": "Compress and decompress data using zlib/flate compression algorithms",
+      "usage": "zlib-flate -compress < input.txt > output.flate # Compress data\nzlib-flate -uncompress < input.flate > output.txt # Decompress data\necho 'test data' | zlib-flate -compress | zlib-flate -uncompress # Round-trip test",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "stdin-input",
+        "stdout-output",
+        "compressor",
+        "decompressor",
+        "zlib",
+        "flate",
+        "streaming",
+        "utility"
+      ]
+    }
+  }
+}

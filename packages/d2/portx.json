@@ -1,0 +1,30 @@
+{
+  "name": "d2",
+  "version": "0.7.1",
+  "description": "Modern diagram scripting language for creating technical diagrams as code with multiple output formats",
+  "importType": "wrap",
+  "bin": {
+    "d2": {
+      "path": "d2.exe",
+      "description": "Diagram scripting language compiler generating technical diagrams from declarative text descriptions",
+      "usage": "d2 diagram.d2 output.svg # Compile to SVG (default format)\nd2 diagram.d2 output.png # Generate PNG image\nd2 diagram.d2 output.pdf # Create PDF document\nd2 --theme=1 diagram.d2 dark.svg # Apply dark theme\nd2 --sketch diagram.d2 hand-drawn.svg # Hand-drawn sketch style\nd2 fmt diagram.d2 # Format D2 source code\nd2 validate diagram.d2 # Validate syntax and structure\nd2 play diagram.d2 # Interactive preview in browser\nd2 layout tala # Show available layout engines\nd2 --watch diagram.d2 output.svg # Auto-recompile on file changes",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "text-input",
+        "image-output",
+        "diagram-tool",
+        "code-to-diagram",
+        "svg-output",
+        "png-output",
+        "pdf-output",
+        "technical-diagrams",
+        "architecture",
+        "documentation",
+        "automation",
+        "scripting",
+        "modern"
+      ]
+    }
+  }
+}

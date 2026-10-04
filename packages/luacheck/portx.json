@@ -1,0 +1,30 @@
+{
+  "name": "luacheck",
+  "version": "0.23.0",
+  "description": "Comprehensive Lua static analyzer and linter detecting undefined globals, unused variables, and code quality issues",
+  "importType": "wrap",
+  "bin": {
+    "luacheck": {
+      "path": "luacheck.exe",
+      "description": "Static analyzer and linter for Lua detecting globals, unused variables, unreachable code, and style issues",
+      "usage": "luacheck src/ # Lint entire directory\nluacheck script.lua # Lint single file\nluacheck --globals myGlobal script.lua # Allow specific globals\nluacheck --std=lua51+busted tests/ # Set standard library\nluacheck --formatter=plain src/ # Change output format\nluacheck --no-unused-args module.lua # Disable unused arg warnings",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "linting",
+        "validator",
+        "static-analysis",
+        "development",
+        "quality-assurance",
+        "file-input",
+        "directory-input",
+        "config-input",
+        "stdout-output",
+        "mature",
+        "comprehensive",
+        "automation",
+        "stable"
+      ]
+    }
+  }
+}

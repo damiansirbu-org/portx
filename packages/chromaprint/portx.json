@@ -1,0 +1,26 @@
+{
+  "name": "chromaprint",
+  "version": "1.6.1",
+  "description": "Acoustic fingerprinting library and CLI (AcoustID) for content-based audio identification and duplicate detection",
+  "importType": "wrap",
+  "bin": {
+    "fpcalc": {
+      "path": "fpcalc.exe",
+      "description": "Computes a Chromaprint acoustic fingerprint from an audio file; fingerprints are stable across bitrate and codec, so they match the same sound across different encodings",
+      "usage": "fpcalc song.ogg # Print DURATION and FINGERPRINT\nfpcalc -raw sound.ogg # Emit the raw integer fingerprint (for programmatic compare)\nfpcalc -json *.ogg # JSON output for batch tooling\nfpcalc -length 30 clip.wav # Fingerprint only the first 30 seconds",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "audio-input",
+        "text-output",
+        "analyzer",
+        "fingerprint",
+        "duplicate-detection",
+        "audio-identification",
+        "batch",
+        "automation",
+        "windows"
+      ]
+    }
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "name": "realesrgan",
+  "version": "0.2.5",
+  "description": "Real-ESRGAN AI image upscaler with ncnn Vulkan acceleration for high-quality 2x-4x image enhancement on GPU",
+  "importType": "wrap",
+  "bin": {
+    "realesrgan": {
+      "path": "realesrgan-ncnn-vulkan.exe",
+      "description": "AI-powered image upscaler using Real-ESRGAN neural network with Vulkan GPU acceleration for 2x-4x enhancement",
+      "usage": "realesrgan -i input.jpg -o output.png -s 4  # 4x upscale with default model\nrealesrgan -i input.jpg -o output.png -n realesrgan-x4plus-anime  # anime-optimized model\nrealesrgan -i input.jpg -o output.png -s 2 -n realesr-animevideov3  # 2x with video model\nrealesrgan -i folder/ -o out_folder/ -s 4  # batch process folder",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "processor",
+        "file-input",
+        "file-output",
+        "image-input",
+        "image-output",
+        "ai",
+        "gpu",
+        "performance",
+        "enhancement",
+        "upscaler",
+        "neural-network"
+      ]
+    }
+  }
+}

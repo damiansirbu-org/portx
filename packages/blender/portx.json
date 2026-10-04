@@ -1,0 +1,16 @@
+{
+  "$schema": "https://portx.io/schema/portx.json",
+  "name": "blender",
+  "version": "4.3.2",
+  "description": "Blender 3D creation suite with the blender-xray addon for STALKER X-Ray ogf/omf/skl/bones import and export; run headless for scripted model and animation pipelines",
+  "importType": "wrap",
+  "bin": {
+    "blender": {
+      "path": "blender.exe",
+      "description": "Blender 3D suite; headless model/animation processing via --background --python, GUI otherwise. Carries the io_scene_xray addon for X-Ray asset import/export",
+      "usage": "blender --version # Show version\nblender -b --factory-startup --python script.py # Headless run a Python script\nblender -b --python-expr \"import addon_utils; addon_utils.enable('io_scene_xray')\" # Enable the X-Ray addon",
+      "dependencies": "windows",
+      "tags": ["gui", "cli", "3d", "modeling", "animation", "converter", "stalker", "xray", "scriptable", "windows"]
+    }
+  }
+}

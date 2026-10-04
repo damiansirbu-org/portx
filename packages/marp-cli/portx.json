@@ -1,0 +1,27 @@
+{
+  "name": "marp-cli",
+  "version": "4.2.3",
+  "description": "Markdown presentation ecosystem CLI - converts Markdown slides to PDF, PowerPoint, HTML with themes and speaker notes",
+  "importType": "wrap",
+  "bin": {
+    "marp": {
+      "path": "marp.exe",
+      "description": "Convert Markdown presentations to PDF, PPTX, HTML with syntax highlighting, themes, and speaker notes support",
+      "usage": "marp slides.md # Preview in browser\nmarp slides.md -o slides.pdf # Export to PDF\nmarp slides.md -o slides.pptx # Export to PowerPoint\nmarp slides.md -o slides.html # Export to standalone HTML\nmarp slides.md --theme gaia # Use built-in theme\nmarp --allow-local-files slides.md -o slides.pdf # Include local images",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "converter",
+        "file-input",
+        "file-output",
+        "pdf-output",
+        "documentation",
+        "generator",
+        "cross-platform",
+        "modern",
+        "presentation",
+        "automation"
+      ]
+    }
+  }
+}

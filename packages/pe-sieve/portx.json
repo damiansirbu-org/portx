@@ -1,0 +1,30 @@
+{
+  "name": "pe-sieve",
+  "version": "0.4.1",
+  "description": "Detect and dump malicious implants, shellcodes, hooks, and in-memory patches in running processes",
+  "importType": "wrap",
+  "bin": {
+    "pe-sieve": {
+      "path": "pe-sieve.exe",
+      "description": "Scan a process for malicious implants and dump suspicious modules for analysis",
+      "usage": "pe-sieve /pid 1234\npe-sieve /pid 1234 /shellc\npe-sieve /pid 1234 /hooks\npe-sieve /pid 1234 /dump_mode 2\npe-sieve /pid 1234 /out_dir C:\\dumps",
+      "dependencies": "windows",
+      "tags": [
+        "cli",
+        "scanner",
+        "forensics",
+        "processor",
+        "process-input",
+        "file-output",
+        "stdout-output",
+        "json-output",
+        "security",
+        "malware",
+        "memory",
+        "analysis",
+        "windows",
+        "fast"
+      ]
+    }
+  }
+}
